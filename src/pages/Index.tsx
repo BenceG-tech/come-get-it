@@ -44,33 +44,35 @@ const Index = () => {
           <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/15 rounded-full blur-2xl opacity-40"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           {/* Left side - Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            {/* Desktop Logo - Made larger */}
-            <div className="mb-8 hidden lg:block">
+            {/* Desktop Logo - Enlarged and positioned higher */}
+            <div className="mb-12 hidden lg:block">
               <img 
                 src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                 alt="Come Get It Logo" 
-                className="w-[28rem] h-56 md:w-[32rem] md:h-64 mx-auto lg:mx-0 object-contain filter brightness-110 mb-8"
+                className="w-[32rem] h-64 md:w-[36rem] md:h-72 mx-auto lg:mx-0 object-contain filter brightness-110"
               />
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight hidden lg:block">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-white leading-tight hidden lg:block">
               Ingyen ital<br />minden napra!
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-xl mx-auto lg:mx-0 hidden lg:block">
+            <p className="text-xl md:text-2xl text-gray-300 mb-16 max-w-xl mx-auto lg:mx-0 hidden lg:block">
               Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
             </p>
 
-            <Button 
-              size="lg" 
-              className="bg-cyan-400 hover:bg-cyan-300 text-black font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-gradient-cta-intense"
-              onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Regisztrálj elő! 🍻
-            </Button>
+            <div className="flex justify-center lg:justify-start">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-gradient-cta-intense border-0"
+                onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Regisztrálj elő! 🍻
+              </Button>
+            </div>
           </div>
 
           {/* Right side - iPhone Mockups */}
@@ -131,25 +133,36 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Mobile-only content below phones */}
-            <div className="lg:hidden flex flex-col items-center mt-6">
+            {/* Mobile-only content below phones - Better spacing and logo positioning */}
+            <div className="lg:hidden flex flex-col items-center mt-8 px-4">
+              {/* Mobile Logo - Enlarged and positioned above content */}
+              <div className="mb-6">
+                <img 
+                  src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
+                  alt="Come Get It Logo" 
+                  className="w-80 h-40 object-contain filter brightness-110"
+                />
+              </div>
+
               {/* Mobile Title */}
-              <h1 className="text-4xl font-bold mb-2 text-white leading-tight text-center">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white leading-tight text-center">
                 Ingyen ital<br />minden napra!
               </h1>
               
               {/* Mobile Subtitle */}
-              <p className="text-lg text-gray-300 mb-4 max-w-sm mx-auto text-center px-4">
+              <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-sm mx-auto text-center">
                 Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
               </p>
               
-              {/* Mobile Logo - Made larger */}
-              <div className="mt-2">
-                <img 
-                  src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
-                  alt="Come Get It Logo" 
-                  className="w-96 h-48 object-contain filter brightness-110"
-                />
+              {/* Mobile CTA - Centered */}
+              <div className="flex justify-center w-full">
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-gradient-cta-intense border-0"
+                  onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Regisztrálj elő! 🍻
+                </Button>
               </div>
             </div>
           </div>
@@ -332,13 +345,15 @@ const Index = () => {
             Írjuk együtt Budapest új italtérképét
           </p>
           
-          <Button 
-            size="lg" 
-            className="bg-cyan-400 hover:bg-cyan-300 text-black font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 neon-glow-cyan-intense"
-            onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Csatlakozz most
-          </Button>
+          <div className="flex justify-center">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 neon-glow-gradient-cta-intense border-0"
+              onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Csatlakozz most
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -379,7 +394,7 @@ const Index = () => {
             <Button 
               type="submit"
               disabled={!gdprAccepted}
-              className="w-full bg-cyan-400 hover:bg-cyan-300 text-black font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed neon-glow-gradient-cta-intense"
+              className="w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed neon-glow-gradient-cta-intense border-0"
             >
               {isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Csatlakozom az első 1000-hez'}
             </Button>
@@ -393,10 +408,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Enhanced Sticky CTA - Fixed centering */}
-      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex justify-center">
+      {/* Enhanced Sticky CTA - Perfectly centered and improved styling */}
+      <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center items-center px-4">
         <Button 
-          className="bg-cyan-400 hover:bg-cyan-300 text-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 sticky-cta-float neon-glow-gradient-cta-intense"
+          className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 sticky-cta-float neon-glow-gradient-cta-intense border-0 shadow-2xl"
           onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
         >
           🍻 Csatlakozz az első 1000-hez
