@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MapPin, Award, Heart } from 'lucide-react';
@@ -7,6 +8,23 @@ const Index = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const appImages = [
+    "/lovable-uploads/49708be5-5db5-4f1e-adcf-e3b9ad6ddf45.png",
+    "/lovable-uploads/f0cc07ae-c5b2-4896-a0d4-f57b96428e82.png",
+    "/lovable-uploads/c437ca67-a828-4beb-a8a8-749b0b662e4b.png"
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % appImages.length
+      );
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [appImages.length]);
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +42,7 @@ const Index = () => {
           <div className="w-full h-full bg-[linear-gradient(rgba(0,212,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,212,255,0.1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
         </div>
 
-        <div className="relative z-10 text-center max-w-4xl mx-auto">
+        <div className="relative z-10 text-center max-w-6xl mx-auto">
           <div className="mb-12">
             <img 
               src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
@@ -47,44 +65,38 @@ const Index = () => {
 
           <Button 
             size="lg" 
-            className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105"
+            className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 mb-16"
             onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Regisztrálj elő
           </Button>
 
-          <div className="mt-16">
-            <img 
-              src="/lovable-uploads/16258781-e6de-4364-81cc-c9e62f7f2a86.png" 
-              alt="Come Get It App Screenshots" 
-              className="max-w-4xl w-full mx-auto h-auto opacity-90 rounded-2xl"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* How it Works */}
-      <section className="py-24 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-16 text-white">
-            Így működik
-          </h2>
-          
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { number: "1", title: "Fedezd fel", desc: "Találd meg a legjobb helyeket" },
-              { number: "2", title: "Válaszd ki", desc: "Kérd a napi italodat" },
-              { number: "3", title: "Mutasd meg", desc: "Mutasd a telefonod" },
-              { number: "4", title: "Élvezd", desc: "Koccints és élvezd!" }
-            ].map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-black font-bold text-xl">{step.number}</span>
-                </div>
-                <h3 className="text-lg font-semibold mb-2 text-white">{step.title}</h3>
-                <p className="text-gray-400 text-sm">{step.desc}</p>
-              </div>
-            ))}
+          <div className="mt-16 relative">
+            <div className="relative w-full max-w-sm mx-auto">
+              {appImages.map((image, index) => (
+                <img 
+                  key={index}
+                  src={image}
+                  alt={`Come Get It App Screenshot ${index + 1}`} 
+                  className={`w-full h-auto rounded-2xl transition-opacity duration-1000 ${
+                    index === currentImageIndex ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                  }`}
+                />
+              ))}
+            </div>
+            
+            {/* Image indicators */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {appImages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentImageIndex ? 'bg-cyan-400' : 'bg-gray-600'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
