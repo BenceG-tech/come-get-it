@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -51,7 +52,7 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                 alt="Come Get It Logo" 
-                className="w-64 h-32 md:w-80 md:h-40 mx-auto lg:mx-0 object-contain filter brightness-110 mb-8"
+                className="w-80 h-40 md:w-96 md:h-48 mx-auto lg:mx-0 object-contain filter brightness-110 mb-8"
               />
             </div>
 
@@ -65,7 +66,7 @@ const Index = () => {
 
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/25 animate-pulse"
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/50 animate-pulse hover:shadow-cyan-400/70 hover:shadow-2xl neon-glow-button"
               onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Regisztrálj elő! 🍻
@@ -145,36 +146,39 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-24 px-4 bg-gray-900/20">
+      {/* Enhanced Features Section */}
+      <section className="py-16 px-4 bg-gray-900/20">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
             Miért válaszd a Come Get It-et?
           </h2>
           
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <MapPin size={32} className="text-cyan-400" />
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center group animate-fade-in" style={{animationDelay: '0.1s'}}>
+              <div className="w-20 h-20 bg-gradient-to-br from-cyan-500/30 to-blue-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-cyan-500/25 backdrop-blur-sm border border-cyan-500/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-cyan-400/40 group-hover:animate-bounce">
+                <MapPin size={36} className="text-cyan-400 drop-shadow-lg" />
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-white">Fedezd fel a várost</h3>
-              <p className="text-gray-400">Találd meg a legjobb helyeket GPS alapú navigációval</p>
+              <h3 className="text-xl font-semibold mb-3 text-white">Fedezd fel a várost</h3>
+              <p className="text-gray-400 mb-2">Találd meg a legjobb helyeket GPS alapú navigációval</p>
+              <p className="text-sm text-cyan-300 italic">Új helyek, új barátok – minden napra egy új élmény!</p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Award size={32} className="text-cyan-400" />
+            <div className="text-center group animate-fade-in" style={{animationDelay: '0.2s'}}>
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-purple-500/25 backdrop-blur-sm border border-purple-500/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-purple-400/40 group-hover:animate-bounce">
+                <Award size={36} className="text-purple-400 drop-shadow-lg" />
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-white">Gyűjts pontokat</h3>
-              <p className="text-gray-400">Váltsd be a pontjaidat menő jutalmakra és élményekre</p>
+              <h3 className="text-xl font-semibold mb-3 text-white">Gyűjts pontokat</h3>
+              <p className="text-gray-400 mb-2">Váltsd be a pontjaidat menő jutalmakra és élményekre</p>
+              <p className="text-sm text-purple-300 italic">Minden pont egy lépés közelebb a következő szinthez!</p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Heart size={32} className="text-cyan-400" />
+            <div className="text-center group animate-fade-in" style={{animationDelay: '0.3s'}}>
+              <div className="w-20 h-20 bg-gradient-to-br from-rose-500/30 to-red-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-rose-500/25 backdrop-blur-sm border border-rose-500/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-rose-400/40 group-hover:animate-bounce">
+                <Heart size={36} className="text-rose-400 drop-shadow-lg" />
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-white">Segíts másokon</h3>
-              <p className="text-gray-400">Minden ital után automatikusan támogatsz jótékonysági célokat</p>
+              <h3 className="text-xl font-semibold mb-3 text-white">Segíts másokon</h3>
+              <p className="text-gray-400 mb-2">Minden ital után automatikusan támogatsz jótékonysági célokat</p>
+              <p className="text-sm text-rose-300 italic">Iszol, szórakozol és közben jót teszel – ez a win-win!</p>
             </div>
           </div>
         </div>
@@ -195,7 +199,7 @@ const Index = () => {
           
           <Button 
             size="lg" 
-            className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300"
+            className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 shadow-2xl shadow-cyan-500/50 hover:shadow-cyan-400/70 neon-glow-button"
             onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Csatlakozz most
@@ -240,7 +244,7 @@ const Index = () => {
             <Button 
               type="submit"
               disabled={!gdprAccepted}
-              className="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-400/50 neon-glow-button"
             >
               {isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Regisztrálok'}
             </Button>
@@ -254,10 +258,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Sticky CTA */}
+      {/* Enhanced Sticky CTA */}
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
         <Button 
-          className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-3 px-6 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105"
+          className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-3 px-6 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-slow sticky-cta-float neon-glow-button-intense"
           onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
         >
           🍻 Csatlakozz az első 1000-hez

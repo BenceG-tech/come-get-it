@@ -108,4 +108,69 @@
   .neon-border {
     box-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF, inset 0 0 5px #00D4FF;
   }
+
+  .neon-glow-button {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.4), 0 0 40px rgba(6, 182, 212, 0.2), 0 0 60px rgba(6, 182, 212, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .neon-glow-button:hover {
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.6), 0 0 50px rgba(6, 182, 212, 0.4), 0 0 75px rgba(6, 182, 212, 0.2);
+  }
+
+  .neon-glow-button-intense {
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.8), 0 0 60px rgba(6, 182, 212, 0.6), 0 0 90px rgba(6, 182, 212, 0.4);
+    animation: neon-pulse 2s ease-in-out infinite alternate;
+  }
+
+  .sticky-cta-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes neon-pulse {
+    from {
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.8), 0 0 60px rgba(6, 182, 212, 0.6), 0 0 90px rgba(6, 182, 212, 0.4);
+    }
+    to {
+      box-shadow: 0 0 40px rgba(6, 182, 212, 1), 0 0 80px rgba(6, 182, 212, 0.8), 0 0 120px rgba(6, 182, 212, 0.6);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) translateX(-50%);
+    }
+    50% {
+      transform: translateY(-10px) translateX(-50%);
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
