@@ -1,9 +1,7 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import TouchCarousel from './TouchCarousel';
 import { useRipple } from '@/hooks/useRipple';
-import { useDragGesture } from '@/hooks/useDragGesture';
 
 interface HeroSectionProps {
   onSignupClick: () => void;
@@ -20,48 +18,9 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
     "/lovable-uploads/c437ca67-a828-4beb-a8a8-749b0b662e4b.png"
   ];
 
-  // Drag gesture for the entire phone mockup area
-  const { dragState, touchHandlers, mouseHandlers } = useDragGesture({
-    onDragStart: () => {
-      console.log('Phone mockup drag started');
-    },
-    onDragMove: (deltaX, velocity) => {
-      // Visual feedback during drag is handled via CSS transform
-    },
-    onDragEnd: (deltaX, velocity) => {
-      const threshold = 100; // pixels
-      const velocityThreshold = 0.5;
-      
-      if (Math.abs(deltaX) > threshold || Math.abs(velocity) > velocityThreshold) {
-        if (deltaX > 0 || velocity > velocityThreshold) {
-          // Swipe right - go to previous image
-          const prevIndex = (sharedCurrentIndex - 1 + appImages.length) % appImages.length;
-          setSharedCurrentIndex(prevIndex);
-        } else if (deltaX < 0 || velocity < -velocityThreshold) {
-          // Swipe left - go to next image
-          const nextIndex = (sharedCurrentIndex + 1) % appImages.length;
-          setSharedCurrentIndex(nextIndex);
-        }
-      }
-    },
-    threshold: 10
-  });
-
   const handleCTAClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     createRipple(e);
     onSignupClick();
-  };
-
-  // Calculate transform for phone mockups during drag
-  const getPhoneTransform = () => {
-    if (!dragState.isDragging) return {};
-    
-    const dragOffset = Math.max(-200, Math.min(200, dragState.deltaX * 0.8)); // Limit and dampen movement
-    
-    return {
-      transform: `translateX(${dragOffset}px)`,
-      transition: 'none'
-    };
   };
 
   return (
@@ -130,18 +89,10 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
           </Button>
         </div>
 
-        {/* Right side - Draggable iPhone Mockups */}
-        <div 
-          className="relative order-1 lg:order-2 flex justify-center items-center h-[600px] cursor-grab active:cursor-grabbing select-none"
-          {...touchHandlers}
-          {...mouseHandlers}
-          style={{ 
-            touchAction: 'pan-y pinch-zoom',
-            ...getPhoneTransform()
-          }}
-        >
+        {/* Right side - Coordinated iPhone Mockups */}
+        <div className="relative order-1 lg:order-2 flex justify-center items-center h-[600px]">
           {/* First iPhone - Left - Interactive carousel */}
-          <div className="relative transform -rotate-12 translate-x-8 z-20 transition-transform duration-300">
+          <div className="relative transform -rotate-12 translate-x-8 z-20">
             <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/20 border border-gray-800">
               <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
@@ -152,7 +103,7 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
                     showIndicators={false}
                     currentIndex={sharedCurrentIndex}
                     onIndexChange={setSharedCurrentIndex}
-                    autoPlay={!dragState.isDragging}
+                    autoPlay={true}
                     autoPlayInterval={4000}
                   />
                 </div>
@@ -161,7 +112,7 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
           </div>
 
           {/* Second iPhone - Right - Synchronized carousel */}
-          <div className="relative transform rotate-12 -translate-x-8 z-10 transition-transform duration-300">
+          <div className="relative transform rotate-12 -translate-x-8 z-10">
             <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/20 border border-gray-800">
               <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
@@ -179,20 +130,13 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
           </div>
 
           {/* Enhanced Glow Effects Behind Phones */}
-          <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+          <div className="absolute inset-0 flex justify-center items-center">
             <div className="w-80 h-80 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
           </div>
-
-          {/* Drag feedback indicator */}
-          {dragState.isDragging && (
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm pointer-events-none">
-              {dragState.deltaX > 0 ? '← Előző' : '→ Következő'}
-            </div>
-          )}
         </div>
       </div>
 
-      {/* Main Carousel Indicators */}
+      {/* Main Carousel Indicators - Hidden since we have phone indicators */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
         {appImages.map((_, index) => (
           <button
