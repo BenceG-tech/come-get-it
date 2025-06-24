@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,7 +15,7 @@ const Index = () => {
     "/lovable-uploads/ea91230f-2ead-48f2-8c86-e8b0522217a7.png",
     "/lovable-uploads/8776d75d-72ee-4984-8b92-a0dcd00dec82.png",
     "/lovable-uploads/b836712d-530e-4a04-a518-1707ae12f75b.png",
-    "logo" // Special identifier for the black screen with logo
+    "/lovable-uploads/fe824679-3c0a-4703-a2c9-524d026bb134.png"
   ];
 
   useEffect(() => {
@@ -107,21 +105,11 @@ const Index = () => {
                             index === currentImageIndex ? 'opacity-100' : 'opacity-0'
                           }`}
                         >
-                          {image === "logo" ? (
-                            <div className="w-full h-full bg-black flex items-center justify-center">
-                              <img 
-                                src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
-                                alt="Come Get It Logo" 
-                                className="w-32 h-20 object-contain filter brightness-110"
-                              />
-                            </div>
-                          ) : (
-                            <img 
-                              src={image}
-                              alt={`App Screenshot ${index + 1}`} 
-                              className="w-full h-full object-cover"
-                            />
-                          )}
+                          <img 
+                            src={image}
+                            alt={`App Screenshot ${index + 1}`} 
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                       ))}
                     </div>
@@ -140,24 +128,14 @@ const Index = () => {
                         <div 
                           key={index}
                           className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
-                            index === (currentImageIndex + 1) % appImages.length ? 'opacity-100' : 'opacity-0'
+                            index === (currentImageIndex + 2) % appImages.length ? 'opacity-100' : 'opacity-0'
                           }`}
                         >
-                          {image === "logo" ? (
-                            <div className="w-full h-full bg-black flex items-center justify-center">
-                              <img 
-                                src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
-                                alt="Come Get It Logo" 
-                                className="w-32 h-20 object-contain filter brightness-110"
-                              />
-                            </div>
-                          ) : (
-                            <img 
-                              src={image}
-                              alt={`App Screenshot ${index + 1}`} 
-                              className="w-full h-full object-cover"
-                            />
-                          )}
+                          <img 
+                            src={image}
+                            alt={`App Screenshot ${index + 1}`} 
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                       ))}
                     </div>
@@ -166,7 +144,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Mobile-only content below phones - moved higher */}
+            {/* Mobile-only content below phones */}
             <div className="lg:hidden flex flex-col items-center mt-1 px-4 w-full max-w-sm mx-auto">
               <div className="mb-3 h-28 flex items-center justify-center">
                 {showLogo ? (
@@ -330,4 +308,3 @@ const Index = () => {
 };
 
 export default Index;
-
