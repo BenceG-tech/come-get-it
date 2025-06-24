@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,7 +29,11 @@ const Index = () => {
             <img 
               src="/lovable-uploads/f03d41c1-cf28-443b-a2d3-ed82adadf522.png" 
               alt="Come Get It Logo" 
-              className="w-48 h-24 md:w-72 md:h-36 mx-auto object-contain"
+              className="w-64 h-32 md:w-80 md:h-40 mx-auto object-contain filter brightness-110"
+              onError={(e) => {
+                console.log('Logo failed to load:', e.currentTarget.src);
+                e.currentTarget.style.border = '2px solid red';
+              }}
             />
           </div>
 
