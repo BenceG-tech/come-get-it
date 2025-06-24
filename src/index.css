@@ -108,4 +108,130 @@
   .neon-border {
     box-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF, inset 0 0 5px #00D4FF;
   }
+
+  .neon-glow-button {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .neon-glow-button::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, transparent, #00D4FF, transparent);
+    border-radius: inherit;
+    z-index: -1;
+    animation: neon-outline 3s linear infinite;
+  }
+
+  .neon-glow-button::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: inherit;
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+  }
+
+  @keyframes ripple-animation {
+    to {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes neon-outline {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+
+  @keyframes bounce-in {
+    0% { 
+      transform: translateY(100%) translateX(-50%) scale(0.8);
+      opacity: 0;
+    }
+    50% { 
+      transform: translateY(-10px) translateX(-50%) scale(1.05);
+    }
+    100% { 
+      transform: translateY(0) translateX(-50%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .animate-shake {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  .animate-bounce-in {
+    animation: bounce-in 0.6s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF, 0 0 20px #00D4FF;
+    }
+    50% {
+      text-shadow: 0 0 10px #00D4FF, 0 0 20px #00D4FF, 0 0 40px #00D4FF;
+    }
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse,
+  .animate-bounce,
+  .animate-shake,
+  .animate-bounce-in,
+  .animate-fade-in,
+  .animate-glow {
+    animation: none;
+  }
+  
+  .neon-glow-button::before {
+    animation: none;
+  }
+  
+  .transition-all,
+  .transition-transform,
+  .transition-opacity {
+    transition: none;
+  }
 }
