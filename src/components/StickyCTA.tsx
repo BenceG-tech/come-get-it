@@ -42,10 +42,20 @@ const StickyCTA = ({ onSignupClick }: StickyCTAProps) => {
         : 'translate-y-full opacity-0'
     }`}>
       <Button 
-        className="relative overflow-hidden bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-3 px-6 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 neon-glow-button"
+        className="relative overflow-hidden bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 hover:from-cyan-400 hover:via-blue-400 hover:to-purple-400 text-white font-semibold py-4 px-8 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 animate-pulse"
         onClick={handleClick}
+        style={{
+          boxShadow: '0 0 30px rgba(6, 182, 212, 0.6), 0 0 60px rgba(59, 130, 246, 0.4), 0 0 90px rgba(147, 51, 234, 0.3)',
+          animation: 'pulse 2s ease-in-out infinite, subtle-float 3s ease-in-out infinite'
+        }}
       >
-        🍻 Csatlakozz az első 1000-hez
+        {/* Enhanced neon border effect */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 opacity-75 blur-sm animate-pulse"></div>
+        <div className="absolute inset-0.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500"></div>
+        
+        <span className="relative z-10 flex items-center gap-2">
+          🍻 Csatlakozz az első 1000-hez
+        </span>
       </Button>
     </div>
   );

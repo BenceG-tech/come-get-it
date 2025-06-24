@@ -18,7 +18,7 @@ const TouchCarousel = ({
   autoPlay = true, 
   autoPlayInterval = 4000,
   showIndicators = true,
-  slideTransition = 'slide', // Changed default to 'slide'
+  slideTransition = 'slide',
   onImageChange,
   currentIndex: externalCurrentIndex,
   onIndexChange
@@ -41,7 +41,7 @@ const TouchCarousel = ({
     
     if (smooth) {
       setIsTransitioning(true);
-      setTimeout(() => setIsTransitioning(false), 300);
+      setTimeout(() => setIsTransitioning(false), 500);
     }
     
     setCurrentIndex(index);
@@ -70,7 +70,7 @@ const TouchCarousel = ({
     autoPlayRef.current = setInterval(goToNext, autoPlayInterval);
   }, [autoPlay, autoPlayInterval, goToNext, clearAutoPlay]);
 
-  // Drag gesture handlers
+  // Enhanced drag gesture handlers
   const { touchHandlers, mouseHandlers } = useDragGesture({
     onDragStart: () => {
       setIsDragging(true);
@@ -78,15 +78,17 @@ const TouchCarousel = ({
     },
     onDragMove: (deltaX, velocity) => {
       if (slideTransition === 'slide') {
-        setDragOffset(deltaX);
+        // More responsive drag with better physics
+        const dampedDelta = deltaX * 0.8;
+        setDragOffset(dampedDelta);
       }
     },
     onDragEnd: (deltaX, velocity) => {
       setIsDragging(false);
       setDragOffset(0);
       
-      const threshold = containerWidth * 0.25; // 25% of container width
-      const velocityThreshold = 0.5;
+      const threshold = containerWidth * 0.2; // Reduced threshold for easier swiping
+      const velocityThreshold = 0.3;
       
       if (Math.abs(deltaX) > threshold || Math.abs(velocity) > velocityThreshold) {
         if (deltaX > 0 || velocity > velocityThreshold) {
@@ -97,9 +99,9 @@ const TouchCarousel = ({
       }
       
       // Restart autoplay after a delay
-      setTimeout(restartAutoPlay, 1000);
+      setTimeout(restartAutoPlay, 1500);
     },
-    threshold: 5
+    threshold: 3
   });
 
   // Auto play effect
@@ -114,7 +116,7 @@ const TouchCarousel = ({
     onImageChange?.(currentIndex);
   }, [currentIndex, onImageChange]);
 
-  // Calculate transform for real-time drag
+  // Enhanced transform calculation with smoother animations
   const getTransform = () => {
     if (slideTransition !== 'slide') return {};
     
@@ -123,7 +125,9 @@ const TouchCarousel = ({
     
     return {
       transform: `translateX(${baseTransform + dragTransform}%)`,
-      transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      transition: isDragging 
+        ? 'none' 
+        : 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
     };
   };
 
@@ -148,6 +152,10 @@ const TouchCarousel = ({
                   alt={`Slide ${index + 1}`} 
                   className="w-full h-full object-cover pointer-events-none"
                   draggable={false}
+                  onError={(e) => {
+                    console.warn(`Image failed to load: ${image}`);
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=800&fit=crop";
+                  }}
                 />
               </div>
             ))}
@@ -162,6 +170,10 @@ const TouchCarousel = ({
                 index === currentIndex ? 'opacity-100' : 'opacity-0'
               }`}
               draggable={false}
+              onError={(e) => {
+                console.warn(`Image failed to load: ${image}`);
+                e.currentTarget.src = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=800&fit=crop";
+              }}
             />
           ))
         )}

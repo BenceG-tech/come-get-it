@@ -18,96 +18,144 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
     "/lovable-uploads/c437ca67-a828-4beb-a8a8-749b0b662e4b.png"
   ];
 
+  // Fallback image for error handling
+  const fallbackImage = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=800&fit=crop";
+
   const handleCTAClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     createRipple(e);
     onSignupClick();
   };
 
-  // Get different images for each phone
+  // Enhanced image loading with fallback
+  const getImageWithFallback = (imageUrl: string) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(imageUrl);
+      img.onerror = () => {
+        console.warn(`Failed to load image: ${imageUrl}, using fallback`);
+        resolve(fallbackImage);
+      };
+      img.src = imageUrl;
+    });
+  };
+
+  // Get images for mockups with different indices
   const getLeftPhoneImage = () => {
-    return appImages[sharedCurrentIndex];
+    return appImages[sharedCurrentIndex] || fallbackImage;
   };
 
   const getRightPhoneImage = () => {
-    return appImages[(sharedCurrentIndex + 1) % appImages.length];
+    return appImages[(sharedCurrentIndex + 1) % appImages.length] || fallbackImage;
+  };
+
+  const getCenterPhoneImage = () => {
+    return appImages[(sharedCurrentIndex + 2) % appImages.length] || fallbackImage;
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
-      {/* Enhanced Background glow effects with movement */}
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+      {/* Enhanced Background glow effects - much stronger */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl opacity-60 animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/3 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/15 rounded-full blur-2xl opacity-40 animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/15 rounded-full blur-2xl opacity-40 animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-cyan-500/40 via-blue-500/50 to-purple-500/40 rounded-full blur-3xl opacity-80 animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/3 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-400/30 rounded-full blur-2xl opacity-60 animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-400/30 rounded-full blur-2xl opacity-60 animate-pulse" style={{ animationDelay: '2s' }}></div>
         
-        {/* Moving city skyline silhouette */}
-        <div className="absolute bottom-0 left-0 w-full h-32 opacity-10">
-          <div className="flex space-x-2 animate-pulse">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div
-                key={i}
-                className="bg-cyan-400 opacity-30"
-                style={{
-                  width: Math.random() * 20 + 10 + 'px',
-                  height: Math.random() * 80 + 40 + 'px',
-                  animationDelay: `${i * 0.2}s`
-                }}
-              />
-            ))}
-          </div>
-        </div>
+        {/* Additional glow layers for more intensity */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent rounded-full blur-3xl opacity-70"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* iPhone Mockups Section */}
-        <div className="relative flex justify-center items-center h-[600px] mb-8">
-          {/* First iPhone - Left - Interactive carousel */}
-          <div className="relative transform -rotate-12 translate-x-8 z-20">
-            <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/40 border border-gray-800">
-              <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
-                <div className="relative w-full h-full">
-                  <TouchCarousel 
-                    images={[getLeftPhoneImage()]}
-                    slideTransition="slide"
-                    showIndicators={false}
-                    currentIndex={0}
-                    onIndexChange={() => {}}
-                    autoPlay={false}
-                  />
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center">
+        {/* iPhone Mockups Section with sliding carousel */}
+        <div className="relative w-full max-w-4xl h-[600px] mb-8 overflow-hidden">
+          <div className="relative w-full h-full flex justify-center items-center">
+            <TouchCarousel 
+              images={appImages}
+              slideTransition="slide"
+              showIndicators={false}
+              currentIndex={sharedCurrentIndex}
+              onIndexChange={setSharedCurrentIndex}
+              autoPlay={true}
+              autoPlayInterval={4000}
+            />
+            
+            {/* Phone mockup overlays */}
+            <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+              {/* Left Phone */}
+              <div className="absolute transform -rotate-12 -translate-x-32 z-20">
+                <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/60 border border-gray-800">
+                  <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                    <img 
+                      src={getLeftPhoneImage()}
+                      alt="App Screenshot"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = fallbackImage;
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Center Phone */}
+              <div className="relative z-30">
+                <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/60 border border-gray-800">
+                  <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                    <img 
+                      src={getCenterPhoneImage()}
+                      alt="App Screenshot"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = fallbackImage;
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Phone */}
+              <div className="absolute transform rotate-12 translate-x-32 z-10">
+                <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-purple-500/60 border border-gray-800">
+                  <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                    <img 
+                      src={getRightPhoneImage()}
+                      alt="App Screenshot"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = fallbackImage;
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Second iPhone - Right - Shows next image */}
-          <div className="relative transform rotate-12 -translate-x-8 z-10">
-            <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/40 border border-gray-800">
-              <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
-                <div className="relative w-full h-full">
-                  <TouchCarousel 
-                    images={[getRightPhoneImage()]}
-                    slideTransition="slide"
-                    showIndicators={false}
-                    currentIndex={0}
-                    onIndexChange={() => {}}
-                    autoPlay={false}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Enhanced Glow Effects Behind Phones */}
-          <div className="absolute inset-0 flex justify-center items-center">
-            <div className="w-[500px] h-[500px] bg-gradient-to-r from-cyan-500/40 to-blue-500/40 rounded-full blur-3xl animate-pulse"></div>
           </div>
         </div>
 
-        {/* Content Section - Now below mockups */}
+        {/* Enhanced Slide Indicators - bigger, more animated */}
+        <div className="flex space-x-4 mb-8 z-30">
+          {appImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setSharedCurrentIndex(index)}
+              className={`relative w-4 h-4 rounded-full transition-all duration-500 transform ${
+                index === sharedCurrentIndex 
+                  ? 'bg-cyan-400 shadow-lg shadow-cyan-400/70 scale-150 animate-pulse' 
+                  : 'bg-gray-600 hover:bg-gray-400 scale-100 hover:scale-125'
+              }`}
+            >
+              {index === sharedCurrentIndex && (
+                <div className="absolute inset-0 bg-cyan-400 rounded-full animate-ping opacity-75"></div>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Content Section - moved headline up */}
         <div className="text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight px-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight px-4 animate-glow">
             Ingyen ital minden napra!
           </h1>
 
@@ -115,7 +163,7 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
             <img 
               src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
               alt="Come Get It Logo" 
-              className="w-80 h-40 md:w-96 md:h-48 lg:w-[28rem] lg:h-56 mx-auto object-contain filter brightness-110"
+              className="w-64 h-32 md:w-80 md:h-40 lg:w-96 lg:h-48 mx-auto object-contain filter brightness-110"
             />
           </div>
           
@@ -125,27 +173,12 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
 
           <Button 
             size="lg" 
-            className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/25 neon-glow-button"
+            className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/40 neon-glow-button animate-pulse"
             onClick={handleCTAClick}
           >
-            Regisztrálj most!
+            🍻 Csatlakozz az első 1000-hez
           </Button>
         </div>
-      </div>
-
-      {/* Main Carousel Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
-        {appImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setSharedCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === sharedCurrentIndex 
-                ? 'bg-cyan-400 shadow-lg shadow-cyan-400/50 scale-125' 
-                : 'bg-gray-600 hover:bg-gray-400'
-            }`}
-          />
-        ))}
       </div>
     </section>
   );
