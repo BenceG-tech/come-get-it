@@ -135,24 +135,29 @@ const Index = () => {
             {/* Mobile-only content below phones */}
             <div className="lg:hidden flex flex-col items-center mt-6">
               {/* Mobile Title */}
-              <h1 className="text-4xl md:text-5xl font-bold mb-2 text-white leading-tight text-center">
+              <h1 className="text-4xl font-bold mb-2 text-white leading-tight text-center">
                 Ingyen ital<br />minden napra!
               </h1>
               
+              {/* Mobile optimized description */}
+              <p className="text-lg text-gray-300 mb-4 max-w-sm mx-auto text-center px-4">
+                Fedezd fel Budapest legjobb helyeit, minden nap egy új élménnyel!
+              </p>
+              
               {/* Mobile Logo */}
-              <div className="mt-4">
+              <div className="mt-2">
                 <img 
                   src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                   alt="Come Get It Logo" 
-                  className="w-96 h-48 object-contain filter brightness-110"
+                  className="w-80 h-40 object-contain filter brightness-110"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Carousel Indicators */}
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
+        {/* Carousel Indicators - Hidden on mobile */}
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 hidden lg:flex space-x-3 z-30">
           {appImages.map((_, index) => (
             <button
               key={index}
