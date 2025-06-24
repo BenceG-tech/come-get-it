@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MapPin, Award, Heart } from 'lucide-react';
+import { MapPin, Award, Heart, Users, TrendingUp, Target, DollarSign, BarChart3, Zap } from 'lucide-react';
 
 const Index = () => {
   const [email, setEmail] = useState('');
@@ -181,30 +181,140 @@ const Index = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center group animate-fade-in" style={{animationDelay: '0.1s'}}>
-              <div className="w-20 h-20 bg-gradient-to-br from-cyan-500/30 to-blue-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-cyan-500/25 backdrop-blur-sm border border-cyan-500/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-cyan-400/40 group-hover:animate-bounce">
-                <MapPin size={36} className="text-cyan-400 drop-shadow-lg" />
+              <div className="w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:animate-bounce neon-glow-3d infographic-icon">
+                <MapPin size={40} className="text-cyan-400 drop-shadow-2xl" />
               </div>
               <h3 className="text-xl font-semibold mb-3 text-white">Fedezd fel a várost</h3>
-              <p className="text-gray-400 mb-2">Találd meg a legjobb helyeket GPS alapú navigációval</p>
-              <p className="text-sm text-cyan-300 italic">Új helyek, új barátok – minden napra egy új élmény!</p>
+              <p className="text-gray-400 mb-3">Találd meg a legjobb helyeket GPS alapú navigációval</p>
+              <p className="text-sm text-cyan-300 italic font-medium">Új helyek, új barátok – minden napra egy új élmény!</p>
             </div>
 
             <div className="text-center group animate-fade-in" style={{animationDelay: '0.2s'}}>
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-purple-500/25 backdrop-blur-sm border border-purple-500/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-purple-400/40 group-hover:animate-bounce">
-                <Award size={36} className="text-purple-400 drop-shadow-lg" />
+              <div className="w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:animate-bounce neon-glow-3d-purple infographic-icon">
+                <Award size={40} className="text-purple-400 drop-shadow-2xl" />
               </div>
               <h3 className="text-xl font-semibold mb-3 text-white">Gyűjts pontokat</h3>
-              <p className="text-gray-400 mb-2">Váltsd be a pontjaidat menő jutalmakra és élményekre</p>
-              <p className="text-sm text-purple-300 italic">Minden pont egy lépés közelebb a következő szinthez!</p>
+              <p className="text-gray-400 mb-3">Váltsd be a pontjaidat menő jutalmakra és élményekre</p>
+              <p className="text-sm text-purple-300 italic font-medium">Minden pont egy lépés közelebb a következő szinthez!</p>
             </div>
 
             <div className="text-center group animate-fade-in" style={{animationDelay: '0.3s'}}>
-              <div className="w-20 h-20 bg-gradient-to-br from-rose-500/30 to-red-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-rose-500/25 backdrop-blur-sm border border-rose-500/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-rose-400/40 group-hover:animate-bounce">
-                <Heart size={36} className="text-rose-400 drop-shadow-lg" />
+              <div className="w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-6 transition-all duration-300 group-hover:scale-110 group-hover:animate-bounce neon-glow-3d-rose infographic-icon">
+                <Heart size={40} className="text-rose-400 drop-shadow-2xl" />
               </div>
               <h3 className="text-xl font-semibold mb-3 text-white">Segíts másokon</h3>
-              <p className="text-gray-400 mb-2">Minden ital után automatikusan támogatsz jótékonysági célokat</p>
-              <p className="text-sm text-rose-300 italic">Iszol, szórakozol és közben jót teszel – ez a win-win!</p>
+              <p className="text-gray-400 mb-3">Minden ital után automatikusan támogatsz jótékonysági célokat</p>
+              <p className="text-sm text-rose-300 italic font-medium">Iszol, szórakozol és közben jót teszel – ez a win-win!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* New Infographic Section - "Miért éri meg?" */}
+      <section className="py-20 px-4 bg-gray-800/30">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-white">
+            Miért éri meg?
+          </h2>
+          <p className="text-xl text-gray-400 text-center mb-16">
+            Mindenki nyer – felhasználók, vendéglátóhelyek és partnerek egyaránt
+          </p>
+          
+          <div className="grid md:grid-cols-3 gap-12">
+            {/* Felhasználó oszlop */}
+            <div className="text-center group animate-fade-in" style={{animationDelay: '0.1s'}}>
+              <div className="relative mb-8">
+                <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-all duration-300 group-hover:scale-110 neon-glow-3d infographic-icon">
+                  <Users size={36} className="text-cyan-400 drop-shadow-2xl" />
+                </div>
+                <h3 className="text-2xl font-bold mb-6 text-cyan-400">Felhasználó</h3>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="flex items-center justify-center gap-4 p-4 rounded-2xl bg-gray-900/50 border border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center neon-glow-3d">
+                    <DollarSign size={24} className="text-cyan-400" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-semibold text-white">Olcsóbb italok</h4>
+                    <p className="text-sm text-gray-400">Kedvezmények minden nap</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center justify-center gap-4 p-4 rounded-2xl bg-gray-900/50 border border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center neon-glow-3d">
+                    <Zap size={24} className="text-cyan-400" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-semibold text-white">Új élmények</h4>
+                    <p className="text-sm text-gray-400">Felfedezés minden napra</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Vendéglátóhely oszlop */}
+            <div className="text-center group animate-fade-in" style={{animationDelay: '0.2s'}}>
+              <div className="relative mb-8">
+                <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-all duration-300 group-hover:scale-110 neon-glow-3d-purple infographic-icon">
+                  <TrendingUp size={36} className="text-purple-400 drop-shadow-2xl" />
+                </div>
+                <h3 className="text-2xl font-bold mb-6 text-purple-400">Vendéglátóhely</h3>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="flex items-center justify-center gap-4 p-4 rounded-2xl bg-gray-900/50 border border-purple-500/30 hover:border-purple-400/50 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center neon-glow-3d-purple">
+                    <BarChart3 size={24} className="text-purple-400" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-semibold text-white">Több forgalom</h4>
+                    <p className="text-sm text-gray-400">Új vendégek naponta</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center justify-center gap-4 p-4 rounded-2xl bg-gray-900/50 border border-purple-500/30 hover:border-purple-400/50 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center neon-glow-3d-purple">
+                    <Heart size={24} className="text-purple-400" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-semibold text-white">Hűség építés</h4>
+                    <p className="text-sm text-gray-400">Visszatérő vendégek</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Italgyártó/szponzor oszlop */}
+            <div className="text-center group animate-fade-in" style={{animationDelay: '0.3s'}}>
+              <div className="relative mb-8">
+                <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-all duration-300 group-hover:scale-110 neon-glow-3d-yellow infographic-icon">
+                  <Target size={36} className="text-yellow-400 drop-shadow-2xl" />
+                </div>
+                <h3 className="text-2xl font-bold mb-6 text-yellow-400">Italgyártó</h3>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="flex items-center justify-center gap-4 p-4 rounded-2xl bg-gray-900/50 border border-yellow-500/30 hover:border-yellow-400/50 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center neon-glow-3d-yellow">
+                    <Award size={24} className="text-yellow-400" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-semibold text-white">Márkaépítés</h4>
+                    <p className="text-sm text-gray-400">Célzott marketing</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center justify-center gap-4 p-4 rounded-2xl bg-gray-900/50 border border-yellow-500/30 hover:border-yellow-400/50 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center neon-glow-3d-yellow">
+                    <BarChart3 size={24} className="text-yellow-400" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-semibold text-white">Adatok</h4>
+                    <p className="text-sm text-gray-400">Fogyasztói insights</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
