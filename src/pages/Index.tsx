@@ -36,7 +36,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pb-16">
         {/* Background glow effects */}
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl opacity-60"></div>
@@ -44,30 +44,30 @@ const Index = () => {
           <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/15 rounded-full blur-2xl opacity-40"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left side - Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            {/* Desktop Logo - Enlarged and positioned higher */}
-            <div className="mb-12 hidden lg:block">
+            {/* Desktop Logo - Larger and positioned higher */}
+            <div className="mb-8 lg:mb-12 hidden lg:block">
               <img 
                 src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                 alt="Come Get It Logo" 
-                className="w-[32rem] h-64 md:w-[36rem] md:h-72 mx-auto lg:mx-0 object-contain filter brightness-110"
+                className="w-[28rem] h-56 lg:w-[38rem] lg:h-80 mx-auto lg:mx-0 object-contain filter brightness-110"
               />
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-white leading-tight hidden lg:block">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 lg:mb-8 text-white leading-tight hidden lg:block">
               Ingyen ital<br />minden napra!
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-300 mb-16 max-w-xl mx-auto lg:mx-0 hidden lg:block">
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 lg:mb-12 max-w-xl mx-auto lg:mx-0 hidden lg:block">
               Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
             </p>
 
-            <div className="flex justify-center lg:justify-start">
+            <div className="flex justify-center lg:justify-start hidden lg:flex">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-gradient-cta-intense border-0"
+                className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-bold py-4 px-10 lg:px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 border-0 shadow-lg shadow-cyan-500/30"
                 onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Regisztrálj elő! 🍻
@@ -78,13 +78,13 @@ const Index = () => {
           {/* Right side - iPhone Mockups */}
           <div className="relative order-1 lg:order-2 flex flex-col justify-center items-center">
             {/* iPhone Mockups Container */}
-            <div className="relative flex justify-center items-center h-[600px]">
+            <div className="relative flex justify-center items-center h-[500px] lg:h-[600px]">
               {/* First iPhone - Left */}
-              <div className="relative transform -rotate-12 translate-x-8 z-20">
-                <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/20 border border-gray-800">
+              <div className="relative transform -rotate-12 translate-x-4 lg:translate-x-8 z-20">
+                <div className="w-56 h-[460px] lg:w-64 lg:h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/20 border border-gray-800">
                   <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
                     {/* Dynamic Notch */}
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 lg:w-32 h-5 lg:h-6 bg-black rounded-b-2xl z-30"></div>
                     
                     {/* Screen Content */}
                     <div className="relative w-full h-full">
@@ -104,11 +104,11 @@ const Index = () => {
               </div>
 
               {/* Second iPhone - Right */}
-              <div className="relative transform rotate-12 -translate-x-8 z-10">
-                <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/20 border border-gray-800">
+              <div className="relative transform rotate-12 -translate-x-4 lg:-translate-x-8 z-10">
+                <div className="w-56 h-[460px] lg:w-64 lg:h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/20 border border-gray-800">
                   <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
                     {/* Dynamic Notch */}
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 lg:w-32 h-5 lg:h-6 bg-black rounded-b-2xl z-30"></div>
                     
                     {/* Screen Content */}
                     <div className="relative w-full h-full">
@@ -129,36 +129,36 @@ const Index = () => {
 
               {/* Enhanced Glow Effects Behind Phones */}
               <div className="absolute inset-0 flex justify-center items-center">
-                <div className="w-80 h-80 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
+                <div className="w-72 h-72 lg:w-80 lg:h-80 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
               </div>
             </div>
 
-            {/* Mobile-only content below phones - Better spacing and logo positioning */}
-            <div className="lg:hidden flex flex-col items-center mt-8 px-4">
-              {/* Mobile Logo - Enlarged and positioned above content */}
+            {/* Mobile-only content below phones */}
+            <div className="lg:hidden flex flex-col items-center mt-6 px-4 w-full max-w-sm mx-auto">
+              {/* Mobile Logo */}
               <div className="mb-6">
                 <img 
                   src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                   alt="Come Get It Logo" 
-                  className="w-80 h-40 object-contain filter brightness-110"
+                  className="w-72 h-32 object-contain filter brightness-110"
                 />
               </div>
 
               {/* Mobile Title */}
-              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white leading-tight text-center">
+              <h1 className="text-2xl md:text-3xl font-bold mb-4 text-white leading-tight text-center">
                 Ingyen ital<br />minden napra!
               </h1>
               
               {/* Mobile Subtitle */}
-              <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-sm mx-auto text-center">
+              <p className="text-base md:text-lg text-gray-300 mb-8 text-center">
                 Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
               </p>
               
-              {/* Mobile CTA - Centered */}
+              {/* Mobile CTA */}
               <div className="flex justify-center w-full">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-gradient-cta-intense border-0"
+                  className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-bold py-3 px-8 text-base rounded-full transition-all duration-300 transform hover:scale-105 border-0 shadow-lg shadow-cyan-500/30"
                   onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Regisztrálj elő! 🍻
@@ -166,21 +166,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Carousel Indicators - Hidden on all devices */}
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 hidden space-x-3 z-30">
-          {appImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentImageIndex 
-                  ? 'bg-cyan-400 shadow-lg shadow-cyan-400/50' 
-                  : 'bg-gray-600 hover:bg-gray-400'
-              }`}
-            />
-          ))}
         </div>
       </section>
 
@@ -408,10 +393,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Enhanced Sticky CTA - Perfectly centered and improved styling */}
+      {/* Fixed Sticky CTA - Properly centered */}
       <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center items-center px-4">
         <Button 
-          className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 sticky-cta-float neon-glow-gradient-cta-intense border-0 shadow-2xl"
+          className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-semibold py-3 px-6 lg:px-8 rounded-full transition-all duration-300 transform hover:scale-105 border-0 shadow-lg shadow-cyan-500/40 animate-pulse-slow"
           onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
         >
           🍻 Csatlakozz az első 1000-hez
