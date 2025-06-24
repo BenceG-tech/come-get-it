@@ -12,9 +12,9 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
   const createRipple = useRipple();
 
   const appImages = [
-    "/lovable-uploads/49708be5-5db5-4f1e-adcf-e3b9ad6ddf45.png",
-    "/lovable-uploads/f0cc07ae-c5b2-4896-a0d4-f57b96428e82.png",
-    "/lovable-uploads/c437ca67-a828-4beb-a8a8-749b0b662e4b.png"
+    "/lovable-uploads/c402c264-053b-4336-aa3e-090f7f071887.png",
+    "/lovable-uploads/a589d6ef-39d5-4ff7-b38d-de1df1b429d6.png",
+    "/lovable-uploads/bf557f3e-e40c-421a-8189-971ef9a8a486.png"
   ];
 
   // Fallback image for error handling
@@ -43,10 +43,6 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
     return appImages[(currentIndex + 1) % appImages.length] || fallbackImage;
   };
 
-  const getCenterPhoneImage = () => {
-    return appImages[(currentIndex + 2) % appImages.length] || fallbackImage;
-  };
-
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
       {/* Enhanced Background glow effects */}
@@ -60,13 +56,13 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center">
-        {/* iPhone Mockups Section */}
+        {/* iPhone Mockups Section - Two phones side by side like in reference */}
         <div className="relative w-full max-w-4xl h-[500px] mb-8 flex justify-center items-center">
           {/* Left Phone */}
-          <div className="absolute transform -rotate-12 -translate-x-32 z-20 hidden md:block">
-            <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/60 border border-gray-800">
+          <div className="absolute transform -rotate-12 -translate-x-20 sm:-translate-x-32 z-20">
+            <div className="w-48 sm:w-64 h-[400px] sm:h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/60 border border-gray-800">
               <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 sm:w-32 h-6 bg-black rounded-b-2xl z-30"></div>
                 <img 
                   src={getLeftPhoneImage()}
                   alt="App Screenshot"
@@ -79,28 +75,11 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
             </div>
           </div>
 
-          {/* Center Phone */}
-          <div className="relative z-30">
-            <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/60 border border-gray-800">
-              <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
-                <img 
-                  src={getCenterPhoneImage()}
-                  alt="App Screenshot"
-                  className="w-full h-full object-cover transition-opacity duration-1000"
-                  onError={(e) => {
-                    e.currentTarget.src = fallbackImage;
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
           {/* Right Phone */}
-          <div className="absolute transform rotate-12 translate-x-32 z-10 hidden md:block">
-            <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-purple-500/60 border border-gray-800">
+          <div className="absolute transform rotate-12 translate-x-20 sm:translate-x-32 z-10">
+            <div className="w-48 sm:w-64 h-[400px] sm:h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-purple-500/60 border border-gray-800">
               <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 sm:w-32 h-6 bg-black rounded-b-2xl z-30"></div>
                 <img 
                   src={getRightPhoneImage()}
                   alt="App Screenshot"
@@ -114,25 +93,6 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
           </div>
         </div>
 
-        {/* Slide Indicators */}
-        <div className="flex space-x-4 mb-8 z-30">
-          {appImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`relative w-4 h-4 rounded-full transition-all duration-500 transform ${
-                index === currentIndex 
-                  ? 'bg-cyan-400 shadow-lg shadow-cyan-400/70 scale-150 animate-pulse' 
-                  : 'bg-gray-600 hover:bg-gray-400 scale-100 hover:scale-125'
-              }`}
-            >
-              {index === currentIndex && (
-                <div className="absolute inset-0 bg-cyan-400 rounded-full animate-ping opacity-75"></div>
-              )}
-            </button>
-          ))}
-        </div>
-
         {/* Content Section */}
         <div className="text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight px-2 animate-glow">
@@ -143,7 +103,7 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
             <img 
               src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
               alt="Come Get It Logo" 
-              className="w-48 h-24 sm:w-64 sm:h-32 md:w-80 md:h-40 lg:w-96 lg:h-48 mx-auto object-contain filter brightness-110"
+              className="w-32 h-16 sm:w-48 sm:h-24 md:w-64 md:h-32 mx-auto object-contain filter brightness-110"
             />
           </div>
           
