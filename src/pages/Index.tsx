@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -67,7 +66,7 @@ const Index = () => {
 
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-400 hover:via-purple-400 hover:to-pink-400 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/50 animate-pulse hover:shadow-purple-500/70 hover:shadow-2xl neon-glow-gradient-cta"
+              className="bg-cyan-400 hover:bg-cyan-300 text-black font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-cyan-intense"
               onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Regisztrálj elő! 🍻
@@ -335,7 +334,7 @@ const Index = () => {
           
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-400 hover:via-purple-400 hover:to-pink-400 text-white font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 shadow-2xl shadow-cyan-500/50 hover:shadow-purple-500/70 neon-glow-gradient-cta"
+            className="bg-cyan-400 hover:bg-cyan-300 text-black font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 neon-glow-cyan-intense"
             onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Csatlakozz most
@@ -380,7 +379,7 @@ const Index = () => {
             <Button 
               type="submit"
               disabled={!gdprAccepted}
-              className="w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-400 hover:via-purple-400 hover:to-pink-400 text-white font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl shadow-cyan-500/30 hover:shadow-purple-500/50 neon-glow-gradient-cta"
+              className="w-full bg-cyan-400 hover:bg-cyan-300 text-black font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed neon-glow-cyan-intense"
             >
               {isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Csatlakozom az első 1000-hez'}
             </Button>
@@ -397,7 +396,7 @@ const Index = () => {
       {/* Enhanced Sticky CTA */}
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
         <Button 
-          className="bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-400 hover:via-purple-400 hover:to-pink-400 text-white font-semibold py-3 px-6 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-slow sticky-cta-float neon-glow-gradient-cta-intense"
+          className="bg-cyan-400 hover:bg-cyan-300 text-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 sticky-cta-float neon-glow-cyan-ultra-intense"
           onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
         >
           🍻 Csatlakozz az első 1000-hez
