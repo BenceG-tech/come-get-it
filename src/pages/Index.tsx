@@ -8,6 +8,7 @@ const Index = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showLogo, setShowLogo] = useState(true);
 
   const appImages = [
     "/lovable-uploads/49708be5-5db5-4f1e-adcf-e3b9ad6ddf45.png",
@@ -24,6 +25,15 @@ const Index = () => {
 
     return () => clearInterval(interval);
   }, [appImages.length]);
+
+  // New effect for alternating logo and title
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowLogo((prev) => !prev);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,18 +57,21 @@ const Index = () => {
         <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left side - Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            {/* Desktop Title - Now First */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-8 lg:mb-10 text-white leading-tight hidden lg:block">
-              Ingyen ital<br />minden napra!
-            </h1>
-
-            {/* Desktop Logo - Now Second */}
-            <div className="mb-8 lg:mb-12 hidden lg:block">
-              <img 
-                src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
-                alt="Come Get It Logo" 
-                className="w-[28rem] h-56 lg:w-[32rem] lg:h-72 mx-auto lg:mx-0 object-contain filter brightness-110"
-              />
+            {/* Desktop - Alternating Logo and Title */}
+            <div className="mb-8 lg:mb-12 hidden lg:block min-h-[20rem] flex items-center justify-center lg:justify-start">
+              {showLogo ? (
+                <div className="transition-opacity duration-300">
+                  <img 
+                    src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
+                    alt="Come Get It Logo" 
+                    className="w-[40rem] h-80 lg:w-[45rem] lg:h-96 mx-auto lg:mx-0 object-contain filter brightness-110"
+                  />
+                </div>
+              ) : (
+                <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight transition-opacity duration-300">
+                  Ingyen ital<br />minden napra!
+                </h1>
+              )}
             </div>
             
             <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 lg:mb-12 max-w-xl mx-auto lg:mx-0 hidden lg:block">
@@ -136,18 +149,21 @@ const Index = () => {
 
             {/* Mobile-only content below phones */}
             <div className="lg:hidden flex flex-col items-center mt-6 px-4 w-full max-w-sm mx-auto">
-              {/* Mobile Title - Now First */}
-              <h1 className="text-2xl md:text-3xl font-bold mb-6 text-white leading-tight text-center">
-                Ingyen ital<br />minden napra!
-              </h1>
-
-              {/* Mobile Logo - Now Second */}
-              <div className="mb-6">
-                <img 
-                  src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
-                  alt="Come Get It Logo" 
-                  className="w-64 h-28 object-contain filter brightness-110"
-                />
+              {/* Mobile - Alternating Logo and Title */}
+              <div className="mb-6 min-h-[8rem] flex items-center justify-center">
+                {showLogo ? (
+                  <div className="transition-opacity duration-300">
+                    <img 
+                      src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
+                      alt="Come Get It Logo" 
+                      className="w-80 h-36 object-contain filter brightness-110"
+                    />
+                  </div>
+                ) : (
+                  <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight text-center transition-opacity duration-300">
+                    Ingyen ital<br />minden napra!
+                  </h1>
+                )}
               </div>
               
               {/* Mobile Subtitle */}
