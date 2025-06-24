@@ -47,12 +47,12 @@ const Index = () => {
         <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            {/* Desktop Logo */}
+            {/* Desktop Logo - Made larger */}
             <div className="mb-8 hidden lg:block">
               <img 
                 src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                 alt="Come Get It Logo" 
-                className="w-80 h-40 md:w-96 md:h-48 mx-auto lg:mx-0 object-contain filter brightness-110 mb-8"
+                className="w-[28rem] h-56 md:w-[32rem] md:h-64 mx-auto lg:mx-0 object-contain filter brightness-110 mb-8"
               />
             </div>
 
@@ -60,13 +60,13 @@ const Index = () => {
               Ingyen ital<br />minden napra!
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0 hidden lg:block">
+            <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-xl mx-auto lg:mx-0 hidden lg:block">
               Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
             </p>
 
             <Button 
               size="lg" 
-              className="bg-cyan-400 hover:bg-cyan-300 text-black font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-cyan-intense"
+              className="bg-cyan-400 hover:bg-cyan-300 text-black font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-gradient-cta-intense"
               onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Regisztrálj elő! 🍻
@@ -143,12 +143,12 @@ const Index = () => {
                 Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
               </p>
               
-              {/* Mobile Logo */}
+              {/* Mobile Logo - Made larger */}
               <div className="mt-2">
                 <img 
                   src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                   alt="Come Get It Logo" 
-                  className="w-80 h-40 object-contain filter brightness-110"
+                  className="w-96 h-48 object-contain filter brightness-110"
                 />
               </div>
             </div>
@@ -379,7 +379,7 @@ const Index = () => {
             <Button 
               type="submit"
               disabled={!gdprAccepted}
-              className="w-full bg-cyan-400 hover:bg-cyan-300 text-black font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed neon-glow-cyan-intense"
+              className="w-full bg-cyan-400 hover:bg-cyan-300 text-black font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed neon-glow-gradient-cta-intense"
             >
               {isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Csatlakozom az első 1000-hez'}
             </Button>
@@ -393,10 +393,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Enhanced Sticky CTA */}
-      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+      {/* Enhanced Sticky CTA - Fixed centering */}
+      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex justify-center">
         <Button 
-          className="bg-cyan-400 hover:bg-cyan-300 text-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 sticky-cta-float neon-glow-cyan-ultra-intense"
+          className="bg-cyan-400 hover:bg-cyan-300 text-black font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 sticky-cta-float neon-glow-gradient-cta-intense"
           onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
         >
           🍻 Csatlakozz az első 1000-hez
