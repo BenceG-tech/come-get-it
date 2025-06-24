@@ -21,7 +21,7 @@ const Index = () => {
       setCurrentImageIndex((prevIndex) => 
         (prevIndex + 1) % appImages.length
       );
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [appImages.length]);
@@ -37,67 +37,112 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4">
-        <div className="absolute inset-0 opacity-5">
-          <div className="w-full h-full bg-[linear-gradient(rgba(0,212,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,212,255,0.1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
+      <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+        {/* Background glow effects */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl opacity-60"></div>
+          <div className="absolute top-1/2 left-1/3 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/15 rounded-full blur-2xl opacity-40"></div>
+          <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/15 rounded-full blur-2xl opacity-40"></div>
         </div>
 
-        <div className="relative z-10 text-center max-w-6xl mx-auto">
-          <div className="mb-12">
-            <img 
-              src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
-              alt="Come Get It Logo" 
-              className="w-64 h-32 md:w-80 md:h-40 mx-auto object-contain filter brightness-110"
-              onError={(e) => {
-                console.log('Logo failed to load:', e.currentTarget.src);
-                e.currentTarget.style.border = '2px solid red';
-              }}
-            />
-          </div>
-
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white">
-            Ingyen ital minden napra
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto">
-            Fedezd fel a város legjobb helyeit és gyűjts pontokat minden itallal
-          </p>
-
-          <Button 
-            size="lg" 
-            className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 mb-16"
-            onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Regisztrálj elő
-          </Button>
-
-          <div className="mt-16 relative">
-            <div className="relative w-full max-w-sm mx-auto">
-              {appImages.map((image, index) => (
-                <img 
-                  key={index}
-                  src={image}
-                  alt={`Come Get It App Screenshot ${index + 1}`} 
-                  className={`w-full h-auto rounded-2xl transition-opacity duration-1000 ${
-                    index === currentImageIndex ? 'opacity-100' : 'opacity-0 absolute inset-0'
-                  }`}
-                />
-              ))}
+        <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left side - Content */}
+          <div className="text-center lg:text-left order-2 lg:order-1">
+            <div className="mb-8">
+              <img 
+                src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
+                alt="Come Get It Logo" 
+                className="w-48 h-24 md:w-56 md:h-28 mx-auto lg:mx-0 object-contain filter brightness-110 mb-8"
+              />
             </div>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
+              Ingyen ital<br />minden napra!
+            </h1>
             
-            {/* Image indicators */}
-            <div className="flex justify-center mt-6 space-x-2">
-              {appImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentImageIndex ? 'bg-cyan-400' : 'bg-gray-600'
-                  }`}
-                />
-              ))}
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0">
+              Fedezd fel Budapest legjobb helyeit, minden nap egy új élménnyel!
+            </p>
+
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/25 animate-pulse"
+              onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Regisztrálj elő! 🍻
+            </Button>
+          </div>
+
+          {/* Right side - iPhone Mockups */}
+          <div className="relative order-1 lg:order-2 flex justify-center items-center h-[600px]">
+            {/* First iPhone - Left */}
+            <div className="relative transform -rotate-12 translate-x-8 z-20">
+              <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/20 border border-gray-800">
+                <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                  {/* Dynamic Notch */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                  
+                  {/* Screen Content */}
+                  <div className="relative w-full h-full">
+                    {appImages.map((image, index) => (
+                      <img 
+                        key={index}
+                        src={image}
+                        alt={`App Screenshot ${index + 1}`} 
+                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                          index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Second iPhone - Right */}
+            <div className="relative transform rotate-12 -translate-x-8 z-10">
+              <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/20 border border-gray-800">
+                <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                  {/* Dynamic Notch */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                  
+                  {/* Screen Content */}
+                  <div className="relative w-full h-full">
+                    {appImages.map((image, index) => (
+                      <img 
+                        key={index}
+                        src={image}
+                        alt={`App Screenshot ${index + 1}`} 
+                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                          index === (currentImageIndex + 1) % appImages.length ? 'opacity-100' : 'opacity-0'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Enhanced Glow Effects Behind Phones */}
+            <div className="absolute inset-0 flex justify-center items-center">
+              <div className="w-80 h-80 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
             </div>
           </div>
+        </div>
+
+        {/* Carousel Indicators */}
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
+          {appImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentImageIndex 
+                  ? 'bg-cyan-400 shadow-lg shadow-cyan-400/50' 
+                  : 'bg-gray-600 hover:bg-gray-400'
+              }`}
+            />
+          ))}
         </div>
       </section>
 
