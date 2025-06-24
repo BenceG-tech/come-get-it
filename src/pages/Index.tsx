@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -138,6 +139,11 @@ const Index = () => {
                 Ingyen ital<br />minden napra!
               </h1>
               
+              {/* Mobile Subtitle */}
+              <p className="text-lg text-gray-300 mb-4 max-w-sm mx-auto text-center px-4">
+                Fedezd fel Budapest legjobb helyeit!
+              </p>
+              
               {/* Mobile Logo */}
               <div className="mt-2">
                 <img 
@@ -150,8 +156,8 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Carousel Indicators - Hidden on mobile */}
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 hidden lg:flex space-x-3 z-30">
+        {/* Carousel Indicators - Hidden on all devices */}
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 hidden space-x-3 z-30">
           {appImages.map((_, index) => (
             <button
               key={index}
