@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,12 +47,12 @@ const Index = () => {
     <div className="min-h-screen brand-gradient-hero text-white">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pb-16">
-        {/* Enhanced background glow effects with brand colors */}
+        {/* Enhanced background glow effects with brand colors on black background */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-400/30 via-blue-500/20 to-cyan-300/30 rounded-full blur-3xl opacity-80"></div>
-          <div className="absolute top-1/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-blue-600/25 to-cyan-400/25 rounded-full blur-2xl opacity-60"></div>
-          <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-tl from-cyan-300/25 to-blue-400/25 rounded-full blur-2xl opacity-60"></div>
-          <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-gradient-to-tr from-cyan-500/20 to-blue-300/20 rounded-full blur-xl opacity-50"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-400/20 via-blue-500/15 to-cyan-300/20 rounded-full blur-3xl opacity-60"></div>
+          <div className="absolute top-1/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-blue-600/15 to-cyan-400/15 rounded-full blur-2xl opacity-40"></div>
+          <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-tl from-cyan-300/15 to-blue-400/15 rounded-full blur-2xl opacity-40"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-gradient-to-tr from-cyan-500/10 to-blue-300/10 rounded-full blur-xl opacity-30"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -143,9 +142,9 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* Enhanced Glow Effects Behind Phones */}
+              {/* Enhanced Glow Effects Behind Phones - reduced opacity for black background */}
               <div className="absolute inset-0 flex justify-center items-center">
-                <div className="w-72 h-72 lg:w-80 lg:h-80 bg-gradient-to-r from-cyan-400/40 via-blue-500/30 to-cyan-300/40 rounded-full blur-3xl animate-pulse"></div>
+                <div className="w-72 h-72 lg:w-80 lg:h-80 bg-gradient-to-r from-cyan-400/20 via-blue-500/15 to-cyan-300/20 rounded-full blur-3xl animate-pulse"></div>
               </div>
             </div>
 
@@ -188,8 +187,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Enhanced Features Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-gray-900/40 via-blue-900/20 to-cyan-900/20">
+      {/* Enhanced Features Section - darker background */}
+      <section className="py-16 px-4 bg-gradient-to-br from-gray-900/30 via-black/50 to-gray-800/30">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white drop-shadow-lg">
             Miért válaszd a Come Get It-et?
@@ -226,8 +225,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* New Infographic Section - "Miért éri meg?" */}
-      <section className="py-20 px-4 bg-gradient-to-br from-gray-800/50 via-blue-800/30 to-cyan-800/30">
+      {/* New Infographic Section - darker background */}
+      <section className="py-20 px-4 bg-gradient-to-br from-gray-800/40 via-black/60 to-gray-700/40">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-white drop-shadow-lg">
             Miért éri meg?
@@ -336,8 +335,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FOMO Section */}
-      <section className="py-24 px-4">
+      {/* FOMO Section - black background */}
+      <section className="py-24 px-4 bg-black">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white drop-shadow-lg">
             Legyél alapító tag
@@ -361,8 +360,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Signup Form */}
-      <section id="signup" className="py-24 px-4 bg-gradient-to-br from-gray-900/60 via-blue-900/40 to-cyan-900/40">
+      {/* Signup Form - darker background */}
+      <section id="signup" className="py-24 px-4 bg-gradient-to-br from-gray-900/40 via-black/70 to-gray-800/40">
         <div className="max-w-md mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6 text-white drop-shadow-lg">
             Csatlakozz az első 1000 taghoz, és élvezd az exkluzív előnyöket!
