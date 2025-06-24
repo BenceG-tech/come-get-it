@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { MapPin, Award, Heart } from 'lucide-react';
 
 const Index = () => {
@@ -9,6 +10,8 @@ const Index = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [api, setApi] = useState<any>();
 
   const appImages = [
     "/lovable-uploads/49708be5-5db5-4f1e-adcf-e3b9ad6ddf45.png",
@@ -17,14 +20,35 @@ const Index = () => {
   ];
 
   useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    const onSelect = () => {
+      setCurrentImageIndex(api.selectedScrollSnap());
+    };
+
+    api.on("select", onSelect);
+    onSelect();
+
+    return () => {
+      api?.off("select", onSelect);
+    };
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        (prevIndex + 1) % appImages.length
-      );
+      setIsTransitioning(true);
+      api.scrollNext();
+      setTimeout(() => setIsTransitioning(false), 300);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [appImages.length]);
+  }, [api]);
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,12 +64,12 @@ const Index = () => {
       <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
         {/* Background glow effects */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl opacity-60"></div>
-          <div className="absolute top-1/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/15 rounded-full blur-2xl opacity-40"></div>
-          <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/15 rounded-full blur-2xl opacity-40"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/30 rounded-full blur-3xl opacity-80"></div>
+          <div className="absolute top-1/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/25 rounded-full blur-2xl opacity-60"></div>
+          <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/25 rounded-full blur-2xl opacity-60"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 items-center">
           {/* Left side - Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             {/* Desktop Logo */}
@@ -74,78 +98,89 @@ const Index = () => {
             </Button>
           </div>
 
-          {/* Right side - iPhone Mockups */}
+          {/* Right side - iPhone Carousel */}
           <div className="relative order-1 lg:order-2 flex flex-col justify-center items-center">
-            {/* iPhone Mockups Container */}
-            <div className="relative flex justify-center items-center h-[600px]">
-              {/* First iPhone - Left */}
-              <div className="relative transform -rotate-12 translate-x-8 z-20">
-                <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/20 border border-gray-800">
-                  <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-                    {/* Dynamic Notch */}
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
-                    
-                    {/* Screen Content */}
-                    <div className="relative w-full h-full">
-                      {appImages.map((image, index) => (
-                        <img 
-                          key={index}
-                          src={image}
-                          alt={`App Screenshot ${index + 1}`} 
-                          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                            index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Second iPhone - Right */}
-              <div className="relative transform rotate-12 -translate-x-8 z-10">
-                <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/20 border border-gray-800">
-                  <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-                    {/* Dynamic Notch */}
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
-                    
-                    {/* Screen Content */}
-                    <div className="relative w-full h-full">
-                      {appImages.map((image, index) => (
-                        <img 
-                          key={index}
-                          src={image}
-                          alt={`App Screenshot ${index + 1}`} 
-                          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                            index === (currentImageIndex + 1) % appImages.length ? 'opacity-100' : 'opacity-0'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Enhanced Glow Effects Behind Phones */}
-              <div className="absolute inset-0 flex justify-center items-center">
-                <div className="w-80 h-80 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
-              </div>
+            {/* Enhanced Glow Background */}
+            <div className="absolute inset-0 flex justify-center items-center">
+              <div className="w-[600px] h-[600px] bg-gradient-to-r from-cyan-500/40 to-blue-500/40 rounded-full blur-3xl animate-pulse opacity-80"></div>
             </div>
 
-            {/* Mobile-only content below phones */}
-            <div className="lg:hidden flex flex-col items-center mt-6">
+            {/* iPhone Carousel Container */}
+            <div className="relative h-[600px] w-full max-w-lg">
+              <Carousel 
+                setApi={setApi}
+                className="w-full h-full"
+                opts={{
+                  align: "center",
+                  loop: true,
+                }}
+              >
+                <CarouselContent className="h-full">
+                  {appImages.map((image, index) => (
+                    <CarouselItem key={index} className="h-full flex justify-center items-center">
+                      <div className="relative flex justify-center items-center h-full">
+                        {/* First iPhone - Left */}
+                        <div className={`relative transform -rotate-12 translate-x-8 z-20 transition-all duration-300 ${
+                          isTransitioning ? 'phone-mockup-motion-blur moving' : 'phone-mockup-motion-blur'
+                        }`}>
+                          <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/30 border border-gray-800 phone-mockup-enhanced-glow">
+                            <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                              {/* Dynamic Notch */}
+                              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                              
+                              {/* Screen Content */}
+                              <div className="relative w-full h-full">
+                                <img 
+                                  src={image}
+                                  alt={`App Screenshot ${index + 1}`} 
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Second iPhone - Right */}
+                        <div className={`relative transform rotate-12 -translate-x-8 z-10 transition-all duration-300 ${
+                          isTransitioning ? 'phone-mockup-motion-blur moving' : 'phone-mockup-motion-blur'
+                        }`}>
+                          <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/30 border border-gray-800 phone-mockup-enhanced-glow">
+                            <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                              {/* Dynamic Notch */}
+                              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                              
+                              {/* Screen Content */}
+                              <div className="relative w-full h-full">
+                                <img 
+                                  src={appImages[(index + 1) % appImages.length]}
+                                  alt={`App Screenshot ${((index + 1) % appImages.length) + 1}`} 
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
+
+            {/* Mobile-only content below phones - closer positioning */}
+            <div className="lg:hidden flex flex-col items-center mt-2">
               {/* Mobile Title */}
               <h1 className="text-4xl font-bold mb-2 text-white leading-tight text-center">
                 Ingyen ital<br />minden napra!
               </h1>
               
               {/* Mobile Subtitle */}
-              <p className="text-lg text-gray-300 mb-4 max-w-sm mx-auto text-center px-4">
+              <p className="text-lg text-gray-300 mb-3 max-w-sm mx-auto text-center px-4">
                 Fedezd fel Budapest legjobb helyeit!
               </p>
               
               {/* Mobile Logo */}
-              <div className="mt-2">
+              <div className="mt-1">
                 <img 
                   src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                   alt="Come Get It Logo" 
@@ -154,21 +189,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Carousel Indicators - Hidden on all devices */}
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 hidden space-x-3 z-30">
-          {appImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentImageIndex 
-                  ? 'bg-cyan-400 shadow-lg shadow-cyan-400/50' 
-                  : 'bg-gray-600 hover:bg-gray-400'
-              }`}
-            />
-          ))}
         </div>
       </section>
 
