@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,11 +27,11 @@ const Index = () => {
     return () => clearInterval(interval);
   }, [appImages.length]);
 
-  // New effect for alternating logo and title
+  // New effect for alternating logo and title - slowed down to 2 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setShowLogo((prev) => !prev);
-    }, 1000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -57,10 +58,10 @@ const Index = () => {
         <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left side - Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            {/* Desktop - Alternating Logo and Title */}
-            <div className="mb-8 lg:mb-12 hidden lg:block min-h-[20rem] flex items-center justify-center lg:justify-start">
+            {/* Desktop - Alternating Logo and Title with fixed height */}
+            <div className="mb-8 lg:mb-12 hidden lg:block h-96 flex items-center justify-center lg:justify-start">
               {showLogo ? (
-                <div className="transition-opacity duration-300">
+                <div className="transition-opacity duration-500">
                   <img 
                     src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                     alt="Come Get It Logo" 
@@ -68,7 +69,7 @@ const Index = () => {
                   />
                 </div>
               ) : (
-                <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight transition-opacity duration-300">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight transition-opacity duration-500">
                   Ingyen ital<br />minden napra!
                 </h1>
               )}
@@ -149,10 +150,10 @@ const Index = () => {
 
             {/* Mobile-only content below phones */}
             <div className="lg:hidden flex flex-col items-center mt-6 px-4 w-full max-w-sm mx-auto">
-              {/* Mobile - Alternating Logo and Title */}
-              <div className="mb-6 min-h-[8rem] flex items-center justify-center">
+              {/* Mobile - Alternating Logo and Title with fixed height */}
+              <div className="mb-6 h-36 flex items-center justify-center">
                 {showLogo ? (
-                  <div className="transition-opacity duration-300">
+                  <div className="transition-opacity duration-500">
                     <img 
                       src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                       alt="Come Get It Logo" 
@@ -160,7 +161,7 @@ const Index = () => {
                     />
                   </div>
                 ) : (
-                  <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight text-center transition-opacity duration-300">
+                  <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight text-center transition-opacity duration-500">
                     Ingyen ital<br />minden napra!
                   </h1>
                 )}
