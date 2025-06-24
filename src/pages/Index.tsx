@@ -62,12 +62,12 @@ const Index = () => {
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0 hidden lg:block">
-              Fedezd fel Budapest legjobb helyeit, minden nap egy új élménnyel!
+              Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
             </p>
 
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/50 animate-pulse hover:shadow-cyan-400/70 hover:shadow-2xl neon-glow-button"
+              className="bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-400 hover:via-purple-400 hover:to-pink-400 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/50 animate-pulse hover:shadow-purple-500/70 hover:shadow-2xl neon-glow-gradient-cta"
               onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Regisztrálj elő! 🍻
@@ -141,7 +141,7 @@ const Index = () => {
               
               {/* Mobile Subtitle */}
               <p className="text-lg text-gray-300 mb-4 max-w-sm mx-auto text-center px-4">
-                Fedezd fel Budapest legjobb helyeit!
+                Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
               </p>
               
               {/* Mobile Logo */}
@@ -335,7 +335,7 @@ const Index = () => {
           
           <Button 
             size="lg" 
-            className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 shadow-2xl shadow-cyan-500/50 hover:shadow-cyan-400/70 neon-glow-button"
+            className="bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-400 hover:via-purple-400 hover:to-pink-400 text-white font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 shadow-2xl shadow-cyan-500/50 hover:shadow-purple-500/70 neon-glow-gradient-cta"
             onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Csatlakozz most
@@ -347,10 +347,10 @@ const Index = () => {
       <section id="signup" className="py-24 px-4 bg-gray-900/30">
         <div className="max-w-md mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6 text-white">
-            Foglalj helyet most
+            Csatlakozz az első 1000 taghoz, és élvezd az exkluzív előnyöket!
           </h2>
           <p className="text-gray-400 mb-8">
-            Iratkozz fel, és az elsők között értesítünk
+            Lépj be elsőként a Come Get It közösségébe – értesítünk az indulásról és a bónuszokról!
           </p>
           
           <form onSubmit={handleEmailSubmit} className="space-y-6">
@@ -380,9 +380,9 @@ const Index = () => {
             <Button 
               type="submit"
               disabled={!gdprAccepted}
-              className="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-400/50 neon-glow-button"
+              className="w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-400 hover:via-purple-400 hover:to-pink-400 text-white font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl shadow-cyan-500/30 hover:shadow-purple-500/50 neon-glow-gradient-cta"
             >
-              {isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Regisztrálok'}
+              {isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Csatlakozom az első 1000-hez'}
             </Button>
           </form>
           
@@ -397,7 +397,7 @@ const Index = () => {
       {/* Enhanced Sticky CTA */}
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
         <Button 
-          className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-3 px-6 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-slow sticky-cta-float neon-glow-button-intense"
+          className="bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-400 hover:via-purple-400 hover:to-pink-400 text-white font-semibold py-3 px-6 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 animate-pulse-slow sticky-cta-float neon-glow-gradient-cta-intense"
           onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
         >
           🍻 Csatlakozz az első 1000-hez
