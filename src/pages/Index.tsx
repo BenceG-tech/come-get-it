@@ -48,7 +48,8 @@ const Index = () => {
         <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            <div className="mb-8">
+            {/* Desktop Logo */}
+            <div className="mb-8 hidden lg:block">
               <img 
                 src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                 alt="Come Get It Logo" 
@@ -56,7 +57,7 @@ const Index = () => {
               />
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight hidden lg:block">
               Ingyen ital<br />minden napra!
             </h1>
             
@@ -74,58 +75,78 @@ const Index = () => {
           </div>
 
           {/* Right side - iPhone Mockups */}
-          <div className="relative order-1 lg:order-2 flex justify-center items-center h-[600px]">
-            {/* First iPhone - Left */}
-            <div className="relative transform -rotate-12 translate-x-8 z-20">
-              <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/20 border border-gray-800">
-                <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-                  {/* Dynamic Notch */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
-                  
-                  {/* Screen Content */}
-                  <div className="relative w-full h-full">
-                    {appImages.map((image, index) => (
-                      <img 
-                        key={index}
-                        src={image}
-                        alt={`App Screenshot ${index + 1}`} 
-                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                          index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-                        }`}
-                      />
-                    ))}
+          <div className="relative order-1 lg:order-2 flex flex-col justify-center items-center">
+            {/* iPhone Mockups Container */}
+            <div className="relative flex justify-center items-center h-[600px]">
+              {/* First iPhone - Left */}
+              <div className="relative transform -rotate-12 translate-x-8 z-20">
+                <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/20 border border-gray-800">
+                  <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                    {/* Dynamic Notch */}
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                    
+                    {/* Screen Content */}
+                    <div className="relative w-full h-full">
+                      {appImages.map((image, index) => (
+                        <img 
+                          key={index}
+                          src={image}
+                          alt={`App Screenshot ${index + 1}`} 
+                          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                            index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                          }`}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Second iPhone - Right */}
-            <div className="relative transform rotate-12 -translate-x-8 z-10">
-              <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/20 border border-gray-800">
-                <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-                  {/* Dynamic Notch */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
-                  
-                  {/* Screen Content */}
-                  <div className="relative w-full h-full">
-                    {appImages.map((image, index) => (
-                      <img 
-                        key={index}
-                        src={image}
-                        alt={`App Screenshot ${index + 1}`} 
-                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                          index === (currentImageIndex + 1) % appImages.length ? 'opacity-100' : 'opacity-0'
-                        }`}
-                      />
-                    ))}
+              {/* Second iPhone - Right */}
+              <div className="relative transform rotate-12 -translate-x-8 z-10">
+                <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/20 border border-gray-800">
+                  <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                    {/* Dynamic Notch */}
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                    
+                    {/* Screen Content */}
+                    <div className="relative w-full h-full">
+                      {appImages.map((image, index) => (
+                        <img 
+                          key={index}
+                          src={image}
+                          alt={`App Screenshot ${index + 1}`} 
+                          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                            index === (currentImageIndex + 1) % appImages.length ? 'opacity-100' : 'opacity-0'
+                          }`}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Enhanced Glow Effects Behind Phones */}
+              <div className="absolute inset-0 flex justify-center items-center">
+                <div className="w-80 h-80 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
+              </div>
             </div>
 
-            {/* Enhanced Glow Effects Behind Phones */}
-            <div className="absolute inset-0 flex justify-center items-center">
-              <div className="w-80 h-80 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
+            {/* Mobile-only content below phones */}
+            <div className="lg:hidden flex flex-col items-center mt-6">
+              {/* Mobile Title */}
+              <h1 className="text-4xl md:text-5xl font-bold mb-2 text-white leading-tight text-center">
+                Ingyen ital<br />minden napra!
+              </h1>
+              
+              {/* Mobile Logo */}
+              <div className="mt-4">
+                <img 
+                  src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
+                  alt="Come Get It Logo" 
+                  className="w-96 h-48 object-contain filter brightness-110"
+                />
+              </div>
             </div>
           </div>
         </div>
