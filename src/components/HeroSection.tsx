@@ -50,37 +50,32 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center">
-        {/* iPhone Mockups Section - Single Carousel Container */}
-        <div className="relative w-full max-w-md h-[600px] mb-12">
-          {/* Enhanced Glow Effects Behind Phones */}
+        {/* iPhone Mockups Section - Carousel Container */}
+        <div className="relative w-full max-w-md h-[600px] mb-8">
+          {/* Enhanced Multi-layer Glow Effects Behind Phones */}
           <div className="absolute inset-0 flex justify-center items-center">
-            <div className="w-[600px] h-[600px] bg-gradient-to-r from-cyan-500/50 to-blue-500/50 rounded-full blur-3xl animate-pulse"></div>
+            <div className="w-[700px] h-[700px] bg-gradient-to-r from-cyan-500/60 to-blue-500/60 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute w-[500px] h-[500px] bg-gradient-to-r from-blue-400/40 to-cyan-400/40 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute w-[300px] h-[300px] bg-cyan-300/30 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
           </div>
           
-          {/* Single Phone Mockup with Carousel Inside */}
-          <div className="relative z-20 w-full h-full flex justify-center items-center">
-            <div className="w-72 h-[580px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/60 border border-gray-800">
-              <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
-                <div className="relative w-full h-full">
-                  <TouchCarousel 
-                    images={appImages}
-                    slideTransition="slide"
-                    showIndicators={false}
-                    currentIndex={sharedCurrentIndex}
-                    onIndexChange={setSharedCurrentIndex}
-                    autoPlay={true}
-                    autoPlayInterval={5000}
-                  />
-                </div>
-              </div>
-            </div>
+          {/* Touch-enabled Carousel with native slide */}
+          <div className="relative z-20 w-full h-full">
+            <TouchCarousel 
+              images={appImages}
+              slideTransition="slide"
+              showIndicators={false}
+              currentIndex={sharedCurrentIndex}
+              onIndexChange={setSharedCurrentIndex}
+              autoPlay={true}
+              autoPlayInterval={5000}
+            />
           </div>
         </div>
 
         {/* Content Section - Better spaced text */}
-        <div className="text-center space-y-8 max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight px-4">
+        <div className="text-center space-y-6 max-w-4xl mx-auto">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight px-2">
             Ingyen ital minden napra!
           </h1>
 
@@ -88,21 +83,21 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
             <img 
               src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
               alt="Come Get It Logo" 
-              className="w-96 h-48 md:w-[28rem] md:h-56 lg:w-[32rem] lg:h-64 object-contain filter brightness-110"
+              className="w-80 h-40 md:w-96 md:h-48 lg:w-[28rem] lg:h-56 object-contain filter brightness-110"
             />
           </div>
           
-          <p className="text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto px-6 leading-relaxed">
+          <p className="text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto px-4 leading-relaxed">
             Fedezd fel Budapest legjobb helyeit, minden nap egy új élménnyel!
           </p>
 
           <div className="pt-4">
             <Button 
               size="lg" 
-              className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-6 px-16 text-xl rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/25 neon-glow-button"
+              className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-6 px-12 text-lg md:text-xl rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/25 neon-glow-button"
               onClick={handleCTAClick}
             >
-              Regisztrálj most!
+              Csatlakozz az első 1000-hez
             </Button>
           </div>
         </div>
