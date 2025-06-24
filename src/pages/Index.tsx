@@ -47,18 +47,19 @@ const Index = () => {
         <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left side - Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
-            {/* Desktop Logo - Larger and positioned higher */}
+            {/* Desktop Title - Now First */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-8 lg:mb-10 text-white leading-tight hidden lg:block">
+              Ingyen ital<br />minden napra!
+            </h1>
+
+            {/* Desktop Logo - Now Second */}
             <div className="mb-8 lg:mb-12 hidden lg:block">
               <img 
                 src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                 alt="Come Get It Logo" 
-                className="w-[28rem] h-56 lg:w-[38rem] lg:h-80 mx-auto lg:mx-0 object-contain filter brightness-110"
+                className="w-[28rem] h-56 lg:w-[32rem] lg:h-72 mx-auto lg:mx-0 object-contain filter brightness-110"
               />
             </div>
-
-            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 lg:mb-8 text-white leading-tight hidden lg:block">
-              Ingyen ital<br />minden napra!
-            </h1>
             
             <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 lg:mb-12 max-w-xl mx-auto lg:mx-0 hidden lg:block">
               Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
@@ -67,7 +68,7 @@ const Index = () => {
             <div className="flex justify-center lg:justify-start hidden lg:flex">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-bold py-4 px-10 lg:px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 border-0 shadow-lg shadow-cyan-500/30"
+                className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-bold py-4 px-10 lg:px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/30"
                 onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Regisztrálj elő! 🍻
@@ -135,19 +136,19 @@ const Index = () => {
 
             {/* Mobile-only content below phones */}
             <div className="lg:hidden flex flex-col items-center mt-6 px-4 w-full max-w-sm mx-auto">
-              {/* Mobile Logo */}
+              {/* Mobile Title - Now First */}
+              <h1 className="text-2xl md:text-3xl font-bold mb-6 text-white leading-tight text-center">
+                Ingyen ital<br />minden napra!
+              </h1>
+
+              {/* Mobile Logo - Now Second */}
               <div className="mb-6">
                 <img 
                   src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                   alt="Come Get It Logo" 
-                  className="w-72 h-32 object-contain filter brightness-110"
+                  className="w-64 h-28 object-contain filter brightness-110"
                 />
               </div>
-
-              {/* Mobile Title */}
-              <h1 className="text-2xl md:text-3xl font-bold mb-4 text-white leading-tight text-center">
-                Ingyen ital<br />minden napra!
-              </h1>
               
               {/* Mobile Subtitle */}
               <p className="text-base md:text-lg text-gray-300 mb-8 text-center">
@@ -158,7 +159,7 @@ const Index = () => {
               <div className="flex justify-center w-full">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-bold py-3 px-8 text-base rounded-full transition-all duration-300 transform hover:scale-105 border-0 shadow-lg shadow-cyan-500/30"
+                  className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 hover:from-cyan-300 hover:via-blue-400 hover:to-cyan-300 text-black font-bold py-3 px-8 text-base rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/30"
                   onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Regisztrálj elő! 🍻
