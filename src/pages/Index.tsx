@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -135,14 +136,14 @@ const Index = () => {
             </div>
 
             {/* Mobile-only content below phones - moved higher */}
-            <div className="lg:hidden flex flex-col items-center mt-3 px-4 w-full max-w-sm mx-auto">
-              <div className="mb-4 h-32 flex items-center justify-center">
+            <div className="lg:hidden flex flex-col items-center mt-1 px-4 w-full max-w-sm mx-auto">
+              <div className="mb-3 h-28 flex items-center justify-center">
                 {showLogo ? (
                   <div className="transition-opacity duration-500">
                     <img 
                       src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                       alt="Come Get It Logo" 
-                      className="w-72 h-32 object-contain filter brightness-110"
+                      className="w-64 h-28 object-contain filter brightness-110"
                     />
                   </div>
                 ) : (
@@ -152,7 +153,7 @@ const Index = () => {
                 )}
               </div>
               
-              <p className="text-base md:text-lg text-cyan-100 mb-6 text-center">
+              <p className="text-base md:text-lg text-cyan-100 mb-5 text-center">
                 Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
               </p>
               
