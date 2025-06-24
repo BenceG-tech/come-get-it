@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import TouchCarousel from './TouchCarousel';
@@ -9,7 +8,8 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
-  const [slideTransition, setSlideTransition] = useState<'fade' | 'slide'>('fade');
+  const [slideTransition, setSlideTransition] = useState<'fade' | 'slide'>('slide');
+  const [sharedCurrentIndex, setSharedCurrentIndex] = useState(0);
   const createRipple = useRipple();
 
   const appImages = [
@@ -89,9 +89,9 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
           </Button>
         </div>
 
-        {/* Right side - iPhone Mockups with TouchCarousel */}
+        {/* Right side - Coordinated iPhone Mockups */}
         <div className="relative order-1 lg:order-2 flex justify-center items-center h-[600px]">
-          {/* First iPhone - Left */}
+          {/* First iPhone - Left - Interactive carousel */}
           <div className="relative transform -rotate-12 translate-x-8 z-20">
             <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/20 border border-gray-800">
               <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
@@ -101,13 +101,17 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
                     images={appImages}
                     slideTransition={slideTransition}
                     showIndicators={false}
+                    currentIndex={sharedCurrentIndex}
+                    onIndexChange={setSharedCurrentIndex}
+                    autoPlay={true}
+                    autoPlayInterval={4000}
                   />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Second iPhone - Right */}
+          {/* Second iPhone - Right - Synchronized carousel */}
           <div className="relative transform rotate-12 -translate-x-8 z-10">
             <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/20 border border-gray-800">
               <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
@@ -117,7 +121,8 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
                     images={appImages}
                     slideTransition={slideTransition}
                     showIndicators={false}
-                    autoPlayInterval={5000}
+                    currentIndex={sharedCurrentIndex}
+                    autoPlay={false}
                   />
                 </div>
               </div>
@@ -131,13 +136,20 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
         </div>
       </div>
 
-      {/* Main Carousel Indicators */}
-      <TouchCarousel 
-        images={appImages}
-        slideTransition={slideTransition}
-        showIndicators={true}
-        autoPlay={true}
-      />
+      {/* Main Carousel Indicators - Hidden since we have phone indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
+        {appImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setSharedCurrentIndex(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === sharedCurrentIndex 
+                ? 'bg-cyan-400 shadow-lg shadow-cyan-400/50 scale-125' 
+                : 'bg-gray-600 hover:bg-gray-400'
+            }`}
+          />
+        ))}
+      </div>
     </section>
   );
 };
