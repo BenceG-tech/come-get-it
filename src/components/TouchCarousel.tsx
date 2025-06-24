@@ -18,7 +18,7 @@ const TouchCarousel = ({
   autoPlay = true, 
   autoPlayInterval = 4000,
   showIndicators = true,
-  slideTransition = 'slide',
+  slideTransition = 'slide', // Changed default to 'slide'
   onImageChange,
   currentIndex: externalCurrentIndex,
   onIndexChange
@@ -41,7 +41,7 @@ const TouchCarousel = ({
     
     if (smooth) {
       setIsTransitioning(true);
-      setTimeout(() => setIsTransitioning(false), 500);
+      setTimeout(() => setIsTransitioning(false), 300);
     }
     
     setCurrentIndex(index);
@@ -85,8 +85,8 @@ const TouchCarousel = ({
       setIsDragging(false);
       setDragOffset(0);
       
-      const threshold = containerWidth * 0.2; // 20% of container width
-      const velocityThreshold = 0.3;
+      const threshold = containerWidth * 0.25; // 25% of container width
+      const velocityThreshold = 0.5;
       
       if (Math.abs(deltaX) > threshold || Math.abs(velocity) > velocityThreshold) {
         if (deltaX > 0 || velocity > velocityThreshold) {
@@ -97,9 +97,9 @@ const TouchCarousel = ({
       }
       
       // Restart autoplay after a delay
-      setTimeout(restartAutoPlay, 1500);
+      setTimeout(restartAutoPlay, 1000);
     },
-    threshold: 3
+    threshold: 5
   });
 
   // Auto play effect
@@ -114,7 +114,7 @@ const TouchCarousel = ({
     onImageChange?.(currentIndex);
   }, [currentIndex, onImageChange]);
 
-  // Calculate transform for real-time drag with proper physics
+  // Calculate transform for real-time drag
   const getTransform = () => {
     if (slideTransition !== 'slide') return {};
     
@@ -123,7 +123,7 @@ const TouchCarousel = ({
     
     return {
       transform: `translateX(${baseTransform + dragTransform}%)`,
-      transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)'
+      transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
     };
   };
 
@@ -146,7 +146,7 @@ const TouchCarousel = ({
                 <img 
                   src={image}
                   alt={`Slide ${index + 1}`} 
-                  className="w-full h-full object-cover pointer-events-none select-none"
+                  className="w-full h-full object-cover pointer-events-none"
                   draggable={false}
                 />
               </div>
@@ -158,7 +158,7 @@ const TouchCarousel = ({
               key={index}
               src={image}
               alt={`Slide ${index + 1}`} 
-              className={`absolute inset-0 w-full h-full object-cover pointer-events-none select-none transition-opacity duration-1000 ${
+              className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-1000 ${
                 index === currentIndex ? 'opacity-100' : 'opacity-0'
               }`}
               draggable={false}

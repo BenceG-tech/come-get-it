@@ -23,8 +23,17 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
     onSignupClick();
   };
 
+  // Get different images for each phone
+  const getLeftPhoneImage = () => {
+    return appImages[sharedCurrentIndex];
+  };
+
+  const getRightPhoneImage = () => {
+    return appImages[(sharedCurrentIndex + 1) % appImages.length];
+  };
+
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
       {/* Enhanced Background glow effects with movement */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl opacity-60 animate-pulse"></div>
@@ -49,57 +58,78 @@ const HeroSection = ({ onSignupClick }: HeroSectionProps) => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center">
-        {/* iPhone Mockups Section - Carousel Container */}
-        <div className="relative w-full max-w-md h-[600px] mb-8">
-          {/* Enhanced Multi-layer Glow Effects Behind Phones */}
-          <div className="absolute inset-0 flex justify-center items-center">
-            <div className="w-[700px] h-[700px] bg-gradient-to-r from-cyan-500/60 to-blue-500/60 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute w-[500px] h-[500px] bg-gradient-to-r from-blue-400/40 to-cyan-400/40 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-            <div className="absolute w-[300px] h-[300px] bg-cyan-300/30 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* iPhone Mockups Section */}
+        <div className="relative flex justify-center items-center h-[600px] mb-8">
+          {/* First iPhone - Left - Interactive carousel */}
+          <div className="relative transform -rotate-12 translate-x-8 z-20">
+            <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-cyan-500/40 border border-gray-800">
+              <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                <div className="relative w-full h-full">
+                  <TouchCarousel 
+                    images={[getLeftPhoneImage()]}
+                    slideTransition="slide"
+                    showIndicators={false}
+                    currentIndex={0}
+                    onIndexChange={() => {}}
+                    autoPlay={false}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-          
-          {/* Touch-enabled Carousel with native slide */}
-          <div className="relative z-20 w-full h-full">
-            <TouchCarousel 
-              images={appImages}
-              slideTransition="slide"
-              showIndicators={false}
-              currentIndex={sharedCurrentIndex}
-              onIndexChange={setSharedCurrentIndex}
-              autoPlay={true}
-              autoPlayInterval={5000}
-            />
+
+          {/* Second iPhone - Right - Shows next image */}
+          <div className="relative transform rotate-12 -translate-x-8 z-10">
+            <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl shadow-blue-500/40 border border-gray-800">
+              <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30"></div>
+                <div className="relative w-full h-full">
+                  <TouchCarousel 
+                    images={[getRightPhoneImage()]}
+                    slideTransition="slide"
+                    showIndicators={false}
+                    currentIndex={0}
+                    onIndexChange={() => {}}
+                    autoPlay={false}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Enhanced Glow Effects Behind Phones */}
+          <div className="absolute inset-0 flex justify-center items-center">
+            <div className="w-[500px] h-[500px] bg-gradient-to-r from-cyan-500/40 to-blue-500/40 rounded-full blur-3xl animate-pulse"></div>
           </div>
         </div>
 
-        {/* Content Section - Better spaced text */}
-        <div className="text-center space-y-6 max-w-4xl mx-auto">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight px-2">
+        {/* Content Section - Now below mockups */}
+        <div className="text-center">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight px-4">
             Ingyen ital minden napra!
           </h1>
 
-          <div className="flex justify-center">
+          <div className="mb-8">
             <img 
               src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
               alt="Come Get It Logo" 
-              className="w-80 h-40 md:w-96 md:h-48 lg:w-[28rem] lg:h-56 object-contain filter brightness-110"
+              className="w-80 h-40 md:w-96 md:h-48 lg:w-[28rem] lg:h-56 mx-auto object-contain filter brightness-110"
             />
           </div>
           
-          <p className="text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto px-4 leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto px-4 leading-relaxed">
             Fedezd fel Budapest legjobb helyeit, minden nap egy új élménnyel!
           </p>
 
-          <div className="pt-4">
-            <Button 
-              size="lg" 
-              className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-6 px-12 text-lg md:text-xl rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/25 neon-glow-button"
-              onClick={handleCTAClick}
-            >
-              Csatlakozz az első 1000-hez
-            </Button>
-          </div>
+          <Button 
+            size="lg" 
+            className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-cyan-500/25 neon-glow-button"
+            onClick={handleCTAClick}
+          >
+            Regisztrálj most!
+          </Button>
         </div>
       </div>
 
