@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -52,7 +51,7 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                 alt="Come Get It Logo" 
-                className="w-48 h-24 md:w-56 md:h-28 mx-auto lg:mx-0 object-contain filter brightness-110 mb-8"
+                className="w-64 h-32 md:w-80 md:h-40 mx-auto lg:mx-0 object-contain filter brightness-110 mb-8"
               />
             </div>
 
