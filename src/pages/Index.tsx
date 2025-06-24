@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -41,7 +40,7 @@ const Index = () => {
         {/* Background glow effects */}
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl opacity-60"></div>
-          <div className="absolute top-1/2 left-1/3 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/15 rounded-full blur-2xl opacity-40"></div>
+          <div className="absolute top-1/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/15 rounded-full blur-2xl opacity-40"></div>
           <div className="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-400/15 rounded-full blur-2xl opacity-40"></div>
         </div>
 
@@ -61,7 +60,7 @@ const Index = () => {
               Ingyen ital<br />minden napra!
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0">
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0 hidden lg:block">
               Fedezd fel Budapest legjobb helyeit, minden nap egy új élménnyel!
             </p>
 
@@ -138,11 +137,6 @@ const Index = () => {
               <h1 className="text-4xl font-bold mb-2 text-white leading-tight text-center">
                 Ingyen ital<br />minden napra!
               </h1>
-              
-              {/* Mobile optimized description */}
-              <p className="text-lg text-gray-300 mb-4 max-w-sm mx-auto text-center px-4">
-                Fedezd fel Budapest legjobb helyeit, minden nap egy új élménnyel!
-              </p>
               
               {/* Mobile Logo */}
               <div className="mt-2">
