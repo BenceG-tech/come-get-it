@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -46,7 +45,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pb-16">
+      <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pb-32">
         {/* Background glow effects */}
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-400/10 via-blue-500/10 to-cyan-300/10 rounded-full blur-3xl"></div>
@@ -135,15 +134,15 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Mobile-only content below phones */}
-            <div className="lg:hidden flex flex-col items-center mt-6 px-4 w-full max-w-sm mx-auto">
-              <div className="mb-6 h-36 flex items-center justify-center">
+            {/* Mobile-only content below phones - moved higher */}
+            <div className="lg:hidden flex flex-col items-center mt-3 px-4 w-full max-w-sm mx-auto">
+              <div className="mb-4 h-32 flex items-center justify-center">
                 {showLogo ? (
                   <div className="transition-opacity duration-500">
                     <img 
                       src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
                       alt="Come Get It Logo" 
-                      className="w-80 h-36 object-contain filter brightness-110"
+                      className="w-72 h-32 object-contain filter brightness-110"
                     />
                   </div>
                 ) : (
@@ -153,7 +152,7 @@ const Index = () => {
                 )}
               </div>
               
-              <p className="text-base md:text-lg text-cyan-100 mb-8 text-center">
+              <p className="text-base md:text-lg text-cyan-100 mb-6 text-center">
                 Fedezd fel, élvezd, gyűjts pontokat és segíts másokon – minden nap, mindenhol.
               </p>
               
