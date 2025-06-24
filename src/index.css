@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -101,7 +102,7 @@
 
 @layer utilities {
   .neon-glow {
-    text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF, 0 0 20px #00D4FF, 0 0 40px #00D4FF;
+    text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF, 0 0 20px #00D4FF;
   }
   
   .neon-border {
@@ -204,45 +205,12 @@
       text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF, 0 0 20px #00D4FF;
     }
     50% {
-      text-shadow: 0 0 10px #00D4FF, 0 0 20px #00D4FF, 0 0 40px #00D4FF, 0 0 60px #00D4FF;
+      text-shadow: 0 0 10px #00D4FF, 0 0 20px #00D4FF, 0 0 40px #00D4FF;
     }
   }
 
   .animate-glow {
     animation: glow 2s ease-in-out infinite alternate;
-  }
-
-  /* Enhanced cityscape animations */
-  @keyframes city-glow {
-    0%, 100% {
-      opacity: 0.3;
-      box-shadow: 0 0 10px currentColor;
-    }
-    50% {
-      opacity: 0.7;
-      box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
-    }
-  }
-
-  .animate-city-glow {
-    animation: city-glow 3s ease-in-out infinite;
-  }
-
-  /* Floating animation for background elements */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px) rotate(0deg);
-    }
-    33% {
-      transform: translateY(-10px) rotate(1deg);
-    }
-    66% {
-      transform: translateY(5px) rotate(-1deg);
-    }
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
   }
 }
 
