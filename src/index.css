@@ -101,6 +101,80 @@
 }
 
 @layer utilities {
+  /* Brand-specific blue gradients based on analyzed images */
+  .brand-gradient-primary {
+    background: linear-gradient(135deg, #001f3f 0%, #003d7a 20%, #0074d9 60%, #39cccc 100%);
+  }
+  
+  .brand-gradient-hero {
+    background: linear-gradient(180deg, #001122 0%, #002244 30%, #003366 70%, #004488 100%);
+  }
+  
+  .brand-gradient-cta {
+    background: linear-gradient(135deg, #39cccc 0%, #0074d9 30%, #0099cc 70%, #66e0ff 100%);
+  }
+
+  /* Enhanced neon effects with brand colors */
+  .neon-glow-brand {
+    box-shadow: 
+      0 0 20px rgba(57, 204, 204, 0.6),
+      0 0 40px rgba(0, 116, 217, 0.4),
+      0 0 60px rgba(0, 153, 204, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .neon-glow-brand:hover {
+    box-shadow: 
+      0 0 30px rgba(57, 204, 204, 0.8),
+      0 0 60px rgba(0, 116, 217, 0.6),
+      0 0 90px rgba(0, 153, 204, 0.4);
+  }
+
+  .neon-glow-brand-intense {
+    box-shadow: 
+      0 0 25px rgba(57, 204, 204, 0.9),
+      0 0 50px rgba(0, 116, 217, 0.7),
+      0 0 75px rgba(0, 153, 204, 0.5),
+      inset 0 0 20px rgba(57, 204, 204, 0.3);
+    background: linear-gradient(135deg, rgba(57, 204, 204, 0.1), rgba(0, 116, 217, 0.1));
+    border: 2px solid rgba(57, 204, 204, 0.6);
+    animation: brand-pulse 2s ease-in-out infinite alternate;
+  }
+
+  .neon-glow-3d-brand {
+    box-shadow: 
+      0 0 15px rgba(57, 204, 204, 0.8),
+      0 0 30px rgba(0, 116, 217, 0.6),
+      0 0 45px rgba(0, 153, 204, 0.4),
+      inset 0 0 15px rgba(57, 204, 204, 0.3);
+    background: linear-gradient(135deg, rgba(57, 204, 204, 0.15), rgba(0, 116, 217, 0.05));
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(57, 204, 204, 0.4);
+  }
+
+  .neon-glow-3d-brand-blue {
+    box-shadow: 
+      0 0 15px rgba(0, 116, 217, 0.8),
+      0 0 30px rgba(0, 153, 204, 0.6),
+      0 0 45px rgba(57, 204, 204, 0.4),
+      inset 0 0 15px rgba(0, 116, 217, 0.3);
+    background: linear-gradient(135deg, rgba(0, 116, 217, 0.15), rgba(0, 153, 204, 0.05));
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 116, 217, 0.4);
+  }
+
+  .neon-glow-3d-brand-aqua {
+    box-shadow: 
+      0 0 15px rgba(102, 224, 255, 0.8),
+      0 0 30px rgba(57, 204, 204, 0.6),
+      0 0 45px rgba(0, 153, 204, 0.4),
+      inset 0 0 15px rgba(102, 224, 255, 0.3);
+    background: linear-gradient(135deg, rgba(102, 224, 255, 0.15), rgba(57, 204, 204, 0.05));
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(102, 224, 255, 0.4);
+  }
+
+  /* Legacy neon effects - keeping for compatibility */
   .neon-glow {
     text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF, 0 0 20px #00D4FF;
   }
@@ -241,6 +315,23 @@
 
   .sticky-cta-float {
     animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes brand-pulse {
+    from {
+      box-shadow: 
+        0 0 25px rgba(57, 204, 204, 0.9),
+        0 0 50px rgba(0, 116, 217, 0.7),
+        0 0 75px rgba(0, 153, 204, 0.5),
+        inset 0 0 20px rgba(57, 204, 204, 0.3);
+    }
+    to {
+      box-shadow: 
+        0 0 40px rgba(57, 204, 204, 1),
+        0 0 80px rgba(0, 116, 217, 0.9),
+        0 0 120px rgba(0, 153, 204, 0.7),
+        inset 0 0 30px rgba(57, 204, 204, 0.5);
+    }
   }
 
   @keyframes neon-pulse {
