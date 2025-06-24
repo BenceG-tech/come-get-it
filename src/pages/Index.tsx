@@ -19,24 +19,21 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Hero Section - Simplified and Cleaner */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4">
-        {/* Subtle background effect */}
         <div className="absolute inset-0 opacity-5">
           <div className="w-full h-full bg-[linear-gradient(rgba(0,212,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,212,255,0.1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
         </div>
 
         <div className="relative z-10 text-center max-w-4xl mx-auto">
-          {/* Logo - Bigger and More Prominent */}
           <div className="mb-12">
             <img 
-              src="/lovable-uploads/81ea66f7-5d6b-434b-b314-0a8a8d65364f.png" 
+              src="/lovable-uploads/f03d41c1-cf28-443b-a2d3-ed82adadf522.png" 
               alt="Come Get It Logo" 
-              className="w-32 h-32 md:w-48 md:h-48 mx-auto object-contain"
+              className="w-48 h-24 md:w-72 md:h-36 mx-auto object-contain"
             />
           </div>
 
-          {/* Main Headline - Simplified */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white">
             Ingyen ital minden napra
           </h1>
@@ -45,7 +42,6 @@ const Index = () => {
             Fedezd fel a város legjobb helyeit és gyűjts pontokat minden itallal
           </p>
 
-          {/* Single CTA */}
           <Button 
             size="lg" 
             className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105"
@@ -54,18 +50,17 @@ const Index = () => {
             Regisztrálj elő
           </Button>
 
-          {/* App Preview */}
           <div className="mt-16">
             <img 
-              src="/lovable-uploads/dad5f770-5cd6-4a2c-833e-3fa3b689c748.png" 
-              alt="App Screenshots" 
-              className="max-w-sm mx-auto h-auto opacity-90"
+              src="/lovable-uploads/16258781-e6de-4364-81cc-c9e62f7f2a86.png" 
+              alt="Come Get It App Screenshots" 
+              className="max-w-4xl w-full mx-auto h-auto opacity-90 rounded-2xl"
             />
           </div>
         </div>
       </section>
 
-      {/* How it Works - Simplified */}
+      {/* How it Works */}
       <section className="py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-16 text-white">
@@ -91,7 +86,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features - Simplified 3 Column */}
+      {/* Features */}
       <section className="py-24 px-4 bg-gray-900/20">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white">
@@ -126,7 +121,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FOMO Section - Simplified */}
+      {/* FOMO Section */}
       <section className="py-24 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
@@ -149,7 +144,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Signup Form - Clean and Focused */}
+      {/* Signup Form */}
       <section id="signup" className="py-24 px-4 bg-gray-900/30">
         <div className="max-w-md mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6 text-white">
@@ -200,7 +195,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Simplified Sticky CTA */}
+      {/* Sticky CTA */}
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
         <Button 
           className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-3 px-6 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105"
