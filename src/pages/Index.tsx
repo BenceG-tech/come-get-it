@@ -27,7 +27,7 @@ const Index = () => {
         <div className="relative z-10 text-center max-w-4xl mx-auto">
           <div className="mb-12">
             <img 
-              src="/lovable-uploads/f03d41c1-cf28-443b-a2d3-ed82adadf522.png" 
+              src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
               alt="Come Get It Logo" 
               className="w-64 h-32 md:w-80 md:h-40 mx-auto object-contain filter brightness-110"
               onError={(e) => {
