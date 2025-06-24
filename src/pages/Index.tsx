@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,9 +13,11 @@ const Index = () => {
   const [showLogo, setShowLogo] = useState(true);
 
   const appImages = [
-    "/lovable-uploads/49708be5-5db5-4f1e-adcf-e3b9ad6ddf45.png",
-    "/lovable-uploads/f0cc07ae-c5b2-4896-a0d4-f57b96428e82.png",
-    "/lovable-uploads/c437ca67-a828-4beb-a8a8-749b0b662e4b.png"
+    "/lovable-uploads/49f35936-0231-47c1-9c05-932a0e8cbf6b.png",
+    "/lovable-uploads/ea91230f-2ead-48f2-8c86-e8b0522217a7.png",
+    "/lovable-uploads/8776d75d-72ee-4984-8b92-a0dcd00dec82.png",
+    "/lovable-uploads/b836712d-530e-4a04-a518-1707ae12f75b.png",
+    "logo" // Special identifier for the black screen with logo
   ];
 
   useEffect(() => {
@@ -98,14 +101,28 @@ const Index = () => {
                     
                     <div className="relative w-full h-full">
                       {appImages.map((image, index) => (
-                        <img 
+                        <div 
                           key={index}
-                          src={image}
-                          alt={`App Screenshot ${index + 1}`} 
-                          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
                             index === currentImageIndex ? 'opacity-100' : 'opacity-0'
                           }`}
-                        />
+                        >
+                          {image === "logo" ? (
+                            <div className="w-full h-full bg-black flex items-center justify-center">
+                              <img 
+                                src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
+                                alt="Come Get It Logo" 
+                                className="w-32 h-20 object-contain filter brightness-110"
+                              />
+                            </div>
+                          ) : (
+                            <img 
+                              src={image}
+                              alt={`App Screenshot ${index + 1}`} 
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -120,14 +137,28 @@ const Index = () => {
                     
                     <div className="relative w-full h-full">
                       {appImages.map((image, index) => (
-                        <img 
+                        <div 
                           key={index}
-                          src={image}
-                          alt={`App Screenshot ${index + 1}`} 
-                          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
                             index === (currentImageIndex + 1) % appImages.length ? 'opacity-100' : 'opacity-0'
                           }`}
-                        />
+                        >
+                          {image === "logo" ? (
+                            <div className="w-full h-full bg-black flex items-center justify-center">
+                              <img 
+                                src="/lovable-uploads/c01cd0c3-7bce-4a6b-ab3b-b7af7849ed4e.png" 
+                                alt="Come Get It Logo" 
+                                className="w-32 h-20 object-contain filter brightness-110"
+                              />
+                            </div>
+                          ) : (
+                            <img 
+                              src={image}
+                              alt={`App Screenshot ${index + 1}`} 
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -299,3 +330,4 @@ const Index = () => {
 };
 
 export default Index;
+
