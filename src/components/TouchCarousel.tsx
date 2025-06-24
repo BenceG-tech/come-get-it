@@ -18,23 +18,19 @@ const TouchCarousel = ({
   autoPlay = true, 
   autoPlayInterval = 4000,
   showIndicators = true,
-  slideTransition = 'slide', // Changed default to 'slide'
+  slideTransition = 'slide', // Default to slide
   onImageChange,
   currentIndex: externalCurrentIndex,
   onIndexChange
 }: TouchCarouselProps) => {
   const [internalCurrentIndex, setInternalCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [dragOffset, setDragOffset] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const autoPlayRef = useRef<NodeJS.Timeout>();
 
   // Use external index if provided, otherwise use internal
   const currentIndex = externalCurrentIndex !== undefined ? externalCurrentIndex : internalCurrentIndex;
   const setCurrentIndex = externalCurrentIndex !== undefined ? onIndexChange || (() => {}) : setInternalCurrentIndex;
-
-  const containerWidth = containerRef.current?.offsetWidth || 0;
 
   const goToSlide = useCallback((index: number, smooth = true) => {
     if (isTransitioning || index === currentIndex) return;
@@ -70,22 +66,18 @@ const TouchCarousel = ({
     autoPlayRef.current = setInterval(goToNext, autoPlayInterval);
   }, [autoPlay, autoPlayInterval, goToNext, clearAutoPlay]);
 
-  // Drag gesture handlers
-  const { touchHandlers, mouseHandlers } = useDragGesture({
+  // Enhanced drag gesture with real-time following
+  const { dragState, touchHandlers, mouseHandlers } = useDragGesture({
     onDragStart: () => {
-      setIsDragging(true);
       clearAutoPlay();
+      setIsTransitioning(false);
     },
     onDragMove: (deltaX, velocity) => {
-      if (slideTransition === 'slide') {
-        setDragOffset(deltaX);
-      }
+      // Real-time drag following is handled in getTransform()
     },
     onDragEnd: (deltaX, velocity) => {
-      setIsDragging(false);
-      setDragOffset(0);
-      
-      const threshold = containerWidth * 0.25; // 25% of container width
+      const containerWidth = containerRef.current?.offsetWidth || 0;
+      const threshold = containerWidth * 0.25; // 25% threshold
       const velocityThreshold = 0.5;
       
       if (Math.abs(deltaX) > threshold || Math.abs(velocity) > velocityThreshold) {
@@ -104,26 +96,31 @@ const TouchCarousel = ({
 
   // Auto play effect
   useEffect(() => {
-    if (!autoPlay || isDragging) return;
+    if (!autoPlay || dragState.isDragging) return;
     restartAutoPlay();
     return clearAutoPlay;
-  }, [autoPlay, isDragging, restartAutoPlay, clearAutoPlay]);
+  }, [autoPlay, dragState.isDragging, restartAutoPlay, clearAutoPlay]);
 
   // Notify parent of image changes
   useEffect(() => {
     onImageChange?.(currentIndex);
   }, [currentIndex, onImageChange]);
 
-  // Calculate transform for real-time drag
+  // Calculate transform with real-time drag following
   const getTransform = () => {
     if (slideTransition !== 'slide') return {};
     
     const baseTransform = -currentIndex * 100;
-    const dragTransform = isDragging ? (dragOffset / containerWidth) * 100 : 0;
+    let dragTransform = 0;
+    
+    if (dragState.isDragging && containerRef.current) {
+      const containerWidth = containerRef.current.offsetWidth;
+      dragTransform = (dragState.deltaX / containerWidth) * 100;
+    }
     
     return {
       transform: `translateX(${baseTransform + dragTransform}%)`,
-      transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      transition: dragState.isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
     };
   };
 
