@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,7 +62,7 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// New enhanced blue palette
+				// Updated blue palette without royal blue
 				electric: {
 					50: '#f0fdff',
 					100: '#ccf7fe',
@@ -84,9 +83,9 @@ export default {
 					400: '#38bdf8',
 					500: '#0ea5e9',
 					600: '#0284c7',
-					700: '#1E3A8A',
-					800: '#1e3a8a',
-					900: '#0F172A'
+					700: '#0369a1',
+					800: '#075985',
+					900: '#0c4a6e'
 				},
 				neon: {
 					50: '#ecfeff',

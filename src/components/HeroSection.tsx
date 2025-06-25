@@ -10,15 +10,15 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => (
   <section className="relative py-4 px-4 overflow-hidden lg:py-20">
-    {/* Enhanced background with new effects */}
-    <div className="absolute inset-0 bg-gradient-to-br from-ocean-900 via-black to-ocean-800"></div>
+    {/* Updated background without royal blue */}
+    <div className="absolute inset-0 bg-gradient-to-br from-ocean-700 via-black to-ocean-800"></div>
     
     {/* Floating particles effect */}
     <div className="absolute inset-0 floating-particles"></div>
     
-    {/* Enhanced glow layers */}
-    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-glow-electric opacity-60 blur-3xl"></div>
-    <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-glow-ocean opacity-40 blur-2xl"></div>
+    {/* Updated glow layers */}
+    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-glow-electric opacity-50 blur-3xl"></div>
+    <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-glow-ocean opacity-30 blur-2xl"></div>
     
     <div className="relative z-10 max-w-7xl mx-auto w-full">
       <div className="grid lg:grid-cols-2 gap-16 items-center pt-4 lg:pt-16">
@@ -53,18 +53,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
 
           {/* Desktop Layout */}
           <div className="hidden lg:block text-left space-y-8">
-            {/* Enhanced headline with new gradient */}
+            {/* Updated headline gradient */}
             <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-black leading-none tracking-tight">
               <span className="block mb-2 bg-gradient-to-r from-electric-300 via-neon-300 to-electric-400 bg-clip-text text-transparent animate-glow">INGYEN ITAL</span>
               <span className="block text-electric-100">MINDEN NAPRA</span>
             </h1>
             
-            {/* Enhanced subtitle */}
+            {/* Updated subtitle */}
             <p className="text-xl xl:text-2xl text-electric-100 max-w-2xl font-medium leading-relaxed">
               Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
             </p>
             
-            {/* Enhanced CTA Button with new effects */}
+            {/* Updated CTA Button */}
             <div className="pt-4">
               <Button 
                 size="lg" 
@@ -77,9 +77,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           </div>
         </div>
         
-        {/* Right side - Enhanced Desktop Phone Mockup */}
+        {/* Right side - Fixed Desktop Phone Mockup */}
         <div className="hidden lg:flex justify-center relative">
-          <div className="absolute inset-0 bg-glow-electric opacity-40 blur-3xl animate-pulse-glow"></div>
+          <div className="absolute inset-0 bg-glow-electric opacity-30 blur-3xl animate-pulse-glow"></div>
           <div className="relative liquid-ripple">
             <PhoneMockup imageUrl={appImages[currentImageIndex]} />
           </div>
