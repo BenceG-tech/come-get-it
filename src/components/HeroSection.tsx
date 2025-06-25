@@ -16,11 +16,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
     </div>
     
     <div className="relative z-10 max-w-7xl mx-auto w-full px-4">
-      <div className="grid lg:grid-cols-2 gap-8 items-center min-h-screen pt-16 lg:pt-8">
+      <div className="grid lg:grid-cols-2 gap-8 items-center min-h-screen pt-16 lg:pt-0">
         {/* Left side - Large Headlines and CTA */}
         <div className="flex flex-col justify-center">
-          {/* Mobile Layout - Better top positioning */}
-          <div className="lg:hidden text-center space-y-6 pt-8">
+          {/* Mobile Layout */}
+          <div className="lg:hidden text-center space-y-6 pt-4">
             <h1 className="text-4xl md:text-5xl font-black leading-tight text-white">
               <span className="block">INGYEN ITAL</span>
               <span className="block">MINDEN NAPRA</span>
@@ -38,16 +38,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               Regisztrálj most!
             </Button>
 
-            {/* Phone mockup for mobile - show more of the top */}
-            <div className="flex justify-center overflow-hidden h-80 mt-8">
-              <div className="transform translate-y-[-15%]">
-                <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+            {/* Phone mockup for mobile - positioned lower and simple like other sections */}
+            <div className="flex justify-center mt-12 pt-8">
+              <div className="relative">
+                <div className="absolute inset-0 bg-glow-primary opacity-40 blur-2xl"></div>
+                <div className="relative">
+                  <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Desktop Layout - Better positioning */}
-          <div className="hidden lg:block text-left space-y-8 -ml-4">
+          {/* Desktop Layout - Start higher, no excessive top padding */}
+          <div className="hidden lg:block text-left space-y-8">
             {/* Massive Headline */}
             <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-black leading-none tracking-tight text-white">
               <span className="block mb-2">INGYEN ITAL</span>
@@ -72,15 +75,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           </div>
         </div>
         
-        {/* Right side - Desktop Phone Mockup with proper bottom cropping */}
-        <div className="hidden lg:flex justify-center items-center relative h-full">
+        {/* Right side - Desktop Phone Mockup - Simple like other sections */}
+        <div className="hidden lg:flex justify-center items-end relative h-full pb-20">
           <div className="absolute inset-0 bg-gradient-radial from-[#3ba1cb]/20 via-[#27dddf]/10 to-transparent blur-3xl"></div>
           
-          {/* Phone positioned to crop only the bottom */}
-          <div className="relative transform scale-110 overflow-hidden h-[450px]">
-            <div className="transform translate-y-[-10%]">
-              <PhoneMockup imageUrl={appImages[currentImageIndex]} className="phone-mockup-glow" />
-            </div>
+          {/* Phone positioned simply like other sections, no complex cropping */}
+          <div className="relative">
+            <PhoneMockup imageUrl={appImages[currentImageIndex]} className="phone-mockup-glow" />
           </div>
         </div>
       </div>
