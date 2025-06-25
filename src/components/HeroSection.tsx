@@ -9,12 +9,12 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => (
-  <section className="relative py-20 px-4 overflow-hidden">
+  <section className="relative py-4 px-4 overflow-hidden lg:py-20">
     {/* Simple background - no complex glow effects */}
     <div className="absolute inset-0 bg-black"></div>
     
     <div className="relative z-10 max-w-7xl mx-auto w-full">
-      <div className="grid lg:grid-cols-2 gap-16 items-center pt-16 lg:pt-8">
+      <div className="grid lg:grid-cols-2 gap-16 items-center pt-4 lg:pt-16">
         {/* Left side - Large Headlines and CTA */}
         <div className="flex flex-col justify-center">
           {/* Mobile Layout */}
@@ -37,7 +37,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             </Button>
 
             {/* Phone mockup for mobile - clean and simple */}
-            <div className="flex justify-center mt-12">
+            <div className="flex justify-center mt-8">
               <div className="relative">
                 <PhoneMockup imageUrl={appImages[currentImageIndex]} />
               </div>
