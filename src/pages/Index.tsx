@@ -57,19 +57,52 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Main Hero Title */}
-      <section className="relative py-24 px-4 text-center">
+      {/* Hero Section */}
+      <section className="relative min-h-screen py-12 px-4 flex items-center">
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-400/10 via-blue-500/10 to-cyan-300/10 rounded-full blur-3xl"></div>
         </div>
         
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-tight">
-            THE FREE<br />DRINK APP
-          </h1>
-          <p className="text-xl md:text-2xl text-cyan-100 mb-8 max-w-2xl mx-auto">
-            Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
-          </p>
+        <div className="relative z-10 max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left side - Text Content */}
+            <div className="text-center lg:text-left order-2 lg:order-1">
+              {/* Main Headline */}
+              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white mb-4 leading-tight">
+                INGYEN ITAL<br />
+                <span className="text-cyan-400">MINDEN NAPRA</span>
+              </h1>
+              
+              {/* Come Get It Logo/Brand */}
+              <div className="mb-6">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-300 bg-clip-text italic" 
+                    style={{ fontFamily: 'cursive' }}>
+                  Come Get It
+                </h2>
+              </div>
+              
+              {/* Description */}
+              <p className="text-lg md:text-xl lg:text-2xl text-cyan-100 mb-8 max-w-2xl mx-auto lg:mx-0">
+                Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
+              </p>
+              
+              {/* CTA Button */}
+              <div className="flex justify-center lg:justify-start">
+                <Button 
+                  size="lg" 
+                  className="brand-gradient-cta hover:shadow-2xl text-gray-900 font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
+                  onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Kezdjük el! 🚀
+                </Button>
+              </div>
+            </div>
+            
+            {/* Right side - Phone Mockup */}
+            <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-90 lg:scale-100" />
+            </div>
+          </div>
         </div>
       </section>
 
