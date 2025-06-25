@@ -36,10 +36,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               Regisztrálj most!
             </Button>
 
-            {/* Phone mockup for mobile - cropped to show only top 2/3 */}
-            <div className="flex justify-center mt-10">
+            {/* Phone mockup for mobile - positioned at bottom, cropped by section end */}
+            <div className="flex justify-center mt-10 pb-0">
               <div className="relative">
-                <PhoneMockup imageUrl={appImages[currentImageIndex]} className="mobile-cropped" />
+                <PhoneMockup imageUrl={appImages[currentImageIndex]} />
               </div>
             </div>
           </div>
