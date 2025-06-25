@@ -36,7 +36,7 @@ export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, d
         
         {/* Right - Phone Mockup */}
         <div className="flex justify-center lg:justify-start relative">
-          <div className="absolute inset-4 bg-electric-400 opacity-30 blur-lg"></div>
+          <div className="absolute inset-8 bg-cyan-400 opacity-20 blur-md"></div>
           <div className="relative">
             <PhoneMockup imageUrl={drinkImages[currentImageIndex]} />
           </div>
