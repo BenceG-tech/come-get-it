@@ -81,10 +81,11 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-[#3ba1cb]/20">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center">
+            {/* Hide logo on mobile, show on desktop */}
             <img 
               src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
               alt="Come Get It Logo" 
-              className="h-14 w-auto object-contain"
+              className="h-14 w-auto object-contain hidden md:block"
             />
           </div>
           <div className="hidden md:flex space-x-8">
@@ -126,9 +127,11 @@ const Index = () => {
                   Regisztrálj most!
                 </Button>
 
-                {/* Phone mockup for mobile */}
-                <div className="flex justify-center mt-8">
-                  <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+                {/* Phone mockup for mobile - cropped to show only bottom half */}
+                <div className="flex justify-center mt-8 overflow-hidden h-64">
+                  <div className="transform translate-y-[-50%]">
+                    <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+                  </div>
                 </div>
               </div>
 
