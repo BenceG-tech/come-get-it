@@ -86,7 +86,7 @@ const Index = () => {
                 
                 {/* Subtitle between logo and phone */}
                 <p className="text-lg md:text-xl text-cyan-100 mb-4 max-w-lg mx-auto text-center">
-                  Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
+                  Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat, bulizz a barátaiddal és közben jót is teszel!
                 </p>
                 
                 {/* Phone mockup with better positioning */}
@@ -116,7 +116,7 @@ const Index = () => {
                 
                 {/* Description */}
                 <p className="text-base md:text-lg lg:text-xl text-cyan-100 mb-8 max-w-lg mx-auto lg:mx-0">
-                  Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
+                  Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat, bulizz a barátaiddal és közben jót is teszel!
                 </p>
                 
                 {/* CTA Button */}
