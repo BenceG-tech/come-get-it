@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -99,12 +100,12 @@ const Index = () => {
               </div>
             </div>
             
-            {/* Right side - Large Mockup Image */}
+            {/* Right side - Blue Glass with Pouring Effect */}
             <div className="flex justify-center lg:justify-end">
               <div className="relative w-full max-w-lg">
                 <img 
-                  src="/lovable-uploads/04f7fad0-5f81-43e8-a982-c3e776e27027.png" 
-                  alt="Come Get It App Mockup" 
+                  src="/lovable-uploads/b37cd069-596f-4a48-bddd-d0a7b1074deb.png" 
+                  alt="Blue Glass with Pouring Effect" 
                   className="w-full h-auto object-contain"
                 />
               </div>
@@ -130,12 +131,12 @@ const Index = () => {
               />
             </div>
             
-            {/* Mockup Image - Bottom - Much Larger */}
+            {/* Blue Glass Image - Bottom - Much Larger */}
             <div className="flex justify-center">
-              <div className="relative w-full max-w-md">
+              <div className="relative w-full max-w-lg">
                 <img 
-                  src="/lovable-uploads/04f7fad0-5f81-43e8-a982-c3e776e27027.png" 
-                  alt="Come Get It App Mockup" 
+                  src="/lovable-uploads/b37cd069-596f-4a48-bddd-d0a7b1074deb.png" 
+                  alt="Blue Glass with Pouring Effect" 
                   className="w-full h-auto object-contain"
                 />
               </div>
@@ -164,9 +165,9 @@ const Index = () => {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left - Phone Mockup */}
+            {/* Left - Phone Mockup - Much Larger on Mobile */}
             <div className="flex justify-center lg:justify-end order-2 lg:order-1">
-              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-90 lg:scale-100" />
+              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-125 md:scale-150 lg:scale-100" />
             </div>
             
             {/* Right - Content */}
@@ -204,9 +205,9 @@ const Index = () => {
               </p>
             </div>
             
-            {/* Right - Phone Mockup */}
+            {/* Right - Phone Mockup - Much Larger on Mobile */}
             <div className="flex justify-center lg:justify-start">
-              <PhoneMockup imageIndex={(currentImageIndex + 1) % appImages.length} className="transform scale-90 lg:scale-100" />
+              <PhoneMockup imageIndex={(currentImageIndex + 1) % appImages.length} className="transform scale-125 md:scale-150 lg:scale-100" />
             </div>
           </div>
         </div>
@@ -216,9 +217,9 @@ const Index = () => {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left - Phone Mockup */}
+            {/* Left - Phone Mockup - Much Larger on Mobile */}
             <div className="flex justify-center lg:justify-end order-2 lg:order-1">
-              <PhoneMockup imageIndex={(currentImageIndex + 2) % appImages.length} className="transform scale-90 lg:scale-100" />
+              <PhoneMockup imageIndex={(currentImageIndex + 2) % appImages.length} className="transform scale-125 md:scale-150 lg:scale-100" />
             </div>
             
             {/* Right - Content */}
