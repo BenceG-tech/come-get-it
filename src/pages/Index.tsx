@@ -58,7 +58,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="relative min-h-screen py-12 px-4 flex items-center overflow-hidden">
+      <section className="relative py-8 px-4 flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-400/10 via-blue-500/10 to-cyan-300/10 rounded-full blur-3xl"></div>
         </div>
@@ -68,15 +68,15 @@ const Index = () => {
             {/* Left side - Text Content */}
             <div className="text-center lg:text-left order-2 lg:order-1">
               {/* Mobile Layout */}
-              <div className="lg:hidden flex flex-col items-center space-y-8">
+              <div className="lg:hidden flex flex-col items-center space-y-6">
                 {/* Main title at top on mobile */}
-                <h1 className="text-4xl md:text-5xl font-black text-cyan-400 mb-4 leading-tight text-center">
+                <h1 className="text-4xl md:text-5xl font-black text-cyan-400 mb-2 leading-tight text-center">
                   INGYEN ITAL<br />
                   MINDEN NAPRA
                 </h1>
                 
                 {/* Very large logo on mobile */}
-                <div className="mb-8">
+                <div className="mb-4">
                   <img 
                     src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
                     alt="Come Get It Logo" 
@@ -84,9 +84,14 @@ const Index = () => {
                   />
                 </div>
                 
-                {/* Half-visible phone mockup on mobile */}
-                <div className="relative w-full flex justify-center">
-                  <div className="transform scale-110 translate-y-16">
+                {/* Subtitle between logo and phone */}
+                <p className="text-lg md:text-xl text-cyan-100 mb-4 max-w-lg mx-auto text-center">
+                  Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
+                </p>
+                
+                {/* Half-visible phone mockup on mobile - more compact */}
+                <div className="relative w-full flex justify-center overflow-hidden h-48">
+                  <div className="transform scale-100 translate-y-8">
                     <PhoneMockup imageIndex={currentImageIndex} />
                   </div>
                 </div>
