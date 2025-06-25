@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
@@ -25,7 +24,7 @@ const Index = () => {
 
   // Drink section uses these two images alternating
   const drinkImages = [
-    "/lovable-uploads/3cf52f3a-26c7-4553-afd6-73d6694d9f76.png",
+    "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png",
     "/lovable-uploads/7f0ed43a-5016-4db8-89ae-f51f0c7e6126.png"
   ];
 
