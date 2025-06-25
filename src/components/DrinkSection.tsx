@@ -5,10 +5,10 @@ import { PhoneMockup } from './PhoneMockup';
 
 interface DrinkSectionProps {
   currentImageIndex: number;
-  appImages: string[];
+  drinkImages: string[];
 }
 
-export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, appImages }) => (
+export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, drinkImages }) => (
   <section className="py-20 px-4 -mt-32 lg:mt-0 relative z-20">
     <div className="max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-2 gap-16 items-center pt-32 lg:pt-0">
@@ -38,7 +38,7 @@ export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, a
         <div className="flex justify-center lg:justify-start relative">
           <div className="absolute inset-0 bg-glow-primary opacity-30 blur-3xl animate-pulse-slow"></div>
           <div className="relative">
-            <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+            <PhoneMockup imageUrl={drinkImages[currentImageIndex]} />
           </div>
         </div>
       </div>

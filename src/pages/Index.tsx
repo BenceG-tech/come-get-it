@@ -12,6 +12,7 @@ import { StickyCallToAction } from '@/components/StickyCallToAction';
 
 const Index = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [drinkImageIndex, setDrinkImageIndex] = useState(0);
   const [earnImageIndex, setEarnImageIndex] = useState(0);
 
   const appImages = [
@@ -20,6 +21,12 @@ const Index = () => {
     "/lovable-uploads/8776d75d-72ee-4984-8b92-a0dcd00dec82.png",
     "/lovable-uploads/b836712d-530e-4a04-a518-1707ae12f75b.png",
     "/lovable-uploads/fe824679-3c0a-4703-a2c9-524d026bb134.png"
+  ];
+
+  // Drink section uses these two images alternating
+  const drinkImages = [
+    "/lovable-uploads/3cf52f3a-26c7-4553-afd6-73d6694d9f76.png",
+    "/lovable-uploads/7f0ed43a-5016-4db8-89ae-f51f0c7e6126.png"
   ];
 
   // Link section uses specific image
@@ -42,6 +49,16 @@ const Index = () => {
   }, [appImages.length]);
 
   useEffect(() => {
+    const drinkInterval = setInterval(() => {
+      setDrinkImageIndex((prevIndex) => 
+        (prevIndex + 1) % drinkImages.length
+      );
+    }, 4000);
+
+    return () => clearInterval(drinkInterval);
+  }, [drinkImages.length]);
+
+  useEffect(() => {
     const earnInterval = setInterval(() => {
       setEarnImageIndex((prevIndex) => 
         (prevIndex + 1) % earnImages.length
@@ -55,7 +72,7 @@ const Index = () => {
     <div className="min-h-screen bg-black text-white">
       <Navigation />
       <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
-      <DrinkSection currentImageIndex={currentImageIndex} appImages={appImages} />
+      <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
       <LinkSection linkImage={linkImage} />
       <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
       <FeaturesSection />
