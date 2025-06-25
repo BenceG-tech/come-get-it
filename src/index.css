@@ -192,29 +192,6 @@
     animation: ripple 2s infinite;
   }
 
-  .floating-particles::before,
-  .floating-particles::after {
-    content: '';
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #00D4FF;
-    border-radius: 50%;
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .floating-particles::before {
-    top: 20%;
-    left: 20%;
-    animation-delay: -2s;
-  }
-
-  .floating-particles::after {
-    top: 60%;
-    right: 30%;
-    animation-delay: -4s;
-  }
-
   /* Updated background glow effects */
   .bg-glow-electric {
     background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, rgba(34, 211, 238, 0.08) 50%, transparent 100%);
