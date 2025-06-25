@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -114,7 +112,7 @@ const Index = () => {
           </div>
 
           {/* Mobile Layout */}
-          <div className="lg:hidden space-y-8">
+          <div className="lg:hidden space-y-12">
             {/* Main Headline - Top */}
             <div className="text-center">
               <h1 className="text-3xl md:text-4xl font-black text-white mb-6 leading-tight">
@@ -123,18 +121,18 @@ const Index = () => {
               </h1>
             </div>
             
-            {/* Come Get It Logo - Middle */}
+            {/* Come Get It Logo - Middle - Much Larger */}
             <div className="flex justify-center">
               <img 
                 src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
                 alt="Come Get It Logo" 
-                className="h-24 md:h-32 w-auto object-contain"
+                className="h-40 md:h-48 w-auto object-contain"
               />
             </div>
             
-            {/* Mockup Image - Bottom */}
+            {/* Mockup Image - Bottom - Much Larger */}
             <div className="flex justify-center">
-              <div className="relative w-full max-w-sm">
+              <div className="relative w-full max-w-md">
                 <img 
                   src="/lovable-uploads/04f7fad0-5f81-43e8-a982-c3e776e27027.png" 
                   alt="Come Get It App Mockup" 
@@ -483,4 +481,3 @@ const Index = () => {
 };
 
 export default Index;
-
