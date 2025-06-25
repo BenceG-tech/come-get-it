@@ -6,12 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Handshake, Mail, Phone, User, Store } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL!,
-  import.meta.env.VITE_SUPABASE_ANON_KEY!
-);
+import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
 
 export const VenueApplicationSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -42,6 +37,18 @@ export const VenueApplicationSection: React.FC = () => {
         description: "Kérjük, töltse ki az összes kötelező mezőt.",
         variant: "destructive",
       });
+      return;
+    }
+
+    const supabase = getSupabaseClient();
+    
+    if (!supabase) {
+      console.warn('Supabase not configured, showing demo success message');
+      toast({
+        title: "Demo Mode",
+        description: "Az alkalmazás demo módban fut. A jelentkezés sikeres lenne éles környezetben.",
+      });
+      setIsSubmitted(true);
       return;
     }
 
@@ -145,6 +152,14 @@ export const VenueApplicationSection: React.FC = () => {
             Növeld vendégeid számát, építs hűséges közönséget és szerezz új vásárlókat az ingyenes promócióinkkal.
           </p>
         </div>
+
+        {!isSupabaseConfigured() && (
+          <div className="mb-6 p-4 bg-yellow-500/20 border border-yellow-500/30 rounded-lg text-center">
+            <p className="text-yellow-100 text-sm">
+              ⚠️ Demo Mode: Email küldés jelenleg nem elérhető
+            </p>
+          </div>
+        )}
 
         {/* Application Form */}
         <Card className="bg-black/40 border-electric-300/20 backdrop-blur-sm">

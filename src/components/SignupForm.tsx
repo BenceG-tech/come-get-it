@@ -3,12 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL!,
-  import.meta.env.VITE_SUPABASE_ANON_KEY!
-);
+import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
 
 export const SignupForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -26,6 +21,18 @@ export const SignupForm: React.FC = () => {
         description: "Kérjük, töltse ki az email címet és fogadja el az adatkezelési tájékoztatót.",
         variant: "destructive",
       });
+      return;
+    }
+
+    const supabase = getSupabaseClient();
+    
+    if (!supabase) {
+      console.warn('Supabase not configured, showing demo success message');
+      toast({
+        title: "Demo Mode",
+        description: "Az alkalmazás demo módban fut. A regisztráció sikeres lenne éles környezetben.",
+      });
+      setIsSubmitted(true);
       return;
     }
 
@@ -85,6 +92,14 @@ export const SignupForm: React.FC = () => {
         <p className="text-white mb-8">
           Lépj be elsőként a Come Get It közösségébe – értesítünk az indulásról és a bónuszokról!
         </p>
+        
+        {!isSupabaseConfigured() && (
+          <div className="mb-4 p-3 bg-yellow-500/20 border border-yellow-500/30 rounded-lg">
+            <p className="text-yellow-100 text-sm">
+              ⚠️ Demo Mode: Email küldés jelenleg nem elérhető
+            </p>
+          </div>
+        )}
         
         <form onSubmit={handleEmailSubmit} className="space-y-6">
           <Input
