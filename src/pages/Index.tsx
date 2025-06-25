@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -69,18 +68,18 @@ const Index = () => {
             <div className="text-center lg:text-left order-2 lg:order-1">
               {/* Mobile Layout */}
               <div className="lg:hidden flex flex-col items-center space-y-6">
-                {/* Main title at top on mobile */}
-                <h1 className="text-4xl md:text-5xl font-black text-cyan-400 mb-2 leading-tight text-center">
-                  INGYEN ITAL<br />
-                  MINDEN NAPRA
+                {/* Main title at top on mobile - INGYEN ITAL in white */}
+                <h1 className="text-4xl md:text-5xl font-black mb-2 leading-tight text-center">
+                  <span className="text-white">INGYEN ITAL</span><br />
+                  <span className="text-cyan-400">MINDEN NAPRA</span>
                 </h1>
                 
-                {/* Very large logo on mobile */}
+                {/* Even larger logo on mobile */}
                 <div className="mb-4">
                   <img 
                     src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
                     alt="Come Get It Logo" 
-                    className="h-32 md:h-40 w-auto object-contain mx-auto"
+                    className="h-40 md:h-48 w-auto object-contain mx-auto"
                   />
                 </div>
                 
@@ -89,9 +88,9 @@ const Index = () => {
                   Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
                 </p>
                 
-                {/* Half-visible phone mockup on mobile - more compact */}
-                <div className="relative w-full flex justify-center overflow-hidden h-48">
-                  <div className="transform scale-100 translate-y-8">
+                {/* Phone mockup cut off at bottom of screen */}
+                <div className="relative w-full flex justify-center overflow-hidden h-64">
+                  <div className="transform scale-100 translate-y-20">
                     <PhoneMockup imageIndex={currentImageIndex} />
                   </div>
                 </div>
