@@ -8,6 +8,7 @@ export const Navigation: React.FC = () => (
         <a href="#drink" className="text-white hover:text-[#27dddf] transition-colors">Drink</a>
         <a href="#link" className="text-white hover:text-[#27dddf] transition-colors">Link</a>
         <a href="#earn" className="text-white hover:text-[#27dddf] transition-colors">Earn</a>
+        <a href="#partnerek" className="text-white hover:text-[#27dddf] transition-colors">Partnerek</a>
         <a href="#signup" className="text-white hover:text-[#27dddf] transition-colors">Regisztrálj</a>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { DrinkSection } from '@/components/DrinkSection';
 import { LinkSection } from '@/components/LinkSection';
 import { EarnSection } from '@/components/EarnSection';
 import { BenefitsSection } from '@/components/BenefitsSection';
+import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 import { FOMOSection } from '@/components/FOMOSection';
 import { SignupForm } from '@/components/SignupForm';
 import { StickyCallToAction } from '@/components/StickyCallToAction';
@@ -73,6 +74,7 @@ const Index = () => {
       <LinkSection linkImage={linkImage} />
       <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
       <BenefitsSection />
+      <VenueApplicationSection />
       <FOMOSection />
       <SignupForm />
       <StickyCallToAction />
