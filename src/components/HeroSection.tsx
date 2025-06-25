@@ -10,8 +10,8 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => (
   <section className="relative py-4 px-4 overflow-hidden lg:py-20">
-    {/* Updated background - black at top */}
-    <div className="absolute inset-0 bg-gradient-to-br from-black via-ocean-900 to-ocean-800"></div>
+    {/* Fixed background - black top half, then blue */}
+    <div className="absolute inset-0 bg-gradient-to-b from-black from-50% via-black via-50% to-ocean-800"></div>
     
     {/* Floating particles effect */}
     <div className="absolute inset-0 floating-particles"></div>
