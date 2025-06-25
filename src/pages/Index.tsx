@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -64,25 +63,26 @@ const Index = () => {
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left side - Text Content */}
             <div className="text-center lg:text-left order-2 lg:order-1">
               {/* Main Headline */}
-              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white mb-4 leading-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-6 leading-tight">
                 INGYEN ITAL<br />
                 <span className="text-cyan-400">MINDEN NAPRA</span>
               </h1>
               
-              {/* Come Get It Logo/Brand */}
-              <div className="mb-6">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-300 bg-clip-text italic" 
-                    style={{ fontFamily: 'cursive' }}>
-                  Come Get It
-                </h2>
+              {/* Come Get It Logo */}
+              <div className="mb-8 flex justify-center lg:justify-start">
+                <img 
+                  src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
+                  alt="Come Get It Logo" 
+                  className="h-16 md:h-20 lg:h-24 w-auto object-contain"
+                />
               </div>
               
               {/* Description */}
-              <p className="text-lg md:text-xl lg:text-2xl text-cyan-100 mb-8 max-w-2xl mx-auto lg:mx-0">
+              <p className="text-base md:text-lg lg:text-xl text-cyan-100 mb-8 max-w-lg mx-auto lg:mx-0">
                 Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
               </p>
               
@@ -99,8 +99,8 @@ const Index = () => {
             </div>
             
             {/* Right side - Phone Mockup */}
-            <div className="flex justify-center lg:justify-end order-1 lg:order-2">
-              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-90 lg:scale-100" />
+            <div className="flex justify-center lg:justify-center order-1 lg:order-2">
+              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-75 md:scale-85 lg:scale-90" />
             </div>
           </div>
         </div>
