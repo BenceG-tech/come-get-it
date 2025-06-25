@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -76,87 +77,94 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <section className="relative py-8 px-4 flex items-center overflow-hidden min-h-screen lg:min-h-0">
+      {/* Navigation Bar with Logo */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-[#3ba1cb]/20">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center">
+            <img 
+              src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
+              alt="Come Get It Logo" 
+              className="h-12 w-auto object-contain"
+            />
+          </div>
+          <div className="hidden md:flex space-x-8">
+            <a href="#drink" className="text-[#3ba1cb] hover:text-[#27dddf] transition-colors">Drink</a>
+            <a href="#link" className="text-[#3ba1cb] hover:text-[#27dddf] transition-colors">Link</a>
+            <a href="#earn" className="text-[#3ba1cb] hover:text-[#27dddf] transition-colors">Earn</a>
+            <a href="#signup" className="text-[#3ba1cb] hover:text-[#27dddf] transition-colors">Regisztrálj</a>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section - Completely Redesigned */}
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
         <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-glow-primary rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-glow-primary rounded-full blur-3xl"></div>
           <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-glow-secondary rounded-full blur-2xl"></div>
         </div>
         
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            {/* Left side - Text Content */}
-            <div className="text-center lg:text-left order-2 lg:order-1">
+        <div className="relative z-10 max-w-7xl mx-auto w-full px-4">
+          <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[80vh]">
+            {/* Left side - Large Headlines and CTA */}
+            <div className="flex flex-col justify-center">
               {/* Mobile Layout */}
-              <div className="lg:hidden flex flex-col items-center space-y-6">
-                {/* Main title at top on mobile - INGYEN ITAL in white */}
-                <h1 className="text-4xl md:text-5xl font-black mb-2 leading-tight text-center">
-                  <span className="text-white">INGYEN ITAL</span><br />
-                  <span className="text-[#27dddf]">MINDEN NAPRA</span>
+              <div className="lg:hidden text-center space-y-8">
+                <h1 className="text-5xl md:text-6xl font-black leading-tight">
+                  <span className="text-white block">INGYEN ITAL</span>
+                  <span className="text-[#27dddf] block">MINDEN NAPRA</span>
                 </h1>
                 
-                {/* Even larger logo on mobile */}
-                <div className="mb-4">
-                  <img 
-                    src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
-                    alt="Come Get It Logo" 
-                    className="h-40 md:h-48 w-auto object-contain mx-auto"
-                  />
-                </div>
-                
-                {/* Subtitle between logo and phone */}
-                <p className="text-lg md:text-xl text-[#3ba1cb] mb-4 max-w-lg mx-auto text-center">
-                  Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat, bulizz a barátaiddal és közben jót is teszel!
+                <p className="text-lg md:text-xl text-[#3ba1cb] max-w-lg mx-auto">
+                  Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
                 </p>
                 
-                {/* Phone mockup with better positioning */}
-                <div className="relative w-full flex justify-center overflow-hidden h-80">
-                  <div className="transform scale-100 translate-y-12">
-                    <PhoneMockup imageUrl={appImages[currentImageIndex]} />
-                  </div>
+                <Button 
+                  size="lg" 
+                  className="brand-gradient-cta hover:shadow-2xl text-white font-bold py-6 px-12 text-xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
+                  onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Regisztrálj most!
+                </Button>
+
+                {/* Phone mockup for mobile */}
+                <div className="flex justify-center mt-8">
+                  <PhoneMockup imageUrl={appImages[currentImageIndex]} />
                 </div>
               </div>
 
-              {/* Desktop Layout - Completely Redesigned */}
-              <div className="hidden lg:block">
-                {/* Main Headline */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-8 leading-tight">
-                  INGYEN ITAL<br />
-                  <span className="text-[#27dddf]">MINDEN NAPRA</span>
+              {/* Desktop Layout - Large Left-aligned Content */}
+              <div className="hidden lg:block text-left space-y-8">
+                {/* Massive Headline */}
+                <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-black leading-none tracking-tight">
+                  <span className="text-white block mb-2">INGYEN ITAL</span>
+                  <span className="text-[#27dddf] block">MINDEN NAPRA</span>
                 </h1>
                 
-                {/* Much Larger Come Get It Logo */}
-                <div className="mb-10 flex justify-center lg:justify-start">
-                  <img 
-                    src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
-                    alt="Come Get It Logo" 
-                    className="h-32 md:h-40 lg:h-48 xl:h-56 w-auto object-contain"
-                  />
-                </div>
-                
-                {/* Description */}
-                <p className="text-lg md:text-xl lg:text-2xl text-[#3ba1cb] mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                  Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat, bulizz a barátaiddal és közben jót is teszel!
+                {/* Subtitle */}
+                <p className="text-xl xl:text-2xl text-[#3ba1cb] max-w-2xl font-medium leading-relaxed">
+                  Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
                 </p>
                 
                 {/* CTA Button */}
-                <div className="flex justify-center lg:justify-start">
+                <div className="pt-4">
                   <Button 
                     size="lg" 
-                    className="brand-gradient-cta hover:shadow-2xl text-white font-bold py-6 px-12 text-xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
+                    className="brand-gradient-cta hover:shadow-2xl text-white font-bold py-6 px-16 text-2xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
                     onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
                   >
-                    Kezdjük el! 🚀
+                    Regisztrálj most!
                   </Button>
                 </div>
               </div>
             </div>
             
-            {/* Right side - Cut-off Phone Mockup (Desktop only) */}
-            <div className="hidden lg:flex justify-end order-1 lg:order-2 relative overflow-hidden">
-              <div className="absolute inset-0 bg-glow-primary opacity-50 blur-3xl"></div>
-              <div className="relative transform scale-110 translate-x-16">
-                <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+            {/* Right side - Bleeding Edge Phone Mockup (Desktop only) */}
+            <div className="hidden lg:flex justify-end items-center relative h-full">
+              <div className="absolute inset-0 bg-gradient-radial from-[#3ba1cb]/20 via-[#27dddf]/10 to-transparent blur-3xl"></div>
+              
+              {/* Phone positioned to bleed off the right edge */}
+              <div className="relative transform scale-125 translate-x-24 xl:translate-x-32">
+                <PhoneMockup imageUrl={appImages[currentImageIndex]} className="phone-mockup-glow" />
               </div>
             </div>
           </div>
@@ -164,7 +172,7 @@ const Index = () => {
       </section>
 
       {/* DRINK Section */}
-      <section className="py-20 px-4">
+      <section id="drink" className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left - Phone Mockup */}
@@ -193,7 +201,7 @@ const Index = () => {
       </section>
 
       {/* LINK Section */}
-      <section className="py-20 px-4 bg-[#0f384e]/20">
+      <section id="link" className="py-20 px-4 bg-[#0f384e]/20">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left - Content */}
@@ -222,7 +230,7 @@ const Index = () => {
       </section>
 
       {/* EARN Section */}
-      <section className="py-20 px-4">
+      <section id="earn" className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left - Phone Mockup with alternating earn images */}
@@ -397,7 +405,7 @@ const Index = () => {
               className="brand-gradient-cta hover:shadow-2xl text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
               onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Kezdjük el! 🚀
+              Regisztrálj most!
             </Button>
           </div>
         </div>
@@ -422,7 +430,7 @@ const Index = () => {
               className="brand-gradient-cta hover:shadow-2xl text-white font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 neon-glow-brand border-0"
               onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Csatlakozz most
+              Regisztrálj most
             </Button>
           </div>
         </div>
@@ -467,7 +475,7 @@ const Index = () => {
               disabled={!gdprAccepted}
               className="w-full brand-gradient-cta hover:shadow-2xl text-white font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed neon-glow-brand border-0"
             >
-              {isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Csatlakozom az első 1000-hez'}
+              {isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Regisztrálj most!'}
             </Button>
           </form>
           
@@ -485,7 +493,7 @@ const Index = () => {
           className="brand-gradient-cta hover:shadow-2xl text-white font-semibold py-3 px-6 lg:px-8 rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand animate-pulse-slow"
           onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
         >
-          🍻 Csatlakozz az első 1000-hez
+          🍻 Regisztrálj most!
         </Button>
       </div>
     </div>
