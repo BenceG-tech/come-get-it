@@ -1,10 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { DrinkSection } from '@/components/DrinkSection';
 import { LinkSection } from '@/components/LinkSection';
 import { EarnSection } from '@/components/EarnSection';
-import { FeaturesSection } from '@/components/FeaturesSection';
+import { BenefitsSection } from '@/components/BenefitsSection';
 import { FOMOSection } from '@/components/FOMOSection';
 import { SignupForm } from '@/components/SignupForm';
 import { StickyCallToAction } from '@/components/StickyCallToAction';
@@ -71,7 +72,7 @@ const Index = () => {
       <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
       <LinkSection linkImage={linkImage} />
       <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
-      <FeaturesSection />
+      <BenefitsSection />
       <FOMOSection />
       <SignupForm />
       <StickyCallToAction />
