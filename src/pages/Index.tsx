@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -64,9 +65,10 @@ const Index = () => {
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Desktop Layout */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left side - Text Content */}
-            <div className="text-center lg:text-left order-2 lg:order-1">
+            <div className="text-center lg:text-left">
               {/* Main Headline */}
               <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-6 leading-tight">
                 INGYEN ITAL<br />
@@ -99,9 +101,62 @@ const Index = () => {
               </div>
             </div>
             
-            {/* Right side - Phone Mockup */}
-            <div className="flex justify-center order-1 lg:order-2">
-              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-85 md:scale-90 lg:scale-100" />
+            {/* Right side - Large Mockup Image */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-lg">
+                <img 
+                  src="/lovable-uploads/04f7fad0-5f81-43e8-a982-c3e776e27027.png" 
+                  alt="Come Get It App Mockup" 
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Layout */}
+          <div className="lg:hidden space-y-8">
+            {/* Main Headline - Top */}
+            <div className="text-center">
+              <h1 className="text-3xl md:text-4xl font-black text-white mb-6 leading-tight">
+                INGYEN ITAL<br />
+                <span className="text-cyan-400">MINDEN NAPRA</span>
+              </h1>
+            </div>
+            
+            {/* Come Get It Logo - Middle */}
+            <div className="flex justify-center">
+              <img 
+                src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
+                alt="Come Get It Logo" 
+                className="h-24 md:h-32 w-auto object-contain"
+              />
+            </div>
+            
+            {/* Mockup Image - Bottom */}
+            <div className="flex justify-center">
+              <div className="relative w-full max-w-sm">
+                <img 
+                  src="/lovable-uploads/04f7fad0-5f81-43e8-a982-c3e776e27027.png" 
+                  alt="Come Get It App Mockup" 
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Description */}
+            <div className="text-center">
+              <p className="text-base md:text-lg text-cyan-100 mb-8 max-w-lg mx-auto">
+                Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
+              </p>
+              
+              {/* CTA Button */}
+              <Button 
+                size="lg" 
+                className="brand-gradient-cta hover:shadow-2xl text-gray-900 font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
+                onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Kezdjük el! 🚀
+              </Button>
             </div>
           </div>
         </div>
@@ -428,3 +483,4 @@ const Index = () => {
 };
 
 export default Index;
+
