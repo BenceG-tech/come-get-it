@@ -76,7 +76,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         
         {/* Right side - Fixed Desktop Phone Mockup */}
         <div className="hidden lg:flex justify-center relative">
-          <div className="absolute inset-0 bg-electric-400 opacity-30 blur-3xl animate-pulse-slow"></div>
+          <div className="absolute inset-0 bg-electric-400 opacity-30 blur-2xl"></div>
           <div className="relative liquid-ripple">
             <PhoneMockup imageUrl={appImages[currentImageIndex]} />
           </div>
