@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,11 +11,9 @@ const Index = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const appImages = [
-    "/lovable-uploads/49f35936-0231-47c1-9c05-932a0e8cbf6b.png",
-    "/lovable-uploads/ea91230f-2ead-48f2-8c86-e8b0522217a7.png",
-    "/lovable-uploads/8776d75d-72ee-4984-8b92-a0dcd00dec82.png",
-    "/lovable-uploads/b836712d-530e-4a04-a518-1707ae12f75b.png",
-    "/lovable-uploads/fe824679-3c0a-4703-a2c9-524d026bb134.png"
+    "/lovable-uploads/38898345-ca57-4ea0-998a-29fc1f58e970.png",
+    "/lovable-uploads/5a5f76db-64e5-4c1c-b7fd-4a55dae12921.png",
+    "/lovable-uploads/6270a177-6dc3-4382-b43a-9c8828658596.png"
   ];
 
   useEffect(() => {
@@ -47,7 +44,7 @@ const Index = () => {
             <img 
               src={appImages[imageIndex % appImages.length]}
               alt={`App Screenshot`} 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
             />
           </div>
         </div>
