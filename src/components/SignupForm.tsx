@@ -32,6 +32,8 @@ export const SignupForm: React.FC = () => {
     setIsLoading(true);
 
     try {
+      console.log('Attempting to send email notification...');
+      
       // Email küldés a Supabase Edge Function-ön keresztül
       const { data, error } = await supabase.functions.invoke('send-notification-email', {
         body: {
@@ -43,9 +45,12 @@ export const SignupForm: React.FC = () => {
       });
 
       if (error) {
+        console.error('Supabase function error:', error);
         throw error;
       }
 
+      console.log('Email notification sent successfully:', data);
+      
       setIsSubmitted(true);
       toast({
         title: "🎉 Sikeres regisztráció!",

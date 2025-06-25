@@ -48,6 +48,8 @@ export const VenueApplicationSection: React.FC = () => {
     setIsLoading(true);
 
     try {
+      console.log('Attempting to send venue application...');
+      
       // Email küldés a Supabase Edge Function-ön keresztül
       const { data, error } = await supabase.functions.invoke('send-notification-email', {
         body: {
@@ -57,8 +59,11 @@ export const VenueApplicationSection: React.FC = () => {
       });
 
       if (error) {
+        console.error('Supabase function error:', error);
         throw error;
       }
+
+      console.log('Venue application sent successfully:', data);
 
       setIsSubmitted(true);
       toast({
