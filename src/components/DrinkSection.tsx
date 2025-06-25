@@ -36,15 +36,12 @@ export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, d
         
         {/* Right - Phone Mockup */}
         <div className="flex justify-center lg:justify-start relative">
-          <div className="absolute inset-0 bg-glow-primary opacity-30 blur-3xl animate-pulse-slow"></div>
+          <div className="absolute inset-0 bg-electric-400 opacity-30 blur-3xl animate-pulse-slow"></div>
           <div className="relative">
             <PhoneMockup imageUrl={drinkImages[currentImageIndex]} />
           </div>
         </div>
       </div>
     </div>
-    
-    {/* Blue section at bottom */}
-    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-ocean-800 to-ocean-900 -z-10"></div>
   </section>
 );
