@@ -43,5 +43,8 @@ export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, d
         </div>
       </div>
     </div>
+    
+    {/* Blue section at bottom */}
+    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-ocean-800 to-ocean-900 -z-10"></div>
   </section>
 );

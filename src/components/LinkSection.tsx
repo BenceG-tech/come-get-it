@@ -7,7 +7,7 @@ interface LinkSectionProps {
 }
 
 export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => (
-  <section id="link" className="py-20 px-4 bg-[#0f384e]/20">
+  <section id="link" className="py-20 px-4 bg-[#0f384e]/20 relative">
     <div className="max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         {/* Left - Content */}
@@ -32,5 +32,8 @@ export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => (
         </div>
       </div>
     </div>
+    
+    {/* Blue section at bottom */}
+    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-ocean-800 to-ocean-900 -z-10"></div>
   </section>
 );

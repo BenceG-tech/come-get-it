@@ -8,7 +8,7 @@ interface EarnSectionProps {
 }
 
 export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnImages }) => (
-  <section id="earn" className="py-20 px-4">
+  <section id="earn" className="py-20 px-4 relative">
     <div className="max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         {/* Left - Phone Mockup with alternating earn images */}
@@ -34,5 +34,8 @@ export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnIm
         </div>
       </div>
     </div>
+    
+    {/* Blue section at bottom */}
+    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-ocean-800 to-ocean-900 -z-10"></div>
   </section>
 );
