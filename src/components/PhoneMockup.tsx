@@ -17,7 +17,7 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = 
             <img 
               src={imageUrl}
               alt={`App Screenshot`} 
-              className="w-full h-full object-contain object-center"
+              className="w-full h-full object-cover object-top"
             />
             
             {/* Soft overlay without transparency issues */}
