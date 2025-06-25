@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -117,25 +116,25 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* Desktop Layout */}
+              {/* Desktop Layout - Completely Redesigned */}
               <div className="hidden lg:block">
                 {/* Main Headline */}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-6 leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-8 leading-tight">
                   INGYEN ITAL<br />
                   <span className="text-cyan-400">MINDEN NAPRA</span>
                 </h1>
                 
-                {/* Come Get It Logo */}
-                <div className="mb-8 flex justify-center lg:justify-start">
+                {/* Much Larger Come Get It Logo */}
+                <div className="mb-10 flex justify-center lg:justify-start">
                   <img 
                     src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
                     alt="Come Get It Logo" 
-                    className="h-16 md:h-20 lg:h-24 w-auto object-contain"
+                    className="h-32 md:h-40 lg:h-48 xl:h-56 w-auto object-contain"
                   />
                 </div>
                 
                 {/* Description */}
-                <p className="text-base md:text-lg lg:text-xl text-cyan-100 mb-8 max-w-lg mx-auto lg:mx-0">
+                <p className="text-lg md:text-xl lg:text-2xl text-cyan-100 mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                   Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat, bulizz a barátaiddal és közben jót is teszel!
                 </p>
                 
@@ -143,7 +142,7 @@ const Index = () => {
                 <div className="flex justify-center lg:justify-start">
                   <Button 
                     size="lg" 
-                    className="brand-gradient-cta hover:shadow-2xl text-gray-900 font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
+                    className="brand-gradient-cta hover:shadow-2xl text-gray-900 font-bold py-6 px-12 text-xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
                     onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     Kezdjük el! 🚀
@@ -152,9 +151,11 @@ const Index = () => {
               </div>
             </div>
             
-            {/* Right side - Phone Mockup (Desktop only) */}
-            <div className="hidden lg:flex justify-center lg:justify-center order-1 lg:order-2">
-              <PhoneMockup imageUrl={appImages[currentImageIndex]} className="transform scale-75 md:scale-85 lg:scale-90" />
+            {/* Right side - Cut-off Phone Mockup (Desktop only) */}
+            <div className="hidden lg:flex justify-end order-1 lg:order-2 relative overflow-hidden">
+              <div className="relative transform scale-110 translate-x-16">
+                <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+              </div>
             </div>
           </div>
         </div>
