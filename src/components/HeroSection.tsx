@@ -70,12 +70,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           </div>
         </div>
         
-        {/* Right side - Desktop Phone Mockup - Clean like DUSK app */}
+        {/* Right side - Desktop Phone Mockup - Copy exact structure from other sections */}
         <div className="hidden lg:flex justify-center relative">
-          {/* Simple clean glow - no pixelation */}
-          <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-xl"></div>
+          <div className="absolute inset-0 bg-glow-secondary opacity-30 blur-2xl"></div>
           <div className="relative">
-            <PhoneMockup imageUrl={appImages[currentImageIndex]} className="phone-mockup-glow" />
+            <PhoneMockup imageUrl={appImages[currentImageIndex]} />
           </div>
         </div>
       </div>
