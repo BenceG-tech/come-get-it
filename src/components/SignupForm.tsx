@@ -2,17 +2,72 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL!,
+  import.meta.env.VITE_SUPABASE_ANON_KEY!
+);
 
 export const SignupForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email && gdprAccepted) {
+    
+    if (!email || !gdprAccepted) {
+      toast({
+        title: "Hiányzó adatok",
+        description: "Kérjük, töltse ki az email címet és fogadja el az adatkezelési tájékoztatót.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Email küldés a Supabase Edge Function-ön keresztül
+      const { data, error } = await supabase.functions.invoke('send-notification-email', {
+        body: {
+          type: 'user_signup',
+          data: {
+            email: email
+          }
+        }
+      });
+
+      if (error) {
+        throw error;
+      }
+
       setIsSubmitted(true);
-      setTimeout(() => setIsSubmitted(false), 3000);
+      toast({
+        title: "🎉 Sikeres regisztráció!",
+        description: "Köszönjük! Hamarosan jelentkezünk az indulással kapcsolatos részletekkel. Ellenőrizd az email fiókodat!",
+      });
+
+      // Reset form after successful submission
+      setTimeout(() => {
+        setEmail('');
+        setGdprAccepted(false);
+        setIsSubmitted(false);
+      }, 5000);
+
+    } catch (error) {
+      console.error('Error sending emails:', error);
+      toast({
+        title: "Hiba történt",
+        description: "Sajnos nem sikerült elküldeni a regisztrációt. Kérjük, próbálja újra később.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -34,6 +89,7 @@ export const SignupForm: React.FC = () => {
             onChange={(e) => setEmail(e.target.value)}
             className="bg-[#0c323f]/50 border-[#3ba1cb]/30 text-white placeholder-[#3ba1cb]/70 focus:border-[#27dddf] focus:ring-[#27dddf] h-12"
             required
+            disabled={isLoading}
           />
           
           <div className="flex items-start gap-3 text-left">
@@ -44,6 +100,7 @@ export const SignupForm: React.FC = () => {
               onChange={(e) => setGdprAccepted(e.target.checked)}
               className="mt-1 accent-[#27dddf]"
               required
+              disabled={isLoading}
             />
             <label htmlFor="gdpr" className="text-sm text-white">
               Elfogadom az adatkezelési tájékoztatót és hozzájárulok a kapcsolatfelvételhez
@@ -52,17 +109,23 @@ export const SignupForm: React.FC = () => {
           
           <Button 
             type="submit"
-            disabled={!gdprAccepted}
+            disabled={!gdprAccepted || isLoading}
             className="w-full brand-gradient-cta hover:shadow-2xl text-white font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed neon-glow-brand border-0"
           >
-            {isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Regisztrálj most!'}
+            {isLoading ? '⏳ Küldés...' : isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Regisztrálj most!'}
           </Button>
         </form>
         
         {isSubmitted && (
-          <p className="mt-6 text-white font-medium">
-            Köszönjük! Hamarosan jelentkezünk!
-          </p>
+          <div className="mt-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
+            <p className="text-white font-medium mb-2">
+              🎉 Köszönjük a regisztrációt!
+            </p>
+            <p className="text-green-100 text-sm">
+              Hamarosan jelentkezünk az indulással kapcsolatos részletekkel.<br/>
+              <strong>Ellenőrizd az email fiókodat</strong> az exkluzív előnyeidért!
+            </p>
+          </div>
         )}
       </div>
     </section>

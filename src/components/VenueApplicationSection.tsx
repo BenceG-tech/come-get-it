@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -5,6 +6,12 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Handshake, Mail, Phone, User, Store } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL!,
+  import.meta.env.VITE_SUPABASE_ANON_KEY!
+);
 
 export const VenueApplicationSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +20,8 @@ export const VenueApplicationSection: React.FC = () => {
     phone: '',
     venueName: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +32,7 @@ export const VenueApplicationSection: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -36,22 +45,79 @@ export const VenueApplicationSection: React.FC = () => {
       return;
     }
 
-    // Here you would typically send the data to your backend
-    console.log('Venue application submitted:', formData);
-    
-    toast({
-      title: "Jelentkezés elküldve!",
-      description: "Hamarosan felvesszük Önnel a kapcsolatot.",
-    });
+    setIsLoading(true);
 
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      venueName: '',
-    });
+    try {
+      // Email küldés a Supabase Edge Function-ön keresztül
+      const { data, error } = await supabase.functions.invoke('send-notification-email', {
+        body: {
+          type: 'venue_application',
+          data: formData
+        }
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      setIsSubmitted(true);
+      toast({
+        title: "🤝 Jelentkezés elküldve!",
+        description: "Köszönjük a jelentkezést! Hamarosan felvesszük Önnel a kapcsolatot. Ellenőrizze az email fiókját!",
+      });
+
+      // Reset form after successful submission
+      setTimeout(() => {
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          venueName: '',
+        });
+        setIsSubmitted(false);
+      }, 8000);
+
+    } catch (error) {
+      console.error('Error sending venue application:', error);
+      toast({
+        title: "Hiba történt",
+        description: "Sajnos nem sikerült elküldeni a jelentkezést. Kérjük, próbálja újra később.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  if (isSubmitted) {
+    return (
+      <section id="partnerek" className="py-16 px-4 bg-[#0f384e]/10">
+        <div className="max-w-4xl mx-auto">
+          <Card className="bg-green-500/20 border-green-500/30 backdrop-blur-sm">
+            <CardContent className="text-center py-12">
+              <div className="flex justify-center mb-6">
+                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
+                  <Building2 className="w-8 h-8 text-white" />
+                </div>
+              </div>
+              <h2 className="text-2xl font-bold text-white mb-4">
+                🎉 Köszönjük a jelentkezést!
+              </h2>
+              <p className="text-green-100 text-lg mb-4">
+                Sikeresen megkaptuk a partner jelentkezését.
+              </p>
+              <div className="bg-white/10 rounded-lg p-4 max-w-md mx-auto">
+                <p className="text-white text-sm">
+                  📧 <strong>Ellenőrizze az email fiókját</strong> - részletes tájékoztatót küldtünk a partnerség előnyeiről<br/><br/>
+                  📞 Kollégánk hamarosan felveszi Önnel a kapcsolatot
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="partnerek" className="py-16 px-4 bg-[#0f384e]/10">
@@ -100,6 +166,7 @@ export const VenueApplicationSection: React.FC = () => {
                     className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder="Teljes név"
                     required
+                    disabled={isLoading}
                   />
                 </div>
 
@@ -118,6 +185,7 @@ export const VenueApplicationSection: React.FC = () => {
                     className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder="email@example.com"
                     required
+                    disabled={isLoading}
                   />
                 </div>
 
@@ -135,6 +203,7 @@ export const VenueApplicationSection: React.FC = () => {
                     onChange={handleInputChange}
                     className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder="+36 30 123 4567"
+                    disabled={isLoading}
                   />
                 </div>
 
@@ -153,6 +222,7 @@ export const VenueApplicationSection: React.FC = () => {
                     className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder="Vendéglátóhely neve"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -161,10 +231,20 @@ export const VenueApplicationSection: React.FC = () => {
               <div className="flex justify-center pt-4">
                 <Button 
                   type="submit"
-                  className="brand-gradient-cta hover:shadow-2xl text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 neon-glow-brand"
+                  disabled={isLoading}
+                  className="brand-gradient-cta hover:shadow-2xl text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 neon-glow-brand disabled:opacity-50"
                 >
-                  <Building2 className="w-4 h-4 mr-2" />
-                  Jelentkezés elküldése
+                  {isLoading ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Küldés...
+                    </>
+                  ) : (
+                    <>
+                      <Building2 className="w-4 h-4 mr-2" />
+                      Jelentkezés elküldése
+                    </>
+                  )}
                 </Button>
               </div>
             </form>
