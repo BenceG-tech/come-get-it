@@ -18,28 +18,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         {/* Left side - Large Headlines and CTA */}
         <div className="flex flex-col justify-center">
           {/* Mobile Layout */}
-          <div className="lg:hidden text-center space-y-6">
-            <h1 className="text-3xl md:text-4xl font-black leading-tight text-white">
+          <div className="lg:hidden text-center space-y-8">
+            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white">
               <span className="block">INGYEN ITAL</span>
               <span className="block">MINDEN NAPRA</span>
             </h1>
             
-            <p className="text-lg text-white max-w-lg mx-auto">
+            <p className="text-base text-white max-w-lg mx-auto">
               Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
             </p>
             
             <Button 
               size="lg" 
-              className="brand-gradient-cta hover:shadow-2xl text-white font-bold py-6 px-12 text-xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
+              className="brand-gradient-cta hover:shadow-2xl text-white font-bold py-7 px-14 text-xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
               onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Regisztrálj most!
             </Button>
 
-            {/* Phone mockup for mobile - clean and simple */}
-            <div className="flex justify-center mt-8">
+            {/* Phone mockup for mobile - cropped to show only top 2/3 */}
+            <div className="flex justify-center mt-10">
               <div className="relative">
-                <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+                <PhoneMockup imageUrl={appImages[currentImageIndex]} className="mobile-cropped" />
               </div>
             </div>
           </div>
