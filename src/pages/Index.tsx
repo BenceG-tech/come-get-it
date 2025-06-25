@@ -84,14 +84,14 @@ const Index = () => {
             <img 
               src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
               alt="Come Get It Logo" 
-              className="h-12 w-auto object-contain"
+              className="h-14 w-auto object-contain"
             />
           </div>
           <div className="hidden md:flex space-x-8">
-            <a href="#drink" className="text-[#3ba1cb] hover:text-[#27dddf] transition-colors">Drink</a>
-            <a href="#link" className="text-[#3ba1cb] hover:text-[#27dddf] transition-colors">Link</a>
-            <a href="#earn" className="text-[#3ba1cb] hover:text-[#27dddf] transition-colors">Earn</a>
-            <a href="#signup" className="text-[#3ba1cb] hover:text-[#27dddf] transition-colors">Regisztrálj</a>
+            <a href="#drink" className="text-white hover:text-[#27dddf] transition-colors">Drink</a>
+            <a href="#link" className="text-white hover:text-[#27dddf] transition-colors">Link</a>
+            <a href="#earn" className="text-white hover:text-[#27dddf] transition-colors">Earn</a>
+            <a href="#signup" className="text-white hover:text-[#27dddf] transition-colors">Regisztrálj</a>
           </div>
         </div>
       </nav>
@@ -111,10 +111,10 @@ const Index = () => {
               <div className="lg:hidden text-center space-y-8">
                 <h1 className="text-5xl md:text-6xl font-black leading-tight">
                   <span className="text-white block">INGYEN ITAL</span>
-                  <span className="text-[#27dddf] block">MINDEN NAPRA</span>
+                  <span className="text-white block">MINDEN NAPRA</span>
                 </h1>
                 
-                <p className="text-lg md:text-xl text-[#3ba1cb] max-w-lg mx-auto">
+                <p className="text-lg md:text-xl text-white max-w-lg mx-auto">
                   Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
                 </p>
                 
@@ -137,11 +137,11 @@ const Index = () => {
                 {/* Massive Headline */}
                 <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-black leading-none tracking-tight">
                   <span className="text-white block mb-2">INGYEN ITAL</span>
-                  <span className="text-[#27dddf] block">MINDEN NAPRA</span>
+                  <span className="text-white block">MINDEN NAPRA</span>
                 </h1>
                 
                 {/* Subtitle */}
-                <p className="text-xl xl:text-2xl text-[#3ba1cb] max-w-2xl font-medium leading-relaxed">
+                <p className="text-xl xl:text-2xl text-white max-w-2xl font-medium leading-relaxed">
                   Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
                 </p>
                 
@@ -188,10 +188,10 @@ const Index = () => {
               <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-none">
                 DRINK.
               </h2>
-              <p className="text-2xl md:text-3xl text-[#27dddf] mb-6 font-medium">
+              <p className="text-2xl md:text-3xl text-white mb-6 font-medium">
                 Ingyen ital minden nap
               </p>
-              <p className="text-lg text-[#3ba1cb] max-w-lg">
+              <p className="text-lg text-white max-w-lg">
                 Regisztrálj, válassz egy helyet és szerezd meg a napi ingyen italodat. 
                 Egyszerű, gyors, minden nap új lehetőség.
               </p>
@@ -209,10 +209,10 @@ const Index = () => {
               <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-none">
                 LINK.
               </h2>
-              <p className="text-2xl md:text-3xl text-[#27dddf] mb-6 font-medium">
+              <p className="text-2xl md:text-3xl text-white mb-6 font-medium">
                 Kapcsolódj a közösséghez
               </p>
-              <p className="text-lg text-[#3ba1cb] max-w-lg">
+              <p className="text-lg text-white max-w-lg">
                 Fedezd fel Budapest rejtett kincseit, találj új barátokat és 
                 legyél része egy különleges közösségnek.
               </p>
@@ -246,10 +246,10 @@ const Index = () => {
               <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-none">
                 EARN.
               </h2>
-              <p className="text-2xl md:text-3xl text-[#27dddf] mb-6 font-medium">
+              <p className="text-2xl md:text-3xl text-white mb-6 font-medium">
                 Gyűjts pontokat és segíts
               </p>
-              <p className="text-lg text-[#3ba1cb] max-w-lg">
+              <p className="text-lg text-white max-w-lg">
                 Minden fogyasztásért pontot kapsz, amit értékes jutalmakra válthatsz. 
                 Közben automatikusan támogatod a jótékonyságot.
               </p>
@@ -417,10 +417,10 @@ const Index = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
             Legyél alapító tag
           </h2>
-          <p className="text-xl text-[#27dddf] mb-8">
+          <p className="text-xl text-white mb-8">
             Az első 1000 regisztrálónak exkluzív bónusz
           </p>
-          <p className="text-lg text-[#3ba1cb] mb-12">
+          <p className="text-lg text-white mb-12">
             Írjuk együtt Budapest új italtérképét
           </p>
           
@@ -442,7 +442,7 @@ const Index = () => {
           <h2 className="text-3xl font-bold mb-6 text-white">
             Csatlakozz az első 1000 taghoz, és élvezd az exkluzív előnyöket!
           </h2>
-          <p className="text-[#3ba1cb] mb-8">
+          <p className="text-white mb-8">
             Lépj be elsőként a Come Get It közösségébe – értesítünk az indulásról és a bónuszokról!
           </p>
           
@@ -465,7 +465,7 @@ const Index = () => {
                 className="mt-1 accent-[#27dddf]"
                 required
               />
-              <label htmlFor="gdpr" className="text-sm text-[#3ba1cb]">
+              <label htmlFor="gdpr" className="text-sm text-white">
                 Elfogadom az adatkezelési tájékoztatót és hozzájárulok a kapcsolatfelvételhez
               </label>
             </div>
@@ -480,7 +480,7 @@ const Index = () => {
           </form>
           
           {isSubmitted && (
-            <p className="mt-6 text-[#27dddf] font-medium">
+            <p className="mt-6 text-white font-medium">
               Köszönjük! Hamarosan jelentkezünk!
             </p>
           )}
