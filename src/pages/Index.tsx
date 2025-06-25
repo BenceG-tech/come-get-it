@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -77,17 +76,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Navigation Bar with Logo */}
+      {/* Navigation Bar - No logo */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-[#3ba1cb]/20">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            {/* Hide logo on mobile, show on desktop */}
-            <img 
-              src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
-              alt="Come Get It Logo" 
-              className="h-14 w-auto object-contain hidden md:block"
-            />
-          </div>
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-end items-center">
           <div className="hidden md:flex space-x-8">
             <a href="#drink" className="text-white hover:text-[#27dddf] transition-colors">Drink</a>
             <a href="#link" className="text-white hover:text-[#27dddf] transition-colors">Link</a>
@@ -97,25 +88,25 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Section - Completely Redesigned */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
+      {/* Hero Section - Improved mobile and desktop layout */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-glow-primary rounded-full blur-3xl"></div>
           <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-glow-secondary rounded-full blur-2xl"></div>
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto w-full px-4">
-          <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[80vh]">
+          <div className="grid lg:grid-cols-2 gap-8 items-center min-h-screen pt-16 lg:pt-20">
             {/* Left side - Large Headlines and CTA */}
             <div className="flex flex-col justify-center">
-              {/* Mobile Layout */}
-              <div className="lg:hidden text-center space-y-8">
-                <h1 className="text-5xl md:text-6xl font-black leading-tight">
-                  <span className="text-white block">INGYEN ITAL</span>
-                  <span className="text-white block">MINDEN NAPRA</span>
+              {/* Mobile Layout - Fixed top positioning */}
+              <div className="lg:hidden text-center space-y-6 pt-8">
+                <h1 className="text-4xl md:text-5xl font-black leading-tight text-white">
+                  <span className="block">INGYEN ITAL</span>
+                  <span className="block">MINDEN NAPRA</span>
                 </h1>
                 
-                <p className="text-lg md:text-xl text-white max-w-lg mx-auto">
+                <p className="text-lg text-white max-w-lg mx-auto">
                   Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
                 </p>
                 
@@ -127,20 +118,20 @@ const Index = () => {
                   Regisztrálj most!
                 </Button>
 
-                {/* Phone mockup for mobile - cropped to show only bottom half */}
-                <div className="flex justify-center mt-8 overflow-hidden h-64">
+                {/* Phone mockup for mobile - cropped to show only bottom half, no separator */}
+                <div className="flex justify-center overflow-hidden h-64 -mt-4">
                   <div className="transform translate-y-[-50%]">
                     <PhoneMockup imageUrl={appImages[currentImageIndex]} />
                   </div>
                 </div>
               </div>
 
-              {/* Desktop Layout - Large Left-aligned Content */}
-              <div className="hidden lg:block text-left space-y-8">
+              {/* Desktop Layout - Moved further left */}
+              <div className="hidden lg:block text-left space-y-8 -ml-8">
                 {/* Massive Headline */}
-                <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-black leading-none tracking-tight">
-                  <span className="text-white block mb-2">INGYEN ITAL</span>
-                  <span className="text-white block">MINDEN NAPRA</span>
+                <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-black leading-none tracking-tight text-white">
+                  <span className="block mb-2">INGYEN ITAL</span>
+                  <span className="block">MINDEN NAPRA</span>
                 </h1>
                 
                 {/* Subtitle */}
@@ -161,13 +152,15 @@ const Index = () => {
               </div>
             </div>
             
-            {/* Right side - Bleeding Edge Phone Mockup (Desktop only) */}
-            <div className="hidden lg:flex justify-end items-center relative h-full">
+            {/* Right side - Desktop Phone Mockup with bottom cropped */}
+            <div className="hidden lg:flex justify-start items-center relative h-full -ml-16">
               <div className="absolute inset-0 bg-gradient-radial from-[#3ba1cb]/20 via-[#27dddf]/10 to-transparent blur-3xl"></div>
               
-              {/* Phone positioned to bleed off the right edge */}
-              <div className="relative transform scale-125 translate-x-24 xl:translate-x-32">
-                <PhoneMockup imageUrl={appImages[currentImageIndex]} className="phone-mockup-glow" />
+              {/* Phone positioned to fit better within screen and bottom cropped */}
+              <div className="relative transform scale-110 overflow-hidden h-96">
+                <div className="transform translate-y-[-20%]">
+                  <PhoneMockup imageUrl={appImages[currentImageIndex]} className="phone-mockup-glow" />
+                </div>
               </div>
             </div>
           </div>
