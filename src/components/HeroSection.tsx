@@ -10,8 +10,8 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => (
   <section className="relative py-4 px-4 overflow-hidden lg:py-20">
-    {/* Updated background without royal blue */}
-    <div className="absolute inset-0 bg-gradient-to-br from-ocean-700 via-black to-ocean-800"></div>
+    {/* Updated background - black at top */}
+    <div className="absolute inset-0 bg-gradient-to-br from-black via-ocean-900 to-ocean-800"></div>
     
     {/* Floating particles effect */}
     <div className="absolute inset-0 floating-particles"></div>
@@ -26,8 +26,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         <div className="flex flex-col justify-center">
           {/* Mobile Layout */}
           <div className="lg:hidden text-center space-y-8">
-            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white">
-              <span className="block bg-gradient-to-r from-electric-300 to-neon-300 bg-clip-text text-transparent animate-glow">INGYEN ITAL</span>
+            <h1 className="text-4xl md:text-5xl font-black leading-tight">
+              <span className="block text-white">INGYEN ITAL</span>
               <span className="block text-electric-100">MINDEN NAPRA</span>
             </h1>
             
@@ -37,7 +37,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             
             <Button 
               size="lg" 
-              className="liquid-gradient hover:shadow-2xl text-white font-bold py-7 px-14 text-xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-electric border-0 wave-effect"
+              className="bg-gradient-to-r from-electric-300 to-ocean-600 hover:shadow-2xl text-white font-bold py-7 px-14 text-xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-electric border-0 wave-effect"
               onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Regisztrálj most!
@@ -53,9 +53,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
 
           {/* Desktop Layout */}
           <div className="hidden lg:block text-left space-y-8">
-            {/* Updated headline gradient */}
+            {/* Updated headline - white main title */}
             <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-black leading-none tracking-tight">
-              <span className="block mb-2 bg-gradient-to-r from-electric-300 via-neon-300 to-electric-400 bg-clip-text text-transparent animate-glow">INGYEN ITAL</span>
+              <span className="block mb-2 text-white">INGYEN ITAL</span>
               <span className="block text-electric-100">MINDEN NAPRA</span>
             </h1>
             
@@ -64,11 +64,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
             </p>
             
-            {/* Updated CTA Button */}
+            {/* Updated CTA Button with fixed gradient */}
             <div className="pt-4">
               <Button 
                 size="lg" 
-                className="liquid-gradient hover:shadow-2xl text-white font-bold py-6 px-16 text-2xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-electric border-0 wave-effect glass-effect"
+                className="bg-gradient-to-r from-electric-300 to-ocean-600 hover:shadow-2xl text-white font-bold py-6 px-16 text-2xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-electric border-0 wave-effect glass-effect"
                 onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Regisztrálj most!
