@@ -81,53 +81,175 @@
 }
 
 @layer utilities {
-  /* Updated Brand gradient with new color palette */
+  /* Enhanced Brand gradients with new palette */
   .brand-gradient-cta {
-    background: linear-gradient(135deg, #3ba1cb 0%, #27dddf 30%, #0f384e 70%, #0c323f 100%);
+    background: linear-gradient(135deg, #00D4FF 0%, #22D3EE 30%, #1E3A8A 70%, #0F172A 100%);
   }
 
-  /* Updated Neon effects with new color palette */
+  .liquid-gradient {
+    background: linear-gradient(45deg, #00D4FF, #22D3EE, #7dd3fc, #00D4FF);
+    background-size: 400% 400%;
+    animation: liquid-flow 4s ease-in-out infinite;
+  }
+
+  .ocean-depth-gradient {
+    background: radial-gradient(circle, #7dd3fc 0%, #1E3A8A 50%, #0F172A 100%);
+  }
+
+  .electric-streak-gradient {
+    background: linear-gradient(90deg, transparent 0%, #00D4FF 50%, transparent 100%);
+  }
+
+  /* Enhanced Neon and Glow effects */
+  .neon-glow-electric {
+    box-shadow: 
+      0 0 20px rgba(0, 212, 255, 0.6),
+      0 0 40px rgba(34, 211, 238, 0.4),
+      0 0 60px rgba(125, 211, 252, 0.3),
+      inset 0 0 20px rgba(0, 212, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .neon-glow-electric:hover {
+    box-shadow: 
+      0 0 30px rgba(0, 212, 255, 0.8),
+      0 0 60px rgba(34, 211, 238, 0.6),
+      0 0 90px rgba(125, 211, 252, 0.4),
+      inset 0 0 30px rgba(0, 212, 255, 0.2);
+  }
+
   .neon-glow-brand {
     box-shadow: 
-      0 0 20px rgba(59, 161, 203, 0.4),
-      0 0 40px rgba(39, 221, 223, 0.3),
-      0 0 60px rgba(15, 56, 78, 0.2);
+      0 0 25px rgba(0, 212, 255, 0.5),
+      0 0 50px rgba(34, 211, 238, 0.3),
+      0 0 75px rgba(30, 58, 138, 0.2);
     transition: all 0.3s ease;
   }
 
   .neon-glow-brand:hover {
     box-shadow: 
-      0 0 30px rgba(59, 161, 203, 0.6),
-      0 0 60px rgba(39, 221, 223, 0.4),
-      0 0 80px rgba(15, 56, 78, 0.3);
+      0 0 35px rgba(0, 212, 255, 0.7),
+      0 0 70px rgba(34, 211, 238, 0.5),
+      0 0 100px rgba(30, 58, 138, 0.3);
   }
 
-  /* Phone mockup glow effect */
+  /* Glass and Crystal effects */
+  .glass-effect {
+    background: rgba(0, 212, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    box-shadow: 
+      0 8px 32px rgba(0, 212, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .crystal-border {
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(34, 211, 238, 0.3)) border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .reflection-overlay {
+    position: relative;
+  }
+
+  .reflection-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* Phone mockup enhanced glow */
   .phone-mockup-glow {
     box-shadow: 
-      0 0 40px rgba(59, 161, 203, 0.3),
-      0 0 80px rgba(39, 221, 223, 0.2),
-      0 0 120px rgba(15, 56, 78, 0.15);
+      0 0 50px rgba(0, 212, 255, 0.4),
+      0 0 100px rgba(34, 211, 238, 0.3),
+      0 0 150px rgba(125, 211, 252, 0.2),
+      0 20px 40px rgba(15, 23, 42, 0.3);
   }
 
-  .neon-glow-3d-brand {
-    box-shadow: 
-      0 0 15px rgba(59, 161, 203, 0.6),
-      0 0 30px rgba(39, 221, 223, 0.4);
-    background: linear-gradient(135deg, rgba(59, 161, 203, 0.1), rgba(39, 221, 223, 0.1));
-    backdrop-filter: blur(5px);
-    border: 2px solid rgba(59, 161, 203, 0.3);
+  /* Particle and liquid effects */
+  .liquid-ripple {
+    position: relative;
+    overflow: hidden;
   }
 
-  /* Background glow effects */
+  .liquid-ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: ripple 2s infinite;
+  }
+
+  .floating-particles::before,
+  .floating-particles::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #00D4FF;
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .floating-particles::before {
+    top: 20%;
+    left: 20%;
+    animation-delay: -2s;
+  }
+
+  .floating-particles::after {
+    top: 60%;
+    right: 30%;
+    animation-delay: -4s;
+  }
+
+  /* Enhanced background glow effects */
+  .bg-glow-electric {
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(34, 211, 238, 0.1) 50%, transparent 100%);
+  }
+
+  .bg-glow-ocean {
+    background: radial-gradient(circle, rgba(30, 58, 138, 0.2) 0%, rgba(15, 23, 42, 0.15) 50%, transparent 100%);
+  }
+
   .bg-glow-primary {
-    background: radial-gradient(circle, rgba(59, 161, 203, 0.1) 0%, rgba(39, 221, 223, 0.05) 50%, transparent 100%);
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, rgba(34, 211, 238, 0.08) 50%, transparent 100%);
   }
 
   .bg-glow-secondary {
-    background: radial-gradient(circle, rgba(15, 56, 78, 0.15) 0%, rgba(12, 50, 63, 0.1) 50%, transparent 100%);
+    background: radial-gradient(circle, rgba(30, 58, 138, 0.18) 0%, rgba(15, 23, 42, 0.12) 50%, transparent 100%);
   }
 
+  /* Wave and motion effects */
+  .wave-effect {
+    position: relative;
+  }
+
+  .wave-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.4), transparent);
+    animation: liquid-flow 3s ease-in-out infinite;
+  }
+
+  /* Animation utilities */
   .animate-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
     opacity: 0;
@@ -135,6 +257,10 @@
 
   .animate-pulse-slow {
     animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-glow-pulse {
+    animation: pulse-glow 2s ease-in-out infinite;
   }
 
   @keyframes fadeIn {
