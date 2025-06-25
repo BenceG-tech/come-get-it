@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -64,22 +63,21 @@ const Index = () => {
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto w-full">
-          {/* Desktop Layout */}
-          <div className="hidden lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left side - Text Content */}
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left order-2 lg:order-1">
               {/* Main Headline */}
               <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-6 leading-tight">
                 INGYEN ITAL<br />
                 <span className="text-cyan-400">MINDEN NAPRA</span>
               </h1>
               
-              {/* Come Get It Logo - Much Larger on Desktop */}
+              {/* Come Get It Logo */}
               <div className="mb-8 flex justify-center lg:justify-start">
                 <img 
                   src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
                   alt="Come Get It Logo" 
-                  className="h-24 md:h-32 lg:h-40 xl:h-48 w-auto object-contain"
+                  className="h-16 md:h-20 lg:h-24 w-auto object-contain"
                 />
               </div>
               
@@ -100,62 +98,9 @@ const Index = () => {
               </div>
             </div>
             
-            {/* Right side - Blue Glass with Pouring Effect */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-lg">
-                <img 
-                  src="/lovable-uploads/b37cd069-596f-4a48-bddd-d0a7b1074deb.png" 
-                  alt="Blue Glass with Pouring Effect" 
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Layout */}
-          <div className="lg:hidden space-y-12">
-            {/* Main Headline - Top */}
-            <div className="text-center">
-              <h1 className="text-3xl md:text-4xl font-black text-white mb-6 leading-tight">
-                INGYEN ITAL<br />
-                <span className="text-cyan-400">MINDEN NAPRA</span>
-              </h1>
-            </div>
-            
-            {/* Come Get It Logo - Middle - Much Larger */}
-            <div className="flex justify-center">
-              <img 
-                src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
-                alt="Come Get It Logo" 
-                className="h-40 md:h-48 w-auto object-contain"
-              />
-            </div>
-            
-            {/* Blue Glass Image - Bottom - Much Larger */}
-            <div className="flex justify-center">
-              <div className="relative w-full max-w-lg">
-                <img 
-                  src="/lovable-uploads/b37cd069-596f-4a48-bddd-d0a7b1074deb.png" 
-                  alt="Blue Glass with Pouring Effect" 
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-            </div>
-
-            {/* Description */}
-            <div className="text-center">
-              <p className="text-base md:text-lg text-cyan-100 mb-8 max-w-lg mx-auto">
-                Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
-              </p>
-              
-              {/* CTA Button */}
-              <Button 
-                size="lg" 
-                className="brand-gradient-cta hover:shadow-2xl text-gray-900 font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
-                onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                Kezdjük el! 🚀
-              </Button>
+            {/* Right side - Phone Mockup */}
+            <div className="flex justify-center lg:justify-center order-1 lg:order-2">
+              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-75 md:scale-85 lg:scale-90" />
             </div>
           </div>
         </div>
@@ -165,9 +110,9 @@ const Index = () => {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left - Phone Mockup - Much Larger on Mobile */}
+            {/* Left - Phone Mockup */}
             <div className="flex justify-center lg:justify-end order-2 lg:order-1">
-              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-125 md:scale-150 lg:scale-100" />
+              <PhoneMockup imageIndex={currentImageIndex} />
             </div>
             
             {/* Right - Content */}
@@ -205,9 +150,9 @@ const Index = () => {
               </p>
             </div>
             
-            {/* Right - Phone Mockup - Much Larger on Mobile */}
+            {/* Right - Phone Mockup */}
             <div className="flex justify-center lg:justify-start">
-              <PhoneMockup imageIndex={(currentImageIndex + 1) % appImages.length} className="transform scale-125 md:scale-150 lg:scale-100" />
+              <PhoneMockup imageIndex={(currentImageIndex + 1) % appImages.length} />
             </div>
           </div>
         </div>
@@ -217,9 +162,9 @@ const Index = () => {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left - Phone Mockup - Much Larger on Mobile */}
+            {/* Left - Phone Mockup */}
             <div className="flex justify-center lg:justify-end order-2 lg:order-1">
-              <PhoneMockup imageIndex={(currentImageIndex + 2) % appImages.length} className="transform scale-125 md:scale-150 lg:scale-100" />
+              <PhoneMockup imageIndex={(currentImageIndex + 2) % appImages.length} />
             </div>
             
             {/* Right - Content */}
