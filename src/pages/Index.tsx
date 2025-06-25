@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -63,7 +64,7 @@ const Index = () => {
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left side - Text Content */}
             <div className="text-center lg:text-left order-2 lg:order-1">
               {/* Main Headline */}
@@ -72,12 +73,12 @@ const Index = () => {
                 <span className="text-cyan-400">MINDEN NAPRA</span>
               </h1>
               
-              {/* Come Get It Logo */}
+              {/* Come Get It Logo - Much Larger on Desktop */}
               <div className="mb-8 flex justify-center lg:justify-start">
                 <img 
                   src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
                   alt="Come Get It Logo" 
-                  className="h-16 md:h-20 lg:h-24 w-auto object-contain"
+                  className="h-24 md:h-32 lg:h-40 xl:h-48 w-auto object-contain"
                 />
               </div>
               
@@ -99,8 +100,8 @@ const Index = () => {
             </div>
             
             {/* Right side - Phone Mockup */}
-            <div className="flex justify-center lg:justify-center order-1 lg:order-2">
-              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-75 md:scale-85 lg:scale-90" />
+            <div className="flex justify-center order-1 lg:order-2">
+              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-85 md:scale-90 lg:scale-100" />
             </div>
           </div>
         </div>
@@ -112,7 +113,7 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left - Phone Mockup */}
             <div className="flex justify-center lg:justify-end order-2 lg:order-1">
-              <PhoneMockup imageIndex={currentImageIndex} />
+              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-90 lg:scale-100" />
             </div>
             
             {/* Right - Content */}
@@ -152,7 +153,7 @@ const Index = () => {
             
             {/* Right - Phone Mockup */}
             <div className="flex justify-center lg:justify-start">
-              <PhoneMockup imageIndex={(currentImageIndex + 1) % appImages.length} />
+              <PhoneMockup imageIndex={(currentImageIndex + 1) % appImages.length} className="transform scale-90 lg:scale-100" />
             </div>
           </div>
         </div>
@@ -164,7 +165,7 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left - Phone Mockup */}
             <div className="flex justify-center lg:justify-end order-2 lg:order-1">
-              <PhoneMockup imageIndex={(currentImageIndex + 2) % appImages.length} />
+              <PhoneMockup imageIndex={(currentImageIndex + 2) % appImages.length} className="transform scale-90 lg:scale-100" />
             </div>
             
             {/* Right - Content */}
