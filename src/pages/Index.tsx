@@ -10,6 +10,7 @@ const Index = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [earnImageIndex, setEarnImageIndex] = useState(0);
 
   const appImages = [
     "/lovable-uploads/49f35936-0231-47c1-9c05-932a0e8cbf6b.png",
@@ -17,6 +18,15 @@ const Index = () => {
     "/lovable-uploads/8776d75d-72ee-4984-8b92-a0dcd00dec82.png",
     "/lovable-uploads/b836712d-530e-4a04-a518-1707ae12f75b.png",
     "/lovable-uploads/fe824679-3c0a-4703-a2c9-524d026bb134.png"
+  ];
+
+  // Link section uses specific image
+  const linkImage = "/lovable-uploads/d9b38dee-209b-4035-9d5a-5026e973ed21.png";
+
+  // Earn section uses these two images alternating
+  const earnImages = [
+    "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png",
+    "/lovable-uploads/574c49aa-62ba-49c3-9425-e564722b764e.png"
   ];
 
   useEffect(() => {
@@ -29,6 +39,16 @@ const Index = () => {
     return () => clearInterval(interval);
   }, [appImages.length]);
 
+  useEffect(() => {
+    const earnInterval = setInterval(() => {
+      setEarnImageIndex((prevIndex) => 
+        (prevIndex + 1) % earnImages.length
+      );
+    }, 4000);
+
+    return () => clearInterval(earnInterval);
+  }, [earnImages.length]);
+
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email && gdprAccepted) {
@@ -37,7 +57,7 @@ const Index = () => {
     }
   };
 
-  const PhoneMockup = ({ imageIndex, className }: { imageIndex: number; className?: string }) => (
+  const PhoneMockup = ({ imageUrl, className }: { imageUrl: string; className?: string }) => (
     <div className={`relative ${className}`}>
       <div className="w-64 h-[520px] bg-gradient-to-br from-gray-900 to-black rounded-[3rem] p-2 shadow-2xl neon-glow-brand border border-cyan-400/30">
         <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
@@ -45,7 +65,7 @@ const Index = () => {
           
           <div className="relative w-full h-full">
             <img 
-              src={appImages[imageIndex % appImages.length]}
+              src={imageUrl}
               alt={`App Screenshot`} 
               className="w-full h-full object-cover"
             />
@@ -92,7 +112,7 @@ const Index = () => {
                 {/* Phone mockup with better positioning */}
                 <div className="relative w-full flex justify-center overflow-hidden h-80">
                   <div className="transform scale-100 translate-y-12">
-                    <PhoneMockup imageIndex={currentImageIndex} />
+                    <PhoneMockup imageUrl={appImages[currentImageIndex]} />
                   </div>
                 </div>
               </div>
@@ -134,7 +154,7 @@ const Index = () => {
             
             {/* Right side - Phone Mockup (Desktop only) */}
             <div className="hidden lg:flex justify-center lg:justify-center order-1 lg:order-2">
-              <PhoneMockup imageIndex={currentImageIndex} className="transform scale-75 md:scale-85 lg:scale-90" />
+              <PhoneMockup imageUrl={appImages[currentImageIndex]} className="transform scale-75 md:scale-85 lg:scale-90" />
             </div>
           </div>
         </div>
@@ -146,7 +166,7 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left - Phone Mockup */}
             <div className="flex justify-center lg:justify-end order-2 lg:order-1">
-              <PhoneMockup imageIndex={currentImageIndex} />
+              <PhoneMockup imageUrl={appImages[currentImageIndex]} />
             </div>
             
             {/* Right - Content */}
@@ -184,9 +204,9 @@ const Index = () => {
               </p>
             </div>
             
-            {/* Right - Phone Mockup */}
+            {/* Right - Phone Mockup with specific image */}
             <div className="flex justify-center lg:justify-start">
-              <PhoneMockup imageIndex={(currentImageIndex + 1) % appImages.length} />
+              <PhoneMockup imageUrl={linkImage} />
             </div>
           </div>
         </div>
@@ -196,9 +216,9 @@ const Index = () => {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left - Phone Mockup */}
+            {/* Left - Phone Mockup with alternating earn images */}
             <div className="flex justify-center lg:justify-end order-2 lg:order-1">
-              <PhoneMockup imageIndex={(currentImageIndex + 2) % appImages.length} />
+              <PhoneMockup imageUrl={earnImages[earnImageIndex]} />
             </div>
             
             {/* Right - Content */}
