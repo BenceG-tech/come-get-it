@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -67,32 +66,49 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left side - Text Content */}
             <div className="text-center lg:text-left order-2 lg:order-1">
-              {/* Mobile Layout */}
-              <div className="lg:hidden flex flex-col items-center space-y-6">
-                {/* Main title at top on mobile - INGYEN ITAL in white */}
-                <h1 className="text-4xl md:text-5xl font-black mb-2 leading-tight text-center">
-                  <span className="text-white">INGYEN ITAL</span><br />
-                  <span className="text-cyan-400">MINDEN NAPRA</span>
-                </h1>
-                
-                {/* Even larger logo on mobile */}
-                <div className="mb-4">
-                  <img 
-                    src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
-                    alt="Come Get It Logo" 
-                    className="h-40 md:h-48 w-auto object-contain mx-auto"
-                  />
-                </div>
-                
-                {/* Subtitle between logo and phone */}
-                <p className="text-lg md:text-xl text-cyan-100 mb-4 max-w-lg mx-auto text-center">
-                  Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
-                </p>
-                
-                {/* Phone mockup with better positioning */}
-                <div className="relative w-full flex justify-center overflow-hidden h-80">
-                  <div className="transform scale-100 translate-y-12">
-                    <PhoneMockup imageIndex={currentImageIndex} />
+              {/* Mobile Layout - Simplified and Modern */}
+              <div className="lg:hidden">
+                <div className="space-y-8">
+                  {/* Main title */}
+                  <div className="text-center">
+                    <h1 className="text-4xl md:text-5xl font-black leading-tight">
+                      <span className="text-white">INGYEN ITAL</span><br />
+                      <span className="text-cyan-400">MINDEN NAPRA</span>
+                    </h1>
+                  </div>
+                  
+                  {/* Logo */}
+                  <div className="flex justify-center">
+                    <img 
+                      src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
+                      alt="Come Get It Logo" 
+                      className="h-40 md:h-48 w-auto object-contain"
+                    />
+                  </div>
+                  
+                  {/* Subtitle */}
+                  <div className="text-center">
+                    <p className="text-lg md:text-xl text-cyan-100 max-w-lg mx-auto">
+                      Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
+                    </p>
+                  </div>
+                  
+                  {/* CTA Button */}
+                  <div className="flex justify-center">
+                    <Button 
+                      size="lg" 
+                      className="brand-gradient-cta hover:shadow-2xl text-gray-900 font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
+                      onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
+                      Kezdjük el! 🚀
+                    </Button>
+                  </div>
+                  
+                  {/* Phone mockup - half cut at bottom */}
+                  <div className="relative h-96 overflow-hidden">
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-32">
+                      <PhoneMockup imageIndex={currentImageIndex} />
+                    </div>
                   </div>
                 </div>
               </div>
