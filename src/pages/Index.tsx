@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -57,7 +58,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="relative min-h-screen py-12 px-4 flex items-center">
+      <section className="relative min-h-screen py-12 px-4 flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-400/10 via-blue-500/10 to-cyan-300/10 rounded-full blur-3xl"></div>
         </div>
@@ -66,40 +67,68 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left side - Text Content */}
             <div className="text-center lg:text-left order-2 lg:order-1">
-              {/* Main Headline */}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-6 leading-tight">
-                INGYEN ITAL<br />
-                <span className="text-cyan-400">MINDEN NAPRA</span>
-              </h1>
-              
-              {/* Come Get It Logo */}
-              <div className="mb-8 flex justify-center lg:justify-start">
-                <img 
-                  src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
-                  alt="Come Get It Logo" 
-                  className="h-16 md:h-20 lg:h-24 w-auto object-contain"
-                />
+              {/* Mobile Layout */}
+              <div className="lg:hidden flex flex-col items-center space-y-8">
+                {/* Main title at top on mobile */}
+                <h1 className="text-4xl md:text-5xl font-black text-cyan-400 mb-4 leading-tight text-center">
+                  INGYEN ITAL<br />
+                  MINDEN NAPRA
+                </h1>
+                
+                {/* Very large logo on mobile */}
+                <div className="mb-8">
+                  <img 
+                    src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
+                    alt="Come Get It Logo" 
+                    className="h-32 md:h-40 w-auto object-contain mx-auto"
+                  />
+                </div>
+                
+                {/* Half-visible phone mockup on mobile */}
+                <div className="relative w-full flex justify-center">
+                  <div className="transform scale-110 translate-y-16">
+                    <PhoneMockup imageIndex={currentImageIndex} />
+                  </div>
+                </div>
               </div>
-              
-              {/* Description */}
-              <p className="text-base md:text-lg lg:text-xl text-cyan-100 mb-8 max-w-lg mx-auto lg:mx-0">
-                Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
-              </p>
-              
-              {/* CTA Button */}
-              <div className="flex justify-center lg:justify-start">
-                <Button 
-                  size="lg" 
-                  className="brand-gradient-cta hover:shadow-2xl text-gray-900 font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
-                  onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Kezdjük el! 🚀
-                </Button>
+
+              {/* Desktop Layout */}
+              <div className="hidden lg:block">
+                {/* Main Headline */}
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-6 leading-tight">
+                  INGYEN ITAL<br />
+                  <span className="text-cyan-400">MINDEN NAPRA</span>
+                </h1>
+                
+                {/* Come Get It Logo */}
+                <div className="mb-8 flex justify-center lg:justify-start">
+                  <img 
+                    src="/lovable-uploads/eda5993e-c319-4f3a-981d-fe1d39a1d33c.png" 
+                    alt="Come Get It Logo" 
+                    className="h-16 md:h-20 lg:h-24 w-auto object-contain"
+                  />
+                </div>
+                
+                {/* Description */}
+                <p className="text-base md:text-lg lg:text-xl text-cyan-100 mb-8 max-w-lg mx-auto lg:mx-0">
+                  Fedezd fel Budapest legjobb helyeit, szerezz ingyen italokat és segíts másokon
+                </p>
+                
+                {/* CTA Button */}
+                <div className="flex justify-center lg:justify-start">
+                  <Button 
+                    size="lg" 
+                    className="brand-gradient-cta hover:shadow-2xl text-gray-900 font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
+                    onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Kezdjük el! 🚀
+                  </Button>
+                </div>
               </div>
             </div>
             
-            {/* Right side - Phone Mockup */}
-            <div className="flex justify-center lg:justify-center order-1 lg:order-2">
+            {/* Right side - Phone Mockup (Desktop only) */}
+            <div className="hidden lg:flex justify-center lg:justify-center order-1 lg:order-2">
               <PhoneMockup imageIndex={currentImageIndex} className="transform scale-75 md:scale-85 lg:scale-90" />
             </div>
           </div>
