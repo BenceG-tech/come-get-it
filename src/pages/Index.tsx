@@ -15,11 +15,8 @@ const Index = () => {
   const [earnImageIndex, setEarnImageIndex] = useState(0);
 
   const appImages = [
-    "/lovable-uploads/49f35936-0231-47c1-9c05-932a0e8cbf6b.png",
-    "/lovable-uploads/ea91230f-2ead-48f2-8c86-e8b0522217a7.png",
-    "/lovable-uploads/8776d75d-72ee-4984-8b92-a0dcd00dec82.png",
-    "/lovable-uploads/b836712d-530e-4a04-a518-1707ae12f75b.png",
-    "/lovable-uploads/fe824679-3c0a-4703-a2c9-524d026bb134.png"
+    "/lovable-uploads/1d253158-a9a3-4377-bfe6-480c7551ca4b.png",
+    "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.png"
   ];
 
   // Drink section uses these two images alternating
