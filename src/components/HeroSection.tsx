@@ -37,7 +37,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-electric-300 to-ocean-600 hover:shadow-2xl text-white font-bold py-7 px-14 text-xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-electric border-0 wave-effect"
+              className="bg-gradient-to-r from-electric-300 to-ocean-600 hover:shadow-2xl text-white font-bold py-7 px-14 text-xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
               onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Regisztrálj most!
@@ -64,11 +64,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
             </p>
             
-            {/* Updated CTA Button with fixed gradient */}
+            {/* Updated CTA Button with unified glow */}
             <div className="pt-4">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-electric-300 to-ocean-600 hover:shadow-2xl text-white font-bold py-6 px-16 text-2xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-electric border-0 wave-effect glass-effect"
+                className="bg-gradient-to-r from-electric-300 to-ocean-600 hover:shadow-2xl text-white font-bold py-6 px-16 text-2xl rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
                 onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Regisztrálj most!
