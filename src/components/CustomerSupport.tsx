@@ -36,25 +36,25 @@ export const CustomerSupport: React.FC = () => {
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between p-4 border-b border-white/20 bg-gray-900/95 backdrop-blur-sm">
-      <div className="flex items-center space-x-3">
+    <div className="flex items-center justify-between p-3 border-b border-white/10 bg-gray-900/98 backdrop-blur-sm">
+      <div className="flex items-center space-x-2">
         {detailView && (
           <Button
             variant="ghost"
             size="icon"
             onClick={closeDetailView}
-            className="text-white hover:bg-white/10 h-8 w-8 mr-2"
+            className="text-white hover:bg-white/10 h-7 w-7"
           >
             <ArrowLeft className="w-4 h-4" />
           </Button>
         )}
-        <h2 className="text-lg font-bold text-white">Come Get It</h2>
+        <h2 className="text-base font-bold text-white">Come Get It</h2>
         <div className="flex space-x-1">
-          <div className="w-5 h-5 bg-electric-300 rounded-full flex items-center justify-center">
-            <span className="text-xs font-bold text-black">CG</span>
+          <div className="w-4 h-4 bg-electric-300 rounded-full flex items-center justify-center">
+            <span className="text-xs font-bold text-black">C</span>
           </div>
-          <div className="w-5 h-5 bg-ocean-400 rounded-full flex items-center justify-center">
-            <span className="text-xs font-bold text-white">IT</span>
+          <div className="w-4 h-4 bg-ocean-400 rounded-full flex items-center justify-center">
+            <span className="text-xs font-bold text-white">G</span>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@ export const CustomerSupport: React.FC = () => {
         variant="ghost"
         size="icon"
         onClick={toggleSupport}
-        className="text-white hover:bg-white/10 h-8 w-8"
+        className="text-white hover:bg-white/10 h-7 w-7"
       >
         <X className="w-4 h-4" />
       </Button>
@@ -70,21 +70,21 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderFooterNav = () => (
-    <div className="absolute bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-white/20 z-20">
+    <div className="fixed bottom-0 left-0 right-0 bg-gray-900/98 backdrop-blur-sm border-t border-white/10 z-30">
       <div className="flex">
         <button
           onClick={() => {
             setCurrentTab('home');
             setDetailView(null);
           }}
-          className={`flex-1 flex flex-col items-center py-4 px-3 transition-all duration-200 ${
+          className={`flex-1 flex flex-col items-center py-2.5 px-2 transition-all duration-200 ${
             currentTab === 'home' && !detailView
-              ? 'text-electric-300 bg-electric-300/20 border-t-2 border-electric-300' 
-              : 'text-white/60 hover:text-white/80 hover:bg-white/10'
+              ? 'text-electric-300 bg-electric-300/15 border-t-2 border-electric-300' 
+              : 'text-white/70 hover:text-white hover:bg-white/5'
           }`}
         >
-          <Home className="w-6 h-6 mb-1" />
-          <span className="text-xs font-medium">Kezdőoldal</span>
+          <Home className="w-5 h-5 mb-0.5" />
+          <span className="text-xs font-medium">Kezdőlap</span>
         </button>
         
         <button
@@ -92,13 +92,13 @@ export const CustomerSupport: React.FC = () => {
             setCurrentTab('messages');
             setDetailView(null);
           }}
-          className={`flex-1 flex flex-col items-center py-4 px-3 transition-all duration-200 ${
+          className={`flex-1 flex flex-col items-center py-2.5 px-2 transition-all duration-200 ${
             currentTab === 'messages' && !detailView
-              ? 'text-electric-300 bg-electric-300/20 border-t-2 border-electric-300' 
-              : 'text-white/60 hover:text-white/80 hover:bg-white/10'
+              ? 'text-electric-300 bg-electric-300/15 border-t-2 border-electric-300' 
+              : 'text-white/70 hover:text-white hover:bg-white/5'
           }`}
         >
-          <MessageCircle className="w-6 h-6 mb-1" />
+          <MessageCircle className="w-5 h-5 mb-0.5" />
           <span className="text-xs font-medium">Üzenetek</span>
         </button>
         
@@ -107,13 +107,13 @@ export const CustomerSupport: React.FC = () => {
             setCurrentTab('help');
             setDetailView(null);
           }}
-          className={`flex-1 flex flex-col items-center py-4 px-3 transition-all duration-200 ${
+          className={`flex-1 flex flex-col items-center py-2.5 px-2 transition-all duration-200 ${
             currentTab === 'help' && !detailView
-              ? 'text-electric-300 bg-electric-300/20 border-t-2 border-electric-300' 
-              : 'text-white/60 hover:text-white/80 hover:bg-white/10'
+              ? 'text-electric-300 bg-electric-300/15 border-t-2 border-electric-300' 
+              : 'text-white/70 hover:text-white hover:bg-white/5'
           }`}
         >
-          <HelpCircle className="w-6 h-6 mb-1" />
+          <HelpCircle className="w-5 h-5 mb-0.5" />
           <span className="text-xs font-medium">Súgó</span>
         </button>
       </div>
@@ -126,55 +126,55 @@ export const CustomerSupport: React.FC = () => {
         title: 'Ingyen italok',
         content: [
           {
-            question: 'Hogyan szerezhetem meg az ingyen italt?',
-            answer: 'Töltsd le az alkalmazást, regisztrálj és azonnal kapsz egy ingyen italt a résztvevő helyszíneken.'
+            question: 'Hogyan szerezhetem meg?',
+            answer: 'Regisztrálj az appban és azonnal kapsz egy ingyenes italt a partnereknél.'
           },
           {
-            question: 'Hol használhatom fel az ingyen italt?',
-            answer: 'Az összes partnercégünknél, amelyek szerepelnek az alkalmazásban. A térképen találod őket.'
+            question: 'Hol használhatom?',
+            answer: 'Minden partnerhelyen, amelyek az app térképén szerepelnek.'
           },
           {
-            question: 'Van-e időkorlát az ingyen italra?',
-            answer: 'Az ingyen ital kupon 30 napig érvényes az aktiválástól számítva.'
+            question: 'Meddig érvényes?',
+            answer: 'A kupon 30 napig használható az aktiválástól számítva.'
           }
         ]
       },
       'jutalmak': {
-        title: 'Jutalmak és kártya összekapcsolás',
+        title: 'Jutalmak',
         content: [
           {
-            question: 'Hogyan kapcsolhatom össze a kártyámat?',
-            answer: 'A Profil > Kártyák menüpontban add hozzá a hűségkártyádat vagy bankkártyádat.'
+            question: 'Kártya összekapcsolás',
+            answer: 'Profil > Kártyák menüben add hozzá a hűségkártyádat.'
           },
           {
-            question: 'Milyen jutalmakat szerezhetek?',
-            answer: 'Pontokat gyűjthetsz minden vásárlás után, amelyeket ingyen italokra vagy kedvezményekre válthatasz.'
+            question: 'Pontgyűjtés',
+            answer: 'Minden vásárlás után pontokat kapsz, amelyeket jutalmakra válthatasz.'
           }
         ]
       },
       'regisztracio': {
-        title: 'Regisztráció és fiókkezelés',
+        title: 'Fiók',
         content: [
           {
-            question: 'Hogyan regisztrálhatok?',
-            answer: 'Töltsd le az alkalmazást és kövesd a regisztrációs lépéseket. Szükséged lesz egy email címre és telefonszámra.'
+            question: 'Regisztráció',
+            answer: 'Email cím és telefonszám szükséges a regisztrációhoz.'
           },
           {
-            question: 'Hogyan változtathatom meg az adataim?',
-            answer: 'A Profil menüben szerkesztheted a személyes adataidat, jelszavadat és értesítési beállításaidat.'
+            question: 'Adatok módosítása',
+            answer: 'Profil menüben szerkesztheted az adataidat és beállításaidat.'
           }
         ]
       },
       'ajanlas': {
-        title: 'Ajánlások és megosztás',
+        title: 'Ajánlások',
         content: [
           {
-            question: 'Hogyan hívhatom meg a barátaimat?',
-            answer: 'A Megosztás menüben találod a referral linkedet, amelyet elküldhetsz barátaidnak.'
+            question: 'Barátok meghívása',
+            answer: 'Megosztás menüben találod a referral linkedet.'
           },
           {
-            question: 'Mit kapok, ha meghívok valakit?',
-            answer: 'Minden sikeres meghívásért pontokat kapsz, amelyeket jutalmakra válthatasz.'
+            question: 'Jutalmak',
+            answer: 'Minden sikeres meghívásért pontokat kapsz.'
           }
         ]
       }
@@ -186,28 +186,24 @@ export const CustomerSupport: React.FC = () => {
       <div className="flex flex-col h-full">
         {renderHeader()}
         
-        <div className="flex-1 p-6 space-y-6 overflow-y-auto pb-24">
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-4">{faqData.title}</h3>
-          </div>
+        <div className="flex-1 p-4 space-y-4 overflow-y-auto pb-20">
+          <h3 className="text-xl font-bold text-white">{faqData.title}</h3>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {faqData.content.map((item, index) => (
-              <div key={index} className="bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-all duration-200">
-                <h4 className="font-semibold text-white mb-3 text-lg">{item.question}</h4>
-                <p className="text-white/80 leading-relaxed">{item.answer}</p>
+              <div key={index} className="bg-white/5 border border-white/10 rounded-lg p-4 hover:bg-white/8 transition-all duration-200">
+                <h4 className="font-semibold text-white mb-2">{item.question}</h4>
+                <p className="text-white/80 text-sm leading-relaxed">{item.answer}</p>
               </div>
             ))}
           </div>
 
-          <div className="pt-4">
-            <Button
-              onClick={() => setCurrentTab('messages')}
-              className="w-full bg-electric-300 hover:bg-electric-400 text-black font-semibold py-3 rounded-xl"
-            >
-              További kérdés esetén írj nekünk
-            </Button>
-          </div>
+          <Button
+            onClick={() => setCurrentTab('messages')}
+            className="w-full bg-electric-300 hover:bg-electric-400 text-black font-semibold py-2.5 rounded-lg"
+          >
+            További kérdés esetén írj nekünk
+          </Button>
         </div>
         
         {renderFooterNav()}
@@ -219,76 +215,76 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full">
       {renderHeader()}
       
-      <div className="flex-1 p-6 space-y-6 overflow-y-auto pb-24">
+      <div className="flex-1 p-4 space-y-4 overflow-y-auto pb-20">
         <div>
-          <h3 className="text-2xl font-bold text-white mb-2">Szia! 👋</h3>
-          <p className="text-white/80 text-lg">Miben segíthetünk?</p>
+          <h3 className="text-xl font-bold text-white mb-1">Szia! 👋</h3>
+          <p className="text-white/80">Miben segíthetünk?</p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           <Button
             onClick={() => setCurrentTab('messages')}
-            className="w-full h-16 bg-electric-300 hover:bg-electric-400 text-black font-semibold text-left flex items-center justify-between rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+            className="w-full h-12 bg-electric-300 hover:bg-electric-400 text-black font-semibold text-left flex items-center justify-between rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
           >
-            <span className="text-lg">Írj nekünk üzenetet</span>
-            <Send className="w-6 h-6" />
+            <span>Írj nekünk üzenetet</span>
+            <Send className="w-5 h-5" />
           </Button>
 
           <Button
             onClick={() => setCurrentTab('help')}
-            className="w-full h-16 bg-white/10 hover:bg-white/20 text-white font-semibold text-left flex items-center justify-between rounded-xl border-2 border-white/20 hover:border-white/30 transition-all duration-200"
+            className="w-full h-12 bg-white/10 hover:bg-white/20 text-white font-semibold text-left flex items-center justify-between rounded-lg border border-white/20 hover:border-white/30 transition-all duration-200"
           >
-            <span className="text-lg">Keresés a súgóban</span>
-            <Search className="w-6 h-6" />
+            <span>Keresés a súgóban</span>
+            <Search className="w-5 h-5" />
           </Button>
         </div>
 
-        <div className="space-y-4">
-          <h4 className="text-sm font-medium text-white/60 uppercase tracking-wide">Gyakori kérdések</h4>
+        <div className="space-y-3">
+          <h4 className="text-xs font-medium text-white/60 uppercase tracking-wide">Gyors válaszok</h4>
           
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 gap-2">
             <button 
               onClick={() => openDetailView('ingyen-italok')}
-              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+              className="w-full text-left p-3 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-all duration-200 hover:border-electric-300/50 group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Ingyen italok</span>
-                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-white font-medium group-hover:text-electric-300 transition-colors">Ingyen italok</span>
+                <span className="text-white/40 group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-white/60 text-sm mt-2">Hogyan szerezd meg és használd fel az ingyen italokat</p>
+              <p className="text-white/60 text-xs mt-1">Megszerzés és felhasználás</p>
             </button>
             
             <button 
               onClick={() => openDetailView('jutalmak')}
-              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+              className="w-full text-left p-3 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-all duration-200 hover:border-electric-300/50 group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Jutalmak és kártya összekapcsolás</span>
-                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-white font-medium group-hover:text-electric-300 transition-colors">Jutalmak</span>
+                <span className="text-white/40 group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-white/60 text-sm mt-2">Kártyák hozzáadása és jutalmak kezelése</p>
+              <p className="text-white/60 text-xs mt-1">Kártyák és pontgyűjtés</p>
             </button>
             
             <button 
               onClick={() => openDetailView('regisztracio')}
-              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+              className="w-full text-left p-3 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-all duration-200 hover:border-electric-300/50 group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Regisztráció és fiókkezelés</span>
-                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-white font-medium group-hover:text-electric-300 transition-colors">Fiók kezelés</span>
+                <span className="text-white/40 group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-white/60 text-sm mt-2">Fiók létrehozása és személyes adatok kezelése</p>
+              <p className="text-white/60 text-xs mt-1">Regisztráció és beállítások</p>
             </button>
 
             <button 
               onClick={() => openDetailView('ajanlas')}
-              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+              className="w-full text-left p-3 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-all duration-200 hover:border-electric-300/50 group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</span>
-                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-white font-medium group-hover:text-electric-300 transition-colors">Ajánlások</span>
+                <span className="text-white/40 group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-white/60 text-sm mt-2">Barátok meghívása és jutalmak szerzése</p>
+              <p className="text-white/60 text-xs mt-1">Barátok meghívása</p>
             </button>
           </div>
         </div>
@@ -302,31 +298,31 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full">
       {renderHeader()}
 
-      <div className="flex-1 flex flex-col items-center justify-center p-6 pb-32">
-        <div className="bg-white/5 rounded-full p-8 mb-6">
-          <MessageCircle className="w-16 h-16 text-electric-300" />
+      <div className="flex-1 flex flex-col items-center justify-center p-4 pb-32">
+        <div className="bg-white/5 rounded-full p-6 mb-4">
+          <MessageCircle className="w-12 h-12 text-electric-300" />
         </div>
-        <h3 className="text-2xl font-bold text-white mb-3">Nincs üzenet</h3>
-        <p className="text-white/60 text-center text-lg max-w-sm">
-          A csapat üzenetei itt fognak megjelenni. Írj nekünk, ha segítségre van szükséged!
+        <h3 className="text-lg font-bold text-white mb-2">Nincs üzenet</h3>
+        <p className="text-white/60 text-center text-sm max-w-xs">
+          Itt jelennek meg a csapat üzenetei. Írj nekünk bármikor!
         </p>
       </div>
 
-      <div className="absolute bottom-20 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/95 to-transparent">
-        <div className="flex space-x-3">
+      <div className="fixed bottom-16 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent">
+        <div className="flex space-x-2">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Írj nekünk üzenetet..."
-            className="flex-1 bg-white/10 border-2 border-white/20 rounded-xl px-4 py-4 text-white placeholder-white/50 focus:outline-none focus:border-electric-300 focus:ring-2 focus:ring-electric-300/20 text-lg"
+            className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-white placeholder-white/50 focus:outline-none focus:border-electric-300 focus:ring-1 focus:ring-electric-300/20 text-sm"
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
           <Button
             onClick={handleSendMessage}
-            className="bg-electric-300 hover:bg-electric-400 text-black px-5 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+            className="bg-electric-300 hover:bg-electric-400 text-black px-3 py-2.5 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
           >
-            <Send className="w-6 h-6" />
+            <Send className="w-4 h-4" />
           </Button>
         </div>
       </div>
@@ -339,73 +335,65 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full">
       {renderHeader()}
 
-      <div className="flex-1 p-6 space-y-6 overflow-y-auto pb-24">
+      <div className="flex-1 p-4 space-y-4 overflow-y-auto pb-20">
         <div className="relative">
           <input
             type="text"
-            placeholder="Keresés a súgóban..."
-            className="w-full bg-white/10 border-2 border-white/20 rounded-xl px-4 py-4 pr-12 text-white placeholder-white/50 focus:outline-none focus:border-electric-300 focus:ring-2 focus:ring-electric-300/20 text-lg"
+            placeholder="Keresés..."
+            className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 pr-10 text-white placeholder-white/50 focus:outline-none focus:border-electric-300 focus:ring-1 focus:ring-electric-300/20 text-sm"
           />
-          <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-white/40" />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/40" />
         </div>
 
-        <div className="space-y-4">
-          <p className="text-sm text-white/50">4 kategória</p>
+        <div className="space-y-3">
+          <p className="text-xs text-white/60">Kategóriák</p>
           
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 gap-2">
             <button 
               onClick={() => openDetailView('ingyen-italok')}
-              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+              className="w-full bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
             >
-              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Ingyen italok</h3>
-              <p className="text-white/70 mb-4 leading-relaxed">
-                Minden amit tudnod kell az ingyen italokról, beleértve a megszerzést és felhasználást.
-              </p>
+              <h3 className="font-semibold text-white mb-1 group-hover:text-electric-300 transition-colors">Ingyen italok</h3>
+              <p className="text-white/70 text-xs mb-2">Ingyen italok megszerzése és felhasználása</p>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-white/50">3 cikk</span>
-                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+                <span className="text-xs text-white/50">3 cikk</span>
+                <span className="text-xs text-white/40">›</span>
               </div>
             </button>
 
             <button 
               onClick={() => openDetailView('jutalmak')}
-              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+              className="w-full bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
             >
-              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Jutalmak és kártyák</h3>
-              <p className="text-white/70 mb-4 leading-relaxed">
-                Kártyák összekapcsolása, pontgyűjtés és jutalmak kezelése.
-              </p>
+              <h3 className="font-semibold text-white mb-1 group-hover:text-electric-300 transition-colors">Jutalmak</h3>
+              <p className="text-white/70 text-xs mb-2">Kártya összekapcsolás és pontgyűjtés</p>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-white/50">2 cikk</span>
-                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+                <span className="text-xs text-white/50">2 cikk</span>
+                <span className="text-xs text-white/40">›</span>
               </div>
             </button>
 
             <button 
               onClick={() => openDetailView('regisztracio')}
-              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+              className="w-full bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
             >
-              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Fiók és regisztráció</h3>
-              <p className="text-white/70 mb-4 leading-relaxed">
-                Regisztráció, bejelentkezés és fiókadatok kezelése.
-              </p>
+              <h3 className="font-semibold text-white mb-1 group-hover:text-electric-300 transition-colors">Fiók kezelés</h3>
+              <p className="text-white/70 text-xs mb-2">Regisztráció és beállítások</p>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-white/50">2 cikk</span>
-                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+                <span className="text-xs text-white/50">2 cikk</span>
+                <span className="text-xs text-white/40">›</span>
               </div>
             </button>
 
             <button 
               onClick={() => openDetailView('ajanlas')}
-              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+              className="w-full bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
             >
-              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</h3>
-              <p className="text-white/70 mb-4 leading-relaxed">
-                Barátok meghívása és referral jutalmak megszerzése.
-              </p>
+              <h3 className="font-semibold text-white mb-1 group-hover:text-electric-300 transition-colors">Ajánlások</h3>
+              <p className="text-white/70 text-xs mb-2">Barátok meghívása és jutalmak</p>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-white/50">2 cikk</span>
-                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+                <span className="text-xs text-white/50">2 cikk</span>
+                <span className="text-xs text-white/40">›</span>
               </div>
             </button>
           </div>
@@ -438,9 +426,9 @@ export const CustomerSupport: React.FC = () => {
       {!isOpen && (
         <button
           onClick={toggleSupport}
-          className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-electric-300 hover:bg-electric-400 rounded-full shadow-2xl neon-glow-electric flex items-center justify-center transition-all duration-300 hover:scale-110"
+          className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-electric-300 hover:bg-electric-400 rounded-full shadow-2xl neon-glow-electric flex items-center justify-center transition-all duration-300 hover:scale-110"
         >
-          <MessageCircle className="w-7 h-7 text-black" />
+          <MessageCircle className="w-6 h-6 text-black" />
         </button>
       )}
 
@@ -452,7 +440,7 @@ export const CustomerSupport: React.FC = () => {
           />
           
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="w-full max-w-md h-[700px] bg-gradient-to-b from-gray-900 to-black rounded-2xl shadow-2xl neon-glow-electric border border-white/20 overflow-hidden relative">
+            <div className="w-full max-w-sm h-[600px] bg-gradient-to-b from-gray-900 to-black rounded-xl shadow-2xl neon-glow-electric border border-white/20 overflow-hidden relative">
               {renderCurrentView()}
             </div>
           </div>
