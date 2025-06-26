@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -226,17 +225,17 @@
     animation: ripple 2s infinite;
   }
 
-  /* Optimized multi-layered phone glow effects - smoother and less pixelated */
+  /* Updated phone glow effects with teal colors matching the provided image */
   .bg-unified-glow-phone-outer {
-    background: radial-gradient(ellipse, rgba(0, 212, 255, 0.3) 0%, rgba(34, 211, 238, 0.15) 25%, rgba(125, 211, 252, 0.08) 50%, rgba(3, 105, 161, 0.03) 75%, transparent 100%);
+    background: radial-gradient(ellipse, rgba(15, 76, 117, 0.3) 0%, rgba(30, 90, 138, 0.15) 25%, rgba(45, 106, 159, 0.08) 50%, rgba(60, 122, 180, 0.03) 75%, transparent 100%);
   }
 
   .bg-unified-glow-phone-middle {
-    background: radial-gradient(ellipse, rgba(0, 212, 255, 0.4) 0%, rgba(34, 211, 238, 0.22) 35%, rgba(125, 211, 252, 0.1) 70%, transparent 100%);
+    background: radial-gradient(ellipse, rgba(15, 76, 117, 0.4) 0%, rgba(30, 90, 138, 0.22) 35%, rgba(45, 106, 159, 0.1) 70%, transparent 100%);
   }
 
   .bg-unified-glow-phone-inner {
-    background: radial-gradient(ellipse, rgba(0, 212, 255, 0.5) 0%, rgba(34, 211, 238, 0.3) 40%, rgba(125, 211, 252, 0.15) 80%, transparent 100%);
+    background: radial-gradient(ellipse, rgba(15, 76, 117, 0.5) 0%, rgba(30, 90, 138, 0.3) 40%, rgba(45, 106, 159, 0.15) 80%, transparent 100%);
   }
 
   /* Unified background glow effects with consistent colors */
