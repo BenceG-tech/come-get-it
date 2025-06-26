@@ -29,7 +29,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             </h1>
             
             <p className="text-lg text-electric-100 max-w-lg mx-auto leading-relaxed">
-              Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
+              Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat, és élvezd a legjobb bulikat a barátaiddal!
             </p>
             
             <Button 
@@ -58,7 +58,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             
             {/* Updated subtitle */}
             <p className="text-xl xl:text-2xl text-electric-100 max-w-2xl font-medium leading-relaxed">
-              Fedezd fel Budapestet, igyál minden nap ingyen, szerezz pontokat és bulizz a barátaiddal!
+              Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat, és élvezd a legjobb bulikat a barátaiddal!
             </p>
             
             {/* Updated CTA Button with unified style */}

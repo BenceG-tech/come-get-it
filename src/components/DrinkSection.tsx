@@ -21,8 +21,7 @@ export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, d
             Igyál ingyen minden nap
           </p>
           <p className="text-lg text-white max-w-lg mb-8">
-            Válaszd ki kedvenc helyedet a térképen, menj oda és igyál ingyen! 
-            Új helyek, új ízek, új élmények várnak rád.
+            Válassz egy bárt, mutasd fel az appod, és élvezd az aznapi ingyen italod! Minden nap új élmény, új hely, új társaság.
           </p>
           
           <Button 

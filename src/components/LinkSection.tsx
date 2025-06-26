@@ -16,10 +16,10 @@ export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => (
             LINK.
           </h2>
           <p className="text-2xl md:text-3xl text-white mb-6 font-medium">
-            Csatlakozz a közösséghez
+            Csatlakozz a közösséghez!
           </p>
           <p className="text-lg text-white max-w-lg">
-            Csatold a kártyád, költs a partnerhelyeken, és minden alkalommal pontokkal gazdagodsz, amiket exkluzív jutalmakra válthatsz!
+            Kösd össze bankkártyádat biztonságosan, és minden partnerhelyen történő fogyasztásod után automatikusan pontokat kapsz, amiket értékes jutalmakra válthatsz.
           </p>
         </div>
         

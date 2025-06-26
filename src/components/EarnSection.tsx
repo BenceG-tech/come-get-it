@@ -28,8 +28,7 @@ export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnIm
             Gyűjts pontokat és segíts
           </p>
           <p className="text-lg text-white max-w-lg">
-            Minden fogyasztásért pontot kapsz, amit értékes jutalmakra válthatsz. 
-            Közben automatikusan támogatod a jótékonyságot.
+            Gyűjts pontokat minden kortyért, felfedezésért és aktivitásért! Váltsd be őket exkluzív jutalmakra, miközben minden italoddal jótékony célt is támogatsz.
           </p>
         </div>
       </div>
