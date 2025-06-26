@@ -226,17 +226,17 @@
     animation: ripple 2s infinite;
   }
 
-  /* Enhanced multi-layered phone glow effects */
+  /* Improved multi-layered phone glow effects - tighter and more focused */
   .bg-unified-glow-phone-outer {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, rgba(34, 211, 238, 0.15) 40%, rgba(125, 211, 252, 0.05) 70%, transparent 100%);
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.25) 0%, rgba(34, 211, 238, 0.12) 30%, rgba(125, 211, 252, 0.04) 60%, transparent 100%);
   }
 
   .bg-unified-glow-phone-middle {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, rgba(34, 211, 238, 0.2) 50%, transparent 100%);
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.35) 0%, rgba(34, 211, 238, 0.18) 40%, transparent 80%);
   }
 
   .bg-unified-glow-phone-inner {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.5) 0%, rgba(34, 211, 238, 0.25) 60%, transparent 100%);
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.45) 0%, rgba(34, 211, 238, 0.25) 50%, transparent 90%);
   }
 
   /* Unified background glow effects with consistent colors */

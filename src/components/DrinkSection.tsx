@@ -33,12 +33,9 @@ export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, d
           </Button>
         </div>
         
-        {/* Right - Phone Mockup */}
+        {/* Right - Phone Mockup without green box */}
         <div className="flex justify-center lg:justify-start relative">
-          <div className="absolute inset-8 bg-cyan-400 opacity-20 blur-md"></div>
-          <div className="relative">
-            <PhoneMockup imageUrl={drinkImages[currentImageIndex]} />
-          </div>
+          <PhoneMockup imageUrl={drinkImages[currentImageIndex]} />
         </div>
       </div>
     </div>
