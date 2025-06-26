@@ -23,12 +23,9 @@ export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => (
           </p>
         </div>
         
-        {/* Right - Phone Mockup with specific image */}
+        {/* Right - Phone Mockup without green box */}
         <div className="flex justify-center lg:justify-start relative">
-          <div className="absolute inset-8 bg-cyan-400 opacity-20 blur-md"></div>
-          <div className="relative">
-            <PhoneMockup imageUrl={linkImage} />
-          </div>
+          <PhoneMockup imageUrl={linkImage} />
         </div>
       </div>
     </div>

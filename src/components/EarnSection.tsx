@@ -13,10 +13,7 @@ export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnIm
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         {/* Left - Phone Mockup with alternating earn images */}
         <div className="flex justify-center lg:justify-end order-2 lg:order-1 relative">
-          <div className="absolute inset-8 bg-cyan-400 opacity-20 blur-md"></div>
-          <div className="relative">
-            <PhoneMockup imageUrl={earnImages[earnImageIndex]} />
-          </div>
+          <PhoneMockup imageUrl={earnImages[earnImageIndex]} />
         </div>
         
         {/* Right - Content */}

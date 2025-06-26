@@ -226,17 +226,17 @@
     animation: ripple 2s infinite;
   }
 
-  /* Improved multi-layered phone glow effects - tighter and more focused */
+  /* Optimized multi-layered phone glow effects - smoother and less pixelated */
   .bg-unified-glow-phone-outer {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.25) 0%, rgba(34, 211, 238, 0.12) 30%, rgba(125, 211, 252, 0.04) 60%, transparent 100%);
+    background: radial-gradient(ellipse, rgba(0, 212, 255, 0.3) 0%, rgba(34, 211, 238, 0.15) 25%, rgba(125, 211, 252, 0.08) 50%, rgba(3, 105, 161, 0.03) 75%, transparent 100%);
   }
 
   .bg-unified-glow-phone-middle {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.35) 0%, rgba(34, 211, 238, 0.18) 40%, transparent 80%);
+    background: radial-gradient(ellipse, rgba(0, 212, 255, 0.4) 0%, rgba(34, 211, 238, 0.22) 35%, rgba(125, 211, 252, 0.1) 70%, transparent 100%);
   }
 
   .bg-unified-glow-phone-inner {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.45) 0%, rgba(34, 211, 238, 0.25) 50%, transparent 90%);
+    background: radial-gradient(ellipse, rgba(0, 212, 255, 0.5) 0%, rgba(34, 211, 238, 0.3) 40%, rgba(125, 211, 252, 0.15) 80%, transparent 100%);
   }
 
   /* Unified background glow effects with consistent colors */
@@ -296,6 +296,18 @@
 
   .animate-glow-pulse {
     animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Improved pulse glow animation - less intense, smoother */
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.02);
+    }
   }
 
   @keyframes fadeIn {
