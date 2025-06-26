@@ -22,12 +22,12 @@ export const BenefitsSection: React.FC = () => {
               Felhasználó
             </h3>
             <p className="text-sm md:text-base text-electric-100 mb-4 leading-relaxed">
-              Olcsón iszol, új helyeket fedezel fel.
+              Új helyek, napi ingyen ital.
             </p>
             <ul className="text-left text-white space-y-2 text-sm">
               <li className="flex items-start">
                 <span className="text-electric-300 mr-2 text-xs">•</span>
-                <span>Ingyen ital minden nap</span>
+                <span>Pontgyűjtés, jutalmak</span>
               </li>
               <li className="flex items-start">
                 <span className="text-electric-300 mr-2 text-xs">•</span>
@@ -45,7 +45,7 @@ export const BenefitsSection: React.FC = () => {
               Vendéglátóhely
             </h3>
             <p className="text-sm md:text-base text-electric-100 mb-4 leading-relaxed">
-              Növekvő forgalom, hűséges vendégek.
+              Több vendég, nagyobb forgalom.
             </p>
             <ul className="text-left text-white space-y-2 text-sm">
               <li className="flex items-start">
@@ -54,7 +54,7 @@ export const BenefitsSection: React.FC = () => {
               </li>
               <li className="flex items-start">
                 <span className="text-electric-300 mr-2 text-xs">•</span>
-                <span>Ingyen promóció</span>
+                <span>Ingyenes promóció</span>
               </li>
             </ul>
           </div>
@@ -68,16 +68,16 @@ export const BenefitsSection: React.FC = () => {
               Italszponzor
             </h3>
             <p className="text-sm md:text-base text-electric-100 mb-4 leading-relaxed">
-              Erősebb jelenlét, mérhető reklám.
+              Erősebb márka, mérhető eredmény.
             </p>
             <ul className="text-left text-white space-y-2 text-sm">
               <li className="flex items-start">
                 <span className="text-electric-300 mr-2 text-xs">•</span>
-                <span>Új márkakedvelők</span>
+                <span>Új fogyasztók</span>
               </li>
               <li className="flex items-start">
                 <span className="text-electric-300 mr-2 text-xs">•</span>
-                <span>Instant feedback</span>
+                <span>Azonnali visszajelzés</span>
               </li>
             </ul>
           </div>
@@ -91,7 +91,7 @@ export const BenefitsSection: React.FC = () => {
               Közösség
             </h3>
             <p className="text-sm md:text-base text-electric-100 mb-4 leading-relaxed">
-              Összeköt, közös élmények.
+              Közös élmény, jótékony hatás.
             </p>
             <ul className="text-left text-white space-y-2 text-sm">
               <li className="flex items-start">
@@ -100,7 +100,7 @@ export const BenefitsSection: React.FC = () => {
               </li>
               <li className="flex items-start">
                 <span className="text-electric-300 mr-2 text-xs">•</span>
-                <span>Közös programok</span>
+                <span>Minden italoddal segítesz</span>
               </li>
             </ul>
           </div>
