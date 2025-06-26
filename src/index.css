@@ -227,15 +227,15 @@
 
   /* Updated phone glow effects with teal colors matching the provided image */
   .bg-unified-glow-phone-outer {
-    background: radial-gradient(ellipse, rgba(15, 76, 117, 0.3) 0%, rgba(30, 90, 138, 0.15) 25%, rgba(45, 106, 159, 0.08) 50%, rgba(60, 122, 180, 0.03) 75%, transparent 100%);
+    background: radial-gradient(ellipse 120% 100%, rgba(15, 76, 117, 0.25) 0%, rgba(30, 90, 138, 0.12) 30%, rgba(45, 106, 159, 0.06) 60%, rgba(60, 122, 180, 0.02) 80%, transparent 100%);
   }
 
   .bg-unified-glow-phone-middle {
-    background: radial-gradient(ellipse, rgba(15, 76, 117, 0.4) 0%, rgba(30, 90, 138, 0.22) 35%, rgba(45, 106, 159, 0.1) 70%, transparent 100%);
+    background: radial-gradient(ellipse 100% 90%, rgba(15, 76, 117, 0.35) 0%, rgba(30, 90, 138, 0.18) 40%, rgba(45, 106, 159, 0.08) 75%, transparent 100%);
   }
 
   .bg-unified-glow-phone-inner {
-    background: radial-gradient(ellipse, rgba(15, 76, 117, 0.5) 0%, rgba(30, 90, 138, 0.3) 40%, rgba(45, 106, 159, 0.15) 80%, transparent 100%);
+    background: radial-gradient(ellipse 80% 80%, rgba(15, 76, 117, 0.45) 0%, rgba(30, 90, 138, 0.25) 50%, rgba(45, 106, 159, 0.12) 85%, transparent 100%);
   }
 
   /* Unified background glow effects with consistent colors */
