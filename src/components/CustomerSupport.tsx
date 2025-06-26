@@ -4,12 +4,14 @@ import { MessageCircle, X, Send, Search, Home, HelpCircle, ArrowLeft } from 'luc
 import { Button } from '@/components/ui/button';
 
 type MainTab = 'home' | 'messages' | 'help';
-type DetailView = 'ingyen-italok' | 'jutalmak' | 'regisztracio' | 'ajanlas' | null;
+type CategoryView = 'ingyen-italok' | 'jutalmak' | 'fiok-kezeles' | 'ajanlasok' | null;
+type QuestionView = string | null;
 
 export const CustomerSupport: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentTab, setCurrentTab] = useState<MainTab>('home');
-  const [detailView, setDetailView] = useState<DetailView>(null);
+  const [categoryView, setCategoryView] = useState<CategoryView>(null);
+  const [questionView, setQuestionView] = useState<QuestionView>(null);
   const [message, setMessage] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -17,7 +19,8 @@ export const CustomerSupport: React.FC = () => {
     setIsOpen(!isOpen);
     if (!isOpen) {
       setCurrentTab('home');
-      setDetailView(null);
+      setCategoryView(null);
+      setQuestionView(null);
     }
   };
 
@@ -28,155 +31,219 @@ export const CustomerSupport: React.FC = () => {
     }
   };
 
-  const openDetailView = (view: DetailView) => {
-    setDetailView(view);
+  const openCategory = (category: CategoryView) => {
+    setCategoryView(category);
+    setQuestionView(null);
   };
 
-  const closeDetailView = () => {
-    setDetailView(null);
+  const openQuestion = (question: string) => {
+    setQuestionView(question);
   };
 
-  const quickQuestions = [
-    'Hogyan kaphatok ingyen italt?',
-    'Hogyan tudom összekötni a kártyám?',
-    'Hogyan válthatok be pontokat?',
-    'Hogyan tudok barátokat meghívni?'
-  ];
+  const closeCategory = () => {
+    setCategoryView(null);
+    setQuestionView(null);
+  };
 
-  const faqContent = {
+  const closeQuestion = () => {
+    setQuestionView(null);
+  };
+
+  const categories = {
     'ingyen-italok': {
       title: 'Ingyen italok',
-      articles: [
-        { title: 'Regisztráció után azonnal', content: 'Regisztrálj az appban és azonnal kapsz egy ingyenes italt a partnereknél.' },
-        { title: 'Partnerhelyek térképe', content: 'Minden partnerhelyen használható, amelyek az app térképén szerepelnek.' },
-        { title: 'Érvényesség időtartama', content: 'A kupon 30 napig használható az aktiválástól számítva.' }
+      questions: [
+        {
+          title: 'Hogyan kaphatok ingyen italt?',
+          answer: 'Regisztrálj az appban és azonnal kapsz egy ingyenes italt a partnereknél. A kupon aktiválás után 30 napig érvényes.'
+        },
+        {
+          title: 'Hol használhatom fel az italt?',
+          answer: 'Minden partnerhelyen használható, amelyek az app térképén szerepelnek. Mutasd fel a kupont a pultnál.'
+        },
+        {
+          title: 'Mennyi ideig érvényes a kupon?',
+          answer: 'A kupon 30 napig használható az aktiválástól számítva. Az lejárat után új kupont kérhetsz.'
+        }
       ]
     },
     'jutalmak': {
       title: 'Jutalmak',
-      articles: [
-        { title: 'Kártya összekapcsolás', content: 'Profil > Kártyák menüben add hozzá a hűségkártyádat.' },
-        { title: 'Pontgyűjtés rendszere', content: 'Minden vásárlás után pontokat kapsz, amelyeket jutalmakra válthatasz.' }
+      questions: [
+        {
+          title: 'Hogyan működik a pontgyűjtés?',
+          answer: 'Minden vásárlás után pontokat kapsz. Add hozzá a hűségkártyádat a Profil > Kártyák menüben.'
+        },
+        {
+          title: 'Hogyan válthatom be a pontokat?',
+          answer: 'A Jutalmak szekció alatt válaszd ki a kívánt jutalmat és váltsd be a pontjaidat.'
+        },
+        {
+          title: 'Mire válthatom be a pontokat?',
+          answer: 'Ingyenes italokra, kedvezményekre és exkluzív ajánlatokra válthatod be a pontjaidat.'
+        }
       ]
     },
-    'regisztracio': {
+    'fiok-kezeles': {
       title: 'Fiók kezelés',
-      articles: [
-        { title: 'Új fiók létrehozása', content: 'Email cím és telefonszám szükséges a regisztrációhoz.' },
-        { title: 'Adatok szerkesztése', content: 'Profil menüben szerkesztheted az adataidat és beállításaidat.' }
+      questions: [
+        {
+          title: 'Hogyan tudok regisztrálni?',
+          answer: 'Email cím és telefonszám szükséges a regisztrációhoz. Töltsd ki az adatokat és erősítsd meg az emailt.'
+        },
+        {
+          title: 'Elfelejtettem a jelszavam, mit tegyek?',
+          answer: 'A bejelentkezési képernyőn kattints az "Elfelejtett jelszó" gombra és kövesd az utasításokat.'
+        }
       ]
     },
-    'ajanlas': {
+    'ajanlasok': {
       title: 'Ajánlások',
-      articles: [
-        { title: 'Barátok meghívása', content: 'Megosztás menüben találod a referral linkedet.' },
-        { title: 'Meghívási jutalmak', content: 'Minden sikeres meghívásért pontokat kapsz.' }
+      questions: [
+        {
+          title: 'Hogyan tudok barátokat meghívni?',
+          answer: 'A Megosztás menüben találod a referral linkedet. Oszd meg barátaiddal és mindketten jutalmat kaptok.'
+        },
+        {
+          title: 'Kapok-e jutalmat, ha meghívok valakit?',
+          answer: 'Igen! Minden sikeres meghívásért pontokat kapsz, amit jutalmakra válthatasz be.'
+        }
       ]
     }
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between p-3 border-b border-white/10 bg-gray-900/98">
+    <div className="flex items-center justify-between p-2.5 border-b border-white/10 bg-gray-900/98">
       <div className="flex items-center space-x-2">
-        {detailView && (
+        {(categoryView || questionView) && (
           <Button
             variant="ghost"
             size="icon"
-            onClick={closeDetailView}
-            className="text-white hover:bg-white/10 w-7 h-7"
+            onClick={questionView ? closeQuestion : closeCategory}
+            className="text-white hover:bg-white/10 w-6 h-6"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-3.5 h-3.5" />
           </Button>
         )}
-        <h2 className="text-sm font-bold text-white">Come Get It</h2>
+        <h2 className="text-xs font-bold text-white">Come Get It</h2>
       </div>
       <Button
         variant="ghost"
         size="icon"
         onClick={toggleSupport}
-        className="text-white hover:bg-white/10 w-7 h-7"
+        className="text-white hover:bg-white/10 w-6 h-6"
       >
-        <X className="w-4 h-4" />
+        <X className="w-3.5 h-3.5" />
       </Button>
     </div>
   );
 
   const renderFooterNav = () => (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-900/98 border-t border-white/10 z-50">
-      <div className="flex">
+      <div className="flex h-10">
         <button
           onClick={() => {
             setCurrentTab('home');
-            setDetailView(null);
+            setCategoryView(null);
+            setQuestionView(null);
           }}
-          className={`flex-1 flex flex-col items-center py-2 px-2 transition-all ${
-            currentTab === 'home' && !detailView
+          className={`flex-1 flex flex-col items-center justify-center transition-all ${
+            currentTab === 'home' && !categoryView && !questionView
               ? 'text-electric-300 bg-electric-300/10' 
               : 'text-white/70 hover:text-white'
           }`}
         >
-          <Home className="w-4 h-4 mb-0.5" />
-          <span className="text-xs">Kezdőlap</span>
+          <Home className="w-3 h-3 mb-0.5" />
+          <span className="text-xs leading-none">Kezdőlap</span>
         </button>
         
         <button
           onClick={() => {
             setCurrentTab('messages');
-            setDetailView(null);
+            setCategoryView(null);
+            setQuestionView(null);
           }}
-          className={`flex-1 flex flex-col items-center py-2 px-2 transition-all ${
-            currentTab === 'messages' && !detailView
+          className={`flex-1 flex flex-col items-center justify-center transition-all ${
+            currentTab === 'messages' && !categoryView && !questionView
               ? 'text-electric-300 bg-electric-300/10' 
               : 'text-white/70 hover:text-white'
           }`}
         >
-          <MessageCircle className="w-4 h-4 mb-0.5" />
-          <span className="text-xs">Üzenetek</span>
+          <MessageCircle className="w-3 h-3 mb-0.5" />
+          <span className="text-xs leading-none">Üzenetek</span>
         </button>
         
         <button
           onClick={() => {
             setCurrentTab('help');
-            setDetailView(null);
+            setCategoryView(null);
+            setQuestionView(null);
           }}
-          className={`flex-1 flex flex-col items-center py-2 px-2 transition-all ${
-            currentTab === 'help' && !detailView
+          className={`flex-1 flex flex-col items-center justify-center transition-all ${
+            currentTab === 'help' && !categoryView && !questionView
               ? 'text-electric-300 bg-electric-300/10' 
               : 'text-white/70 hover:text-white'
           }`}
         >
-          <HelpCircle className="w-4 h-4 mb-0.5" />
-          <span className="text-xs">Súgó</span>
+          <HelpCircle className="w-3 h-3 mb-0.5" />
+          <span className="text-xs leading-none">Súgó</span>
         </button>
       </div>
     </div>
   );
 
-  const renderFAQDetail = (type: DetailView) => {
-    const content = faqContent[type!];
+  const renderQuestionDetail = (question: string) => {
+    const category = Object.values(categories).find(cat => 
+      cat.questions.some(q => q.title === question)
+    );
+    const questionData = category?.questions.find(q => q.title === question);
+
+    if (!questionData) return null;
 
     return (
       <div className="flex flex-col h-full">
         {renderHeader()}
         
-        <div className="flex-1 p-4 space-y-3 overflow-y-auto pb-16">
-          <h3 className="text-lg font-bold text-white mb-3">{content.title}</h3>
+        <div className="flex-1 p-3 space-y-3 overflow-y-auto pb-12">
+          <h3 className="text-sm font-medium text-white mb-2">{questionData.title}</h3>
+          <p className="text-xs text-white/80 leading-relaxed">{questionData.answer}</p>
+          
+          <div className="pt-3 border-t border-white/10 mt-4">
+            <button
+              onClick={() => setCurrentTab('messages')}
+              className="text-xs text-electric-300 hover:text-electric-400 transition-colors"
+            >
+              További kérdésed van? Írj nekünk!
+            </button>
+          </div>
+        </div>
+        
+        {renderFooterNav()}
+      </div>
+    );
+  };
 
-          <div className="space-y-2">
-            {content.articles.map((article, index) => (
-              <div key={index} className="bg-white/5 border border-white/10 rounded-lg p-3">
-                <h4 className="font-medium text-white text-sm mb-1">{article.title}</h4>
-                <p className="text-white/70 text-xs leading-relaxed">{article.content}</p>
-              </div>
+  const renderCategoryQuestions = (categoryKey: CategoryView) => {
+    const category = categories[categoryKey!];
+
+    return (
+      <div className="flex flex-col h-full">
+        {renderHeader()}
+        
+        <div className="flex-1 p-3 space-y-2 overflow-y-auto pb-12">
+          <h3 className="text-sm font-medium text-white mb-3">{category.title}</h3>
+
+          <div className="space-y-1.5">
+            {category.questions.map((question, index) => (
+              <button 
+                key={index}
+                onClick={() => openQuestion(question.title)}
+                className="w-full bg-gray-700/60 hover:bg-gray-700/80 border border-gray-600/40 rounded-lg p-2.5 text-left transition-all"
+              >
+                <p className="text-xs text-white/90">{question.title}</p>
+              </button>
             ))}
           </div>
-
-          <Button
-            onClick={() => setCurrentTab('messages')}
-            className="w-full bg-electric-300 hover:bg-electric-400 text-black font-medium py-2 text-sm mt-4"
-          >
-            További kérdés esetén írj nekünk
-          </Button>
         </div>
         
         {renderFooterNav()}
@@ -188,15 +255,15 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full">
       {renderHeader()}
       
-      <div className="flex-1 p-4 space-y-4 overflow-y-auto pb-16">
-        <div className="text-center mb-4">
-          <h3 className="text-lg font-bold text-white mb-1">Miben segíthetünk?</h3>
+      <div className="flex-1 p-3 space-y-3 overflow-y-auto pb-12">
+        <div className="text-center mb-3">
+          <h3 className="text-sm font-medium text-white">Miben segíthetünk?</h3>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2">
           <Button
             onClick={() => setCurrentTab('messages')}
-            className="w-full bg-electric-300 hover:bg-electric-400 text-black font-medium py-2.5 text-sm"
+            className="w-full bg-electric-300 hover:bg-electric-400 text-black font-medium py-2 text-xs h-8"
           >
             Írj nekünk üzenetet
           </Button>
@@ -207,27 +274,17 @@ export const CustomerSupport: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Keresés a súgóban..."
-              className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 pr-10 text-white placeholder-white/50 text-sm"
+              className="w-full bg-white/10 border border-white/20 rounded-lg px-2.5 py-1.5 pr-8 text-white placeholder-white/50 text-xs h-8"
             />
-            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/40" />
+            <Search className="absolute right-2.5 top-1/2 transform -translate-y-1/2 w-3 h-3 text-white/40" />
           </div>
         </div>
 
-        <div className="space-y-3">
-          <h4 className="text-sm font-medium text-white/80">Gyors kérdések</h4>
-          
-          <div className="space-y-2">
-            {quickQuestions.map((question, index) => (
-              <div key={index} className="bg-white/5 border border-white/10 rounded-lg p-2.5">
-                <p className="text-white/80 text-xs">{question}</p>
-              </div>
-            ))}
-          </div>
-
+        <div className="pt-2">
           <Button
             onClick={() => setCurrentTab('help')}
             variant="outline"
-            className="w-full border-white/20 text-white hover:bg-white/10 text-sm py-2 mt-3"
+            className="w-full border-white/20 text-white hover:bg-white/10 text-xs py-1.5 h-8"
           >
             További kérdésekért böngéssz a súgóban!
           </Button>
@@ -242,31 +299,29 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full">
       {renderHeader()}
 
-      <div className="flex-1 flex flex-col items-center justify-center p-4 pb-32">
+      <div className="flex-1 flex flex-col items-center justify-center p-3 pb-20">
         <div className="text-center">
-          <MessageCircle className="w-10 h-10 text-electric-300 mx-auto mb-3" />
-          <h3 className="text-base font-medium text-white mb-1">Nincs üzenet</h3>
-          <p className="text-white/60 text-sm">
-            Írj nekünk bármikor!
-          </p>
+          <MessageCircle className="w-8 h-8 text-electric-300 mx-auto mb-2" />
+          <h3 className="text-sm font-medium text-white mb-1">Nincs üzenet</h3>
+          <p className="text-white/60 text-xs">Írj nekünk bármikor!</p>
         </div>
       </div>
 
-      <div className="fixed bottom-14 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent">
+      <div className="fixed bottom-10 left-0 right-0 p-3 bg-gradient-to-t from-black via-black/95 to-transparent">
         <div className="flex space-x-2">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Írj nekünk üzenetet..."
-            className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/50 text-sm"
+            className="flex-1 bg-white/10 border border-white/20 rounded-lg px-2.5 py-1.5 text-white placeholder-white/50 text-xs h-8"
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
           <Button
             onClick={handleSendMessage}
-            className="bg-electric-300 hover:bg-electric-400 text-black px-3 py-2"
+            className="bg-electric-300 hover:bg-electric-400 text-black px-2.5 py-1.5 h-8"
           >
-            <Send className="w-4 h-4" />
+            <Send className="w-3 h-3" />
           </Button>
         </div>
       </div>
@@ -279,22 +334,22 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full">
       {renderHeader()}
 
-      <div className="flex-1 p-4 space-y-3 overflow-y-auto pb-16">
-        <div className="space-y-2">
-          {Object.entries(faqContent).map(([key, content]) => (
-            <button 
-              key={key}
-              onClick={() => openDetailView(key as DetailView)}
-              className="w-full bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-all text-left"
-            >
-              <h3 className="font-medium text-white text-sm mb-1">{content.title}</h3>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-white/50">{content.articles.length} cikk</span>
-                <span className="text-white/40">›</span>
+      <div className="flex-1 p-3 space-y-2 overflow-y-auto pb-12">
+        {Object.entries(categories).map(([key, category]) => (
+          <button 
+            key={key}
+            onClick={() => openCategory(key as CategoryView)}
+            className="w-full bg-gray-700/60 hover:bg-gray-700/80 border border-gray-600/40 rounded-lg p-2.5 text-left transition-all group"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-medium text-white text-xs mb-0.5">{category.title}</h3>
+                <span className="text-xs text-white/50">{category.questions.length} kérdés</span>
               </div>
-            </button>
-          ))}
-        </div>
+              <span className="text-white/40 group-hover:text-white/60 transition-colors">›</span>
+            </div>
+          </button>
+        ))}
       </div>
       
       {renderFooterNav()}
@@ -302,8 +357,12 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderCurrentView = () => {
-    if (detailView) {
-      return renderFAQDetail(detailView);
+    if (questionView) {
+      return renderQuestionDetail(questionView);
+    }
+
+    if (categoryView) {
+      return renderCategoryQuestions(categoryView);
     }
 
     switch (currentTab) {
@@ -323,9 +382,9 @@ export const CustomerSupport: React.FC = () => {
       {!isOpen && (
         <button
           onClick={toggleSupport}
-          className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-electric-300 hover:bg-electric-400 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-105"
+          className="fixed bottom-4 right-4 z-50 w-10 h-10 bg-electric-300 hover:bg-electric-400 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-105"
         >
-          <MessageCircle className="w-5 h-5 text-black" />
+          <MessageCircle className="w-4 h-4 text-black" />
         </button>
       )}
 
@@ -336,8 +395,8 @@ export const CustomerSupport: React.FC = () => {
             onClick={toggleSupport}
           />
           
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="w-full max-w-sm h-[500px] bg-gradient-to-b from-gray-900 to-black rounded-xl shadow-2xl border border-white/20 overflow-hidden">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3">
+            <div className="w-full max-w-sm h-80 bg-gradient-to-b from-gray-900 to-black rounded-xl shadow-2xl border border-white/20 overflow-hidden">
               {renderCurrentView()}
             </div>
           </div>
