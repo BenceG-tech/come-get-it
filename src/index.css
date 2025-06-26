@@ -100,7 +100,22 @@
     background: linear-gradient(90deg, transparent 0%, #00D4FF 50%, transparent 100%);
   }
 
-  /* Fixed and improved neon and glow effects */
+  /* Unified and improved neon and glow effects */
+  .unified-neon-glow {
+    box-shadow: 
+      0 0 20px rgba(0, 212, 255, 0.3),
+      0 0 40px rgba(34, 211, 238, 0.2),
+      0 0 60px rgba(125, 211, 252, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .unified-neon-glow:hover {
+    box-shadow: 
+      0 0 25px rgba(0, 212, 255, 0.4),
+      0 0 50px rgba(34, 211, 238, 0.3),
+      0 0 75px rgba(125, 211, 252, 0.2);
+  }
+
   .neon-glow-electric {
     box-shadow: 
       0 0 10px rgba(0, 212, 255, 0.3),
@@ -163,14 +178,33 @@
     pointer-events: none;
   }
 
-  /* Fixed phone mockup frame to prevent transparency */
+  /* Updated phone mockup frame to match unified colors */
   .phone-frame-solid {
     background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #000000 100%);
     box-shadow: 
-      0 0 30px rgba(0, 212, 255, 0.3),
-      0 0 60px rgba(34, 211, 238, 0.2),
+      0 0 30px rgba(0, 212, 255, 0.25),
+      0 0 60px rgba(34, 211, 238, 0.15),
       0 20px 40px rgba(0, 0, 0, 0.4),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Unified liquid ripple effect */
+  .unified-liquid-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .unified-liquid-ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, rgba(34, 211, 238, 0.1) 50%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: unified-ripple 3s infinite;
   }
 
   /* Particle and liquid effects */
@@ -192,7 +226,19 @@
     animation: ripple 2s infinite;
   }
 
-  /* Updated background glow effects */
+  /* Unified background glow effects with consistent colors */
+  .bg-unified-glow-primary {
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(34, 211, 238, 0.08) 40%, transparent 80%);
+  }
+
+  .bg-unified-glow-secondary {
+    background: radial-gradient(circle, rgba(3, 105, 161, 0.12) 0%, rgba(12, 74, 110, 0.06) 40%, transparent 80%);
+  }
+
+  .bg-unified-glow-phone {
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, rgba(34, 211, 238, 0.1) 50%, transparent 100%);
+  }
+
   .bg-glow-electric {
     background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, rgba(34, 211, 238, 0.08) 50%, transparent 100%);
   }
@@ -256,6 +302,17 @@
     }
     50% {
       opacity: 0.8;
+    }
+  }
+
+  @keyframes unified-ripple {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(6);
+      opacity: 0;
     }
   }
 }
