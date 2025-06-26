@@ -19,9 +19,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         {/* Left side - Content */}
         <div className="text-center lg:text-left">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-8">
-            <span className="block text-white mb-4 tracking-wider">INGYEN</span>
-            <span className="block text-white mb-4 tracking-wider">ITAL</span>
-            <span className="block text-white text-4xl md:text-5xl lg:text-6xl">MINDEN NAPRA</span>
+            <span className="block text-white mb-4 tracking-[0.3em] whitespace-nowrap">
+              INGYEN ITAL
+            </span>
+            <span className="block text-white text-4xl md:text-5xl lg:text-6xl tracking-wider">
+              MINDEN NAPRA
+            </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-white mb-8 max-w-lg mx-auto lg:mx-0">
