@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import { MessageCircle, X, Send, Search, Home, HelpCircle } from 'lucide-react';
+import { MessageCircle, X, Send, Search, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const CustomerSupport: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'main' | 'messages' | 'help'>('main');
+  const [currentView, setCurrentView] = useState<'main' | 'messages' | 'help' | 'faq'>('main');
   const [message, setMessage] = useState('');
 
   const toggleSupport = () => {
@@ -17,23 +17,23 @@ export const CustomerSupport: React.FC = () => {
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      // Itt később implementálható az üzenet küldés logika
       console.log('Üzenet elküldve:', message);
       setMessage('');
     }
   };
 
   const renderMainView = () => (
-    <div className="p-6 text-white">
-      <div className="flex items-center justify-between mb-6">
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center justify-between p-6 border-b border-white/10">
         <div className="flex items-center space-x-3">
-          <h2 className="text-2xl font-bold">COME GET IT</h2>
+          <h2 className="text-xl font-bold text-white">COME GET IT</h2>
           <div className="flex space-x-1">
-            <div className="w-8 h-8 bg-electric-300 rounded-full flex items-center justify-center">
-              <span className="text-xs font-semibold text-black">CG</span>
+            <div className="w-6 h-6 bg-electric-300 rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-black">CG</span>
             </div>
-            <div className="w-8 h-8 bg-ocean-400 rounded-full flex items-center justify-center">
-              <span className="text-xs font-semibold text-white">IT</span>
+            <div className="w-6 h-6 bg-ocean-400 rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-white">IT</span>
             </div>
           </div>
         </div>
@@ -41,20 +41,24 @@ export const CustomerSupport: React.FC = () => {
           variant="ghost"
           size="icon"
           onClick={toggleSupport}
-          className="text-white hover:bg-white/10"
+          className="text-white hover:bg-white/10 h-8 w-8"
         >
           <X className="w-5 h-5" />
         </Button>
       </div>
 
-      <div className="space-y-4">
-        <h3 className="text-xl font-semibold">Szia! 👋</h3>
-        <p className="text-lg">Miben segíthetünk?</p>
+      {/* Content */}
+      <div className="flex-1 p-6 space-y-6">
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-2">Szia! 👋</h3>
+          <p className="text-white/80">Miben segíthetünk?</p>
+        </div>
 
+        {/* Main Action Buttons */}
         <div className="space-y-3">
           <Button
             onClick={() => setCurrentView('messages')}
-            className="w-full flex items-center justify-between bg-white/10 hover:bg-white/20 text-white border-none p-4 h-auto"
+            className="w-full h-14 bg-electric-300 hover:bg-electric-400 text-black font-semibold text-left flex items-center justify-between rounded-xl"
           >
             <span>Írj nekünk üzenetet</span>
             <Send className="w-5 h-5" />
@@ -62,171 +66,154 @@ export const CustomerSupport: React.FC = () => {
 
           <Button
             onClick={() => setCurrentView('help')}
-            className="w-full flex items-center justify-between bg-white/10 hover:bg-white/20 text-white border-none p-4 h-auto"
+            className="w-full h-14 bg-white/10 hover:bg-white/20 text-white font-semibold text-left flex items-center justify-between rounded-xl border border-white/20"
           >
             <span>Keresés a súgóban</span>
             <Search className="w-5 h-5" />
           </Button>
         </div>
 
-        <div className="space-y-2 pt-4 border-t border-white/20">
-          <div className="flex items-center justify-between text-gray-300 hover:text-white cursor-pointer p-2">
-            <span>Ingyen italok</span>
-            <span>›</span>
+        {/* FAQ Topics */}
+        <div className="space-y-3">
+          <h4 className="text-sm font-medium text-white/60 uppercase tracking-wide">Gyakori kérdések</h4>
+          
+          <div className="space-y-2">
+            <button className="w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-colors">
+              <div className="flex items-center justify-between">
+                <span className="text-white font-medium">Ingyen italok</span>
+                <span className="text-white/40">›</span>
+              </div>
+            </button>
+            
+            <button className="w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-colors">
+              <div className="flex items-center justify-between">
+                <span className="text-white font-medium">Jutalmak és kártya összekapcsolás</span>
+                <span className="text-white/40">›</span>
+              </div>
+            </button>
+            
+            <button className="w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-colors">
+              <div className="flex items-center justify-between">
+                <span className="text-white font-medium">Regisztráció és fiókkezelés</span>
+                <span className="text-white/40">›</span>
+              </div>
+            </button>
           </div>
-          <div className="flex items-center justify-between text-gray-300 hover:text-white cursor-pointer p-2">
-            <span>Jutalmak és kártya összekapcsolás</span>
-            <span>›</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex justify-around mt-8 pt-4 border-t border-white/20">
-        <div className="flex flex-col items-center space-y-1 text-electric-300">
-          <Home className="w-6 h-6" />
-          <span className="text-xs">Főoldal</span>
-        </div>
-        <div className="flex flex-col items-center space-y-1 text-white">
-          <MessageCircle className="w-6 h-6" />
-          <span className="text-xs">Üzenetek</span>
-        </div>
-        <div className="flex flex-col items-center space-y-1 text-gray-400">
-          <HelpCircle className="w-6 h-6" />
-          <span className="text-xs">Súgó</span>
         </div>
       </div>
     </div>
   );
 
   const renderMessagesView = () => (
-    <div className="p-6 text-white">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold">Üzenetek</h2>
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center p-6 border-b border-white/10">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setCurrentView('main')}
+          className="text-white hover:bg-white/10 h-8 w-8 mr-3"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </Button>
+        <h2 className="text-lg font-semibold text-white flex-1">Üzenetek</h2>
         <Button
           variant="ghost"
           size="icon"
           onClick={toggleSupport}
-          className="text-white hover:bg-white/10"
+          className="text-white hover:bg-white/10 h-8 w-8"
         >
           <X className="w-5 h-5" />
         </Button>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center py-12">
-        <MessageCircle className="w-16 h-16 text-gray-400 mb-4" />
-        <h3 className="text-lg font-semibold mb-2">Nincs üzenet</h3>
-        <p className="text-gray-400 text-center mb-8">
+      {/* Messages Area */}
+      <div className="flex-1 flex flex-col items-center justify-center p-6">
+        <MessageCircle className="w-16 h-16 text-white/30 mb-4" />
+        <h3 className="text-lg font-semibold text-white mb-2">Nincs üzenet</h3>
+        <p className="text-white/60 text-center">
           A csapat üzenetei itt fognak megjelenni
         </p>
       </div>
 
-      <div className="mt-auto">
-        <div className="flex space-x-2">
+      {/* Message Input */}
+      <div className="p-6 border-t border-white/10">
+        <div className="flex space-x-3">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Írj nekünk üzenetet"
-            className="flex-1 bg-black/50 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-electric-300"
+            className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-electric-300 focus:ring-1 focus:ring-electric-300"
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
           <Button
             onClick={handleSendMessage}
-            className="bg-electric-300 hover:bg-electric-400 text-black px-4"
+            className="bg-electric-300 hover:bg-electric-400 text-black px-4 py-3 rounded-lg"
           >
             <Send className="w-5 h-5" />
           </Button>
-        </div>
-      </div>
-
-      <div className="flex justify-around mt-6 pt-4 border-t border-white/20">
-        <div 
-          className="flex flex-col items-center space-y-1 text-gray-400 cursor-pointer"
-          onClick={() => setCurrentView('main')}
-        >
-          <Home className="w-6 h-6" />
-          <span className="text-xs">Főoldal</span>
-        </div>
-        <div className="flex flex-col items-center space-y-1 text-electric-300">
-          <MessageCircle className="w-6 h-6" />
-          <span className="text-xs">Üzenetek</span>
-        </div>
-        <div 
-          className="flex flex-col items-center space-y-1 text-gray-400 cursor-pointer"
-          onClick={() => setCurrentView('help')}
-        >
-          <HelpCircle className="w-6 h-6" />
-          <span className="text-xs">Súgó</span>
         </div>
       </div>
     </div>
   );
 
   const renderHelpView = () => (
-    <div className="p-6 text-white">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold">Súgó</h2>
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center p-6 border-b border-white/10">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setCurrentView('main')}
+          className="text-white hover:bg-white/10 h-8 w-8 mr-3"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </Button>
+        <h2 className="text-lg font-semibold text-white flex-1">Súgó</h2>
         <Button
           variant="ghost"
           size="icon"
           onClick={toggleSupport}
-          className="text-white hover:bg-white/10"
+          className="text-white hover:bg-white/10 h-8 w-8"
         >
           <X className="w-5 h-5" />
         </Button>
       </div>
 
-      <div className="mb-6">
+      {/* Content */}
+      <div className="flex-1 p-6 space-y-6">
+        {/* Search */}
         <div className="relative">
           <input
             type="text"
             placeholder="Keresés a súgóban"
-            className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 pr-12 text-white placeholder-gray-400 focus:outline-none focus:border-electric-300"
+            className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 pr-12 text-white placeholder-white/50 focus:outline-none focus:border-electric-300 focus:ring-1 focus:ring-electric-300"
           />
-          <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/40" />
         </div>
-      </div>
 
-      <div className="space-y-4">
-        <p className="text-sm text-gray-400">2 gyűjtemény</p>
-        
+        {/* Collections */}
         <div className="space-y-4">
-          <div className="bg-white/5 rounded-lg p-4 hover:bg-white/10 cursor-pointer">
-            <h3 className="font-semibold mb-2">Come Get It App GYIK</h3>
-            <p className="text-sm text-gray-400 mb-2">
-              További információk az app funkcióiról, beleértve a jutalmakat és kártya összekapcsolást.
-            </p>
-            <span className="text-xs text-gray-500">6 cikk</span>
-          </div>
+          <p className="text-sm text-white/50">2 gyűjtemény</p>
+          
+          <div className="space-y-3">
+            <div className="bg-white/5 border border-white/10 rounded-lg p-5 hover:bg-white/10 cursor-pointer transition-colors">
+              <h3 className="font-semibold text-white mb-2">Come Get It App GYIK</h3>
+              <p className="text-sm text-white/70 mb-3">
+                További információk az app funkcióiról, beleértve a jutalmakat és kártya összekapcsolást.
+              </p>
+              <span className="text-xs text-white/50">6 cikk</span>
+            </div>
 
-          <div className="bg-white/5 rounded-lg p-4 hover:bg-white/10 cursor-pointer">
-            <h3 className="font-semibold mb-2">Fiók törlése</h3>
-            <p className="text-sm text-gray-400 mb-2">
-              Hogyan törölheted a fiókodat és személyes adataidat.
-            </p>
-            <span className="text-xs text-gray-500">2 cikk</span>
+            <div className="bg-white/5 border border-white/10 rounded-lg p-5 hover:bg-white/10 cursor-pointer transition-colors">
+              <h3 className="font-semibold text-white mb-2">Fiók és adatvédelem</h3>
+              <p className="text-sm text-white/70 mb-3">
+                Fiókkezelés, adatvédelem és biztonsági beállítások kezelése.
+              </p>
+              <span className="text-xs text-white/50">4 cikk</span>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div className="flex justify-around mt-8 pt-4 border-t border-white/20">
-        <div 
-          className="flex flex-col items-center space-y-1 text-gray-400 cursor-pointer"
-          onClick={() => setCurrentView('main')}
-        >
-          <Home className="w-6 h-6" />
-          <span className="text-xs">Főoldal</span>
-        </div>
-        <div 
-          className="flex flex-col items-center space-y-1 text-gray-400 cursor-pointer"
-          onClick={() => setCurrentView('messages')}
-        >
-          <MessageCircle className="w-6 h-6" />
-          <span className="text-xs">Üzenetek</span>
-        </div>
-        <div className="flex flex-col items-center space-y-1 text-electric-300">
-          <HelpCircle className="w-6 h-6" />
-          <span className="text-xs">Súgó</span>
         </div>
       </div>
     </div>
@@ -238,21 +225,30 @@ export const CustomerSupport: React.FC = () => {
       {!isOpen && (
         <button
           onClick={toggleSupport}
-          className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-electric-300 hover:bg-electric-400 rounded-full shadow-lg neon-glow-electric flex items-center justify-center transition-all duration-300 hover:scale-110"
+          className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-electric-300 hover:bg-electric-400 rounded-full shadow-2xl neon-glow-electric flex items-center justify-center transition-all duration-300 hover:scale-110"
         >
           <MessageCircle className="w-6 h-6 text-black" />
         </button>
       )}
 
-      {/* Support Panel */}
+      {/* Support Panel Overlay */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-80 h-96 bg-gradient-to-b from-gray-900 to-black rounded-2xl shadow-2xl neon-glow-electric overflow-hidden">
-          <div className="h-full flex flex-col">
-            {currentView === 'main' && renderMainView()}
-            {currentView === 'messages' && renderMessagesView()}
-            {currentView === 'help' && renderHelpView()}
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+            onClick={toggleSupport}
+          />
+          
+          {/* Modal */}
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="w-full max-w-md h-[600px] bg-gradient-to-b from-gray-900 to-black rounded-2xl shadow-2xl neon-glow-electric border border-white/10 overflow-hidden">
+              {currentView === 'main' && renderMainView()}
+              {currentView === 'messages' && renderMessagesView()}
+              {currentView === 'help' && renderHelpView()}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );
