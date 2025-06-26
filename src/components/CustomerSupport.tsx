@@ -4,23 +4,19 @@ import { MessageCircle, X, Send, Search, Home, HelpCircle, ArrowLeft } from 'luc
 import { Button } from '@/components/ui/button';
 
 type MainTab = 'home' | 'messages' | 'help';
-type CategoryView = 'ingyen-italok' | 'jutalmak' | 'fiok-kezeles' | 'ajanlasok' | null;
-type QuestionView = string | null;
+type DetailView = 'ingyen-italok' | 'jutalmak' | 'regisztracio' | 'ajanlas' | null;
 
 export const CustomerSupport: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentTab, setCurrentTab] = useState<MainTab>('home');
-  const [categoryView, setCategoryView] = useState<CategoryView>(null);
-  const [questionView, setQuestionView] = useState<QuestionView>(null);
+  const [detailView, setDetailView] = useState<DetailView>(null);
   const [message, setMessage] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
 
   const toggleSupport = () => {
     setIsOpen(!isOpen);
     if (!isOpen) {
       setCurrentTab('home');
-      setCategoryView(null);
-      setQuestionView(null);
+      setDetailView(null);
     }
   };
 
@@ -31,218 +27,186 @@ export const CustomerSupport: React.FC = () => {
     }
   };
 
-  const openCategory = (category: CategoryView) => {
-    setCategoryView(category);
-    setQuestionView(null);
+  const openDetailView = (view: DetailView) => {
+    setDetailView(view);
   };
 
-  const openQuestion = (question: string) => {
-    setQuestionView(question);
-  };
-
-  const closeCategory = () => {
-    setCategoryView(null);
-    setQuestionView(null);
-  };
-
-  const closeQuestion = () => {
-    setQuestionView(null);
-  };
-
-  const categories = {
-    'ingyen-italok': {
-      title: 'Ingyen italok',
-      questions: [
-        {
-          title: 'Hogyan kaphatok ingyen italt?',
-          answer: 'Regisztrálj az appban és azonnal kapsz egy ingyenes italt a partnereknél. A kupon aktiválás után 30 napig érvényes.'
-        },
-        {
-          title: 'Hol használhatom fel az italt?',
-          answer: 'Minden partnerhelyen használható, amelyek az app térképén szerepelnek. Mutasd fel a kupont a pultnál.'
-        },
-        {
-          title: 'Mennyi ideig érvényes a kupon?',
-          answer: 'A kupon 30 napig használható az aktiválástól számítva. Az lejárat után új kupont kérhetsz.'
-        }
-      ]
-    },
-    'jutalmak': {
-      title: 'Jutalmak',
-      questions: [
-        {
-          title: 'Hogyan működik a pontgyűjtés?',
-          answer: 'Minden vásárlás után pontokat kapsz. Add hozzá a hűségkártyádat a Profil > Kártyák menüben.'
-        },
-        {
-          title: 'Hogyan válthatom be a pontokat?',
-          answer: 'A Jutalmak szekció alatt válaszd ki a kívánt jutalmat és váltsd be a pontjaidat.'
-        },
-        {
-          title: 'Mire válthatom be a pontokat?',
-          answer: 'Ingyenes italokra, kedvezményekre és exkluzív ajánlatokra válthatod be a pontjaidat.'
-        }
-      ]
-    },
-    'fiok-kezeles': {
-      title: 'Fiók kezelés',
-      questions: [
-        {
-          title: 'Hogyan tudok regisztrálni?',
-          answer: 'Email cím és telefonszám szükséges a regisztrációhoz. Töltsd ki az adatokat és erősítsd meg az emailt.'
-        },
-        {
-          title: 'Elfelejtettem a jelszavam, mit tegyek?',
-          answer: 'A bejelentkezési képernyőn kattints az "Elfelejtett jelszó" gombra és kövesd az utasításokat.'
-        }
-      ]
-    },
-    'ajanlasok': {
-      title: 'Ajánlások',
-      questions: [
-        {
-          title: 'Hogyan tudok barátokat meghívni?',
-          answer: 'A Megosztás menüben találod a referral linkedet. Oszd meg barátaiddal és mindketten jutalmat kaptok.'
-        },
-        {
-          title: 'Kapok-e jutalmat, ha meghívok valakit?',
-          answer: 'Igen! Minden sikeres meghívásért pontokat kapsz, amit jutalmakra válthatasz be.'
-        }
-      ]
-    }
+  const closeDetailView = () => {
+    setDetailView(null);
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between p-2.5 border-b border-white/10 bg-gray-900/98">
-      <div className="flex items-center space-x-2">
-        {(categoryView || questionView) && (
+    <div className="flex items-center justify-between p-4 border-b border-white/20 bg-gray-900/95 backdrop-blur-sm">
+      <div className="flex items-center space-x-3">
+        {detailView && (
           <Button
             variant="ghost"
             size="icon"
-            onClick={questionView ? closeQuestion : closeCategory}
-            className="text-white hover:bg-white/10 w-6 h-6"
+            onClick={closeDetailView}
+            className="text-white hover:bg-white/10 h-8 w-8 mr-2"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-4 h-4" />
           </Button>
         )}
-        <h2 className="text-xs font-bold text-white">Come Get It</h2>
+        <h2 className="text-lg font-bold text-white">Come Get It</h2>
+        <div className="flex space-x-1">
+          <div className="w-5 h-5 bg-electric-300 rounded-full flex items-center justify-center">
+            <span className="text-xs font-bold text-black">CG</span>
+          </div>
+          <div className="w-5 h-5 bg-ocean-400 rounded-full flex items-center justify-center">
+            <span className="text-xs font-bold text-white">IT</span>
+          </div>
+        </div>
       </div>
       <Button
         variant="ghost"
         size="icon"
         onClick={toggleSupport}
-        className="text-white hover:bg-white/10 w-6 h-6"
+        className="text-white hover:bg-white/10 h-8 w-8"
       >
-        <X className="w-3.5 h-3.5" />
+        <X className="w-4 h-4" />
       </Button>
     </div>
   );
 
   const renderFooterNav = () => (
-    <div className="fixed bottom-0 left-0 right-0 bg-gray-900/98 border-t border-white/10 z-50">
-      <div className="flex h-10">
+    <div className="absolute bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-white/20 z-20">
+      <div className="flex">
         <button
           onClick={() => {
             setCurrentTab('home');
-            setCategoryView(null);
-            setQuestionView(null);
+            setDetailView(null);
           }}
-          className={`flex-1 flex flex-col items-center justify-center transition-all ${
-            currentTab === 'home' && !categoryView && !questionView
-              ? 'text-electric-300 bg-electric-300/10' 
-              : 'text-white/70 hover:text-white'
+          className={`flex-1 flex flex-col items-center py-4 px-3 transition-all duration-200 ${
+            currentTab === 'home' && !detailView
+              ? 'text-electric-300 bg-electric-300/20 border-t-2 border-electric-300' 
+              : 'text-white/60 hover:text-white/80 hover:bg-white/10'
           }`}
         >
-          <Home className="w-3 h-3 mb-0.5" />
-          <span className="text-xs leading-none">Kezdőlap</span>
+          <Home className="w-6 h-6 mb-1" />
+          <span className="text-xs font-medium">Kezdőoldal</span>
         </button>
         
         <button
           onClick={() => {
             setCurrentTab('messages');
-            setCategoryView(null);
-            setQuestionView(null);
+            setDetailView(null);
           }}
-          className={`flex-1 flex flex-col items-center justify-center transition-all ${
-            currentTab === 'messages' && !categoryView && !questionView
-              ? 'text-electric-300 bg-electric-300/10' 
-              : 'text-white/70 hover:text-white'
+          className={`flex-1 flex flex-col items-center py-4 px-3 transition-all duration-200 ${
+            currentTab === 'messages' && !detailView
+              ? 'text-electric-300 bg-electric-300/20 border-t-2 border-electric-300' 
+              : 'text-white/60 hover:text-white/80 hover:bg-white/10'
           }`}
         >
-          <MessageCircle className="w-3 h-3 mb-0.5" />
-          <span className="text-xs leading-none">Üzenetek</span>
+          <MessageCircle className="w-6 h-6 mb-1" />
+          <span className="text-xs font-medium">Üzenetek</span>
         </button>
         
         <button
           onClick={() => {
             setCurrentTab('help');
-            setCategoryView(null);
-            setQuestionView(null);
+            setDetailView(null);
           }}
-          className={`flex-1 flex flex-col items-center justify-center transition-all ${
-            currentTab === 'help' && !categoryView && !questionView
-              ? 'text-electric-300 bg-electric-300/10' 
-              : 'text-white/70 hover:text-white'
+          className={`flex-1 flex flex-col items-center py-4 px-3 transition-all duration-200 ${
+            currentTab === 'help' && !detailView
+              ? 'text-electric-300 bg-electric-300/20 border-t-2 border-electric-300' 
+              : 'text-white/60 hover:text-white/80 hover:bg-white/10'
           }`}
         >
-          <HelpCircle className="w-3 h-3 mb-0.5" />
-          <span className="text-xs leading-none">Súgó</span>
+          <HelpCircle className="w-6 h-6 mb-1" />
+          <span className="text-xs font-medium">Súgó</span>
         </button>
       </div>
     </div>
   );
 
-  const renderQuestionDetail = (question: string) => {
-    const category = Object.values(categories).find(cat => 
-      cat.questions.some(q => q.title === question)
-    );
-    const questionData = category?.questions.find(q => q.title === question);
+  const renderFAQDetail = (type: DetailView) => {
+    const content = {
+      'ingyen-italok': {
+        title: 'Ingyen italok',
+        content: [
+          {
+            question: 'Hogyan szerezhetem meg az ingyen italt?',
+            answer: 'Töltsd le az alkalmazást, regisztrálj és azonnal kapsz egy ingyen italt a résztvevő helyszíneken.'
+          },
+          {
+            question: 'Hol használhatom fel az ingyen italt?',
+            answer: 'Az összes partnercégünknél, amelyek szerepelnek az alkalmazásban. A térképen találod őket.'
+          },
+          {
+            question: 'Van-e időkorlát az ingyen italra?',
+            answer: 'Az ingyen ital kupon 30 napig érvényes az aktiválástól számítva.'
+          }
+        ]
+      },
+      'jutalmak': {
+        title: 'Jutalmak és kártya összekapcsolás',
+        content: [
+          {
+            question: 'Hogyan kapcsolhatom össze a kártyámat?',
+            answer: 'A Profil > Kártyák menüpontban add hozzá a hűségkártyádat vagy bankkártyádat.'
+          },
+          {
+            question: 'Milyen jutalmakat szerezhetek?',
+            answer: 'Pontokat gyűjthetsz minden vásárlás után, amelyeket ingyen italokra vagy kedvezményekre válthatasz.'
+          }
+        ]
+      },
+      'regisztracio': {
+        title: 'Regisztráció és fiókkezelés',
+        content: [
+          {
+            question: 'Hogyan regisztrálhatok?',
+            answer: 'Töltsd le az alkalmazást és kövesd a regisztrációs lépéseket. Szükséged lesz egy email címre és telefonszámra.'
+          },
+          {
+            question: 'Hogyan változtathatom meg az adataim?',
+            answer: 'A Profil menüben szerkesztheted a személyes adataidat, jelszavadat és értesítési beállításaidat.'
+          }
+        ]
+      },
+      'ajanlas': {
+        title: 'Ajánlások és megosztás',
+        content: [
+          {
+            question: 'Hogyan hívhatom meg a barátaimat?',
+            answer: 'A Megosztás menüben találod a referral linkedet, amelyet elküldhetsz barátaidnak.'
+          },
+          {
+            question: 'Mit kapok, ha meghívok valakit?',
+            answer: 'Minden sikeres meghívásért pontokat kapsz, amelyeket jutalmakra válthatasz.'
+          }
+        ]
+      }
+    };
 
-    if (!questionData) return null;
+    const faqData = content[type!];
 
     return (
       <div className="flex flex-col h-full">
         {renderHeader()}
         
-        <div className="flex-1 p-3 space-y-3 overflow-y-auto pb-12">
-          <h3 className="text-sm font-medium text-white mb-2">{questionData.title}</h3>
-          <p className="text-xs text-white/80 leading-relaxed">{questionData.answer}</p>
-          
-          <div className="pt-3 border-t border-white/10 mt-4">
-            <button
-              onClick={() => setCurrentTab('messages')}
-              className="text-xs text-electric-300 hover:text-electric-400 transition-colors"
-            >
-              További kérdésed van? Írj nekünk!
-            </button>
+        <div className="flex-1 p-6 space-y-6 overflow-y-auto pb-24">
+          <div>
+            <h3 className="text-2xl font-bold text-white mb-4">{faqData.title}</h3>
           </div>
-        </div>
-        
-        {renderFooterNav()}
-      </div>
-    );
-  };
 
-  const renderCategoryQuestions = (categoryKey: CategoryView) => {
-    const category = categories[categoryKey!];
-
-    return (
-      <div className="flex flex-col h-full">
-        {renderHeader()}
-        
-        <div className="flex-1 p-3 space-y-2 overflow-y-auto pb-12">
-          <h3 className="text-sm font-medium text-white mb-3">{category.title}</h3>
-
-          <div className="space-y-1.5">
-            {category.questions.map((question, index) => (
-              <button 
-                key={index}
-                onClick={() => openQuestion(question.title)}
-                className="w-full bg-gray-700/60 hover:bg-gray-700/80 border border-gray-600/40 rounded-lg p-2.5 text-left transition-all"
-              >
-                <p className="text-xs text-white/90">{question.title}</p>
-              </button>
+          <div className="space-y-4">
+            {faqData.content.map((item, index) => (
+              <div key={index} className="bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-all duration-200">
+                <h4 className="font-semibold text-white mb-3 text-lg">{item.question}</h4>
+                <p className="text-white/80 leading-relaxed">{item.answer}</p>
+              </div>
             ))}
+          </div>
+
+          <div className="pt-4">
+            <Button
+              onClick={() => setCurrentTab('messages')}
+              className="w-full bg-electric-300 hover:bg-electric-400 text-black font-semibold py-3 rounded-xl"
+            >
+              További kérdés esetén írj nekünk
+            </Button>
           </div>
         </div>
         
@@ -255,39 +219,78 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full">
       {renderHeader()}
       
-      <div className="flex-1 p-3 space-y-3 overflow-y-auto pb-12">
-        <div className="text-center mb-3">
-          <h3 className="text-sm font-medium text-white">Miben segíthetünk?</h3>
+      <div className="flex-1 p-6 space-y-6 overflow-y-auto pb-24">
+        <div>
+          <h3 className="text-2xl font-bold text-white mb-2">Szia! 👋</h3>
+          <p className="text-white/80 text-lg">Miben segíthetünk?</p>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Button
             onClick={() => setCurrentTab('messages')}
-            className="w-full bg-electric-300 hover:bg-electric-400 text-black font-medium py-2 text-xs h-8"
+            className="w-full h-16 bg-electric-300 hover:bg-electric-400 text-black font-semibold text-left flex items-center justify-between rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
           >
-            Írj nekünk üzenetet
+            <span className="text-lg">Írj nekünk üzenetet</span>
+            <Send className="w-6 h-6" />
           </Button>
 
-          <div className="relative">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Keresés a súgóban..."
-              className="w-full bg-white/10 border border-white/20 rounded-lg px-2.5 py-1.5 pr-8 text-white placeholder-white/50 text-xs h-8"
-            />
-            <Search className="absolute right-2.5 top-1/2 transform -translate-y-1/2 w-3 h-3 text-white/40" />
-          </div>
-        </div>
-
-        <div className="pt-2">
           <Button
             onClick={() => setCurrentTab('help')}
-            variant="outline"
-            className="w-full border-white/20 text-white hover:bg-white/10 text-xs py-1.5 h-8"
+            className="w-full h-16 bg-white/10 hover:bg-white/20 text-white font-semibold text-left flex items-center justify-between rounded-xl border-2 border-white/20 hover:border-white/30 transition-all duration-200"
           >
-            További kérdésekért böngéssz a súgóban!
+            <span className="text-lg">Keresés a súgóban</span>
+            <Search className="w-6 h-6" />
           </Button>
+        </div>
+
+        <div className="space-y-4">
+          <h4 className="text-sm font-medium text-white/60 uppercase tracking-wide">Gyakori kérdések</h4>
+          
+          <div className="space-y-3">
+            <button 
+              onClick={() => openDetailView('ingyen-italok')}
+              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Ingyen italok</span>
+                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+              </div>
+              <p className="text-white/60 text-sm mt-2">Hogyan szerezd meg és használd fel az ingyen italokat</p>
+            </button>
+            
+            <button 
+              onClick={() => openDetailView('jutalmak')}
+              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Jutalmak és kártya összekapcsolás</span>
+                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+              </div>
+              <p className="text-white/60 text-sm mt-2">Kártyák hozzáadása és jutalmak kezelése</p>
+            </button>
+            
+            <button 
+              onClick={() => openDetailView('regisztracio')}
+              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Regisztráció és fiókkezelés</span>
+                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+              </div>
+              <p className="text-white/60 text-sm mt-2">Fiók létrehozása és személyes adatok kezelése</p>
+            </button>
+
+            <button 
+              onClick={() => openDetailView('ajanlas')}
+              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</span>
+                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+              </div>
+              <p className="text-white/60 text-sm mt-2">Barátok meghívása és jutalmak szerzése</p>
+            </button>
+          </div>
         </div>
       </div>
       
@@ -299,29 +302,31 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full">
       {renderHeader()}
 
-      <div className="flex-1 flex flex-col items-center justify-center p-3 pb-20">
-        <div className="text-center">
-          <MessageCircle className="w-8 h-8 text-electric-300 mx-auto mb-2" />
-          <h3 className="text-sm font-medium text-white mb-1">Nincs üzenet</h3>
-          <p className="text-white/60 text-xs">Írj nekünk bármikor!</p>
+      <div className="flex-1 flex flex-col items-center justify-center p-6 pb-32">
+        <div className="bg-white/5 rounded-full p-8 mb-6">
+          <MessageCircle className="w-16 h-16 text-electric-300" />
         </div>
+        <h3 className="text-2xl font-bold text-white mb-3">Nincs üzenet</h3>
+        <p className="text-white/60 text-center text-lg max-w-sm">
+          A csapat üzenetei itt fognak megjelenni. Írj nekünk, ha segítségre van szükséged!
+        </p>
       </div>
 
-      <div className="fixed bottom-10 left-0 right-0 p-3 bg-gradient-to-t from-black via-black/95 to-transparent">
-        <div className="flex space-x-2">
+      <div className="absolute bottom-20 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/95 to-transparent">
+        <div className="flex space-x-3">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Írj nekünk üzenetet..."
-            className="flex-1 bg-white/10 border border-white/20 rounded-lg px-2.5 py-1.5 text-white placeholder-white/50 text-xs h-8"
+            className="flex-1 bg-white/10 border-2 border-white/20 rounded-xl px-4 py-4 text-white placeholder-white/50 focus:outline-none focus:border-electric-300 focus:ring-2 focus:ring-electric-300/20 text-lg"
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
           <Button
             onClick={handleSendMessage}
-            className="bg-electric-300 hover:bg-electric-400 text-black px-2.5 py-1.5 h-8"
+            className="bg-electric-300 hover:bg-electric-400 text-black px-5 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
           >
-            <Send className="w-3 h-3" />
+            <Send className="w-6 h-6" />
           </Button>
         </div>
       </div>
@@ -334,22 +339,77 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full">
       {renderHeader()}
 
-      <div className="flex-1 p-3 space-y-2 overflow-y-auto pb-12">
-        {Object.entries(categories).map(([key, category]) => (
-          <button 
-            key={key}
-            onClick={() => openCategory(key as CategoryView)}
-            className="w-full bg-gray-700/60 hover:bg-gray-700/80 border border-gray-600/40 rounded-lg p-2.5 text-left transition-all group"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-medium text-white text-xs mb-0.5">{category.title}</h3>
-                <span className="text-xs text-white/50">{category.questions.length} kérdés</span>
+      <div className="flex-1 p-6 space-y-6 overflow-y-auto pb-24">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Keresés a súgóban..."
+            className="w-full bg-white/10 border-2 border-white/20 rounded-xl px-4 py-4 pr-12 text-white placeholder-white/50 focus:outline-none focus:border-electric-300 focus:ring-2 focus:ring-electric-300/20 text-lg"
+          />
+          <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-white/40" />
+        </div>
+
+        <div className="space-y-4">
+          <p className="text-sm text-white/50">4 kategória</p>
+          
+          <div className="space-y-3">
+            <button 
+              onClick={() => openDetailView('ingyen-italok')}
+              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+            >
+              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Ingyen italok</h3>
+              <p className="text-white/70 mb-4 leading-relaxed">
+                Minden amit tudnod kell az ingyen italokról, beleértve a megszerzést és felhasználást.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-white/50">3 cikk</span>
+                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
               </div>
-              <span className="text-white/40 group-hover:text-white/60 transition-colors">›</span>
-            </div>
-          </button>
-        ))}
+            </button>
+
+            <button 
+              onClick={() => openDetailView('jutalmak')}
+              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+            >
+              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Jutalmak és kártyák</h3>
+              <p className="text-white/70 mb-4 leading-relaxed">
+                Kártyák összekapcsolása, pontgyűjtés és jutalmak kezelése.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-white/50">2 cikk</span>
+                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+              </div>
+            </button>
+
+            <button 
+              onClick={() => openDetailView('regisztracio')}
+              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+            >
+              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Fiók és regisztráció</h3>
+              <p className="text-white/70 mb-4 leading-relaxed">
+                Regisztráció, bejelentkezés és fiókadatok kezelése.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-white/50">2 cikk</span>
+                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+              </div>
+            </button>
+
+            <button 
+              onClick={() => openDetailView('ajanlas')}
+              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+            >
+              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</h3>
+              <p className="text-white/70 mb-4 leading-relaxed">
+                Barátok meghívása és referral jutalmak megszerzése.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-white/50">2 cikk</span>
+                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+              </div>
+            </button>
+          </div>
+        </div>
       </div>
       
       {renderFooterNav()}
@@ -357,12 +417,8 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderCurrentView = () => {
-    if (questionView) {
-      return renderQuestionDetail(questionView);
-    }
-
-    if (categoryView) {
-      return renderCategoryQuestions(categoryView);
+    if (detailView) {
+      return renderFAQDetail(detailView);
     }
 
     switch (currentTab) {
@@ -382,21 +438,21 @@ export const CustomerSupport: React.FC = () => {
       {!isOpen && (
         <button
           onClick={toggleSupport}
-          className="fixed bottom-4 right-4 z-50 w-10 h-10 bg-electric-300 hover:bg-electric-400 rounded-full shadow-xl flex items-center justify-center transition-all hover:scale-105"
+          className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-electric-300 hover:bg-electric-400 rounded-full shadow-2xl neon-glow-electric flex items-center justify-center transition-all duration-300 hover:scale-110"
         >
-          <MessageCircle className="w-4 h-4 text-black" />
+          <MessageCircle className="w-7 h-7 text-black" />
         </button>
       )}
 
       {isOpen && (
         <>
           <div 
-            className="fixed inset-0 bg-black/60 z-40"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
             onClick={toggleSupport}
           />
           
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3">
-            <div className="w-full max-w-sm h-80 bg-gradient-to-b from-gray-900 to-black rounded-xl shadow-2xl border border-white/20 overflow-hidden">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="w-full max-w-md h-[700px] bg-gradient-to-b from-gray-900 to-black rounded-2xl shadow-2xl neon-glow-electric border border-white/20 overflow-hidden relative">
               {renderCurrentView()}
             </div>
           </div>
