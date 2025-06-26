@@ -226,6 +226,19 @@
     animation: ripple 2s infinite;
   }
 
+  /* Enhanced multi-layered phone glow effects */
+  .bg-unified-glow-phone-outer {
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, rgba(34, 211, 238, 0.15) 40%, rgba(125, 211, 252, 0.05) 70%, transparent 100%);
+  }
+
+  .bg-unified-glow-phone-middle {
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, rgba(34, 211, 238, 0.2) 50%, transparent 100%);
+  }
+
+  .bg-unified-glow-phone-inner {
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.5) 0%, rgba(34, 211, 238, 0.25) 60%, transparent 100%);
+  }
+
   /* Unified background glow effects with consistent colors */
   .bg-unified-glow-primary {
     background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(34, 211, 238, 0.08) 40%, transparent 80%);

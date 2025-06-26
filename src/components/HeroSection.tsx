@@ -40,12 +40,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               Regisztrálj most!
             </Button>
 
-            {/* Phone mockup for mobile with unified glow */}
+            {/* Phone mockup for mobile - glow now handled by PhoneMockup component */}
             <div className="flex justify-center mt-12 pb-0">
-              <div className="relative">
-                <div className="absolute inset-4 bg-unified-glow-phone opacity-20 blur-[60px] rounded-full"></div>
-                <PhoneMockup imageUrl={appImages[currentImageIndex]} />
-              </div>
+              <PhoneMockup imageUrl={appImages[currentImageIndex]} />
             </div>
           </div>
 
@@ -72,9 +69,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           </div>
         </div>
         
-        {/* Right side - Unified Desktop Phone Mockup with matching background glow */}
+        {/* Right side - Desktop Phone Mockup with built-in glow */}
         <div className="hidden lg:flex justify-center relative">
-          <div className="absolute inset-4 bg-unified-glow-phone opacity-20 blur-[60px] rounded-full"></div>
           <div className="relative unified-liquid-ripple">
             <PhoneMockup imageUrl={appImages[currentImageIndex]} />
           </div>
