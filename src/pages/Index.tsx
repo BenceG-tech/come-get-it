@@ -10,6 +10,7 @@ import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 import { FOMOSection } from '@/components/FOMOSection';
 import { SignupForm } from '@/components/SignupForm';
 import { StickyCallToAction } from '@/components/StickyCallToAction';
+import { CustomerSupport } from '@/components/CustomerSupport';
 
 const Index = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -78,6 +79,7 @@ const Index = () => {
       <FOMOSection />
       <SignupForm />
       <StickyCallToAction />
+      <CustomerSupport />
     </div>
   );
 };
