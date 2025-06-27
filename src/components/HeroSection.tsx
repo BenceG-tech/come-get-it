@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
@@ -24,8 +23,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           {/* Mobile Layout */}
           <div className="lg:hidden text-center space-y-10">
             <h1 className="text-4xl md:text-5xl font-black leading-tight">
-              <span className="block text-white mb-3">INGYEN ITAL</span>
-              <span className="block text-white">MINDEN NAPRA</span>
+              <span className="block text-white mb-3">
+                INGYEN <span className="ml-3">ITAL</span>
+              </span>
+              <span className="block text-white">
+                MINDEN <span className="ml-3">NAPRA</span>
+              </span>
             </h1>
             
             <p className="text-lg text-electric-100 max-w-lg mx-auto leading-relaxed">
@@ -40,7 +43,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               Regisztrálj most!
             </Button>
 
-            {/* Phone mockup for mobile - glow now handled by PhoneMockup component */}
+            {/* Phone mockup for mobile - using PhoneMockup component without extra glow */}
             <div className="flex justify-center mt-12 pb-0">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
             </div>
@@ -49,8 +52,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           {/* Desktop Layout */}
           <div className="hidden lg:block text-left space-y-10">
             <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-black leading-none tracking-tight">
-              <span className="block mb-4 text-white">INGYEN ITAL</span>
-              <span className="block text-white">MINDEN NAPRA</span>
+              <span className="block mb-4 text-white">
+                INGYEN <span className="ml-4">ITAL</span>
+              </span>
+              <span className="block text-white">
+                MINDEN <span className="ml-4">NAPRA</span>
+              </span>
             </h1>
             
             <p className="text-xl xl:text-2xl text-electric-100 max-w-2xl font-medium leading-relaxed">
@@ -69,11 +76,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           </div>
         </div>
         
-        {/* Right side - Desktop Phone Mockup with built-in glow */}
+        {/* Right side - Desktop Phone Mockup - using PhoneMockup component without extra glow effects */}
         <div className="hidden lg:flex justify-center relative">
-          <div className="relative unified-liquid-ripple">
-            <PhoneMockup imageUrl={appImages[currentImageIndex]} />
-          </div>
+          <PhoneMockup imageUrl={appImages[currentImageIndex]} />
         </div>
       </div>
     </div>
