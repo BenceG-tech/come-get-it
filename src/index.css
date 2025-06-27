@@ -81,6 +81,24 @@
 }
 
 @layer utilities {
+  /* Optimized phone glow effect - single clean gradient */
+  .bg-optimized-phone-glow {
+    background: radial-gradient(ellipse 150% 120%, rgba(0, 212, 255, 0.12) 0%, rgba(34, 211, 238, 0.08) 40%, transparent 70%);
+  }
+
+  /* Performance optimization utilities */
+  .transform-gpu {
+    transform: translateZ(0);
+  }
+
+  .backface-visibility-hidden {
+    backface-visibility: hidden;
+  }
+
+  .contain-layout-style-paint {
+    contain: layout style paint;
+  }
+
   /* Updated gradients without royal blue */
   .brand-gradient-cta {
     background: linear-gradient(135deg, #00D4FF 0%, #22D3EE 30%, #0369a1 70%, #0c4a6e 100%);
@@ -226,19 +244,6 @@
     animation: ripple 2s infinite;
   }
 
-  /* Updated phone glow effects with teal colors matching the provided image */
-  .bg-unified-glow-phone-outer {
-    background: radial-gradient(ellipse 120% 100%, rgba(15, 76, 117, 0.25) 0%, rgba(30, 90, 138, 0.12) 30%, rgba(45, 106, 159, 0.06) 60%, rgba(60, 122, 180, 0.02) 80%, transparent 100%);
-  }
-
-  .bg-unified-glow-phone-middle {
-    background: radial-gradient(ellipse 100% 90%, rgba(15, 76, 117, 0.35) 0%, rgba(30, 90, 138, 0.18) 40%, rgba(45, 106, 159, 0.08) 75%, transparent 100%);
-  }
-
-  .bg-unified-glow-phone-inner {
-    background: radial-gradient(ellipse 80% 80%, rgba(15, 76, 117, 0.45) 0%, rgba(30, 90, 138, 0.25) 50%, rgba(45, 106, 159, 0.12) 85%, transparent 100%);
-  }
-
   /* Unified background glow effects with consistent colors */
   .bg-unified-glow-primary {
     background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(34, 211, 238, 0.08) 40%, transparent 80%);
@@ -338,6 +343,15 @@
     100% {
       transform: translate(-50%, -50%) scale(6);
       opacity: 0;
+    }
+  }
+
+  @keyframes liquid-flow {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
     }
   }
 }
