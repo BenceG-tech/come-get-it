@@ -41,12 +41,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             </Button>
 
             {/* Two tilted and overlapping phone mockups for mobile */}
-            <div className="flex justify-center items-center mt-8 pb-0 relative h-64">
-              <div className="absolute -rotate-12 -translate-x-6 z-10">
-                <PhoneMockup imageUrl={appImages[0]} className="scale-50" />
+            <div className="flex justify-center items-center mt-8 pb-0 relative h-80">
+              <div className="absolute -rotate-12 -translate-x-4 z-10">
+                <PhoneMockup imageUrl={appImages[0]} className="scale-75" />
               </div>
-              <div className="absolute rotate-12 translate-x-6 z-20">
-                <PhoneMockup imageUrl={appImages[1]} className="scale-50" />
+              <div className="absolute rotate-12 translate-x-4 z-20">
+                <PhoneMockup imageUrl={appImages[1]} className="scale-75" />
               </div>
             </div>
           </div>
@@ -76,11 +76,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         
         {/* Right side - Two tilted and overlapping desktop phone mockups */}
         <div className="hidden lg:flex justify-center items-center relative h-96">
-          <div className="absolute -rotate-12 -translate-x-8 z-10 unified-liquid-ripple">
-            <PhoneMockup imageUrl={appImages[0]} className="scale-75" />
+          <div className="absolute -rotate-12 -translate-x-6 z-10 unified-liquid-ripple">
+            <PhoneMockup imageUrl={appImages[0]} className="scale-90" />
           </div>
-          <div className="absolute rotate-12 translate-x-8 z-20 unified-liquid-ripple">
-            <PhoneMockup imageUrl={appImages[1]} className="scale-75" />
+          <div className="absolute rotate-12 translate-x-6 z-20 unified-liquid-ripple">
+            <PhoneMockup imageUrl={appImages[1]} className="scale-90" />
           </div>
         </div>
       </div>
