@@ -40,10 +40,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               Regisztrálj most!
             </Button>
 
-            {/* Two phone mockups for mobile */}
-            <div className="flex justify-center gap-4 mt-12 pb-0">
-              <PhoneMockup imageUrl={appImages[0]} className="scale-75" />
-              <PhoneMockup imageUrl={appImages[1]} className="scale-75" />
+            {/* Two tilted and overlapping phone mockups for mobile */}
+            <div className="flex justify-center items-center mt-8 pb-0 relative h-64">
+              <div className="absolute -rotate-12 -translate-x-6 z-10">
+                <PhoneMockup imageUrl={appImages[0]} className="scale-50" />
+              </div>
+              <div className="absolute rotate-12 translate-x-6 z-20">
+                <PhoneMockup imageUrl={appImages[1]} className="scale-50" />
+              </div>
             </div>
           </div>
 
@@ -70,13 +74,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           </div>
         </div>
         
-        {/* Right side - Two Desktop Phone Mockups with built-in glow */}
-        <div className="hidden lg:flex justify-center gap-6 relative">
-          <div className="relative unified-liquid-ripple">
-            <PhoneMockup imageUrl={appImages[0]} />
+        {/* Right side - Two tilted and overlapping desktop phone mockups */}
+        <div className="hidden lg:flex justify-center items-center relative h-96">
+          <div className="absolute -rotate-12 -translate-x-8 z-10 unified-liquid-ripple">
+            <PhoneMockup imageUrl={appImages[0]} className="scale-75" />
           </div>
-          <div className="relative unified-liquid-ripple">
-            <PhoneMockup imageUrl={appImages[1]} />
+          <div className="absolute rotate-12 translate-x-8 z-20 unified-liquid-ripple">
+            <PhoneMockup imageUrl={appImages[1]} className="scale-75" />
           </div>
         </div>
       </div>
