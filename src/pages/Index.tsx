@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
@@ -6,6 +5,7 @@ import { DrinkSection } from '@/components/DrinkSection';
 import { LinkSection } from '@/components/LinkSection';
 import { EarnSection } from '@/components/EarnSection';
 import { BenefitsSection } from '@/components/BenefitsSection';
+import { WorkWithUsSection } from '@/components/WorkWithUsSection';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 import { FOMOSection } from '@/components/FOMOSection';
 import { SignupForm } from '@/components/SignupForm';
@@ -75,6 +75,7 @@ const Index = () => {
       <LinkSection linkImage={linkImage} />
       <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
       <BenefitsSection />
+      <WorkWithUsSection />
       <VenueApplicationSection />
       <FOMOSection />
       <SignupForm />
