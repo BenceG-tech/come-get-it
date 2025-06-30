@@ -107,7 +107,7 @@ const ComeGetItAccelerator = () => {
     {
       name: "Kovács Péter",
       position: "Tulajdonos, Central Café",
-      text: "A SZIKRA Accelerator program teljesen átformálta az üzletemet. Egy év alatt 350%-kal nőtt a forgalmam és új törzsvásárlói bázist építettem ki.",
+      text: "A Come Get It Gyorsító program teljesen átformálta az üzletemet. Egy év alatt 350%-kal nőtt a forgalmam és új törzsvásárlói bázist építettem ki.",
       logo: "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png"
     }
   ];
@@ -126,8 +126,8 @@ const ComeGetItAccelerator = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">
-                <span className="block text-white mb-2">SZIKRA</span>
-                <span className="block text-electric-300">ACCELERATOR</span>
+                <span className="block text-white mb-2">COME GET IT</span>
+                <span className="block text-electric-300">GYORSÍTÓ</span>
               </h1>
               
               <p className="text-xl text-electric-100 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
@@ -136,7 +136,7 @@ const ComeGetItAccelerator = () => {
               </p>
               
               <p className="text-lg text-electric-100 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                A SZIKRA platform segítségével és a személyre szabott hálózat 
+                A Come Get It platform segítségével és a személyre szabott hálózat 
                 támogatásával növekedést, felfedezést és helyreállítást biztosítunk 
                 a vendéglátóhelyeknek, elősegítve a növekedést, felfedezést és helyreállítást.
               </p>
@@ -158,10 +158,10 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-4 bg-gray-100">
+      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               HOGYAN MŰKÖDIK
             </h2>
           </div>
@@ -169,11 +169,11 @@ const ComeGetItAccelerator = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {howItWorksSteps.map((step, index) => (
               <div key={index} className="text-center group">
-                <div className="w-20 h-20 mx-auto bg-white rounded-full flex items-center justify-center mb-6 shadow-lg">
-                  <step.icon className="w-10 h-10 text-black" />
+                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-electric-300 to-ocean-600 rounded-full flex items-center justify-center mb-6 shadow-lg unified-neon-glow">
+                  <step.icon className="w-10 h-10 text-white" />
                 </div>
-                <h4 className="text-xl font-bold text-black mb-3">{step.title}</h4>
-                <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                <h4 className="text-xl font-bold text-white mb-3">{step.title}</h4>
+                <p className="text-electric-100 leading-relaxed">{step.description}</p>
               </div>
             ))}
           </div>
@@ -196,7 +196,7 @@ const ComeGetItAccelerator = () => {
               </p>
               <p className="text-lg text-electric-100 mb-8 leading-relaxed">
                 Új italok márkák (DJBíró) bekerültek a programba lesz 
-                támogatott által a 1 millió SZIKRA kampány eszköztárában.
+                támogatott által a 1 millió Come Get It kampány eszköztárában.
               </p>
               
               <div className="space-y-6">
@@ -216,7 +216,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Super Fresh Section */}
-      <section className="py-16 px-4 bg-black">
+      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -240,25 +240,22 @@ const ComeGetItAccelerator = () => {
             </div>
             
             <div className="flex justify-center">
-              <div className="grid grid-cols-1 gap-4 max-w-sm">
-                <PhoneMockup imageUrl={acceleratorImage} className="animate-glow-pulse transform scale-75" />
-                <PhoneMockup imageUrl={freshImage} className="animate-glow-pulse transform scale-75" />
-              </div>
+              <PhoneMockup imageUrl={acceleratorImage} className="animate-glow-pulse" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Statistics */}
-      <section className="py-16 px-4 bg-gray-100">
+      <section className="py-16 px-4 bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <stat.icon className="w-16 h-16 mx-auto mb-4 text-black" />
-                <div className="text-3xl font-black text-black mb-2">{stat.value}</div>
-                <div className="text-lg font-bold text-black mb-2">{stat.label}</div>
-                <div className="text-sm text-gray-600">{stat.description}</div>
+              <div key={index} className="text-center glass-effect rounded-2xl p-8">
+                <stat.icon className="w-16 h-16 mx-auto mb-4 text-electric-300" />
+                <div className="text-3xl font-black text-white mb-2">{stat.value}</div>
+                <div className="text-lg font-bold text-white mb-2">{stat.label}</div>
+                <div className="text-sm text-electric-100">{stat.description}</div>
               </div>
             ))}
           </div>
@@ -266,10 +263,10 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Apply Section */}
-      <section className="py-16 px-4 bg-black text-center">
+      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900 text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            JELENTKEZZ A 2025 SZIKRA ACCELERATOR-RA
+            JELENTKEZZ A 2025 COME GET IT GYORSÍTÓ-RA
           </h2>
           <p className="text-lg text-electric-100 mb-8">
             Jelentkezz fel a további részletekért és az bevezetési költségekért.
@@ -285,22 +282,22 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 px-4 bg-gray-100">
+      <section className="py-16 px-4 bg-black">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-black mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">
             VISSZAJELZÉSEK
           </h2>
           
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
+            <div key={index} className="glass-effect rounded-2xl p-8 mb-8">
               <div className="flex justify-center mb-6">
                 <img src={testimonial.logo} alt="Partner logo" className="h-12" />
               </div>
-              <p className="text-lg text-gray-700 mb-6 italic leading-relaxed">
+              <p className="text-lg text-electric-100 mb-6 italic leading-relaxed">
                 "{testimonial.text}"
               </p>
-              <div className="text-black font-bold">{testimonial.name}</div>
-              <div className="text-gray-600 text-sm">{testimonial.position}</div>
+              <div className="text-white font-bold">{testimonial.name}</div>
+              <div className="text-electric-100/70 text-sm">{testimonial.position}</div>
             </div>
           ))}
         </div>

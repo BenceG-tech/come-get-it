@@ -78,7 +78,7 @@ const Italmarkak = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section - List Layout */}
       <section className="py-16 px-4 bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -90,14 +90,26 @@ const Italmarkak = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="glass-effect rounded-2xl p-8 text-center group hover:scale-105 transition-all duration-300">
-                <feature.icon className="w-12 h-12 mx-auto mb-4 text-electric-300" />
-                <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
-                <p className="text-electric-100 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left side - Phone Mockup */}
+            <div className="flex justify-center order-2 lg:order-1">
+              <PhoneMockup imageUrl={brandImage} className="animate-glow-pulse" />
+            </div>
+            
+            {/* Right side - Features List */}
+            <div className="space-y-8 order-1 lg:order-2">
+              {features.map((feature, index) => (
+                <div key={index} className="flex items-start space-x-4 group">
+                  <div className="flex-shrink-0">
+                    <feature.icon className="w-8 h-8 text-electric-300" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-white mb-2">{feature.title}</h4>
+                    <p className="text-electric-100 leading-relaxed">{feature.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
