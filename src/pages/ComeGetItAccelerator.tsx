@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
+import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Filter, Clock, Star, Target, TrendingUp, Users, Lightbulb, Award, MapPin, Footprints, BarChart, Zap, Heart } from 'lucide-react';
@@ -114,6 +115,7 @@ const ComeGetItAccelerator = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <MobileNavigation />
       <Navigation />
       
       {/* Hero Section */}

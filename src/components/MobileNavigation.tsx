@@ -42,76 +42,75 @@ export const MobileNavigation: React.FC = () => {
               </SheetClose>
             </div>
             
-            {/* Super compact menu - fits in upper third */}
-            <div className="px-4 py-4 overflow-hidden">
-              <div className="grid grid-cols-1 gap-2 max-w-xs mx-auto">
+            {/* Modern compact menu */}
+            <div className="px-4 py-3 overflow-hidden">
+              <div className="grid grid-cols-1 gap-2 max-w-sm mx-auto">
                 <SheetClose asChild>
                   <Link 
                     to="/" 
-                    className="group flex items-center justify-between p-2.5 bg-white/5 hover:bg-electric-300/10 rounded-lg border border-white/10 hover:border-electric-300/30 transition-all duration-300"
+                    className="group flex items-center justify-between p-3 bg-gradient-to-r from-white/5 to-white/10 hover:from-electric-300/10 hover:to-electric-300/20 rounded-xl border border-white/10 hover:border-electric-300/30 transition-all duration-300 backdrop-blur-sm"
                   >
-                    <span className="text-white group-hover:text-electric-300 font-medium text-sm">ÚTMUTATÓK</span>
-                    <div className="w-1.5 h-1.5 bg-electric-300/50 rounded-full group-hover:bg-electric-300 transition-colors duration-300"></div>
+                    <span className="text-white group-hover:text-electric-300 font-semibold text-sm tracking-wide">ÚTMUTATÓK</span>
+                    <div className="w-2 h-2 bg-electric-300/60 rounded-full group-hover:bg-electric-300 group-hover:scale-125 transition-all duration-300"></div>
                   </Link>
                 </SheetClose>
                 
-                {/* Special Csatlakozz section */}
-                <div className="bg-white/5 rounded-lg border border-white/10 p-2.5">
-                  <div className="text-electric-300 font-bold text-sm mb-2 tracking-wide">
-                    CSATLAKOZZ
+                {/* Modern Csatlakozz section */}
+                <div className="bg-gradient-to-r from-white/8 to-white/12 rounded-xl border border-white/15 p-3 backdrop-blur-sm">
+                  <div className="text-electric-300 font-bold text-sm mb-2 tracking-wide flex items-center">
+                    <span className="bg-gradient-to-r from-electric-300 to-ocean-400 bg-clip-text text-transparent">CSATLAKOZZ</span>
+                    <div className="w-1 h-1 bg-electric-300 rounded-full ml-2"></div>
                   </div>
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <SheetClose asChild>
                       <Link 
                         to="/vendeglatohelyek" 
-                        className="block text-white/80 hover:text-electric-300 text-xs py-1 px-2 hover:bg-white/5 rounded transition-all duration-200"
+                        className="block text-white/90 hover:text-electric-300 text-sm font-medium py-2 px-3 hover:bg-white/10 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/20"
                       >
-                        • Vendéglátóhelyek
+                        Vendéglátóhelyek
                       </Link>
                     </SheetClose>
                     <SheetClose asChild>
                       <Link 
                         to="/italmarkak" 
-                        className="block text-white/80 hover:text-electric-300 text-xs py-1 px-2 hover:bg-white/5 rounded transition-all duration-200"
+                        className="block text-white/90 hover:text-electric-300 text-sm font-medium py-2 px-3 hover:bg-white/10 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/20"
                       >
-                        • Italmárkák
+                        Italmárkák
                       </Link>
                     </SheetClose>
                     <SheetClose asChild>
                       <Link 
                         to="/rewards-partners" 
-                        className="block text-white/80 hover:text-electric-300 text-xs py-1 px-2 hover:bg-white/5 rounded transition-all duration-200"
+                        className="block text-white/90 hover:text-electric-300 text-sm font-medium py-2 px-3 hover:bg-white/10 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/20"
                       >
-                        • Jutalom partnerek
+                        Jutalom partnerek
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link 
+                        to="/come-get-it-accelerator" 
+                        className="block text-white/90 hover:text-electric-300 text-sm font-medium py-2 px-3 hover:bg-white/10 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/20"
+                      >
+                        Gyorsítóprogram
                       </Link>
                     </SheetClose>
                   </div>
                 </div>
                 
                 <SheetClose asChild>
-                  <Link 
-                    to="/come-get-it-accelerator" 
-                    className="group flex items-center justify-between p-2.5 bg-white/5 hover:bg-electric-300/10 rounded-lg border border-white/10 hover:border-electric-300/30 transition-all duration-300"
-                  >
-                    <span className="text-white group-hover:text-electric-300 font-medium text-sm">GYORSÍTÓPOGRAM</span>
-                    <div className="w-1.5 h-1.5 bg-electric-300/50 rounded-full group-hover:bg-electric-300 transition-colors duration-300"></div>
-                  </Link>
-                </SheetClose>
-                
-                <SheetClose asChild>
                   <a 
                     href="#support" 
-                    className="group flex items-center justify-between p-2.5 bg-white/5 hover:bg-electric-300/10 rounded-lg border border-white/10 hover:border-electric-300/30 transition-all duration-300"
+                    className="group flex items-center justify-between p-3 bg-gradient-to-r from-white/5 to-white/10 hover:from-electric-300/10 hover:to-electric-300/20 rounded-xl border border-white/10 hover:border-electric-300/30 transition-all duration-300 backdrop-blur-sm"
                   >
-                    <span className="text-white group-hover:text-electric-300 font-medium text-sm">TÁMOGATÁS</span>
-                    <div className="w-1.5 h-1.5 bg-electric-300/50 rounded-full group-hover:bg-electric-300 transition-colors duration-300"></div>
+                    <span className="text-white group-hover:text-electric-300 font-semibold text-sm tracking-wide">TÁMOGATÁS</span>
+                    <div className="w-2 h-2 bg-electric-300/60 rounded-full group-hover:bg-electric-300 group-hover:scale-125 transition-all duration-300"></div>
                   </a>
                 </SheetClose>
               </div>
               
-              {/* Minimal bottom accent */}
-              <div className="mt-4 flex justify-center">
-                <div className="w-8 h-0.5 bg-gradient-to-r from-electric-300 to-ocean-600 rounded-full opacity-40"></div>
+              {/* Modern minimal accent */}
+              <div className="mt-3 flex justify-center">
+                <div className="w-12 h-0.5 bg-gradient-to-r from-electric-300/40 via-electric-300 to-ocean-600/40 rounded-full"></div>
               </div>
             </div>
           </div>
