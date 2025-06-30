@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clock, MessageCircle, Eye, Globe, Award, Glass, MapPin, Activity } from 'lucide-react';
+import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clock, MessageCircle, Eye, Globe, Award, Glasses, MapPin, Activity } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const ComeGetItAccelerator = () => {
@@ -15,7 +14,7 @@ const ComeGetItAccelerator = () => {
       number: "1",
       title: "MUTASD MEG AZ ITALOD",
       description: "Mutasd be új italod a Come Get It közösségének!",
-      icon: Glass
+      icon: Glasses
     },
     {
       number: "2", 
