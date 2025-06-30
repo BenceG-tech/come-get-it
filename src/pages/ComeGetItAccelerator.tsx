@@ -4,7 +4,7 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Filter, Clock, Star, Target, TrendingUp, Users, Lightbulb, Award, MapPin, Footprints, BarChart, Zap, Heart } from 'lucide-react';
+import { ArrowRight, Star, Target, TrendingUp, Users, BarChart, MapPin, Heart, Lightbulb, Award, Zap, Clock, MessageCircle } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const ComeGetItAccelerator = () => {
@@ -13,103 +13,80 @@ const ComeGetItAccelerator = () => {
 
   const howItWorksSteps = [
     {
-      icon: Filter,
-      title: "TÖKÉLETES ÜZLETI AUDIT",
-      description: "Átfogó felmérés készítése a vendéglátóhelyed jelenlegi állapotáról és potenciáljáról."
+      number: "1",
+      title: "MUTASD MEG AZ ITALOD",
+      description: "A főváros legizgalmasabb helyein, a Come Get It közösség tagjainak!"
     },
     {
-      icon: Clock,
-      title: "SZEMÉLYRE SZABOTT STRATÉGIA",
-      description: "12 hónapos részletes fejlesztési terv kidolgozása a maximum eredmény elérése érdekében."
+      number: "2", 
+      title: "FELHASZNÁLÓINK FELFEDEZNEK",
+      description: "Minden nap új helyeket fedeznek fel, és kipróbálnak egy-egy ingyen italt – akár pont a te márkádból!"
     },
     {
-      icon: Star,
-      title: "PRÉMIUM TÁMOGATÁS",
-      description: "Folyamatos mentorálás és támogatás tapasztalt szakértőktől a teljes program során."
+      number: "3",
+      title: "VALÓS IDEJŰ VISSZAJELZÉSEK",
+      description: "Élménybeszámolókat és tartalmakat kapunk tőlük – segítünk, hogy továbbfejleszd a kínálatodat."
     }
   ];
 
   const freshFeatures = [
-    {
-      icon: Target,
-      title: "MINTAVÉTELEZÉS / FOLYÉKONY AJKAK",
-      description: "Új italok népszerűsítése ingyenes kóstolókkal",
-      color: "text-green-400"
-    },
-    {
-      icon: Users,
-      title: "KÖZÖSSÉGI ESEMÉNYEK",
-      description: "Exkluzív események szervezése a törzsvásárlók számára",
-      color: "text-green-400"
-    },
-    {
-      icon: Star,
-      title: "MARKETING & ESEMÉNYEK",
-      description: "Professzionális marketing kampányok és esemény szervezés",
-      color: "text-green-400"
-    },
-    {
-      icon: BarChart,
-      title: "ADATOKKAL VEZÉRELT",
-      description: "Részletes elemzések és jelentések az üzleti teljesítményről",
-      color: "text-green-400"
-    }
+    "Minimum 5 budapesti partnerhelyen elérhető a márkád itala",
+    "Akár 250–500 minta/ital eljuttatása valódi, fiatalos célközönséghez",
+    "Folyamatos visszacsatolás: A/B teszt, ízvariánsok kipróbálása",
+    "Közösségi média és helyi influencer bevonás",
+    "Heti jelentés az eredményekről, felhasználói insightok",
+    "Egyedi megjelenés a CGI appban, térképen, ajánlókban"
   ];
 
   const superFreshFeatures = [
+    "Már akár 1–2 helyszín is elég a teszteléshez",
+    "100–250 minta eljuttatása, első hiteles visszajelzések",
+    "Kiemelés az app ajánlott italkínálatában",
+    "Közösségi poszt vagy hírlevél megjelenés",
+    "Heti feedback jelentés, gyors iterációs javaslatok"
+  ];
+
+  const benefits = [
     {
-      icon: Target,
-      title: "MINTAVÉTELEZÉS / FOLYÉKONY AJKAK",
-      description: "Új italok és specialitások bevezetése célzott kampányokkal",
-      color: "text-green-400"
-    },
-    {
-      icon: Star,
-      title: "MARKETING & ESEMÉNYEK",
-      description: "Átfogó marketing stratégia és esemény menedzsment",
-      color: "text-green-400"
+      icon: Users,
+      title: "VALÓDI CÉLKÖZÖNSÉG",
+      description: "Több száz potenciális törzsvendég próbálja ki az italod már a tesztidőszakban"
     },
     {
       icon: BarChart,
-      title: "ADATOKKAL VEZÉRELT",
-      description: "Valós idejű analytics és teljesítmény optimalizálás",
-      color: "text-green-400"
-    }
-  ];
-
-  const stats = [
-    { 
-      icon: Users,
-      value: "250", 
-      label: "ÁTLAGOS KOROSZTÁLY",
-      description: "Fiatal, aktív célközönség"
+      title: "ADATVEZÉRELT FEJLESZTÉS",
+      description: "Visszajelzéseket közvetlenül felhasználhatod fejlesztésre vagy marketingre"
     },
-    { 
-      icon: Heart,
-      value: "85%", 
-      label: "MILLENNIAL & GEN-Z ADATBÁZIS",
-      description: "Magas vásárlóerő"
-    },
-    { 
-      icon: MapPin,
-      value: "90%", 
-      label: "NŐI KÖZÖNSÉG",
-      description: "Prémium szegmens"
-    },
-    { 
-      icon: TrendingUp,
-      value: "350%", 
-      label: "ÉJSZAKAI KIJÁRÁS NÖVEKEDÉS",
-      description: "Magasabb költési hajlandóság"
-    }
-  ];
-
-  const testimonials = [
     {
-      name: "Kovács Péter",
-      position: "Tulajdonos, Central Café",
-      text: "A Come Get It Gyorsító program teljesen átformálta az üzletemet. Egy év alatt 350%-kal nőtt a forgalmam és új törzsvásárlói bázist építettem ki.",
-      logo: "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png"
+      icon: Zap,
+      title: "NULLA MARKETINGKÖLTSÉG",
+      description: "Kiemelkedő elérés a Come Get It partnerlistán keresztül"
+    },
+    {
+      icon: Target,
+      title: "GYORS PIACRALÉPÉS",
+      description: "A leggyorsabb út a helyi közönséghez nagyobb kampány előtt"
+    }
+  ];
+
+  const targetAudience = [
+    {
+      icon: Users,
+      value: "18-34",
+      label: "ÉVESEK",
+      description: "Aktív, városi fiatalok"
+    },
+    {
+      icon: Heart,
+      value: "NYITOTT",
+      label: "ÚJDONSÁGOKRA",
+      description: "Trendi helyekre, minőségi italokra"
+    },
+    {
+      icon: MapPin,
+      value: "TÁRSASÁGI",
+      label: "ÉLETMÓD",
+      description: "Bulizni, új helyeket felfedezni"
     }
   ];
 
@@ -127,27 +104,28 @@ const ComeGetItAccelerator = () => {
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-8">
                 <span className="block text-white mb-2">COME GET IT</span>
-                <span className="block text-electric-300">GYORSÍTÓ</span>
+                <span className="block text-electric-300 mb-4">GYORSÍTÓ</span>
+                <span className="block text-2xl md:text-3xl text-electric-100 font-normal leading-relaxed">
+                  Indítsd be a márkádat a Come Get It közösséggel!
+                </span>
               </h1>
               
-              <p className="text-xl text-electric-100 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                Mi vagyunk a szakértők a jövő vendéglátóiparában. Kis költségvetéssel, 
-                intelligens megoldásokkal és kemény munkával.
-              </p>
-              
-              <p className="text-lg text-electric-100 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                A Come Get It platform segítségével és a személyre szabott hálózat 
-                támogatásával növekedést, felfedezést és helyreállítást biztosítunk 
-                a vendéglátóhelyeknek, elősegítve a növekedést, felfedezést és helyreállítást.
-              </p>
+              <div className="space-y-6 mb-8">
+                <p className="text-xl text-electric-100 leading-relaxed">
+                  Friss, fiatalos, innovatív ital- vagy vendéglátómárka vagy, és szeretnél minél több embert elérni Budapesten?
+                </p>
+                <p className="text-lg text-electric-100 leading-relaxed">
+                  A Come Get It most építi az új generációs, élményalapú közösségét – csatlakozz az elsők között italgyártóként, hogy már a nyitás előtt felépíthessük együtt a márkád következő nagy sztoriját!
+                </p>
+              </div>
               
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
               >
-                Jelentkezz most
+                Jelentkezz most a pilot programba!
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
@@ -160,11 +138,11 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
+      <section className="py-20 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              HOGYAN MŰKÖDIK
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+              HOGYAN MŰKÖDIK?
             </h2>
           </div>
           
@@ -172,9 +150,9 @@ const ComeGetItAccelerator = () => {
             {howItWorksSteps.map((step, index) => (
               <div key={index} className="text-center group">
                 <div className="w-20 h-20 mx-auto bg-gradient-to-br from-electric-300 to-ocean-600 rounded-full flex items-center justify-center mb-6 shadow-lg unified-neon-glow">
-                  <step.icon className="w-10 h-10 text-white" />
+                  <span className="text-2xl font-black text-white">{step.number}</span>
                 </div>
-                <h4 className="text-xl font-bold text-white mb-3">{step.title}</h4>
+                <h4 className="text-xl font-bold text-white mb-4">{step.title}</h4>
                 <p className="text-electric-100 leading-relaxed">{step.description}</p>
               </div>
             ))}
@@ -182,77 +160,125 @@ const ComeGetItAccelerator = () => {
         </div>
       </section>
 
-      {/* Fresh Section */}
-      <section className="py-16 px-4 bg-black">
+      {/* Program Packages */}
+      <section className="py-20 px-4 bg-black">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="flex justify-center">
-              <PhoneMockup imageUrl={freshImage} className="animate-glow-pulse" />
-            </div>
-            
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">FRISS</h2>
-              <p className="text-lg text-electric-100 mb-6 leading-relaxed">
-                Új vendégek a büszkén kifejlesztett. Beszállva és legalább 5 
-                helyben, és biztosítva a hűséget növelni.
-              </p>
-              <p className="text-lg text-electric-100 mb-8 leading-relaxed">
-                Új italok márkák (DJBíró) bekerültek a programba lesz 
-                támogatott által a 1 millió Come Get It kampány eszköztárában.
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+              PROGRAMCSOMAGOK ITALMÁRKÁKNAK
+            </h2>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Fresh Package */}
+            <div className="glass-effect rounded-3xl p-8 border-2 border-electric-300/30">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-3xl font-black text-electric-300">FRESH</h3>
+                <Star className="w-8 h-8 text-electric-300" />
+              </div>
+              <p className="text-lg text-electric-100 mb-6">
+                Innovatív, induló vagy épp újra pozícionált márkáknak
               </p>
               
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {freshFeatures.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <feature.icon className={`w-6 h-6 ${feature.color} flex-shrink-0 mt-1`} />
-                    <div>
-                      <h4 className="text-lg font-bold text-white mb-1">{feature.title}</h4>
-                      <p className="text-electric-100">{feature.description}</p>
-                    </div>
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-electric-300 rounded-full flex-shrink-0 mt-2"></div>
+                    <p className="text-electric-100">{feature}</p>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Super Fresh Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">SZUPER-FRISS</h2>
-              <p className="text-lg text-electric-100 mb-8 leading-relaxed">
-                Érvényes kezdve, akik bekerültek a. Beszállva legalább 1 héten, 
-                mi fogunk bevezetni a márkád az új, szuper vásárlók.
+            {/* Super Fresh Package */}
+            <div className="glass-effect rounded-3xl p-8 border-2 border-green-400/30">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-3xl font-black text-green-400">SUPER-FRESH</h3>
+                <Zap className="w-8 h-8 text-green-400" />
+              </div>
+              <p className="text-lg text-electric-100 mb-6">
+                Vadonatúj márkáknak vagy első tesztkampányhoz
               </p>
               
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {superFreshFeatures.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <feature.icon className={`w-6 h-6 ${feature.color} flex-shrink-0 mt-1`} />
-                    <div>
-                      <h4 className="text-lg font-bold text-white mb-1">{feature.title}</h4>
-                      <p className="text-electric-100">{feature.description}</p>
-                    </div>
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-green-400 rounded-full flex-shrink-0 mt-2"></div>
+                    <p className="text-electric-100">{feature}</p>
                   </div>
                 ))}
               </div>
-            </div>
-            
-            <div className="flex justify-center">
-              <PhoneMockup imageUrl={acceleratorImage} className="animate-glow-pulse" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Statistics */}
-      <section className="py-16 px-4 bg-black">
+      {/* What We Provide */}
+      <section className="py-20 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+              MIT ADUNK MELLÉ?
+            </h2>
+          </div>
+          
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+            <div className="text-center">
+              <BarChart className="w-12 h-12 mx-auto mb-4 text-electric-300" />
+              <h4 className="text-lg font-bold text-white mb-2">ADATVEZÉRELT RIPORTOK</h4>
+              <p className="text-electric-100 text-sm">Folyamatos insight a célközönség fogyasztási szokásairól</p>
+            </div>
+            <div className="text-center">
+              <Lightbulb className="w-12 h-12 mx-auto mb-4 text-electric-300" />
+              <h4 className="text-lg font-bold text-white mb-2">MARKETING TÁMOGATÁS</h4>
+              <p className="text-electric-100 text-sm">Sztorik, reels, social media posztok, célzott kampányok</p>
+            </div>
+            <div className="text-center">
+              <Award className="w-12 h-12 mx-auto mb-4 text-electric-300" />
+              <h4 className="text-lg font-bold text-white mb-2">BRAND AWARENESS</h4>
+              <p className="text-electric-100 text-sm">Kiemelt helyen jelenhetsz meg már az app indulása előtt is</p>
+            </div>
+            <div className="text-center">
+              <MessageCircle className="w-12 h-12 mx-auto mb-4 text-electric-300" />
+              <h4 className="text-lg font-bold text-white mb-2">VISSZACSATOLÁS</h4>
+              <p className="text-electric-100 text-sm">Részletes feedbackek, élő visszajelzések</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why It's Worth It */}
+      <section className="py-20 px-4 bg-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+              MIÉRT ÉRI MEG?
+            </h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {benefits.map((benefit, index) => (
+              <div key={index} className="text-center glass-effect rounded-2xl p-6">
+                <benefit.icon className="w-16 h-16 mx-auto mb-4 text-electric-300" />
+                <h4 className="text-lg font-bold text-white mb-3">{benefit.title}</h4>
+                <p className="text-electric-100 text-sm leading-relaxed">{benefit.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Target Audience */}
+      <section className="py-20 px-4 bg-gradient-to-b from-black to-ocean-900">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+              ÁTLAGOS FELHASZNÁLÓINK
+            </h2>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {targetAudience.map((stat, index) => (
               <div key={index} className="text-center glass-effect rounded-2xl p-8">
                 <stat.icon className="w-16 h-16 mx-auto mb-4 text-electric-300" />
                 <div className="text-3xl font-black text-white mb-2">{stat.value}</div>
@@ -264,44 +290,33 @@ const ComeGetItAccelerator = () => {
         </div>
       </section>
 
-      {/* Apply Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900 text-center">
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-black text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            JELENTKEZZ A 2025 COME GET IT GYORSÍTÓ-RA
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
+            JELENTKEZZ MOST A PILOT PROGRAMBA!
           </h2>
+          <p className="text-xl text-electric-100 mb-4 leading-relaxed">
+            Indulás előtt garantáltan bekerülsz a legelső ajánlott márkák közé, extra támogatást kapsz a marketingtől az edukáción át a fogyasztói insightokig.
+          </p>
           <p className="text-lg text-electric-100 mb-8">
-            Jelentkezz fel a további részletekért és az bevezetési költségekért.
+            Kérj személyre szabott ajánlatot!
           </p>
           
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
-          >
-            Jelentkezz itt
-          </Button>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-16 px-4 bg-black">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">
-            VISSZAJELZÉSEK
-          </h2>
+          <div className="space-y-4">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0 mr-4"
+            >
+              hello@comegetit.hu
+            </Button>
+          </div>
           
-          {testimonials.map((testimonial, index) => (
-            <div key={index} className="glass-effect rounded-2xl p-8 mb-8">
-              <div className="flex justify-center mb-6">
-                <img src={testimonial.logo} alt="Partner logo" className="h-12" />
-              </div>
-              <p className="text-lg text-electric-100 mb-6 italic leading-relaxed">
-                "{testimonial.text}"
-              </p>
-              <div className="text-white font-bold">{testimonial.name}</div>
-              <div className="text-electric-100/70 text-sm">{testimonial.position}</div>
-            </div>
-          ))}
+          <div className="mt-12 glass-effect rounded-2xl p-6">
+            <p className="text-lg font-bold text-electric-300 mb-4">
+              Ne várj, légy az elsők között, akik meghatározzák Budapest új italtrendjeit a Come Get It közösséggel!
+            </p>
+          </div>
         </div>
       </section>
 
