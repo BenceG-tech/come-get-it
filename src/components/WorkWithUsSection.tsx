@@ -2,40 +2,65 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
-import { ArrowRight, Users, TrendingUp, Heart, Building } from 'lucide-react';
+import { ArrowRight, TrendingUp, Users, Heart, Building, Star, CheckCircle, MapPin, Utensils } from 'lucide-react';
 
 export const WorkWithUsSection: React.FC = () => {
   // Using one of the existing app images for the phone mockup
   const businessImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png";
 
-  const steps = [
+  const keyFeatures = [
     {
-      number: "01",
-      title: "Regisztráció",
-      description: "Egyszerű online regisztráció és gyors jóváhagyási folyamat."
+      icon: TrendingUp,
+      title: "Növeld a költést fejenként",
+      description: "Növeljük az átlagos tranzakció értékét azzal, hogy jutalmazzuk a vendégeket nálad történő költésért."
     },
     {
-      number: "02", 
-      title: "Integráció",
-      description: "Segítünk beállítani a rendszert és betanítjuk a személyzetet."
+      icon: Star,
+      title: "Come Get It jutalmak",
+      description: "Szerezz hűséget és egyedi élményt a jutalom platformunkkal, ahol a jutalmak nem kerülnek neked semmibe."
     },
     {
-      number: "03",
-      title: "Promóció", 
-      description: "Automatikus marketing és promóciós kampányok indítása."
+      icon: CheckCircle,
+      title: "Könnyű bevezetés",
+      description: "Mi gondoskodunk mindenről a tartalomtól a jelentésekig."
     },
     {
-      number: "04",
-      title: "Eredmények",
-      description: "Növekvő forgalom és elégedett vendégek már az első héttől."
+      icon: MapPin,
+      title: "Követhető látogatottság",
+      description: "Jelentős, követhető látogatottságot generálunk a helyszínedre olyan napokon és időpontokban, amelyek neked megfelelnek."
+    },
+    {
+      icon: Utensils,
+      title: "GPS alapú marketing",
+      description: "Mobilra optimalizált vagyunk és hyper-lokális marketinget használunk, hogy megmutassuk a felhasználóknak a legközelebbi helyeket."
     }
   ];
 
-  const stats = [
-    { icon: TrendingUp, value: "+45%", label: "Átlagos forgalom növekedés" },
-    { icon: Users, value: "89%", label: "Visszatérő vendégek aránya" },
-    { icon: Heart, value: "4.8/5", label: "Vendég elégedettség" },
-    { icon: Building, value: "200+", label: "Partner hely Budapesten" }
+  const demographics = [
+    { 
+      icon: Building, 
+      value: "24", 
+      label: "Átlagos felhasználói életkor",
+      description: "Fiatal, aktív korosztály"
+    },
+    { 
+      icon: Heart, 
+      value: "91%", 
+      label: "Millennial & Gen-Z adatbázis",
+      description: "Célzott demográfia"
+    },
+    { 
+      icon: Users, 
+      value: "56%", 
+      label: "Női közönség",
+      description: "Kiegyensúlyozott nemek arány"
+    },
+    { 
+      icon: Star, 
+      value: "85%", 
+      label: "Aktív felhasználók éjszakai kimozduláskor",
+      description: "Rendszeres szórakozóhely látogatók"
+    }
   ];
 
   return (
@@ -76,50 +101,44 @@ export const WorkWithUsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* How It Works Section */}
+        {/* Key Features Section */}
         <div className="mb-24">
           <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Hogyan működik?
+              KULCS FUNKCIÓK
             </h3>
             <p className="text-lg text-electric-100 max-w-2xl mx-auto">
-              Négy egyszerű lépésben partnereink leszünk
+              Ezért érdemes partnereink lenni
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => (
-              <div key={index} className="text-center group">
-                <div className="relative mb-6">
-                  <div className="w-20 h-20 mx-auto bg-gradient-to-br from-electric-300 to-ocean-600 rounded-full flex items-center justify-center text-2xl font-bold text-white unified-neon-glow transition-all duration-300 group-hover:scale-110">
-                    {step.number}
-                  </div>
-                  {index < steps.length - 1 && (
-                    <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-electric-300/50 to-transparent"></div>
-                  )}
-                </div>
-                <h4 className="text-xl font-bold text-white mb-3">{step.title}</h4>
-                <p className="text-electric-100 leading-relaxed">{step.description}</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {keyFeatures.map((feature, index) => (
+              <div key={index} className="glass-effect rounded-2xl p-8 text-left group hover:scale-105 transition-all duration-300">
+                <feature.icon className="w-12 h-12 mb-6 text-electric-300" />
+                <h4 className="text-xl font-bold text-white mb-4">{feature.title}</h4>
+                <p className="text-electric-100 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Statistics Section */}
+        {/* Demographics Section */}
         <div className="text-center">
           <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Partnereink eredményei
+            Célközönségünk
           </h3>
           <p className="text-lg text-electric-100 max-w-2xl mx-auto mb-12">
-            Valós számok, valós eredmények
+            Ismerd meg a felhasználóinkat
           </p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+            {demographics.map((stat, index) => (
               <div key={index} className="glass-effect rounded-2xl p-8 text-center group hover:scale-105 transition-all duration-300">
                 <stat.icon className="w-12 h-12 mx-auto mb-4 text-electric-300" />
                 <div className="text-4xl font-black text-white mb-2">{stat.value}</div>
-                <div className="text-electric-100 font-medium">{stat.label}</div>
+                <div className="text-electric-100 font-medium mb-2">{stat.label}</div>
+                <div className="text-sm text-electric-100/70">{stat.description}</div>
               </div>
             ))}
           </div>
