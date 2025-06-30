@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
+import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, BarChart3, Target, Users, TrendingUp } from 'lucide-react';
@@ -41,6 +41,7 @@ const Italmarkak = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <MobileNavigation />
       <Navigation />
       
       {/* Hero Section */}
