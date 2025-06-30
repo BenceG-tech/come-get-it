@@ -12,27 +12,32 @@ export const WorkWithUsSection: React.FC = () => {
     {
       icon: TrendingUp,
       title: "Növeld a költést fejenként",
-      description: "Növeljük az átlagos tranzakció értékét azzal, hogy jutalmazzuk a vendégeket nálad történő költésért."
+      description: "Növeljük az átlagos tranzakció értékét azzal, hogy jutalmazzuk a vendégeket nálad történő költésért.",
+      iconColor: "text-green-400"
     },
     {
       icon: Star,
       title: "Come Get It jutalmak",
-      description: "Szerezz hűséget és egyedi élményt a jutalom platformunkkal, ahol a jutalmak nem kerülnek neked semmibe."
+      description: "Szerezz hűséget és egyedi élményt a jutalom platformunkkal, ahol a jutalmak nem kerülnek neked semmibe.",
+      iconColor: "text-yellow-400"
     },
     {
       icon: CheckCircle,
       title: "Könnyű bevezetés",
-      description: "Mi gondoskodunk mindenről a tartalomtól a jelentésekig."
-    },
-    {
-      icon: MapPin,
-      title: "Követhető látogatottság",
-      description: "Jelentős, követhető látogatottságot generálunk a helyszínedre olyan napokon és időpontokban, amelyek neked megfelelnek."
+      description: "Mi gondoskodunk mindenről a tartalomtól a jelentésekig.",
+      iconColor: "text-green-400"
     },
     {
       icon: Utensils,
+      title: "Követhető látogatottság",
+      description: "Jelentős, követhető látogatottságot generálunk a helyszínedre olyan napokon és időpontokban, amelyek neked megfelelnek.",
+      iconColor: "text-blue-400"
+    },
+    {
+      icon: MapPin,
       title: "GPS alapú marketing",
-      description: "Mobilra optimalizált vagyunk és hyper-lokális marketinget használunk, hogy megmutassuk a felhasználóknak a legközelebbi helyeket."
+      description: "Mobilra optimalizált vagyunk és hyper-lokális marketinget használunk, hogy megmutassuk a felhasználóknak a legközelebbi helyeket.",
+      iconColor: "text-red-400"
     }
   ];
 
@@ -115,7 +120,7 @@ export const WorkWithUsSection: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {keyFeatures.map((feature, index) => (
               <div key={index} className="glass-effect rounded-2xl p-8 text-left group hover:scale-105 transition-all duration-300">
-                <feature.icon className="w-12 h-12 mb-6 text-electric-300" />
+                <feature.icon className={`w-12 h-12 mb-6 ${feature.iconColor}`} />
                 <h4 className="text-xl font-bold text-white mb-4">{feature.title}</h4>
                 <p className="text-electric-100 leading-relaxed">{feature.description}</p>
               </div>
