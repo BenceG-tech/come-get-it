@@ -3,7 +3,7 @@ import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Filter, Clock, Star, Target, TrendingUp, Users, Lightbulb, Award, MapPin, Footprints, BarChart, Zap } from 'lucide-react';
+import { ArrowRight, Filter, Clock, Star, Target, TrendingUp, Users, Lightbulb, Award, MapPin, Footprints, BarChart, Zap, Heart } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const ComeGetItAccelerator = () => {
