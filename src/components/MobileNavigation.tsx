@@ -23,16 +23,16 @@ export const MobileNavigation: React.FC = () => {
         
         <SheetContent 
           side="top" 
-          className="w-full h-full bg-gradient-to-b from-black via-gray-900 to-black backdrop-blur-xl border-0 p-0"
+          className="w-full h-full bg-gradient-to-br from-black via-gray-900/95 to-black backdrop-blur-xl border-0 p-0 flex items-center justify-center"
         >
           <SheetHeader className="sr-only">
             <SheetTitle>Navigációs Menü</SheetTitle>
           </SheetHeader>
           
-          <div className="flex flex-col h-full">
+          <div className="w-full max-w-md mx-auto px-6">
             {/* Header */}
-            <div className="flex justify-between items-center p-4 border-b border-electric-300/10">
-              <div className="text-white text-lg font-black tracking-wide">
+            <div className="flex justify-between items-center mb-8">
+              <div className="text-white text-xl font-black tracking-wide bg-gradient-to-r from-electric-300 to-white bg-clip-text text-transparent">
                 COME GET IT
               </div>
               <SheetClose asChild>
@@ -42,29 +42,29 @@ export const MobileNavigation: React.FC = () => {
               </SheetClose>
             </div>
             
-            {/* Menu Items */}
-            <div className="px-6 py-4 space-y-3">
+            {/* Menu Items - Centered */}
+            <div className="space-y-4">
               <SheetClose asChild>
                 <Link 
                   to="/" 
-                  className="group flex items-center justify-between p-4 bg-gradient-to-r from-white/10 to-electric-300/10 hover:from-electric-300/20 hover:to-electric-300/30 rounded-xl border border-white/20 hover:border-electric-300/40 transition-all duration-300 backdrop-blur-sm shadow-lg hover:shadow-electric-300/20"
+                  className="group flex items-center justify-center p-4 bg-gradient-to-r from-white/10 to-electric-300/10 hover:from-electric-300/20 hover:to-electric-300/30 rounded-xl border border-white/20 hover:border-electric-300/40 transition-all duration-300 backdrop-blur-sm"
                 >
-                  <span className="text-white group-hover:text-electric-300 font-bold text-base tracking-wide">ÚTMUTATÓK</span>
-                  <div className="w-3 h-3 bg-electric-300/70 rounded-full group-hover:bg-electric-300 group-hover:scale-125 transition-all duration-300"></div>
+                  <span className="text-white group-hover:text-electric-300 font-bold text-lg tracking-wide">ÚTMUTATÓK</span>
                 </Link>
               </SheetClose>
               
-              {/* Csatlakozz section */}
-              <div className="bg-gradient-to-r from-white/15 to-electric-300/15 rounded-xl border border-electric-300/30 p-4 backdrop-blur-sm shadow-lg">
-                <div className="text-electric-300 font-black text-lg mb-3 tracking-wide flex items-center">
-                  <span className="bg-gradient-to-r from-electric-300 via-white to-electric-300 bg-clip-text text-transparent drop-shadow-sm">CSATLAKOZZ</span>
-                  <div className="w-2 h-2 bg-electric-300 rounded-full ml-3 animate-pulse"></div>
+              {/* Csatlakozz section - more compact */}
+              <div className="bg-gradient-to-r from-white/15 to-electric-300/15 rounded-xl border border-electric-300/30 p-4 backdrop-blur-sm">
+                <div className="text-center mb-4">
+                  <h3 className="text-electric-300 font-black text-xl tracking-wide bg-gradient-to-r from-electric-300 via-white to-electric-300 bg-clip-text text-transparent">
+                    CSATLAKOZZ
+                  </h3>
                 </div>
-                <div className="space-y-2">
+                <div className="grid grid-cols-1 gap-2">
                   <SheetClose asChild>
                     <Link 
                       to="/vendeglatohelyek" 
-                      className="block text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30 hover:shadow-md hover:shadow-electric-300/10"
+                      className="text-center text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30"
                     >
                       Vendéglátóhelyek
                     </Link>
@@ -72,7 +72,7 @@ export const MobileNavigation: React.FC = () => {
                   <SheetClose asChild>
                     <Link 
                       to="/italmarkak" 
-                      className="block text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30 hover:shadow-md hover:shadow-electric-300/10"
+                      className="text-center text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30"
                     >
                       Italmárkák
                     </Link>
@@ -80,7 +80,7 @@ export const MobileNavigation: React.FC = () => {
                   <SheetClose asChild>
                     <Link 
                       to="/rewards-partners" 
-                      className="block text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30 hover:shadow-md hover:shadow-electric-300/10"
+                      className="text-center text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30"
                     >
                       Jutalom partnerek
                     </Link>
@@ -88,7 +88,7 @@ export const MobileNavigation: React.FC = () => {
                   <SheetClose asChild>
                     <Link 
                       to="/come-get-it-accelerator" 
-                      className="block text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30 hover:shadow-md hover:shadow-electric-300/10"
+                      className="text-center text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30"
                     >
                       Gyorsítóprogram
                     </Link>
@@ -96,23 +96,26 @@ export const MobileNavigation: React.FC = () => {
                 </div>
               </div>
               
+              {/* Support button - more prominent */}
               <SheetClose asChild>
-                <a 
-                  href="#support" 
-                  className="group flex items-center justify-between p-4 bg-gradient-to-r from-white/10 to-electric-300/10 hover:from-electric-300/20 hover:to-electric-300/30 rounded-xl border border-white/20 hover:border-electric-300/40 transition-all duration-300 backdrop-blur-sm shadow-lg hover:shadow-electric-300/20"
+                <button 
+                  onClick={() => {
+                    const supportSection = document.getElementById('support');
+                    if (supportSection) {
+                      supportSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="w-full group flex items-center justify-center p-4 bg-gradient-to-r from-electric-300/20 to-electric-300/30 hover:from-electric-300/30 hover:to-electric-300/40 rounded-xl border border-electric-300/40 hover:border-electric-300/60 transition-all duration-300 backdrop-blur-sm"
                 >
-                  <span className="text-white group-hover:text-electric-300 font-bold text-base tracking-wide flex items-center">
-                    <MessageCircle className="h-5 w-5 mr-3" />
-                    TÁMOGATÁS
-                  </span>
-                  <div className="w-3 h-3 bg-electric-300/70 rounded-full group-hover:bg-electric-300 group-hover:scale-125 transition-all duration-300"></div>
-                </a>
+                  <MessageCircle className="h-5 w-5 mr-3 text-electric-300" />
+                  <span className="text-white group-hover:text-electric-300 font-bold text-lg tracking-wide">TÁMOGATÁS</span>
+                </button>
               </SheetClose>
             </div>
             
-            {/* Bottom accent */}
-            <div className="mt-auto mb-6 flex justify-center">
-              <div className="w-16 h-1 bg-gradient-to-r from-electric-300/60 via-electric-300 to-electric-300/60 rounded-full"></div>
+            {/* Bottom accent - smaller */}
+            <div className="mt-8 flex justify-center">
+              <div className="w-12 h-0.5 bg-gradient-to-r from-electric-300/60 via-electric-300 to-electric-300/60 rounded-full"></div>
             </div>
           </div>
         </SheetContent>
