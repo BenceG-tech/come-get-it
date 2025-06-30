@@ -1,8 +1,8 @@
 
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
+import { MobileNavigation } from './MobileNavigation';
 
 interface HeroSectionProps {
   currentImageIndex: number;
@@ -11,6 +11,9 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => (
   <section className="relative py-8 px-4 overflow-hidden lg:py-24">
+    {/* Mobile Navigation */}
+    <MobileNavigation />
+    
     {/* Unified background gradient for both mobile and desktop */}
     <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
     
@@ -86,4 +89,3 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
     </div>
   </section>
 );
-
