@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
@@ -23,12 +24,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         <div className="flex flex-col justify-center">
           {/* Mobile Layout */}
           <div className="lg:hidden text-center space-y-10">
-            <h1 className="text-5xl md:text-6xl font-black leading-[0.8]">
+            <h1 className="text-4xl md:text-5xl font-black leading-[0.9]">
               <span className="block text-white mb-1">
-                INGYEN <span className="ml-3">ITAL</span>
+                INGYEN ITAL
               </span>
               <span className="block text-white">
-                MINDEN <span className="ml-3">NAPRA</span>
+                MINDEN NAPRA
               </span>
             </h1>
             
@@ -52,12 +53,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
 
           {/* Desktop Layout */}
           <div className="hidden lg:block text-left space-y-10">
-            <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.8] tracking-tight">
+            <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-black leading-[0.9] tracking-tight">
               <span className="block mb-2 text-white">
-                INGYEN <span className="ml-4">ITAL</span>
+                INGYEN ITAL
               </span>
               <span className="block text-white">
-                MINDEN <span className="ml-4">NAPRA</span>
+                MINDEN NAPRA
               </span>
             </h1>
             
@@ -85,3 +86,4 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
     </div>
   </section>
 );
+
