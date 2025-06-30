@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
@@ -23,12 +22,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         <div className="flex flex-col justify-center">
           {/* Mobile Layout */}
           <div className="lg:hidden text-center space-y-10">
-            <h1 className="font-blocky-headline text-4xl md:text-5xl leading-tight text-white">
-              <span className="block mb-3">
-                INGYEN ITAL
+            <h1 className="text-4xl md:text-5xl font-black leading-tight">
+              <span className="block text-white mb-3">
+                INGYEN <span className="ml-3">ITAL</span>
               </span>
-              <span className="block">
-                MINDEN NAPRA
+              <span className="block text-white">
+                MINDEN <span className="ml-3">NAPRA</span>
               </span>
             </h1>
             
@@ -52,12 +51,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
 
           {/* Desktop Layout */}
           <div className="hidden lg:block text-left space-y-10">
-            <h1 className="font-blocky-headline text-5xl xl:text-6xl 2xl:text-7xl leading-none text-white">
-              <span className="block mb-4">
-                INGYEN ITAL
+            <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-black leading-none tracking-tight">
+              <span className="block mb-4 text-white">
+                INGYEN <span className="ml-4">ITAL</span>
               </span>
-              <span className="block">
-                MINDEN NAPRA
+              <span className="block text-white">
+                MINDEN <span className="ml-4">NAPRA</span>
               </span>
             </h1>
             
