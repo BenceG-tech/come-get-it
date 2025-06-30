@@ -1,42 +1,91 @@
+
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, BarChart3, Target, Users, TrendingUp } from 'lucide-react';
+import { ArrowRight, BarChart3, Target, Users, TrendingUp, MapPin, Glasses, CreditCard, Gift, Globe, Zap, Activity, Eye, Building } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const Italmarkak = () => {
   const brandImage = "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png";
 
-  const features = [
+  const howItWorksSteps = [
     {
-      icon: Target,
-      title: "Célzott kampányok",
-      description: "Érj el specifikus fogyasztói csoportokat helymeghatározás és preferenciák alapján."
+      number: "1",
+      title: "FEDEZD FEL A LEGIZGALMASABB HELYEKET",
+      description: "Csatlakozz partnerhálózatunkhoz, jelenj meg Budapest ikonikus bárjaiban, éttermeiben, rooftopokon, romkocsmáiban és bisztróiban!",
+      icon: MapPin
     },
     {
-      icon: BarChart3,
-      title: "Valós idejű adatok",
-      description: "Részletes elemzések a kampányok teljesítményéről és fogyasztói szokásokról."
+      number: "2", 
+      title: "MUTASD MEG AZ ITALODAT AZ ÚJ GENERÁCIÓNAK",
+      description: "Felhasználóink minden nap új helyeket keresnek, felfedezik és kipróbálják a te italodat is – minden nap ingyenes első pohárral, regisztrált felhasználóként.",
+      icon: Glasses
     },
     {
-      icon: Users,
-      title: "Márka tudatosság",
-      description: "Növeld a márka ismertségét és lojalitást interaktív promóciókkal."
+      number: "3",
+      title: "KÁRTYAÖSSZEKÖTÉS ÉS PONTGYŰJTÉS",
+      description: "Az appban kártyájukat összekötve pontokat gyűjtenek minden fogyasztás után, ami ösztönzi a visszatérő vásárlásokat és a márkahűséget.",
+      icon: CreditCard
     },
     {
-      icon: TrendingUp,
-      title: "Eladások növelése",
-      description: "Dokumentálható ROI növekedés partner helyszíneken."
+      number: "4",
+      title: "EXKLUZÍV JUTALMAK, ADATALAPÚ VISSZACSATOLÁS",
+      description: "Felhasználók a pontjaikat exkluzív ajándékokra, további fogyasztásra vagy élményekre válthatják be. Részletes statisztikákat, vásárlási adatokat és valós idejű visszajelzéseket kapsz.",
+      icon: Gift
     }
   ];
 
-  const stats = [
-    { value: "+65%", label: "Márka tudatosság növekedés" },
-    { value: "2.3x", label: "Magasabb engagement" },
-    { value: "40+", label: "Partner italmárka" },
-    { value: "200k+", label: "Aktív fogyasztó" }
+  const whatWeOffer = [
+    {
+      icon: BarChart3,
+      title: "FOGYASZTÓI ÚT KÖVETÉSE",
+      description: "Valós idejű analitika, hogy lásd, hogyan teljesít a kampányod."
+    },
+    {
+      icon: Zap,
+      title: "RUGALMASSÁG, SKÁLÁZHATÓSÁG",
+      description: "Indíts akár egyetlen helyszínen, vagy bővítsd több tucat budapesti partnerhez."
+    },
+    {
+      icon: TrendingUp,
+      title: "FORGALOM- ÉS MÁRKAISMERTSÉG NÖVELÉS",
+      description: "Érj el több ezer új fogyasztót minden hónapban."
+    },
+    {
+      icon: Activity,
+      title: "VALÓDI VÁSÁRLÁSI ADATOK",
+      description: "Közvetlenül mérheted, mennyit fogyasztanak tőled, mikor, hol és milyen italokat."
+    },
+    {
+      icon: Target,
+      title: "KAMPÁNYCÉLOK TELJESÍTÉSE",
+      description: "Legyen szó új ízek bevezetéséről, terméktesztről vagy vásárlói visszacsatolásról – mi mindent támogatunk."
+    },
+    {
+      icon: Globe,
+      title: "360° ÉLMÉNYKAMPÁNY",
+      description: "Offline + online támogatás: social media, tartalomgyártás, influencer program, célzott kommunikáció."
+    }
+  ];
+
+  const idealBrands = [
+    {
+      icon: Building,
+      title: "ÚJ ÉS FELTÖREKVŐ ITALBRANDEK",
+      description: "Kis szériás főzdék, craft sörök"
+    },
+    {
+      icon: Eye,
+      title: "NAGY MÚLTÚ MÁRKÁK",
+      description: "Akik új célcsoportokat keresnek"
+    },
+    {
+      icon: Glasses,
+      title: "ALKOHOLMENTES OPCIÓKAT KÍNÁLÓ",
+      description: "Innovatív márkák"
+    }
   ];
 
   return (
@@ -54,13 +103,13 @@ const Italmarkak = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">
-                <span className="block text-white mb-2">MÁRKA</span>
-                <span className="block text-electric-300">AKTIVÁCIÓ</span>
+                <span className="block text-white mb-2">ITALMÁRKA</span>
+                <span className="block text-electric-300">ÉLMÉNYKAMPÁNY</span>
+                <span className="block text-white text-3xl md:text-4xl lg:text-5xl mt-2">BUDAPESTEN</span>
               </h1>
               
               <p className="text-xl text-electric-100 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                Vidd a márkádat oda, ahol a fogyasztók vannak. Célzott kampányok, 
-                valós eredmények, mérhető ROI.
+                Indítsd be a márkádat Budapest legmenőbb vendéglátóhelyein – lépj be közvetlenül a fiatal, trendi fogyasztók világába, és tedd emlékezetessé a márkaélményt a Come Get It közösségén keresztül!
               </p>
               
               <Button 
@@ -79,57 +128,92 @@ const Italmarkak = () => {
         </div>
       </section>
 
-      {/* Features Section - List Layout */}
-      <section className="py-16 px-4 bg-black">
+      {/* How It Works Section */}
+      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Kulcs funkciók
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+              HOGYAN MŰKÖDIK?
             </h2>
-            <p className="text-lg text-electric-100 max-w-2xl mx-auto">
-              Minden amit a sikeres márka aktivációhoz szükséges
-            </p>
           </div>
           
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left side - Phone Mockup */}
-            <div className="flex justify-center order-2 lg:order-1">
-              <PhoneMockup imageUrl={brandImage} className="animate-glow-pulse" />
-            </div>
-            
-            {/* Right side - Features List */}
-            <div className="space-y-8 order-1 lg:order-2">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-start space-x-4 group">
+          <div className="grid md:grid-cols-2 gap-8">
+            {howItWorksSteps.map((step, index) => (
+              <div key={index} className="glass-effect rounded-xl p-6">
+                <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <feature.icon className="w-8 h-8 text-electric-300" />
+                    <step.icon className="w-12 h-12 text-electric-300" />
                   </div>
                   <div>
-                    <h4 className="text-xl font-bold text-white mb-2">{feature.title}</h4>
-                    <p className="text-electric-100 leading-relaxed">{feature.description}</p>
+                    <h4 className="text-lg font-bold text-white mb-2">{step.title}</h4>
+                    <p className="text-sm text-electric-100 leading-relaxed">{step.description}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Statistics Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">
-            Márka partnereink eredményei
-          </h2>
+      {/* What We Offer Section */}
+      <section className="py-16 px-4 bg-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+              AMIT KÍNÁLUNK ITALGYÁRTÓKNAK ÉS PARTNEREKNEK
+            </h2>
+          </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="glass-effect rounded-2xl p-8 text-center">
-                <div className="text-4xl font-black text-electric-300 mb-2">{stat.value}</div>
-                <div className="text-electric-100 font-medium">{stat.label}</div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {whatWeOffer.map((item, index) => (
+              <div key={index} className="glass-effect rounded-xl p-6 text-center">
+                <item.icon className="w-12 h-12 mx-auto mb-4 text-electric-300" />
+                <h4 className="text-lg font-bold text-white mb-2">{item.title}</h4>
+                <p className="text-sm text-electric-100">{item.description}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Ideal Brands Section */}
+      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+              MILYEN MÁRKÁKNAK IDEÁLIS?
+            </h2>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {idealBrands.map((brand, index) => (
+              <div key={index} className="glass-effect rounded-xl p-8 text-center">
+                <brand.icon className="w-16 h-16 mx-auto mb-4 text-electric-300" />
+                <h4 className="text-xl font-bold text-white mb-2">{brand.title}</h4>
+                <p className="text-electric-100">{brand.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-16 px-4 bg-black text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
+            INDÍTSD BE A SAJÁT ÉLMÉNYKAMPÁNYODAT BUDAPESTEN
+          </h2>
+          <p className="text-lg text-electric-100 mb-8">
+            Lépj kapcsolatba velünk, és vidd italodat a következő szintre a Come Get It-tel!
+          </p>
+          
+          <Button 
+            size="lg" 
+            className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-black py-6 px-16 text-xl rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+          >
+            KAPCSOLATFELVÉTEL
+            <ArrowRight className="ml-3 h-6 w-6" />
+          </Button>
         </div>
       </section>
 
