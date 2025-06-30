@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
-import { ArrowRight, TrendingUp, Users, Heart, Building, Star, CheckCircle, MapPin, Utensils } from 'lucide-react';
+import { ArrowRight, TrendingUp, Users, Heart, Building, Star, CheckCircle, MapPin, Footprints, Plus } from 'lucide-react';
 
 export const WorkWithUsSection: React.FC = () => {
   // Using one of the existing app images for the phone mockup
@@ -10,34 +9,34 @@ export const WorkWithUsSection: React.FC = () => {
 
   const keyFeatures = [
     {
-      icon: TrendingUp,
+      icon: Plus,
       title: "Növeld a költést fejenként",
       description: "Növeljük az átlagos tranzakció értékét azzal, hogy jutalmazzuk a vendégeket nálad történő költésért.",
-      iconColor: "text-green-400"
+      iconColor: "text-electric-300"
     },
     {
       icon: Star,
       title: "Come Get It jutalmak",
       description: "Szerezz hűséget és egyedi élményt a jutalom platformunkkal, ahol a jutalmak nem kerülnek neked semmibe.",
-      iconColor: "text-yellow-400"
+      iconColor: "text-electric-300"
     },
     {
       icon: CheckCircle,
       title: "Könnyű bevezetés",
       description: "Mi gondoskodunk mindenről a tartalomtól a jelentésekig.",
-      iconColor: "text-green-400"
+      iconColor: "text-electric-300"
     },
     {
-      icon: Utensils,
+      icon: Footprints,
       title: "Követhető látogatottság",
       description: "Jelentős, követhető látogatottságot generálunk a helyszínedre olyan napokon és időpontokban, amelyek neked megfelelnek.",
-      iconColor: "text-blue-400"
+      iconColor: "text-electric-300"
     },
     {
       icon: MapPin,
       title: "GPS alapú marketing",
       description: "Mobilra optimalizált vagyunk és hyper-lokális marketinget használunk, hogy megmutassuk a felhasználóknak a legközelebbi helyeket.",
-      iconColor: "text-red-400"
+      iconColor: "text-electric-300"
     }
   ];
 
