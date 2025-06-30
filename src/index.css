@@ -1,15 +1,9 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Import Inter font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
-/* Import heavy fonts for blocky headlines */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
 
 @layer base {
   :root {
@@ -86,14 +80,6 @@
 }
 
 @layer utilities {
-  /* Blocky headline utility class matching DUSK website */
-  .font-blocky-headline {
-    font-family: 'Bebas Neue', 'Impact', 'Anton', 'Montserrat', sans-serif;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-  }
-
   /* Keep the old Montserrat class for backward compatibility */
   .font-montserrat-black {
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
