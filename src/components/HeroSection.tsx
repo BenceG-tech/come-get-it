@@ -33,7 +33,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               </span>
             </h1>
             
-            <p className="text-base text-white max-w-lg mx-auto leading-relaxed">
+            <p className="text-sm text-white max-w-lg mx-auto leading-tight">
               Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat, és élvezd a legjobb helyeket a barátaiddal!
             </p>
             
@@ -62,7 +62,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               </span>
             </h1>
             
-            <p className="text-lg xl:text-xl text-white max-w-2xl font-medium leading-relaxed">
+            <p className="text-base xl:text-lg text-white max-w-2xl font-medium leading-tight">
               Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat, és élvezd a legjobb helyeket a barátaiddal!
             </p>
             
