@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
@@ -22,8 +23,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         <div className="flex flex-col justify-center">
           {/* Mobile Layout */}
           <div className="lg:hidden text-center space-y-10">
-            <h1 className="text-4xl md:text-5xl font-black leading-tight">
-              <span className="block text-white mb-3">
+            <h1 className="text-5xl md:text-6xl font-black leading-[0.8]">
+              <span className="block text-white mb-1">
                 INGYEN <span className="ml-3">ITAL</span>
               </span>
               <span className="block text-white">
@@ -31,8 +32,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               </span>
             </h1>
             
-            <p className="text-lg text-electric-100 max-w-lg mx-auto leading-relaxed">
-              Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat, és élvezd a legjobb bulikat a barátaiddal!
+            <p className="text-base text-white max-w-lg mx-auto leading-relaxed">
+              Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat, és élvezd a legjobb helyeket a barátaiddal!
             </p>
             
             <Button 
@@ -51,8 +52,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
 
           {/* Desktop Layout */}
           <div className="hidden lg:block text-left space-y-10">
-            <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-black leading-none tracking-tight">
-              <span className="block mb-4 text-white">
+            <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.8] tracking-tight">
+              <span className="block mb-2 text-white">
                 INGYEN <span className="ml-4">ITAL</span>
               </span>
               <span className="block text-white">
@@ -60,8 +61,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               </span>
             </h1>
             
-            <p className="text-xl xl:text-2xl text-electric-100 max-w-2xl font-medium leading-relaxed">
-              Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat, és élvezd a legjobb bulikat a barátaiddal!
+            <p className="text-lg xl:text-xl text-white max-w-2xl font-medium leading-relaxed">
+              Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat, és élvezd a legjobb helyeket a barátaiddal!
             </p>
             
             <div className="pt-6">
