@@ -30,8 +30,11 @@ export const MobileNavigation: React.FC = () => {
           </SheetHeader>
           
           <div className="flex flex-col h-full">
-            {/* Close button */}
-            <div className="flex justify-end p-6">
+            {/* Header with logo and close button */}
+            <div className="flex justify-between items-center p-6">
+              <div className="text-white text-xl font-bold">
+                COME GET IT
+              </div>
               <SheetClose asChild>
                 <button className="p-2 text-white hover:text-electric-300 transition-colors">
                   <X className="h-6 w-6" />
@@ -40,31 +43,22 @@ export const MobileNavigation: React.FC = () => {
             </div>
             
             {/* Menu items */}
-            <div className="flex-1 flex flex-col justify-center px-8 space-y-8">
+            <div className="flex-1 flex flex-col justify-center px-8 space-y-6">
               <SheetClose asChild>
-                <a 
-                  href="#drink" 
+                <Link 
+                  to="/" 
                   className="text-2xl font-bold text-white hover:text-electric-300 transition-colors py-4 border-b border-gray-800"
                 >
-                  DRINK
-                </a>
+                  GUIDES
+                </Link>
               </SheetClose>
               
               <SheetClose asChild>
                 <a 
-                  href="#link" 
+                  href="#work-with-us" 
                   className="text-2xl font-bold text-white hover:text-electric-300 transition-colors py-4 border-b border-gray-800"
                 >
-                  LINK
-                </a>
-              </SheetClose>
-              
-              <SheetClose asChild>
-                <a 
-                  href="#earn" 
-                  className="text-2xl font-bold text-white hover:text-electric-300 transition-colors py-4 border-b border-gray-800"
-                >
-                  EARN
+                  WORK WITH US
                 </a>
               </SheetClose>
               
@@ -106,10 +100,10 @@ export const MobileNavigation: React.FC = () => {
               
               <SheetClose asChild>
                 <a 
-                  href="#signup" 
+                  href="#support" 
                   className="text-2xl font-bold text-white hover:text-electric-300 transition-colors py-4"
                 >
-                  REGISZTRÁLJ
+                  SUPPORT
                 </a>
               </SheetClose>
             </div>
