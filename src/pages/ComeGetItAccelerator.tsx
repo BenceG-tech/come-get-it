@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clock, MessageCircle, Eye, Globe, Award, Glasses, MapPin, Activity } from 'lucide-react';
+import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clock, MessageCircle, Eye, Globe, Award, Rocket, FlaskConical, Activity, Play } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const ComeGetItAccelerator = () => {
@@ -12,21 +13,27 @@ const ComeGetItAccelerator = () => {
   const howItWorksSteps = [
     {
       number: "1",
-      title: "MUTASD MEG AZ ITALOD",
-      description: "Mutasd be új italod a Come Get It közösségének!",
-      icon: Glasses
+      title: "JELENTKEZZ",
+      description: "Lépj be a pilotba.",
+      icon: Rocket
     },
     {
       number: "2", 
-      title: "FELFEDEZNEK A FELHASZNÁLÓINK",
-      description: "Minden nap új helyeket és italokat próbálnak ki.",
-      icon: MapPin
+      title: "TESZTELD",
+      description: "Éles visszajelzést kapsz a piactól.",
+      icon: FlaskConical
     },
     {
       number: "3",
-      title: "AZONNALI VISSZAJELZÉS",
-      description: "Valós idejű vélemények és élménybeszámolók.",
+      title: "FEJLESSZ",
+      description: "Valódi user insightok.",
       icon: Activity
+    },
+    {
+      number: "4",
+      title: "INDÍTSD EL",
+      description: "Növeld a jelenléted Budapesten!",
+      icon: Play
     }
   ];
 
@@ -131,21 +138,38 @@ const ComeGetItAccelerator = () => {
         </div>
       </section>
 
-      {/* How It Works - Icon-based compact design */}
-      <section className="py-10 px-4 bg-gradient-to-b from-black to-ocean-900">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-2">
+      {/* How It Works - Modern 2x2 Grid */}
+      <section className="py-12 px-4 bg-white/5 backdrop-blur-sm">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-black text-white mb-2">
               HOGYAN MŰKÖDIK?
             </h2>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {howItWorksSteps.map((step, index) => (
-              <div key={index} className="text-center glass-effect rounded-xl p-6">
-                <step.icon className="w-12 h-12 mx-auto mb-4 text-electric-300" />
-                <h4 className="text-lg font-bold text-white mb-2">{step.title}</h4>
-                <p className="text-sm text-electric-100">{step.description}</p>
+              <div 
+                key={index} 
+                className="glass-effect rounded-xl p-6 text-center group hover:scale-105 hover:shadow-lg hover:shadow-electric-300/20 transition-all duration-300"
+              >
+                <div className="text-2xl font-black text-electric-300 mb-3">
+                  {step.number}
+                </div>
+                
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                    <step.icon className="w-6 h-6 text-electric-300 group-hover:text-white transition-colors duration-300" />
+                  </div>
+                </div>
+                
+                <h4 className="text-sm font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">
+                  {step.title}
+                </h4>
+                
+                <p className="text-xs text-electric-100 leading-tight">
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>
