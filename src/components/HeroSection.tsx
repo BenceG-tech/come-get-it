@@ -10,79 +10,46 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => (
-  <section className="relative py-8 px-4 overflow-hidden lg:py-24">
+  <section className="relative py-16 px-4 overflow-hidden">
     {/* Mobile Navigation */}
     <MobileNavigation />
     
-    {/* Unified background gradient for both mobile and desktop */}
+    {/* Unified background gradient */}
     <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
     
-    {/* Unified glow layers with consistent colors and smooth blending */}
+    {/* Unified glow layers */}
     <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
     <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
     
     <div className="relative z-10 max-w-7xl mx-auto w-full">
-      <div className="grid lg:grid-cols-2 gap-16 items-center pt-16 lg:pt-20">
-        {/* Left side - Large Headlines and CTA */}
-        <div className="flex flex-col justify-center">
-          {/* Mobile Layout */}
-          <div className="lg:hidden text-center space-y-10">
-            <h1 className="text-4xl md:text-5xl font-black leading-[0.9]">
-              <span className="block text-white mb-1">
-                INGYEN ITAL
-              </span>
-              <span className="block text-white">
-                MINDEN NAPRA
-              </span>
-            </h1>
-            
-            <p className="text-sm text-white max-w-lg mx-auto leading-tight">
-              Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat, és élvezd a legjobb helyeket a barátaiddal!
-            </p>
-            
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-3 px-8 text-base rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
-              onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Regisztrálj most!
-            </Button>
-
-            {/* Phone mockup for mobile - using PhoneMockup component without extra glow */}
-            <div className="flex justify-center mt-12 pb-0">
-              <PhoneMockup imageUrl={appImages[currentImageIndex]} />
-            </div>
-          </div>
-
-          {/* Desktop Layout */}
-          <div className="hidden lg:block text-left space-y-10">
-            <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-black leading-[0.9] tracking-tight">
-              <span className="block mb-2 text-white">
-                INGYEN ITAL
-              </span>
-              <span className="block text-white">
-                MINDEN NAPRA
-              </span>
-            </h1>
-            
-            <p className="text-base xl:text-lg text-white max-w-2xl font-medium leading-tight">
-              Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat, és élvezd a legjobb helyeket a barátaiddal!
-            </p>
-            
-            <div className="pt-6">
-              <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-3 px-8 text-base rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
-                onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                Regisztrálj most!
-              </Button>
-            </div>
-          </div>
+      <div className="text-center space-y-8">
+        {/* Main Title - Two lines, max 18 chars per line */}
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] tracking-tight">
+          <span className="block text-white mb-2">INGYEN ITAL</span>
+          <span className="block text-white">MINDEN NAPRA</span>
+        </h1>
+        
+        {/* Subtitle - Max 2 short lines, centered */}
+        <div className="max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-electric-100 font-medium leading-tight">
+            Igyál minden nap ingyen Budapesten –<br />
+            fedezz fel új helyeket, gyűjts pontokat!
+          </p>
         </div>
         
-        {/* Right side - Desktop Phone Mockup - using PhoneMockup component without extra glow effects */}
-        <div className="hidden lg:flex justify-center relative">
+        {/* CTA Button - Unified styling */}
+        <div className="pt-4">
+          <Button 
+            size="lg" 
+            className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+            onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            Regisztrálj most!
+          </Button>
+        </div>
+
+        {/* Phone mockup - Centered */}
+        <div className="flex justify-center pt-8">
           <PhoneMockup imageUrl={appImages[currentImageIndex]} />
         </div>
       </div>

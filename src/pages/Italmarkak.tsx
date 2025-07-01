@@ -97,35 +97,45 @@ const Italmarkak = () => {
       <MobileNavigation />
       <Navigation />
       
-      {/* Hero Section - Compact */}
-      <section className="relative py-16 px-4 overflow-hidden bg-black">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-900"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-30 blur-[100px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-20 blur-[80px]"></div>
+      {/* Hero Section - Unified styling */}
+      <section className="relative py-16 px-4 overflow-hidden">
+        {/* Unified background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
+        
+        {/* Unified glow layers */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
         
         <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-4">
-                <span className="block text-white">ITALMÁRKA</span>
-                <span className="block text-electric-300">ÉLMÉNY</span>
-              </h1>
-              
-              <p className="text-lg text-electric-100 max-w-xl mx-auto lg:mx-0 mb-8">
-                Indítsd be a márkád – Budapest legizgalmasabb közösségében!
+          <div className="text-center space-y-8">
+            {/* Main Title - Two lines, max 18 chars per line */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] tracking-tight">
+              <span className="block text-white mb-2">ITALMÁRKA</span>
+              <span className="block text-electric-300">ÉLMÉNY</span>
+            </h1>
+            
+            {/* Subtitle - Max 2 short lines, centered */}
+            <div className="max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-electric-100 font-medium leading-tight">
+                Indítsd be a márkád –<br />
+                Budapest legizgalmasabb közösségében!
               </p>
-              
-              <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-black py-6 px-12 text-xl rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
-              >
-                Jelentkezz most!
-                <ArrowRight className="ml-3 h-6 w-6" />
-              </Button>
             </div>
             
-            <div className="flex justify-center">
-              <PhoneMockup imageUrl={brandImage} className="animate-glow-pulse scale-90" />
+            {/* CTA Button - Unified styling */}
+            <div className="pt-4">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+              >
+                Jelentkezz most!
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+
+            {/* Phone mockup - Centered */}
+            <div className="flex justify-center pt-8">
+              <PhoneMockup imageUrl={brandImage} />
             </div>
           </div>
         </div>

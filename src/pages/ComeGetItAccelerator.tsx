@@ -87,35 +87,45 @@ const ComeGetItAccelerator = () => {
       <MobileNavigation />
       <Navigation />
       
-      {/* Hero Section - Compact and Bold */}
-      <section className="relative py-12 px-4 overflow-hidden bg-black">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-900"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-30 blur-[100px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-20 blur-[80px]"></div>
+      {/* Hero Section - Unified styling */}
+      <section className="relative py-16 px-4 overflow-hidden">
+        {/* Unified background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
+        
+        {/* Unified glow layers */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
         
         <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.9] mb-4">
-                <span className="block text-white">COME GET IT</span>
-                <span className="block text-electric-300">GYORSÍTÓ</span>
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-electric-100 font-medium mb-6 leading-tight">
-                Indítsd be márkádat Budapest legdinamikusabb italos közösségével!
+          <div className="text-center space-y-8">
+            {/* Main Title - Two lines, max 18 chars per line */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] tracking-tight">
+              <span className="block text-white mb-2">EGYÜTTMŰKÖDÉS</span>
+              <span className="block text-electric-300">ÚJRAGONDOLVA</span>
+            </h1>
+            
+            {/* Subtitle - Max 2 short lines, centered */}
+            <div className="max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-electric-100 font-medium leading-tight">
+                Indítsd be márkádat –<br />
+                Budapest legdinamikusabb közösségével!
               </p>
-              
+            </div>
+            
+            {/* CTA Button - Unified styling */}
+            <div className="pt-4">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-black py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
               >
-                Jelentkezz most!
+                Partner leszek
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
-            
-            <div className="flex justify-center">
-              <PhoneMockup imageUrl={acceleratorImage} className="animate-glow-pulse" />
+
+            {/* Phone mockup - Centered */}
+            <div className="flex justify-center pt-8">
+              <PhoneMockup imageUrl={acceleratorImage} />
             </div>
           </div>
         </div>
