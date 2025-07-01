@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clock, MessageCircle, Eye, Globe, Award, Rocket, FlaskConical, Activity, Play, FileText, cocktail, note } from 'lucide-react';
+import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clock, MessageCircle, Eye, Globe, Award, Rocket, FlaskConical, Activity, Play, FileText, Wine, NotebookPen } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const ComeGetItAccelerator = () => {
@@ -14,13 +15,13 @@ const ComeGetItAccelerator = () => {
       number: "1",
       title: "JELENTKEZZ",
       description: "Töltsd ki a pilot jelentkezést",
-      icon: note
+      icon: NotebookPen
     },
     {
       number: "2", 
       title: "TESZTELD",
       description: "Közösségünk kipróbálja az italodat",
-      icon: cocktail
+      icon: Wine
     },
     {
       number: "3",
