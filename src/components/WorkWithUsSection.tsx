@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
@@ -10,32 +11,26 @@ export const WorkWithUsSection: React.FC = () => {
   const keyFeatures = [
     {
       icon: Plus,
-      title: "Növeld a költést fejenként",
-      description: "Növeljük az átlagos tranzakció értékét azzal, hogy jutalmazzuk a vendégeket nálad történő költésért.",
+      title: "Növeld a költést",
+      description: "Növeljük az átlagos tranzakció értékét jutalmakkal.",
       iconColor: "text-electric-300"
     },
     {
       icon: Star,
-      title: "Come Get It jutalmak",
-      description: "Szerezz hűséget és egyedi élményt a jutalom platformunkkal, ahol a jutalmak nem kerülnek neked semmibe.",
+      title: "Hűségprogram",
+      description: "Egyedi élmény a jutalom platformunkkal.",
       iconColor: "text-electric-300"
     },
     {
       icon: CheckCircle,
       title: "Könnyű bevezetés",
-      description: "Mi gondoskodunk mindenről a tartalomtól a jelentésekig.",
+      description: "Mi gondoskodunk mindenről a beállításig.",
       iconColor: "text-electric-300"
     },
     {
       icon: Footprints,
-      title: "Követhető látogatottság",
-      description: "Jelentős, követhető látogatottságot generálunk a helyszínedre olyan napokon és időpontokban, amelyek neked megfelelnek.",
-      iconColor: "text-electric-300"
-    },
-    {
-      icon: MapPin,
-      title: "GPS alapú marketing",
-      description: "Mobilra optimalizált vagyunk és hyper-lokális marketinget használunk, hogy megmutassuk a felhasználóknak a legközelebbi helyeket.",
+      title: "Mérhető eredmények",
+      description: "Követhető látogatottság és részletes analytics.",
       iconColor: "text-electric-300"
     }
   ];
@@ -44,31 +39,31 @@ export const WorkWithUsSection: React.FC = () => {
     { 
       icon: Building, 
       value: "24", 
-      label: "Átlagos felhasználói életkor",
+      label: "Átlagos életkor",
       description: "Fiatal, aktív korosztály"
     },
     { 
       icon: Heart, 
       value: "91%", 
-      label: "Millennial & Gen-Z adatbázis",
+      label: "Millennial & Gen-Z",
       description: "Célzott demográfia"
     },
     { 
       icon: Users, 
       value: "56%", 
       label: "Női közönség",
-      description: "Kiegyensúlyozott nemek arány"
+      description: "Kiegyensúlyozott arány"
     },
     { 
       icon: Star, 
       value: "85%", 
-      label: "Aktív felhasználók éjszakai kimozduláskor",
-      description: "Rendszeres szórakozóhely látogatók"
+      label: "Aktív éjszakai élet",
+      description: "Rendszeres látogatók"
     }
   ];
 
   return (
-    <section className="relative py-16 px-4 overflow-hidden bg-black">
+    <section className="relative py-20 px-4 overflow-hidden bg-black">
       {/* Background gradient effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-900"></div>
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-30 blur-[100px]"></div>
@@ -85,8 +80,7 @@ export const WorkWithUsSection: React.FC = () => {
             </h2>
             
             <p className="text-sm md:text-base text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-tight">
-              Csatlakozz Budapest leggyorsabban növekvő szórakozóhelyi hálózatához. 
-              Növeld a forgalmat, szerezz új törzsvendégeket és építs közösséget!
+              Csatlakozz Budapest leggyorsabban növekvő szórakozóhelyi hálózatához.
             </p>
             
             <Button 
@@ -105,41 +99,37 @@ export const WorkWithUsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Key Features Section - List Layout */}
+        {/* Key Features Section - Visual Cards */}
         <div className="mb-24">
           <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              KULCS FUNKCIÓK
+              MIÉRT VÁLASSZ MINKET?
             </h3>
             <p className="text-lg text-electric-100 max-w-2xl mx-auto">
-              Ezért érdemes partnereink lenni
+              Amit nyújtunk partnereinknek
             </p>
           </div>
           
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left side - Phone Mockup */}
-            <div className="flex justify-center order-2 lg:order-1">
-              <PhoneMockup imageUrl={businessImage} className="animate-glow-pulse" />
-            </div>
-            
-            {/* Right side - Features List */}
-            <div className="space-y-8 order-1 lg:order-2">
-              {keyFeatures.map((feature, index) => (
-                <div key={index} className="flex items-start space-x-4 group">
+          <div className="grid md:grid-cols-2 gap-8">
+            {keyFeatures.map((feature, index) => (
+              <div key={index} className="glass-effect rounded-2xl p-8 group hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-electric-300/20">
+                <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <feature.icon className={`w-8 h-8 ${feature.iconColor}`} />
+                    <div className="w-12 h-12 bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <feature.icon className={`w-6 h-6 ${feature.iconColor} group-hover:text-white transition-colors duration-300`} />
+                    </div>
                   </div>
                   <div>
-                    <h4 className="text-xl font-bold text-white mb-2">{feature.title}</h4>
+                    <h4 className="text-xl font-bold text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">{feature.title}</h4>
                     <p className="text-electric-100 leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Demographics Section */}
+        {/* Demographics Section - 2x2 Grid */}
         <div className="text-center">
           <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Célközönségünk
@@ -148,13 +138,13 @@ export const WorkWithUsSection: React.FC = () => {
             Ismerd meg a felhasználóinkat
           </p>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {demographics.map((stat, index) => (
-              <div key={index} className="glass-effect rounded-2xl p-8 text-center group hover:scale-105 transition-all duration-300">
-                <stat.icon className="w-12 h-12 mx-auto mb-4 text-electric-300" />
-                <div className="text-4xl font-black text-white mb-2">{stat.value}</div>
-                <div className="text-electric-100 font-medium mb-2">{stat.label}</div>
-                <div className="text-sm text-electric-100/70">{stat.description}</div>
+              <div key={index} className="glass-effect rounded-xl p-6 text-center group hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-electric-300/20">
+                <stat.icon className="w-8 h-8 mx-auto mb-3 text-electric-300 group-hover:text-white transition-colors duration-300" />
+                <div className="text-2xl lg:text-3xl font-black text-white mb-1">{stat.value}</div>
+                <div className="text-sm text-electric-100 font-medium mb-1">{stat.label}</div>
+                <div className="text-xs text-electric-100/70">{stat.description}</div>
               </div>
             ))}
           </div>

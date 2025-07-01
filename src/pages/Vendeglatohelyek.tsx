@@ -3,6 +3,7 @@ import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { WorkWithUsSection } from '@/components/WorkWithUsSection';
+import { HowItWorksForVenues } from '@/components/HowItWorksForVenues';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
@@ -12,6 +13,7 @@ const Vendeglatohelyek = () => {
       <MobileNavigation />
       <Navigation />
       <WorkWithUsSection />
+      <HowItWorksForVenues />
       <VenueApplicationSection />
       <CustomerSupport />
     </div>
