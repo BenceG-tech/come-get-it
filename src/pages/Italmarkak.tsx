@@ -4,7 +4,7 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, MapPin, Glasses, Users, Star, BarChart3, Target, TrendingUp, Zap, Activity, Eye, Building, Globe, Sparkles } from 'lucide-react';
+import { ArrowRight, Compass, CreditCard, Wine, Gift } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const Italmarkak = () => {
@@ -12,22 +12,22 @@ const Italmarkak = () => {
 
   const statistics = [
     {
-      icon: Users,
+      icon: Compass,
       number: "246+",
       label: "FELHASZNÁLÓ"
     },
     {
-      icon: Users,
+      icon: Wine,
       number: "91%",
       label: "WOMEN"
     },
     {
-      icon: Glasses,
+      icon: Gift,
       number: "250+",
       label: "PARTNER"
     },
     {
-      icon: Star,
+      icon: CreditCard,
       number: "4.8",
       label: "APP RATING"
     }
@@ -35,17 +35,17 @@ const Italmarkak = () => {
 
   const howItWorksSteps = [
     {
-      icon: MapPin,
+      icon: Compass,
       title: "FEDEZD FEL",
       description: "Új helyek, új élmények"
     },
     {
-      icon: Glasses,
+      icon: Wine,
       title: "PRÓBÁLD KI", 
       description: "Az italodat ingyen"
     },
     {
-      icon: Star,
+      icon: Gift,
       title: "GYŰJTS PONTOT",
       description: "Jutalmak, visszajelzés"
     }
@@ -53,22 +53,22 @@ const Italmarkak = () => {
 
   const features = [
     {
-      icon: Users,
+      icon: Compass,
       title: "FOGYASZTÓI ELÉRÉS",
       description: "Több ezer új fogyasztó havonta"
     },
     {
-      icon: Zap,
+      icon: CreditCard,
       title: "RUGALMASSÁG",
       description: "Egy helytől országos skálázásig"
     },
     {
-      icon: BarChart3,
+      icon: Wine,
       title: "MARKETING TÁMOGATÁS", 
       description: "Social media, influencer program"
     },
     {
-      icon: Activity,
+      icon: Gift,
       title: "VALÓS IDEJŰ ADATOK",
       description: "Pontos fogyasztási statisztikák"
     }
@@ -76,17 +76,17 @@ const Italmarkak = () => {
 
   const targetAudience = [
     {
-      icon: Sparkles,
+      icon: Gift,
       title: "ÚJ MÁRKÁK",
       description: "Boutique, craft brandek"
     },
     {
-      icon: Building,
+      icon: Compass,
       title: "NAGY BRANDEK",
       description: "Új célcsoportot keresők"
     },
     {
-      icon: Eye,
+      icon: Wine,
       title: "ALKOHOLMENTES",
       description: "Innovatív healthy opciók"
     }
@@ -97,58 +97,51 @@ const Italmarkak = () => {
       <MobileNavigation />
       <Navigation />
       
-      {/* Hero Section - Unified styling */}
-      <section className="relative py-16 px-4 overflow-hidden">
-        {/* Unified background gradient */}
+      {/* Hero Section - Kompakt */}
+      <section className="relative py-12 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
-        
-        {/* Unified glow layers */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center space-y-8">
-            {/* Main Title - Two lines, max 18 chars per line */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.9] tracking-tight">
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <div className="text-center space-y-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[0.9] tracking-tight">
               <span className="block text-white mb-2">ITALMÁRKA</span>
               <span className="block text-electric-300">ÉLMÉNY</span>
             </h1>
             
-            {/* Subtitle - Max 2 short lines, centered */}
-            <div className="max-w-2xl mx-auto">
-              <p className="text-base md:text-lg text-electric-100 font-medium leading-tight">
+            <div className="max-w-xl mx-auto">
+              <p className="text-sm md:text-base text-electric-100 font-medium leading-tight">
                 Indítsd be a márkád –<br />
                 Budapest legizgalmasabb közösségében!
               </p>
             </div>
             
-            {/* CTA Button - Unified styling */}
-            <div className="pt-4">
+            <div className="pt-2">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-3 px-8 text-base rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
               >
                 Jelentkezz most!
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
 
-            {/* Phone mockup - Centered */}
-            <div className="flex justify-center pt-8">
-              <PhoneMockup imageUrl={brandImage} />
+            <div className="flex justify-center pt-4">
+              <PhoneMockup imageUrl={brandImage} className="scale-90" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Statistics Section - Compact 4 boxes */}
+      {/* Statistics Section - 2x2 Grid */}
       <section className="py-8 px-4 bg-black">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 gap-4">
             {statistics.map((stat, index) => (
-              <div key={index} className="glass-effect rounded-xl p-6 text-center">
-                <stat.icon className="w-8 h-8 mx-auto mb-2 text-electric-300" />
-                <div className="text-2xl font-black text-white mb-1">
+              <div key={index} className="glass-effect rounded-xl p-4 text-center group hover:scale-105 transition-all duration-300">
+                <stat.icon className="w-6 h-6 mx-auto mb-2 text-electric-300 group-hover:scale-110 transition-transform duration-300" />
+                <div className="text-xl font-black text-white mb-1">
                   {stat.number}
                 </div>
                 <div className="text-xs text-electric-100 font-medium uppercase tracking-wider">
@@ -160,22 +153,22 @@ const Italmarkak = () => {
         </div>
       </section>
 
-      {/* How It Works - 3 horizontal bubbles */}
-      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+      {/* How It Works - Kompakt */}
+      <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-2">
               HOGYAN MŰKÖDIK?
             </h2>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {howItWorksSteps.map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="w-24 h-24 mx-auto bg-gradient-to-r from-electric-300 to-ocean-600 rounded-full flex items-center justify-center mb-6 unified-neon-glow">
-                  <step.icon className="w-12 h-12 text-white" />
+              <div key={index} className="text-center group">
+                <div className="w-16 h-16 mx-auto bg-gradient-to-r from-electric-300 to-ocean-600 rounded-full flex items-center justify-center mb-4 unified-neon-glow group-hover:scale-110 transition-transform duration-300">
+                  <step.icon className="w-8 h-8 text-white" />
                 </div>
-                <h4 className="text-xl font-black text-white mb-2">{step.title}</h4>
+                <h4 className="text-lg font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">{step.title}</h4>
                 <p className="text-sm text-electric-100">{step.description}</p>
               </div>
             ))}
@@ -183,65 +176,65 @@ const Italmarkak = () => {
         </div>
       </section>
 
-      {/* Features - 4 cards in 2x2 grid */}
-      <section className="py-16 px-4 bg-black">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+      {/* Features - 2x2 Grid */}
+      <section className="py-12 px-4 bg-black">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-2">
               MIT KÍNÁLUNK?
             </h2>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
             {features.map((feature, index) => (
-              <div key={index} className="glass-effect rounded-xl p-8 text-center">
-                <feature.icon className="w-16 h-16 mx-auto mb-4 text-electric-300" />
-                <h4 className="text-xl font-black text-white mb-2">{feature.title}</h4>
-                <p className="text-electric-100">{feature.description}</p>
+              <div key={index} className="glass-effect rounded-xl p-6 text-center group hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-electric-300/20">
+                <feature.icon className="w-12 h-12 mx-auto mb-3 text-electric-300 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+                <h4 className="text-lg font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">{feature.title}</h4>
+                <p className="text-sm text-electric-100">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Target Audience - 3 simple cards */}
-      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+      {/* Target Audience - Kompakt 3 kártya */}
+      <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-2">
               KINEK AJÁNLJUK?
             </h2>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {targetAudience.map((audience, index) => (
-              <div key={index} className="glass-effect rounded-xl p-8 text-center">
-                <audience.icon className="w-16 h-16 mx-auto mb-4 text-electric-300" />
-                <h4 className="text-xl font-black text-white mb-2">{audience.title}</h4>
-                <p className="text-electric-100">{audience.description}</p>
+              <div key={index} className="glass-effect rounded-xl p-6 text-center group hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-electric-300/20">
+                <audience.icon className="w-12 h-12 mx-auto mb-3 text-electric-300 group-hover:scale-110 transition-transform duration-300" />
+                <h4 className="text-lg font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">{audience.title}</h4>
+                <p className="text-sm text-electric-100">{audience.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Enhanced Final CTA */}
-      <section className="py-20 px-4 bg-black text-center">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-8">
+      {/* Final CTA - Kompaktabb */}
+      <section className="py-12 px-4 bg-black text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
             INDÍTSD EL AZ
             <span className="block text-electric-300 mt-2">ÉLMÉNYKAMPÁNYT!</span>
           </h2>
-          <p className="text-xl text-electric-100 mb-12">
+          <p className="text-base text-electric-100 mb-8">
             Írj nekünk, csatlakozz az elsők között!
           </p>
           
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-black py-8 px-20 text-2xl rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+            className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-black py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
           >
             KAPCSOLATFELVÉTEL
-            <ArrowRight className="ml-4 h-8 w-8" />
+            <ArrowRight className="ml-3 h-5 w-5" />
           </Button>
         </div>
       </section>
