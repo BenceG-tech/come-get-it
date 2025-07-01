@@ -1,13 +1,41 @@
+
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Gift, Users, Zap, BarChart } from 'lucide-react';
+import { ArrowRight, Gift, Settings, Zap, BarChart, Users } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const RewardsPartners = () => {
   const rewardsImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png";
+
+  const howItWorksSteps = [
+    {
+      number: "1",
+      icon: Gift,
+      title: "REGISZTRÁLJ",
+      description: "Lépj be a programba!"
+    },
+    {
+      number: "2", 
+      icon: Settings,
+      title: "HOZZ LÉTRE AJÁNLATOT",
+      description: "Adj exkluzív kedvezményt vagy jutalmat."
+    },
+    {
+      number: "3",
+      icon: Zap,
+      title: "AKTIVÁLD",
+      description: "Promód azonnal él!"
+    },
+    {
+      number: "4",
+      icon: BarChart,
+      title: "KÖVESD EREDMÉNYEKET",
+      description: "Láss élő statisztikákat."
+    }
+  ];
 
   const features = [
     {
@@ -44,8 +72,8 @@ const RewardsPartners = () => {
       <MobileNavigation />
       <Navigation />
       
-      {/* Hero Section - Unified styling */}
-      <section className="relative py-16 px-4 overflow-hidden">
+      {/* Hero Section - Kompaktabb */}
+      <section className="relative py-12 px-4 overflow-hidden">
         {/* Unified background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
         
@@ -54,14 +82,14 @@ const RewardsPartners = () => {
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
         
         <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center space-y-8">
-            {/* Main Title - Two lines, max 18 chars per line */}
+          <div className="text-center space-y-6">
+            {/* Main Title - Kompaktabb */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.9] tracking-tight">
               <span className="block text-white mb-2">JUTALOM &</span>
               <span className="block text-electric-300">KEDVEZMÉNY</span>
             </h1>
             
-            {/* Subtitle - Max 2 short lines, centered */}
+            {/* Subtitle - Rövidebb */}
             <div className="max-w-2xl mx-auto">
               <p className="text-base md:text-lg text-electric-100 font-medium leading-tight">
                 Érj el több ezer aktív felhasználót –<br />
@@ -69,7 +97,7 @@ const RewardsPartners = () => {
               </p>
             </div>
             
-            {/* CTA Button - Unified styling */}
+            {/* CTA Button */}
             <div className="pt-4">
               <Button 
                 size="lg" 
@@ -80,87 +108,89 @@ const RewardsPartners = () => {
               </Button>
             </div>
 
-            {/* Phone mockup - Centered */}
-            <div className="flex justify-center pt-8">
+            {/* Phone mockup */}
+            <div className="flex justify-center pt-6">
               <PhoneMockup imageUrl={rewardsImage} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Hogyan működik?
+      {/* How It Works - Egységes 2x2 grid */}
+      <section className="py-12 px-4 bg-white/5 backdrop-blur-sm">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-black text-white mb-2">
+              HOGYAN MŰKÖDIK?
             </h2>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { number: "01", title: "Feliratkozás", description: "Regisztrálj és állítsd be az ajánlataidat egyszerűen." },
-              { number: "02", title: "Kampány létrehozás", description: "Hozz létre vonzó kupokat és kedvezményeket." },
-              { number: "03", title: "Célzott megjelenítés", description: "Az ajánlataid a megfelelő felhasználókhoz jutnak el." },
-              { number: "04", title: "Eredmények követése", description: "Használd a pontokat és növeld az üzleted forgalmát." }
-            ].map((step, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-electric-300 to-ocean-600 rounded-full flex items-center justify-center text-2xl font-bold text-white unified-neon-glow transition-all duration-300 group-hover:scale-110 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {howItWorksSteps.map((step, index) => (
+              <div 
+                key={index} 
+                className="glass-effect rounded-xl p-6 text-center group hover:scale-105 hover:shadow-lg hover:shadow-electric-300/20 transition-all duration-300"
+              >
+                <div className="text-2xl font-black text-electric-300 mb-3">
                   {step.number}
                 </div>
-                <h4 className="text-xl font-bold text-white mb-3">{step.title}</h4>
-                <p className="text-electric-100 leading-relaxed">{step.description}</p>
+                
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                    <step.icon className="w-6 h-6 text-electric-300 group-hover:text-white transition-colors duration-300" />
+                  </div>
+                </div>
+                
+                <h4 className="text-sm font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">
+                  {step.title}
+                </h4>
+                
+                <p className="text-xs text-electric-100 leading-tight">
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features Section - List Layout */}
-      <section className="py-16 px-4 bg-black">
+      {/* Features Section - Kompaktabb grid */}
+      <section className="py-12 px-4 bg-black">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Jutalom rendszer előnyei
             </h2>
           </div>
           
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left side - Phone Mockup */}
-            <div className="flex justify-center order-2 lg:order-1">
-              <PhoneMockup imageUrl={rewardsImage} className="animate-glow-pulse" />
-            </div>
-            
-            {/* Right side - Features List */}
-            <div className="space-y-8 order-1 lg:order-2">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-start space-x-4 group">
-                  <div className="flex-shrink-0">
-                    <feature.icon className="w-8 h-8 text-electric-300" />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-2">{feature.title}</h4>
-                    <p className="text-electric-100 leading-relaxed">{feature.description}</p>
+          <div className="grid md:grid-cols-2 gap-8">
+            {features.map((feature, index) => (
+              <div key={index} className="glass-effect rounded-xl p-6 text-center group hover:scale-105 transition-all duration-300">
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30">
+                    <feature.icon className="w-6 h-6 text-electric-300" />
                   </div>
                 </div>
-              ))}
-            </div>
+                <h4 className="text-xl font-bold text-white mb-3">{feature.title}</h4>
+                <p className="text-electric-100 leading-relaxed text-sm">{feature.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Statistics */}
-      <section className="py-16 px-4 bg-gradient-to-b from-black to-ocean-900">
+      {/* Statistics - Kompaktabb */}
+      <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
             Jutalom partnereink eredményei
           </h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
-              <div key={index} className="glass-effect rounded-2xl p-8 text-center">
+              <div key={index} className="glass-effect rounded-2xl p-6 text-center">
                 <div className="text-4xl font-black text-electric-300 mb-2">{stat.value}</div>
-                <div className="text-electric-100 font-medium">{stat.label}</div>
+                <div className="text-electric-100 font-medium text-sm">{stat.label}</div>
               </div>
             ))}
           </div>
