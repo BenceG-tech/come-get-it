@@ -104,7 +104,7 @@ const ComeGetItAccelerator = () => {
               <span className="block text-electric-300">ÚJRAGONDOLVA</span>
             </h1>
             
-            {/* Subtitle - Max 2 short lines, centered */}
+            {/* Subtitle - Max 2 short lines, centered - FIXED to match other pages */}
             <div className="max-w-2xl mx-auto">
               <p className="text-base md:text-lg text-electric-100 font-medium leading-tight">
                 Indítsd be márkádat –<br />
