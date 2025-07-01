@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
@@ -142,25 +143,6 @@ const Italmarkak = () => {
         </div>
       </section>
 
-      {/* Statistics Section - 2x2 Grid */}
-      <section className="py-8 px-4 bg-black">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 gap-4">
-            {statistics.map((stat, index) => (
-              <div key={index} className="glass-effect rounded-xl p-4 text-center group hover:scale-105 transition-all duration-300">
-                <stat.icon className="w-6 h-6 mx-auto mb-2 text-electric-300 group-hover:scale-110 transition-transform duration-300" />
-                <div className="text-xl font-black text-white mb-1">
-                  {stat.number}
-                </div>
-                <div className="text-xs text-electric-100 font-medium uppercase tracking-wider">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* How It Works - 4 Step 2x2 Grid */}
       <section className="py-12 px-4 bg-white/5 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto">
@@ -235,6 +217,25 @@ const Italmarkak = () => {
                 <audience.icon className="w-12 h-12 mx-auto mb-3 text-electric-300 group-hover:scale-110 transition-transform duration-300" />
                 <h4 className="text-lg font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">{audience.title}</h4>
                 <p className="text-sm text-electric-100">{audience.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Statistics Section - 2x2 Grid */}
+      <section className="py-8 px-4 bg-black">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 gap-4">
+            {statistics.map((stat, index) => (
+              <div key={index} className="glass-effect rounded-xl p-4 text-center group hover:scale-105 transition-all duration-300">
+                <stat.icon className="w-6 h-6 mx-auto mb-2 text-electric-300 group-hover:scale-110 transition-transform duration-300" />
+                <div className="text-xl font-black text-white mb-1">
+                  {stat.number}
+                </div>
+                <div className="text-xs text-electric-100 font-medium uppercase tracking-wider">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
