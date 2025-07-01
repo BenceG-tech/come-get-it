@@ -24,14 +24,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
     <div className="relative z-10 max-w-7xl mx-auto w-full">
       <div className="text-center space-y-8">
         {/* Main Title - Two lines, max 18 chars per line */}
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] tracking-tight">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.9] tracking-tight">
           <span className="block text-white mb-2">INGYEN ITAL</span>
           <span className="block text-white">MINDEN NAPRA</span>
         </h1>
         
         {/* Subtitle - Max 2 short lines, centered */}
         <div className="max-w-2xl mx-auto">
-          <p className="text-lg md:text-xl text-electric-100 font-medium leading-tight">
+          <p className="text-base md:text-lg text-electric-100 font-medium leading-tight">
             Igyál minden nap ingyen Budapesten –<br />
             fedezz fel új helyeket, gyűjts pontokat!
           </p>
