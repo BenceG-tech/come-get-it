@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
@@ -85,7 +84,7 @@ export const WorkWithUsSection: React.FC = () => {
               <span className="block text-electric-300">ÚJRAGONDOLVA</span>
             </h2>
             
-            <p className="text-xl text-electric-100 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+            <p className="text-sm md:text-base text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-tight">
               Csatlakozz Budapest leggyorsabban növekvő szórakozóhelyi hálózatához. 
               Növeld a forgalmat, szerezz új törzsvendégeket és építs közösséget!
             </p>
