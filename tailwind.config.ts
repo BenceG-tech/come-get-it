@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -102,10 +101,7 @@ export default {
 					700: '#164e63',
 					800: '#155e75',
 					900: '#083344'
-				},
-				// Add unified glow colors
-				'unified-glow-primary': '#00D4FF',
-				'unified-glow-secondary': '#22D3EE'
+				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

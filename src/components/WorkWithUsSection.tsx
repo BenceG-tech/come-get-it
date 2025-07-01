@@ -1,9 +1,13 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { PhoneMockup } from './PhoneMockup';
 import { ArrowRight, Plus, Star, CheckCircle, TrendingUp, Building, Heart, Users } from 'lucide-react';
 
 export const WorkWithUsSection: React.FC = () => {
+  // Using one of the existing app images for the phone mockup
+  const businessImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png";
+
   const keyFeatures = [
     {
       icon: Plus,
@@ -66,10 +70,39 @@ export const WorkWithUsSection: React.FC = () => {
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-20 blur-[80px]"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Hero Section */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+          {/* Left side - Content */}
+          <div className="text-center lg:text-left">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4">
+              <span className="block text-white mb-2">LOJALITÁS,</span>
+              <span className="block text-electric-300">AHOGY KELLENE</span>
+            </h2>
+            
+            <p className="text-sm md:text-base text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-6 leading-tight">
+              Növeld vendégforgalmad, szerezz új törzsvendégeket, és élvezd a digitális lojalitás előnyeit – mindent egy helyen, egyszerűen, papír és plasztikkártyák nélkül.
+            </p>
+            
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+              onClick={() => document.querySelector('#venue-application')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Partner leszek
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+          
+          {/* Right side - Phone Mockup */}
+          <div className="flex justify-center">
+            <PhoneMockup imageUrl={businessImage} className="animate-glow-pulse" />
+          </div>
+        </div>
+
         {/* Key Features Section */}
         <div className="mb-16">
           <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-anton text-white mb-4">
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
               KULCS FUNKCIÓK
             </h3>
           </div>
@@ -95,7 +128,7 @@ export const WorkWithUsSection: React.FC = () => {
 
         {/* Demographics Section */}
         <div className="text-center">
-          <h3 className="text-3xl md:text-4xl font-anton text-white mb-4">
+          <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Célcsoportunk
           </h3>
           
@@ -109,18 +142,6 @@ export const WorkWithUsSection: React.FC = () => {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="text-center mt-12">
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
-            onClick={() => document.querySelector('#venue-application')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Partner leszek
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
         </div>
       </div>
     </section>
