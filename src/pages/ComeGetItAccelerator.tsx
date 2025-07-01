@@ -82,7 +82,7 @@ const ComeGetItAccelerator = () => {
         
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="text-center space-y-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.9] tracking-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight">
               <span className="block text-white mb-2">COME GET IT</span>
               <span className="block text-electric-300">GYORSÍTÓ</span>
             </h1>
@@ -115,7 +115,7 @@ const ComeGetItAccelerator = () => {
       <section className="py-16 px-4 bg-white/5 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-anton text-white mb-4">
               HOGYAN MŰKÖDIK?
             </h2>
           </div>
@@ -153,7 +153,7 @@ const ComeGetItAccelerator = () => {
       <section className="py-16 px-4 bg-black">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-anton text-white mb-4">
               PROGRAMCSOMAGOK ITALMÁRKÁKNAK
             </h2>
           </div>
@@ -200,7 +200,7 @@ const ComeGetItAccelerator = () => {
       <section className="py-16 px-4 bg-white/5 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-anton text-white mb-4">
               MIÉRT VÁLASSZ MINKET?
             </h2>
           </div>
@@ -221,7 +221,7 @@ const ComeGetItAccelerator = () => {
       <section className="py-16 px-4 bg-black">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-anton text-white mb-4">
               FELHASZNÁLÓI DEMÓ ADATOK
             </h2>
           </div>
@@ -245,7 +245,7 @@ const ComeGetItAccelerator = () => {
       {/* Final CTA */}
       <section className="py-20 px-4 bg-gradient-to-b from-black to-ocean-900 text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
+          <h2 className="text-5xl md:text-6xl font-anton text-white mb-6">
             CSATLAKOZZ A PILOTHOZ!
           </h2>
           <p className="text-xl text-electric-100 mb-10 leading-relaxed">

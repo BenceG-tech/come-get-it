@@ -83,7 +83,7 @@ const RewardsPartners = () => {
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="text-center space-y-6">
             {/* Main Title - Anton font */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-anton leading-[0.9] tracking-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight">
               <span className="block text-white mb-2">JUTALOM &</span>
               <span className="block text-electric-300">KEDVEZMÉNY</span>
             </h1>

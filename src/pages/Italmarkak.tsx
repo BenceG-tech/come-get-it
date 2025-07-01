@@ -113,7 +113,7 @@ const Italmarkak = () => {
         
         <div className="relative z-10 max-w-6xl mx-auto">
           <div className="text-center space-y-6">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-anton leading-[0.9] tracking-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight">
               <span className="block text-white mb-2">ITALMÁRKA</span>
               <span className="block text-electric-300">ÉLMÉNY</span>
             </h1>
