@@ -23,8 +23,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
     
     <div className="relative z-10 max-w-7xl mx-auto w-full">
       <div className="text-center space-y-8">
-        {/* Main Title - Two lines, max 18 chars per line */}
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-anton leading-[0.9] tracking-tight">
+        {/* Main Title - Two lines, max 18 chars per line - Made bigger */}
+        <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight">
           <span className="block text-white mb-2">INGYEN ITAL</span>
           <span className="block text-white">MINDEN NAPRA</span>
         </h1>

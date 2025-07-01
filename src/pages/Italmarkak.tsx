@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
@@ -114,7 +113,7 @@ const Italmarkak = () => {
         
         <div className="relative z-10 max-w-6xl mx-auto">
           <div className="text-center space-y-6">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[0.9] tracking-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-anton leading-[0.9] tracking-tight">
               <span className="block text-white mb-2">ITALMÁRKA</span>
               <span className="block text-electric-300">ÉLMÉNY</span>
             </h1>
@@ -147,7 +146,7 @@ const Italmarkak = () => {
       <section className="py-12 px-4 bg-white/5 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-white mb-2">
+            <h2 className="text-3xl font-anton text-white mb-2">
               HOGYAN MŰKÖDIK?
             </h2>
           </div>
@@ -185,7 +184,7 @@ const Italmarkak = () => {
       <section className="py-12 px-4 bg-black">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-2">
+            <h2 className="text-3xl md:text-4xl font-anton text-white mb-2">
               MIT KÍNÁLUNK?
             </h2>
           </div>
@@ -206,7 +205,7 @@ const Italmarkak = () => {
       <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-2">
+            <h2 className="text-3xl md:text-4xl font-anton text-white mb-2">
               KINEK AJÁNLJUK?
             </h2>
           </div>
@@ -245,7 +244,7 @@ const Italmarkak = () => {
       {/* Final CTA - Kompaktabb */}
       <section className="py-12 px-4 bg-black text-center">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-anton text-white mb-4">
             INDÍTSD EL AZ
             <span className="block text-electric-300 mt-2">ÉLMÉNYKAMPÁNYT!</span>
           </h2>

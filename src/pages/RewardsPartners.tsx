@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
@@ -83,8 +82,8 @@ const RewardsPartners = () => {
         
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="text-center space-y-6">
-            {/* Main Title - Kompaktabb */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.9] tracking-tight">
+            {/* Main Title - Anton font */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-anton leading-[0.9] tracking-tight">
               <span className="block text-white mb-2">JUTALOM &</span>
               <span className="block text-electric-300">KEDVEZMÉNY</span>
             </h1>
@@ -120,7 +119,7 @@ const RewardsPartners = () => {
       <section className="py-12 px-4 bg-white/5 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-white mb-2">
+            <h2 className="text-3xl font-anton text-white mb-2">
               HOGYAN MŰKÖDIK?
             </h2>
           </div>
@@ -158,7 +157,7 @@ const RewardsPartners = () => {
       <section className="py-12 px-4 bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-anton text-white mb-4">
               Jutalom rendszer előnyei
             </h2>
           </div>
@@ -182,7 +181,7 @@ const RewardsPartners = () => {
       {/* Statistics - Kompaktabb */}
       <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+          <h2 className="text-3xl md:text-4xl font-anton text-white mb-8">
             Jutalom partnereink eredményei
           </h2>
           
