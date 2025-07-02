@@ -372,64 +372,36 @@ export const CustomerSupport: React.FC = () => {
           <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
         </div>
 
-        <div className="space-y-4">
-          <p className="text-sm text-gray-400">4 kategória</p>
+        <div className="space-y-2">
+          <p className="text-xs text-gray-400">4 kategória</p>
           
-          <div className="space-y-3">
+          <div className="space-y-1">
             <button 
               onClick={() => openDetailView('ingyen-italok')}
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:bg-gray-800 transition-all duration-200 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg p-2.5 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
-              <h3 className="font-bold text-white mb-2 text-xl group-hover:text-electric-300 transition-colors">Ingyen italok</h3>
-              <p className="text-gray-300 mb-3 leading-relaxed">
-                Minden amit tudnod kell az ingyen italokról, beleértve a megszerzést és felhasználást.
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-400">3 cikk</span>
-                <span className="text-sm text-gray-500">Come Get It Team</span>
-              </div>
+              <h3 className="font-semibold text-white text-sm group-hover:text-electric-300 transition-colors">Ingyen italok</h3>
             </button>
 
             <button 
               onClick={() => openDetailView('jutalmak')}
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:bg-gray-800 transition-all duration-200 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg p-2.5 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
-              <h3 className="font-bold text-white mb-2 text-xl group-hover:text-electric-300 transition-colors">Jutalmak és kártyák</h3>
-              <p className="text-gray-300 mb-3 leading-relaxed">
-                Kártyák összekapcsolása, pontgyűjtés és jutalmak kezelése.
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-400">2 cikk</span>
-                <span className="text-sm text-gray-500">Come Get It Team</span>
-              </div>
+              <h3 className="font-semibold text-white text-sm group-hover:text-electric-300 transition-colors">Jutalmak és kártyák</h3>
             </button>
 
             <button 
               onClick={() => openDetailView('regisztracio')}
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:bg-gray-800 transition-all duration-200 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg p-2.5 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
-              <h3 className="font-bold text-white mb-2 text-xl group-hover:text-electric-300 transition-colors">Fiók és regisztráció</h3>
-              <p className="text-gray-300 mb-3 leading-relaxed">
-                Regisztráció, bejelentkezés és fiókadatok kezelése.
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-400">2 cikk</span>
-                <span className="text-sm text-gray-500">Come Get It Team</span>
-              </div>
+              <h3 className="font-semibold text-white text-sm group-hover:text-electric-300 transition-colors">Fiók és regisztráció</h3>
             </button>
 
             <button 
               onClick={() => openDetailView('ajanlas')}
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:bg-gray-800 transition-all duration-200 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg p-2.5 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
-              <h3 className="font-bold text-white mb-2 text-xl group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</h3>
-              <p className="text-gray-300 mb-3 leading-relaxed">
-                Barátok meghívása és referral jutalmak megszerzése.
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-400">2 cikk</span>
-                <span className="text-sm text-gray-500">Come Get It Team</span>
-              </div>
+              <h3 className="font-semibold text-white text-sm group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</h3>
             </button>
           </div>
         </div>
