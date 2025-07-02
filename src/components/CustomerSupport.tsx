@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { MessageCircle, X, Send, Search, Home, HelpCircle, ArrowLeft } from 'lucide-react';
+import { MessageCircle, X, Send, Search, Home, HelpCircle, ArrowLeft, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 type MainTab = 'home' | 'messages' | 'help';
@@ -36,55 +36,57 @@ export const CustomerSupport: React.FC = () => {
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between p-4 border-b border-white/20 bg-gray-900/95 backdrop-blur-sm">
+    <div className="flex items-center justify-between p-4 bg-gray-900 border-b border-gray-700">
       <div className="flex items-center space-x-3">
         {detailView && (
           <Button
             variant="ghost"
             size="icon"
             onClick={closeDetailView}
-            className="text-white hover:bg-white/10 h-8 w-8 mr-2"
+            className="text-white hover:bg-white/10 h-8 w-8"
           >
             <ArrowLeft className="w-4 h-4" />
           </Button>
         )}
-        <h2 className="text-lg font-bold text-white">Come Get It</h2>
-        <div className="flex space-x-1">
-          <div className="w-5 h-5 bg-electric-300 rounded-full flex items-center justify-center">
+        <h2 className="text-lg font-semibold text-white">Come Get It</h2>
+      </div>
+      <div className="flex items-center space-x-3">
+        <div className="flex space-x-2">
+          <div className="w-8 h-8 bg-electric-300 rounded-full flex items-center justify-center">
             <span className="text-xs font-bold text-black">CG</span>
           </div>
-          <div className="w-5 h-5 bg-ocean-400 rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 bg-ocean-400 rounded-full flex items-center justify-center">
             <span className="text-xs font-bold text-white">IT</span>
           </div>
         </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleSupport}
+          className="text-white hover:bg-white/10 h-8 w-8"
+        >
+          <X className="w-4 h-4" />
+        </Button>
       </div>
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={toggleSupport}
-        className="text-white hover:bg-white/10 h-8 w-8"
-      >
-        <X className="w-4 h-4" />
-      </Button>
     </div>
   );
 
   const renderFooterNav = () => (
-    <div className="absolute bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-white/20 z-20">
+    <div className="bg-gray-900 border-t border-gray-700">
       <div className="flex">
         <button
           onClick={() => {
             setCurrentTab('home');
             setDetailView(null);
           }}
-          className={`flex-1 flex flex-col items-center py-4 px-3 transition-all duration-200 ${
+          className={`flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 ${
             currentTab === 'home' && !detailView
-              ? 'text-electric-300 bg-electric-300/20 border-t-2 border-electric-300' 
-              : 'text-white/60 hover:text-white/80 hover:bg-white/10'
+              ? 'text-electric-300 bg-electric-300/10' 
+              : 'text-gray-400 hover:text-white hover:bg-white/5'
           }`}
         >
-          <Home className="w-6 h-6 mb-1" />
-          <span className="text-xs font-medium">Kezdőoldal</span>
+          <Home className="w-5 h-5 mb-1" />
+          <span className="text-xs">Kezdőoldal</span>
         </button>
         
         <button
@@ -92,14 +94,14 @@ export const CustomerSupport: React.FC = () => {
             setCurrentTab('messages');
             setDetailView(null);
           }}
-          className={`flex-1 flex flex-col items-center py-4 px-3 transition-all duration-200 ${
+          className={`flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 ${
             currentTab === 'messages' && !detailView
-              ? 'text-electric-300 bg-electric-300/20 border-t-2 border-electric-300' 
-              : 'text-white/60 hover:text-white/80 hover:bg-white/10'
+              ? 'text-electric-300 bg-electric-300/10' 
+              : 'text-gray-400 hover:text-white hover:bg-white/5'
           }`}
         >
-          <MessageCircle className="w-6 h-6 mb-1" />
-          <span className="text-xs font-medium">Üzenetek</span>
+          <MessageCircle className="w-5 h-5 mb-1" />
+          <span className="text-xs">Üzenetek</span>
         </button>
         
         <button
@@ -107,14 +109,30 @@ export const CustomerSupport: React.FC = () => {
             setCurrentTab('help');
             setDetailView(null);
           }}
-          className={`flex-1 flex flex-col items-center py-4 px-3 transition-all duration-200 ${
+          className={`flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 ${
             currentTab === 'help' && !detailView
-              ? 'text-electric-300 bg-electric-300/20 border-t-2 border-electric-300' 
-              : 'text-white/60 hover:text-white/80 hover:bg-white/10'
+              ? 'text-electric-300 bg-electric-300/10' 
+              : 'text-gray-400 hover:text-white hover:bg-white/5'
           }`}
         >
-          <HelpCircle className="w-6 h-6 mb-1" />
-          <span className="text-xs font-medium">Súgó</span>
+          <HelpCircle className="w-5 h-5 mb-1" />
+          <span className="text-xs">Súgó</span>
+        </button>
+      </div>
+    </div>
+  );
+
+  const renderFeedbackSection = () => (
+    <div className="mt-8 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+      <p className="text-white text-center mb-4">Did this answer your question?</p>
+      <div className="flex justify-center space-x-4">
+        <button className="flex items-center space-x-2 px-4 py-2 bg-green-600/20 hover:bg-green-600/30 rounded-lg border border-green-600/30 transition-colors">
+          <ThumbsUp className="w-4 h-4 text-green-400" />
+          <span className="text-green-400 text-sm">Yes</span>
+        </button>
+        <button className="flex items-center space-x-2 px-4 py-2 bg-red-600/20 hover:bg-red-600/30 rounded-lg border border-red-600/30 transition-colors">
+          <ThumbsDown className="w-4 h-4 text-red-400" />
+          <span className="text-red-400 text-sm">No</span>
         </button>
       </div>
     </div>
@@ -183,24 +201,27 @@ export const CustomerSupport: React.FC = () => {
     const faqData = content[type!];
 
     return (
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full bg-black">
         {renderHeader()}
         
-        <div className="flex-1 p-6 space-y-6 overflow-y-auto pb-24">
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-4">{faqData.title}</h3>
+        <div className="flex-1 overflow-y-auto p-6 pb-32">
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold text-white mb-2">{faqData.title}</h3>
+            <p className="text-gray-400 text-sm">Gyakori kérdések és válaszok</p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-6">
             {faqData.content.map((item, index) => (
-              <div key={index} className="bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-all duration-200">
-                <h4 className="font-semibold text-white mb-3 text-lg">{item.question}</h4>
-                <p className="text-white/80 leading-relaxed">{item.answer}</p>
+              <div key={index} className="bg-gray-800/30 border border-gray-700 rounded-xl p-6">
+                <h4 className="font-semibold text-white mb-3 text-lg leading-relaxed">{item.question}</h4>
+                <p className="text-gray-300 leading-relaxed">{item.answer}</p>
               </div>
             ))}
           </div>
 
-          <div className="pt-4">
+          {renderFeedbackSection()}
+
+          <div className="mt-6">
             <Button
               onClick={() => setCurrentTab('messages')}
               className="w-full bg-electric-300 hover:bg-electric-400 text-black font-semibold py-3 rounded-xl"
@@ -210,209 +231,217 @@ export const CustomerSupport: React.FC = () => {
           </div>
         </div>
         
-        {renderFooterNav()}
+        <div className="fixed bottom-0 left-0 right-0">
+          {renderFooterNav()}
+        </div>
       </div>
     );
   };
 
   const renderHomeView = () => (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-black">
       {renderHeader()}
       
-      <div className="flex-1 p-6 space-y-6 overflow-y-auto pb-24">
-        <div>
+      <div className="flex-1 overflow-y-auto p-6 pb-32">
+        <div className="mb-8">
           <h3 className="text-2xl font-bold text-white mb-2">Szia! 👋</h3>
-          <p className="text-white/80 text-lg">Miben segíthetünk?</p>
+          <p className="text-gray-400 text-lg">Miben segíthetünk?</p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 mb-8">
           <Button
             onClick={() => setCurrentTab('messages')}
-            className="w-full h-16 bg-electric-300 hover:bg-electric-400 text-black font-semibold text-left flex items-center justify-between rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+            className="w-full h-14 bg-electric-300 hover:bg-electric-400 text-black font-semibold text-left flex items-center justify-between rounded-xl"
           >
             <span className="text-lg">Írj nekünk üzenetet</span>
-            <Send className="w-6 h-6" />
+            <Send className="w-5 h-5" />
           </Button>
 
           <Button
             onClick={() => setCurrentTab('help')}
-            className="w-full h-16 bg-white/10 hover:bg-white/20 text-white font-semibold text-left flex items-center justify-between rounded-xl border-2 border-white/20 hover:border-white/30 transition-all duration-200"
+            className="w-full h-14 bg-gray-800 hover:bg-gray-700 text-white font-semibold text-left flex items-center justify-between rounded-xl border border-gray-600"
           >
             <span className="text-lg">Keresés a súgóban</span>
-            <Search className="w-6 h-6" />
+            <Search className="w-5 h-5" />
           </Button>
         </div>
 
         <div className="space-y-4">
-          <h4 className="text-sm font-medium text-white/60 uppercase tracking-wide">Gyakori kérdések</h4>
+          <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wide">Gyakori kérdések</h4>
           
           <div className="space-y-3">
             <button 
               onClick={() => openDetailView('ingyen-italok')}
-              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+              className="w-full text-left p-5 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
             >
               <div className="flex items-center justify-between">
                 <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Ingyen italok</span>
-                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-gray-400 text-xl group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-white/60 text-sm mt-2">Hogyan szerezd meg és használd fel az ingyen italokat</p>
+              <p className="text-gray-400 text-sm mt-2">Hogyan szerezd meg és használd fel az ingyen italokat</p>
             </button>
             
             <button 
               onClick={() => openDetailView('jutalmak')}
-              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+              className="w-full text-left p-5 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
             >
               <div className="flex items-center justify-between">
                 <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Jutalmak és kártya összekapcsolás</span>
-                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-gray-400 text-xl group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-white/60 text-sm mt-2">Kártyák hozzáadása és jutalmak kezelése</p>
+              <p className="text-gray-400 text-sm mt-2">Kártyák hozzáadása és jutalmak kezelése</p>
             </button>
             
             <button 
               onClick={() => openDetailView('regisztracio')}
-              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+              className="w-full text-left p-5 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
             >
               <div className="flex items-center justify-between">
                 <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Regisztráció és fiókkezelés</span>
-                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-gray-400 text-xl group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-white/60 text-sm mt-2">Fiók létrehozása és személyes adatok kezelése</p>
+              <p className="text-gray-400 text-sm mt-2">Fiók létrehozása és személyes adatok kezelése</p>
             </button>
 
             <button 
               onClick={() => openDetailView('ajanlas')}
-              className="w-full text-left p-5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-all duration-200 hover:border-electric-300/50 hover:shadow-lg group"
+              className="w-full text-left p-5 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
             >
               <div className="flex items-center justify-between">
                 <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</span>
-                <span className="text-white/40 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-gray-400 text-xl group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-white/60 text-sm mt-2">Barátok meghívása és jutalmak szerzése</p>
+              <p className="text-gray-400 text-sm mt-2">Barátok meghívása és jutalmak szerzése</p>
             </button>
           </div>
         </div>
       </div>
       
-      {renderFooterNav()}
+      <div className="fixed bottom-0 left-0 right-0">
+        {renderFooterNav()}
+      </div>
     </div>
   );
 
   const renderMessagesView = () => (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-black">
       {renderHeader()}
 
-      <div className="flex-1 flex flex-col items-center justify-center p-6 pb-32">
-        <div className="bg-white/5 rounded-full p-8 mb-6">
-          <MessageCircle className="w-16 h-16 text-electric-300" />
+      <div className="flex-1 flex flex-col items-center justify-center p-6 pb-40">
+        <div className="bg-gray-800/50 rounded-full p-6 mb-4">
+          <MessageCircle className="w-12 h-12 text-electric-300" />
         </div>
-        <h3 className="text-2xl font-bold text-white mb-3">Nincs üzenet</h3>
-        <p className="text-white/60 text-center text-lg max-w-sm">
+        <h3 className="text-xl font-bold text-white mb-2">Nincs üzenet</h3>
+        <p className="text-gray-400 text-center max-w-sm">
           A csapat üzenetei itt fognak megjelenni. Írj nekünk, ha segítségre van szükséged!
         </p>
       </div>
 
-      <div className="absolute bottom-20 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/95 to-transparent">
-        <div className="flex space-x-3">
+      <div className="fixed bottom-16 left-4 right-4 bg-black/95 backdrop-blur-sm">
+        <div className="flex space-x-3 p-4">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Írj nekünk üzenetet..."
-            className="flex-1 bg-white/10 border-2 border-white/20 rounded-xl px-4 py-4 text-white placeholder-white/50 focus:outline-none focus:border-electric-300 focus:ring-2 focus:ring-electric-300/20 text-lg"
+            className="flex-1 bg-gray-800 border border-gray-600 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-electric-300"
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
           <Button
             onClick={handleSendMessage}
-            className="bg-electric-300 hover:bg-electric-400 text-black px-5 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+            className="bg-electric-300 hover:bg-electric-400 text-black px-4 py-3 rounded-xl"
           >
-            <Send className="w-6 h-6" />
+            <Send className="w-5 h-5" />
           </Button>
         </div>
       </div>
       
-      {renderFooterNav()}
+      <div className="fixed bottom-0 left-0 right-0">
+        {renderFooterNav()}
+      </div>
     </div>
   );
 
   const renderHelpView = () => (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-black">
       {renderHeader()}
 
-      <div className="flex-1 p-6 space-y-6 overflow-y-auto pb-24">
-        <div className="relative">
+      <div className="flex-1 overflow-y-auto p-6 pb-32">
+        <div className="relative mb-6">
           <input
             type="text"
             placeholder="Keresés a súgóban..."
-            className="w-full bg-white/10 border-2 border-white/20 rounded-xl px-4 py-4 pr-12 text-white placeholder-white/50 focus:outline-none focus:border-electric-300 focus:ring-2 focus:ring-electric-300/20 text-lg"
+            className="w-full bg-gray-800 border border-gray-600 rounded-xl px-4 py-3 pr-12 text-white placeholder-gray-400 focus:outline-none focus:border-electric-300"
           />
-          <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-white/40" />
+          <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
         </div>
 
         <div className="space-y-4">
-          <p className="text-sm text-white/50">4 kategória</p>
+          <p className="text-sm text-gray-400">4 kategória</p>
           
           <div className="space-y-3">
             <button 
               onClick={() => openDetailView('ingyen-italok')}
-              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
-              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Ingyen italok</h3>
-              <p className="text-white/70 mb-4 leading-relaxed">
+              <h3 className="font-bold text-white mb-2 text-xl group-hover:text-electric-300 transition-colors">Ingyen italok</h3>
+              <p className="text-gray-300 mb-3 leading-relaxed">
                 Minden amit tudnod kell az ingyen italokról, beleértve a megszerzést és felhasználást.
               </p>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-white/50">3 cikk</span>
-                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+                <span className="text-sm text-gray-400">3 cikk</span>
+                <span className="text-sm text-gray-500">Come Get It Team</span>
               </div>
             </button>
 
             <button 
               onClick={() => openDetailView('jutalmak')}
-              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
-              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Jutalmak és kártyák</h3>
-              <p className="text-white/70 mb-4 leading-relaxed">
+              <h3 className="font-bold text-white mb-2 text-xl group-hover:text-electric-300 transition-colors">Jutalmak és kártyák</h3>
+              <p className="text-gray-300 mb-3 leading-relaxed">
                 Kártyák összekapcsolása, pontgyűjtés és jutalmak kezelése.
               </p>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-white/50">2 cikk</span>
-                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+                <span className="text-sm text-gray-400">2 cikk</span>
+                <span className="text-sm text-gray-500">Come Get It Team</span>
               </div>
             </button>
 
             <button 
               onClick={() => openDetailView('regisztracio')}
-              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
-              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Fiók és regisztráció</h3>
-              <p className="text-white/70 mb-4 leading-relaxed">
+              <h3 className="font-bold text-white mb-2 text-xl group-hover:text-electric-300 transition-colors">Fiók és regisztráció</h3>
+              <p className="text-gray-300 mb-3 leading-relaxed">
                 Regisztráció, bejelentkezés és fiókadatok kezelése.
               </p>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-white/50">2 cikk</span>
-                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+                <span className="text-sm text-gray-400">2 cikk</span>
+                <span className="text-sm text-gray-500">Come Get It Team</span>
               </div>
             </button>
 
             <button 
               onClick={() => openDetailView('ajanlas')}
-              className="w-full bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:border-electric-300/50 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
-              <h3 className="font-bold text-white mb-3 text-xl group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</h3>
-              <p className="text-white/70 mb-4 leading-relaxed">
+              <h3 className="font-bold text-white mb-2 text-xl group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</h3>
+              <p className="text-gray-300 mb-3 leading-relaxed">
                 Barátok meghívása és referral jutalmak megszerzése.
               </p>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-white/50">2 cikk</span>
-                <span className="text-sm text-white/40">Szerző: Come Get It Team</span>
+                <span className="text-sm text-gray-400">2 cikk</span>
+                <span className="text-sm text-gray-500">Come Get It Team</span>
               </div>
             </button>
           </div>
         </div>
       </div>
       
-      {renderFooterNav()}
+      <div className="fixed bottom-0 left-0 right-0">
+        {renderFooterNav()}
+      </div>
     </div>
   );
 
@@ -438,7 +467,7 @@ export const CustomerSupport: React.FC = () => {
       {!isOpen && (
         <button
           onClick={toggleSupport}
-          className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-electric-300 hover:bg-electric-400 rounded-full shadow-2xl neon-glow-electric flex items-center justify-center transition-all duration-300 hover:scale-110"
+          className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-electric-300 hover:bg-electric-400 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110"
         >
           <MessageCircle className="w-7 h-7 text-black" />
         </button>
@@ -451,8 +480,8 @@ export const CustomerSupport: React.FC = () => {
             onClick={toggleSupport}
           />
           
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="w-full max-w-md h-[700px] bg-gradient-to-b from-gray-900 to-black rounded-2xl shadow-2xl neon-glow-electric border border-white/20 overflow-hidden relative">
+          <div className="fixed inset-0 z-50 md:flex md:items-center md:justify-center md:p-4">
+            <div className="w-full h-full md:w-full md:max-w-md md:h-[700px] bg-black md:rounded-2xl shadow-2xl border border-gray-700 overflow-hidden relative">
               {renderCurrentView()}
             </div>
           </div>
