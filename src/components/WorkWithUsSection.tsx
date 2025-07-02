@@ -66,15 +66,15 @@ export const WorkWithUsSection: React.FC = () => {
     <section className="relative py-16 px-4 overflow-hidden bg-black">
       {/* Background gradient effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-900"></div>
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-30 blur-[100px]"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-20 blur-[80px]"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-electric-300/30 opacity-30 blur-[100px]"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-ocean-600/20 opacity-20 blur-[80px]"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           {/* Left side - Content */}
           <div className="text-center lg:text-left">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4">
+            <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-tight mb-4">
               <span className="block text-white mb-2">LOJALITÁS,</span>
               <span className="block text-electric-300">AHOGY KELLENE</span>
             </h2>
@@ -85,7 +85,7 @@ export const WorkWithUsSection: React.FC = () => {
             
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+              className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
               onClick={() => document.querySelector('#venue-application')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Partner leszek
@@ -102,7 +102,7 @@ export const WorkWithUsSection: React.FC = () => {
         {/* Key Features Section */}
         <div className="mb-16">
           <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h3 className="text-3xl md:text-4xl font-anton text-white mb-4">
               KULCS FUNKCIÓK
             </h3>
           </div>
@@ -128,7 +128,7 @@ export const WorkWithUsSection: React.FC = () => {
 
         {/* Demographics Section */}
         <div className="text-center">
-          <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h3 className="text-3xl md:text-4xl font-anton text-white mb-4">
             Célcsoportunk
           </h3>
           
