@@ -74,7 +74,7 @@ export const WorkWithUsSection: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           {/* Left side - Content */}
           <div className="text-center lg:text-left">
-            <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-tight mb-4">
+            <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-4">
               <span className="block text-white mb-2">LOJALITÁS,</span>
               <span className="block text-electric-300">AHOGY KELLENE</span>
             </h2>
