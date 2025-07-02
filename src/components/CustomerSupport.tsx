@@ -243,26 +243,26 @@ export const CustomerSupport: React.FC = () => {
       {renderHeader()}
       
       <div className="flex-1 overflow-y-auto p-6 pb-32">
-        <div className="mb-8">
-          <h3 className="text-2xl font-bold text-white mb-2">Szia! 👋</h3>
-          <p className="text-gray-400 text-lg">Miben segíthetünk?</p>
+        <div className="mb-4">
+          <h3 className="text-lg font-bold text-white mb-1">Szia! 👋</h3>
+          <p className="text-gray-400 text-sm">Miben segíthetünk?</p>
         </div>
 
-        <div className="space-y-4 mb-8">
+        <div className="space-y-2 mb-4">
           <Button
             onClick={() => setCurrentTab('messages')}
-            className="w-full h-14 bg-electric-300 hover:bg-electric-400 text-black font-semibold text-left flex items-center justify-between rounded-xl"
+            className="w-full h-12 bg-electric-300 hover:bg-electric-400 text-black font-semibold text-left flex items-center justify-between rounded-xl"
           >
-            <span className="text-lg">Írj nekünk üzenetet</span>
-            <Send className="w-5 h-5" />
+            <span className="text-sm">Írj nekünk üzenetet</span>
+            <Send className="w-4 h-4" />
           </Button>
 
           <Button
             onClick={() => setCurrentTab('help')}
-            className="w-full h-14 bg-gray-800 hover:bg-gray-700 text-white font-semibold text-left flex items-center justify-between rounded-xl border border-gray-600"
+            className="w-full h-12 bg-gray-800 hover:bg-gray-700 text-white font-semibold text-left flex items-center justify-between rounded-xl border border-gray-600"
           >
-            <span className="text-lg">Keresés a súgóban</span>
-            <Search className="w-5 h-5" />
+            <span className="text-sm">Keresés a súgóban</span>
+            <Search className="w-4 h-4" />
           </Button>
         </div>
 
