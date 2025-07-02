@@ -266,52 +266,48 @@ export const CustomerSupport: React.FC = () => {
           </Button>
         </div>
 
-        <div className="space-y-4">
-          <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wide">Gyakori kérdések</h4>
+        <div className="space-y-3">
+          <h4 className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">Gyakori kérdések</h4>
           
-          <div className="space-y-3">
+          <div className="space-y-2">
             <button 
               onClick={() => openDetailView('ingyen-italok')}
-              className="w-full text-left p-5 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
+              className="w-full text-left p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg border border-gray-700 transition-all duration-200 group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Ingyen italok</span>
-                <span className="text-gray-400 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-white font-medium text-base group-hover:text-electric-300 transition-colors">Ingyen italok</span>
+                <span className="text-gray-400 text-lg group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-gray-400 text-sm mt-2">Hogyan szerezd meg és használd fel az ingyen italokat</p>
             </button>
             
             <button 
               onClick={() => openDetailView('jutalmak')}
-              className="w-full text-left p-5 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
+              className="w-full text-left p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg border border-gray-700 transition-all duration-200 group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Jutalmak és kártya összekapcsolás</span>
-                <span className="text-gray-400 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-white font-medium text-base group-hover:text-electric-300 transition-colors">Jutalmak és kártya összekapcsolás</span>
+                <span className="text-gray-400 text-lg group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-gray-400 text-sm mt-2">Kártyák hozzáadása és jutalmak kezelése</p>
             </button>
             
             <button 
               onClick={() => openDetailView('regisztracio')}
-              className="w-full text-left p-5 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
+              className="w-full text-left p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg border border-gray-700 transition-all duration-200 group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Regisztráció és fiókkezelés</span>
-                <span className="text-gray-400 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-white font-medium text-base group-hover:text-electric-300 transition-colors">Regisztráció és fiókkezelés</span>
+                <span className="text-gray-400 text-lg group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-gray-400 text-sm mt-2">Fiók létrehozása és személyes adatok kezelése</p>
             </button>
 
             <button 
               onClick={() => openDetailView('ajanlas')}
-              className="w-full text-left p-5 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
+              className="w-full text-left p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg border border-gray-700 transition-all duration-200 group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-white font-semibold text-lg group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</span>
-                <span className="text-gray-400 text-xl group-hover:text-electric-300 transition-colors">›</span>
+                <span className="text-white font-medium text-base group-hover:text-electric-300 transition-colors">Ajánlások és megosztás</span>
+                <span className="text-gray-400 text-lg group-hover:text-electric-300 transition-colors">›</span>
               </div>
-              <p className="text-gray-400 text-sm mt-2">Barátok meghívása és jutalmak szerzése</p>
             </button>
           </div>
         </div>
