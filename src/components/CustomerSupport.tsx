@@ -141,21 +141,43 @@ export const CustomerSupport: React.FC = () => {
   const renderFAQDetail = (type: DetailView) => {
     const content = {
       'ingyen-italok': {
-        title: 'Ingyen italok',
-        content: [
-          {
-            question: 'Hogyan szerezhetem meg az ingyen italt?',
-            answer: 'Töltsd le az alkalmazást, regisztrálj és azonnal kapsz egy ingyen italt a résztvevő helyszíneken.'
-          },
-          {
-            question: 'Hol használhatom fel az ingyen italt?',
-            answer: 'Az összes partnercégünknél, amelyek szerepelnek az alkalmazásban. A térképen találod őket.'
-          },
-          {
-            question: 'Van-e időkorlát az ingyen italra?',
-            answer: 'Az ingyen ital kupon 30 napig érvényes az aktiválástól számítva.'
-          }
-        ]
+        title: 'Ingyen italok? Igen, jól hallottad!',
+        content: `Az ingyen ital maga az élet forrása, a közösségi élmény központja – egy igazi ajándék, amit a Come Get It minden generációja átörökít a következőnek. Tudj meg mindent arról, hol és miért kaphatsz nálunk ingyen italt!
+
+**Miért adunk ingyen italokat?**
+
+Egyszerűen azért, mert hisszük, hogy mindenkinek jár egy kis öröm, és közben a legmenőbb italmárkákkal dolgozunk együtt, hogy elsőként próbálhasd ki a legújabb italokat. Ezek a márkák szeretnének bemutatkozni neked, a bárok pedig örömmel látják, ha új arcok érkeznek hozzájuk.
+
+A te jelenléted, visszajelzésed és véleményed aranyat ér – segítesz abban, hogy a kedvenc italaid még jobbak legyenek, új ízeket fedezz fel, és közben olyan helyeket is kipróbálj, ahová magadtól talán sosem mennél el.
+
+**Hogyan juthatsz hozzá egy ingyen italhoz?**
+
+Folyamatosan indítunk új ingyen italos akciókat, szóval érdemes résen lenni!
+Nézd meg az applikációban a bárlistát, vagy keresd a térképen az „ingyen ital" jelzést – ezek mutatják, hol vár rád a következő pohár öröm.
+
+Amikor a helyszínre érsz, csak nyomd meg az „Ingyen ital" gombot, és mutasd meg a pultosnak a visszaigazoló képernyőt. Ennyi az egész!
+
+Ne felejtsd el értékelni a helyet, a kiszolgálást és magát az italt! Az őszinte véleményed sokat számít – mind a bár, mind a márka számára hasznos visszajelzés lesz (és természetesen teljesen anonim módon).
+
+**Miért nem látok most ital ajánlatokat?**
+
+Előfordulhat, hogy éppen nincs aktív kampány a városodban. Ne aggódj, hamarosan visszatérünk újabb meglepetésekkel! Addig is, ha a partner bárjainkban a regisztrált kártyáddal fizetsz, exkluzív ajánlatokat és hűségjutalmakat gyűjthetsz.
+
+**Miért van zárolva nálam az ingyen ital lehetőség?**
+
+Az ingyen italok csak akkor érhetők el, ha összekapcsolod a bankkártyádat a Come Get It Rewards rendszerével. Ezzel nemcsak az italokhoz jutsz hozzá, hanem minden fogyasztásod után pontokat is gyűjtesz, amit további jutalmakra válthatsz be. Szóval tényleg megéri! A részleteket megtalálod az alkalmazásban.
+
+**Van valamilyen limit?**
+
+Igen, egy este mindenki csak egy ingyen italt válthat be – de ne aggódj, a helyszínen további kedvezmények és exkluzív ajánlatok is várnak!
+
+**Adhatok még több visszajelzést?**
+
+Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte tapasztalataidra nagyon kíváncsiak vagyunk, mert ezek alapján fejlesztjük tovább az élményt.
+
+**Maradt még kérdésed?**
+
+Írj nekünk bátran a live chat-en! Szívesen segítünk bármiben. 👊`
       },
       'jutalmak': {
         title: 'Jutalmak és kártya összekapcsolás',
@@ -200,6 +222,111 @@ export const CustomerSupport: React.FC = () => {
 
     const faqData = content[type!];
 
+    // Special handling for "ingyen-italok" with new design
+    if (type === 'ingyen-italok') {
+      const formatContent = (content: string) => {
+        return content.split('\n').map((line, index) => {
+          // Handle bold headers with **
+          if (line.startsWith('**') && line.endsWith('**')) {
+            return (
+              <h3 key={index} className="text-xl font-bold text-black mt-6 mb-3">
+                {line.replace(/\*\*/g, '')}
+              </h3>
+            );
+          }
+          // Skip empty lines
+          if (line.trim() === '') {
+            return <div key={index} className="h-2" />;
+          }
+          // Regular paragraphs
+          return (
+            <p key={index} className="text-gray-700 leading-relaxed mb-3">
+              {line}
+            </p>
+          );
+        });
+      };
+
+      return (
+        <div className="flex flex-col h-full bg-white">
+          <div className="flex items-center justify-between p-4 bg-white border-b border-gray-200">
+            <div className="flex items-center space-x-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={closeDetailView}
+                className="text-gray-600 hover:bg-gray-100 h-8 w-8"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+              <h2 className="text-lg font-semibold text-gray-900">Free Drinks</h2>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleSupport}
+              className="text-gray-600 hover:bg-gray-100 h-8 w-8"
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
+          
+          <div className="flex-1 overflow-y-auto p-6 pb-32">
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold text-black mb-3">{faqData.title}</h1>
+              <p className="text-gray-500 text-sm mb-1">Find out more about free drinks and how to get them</p>
+              <div className="flex items-center text-xs text-gray-400 mt-2">
+                <div className="w-6 h-6 bg-gray-300 rounded-full mr-2"></div>
+                <span>Written by Come Get It Team</span>
+              </div>
+            </div>
+
+            <div className="prose prose-sm max-w-none">
+              {formatContent(faqData.content as string)}
+            </div>
+          </div>
+          
+          <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+            <div className="flex">
+              <button
+                onClick={() => {
+                  setCurrentTab('home');
+                  setDetailView(null);
+                }}
+                className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-400 hover:text-gray-600"
+              >
+                <Home className="w-5 h-5 mb-1" />
+                <span className="text-xs">Kezdőoldal</span>
+              </button>
+              
+              <button
+                onClick={() => {
+                  setCurrentTab('messages');
+                  setDetailView(null);
+                }}
+                className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-400 hover:text-gray-600"
+              >
+                <MessageCircle className="w-5 h-5 mb-1" />
+                <span className="text-xs">Üzenetek</span>
+              </button>
+              
+              <button
+                onClick={() => {
+                  setCurrentTab('help');
+                  setDetailView(null);
+                }}
+                className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-400 hover:text-gray-600"
+              >
+                <HelpCircle className="w-5 h-5 mb-1" />
+                <span className="text-xs">Súgó</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Original design for other categories
     return (
       <div className="flex flex-col h-full bg-black">
         {renderHeader()}
@@ -211,7 +338,7 @@ export const CustomerSupport: React.FC = () => {
           </div>
 
           <div className="space-y-6">
-            {faqData.content.map((item, index) => (
+            {Array.isArray(faqData.content) && faqData.content.map((item, index) => (
               <div key={index} className="bg-gray-800/30 border border-gray-700 rounded-xl p-6">
                 <h4 className="font-semibold text-white mb-3 text-lg leading-relaxed">{item.question}</h4>
                 <p className="text-gray-300 leading-relaxed">{item.answer}</p>
