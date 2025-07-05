@@ -366,109 +366,109 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
   };
 
   const renderHomeView = () => (
-    <div className="flex flex-col h-full bg-white">
-      <div className="flex items-center justify-between p-4 bg-white border-b border-gray-200">
+    <div className="flex flex-col h-full bg-background">
+      <div className="flex items-center justify-between p-3 bg-background border-b border-border">
         <div className="flex items-center space-x-3">
-          <h2 className="text-lg font-semibold text-gray-900">Come Get It</h2>
+          <h2 className="text-base font-semibold text-foreground">Come Get It</h2>
         </div>
-        <div className="flex items-center space-x-3">
-          <div className="flex space-x-2">
-            <div className="w-8 h-8 bg-electric-300 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-black">CG</span>
+        <div className="flex items-center space-x-2">
+          <div className="flex space-x-1">
+            <div className="w-6 h-6 bg-electric-300 rounded-full flex items-center justify-center">
+              <span className="text-[10px] font-bold text-black">CG</span>
             </div>
-            <div className="w-8 h-8 bg-ocean-400 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-white">IT</span>
+            <div className="w-6 h-6 bg-ocean-400 rounded-full flex items-center justify-center">
+              <span className="text-[10px] font-bold text-white">IT</span>
             </div>
           </div>
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleSupport}
-            className="text-gray-600 hover:bg-gray-100 h-8 w-8"
+            className="text-foreground hover:bg-accent h-6 w-6"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5" />
           </Button>
         </div>
       </div>
       
-      <div className="flex-1 overflow-y-auto p-6 pb-32">
-        <div className="mb-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">Szia! 👋</h3>
-          <p className="text-lg text-gray-900">Miben segíthetünk?</p>
+      <div className="flex-1 overflow-y-auto p-4">
+        <div className="mb-4">
+          <h3 className="text-xl font-bold text-foreground mb-1">Szia! 👋</h3>
+          <p className="text-sm text-muted-foreground">Miben segíthetünk?</p>
         </div>
 
-        <div className="space-y-3 mb-8">
+        <div className="space-y-2 mb-4">
           <Button
             onClick={() => setCurrentTab('messages')}
-            className="w-full h-14 bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium text-left flex items-center justify-between rounded-xl border border-gray-200"
+            className="w-full h-11 bg-electric-300 hover:bg-electric-400 text-black font-medium text-left flex items-center justify-between rounded-xl"
           >
             <span>Írj nekünk üzenetet</span>
-            <Send className="w-5 h-5" />
+            <Send className="w-4 h-4" />
           </Button>
 
           <Button
             onClick={() => setCurrentTab('help')}
-            className="w-full h-14 bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium text-left flex items-center justify-between rounded-xl border border-gray-200"
+            className="w-full h-11 bg-ocean-600 hover:bg-ocean-700 text-white font-medium text-left flex items-center justify-between rounded-xl"
           >
             <span>Keresés a súgóban</span>
-            <Search className="w-5 h-5" />
+            <Search className="w-4 h-4" />
           </Button>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2">
           <button 
             onClick={() => openDetailView('ingyen-italok')}
-            className="w-full text-left p-4 bg-white hover:bg-gray-50 rounded-xl border border-gray-200 transition-all duration-200 group"
+            className="w-full text-left p-3 bg-card hover:bg-accent rounded-xl border border-border transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-gray-900 font-medium">Ingyen italok</span>
-              <span className="text-gray-400">›</span>
+              <span className="text-card-foreground font-medium text-sm">Ingyen italok</span>
+              <span className="text-electric-300">›</span>
             </div>
           </button>
           
           <button 
             onClick={() => openDetailView('jutalmak')}
-            className="w-full text-left p-4 bg-white hover:bg-gray-50 rounded-xl border border-gray-200 transition-all duration-200 group"
+            className="w-full text-left p-3 bg-card hover:bg-accent rounded-xl border border-border transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-gray-900 font-medium">Jutalmak és kártyák</span>
-              <span className="text-gray-400">›</span>
+              <span className="text-card-foreground font-medium text-sm">Jutalmak és kártyák</span>
+              <span className="text-electric-300">›</span>
             </div>
           </button>
           
           <button 
             onClick={() => openDetailView('regisztracio')}
-            className="w-full text-left p-4 bg-white hover:bg-gray-50 rounded-xl border border-gray-200 transition-all duration-200 group"
+            className="w-full text-left p-3 bg-card hover:bg-accent rounded-xl border border-border transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-gray-900 font-medium">Fiók és regisztráció</span>
-              <span className="text-gray-400">›</span>
+              <span className="text-card-foreground font-medium text-sm">Fiók és regisztráció</span>
+              <span className="text-electric-300">›</span>
             </div>
           </button>
 
           <button 
             onClick={() => openDetailView('ajanlas')}
-            className="w-full text-left p-4 bg-white hover:bg-gray-50 rounded-xl border border-gray-200 transition-all duration-200 group"
+            className="w-full text-left p-3 bg-card hover:bg-accent rounded-xl border border-border transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-gray-900 font-medium">Ajánlások és megosztás</span>
-              <span className="text-gray-400">›</span>
+              <span className="text-card-foreground font-medium text-sm">Ajánlások és megosztás</span>
+              <span className="text-electric-300">›</span>
             </div>
           </button>
         </div>
       </div>
       
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+      <div className="bg-background border-t border-border">
         <div className="flex">
           <button
             onClick={() => {
               setCurrentTab('home');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-900 bg-gray-100"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-electric-300 bg-electric-300/10"
           >
-            <Home className="w-5 h-5 mb-1" />
-            <span className="text-xs">Kezdőoldal</span>
+            <Home className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px]">Kezdőoldal</span>
           </button>
           
           <button
@@ -476,10 +476,10 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
               setCurrentTab('messages');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-400 hover:text-gray-600"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
           >
-            <MessageCircle className="w-5 h-5 mb-1" />
-            <span className="text-xs">Üzenetek</span>
+            <MessageCircle className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px]">Üzenetek</span>
           </button>
           
           <button
@@ -487,10 +487,10 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
               setCurrentTab('help');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-400 hover:text-gray-600"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
           >
-            <HelpCircle className="w-5 h-5 mb-1" />
-            <span className="text-xs">Súgó</span>
+            <HelpCircle className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px]">Súgó</span>
           </button>
         </div>
       </div>
@@ -498,71 +498,71 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
   );
 
   const renderMessagesView = () => (
-    <div className="flex flex-col h-full bg-white">
-      <div className="flex items-center justify-between p-4 bg-white border-b border-gray-200">
+    <div className="flex flex-col h-full bg-background">
+      <div className="flex items-center justify-between p-3 bg-background border-b border-border">
         <div className="flex items-center space-x-3">
-          <h2 className="text-lg font-semibold text-gray-900">Üzenetek</h2>
+          <h2 className="text-base font-semibold text-foreground">Üzenetek</h2>
         </div>
-        <div className="flex items-center space-x-3">
-          <div className="flex space-x-2">
-            <div className="w-8 h-8 bg-electric-300 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-black">CG</span>
+        <div className="flex items-center space-x-2">
+          <div className="flex space-x-1">
+            <div className="w-6 h-6 bg-electric-300 rounded-full flex items-center justify-center">
+              <span className="text-[10px] font-bold text-black">CG</span>
             </div>
-            <div className="w-8 h-8 bg-ocean-400 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-white">IT</span>
+            <div className="w-6 h-6 bg-ocean-400 rounded-full flex items-center justify-center">
+              <span className="text-[10px] font-bold text-white">IT</span>
             </div>
           </div>
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleSupport}
-            className="text-gray-600 hover:bg-gray-100 h-8 w-8"
+            className="text-foreground hover:bg-accent h-6 w-6"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5" />
           </Button>
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center p-6 pb-40">
-        <div className="bg-gray-100 rounded-full p-6 mb-4">
-          <MessageCircle className="w-12 h-12 text-gray-600" />
+      <div className="flex-1 flex flex-col items-center justify-center p-4">
+        <div className="bg-accent rounded-full p-4 mb-3">
+          <MessageCircle className="w-8 h-8 text-electric-300" />
         </div>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">Nincs üzenet</h3>
-        <p className="text-gray-600 text-center max-w-sm">
+        <h3 className="text-lg font-bold text-foreground mb-2">Nincs üzenet</h3>
+        <p className="text-muted-foreground text-center text-sm max-w-sm">
           A csapat üzenetei itt fognak megjelenni. Írj nekünk, ha segítségre van szükséged!
         </p>
       </div>
 
-      <div className="fixed bottom-16 left-4 right-4 bg-white/95 backdrop-blur-sm">
-        <div className="flex space-x-3 p-4">
+      <div className="p-3 bg-background/95 backdrop-blur-sm border-t border-border">
+        <div className="flex space-x-2">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Írj nekünk üzenetet..."
-            className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-300"
+            className="flex-1 bg-input border border-border rounded-xl px-3 py-2 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-electric-300 text-sm"
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
           <Button
             onClick={handleSendMessage}
-            className="bg-electric-300 hover:bg-electric-400 text-black px-4 py-3 rounded-xl"
+            className="bg-electric-300 hover:bg-electric-400 text-black px-3 py-2 rounded-xl"
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-4 h-4" />
           </Button>
         </div>
       </div>
       
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+      <div className="bg-background border-t border-border">
         <div className="flex">
           <button
             onClick={() => {
               setCurrentTab('home');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-400 hover:text-gray-600"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
           >
-            <Home className="w-5 h-5 mb-1" />
-            <span className="text-xs">Kezdőoldal</span>
+            <Home className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px]">Kezdőoldal</span>
           </button>
           
           <button
@@ -570,10 +570,10 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
               setCurrentTab('messages');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-900 bg-gray-100"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-electric-300 bg-electric-300/10"
           >
-            <MessageCircle className="w-5 h-5 mb-1" />
-            <span className="text-xs">Üzenetek</span>
+            <MessageCircle className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px]">Üzenetek</span>
           </button>
           
           <button
@@ -581,10 +581,10 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
               setCurrentTab('help');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-400 hover:text-gray-600"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
           >
-            <HelpCircle className="w-5 h-5 mb-1" />
-            <span className="text-xs">Súgó</span>
+            <HelpCircle className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px]">Súgó</span>
           </button>
         </div>
       </div>
@@ -592,105 +592,105 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
   );
 
   const renderHelpView = () => (
-    <div className="flex flex-col h-full bg-white">
-      <div className="flex items-center justify-between p-4 bg-white border-b border-gray-200">
+    <div className="flex flex-col h-full bg-background">
+      <div className="flex items-center justify-between p-3 bg-background border-b border-border">
         <div className="flex items-center space-x-3">
-          <h2 className="text-lg font-semibold text-gray-900">Súgó</h2>
+          <h2 className="text-base font-semibold text-foreground">Súgó</h2>
         </div>
         <Button
           variant="ghost"
           size="icon"
           onClick={toggleSupport}
-          className="text-gray-600 hover:bg-gray-100 h-8 w-8"
+          className="text-foreground hover:bg-accent h-6 w-6"
         >
-          <X className="w-4 h-4" />
+          <X className="w-3.5 h-3.5" />
         </Button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 pb-32">
-        <div className="relative mb-6">
+      <div className="flex-1 overflow-y-auto p-4">
+        <div className="relative mb-4">
           <input
             type="text"
             placeholder="Keresés a súgóban..."
-            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 pr-12 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-300"
+            className="w-full bg-input border border-border rounded-xl px-3 py-2 pr-10 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-electric-300 text-sm"
           />
-          <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         </div>
 
-        <div className="space-y-4">
-          <p className="text-sm text-gray-600 font-medium">4 gyűjtemény</p>
+        <div className="space-y-3">
+          <p className="text-xs text-muted-foreground font-medium">4 gyűjtemény</p>
           
-          <div className="space-y-3">
+          <div className="space-y-2">
             <button 
               onClick={() => openDetailView('ingyen-italok')}
-              className="w-full bg-white border border-gray-200 rounded-xl p-4 hover:bg-gray-50 transition-all duration-200 group text-left"
+              className="w-full bg-card border border-border rounded-xl p-3 hover:bg-accent transition-all duration-200 group text-left"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-base mb-1">Come Get It App GYIK</h3>
-                  <p className="text-sm text-gray-600 mb-2">Tudj meg többet az alkalmazás funkcióiról, beleértve a jutalmakat és kártya összekapcsolást.</p>
-                  <span className="text-xs text-gray-500">6 cikk</span>
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="font-semibold text-card-foreground text-sm mb-1">Come Get It App GYIK</h3>
+                  <p className="text-xs text-muted-foreground mb-1">Tudj meg többet az alkalmazás funkcióiról, beleértve a jutalmakat és kártya összekapcsolást.</p>
+                  <span className="text-[10px] text-electric-300">6 cikk</span>
                 </div>
-                <span className="text-gray-400 text-xl">›</span>
+                <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
             </button>
 
             <button 
               onClick={() => openDetailView('jutalmak')}
-              className="w-full bg-white border border-gray-200 rounded-xl p-4 hover:bg-gray-50 transition-all duration-200 group text-left"
+              className="w-full bg-card border border-border rounded-xl p-3 hover:bg-accent transition-all duration-200 group text-left"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-base mb-1">Fiók kezelés</h3>
-                  <p className="text-sm text-gray-600 mb-2">Hogyan töröld a fiókodat és személyes adataidat.</p>
-                  <span className="text-xs text-gray-500">2 cikk</span>
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="font-semibold text-card-foreground text-sm mb-1">Fiók kezelés</h3>
+                  <p className="text-xs text-muted-foreground mb-1">Hogyan töröld a fiókodat és személyes adataidat.</p>
+                  <span className="text-[10px] text-electric-300">2 cikk</span>
                 </div>
-                <span className="text-gray-400 text-xl">›</span>
+                <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
             </button>
 
             <button 
               onClick={() => openDetailView('regisztracio')}
-              className="w-full bg-white border border-gray-200 rounded-xl p-4 hover:bg-gray-50 transition-all duration-200 group text-left"
+              className="w-full bg-card border border-border rounded-xl p-3 hover:bg-accent transition-all duration-200 group text-left"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-base mb-1">Keresés és szűrők</h3>
-                  <p className="text-sm text-gray-600 mb-2">Útmutatók a keresési és szűrési funkciók használatához.</p>
-                  <span className="text-xs text-gray-500">3 cikk</span>
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="font-semibold text-card-foreground text-sm mb-1">Keresés és szűrők</h3>
+                  <p className="text-xs text-muted-foreground mb-1">Útmutatók a keresési és szűrési funkciók használatához.</p>
+                  <span className="text-[10px] text-electric-300">3 cikk</span>
                 </div>
-                <span className="text-gray-400 text-xl">›</span>
+                <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
             </button>
 
             <button 
               onClick={() => openDetailView('ajanlas')}
-              className="w-full bg-white border border-gray-200 rounded-xl p-4 hover:bg-gray-50 transition-all duration-200 group text-left"
+              className="w-full bg-card border border-border rounded-xl p-3 hover:bg-accent transition-all duration-200 group text-left"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-base mb-1">Útmutatók</h3>
-                  <p className="text-sm text-gray-600 mb-2">Részletes útmutatók az alkalmazás használatához.</p>
-                  <span className="text-xs text-gray-500">5 cikk</span>
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="font-semibold text-card-foreground text-sm mb-1">Útmutatók</h3>
+                  <p className="text-xs text-muted-foreground mb-1">Részletes útmutatók az alkalmazás használatához.</p>
+                  <span className="text-[10px] text-electric-300">5 cikk</span>
                 </div>
-                <span className="text-gray-400 text-xl">›</span>
+                <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
             </button>
           </div>
         </div>
       </div>
       
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+      <div className="bg-background border-t border-border">
         <div className="flex">
           <button
             onClick={() => {
               setCurrentTab('home');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-400 hover:text-gray-600"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
           >
-            <Home className="w-5 h-5 mb-1" />
-            <span className="text-xs">Kezdőoldal</span>
+            <Home className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px]">Kezdőoldal</span>
           </button>
           
           <button
@@ -698,10 +698,10 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
               setCurrentTab('messages');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-400 hover:text-gray-600"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
           >
-            <MessageCircle className="w-5 h-5 mb-1" />
-            <span className="text-xs">Üzenetek</span>
+            <MessageCircle className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px]">Üzenetek</span>
           </button>
           
           <button
@@ -709,10 +709,10 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
               setCurrentTab('help');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-3 px-3 transition-all duration-200 text-gray-900 bg-gray-100"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-electric-300 bg-electric-300/10"
           >
-            <HelpCircle className="w-5 h-5 mb-1" />
-            <span className="text-xs">Súgó</span>
+            <HelpCircle className="w-4 h-4 mb-0.5" />
+            <span className="text-[10px]">Súgó</span>
           </button>
         </div>
       </div>
@@ -755,7 +755,7 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
           />
           
           <div className="fixed inset-0 z-50 md:flex md:items-center md:justify-center md:p-4">
-            <div className="w-full h-full md:w-full md:max-w-md md:h-[700px] bg-black md:rounded-2xl shadow-2xl border border-gray-700 overflow-hidden relative">
+            <div className="w-full h-full md:w-full md:max-w-md md:h-[600px] bg-background md:rounded-2xl shadow-2xl border border-border overflow-hidden relative">
               {renderCurrentView()}
             </div>
           </div>
