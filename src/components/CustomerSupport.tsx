@@ -12,6 +12,7 @@ export const CustomerSupport: React.FC = () => {
   const [detailView, setDetailView] = useState<DetailView>(null);
   const [message, setMessage] = useState('');
   const [selectedSection, setSelectedSection] = useState<string>('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleSupport = () => {
     setIsOpen(!isOpen);
@@ -265,7 +266,6 @@ export const CustomerSupport: React.FC = () => {
     };
 
     const faqData = content[type!];
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     // Handle sections-based content (ingyen-italok and jutalmak)
     if ('sections' in faqData) {
