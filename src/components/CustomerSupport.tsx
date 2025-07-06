@@ -180,15 +180,47 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
 Írj nekünk bátran a live chat-en! Szívesen segítünk bármiben. 👊`
       },
       'jutalmak': {
-        title: 'Jutalmak és kártya összekapcsolás',
+        title: 'Pontok és Jutalmak',
         content: [
           {
-            question: 'Hogyan kapcsolhatom össze a kártyámat?',
-            answer: 'A Profil > Kártyák menüpontban add hozzá a hűségkártyádat vagy bankkártyádat.'
+            question: 'Mi az a Come Get It Rewards?',
+            answer: 'A Come Get It Rewards jutalmaz azért, mert kimész és élvezed a város legjobb helyeit. Gyűjts pontokat minden egyes fogyasztásod után a legjobb budapesti (vagy a jövőben más városi) partnerhelyeken – ezeket a pontokat exkluzív jutalmakra, menő márkák kedvezményeire válthatod be. Nincs szükség hűségkártyára, pecsétekre – sőt, még az appot sem kell megnyitnod minden alkalommal (de érdemes, mert mindig vár valami újdonság).'
           },
           {
-            question: 'Milyen jutalmakat szerezhetek?',
-            answer: 'Pontokat gyűjthetsz minden vásárlás után, amelyeket ingyen italokra vagy kedvezményekre válthatasz.'
+            question: 'Hogyan szerezhetek pontokat?',
+            answer: 'Pontokat kapsz minden alkalommal, amikor partnerhelyen fogyasztasz. Csak kapcsolod össze a bankkártyád az alkalmazással, és minden, a résztvevő helyeken történő tranzakció után automatikusan járnak a pontok. Bónuszpontokat is szerezhetsz, ha meghívod az ismerőseidet, és ők is csatlakoznak. A tranzakciókat és a meghívások adatait a Profil menüpontban követheted nyomon.'
+          },
+          {
+            question: 'Mire költhetem a pontjaimat?',
+            answer: 'A jutalmakat gondosan válogattuk össze – a lifestyle termékektől a divaton át a legmenőbb márkák ajánlataiig. Az aktuális kínálatot a Jutalmak fül alatt találod az appban. Folyamatosan bővítjük a kínálatot, ezért érdemes rendszeresen visszanézni, és szívesen várjuk az ötleteidet, hogy milyen márkákat látnál még szívesen!'
+          },
+          {
+            question: 'Hogyan tudom összekötni a kártyámat?',
+            answer: 'Nyisd meg az alkalmazásban a Jutalmak menüpontot, és válaszd a kártya összekötése opciót. Megadhatod manuálisan a kártyaadatokat, vagy egyszerűen be is szkennelheted a kameráddal.'
+          },
+          {
+            question: 'Biztonságosak az adataim?',
+            answer: 'Az adataid 100%-ban biztonságban vannak, és a kártyádat soha nem terheljük meg! A kártya összekötéséhez a Fidel.uk (Fidel API) biztonságos és PCI tanúsított SDK-ját használjuk. A kártyaadataidat nem tároljuk, hanem tokenizáljuk (titkosított azonosítóvá alakítjuk), amit a Fidel használ, hogy felismerje a Visa, Mastercard és American Express tranzakciókat, és rögzítse a jogosult vásárlásokat.'
+          },
+          {
+            question: 'Hogyan frissíthetem a kártyaadataimat?',
+            answer: 'Ha lejár a kártyád, de az új kártya száma nem változik, akkor nincs teendőd – automatikusan működni fog tovább. Ha le akarod cserélni, vagy teljesen új kártyát adnál hozzá, nyisd meg az appban a Profil menüpontot, ott válaszd a „Kapcsolt kártyák megtekintése" opciót, és ott tudod kezelni a kártyáidat.'
+          },
+          {
+            question: 'Minden tranzakciómat látjátok?',
+            answer: 'Csak azokhoz a tranzakciókhoz férünk hozzá, amelyeket a partnerhelyeken, a regisztrált kártyáddal fizetsz a kártyaterminálokon keresztül.'
+          },
+          {
+            question: 'Lejárnak a pontjaim?',
+            answer: 'A pontjaid soha nem járnak le, bármennyit gyűjthetsz, hogy beválthasd a nagyobb jutalmakat is.'
+          },
+          {
+            question: 'Támogatjátok az online fizetéseket (asztalnál rendelést)?',
+            answer: 'Sajnos nem támogatjuk az online, asztalnál történő rendeléseket vagy fizetéseket. Csak a kártyaterminálokon, partnerhelyeken végrehajtott tranzakciókat tudjuk figyelembe venni.'
+          },
+          {
+            question: 'Miért nem kaptam pontot egy tranzakció után?',
+            answer: 'Ha most kapcsolsz össze először Mastercardot, akár egy hétbe is telhet, mire megérkeznek az első tranzakciós adatok. Ez idő alatt is gyűlnek a pontok, de csak később jelennek meg az appban. Ha ezután sem kapod meg a pontokat, vedd fel velünk a kapcsolatot élő chaten, csatolj vásárlási bizonylatot, és segítünk! A Come Get It csak az elmúlt 7 nap tranzakcióit tudja utólag jóváírni.'
           }
         ]
       },
@@ -366,10 +398,10 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
   };
 
   const renderHomeView = () => (
-    <div className="flex flex-col h-full bg-background">
-      <div className="flex items-center justify-between p-3 bg-background border-b border-border">
+    <div className="flex flex-col h-full bg-gray-900">
+      <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
         <div className="flex items-center space-x-3">
-          <h2 className="text-base font-semibold text-foreground">Come Get It</h2>
+          <h2 className="text-base font-semibold text-white">Come Get It</h2>
         </div>
         <div className="flex items-center space-x-2">
           <div className="flex space-x-1">
@@ -384,7 +416,7 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
             variant="ghost"
             size="icon"
             onClick={toggleSupport}
-            className="text-foreground hover:bg-accent h-6 w-6"
+            className="text-white hover:bg-white/10 h-6 w-6"
           >
             <X className="w-3.5 h-3.5" />
           </Button>
@@ -393,8 +425,8 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
       
       <div className="flex-1 overflow-y-auto p-4">
         <div className="mb-4">
-          <h3 className="text-xl font-bold text-foreground mb-1">Szia! 👋</h3>
-          <p className="text-sm text-muted-foreground">Miben segíthetünk?</p>
+          <h3 className="text-xl font-bold text-white mb-1">Szia! 👋</h3>
+          <p className="text-sm text-gray-400">Miben segíthetünk?</p>
         </div>
 
         <div className="space-y-2 mb-4">
@@ -418,47 +450,47 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
         <div className="space-y-2">
           <button 
             onClick={() => openDetailView('ingyen-italok')}
-            className="w-full text-left p-3 bg-card hover:bg-accent rounded-xl border border-border transition-all duration-200 group"
+            className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-card-foreground font-medium text-sm">Ingyen italok</span>
+              <span className="text-white font-medium text-sm">Ingyen italok</span>
               <span className="text-electric-300">›</span>
             </div>
           </button>
           
           <button 
             onClick={() => openDetailView('jutalmak')}
-            className="w-full text-left p-3 bg-card hover:bg-accent rounded-xl border border-border transition-all duration-200 group"
+            className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-card-foreground font-medium text-sm">Jutalmak és kártyák</span>
+              <span className="text-white font-medium text-sm">Pontok és Jutalmak</span>
               <span className="text-electric-300">›</span>
             </div>
           </button>
           
           <button 
             onClick={() => openDetailView('regisztracio')}
-            className="w-full text-left p-3 bg-card hover:bg-accent rounded-xl border border-border transition-all duration-200 group"
+            className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-card-foreground font-medium text-sm">Fiók és regisztráció</span>
+              <span className="text-white font-medium text-sm">Fiók és regisztráció</span>
               <span className="text-electric-300">›</span>
             </div>
           </button>
 
           <button 
             onClick={() => openDetailView('ajanlas')}
-            className="w-full text-left p-3 bg-card hover:bg-accent rounded-xl border border-border transition-all duration-200 group"
+            className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-card-foreground font-medium text-sm">Ajánlások és megosztás</span>
+              <span className="text-white font-medium text-sm">Ajánlások és megosztás</span>
               <span className="text-electric-300">›</span>
             </div>
           </button>
         </div>
       </div>
       
-      <div className="bg-background border-t border-border">
+      <div className="bg-gray-900 border-t border-gray-700">
         <div className="flex">
           <button
             onClick={() => {
@@ -476,7 +508,7 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
               setCurrentTab('messages');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <MessageCircle className="w-4 h-4 mb-0.5" />
             <span className="text-[10px]">Üzenetek</span>
@@ -487,7 +519,7 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
               setCurrentTab('help');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <HelpCircle className="w-4 h-4 mb-0.5" />
             <span className="text-[10px]">Súgó</span>
@@ -498,10 +530,10 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
   );
 
   const renderMessagesView = () => (
-    <div className="flex flex-col h-full bg-background">
-      <div className="flex items-center justify-between p-3 bg-background border-b border-border">
+    <div className="flex flex-col h-full bg-gray-900">
+      <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
         <div className="flex items-center space-x-3">
-          <h2 className="text-base font-semibold text-foreground">Üzenetek</h2>
+          <h2 className="text-base font-semibold text-white">Üzenetek</h2>
         </div>
         <div className="flex items-center space-x-2">
           <div className="flex space-x-1">
@@ -516,7 +548,7 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
             variant="ghost"
             size="icon"
             onClick={toggleSupport}
-            className="text-foreground hover:bg-accent h-6 w-6"
+            className="text-white hover:bg-white/10 h-6 w-6"
           >
             <X className="w-3.5 h-3.5" />
           </Button>
@@ -524,23 +556,23 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center p-4">
-        <div className="bg-accent rounded-full p-4 mb-3">
+        <div className="bg-gray-800 rounded-full p-4 mb-3">
           <MessageCircle className="w-8 h-8 text-electric-300" />
         </div>
-        <h3 className="text-lg font-bold text-foreground mb-2">Nincs üzenet</h3>
-        <p className="text-muted-foreground text-center text-sm max-w-sm">
+        <h3 className="text-lg font-bold text-white mb-2">Nincs üzenet</h3>
+        <p className="text-gray-400 text-center text-sm max-w-sm">
           A csapat üzenetei itt fognak megjelenni. Írj nekünk, ha segítségre van szükséged!
         </p>
       </div>
 
-      <div className="p-3 bg-background/95 backdrop-blur-sm border-t border-border">
+      <div className="p-3 bg-gray-900/95 backdrop-blur-sm border-t border-gray-700">
         <div className="flex space-x-2">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Írj nekünk üzenetet..."
-            className="flex-1 bg-input border border-border rounded-xl px-3 py-2 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-electric-300 text-sm"
+            className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-electric-300 text-sm"
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
           <Button
@@ -552,14 +584,14 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
         </div>
       </div>
       
-      <div className="bg-background border-t border-border">
+      <div className="bg-gray-900 border-t border-gray-700">
         <div className="flex">
           <button
             onClick={() => {
               setCurrentTab('home');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <Home className="w-4 h-4 mb-0.5" />
             <span className="text-[10px]">Kezdőoldal</span>
@@ -581,7 +613,7 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
               setCurrentTab('help');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <HelpCircle className="w-4 h-4 mb-0.5" />
             <span className="text-[10px]">Súgó</span>
@@ -592,16 +624,16 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
   );
 
   const renderHelpView = () => (
-    <div className="flex flex-col h-full bg-background">
-      <div className="flex items-center justify-between p-3 bg-background border-b border-border">
+    <div className="flex flex-col h-full bg-gray-900">
+      <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
         <div className="flex items-center space-x-3">
-          <h2 className="text-base font-semibold text-foreground">Súgó</h2>
+          <h2 className="text-base font-semibold text-white">Súgó</h2>
         </div>
         <Button
           variant="ghost"
           size="icon"
           onClick={toggleSupport}
-          className="text-foreground hover:bg-accent h-6 w-6"
+          className="text-white hover:bg-white/10 h-6 w-6"
         >
           <X className="w-3.5 h-3.5" />
         </Button>
@@ -612,24 +644,24 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
           <input
             type="text"
             placeholder="Keresés a súgóban..."
-            className="w-full bg-input border border-border rounded-xl px-3 py-2 pr-10 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-electric-300 text-sm"
+            className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 pr-10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-electric-300 text-sm"
           />
-          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
         </div>
 
         <div className="space-y-3">
-          <p className="text-xs text-muted-foreground font-medium">4 gyűjtemény</p>
+          <p className="text-xs text-gray-400 font-medium">4 gyűjtemény</p>
           
           <div className="space-y-2">
             <button 
               onClick={() => openDetailView('ingyen-italok')}
-              className="w-full bg-card border border-border rounded-xl p-3 hover:bg-accent transition-all duration-200 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-3 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-card-foreground text-sm mb-1">Come Get It App GYIK</h3>
-                  <p className="text-xs text-muted-foreground mb-1">Tudj meg többet az alkalmazás funkcióiról, beleértve a jutalmakat és kártya összekapcsolást.</p>
-                  <span className="text-[10px] text-electric-300">6 cikk</span>
+                  <h3 className="font-semibold text-white text-sm mb-1">Ingyen Italok</h3>
+                  <p className="text-xs text-gray-400 mb-1">Tudj meg mindent az ingyen italokról és hogyan juthatók hozzá.</p>
+                  <span className="text-[10px] text-electric-300">1 cikk</span>
                 </div>
                 <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
@@ -637,13 +669,13 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
 
             <button 
               onClick={() => openDetailView('jutalmak')}
-              className="w-full bg-card border border-border rounded-xl p-3 hover:bg-accent transition-all duration-200 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-3 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-card-foreground text-sm mb-1">Fiók kezelés</h3>
-                  <p className="text-xs text-muted-foreground mb-1">Hogyan töröld a fiókodat és személyes adataidat.</p>
-                  <span className="text-[10px] text-electric-300">2 cikk</span>
+                  <h3 className="font-semibold text-white text-sm mb-1">Pontok és Jutalmak</h3>
+                  <p className="text-xs text-gray-400 mb-1">Minden a Come Get It Rewards rendszerről és pontgyűjtésről.</p>
+                  <span className="text-[10px] text-electric-300">10 cikk</span>
                 </div>
                 <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
@@ -651,13 +683,13 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
 
             <button 
               onClick={() => openDetailView('regisztracio')}
-              className="w-full bg-card border border-border rounded-xl p-3 hover:bg-accent transition-all duration-200 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-3 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-card-foreground text-sm mb-1">Keresés és szűrők</h3>
-                  <p className="text-xs text-muted-foreground mb-1">Útmutatók a keresési és szűrési funkciók használatához.</p>
-                  <span className="text-[10px] text-electric-300">3 cikk</span>
+                  <h3 className="font-semibold text-white text-sm mb-1">Fiók és regisztráció</h3>
+                  <p className="text-xs text-gray-400 mb-1">Regisztráció, fiókkezelés és beállítások.</p>
+                  <span className="text-[10px] text-electric-300">2 cikk</span>
                 </div>
                 <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
@@ -665,13 +697,13 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
 
             <button 
               onClick={() => openDetailView('ajanlas')}
-              className="w-full bg-card border border-border rounded-xl p-3 hover:bg-accent transition-all duration-200 group text-left"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-3 hover:bg-gray-800 transition-all duration-200 group text-left"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-card-foreground text-sm mb-1">Útmutatók</h3>
-                  <p className="text-xs text-muted-foreground mb-1">Részletes útmutatók az alkalmazás használatához.</p>
-                  <span className="text-[10px] text-electric-300">5 cikk</span>
+                  <h3 className="font-semibold text-white text-sm mb-1">Ajánlások és megosztás</h3>
+                  <p className="text-xs text-gray-400 mb-1">Barátok meghívása és ajánlási rendszer.</p>
+                  <span className="text-[10px] text-electric-300">2 cikk</span>
                 </div>
                 <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
@@ -680,14 +712,14 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
         </div>
       </div>
       
-      <div className="bg-background border-t border-border">
+      <div className="bg-gray-900 border-t border-gray-700">
         <div className="flex">
           <button
             onClick={() => {
               setCurrentTab('home');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <Home className="w-4 h-4 mb-0.5" />
             <span className="text-[10px]">Kezdőoldal</span>
@@ -698,7 +730,7 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
               setCurrentTab('messages');
               setDetailView(null);
             }}
-            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-muted-foreground hover:text-foreground"
+            className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <MessageCircle className="w-4 h-4 mb-0.5" />
             <span className="text-[10px]">Üzenetek</span>
@@ -755,7 +787,7 @@ Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte
           />
           
           <div className="fixed inset-0 z-50 md:flex md:items-center md:justify-center md:p-4">
-            <div className="w-full h-full md:w-full md:max-w-md md:h-[600px] bg-background md:rounded-2xl shadow-2xl border border-border overflow-hidden relative">
+            <div className="w-full h-full md:w-full md:max-w-md md:h-[600px] bg-gray-900 md:rounded-2xl shadow-2xl border border-gray-700 overflow-hidden relative">
               {renderCurrentView()}
             </div>
           </div>
