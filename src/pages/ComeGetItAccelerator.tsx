@@ -80,32 +80,32 @@ const ComeGetItAccelerator = () => {
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center space-y-8">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight">
-              <span className="block text-white mb-2">COME GET IT</span>
-              <span className="block text-electric-300">GYORSÍTÓ</span>
-            </h1>
-            
-            <div className="max-w-2xl mx-auto">
-              <p className="text-base md:text-lg text-electric-100 font-medium leading-tight">
+        <div className="relative z-10 max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left side - Content */}
+            <div className="text-center lg:text-left">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
+                <span className="block text-white mb-2">COME GET IT</span>
+                <span className="block text-electric-300">GYORSÍTÓ</span>
+              </h1>
+              
+              <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
                 Indítsd be márkádat –<br />
                 Budapest legdinamikusabb italos közösségében!
               </p>
-            </div>
-            
-            <div className="pt-4">
+              
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
               >
                 Jelentkezz most!
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
-
-            <div className="flex justify-center pt-8">
-              <PhoneMockup imageUrl={acceleratorImage} />
+            
+            {/* Right side - Phone Mockup */}
+            <div className="flex justify-center">
+              <PhoneMockup imageUrl={acceleratorImage} className="animate-glow-pulse scale-110" />
             </div>
           </div>
         </div>
