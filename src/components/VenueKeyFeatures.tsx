@@ -1,35 +1,37 @@
 import React from 'react';
 import { PhoneMockup } from './PhoneMockup';
 import { GlassWater, Star, CheckCircle, MapPin, Footprints } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const VenueKeyFeatures: React.FC = () => {
+  const { t } = useLanguage();
   const venueDetailImage = "/lovable-uploads/306d0815-37a6-4087-8408-3986c94eb037.png";
 
   const features = [
     {
       icon: GlassWater,
-      title: "NÖVELD A FORGALMAT",
-      description: "Az alkalmazás növeli a fogyasztást és visszahozza a vendégeket több pontért és jutalmakért."
+      title: t('venues.keyFeatures.features.traffic.title'),
+      description: t('venues.keyFeatures.features.traffic.description')
     },
     {
       icon: Star,
-      title: "DUSK JUTALMAK",
-      description: "Te döntöd el, milyen jutalmakat adsz – és így növeled az újralátogatások számát."
+      title: t('venues.keyFeatures.features.rewards.title'),
+      description: t('venues.keyFeatures.features.rewards.description')
     },
     {
       icon: CheckCircle,
-      title: "EGYSZERŰ BEVEZETÉS",
-      description: "Semmi extra oktatás vagy berendezés. Minden egyszerűen működik."
+      title: t('venues.keyFeatures.features.simple.title'),
+      description: t('venues.keyFeatures.features.simple.description')
     },
     {
       icon: Footprints,
-      title: "KÖVETHETŐ LÁBNYOM",
-      description: "Küldünk néhány kódot és reklámanyagot a helyed számára - ez minden, amire szükség van."
+      title: t('venues.keyFeatures.features.footprint.title'),
+      description: t('venues.keyFeatures.features.footprint.description')
     },
     {
       icon: MapPin,
-      title: "GPS",
-      description: "Segítünk a vendégeknek megtalálni a helyed és egyszerűen eljutni hozzád."
+      title: t('venues.keyFeatures.features.gps.title'),
+      description: t('venues.keyFeatures.features.gps.description')
     }
   ];
 
@@ -40,7 +42,7 @@ export const VenueKeyFeatures: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-anton text-white mb-6">
-            KULCS FUNKCIÓK
+            {t('venues.keyFeatures.title')}
           </h2>
         </div>
 

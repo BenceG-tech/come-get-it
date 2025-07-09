@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Gift, Settings, Zap, BarChart, Users } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const RewardsPartners = () => {
+  const { t } = useLanguage();
   const rewardsImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png";
 
   const howItWorksSteps = [
@@ -85,20 +87,18 @@ const RewardsPartners = () => {
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
               <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
-                <span className="block text-white mb-2">JUTALOM &</span>
-                <span className="block text-electric-300">KEDVEZMÉNY</span>
+                <span className="block text-white mb-2">{t('rewards.hero.title1')}</span>
+                <span className="block text-electric-300">{t('rewards.hero.title2')}</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                Érj el több ezer aktív felhasználót –<br />
-                exkluzív ajánlatokkal és kedvezményekkel!
+              <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('rewards.hero.subtitle') }}>
               </p>
               
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
               >
-                Jutalom partner leszek
+                {t('rewards.hero.cta')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>

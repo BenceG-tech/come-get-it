@@ -1,12 +1,16 @@
 
 import React from 'react';
 import { PhoneMockup } from './PhoneMockup';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface LinkSectionProps {
   linkImage: string;
 }
 
-export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => (
+export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => {
+  const { t } = useLanguage();
+  
+  return (
   <section id="link" className="py-20 px-4 bg-[#0f384e]/20 relative">
     <div className="max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -18,16 +22,17 @@ export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => (
         {/* Right - Content */}
         <div className="text-center lg:text-left order-1 lg:order-2">
           <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-none">
-            LINK.
+            {t('hero.link.title')}
           </h2>
           <p className="text-2xl md:text-3xl text-white mb-6 font-medium">
-            Csatlakozz a közösséghez!
+            {t('hero.link.subtitle')}
           </p>
           <p className="text-lg text-white max-w-lg">
-            Kösd össze bankkártyádat biztonságosan, és minden partnerhelyen történő fogyasztásod után automatikusan pontokat kapsz, amiket értékes jutalmakra válthatsz.
+            {t('hero.link.description')}
           </p>
         </div>
       </div>
     </div>
   </section>
-);
+  );
+};

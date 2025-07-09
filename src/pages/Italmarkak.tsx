@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Italmarkak = () => {
+  const { t } = useLanguage();
   const brandImage = "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png";
 
   const statistics = [
@@ -36,26 +38,26 @@ const Italmarkak = () => {
     {
       number: "1",
       icon: Wine,
-      title: "MUTASD BE",
-      description: "Töltsd fel italodat a Come Get It platformra, és mutasd meg a budapesti közönségnek!"
+      title: t('brands.howItWorks.steps.show.title'),
+      description: t('brands.howItWorks.steps.show.description')
     },
     {
       number: "2",
       icon: Compass,
-      title: "TESZTELD",
-      description: "A közösség kipróbálja, értékeli, és azonnal visszajelzést ad."
+      title: t('brands.howItWorks.steps.test.title'),
+      description: t('brands.howItWorks.steps.test.description')
     },
     {
       number: "3",
       icon: Gift,
-      title: "GYŰJTS VISSZAJELZÉST",
-      description: "Valódi, őszinte vélemények és adatok alapján optimalizálhatsz."
+      title: t('brands.howItWorks.steps.feedback.title'),
+      description: t('brands.howItWorks.steps.feedback.description')
     },
     {
       number: "4",
       icon: Rocket,
-      title: "SKÁLÁZD FEL",
-      description: "Jusson el italod több helyre, növeld a márkaismertséget és az eladásokat!"
+      title: t('brands.howItWorks.steps.scale.title'),
+      description: t('brands.howItWorks.steps.scale.description')
     }
   ];
 
@@ -116,20 +118,18 @@ const Italmarkak = () => {
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
               <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
-                <span className="block text-white mb-2">ITALMÁRKA</span>
-                <span className="block text-electric-300">ÉLMÉNY</span>
+                <span className="block text-white mb-2">{t('brands.hero.title1')}</span>
+                <span className="block text-electric-300">{t('brands.hero.title2')}</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                Indítsd be a márkád –<br />
-                Budapest legizgalmasabb közösségében!
+              <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('brands.hero.subtitle') }}>
               </p>
               
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
               >
-                Jelentkezz most!
+                {t('brands.hero.cta')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
@@ -147,7 +147,7 @@ const Italmarkak = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-anton text-white mb-2">
-              HOGYAN MŰKÖDIK?
+              {t('brands.howItWorks.title')}
             </h2>
           </div>
           

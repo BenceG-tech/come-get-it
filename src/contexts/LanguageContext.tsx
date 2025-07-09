@@ -54,14 +54,177 @@ export const useLanguage = () => {
 const translations = {
   hu: {
     nav: {
-      drink: 'DRINK',
-      link: 'LINK',
-      earn: 'EARN',
-      venues: 'Vendéglátóhelyek',
-      brands: 'Italmarkok',
-      rewardsPartners: 'Rewards partnerek',
-      accelerator: 'Come Get It Accelerator',
-      signup: 'Regisztrálj most'
+      brand: 'Come Get It',
+      vendeglatohelyek: 'Vendéglátóhelyek',
+      italmarkak: 'Italmárkák',
+      rewardsPartners: 'Jutalom partnerek',
+      accelerator: 'Gyorsító',
+      signup: 'Regisztráció',
+      partners: 'Partnerek'
+    },
+    venues: {
+      hero: {
+        title1: 'LOJALITÁS AHOGY',
+        title2: 'KELLENE, VÉGRE',
+        subtitle: 'A DUSK felhasználók jutalmat kapnak a te helyed látogatásáért.',
+        subtitle2: 'Nincs kártya, nincs bélyegző, nincs macera. Csak zökkenőmentes lojalitás, végre.',
+        cta: 'Partnernek jelentkezem'
+      },
+      howItWorks: {
+        title: 'HOGYAN MŰKÖDIK?',
+        steps: {
+          register: { title: 'REGISZTRÁLJ', description: 'Csatlakozz pár kattintással.' },
+          setup: { title: 'ÁLLÍTSD BE', description: 'Add meg ajánlatod és időpontjaid.' },
+          welcome: { title: 'FOGADJ VENDÉGEKET', description: 'Növeld a forgalmat, érkeznek az új vendégek.' },
+          track: { title: 'KÖVESD AZ EREDMÉNYEKET', description: 'Riportok és statisztikák élőben.' }
+        }
+      },
+      keyFeatures: {
+        title: 'KULCS FUNKCIÓK',
+        features: {
+          traffic: { title: 'NÖVELD A FORGALMAT', description: 'Az alkalmazás növeli a fogyasztást és visszahozza a vendégeket több pontért és jutalmakért.' },
+          rewards: { title: 'DUSK JUTALMAK', description: 'Te döntöd el, milyen jutalmakat adsz – és így növeled az újralátogatások számát.' },
+          simple: { title: 'EGYSZERŰ BEVEZETÉS', description: 'Semmi extra oktatás vagy berendezés. Minden egyszerűen működik.' },
+          footprint: { title: 'KÖVETHETŐ LÁBNYOM', description: 'Küldünk néhány kódot és reklámanyagot a helyed számára - ez minden, amire szükség van.' },
+          gps: { title: 'GPS', description: 'Segítünk a vendégeknek megtalálni a helyed és egyszerűen eljutni hozzád.' }
+        }
+      },
+      stats: {
+        age: { value: '24', label: 'ÁTLAG ÉLETKOR', description: 'Fiatal, aktív korosztály' },
+        millennials: { value: '91%', label: 'MILLENNIÁL & GEN Z ADATBÁZIS', description: 'Célzott demográfia' },
+        women: { value: '56%', label: 'NŐI KÖZÖNSÉG', description: 'Kiegyensúlyozott arány' },
+        active: { value: '85%', label: 'ESTE/HÉTVÉGÉN AKTÍV', description: 'Rendszeres látogatók' }
+      }
+    },
+    brands: {
+      hero: {
+        title1: 'ITALMÁRKA',
+        title2: 'ÉLMÉNY',
+        subtitle: 'Indítsd be a márkád –<br />Budapest legizgalmasabb közösségében!',
+        cta: 'Jelentkezz most!'
+      },
+      howItWorks: {
+        title: 'HOGYAN MŰKÖDIK?',
+        steps: {
+          show: { title: 'MUTASD BE', description: 'Töltsd fel italodat a Come Get It platformra, és mutasd meg a budapesti közönségnek!' },
+          test: { title: 'TESZTELD', description: 'A közösség kipróbálja, értékeli, és azonnal visszajelzést ad.' },
+          feedback: { title: 'GYŰJTS VISSZAJELZÉST', description: 'Valódi, őszinte vélemények és adatok alapján optimalizálhatsz.' },
+          scale: { title: 'SKÁLÁZD FEL', description: 'Jusson el italod több helyre, növeld a márkaismertséget és az eladásokat!' }
+        }
+      },
+      features: {
+        title: 'MIT KÍNÁLUNK?',
+        reach: { title: 'FOGYASZTÓI ELÉRÉS', description: 'Több ezer új fogyasztó havonta' },
+        flexibility: { title: 'RUGALMASSÁG', description: 'Egy helytől országos skálázásig' },
+        marketing: { title: 'MARKETING TÁMOGATÁS', description: 'Social media, influencer program' },
+        data: { title: 'VALÓS IDEJŰ ADATOK', description: 'Pontos fogyasztási statisztikák' }
+      },
+      targetAudience: {
+        title: 'KINEK AJÁNLJUK?',
+        newBrands: { title: 'ÚJ MÁRKÁK', description: 'Boutique, craft brandek' },
+        bigBrands: { title: 'NAGY BRANDEK', description: 'Új célcsoportot keresők' },
+        alcoholFree: { title: 'ALKOHOLMENTES', description: 'Innovatív healthy opciók' }
+      },
+      statistics: {
+        users: '246+',
+        women: '91%',
+        partners: '250+',
+        rating: '4.8'
+      },
+      finalCTA: {
+        title1: 'INDÍTSD EL AZ',
+        title2: 'ÉLMÉNYKAMPÁNYT!',
+        subtitle: 'Írj nekünk, csatlakozz az elsők között!',
+        cta: 'KAPCSOLATFELVÉTEL'
+      }
+    },
+    rewards: {
+      hero: {
+        title1: 'JUTALOM &',
+        title2: 'KEDVEZMÉNY',
+        subtitle: 'Érj el több ezer aktív felhasználót –<br />exkluzív ajánlatokkal és kedvezményekkel!',
+        cta: 'Jutalom partner leszek'
+      },
+      howItWorks: {
+        title: 'HOGYAN MŰKÖDIK?',
+        steps: {
+          register: { title: 'REGISZTRÁLJ', description: 'Lépj be a programba!' },
+          create: { title: 'HOZZ LÉTRE AJÁNLATOT', description: 'Adj exkluzív kedvezményt vagy jutalmat.' },
+          activate: { title: 'AKTIVÁLD', description: 'Promód azonnal él!' },
+          track: { title: 'KÖVESD EREDMÉNYEKET', description: 'Láss élő statisztikákat.' }
+        }
+      },
+      features: {
+        title: 'Jutalom rendszer előnyei',
+        exclusive: { title: 'Exkluzív ajánlatok', description: 'Hozz létre egyedi kedvezményeket és ajánlatokat az applikáció felhasználóinak.' },
+        targeted: { title: 'Célzott elérés', description: 'Juttatd el az ajánlataidat a megfelelő célcsoporthoz és növeld a konverziót.' },
+        instant: { title: 'Azonnali aktiváció', description: 'A kupok és kedvezmények azonnal beválthatók, nincs hosszas várakozás.' },
+        analytics: { title: 'Részletes statisztikák', description: 'Kövesd nyomon a kampányaid teljesítményét valós idejű adatokkal.' }
+      },
+      stats: {
+        title: 'Jutalom partnereink eredményei',
+        redemption: 'Kupon beváltási arány',
+        growth: 'Új vásárlók növekedése',
+        partners: 'Aktív jutalom partner',
+        satisfaction: 'Partner elégedettség'
+      }
+    },
+    accelerator: {
+      hero: {
+        title1: 'COME GET IT',
+        title2: 'GYORSÍTÓ',
+        subtitle: 'Indítsd be márkádat –<br />Budapest legdinamikusabb italos közösségében!',
+        cta: 'Jelentkezz most!'
+      },
+      howItWorks: {
+        title: 'HOGYAN MŰKÖDIK?',
+        steps: {
+          apply: { title: 'JELENTKEZZ', description: 'Töltsd ki a pilot jelentkezést' },
+          test: { title: 'TESZTELD', description: 'Közösségünk kipróbálja az italodat' },
+          feedback: { title: 'GYŰJTS VISSZAJELZÉST', description: 'Valódi, mérhető fogyasztói vélemények' },
+          scale: { title: 'SKÁLÁZD FEL', description: 'Indítsd el több helyen – növeld az eladásokat!' }
+        }
+      },
+      packages: {
+        title: 'PROGRAMCSOMAGOK ITALMÁRKÁKNAK',
+        fresh: {
+          title: 'FRESH',
+          features: [
+            'Minimum 5 helyszín',
+            'Közösségi tesztkampány',
+            'Fogyasztói visszajelzések, piaci adatok',
+            'Social media + PR aktivitás',
+            'Influencer jelenlét',
+            'Heti riport, ajánlások'
+          ]
+        },
+        superFresh: {
+          title: 'SUPER-FRESH',
+          features: [
+            'Már 1 helyszínnel elindítható',
+            'Közvetlen tesztelés a célcsoporton',
+            'Social poszt / TikTok reel',
+            'Heti visszajelzés',
+            'Adatalapú insightok',
+            'Márkaismertség boost'
+          ]
+        }
+      },
+      benefits: {
+        title: 'MIÉRT VÁLASSZ MINKET?',
+        speed: { title: 'GYORS PIACRA LÉPÉS', description: 'Minimális időráfordítással' },
+        audience: { title: 'CÉLZOTT KÖZÖNSÉG', description: '18-34 éves aktív fiatalok' },
+        data: { title: 'VALÓDI FOGYASZTÓI ADATOK', description: 'Mérhető visszajelzések' },
+        easy: { title: 'KÖNNYŰ BEVEZETÉS', description: 'Egyszerű indulási folyamat' }
+      },
+      demographics: {
+        title: 'FELHASZNÁLÓI DEMÓ ADATOK'
+      },
+      finalCTA: {
+        title: 'CSATLAKOZZ A PILOTHOZ!',
+        subtitle: 'Lépj be az elsők közé, akik meghatározzák<br />Budapest italtrendjeit!',
+        cta: 'JELENTKEZZ MOST'
+      }
     },
     hero: {
       mainTitle: 'Budapest új ital-térképe',
@@ -183,14 +346,177 @@ const translations = {
   },
   en: {
     nav: {
-      drink: 'DRINK',
-      link: 'LINK',
-      earn: 'EARN',
-      venues: 'Venues',
-      brands: 'Alcohol Brands',
+      brand: 'Come Get It',
+      vendeglatohelyek: 'Venues',
+      italmarkak: 'Alcohol Brands',
       rewardsPartners: 'Rewards Partners',
-      accelerator: 'Come Get It Accelerator',
-      signup: 'Sign Up Now'
+      accelerator: 'Accelerator',
+      signup: 'Sign Up',
+      partners: 'Partners'
+    },
+    venues: {
+      hero: {
+        title1: 'LOYALTY AS IT',
+        title2: 'SHOULD BE, FINALLY',
+        subtitle: 'DUSK users get rewarded for visiting your venue.',
+        subtitle2: 'No cards, no stamps, no hassle. Just seamless loyalty, finally.',
+        cta: 'Apply as Partner'
+      },
+      howItWorks: {
+        title: 'HOW IT WORKS?',
+        steps: {
+          register: { title: 'REGISTER', description: 'Join with a few clicks.' },
+          setup: { title: 'SET UP', description: 'Add your offers and schedule.' },
+          welcome: { title: 'WELCOME GUESTS', description: 'Increase traffic, new guests are coming.' },
+          track: { title: 'TRACK RESULTS', description: 'Live reports and statistics.' }
+        }
+      },
+      keyFeatures: {
+        title: 'KEY FEATURES',
+        features: {
+          traffic: { title: 'INCREASE TRAFFIC', description: 'The app increases consumption and brings customers back for more points and rewards.' },
+          rewards: { title: 'DUSK REWARDS', description: 'You decide what rewards to give – and increase repeat visits.' },
+          simple: { title: 'EASY IMPLEMENTATION', description: 'No extra training or equipment needed. Everything works simply.' },
+          footprint: { title: 'TRACKABLE FOOTPRINT', description: 'We send some codes and promotional materials for your venue - that\'s all you need.' },
+          gps: { title: 'GPS', description: 'We help guests find your venue and get there easily.' }
+        }
+      },
+      stats: {
+        age: { value: '24', label: 'AVERAGE AGE', description: 'Young, active age group' },
+        millennials: { value: '91%', label: 'MILLENNIAL & GEN Z DATABASE', description: 'Targeted demographics' },
+        women: { value: '56%', label: 'FEMALE AUDIENCE', description: 'Balanced ratio' },
+        active: { value: '85%', label: 'ACTIVE EVENINGS/WEEKENDS', description: 'Regular visitors' }
+      }
+    },
+    brands: {
+      hero: {
+        title1: 'BEVERAGE BRAND',
+        title2: 'EXPERIENCE',
+        subtitle: 'Launch your brand –<br />in Budapest\'s most exciting community!',
+        cta: 'Apply now!'
+      },
+      howItWorks: {
+        title: 'HOW IT WORKS?',
+        steps: {
+          show: { title: 'SHOWCASE', description: 'Upload your drink to the Come Get It platform and show it to the Budapest audience!' },
+          test: { title: 'TEST', description: 'The community tries it, rates it, and gives immediate feedback.' },
+          feedback: { title: 'COLLECT FEEDBACK', description: 'Optimize based on real, honest opinions and data.' },
+          scale: { title: 'SCALE UP', description: 'Get your drink to more places, increase brand awareness and sales!' }
+        }
+      },
+      features: {
+        title: 'WHAT WE OFFER?',
+        reach: { title: 'CONSUMER REACH', description: 'Thousands of new consumers monthly' },
+        flexibility: { title: 'FLEXIBILITY', description: 'From one location to nationwide scaling' },
+        marketing: { title: 'MARKETING SUPPORT', description: 'Social media, influencer program' },
+        data: { title: 'REAL-TIME DATA', description: 'Accurate consumption statistics' }
+      },
+      targetAudience: {
+        title: 'WHO DO WE RECOMMEND IT FOR?',
+        newBrands: { title: 'NEW BRANDS', description: 'Boutique, craft brands' },
+        bigBrands: { title: 'BIG BRANDS', description: 'Looking for new audiences' },
+        alcoholFree: { title: 'ALCOHOL-FREE', description: 'Innovative healthy options' }
+      },
+      statistics: {
+        users: '246+',
+        women: '91%',
+        partners: '250+',
+        rating: '4.8'
+      },
+      finalCTA: {
+        title1: 'LAUNCH YOUR',
+        title2: 'EXPERIENCE CAMPAIGN!',
+        subtitle: 'Contact us, join the first ones!',
+        cta: 'CONTACT US'
+      }
+    },
+    rewards: {
+      hero: {
+        title1: 'REWARDS &',
+        title2: 'DISCOUNTS',
+        subtitle: 'Reach thousands of active users –<br />with exclusive offers and discounts!',
+        cta: 'Become a rewards partner'
+      },
+      howItWorks: {
+        title: 'HOW IT WORKS?',
+        steps: {
+          register: { title: 'REGISTER', description: 'Join the program!' },
+          create: { title: 'CREATE OFFER', description: 'Give exclusive discounts or rewards.' },
+          activate: { title: 'ACTIVATE', description: 'Your promo goes live instantly!' },
+          track: { title: 'TRACK RESULTS', description: 'See live statistics.' }
+        }
+      },
+      features: {
+        title: 'Rewards system benefits',
+        exclusive: { title: 'Exclusive offers', description: 'Create unique discounts and offers for app users.' },
+        targeted: { title: 'Targeted reach', description: 'Get your offers to the right target audience and increase conversion.' },
+        instant: { title: 'Instant activation', description: 'Coupons and discounts can be redeemed immediately, no long waiting.' },
+        analytics: { title: 'Detailed statistics', description: 'Track your campaign performance with real-time data.' }
+      },
+      stats: {
+        title: 'Our rewards partners\' results',
+        redemption: 'Coupon redemption rate',
+        growth: 'New customer growth',
+        partners: 'Active rewards partners',
+        satisfaction: 'Partner satisfaction'
+      }
+    },
+    accelerator: {
+      hero: {
+        title1: 'COME GET IT',
+        title2: 'ACCELERATOR',
+        subtitle: 'Launch your brand –<br />in Budapest\'s most dynamic beverage community!',
+        cta: 'Apply now!'
+      },
+      howItWorks: {
+        title: 'HOW IT WORKS?',
+        steps: {
+          apply: { title: 'APPLY', description: 'Fill out the pilot application' },
+          test: { title: 'TEST', description: 'Our community tries your drink' },
+          feedback: { title: 'COLLECT FEEDBACK', description: 'Real, measurable consumer opinions' },
+          scale: { title: 'SCALE UP', description: 'Launch in multiple locations – increase sales!' }
+        }
+      },
+      packages: {
+        title: 'PROGRAM PACKAGES FOR BEVERAGE BRANDS',
+        fresh: {
+          title: 'FRESH',
+          features: [
+            'Minimum 5 locations',
+            'Community test campaign',
+            'Consumer feedback, market data',
+            'Social media + PR activity',
+            'Influencer presence',
+            'Weekly reports, recommendations'
+          ]
+        },
+        superFresh: {
+          title: 'SUPER-FRESH',
+          features: [
+            'Can start with just 1 location',
+            'Direct testing on target audience',
+            'Social post / TikTok reel',
+            'Weekly feedback',
+            'Data-driven insights',
+            'Brand awareness boost'
+          ]
+        }
+      },
+      benefits: {
+        title: 'WHY CHOOSE US?',
+        speed: { title: 'FAST MARKET ENTRY', description: 'With minimal time investment' },
+        audience: { title: 'TARGETED AUDIENCE', description: '18-34 year old active young people' },
+        data: { title: 'REAL CONSUMER DATA', description: 'Measurable feedback' },
+        easy: { title: 'EASY IMPLEMENTATION', description: 'Simple launch process' }
+      },
+      demographics: {
+        title: 'USER DEMOGRAPHIC DATA'
+      },
+      finalCTA: {
+        title: 'JOIN THE PILOT!',
+        subtitle: 'Be among the first to define<br />Budapest\'s drink trends!',
+        cta: 'APPLY NOW'
+      }
     },
     hero: {
       mainTitle: 'Budapest\'s New Drink Map',
