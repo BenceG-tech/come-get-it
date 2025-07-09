@@ -6,10 +6,8 @@ import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clock, MessageCircle, Eye, Globe, Award, Rocket, FlaskConical, Activity, Play, FileText, Wine, NotebookPen } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
-import { useLanguage } from '@/contexts/LanguageContext';
 
 const ComeGetItAccelerator = () => {
-  const { t } = useLanguage();
   const acceleratorImage = "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.png";
 
   const howItWorksSteps = [
@@ -87,18 +85,20 @@ const ComeGetItAccelerator = () => {
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
               <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
-                <span className="block text-white mb-2">{t('accelerator.hero.title1')}</span>
-                <span className="block text-electric-300">{t('accelerator.hero.title2')}</span>
+                <span className="block text-white mb-2">COME GET IT</span>
+                <span className="block text-electric-300">GYORSÍTÓ</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('accelerator.hero.subtitle') }}>
+              <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+                Indítsd be márkádat –<br />
+                Budapest legdinamikusabb italos közösségében!
               </p>
               
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
               >
-                {t('accelerator.hero.cta')}
+                Jelentkezz most!
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>

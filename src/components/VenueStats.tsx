@@ -1,33 +1,31 @@
 import React from 'react';
 import { Cake, Users, CircleDot, TrendingUp } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
 
 export const VenueStats: React.FC = () => {
-  const { t } = useLanguage();
   const stats = [
     {
       icon: Cake,
-      value: t('venues.stats.age.value'),
-      label: t('venues.stats.age.label'),
-      description: t('venues.stats.age.description')
+      value: "24",
+      label: "ÁTLAG ÉLETKOR",
+      description: "Fiatal, aktív korosztály"
     },
     {
       icon: Users,
-      value: t('venues.stats.millennials.value'),
-      label: t('venues.stats.millennials.label'),
-      description: t('venues.stats.millennials.description')
+      value: "91%",
+      label: "MILLENNIÁL & GEN Z ADATBÁZIS",
+      description: "Célzott demográfia"
     },
     {
       icon: CircleDot,
-      value: t('venues.stats.women.value'),
-      label: t('venues.stats.women.label'),
-      description: t('venues.stats.women.description')
+      value: "56%",
+      label: "NŐI KÖZÖNSÉG",
+      description: "Kiegyensúlyozott arány"
     },
     {
       icon: TrendingUp,
-      value: t('venues.stats.active.value'),
-      label: t('venues.stats.active.label'),
-      description: t('venues.stats.active.description')
+      value: "85%",
+      label: "ESTE/HÉTVÉGÉN AKTÍV",
+      description: "Rendszeres látogatók"
     }
   ];
 

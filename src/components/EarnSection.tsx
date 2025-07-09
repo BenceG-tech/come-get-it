@@ -1,30 +1,26 @@
 
 import React from 'react';
 import { PhoneMockup } from './PhoneMockup';
-import { useLanguage } from '@/contexts/LanguageContext';
 
 interface EarnSectionProps {
   earnImageIndex: number;
   earnImages: string[];
 }
 
-export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnImages }) => {
-  const { t } = useLanguage();
-  
-  return (
+export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnImages }) => (
   <section id="earn" className="py-20 px-4 relative">
     <div className="max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         {/* Left - Content */}
         <div className="text-center lg:text-left">
           <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-none">
-            {t('earn.title')}
+            EARN.
           </h2>
           <p className="text-2xl md:text-3xl text-white mb-6 font-medium">
-            {t('earn.subtitle')}
+            Gyűjts pontokat és segíts
           </p>
           <p className="text-lg text-white max-w-lg">
-            {t('earn.description')}
+            Gyűjts pontokat minden kortyért, felfedezésért és aktivitásért! Váltsd be őket exkluzív jutalmakra, miközben minden italoddal jótékony célt is támogatsz.
           </p>
         </div>
         
@@ -35,5 +31,4 @@ export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnIm
       </div>
     </div>
   </section>
-  );
-};
+);
