@@ -10,8 +10,13 @@ export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => (
   <section id="link" className="py-20 px-4 bg-[#0f384e]/20 relative">
     <div className="max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
-        {/* Left - Content */}
-        <div className="text-center lg:text-left">
+        {/* Left - Phone Mockup */}
+        <div className="flex justify-center lg:justify-end order-2 lg:order-1 relative">
+          <PhoneMockup imageUrl={linkImage} />
+        </div>
+        
+        {/* Right - Content */}
+        <div className="text-center lg:text-left order-1 lg:order-2">
           <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-none">
             LINK.
           </h2>
@@ -21,11 +26,6 @@ export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => (
           <p className="text-lg text-white max-w-lg">
             Kösd össze bankkártyádat biztonságosan, és minden partnerhelyen történő fogyasztásod után automatikusan pontokat kapsz, amiket értékes jutalmakra válthatsz.
           </p>
-        </div>
-        
-        {/* Right - Phone Mockup without green box */}
-        <div className="flex justify-center lg:justify-start relative">
-          <PhoneMockup imageUrl={linkImage} />
         </div>
       </div>
     </div>

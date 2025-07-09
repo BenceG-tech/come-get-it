@@ -11,13 +11,8 @@ export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnIm
   <section id="earn" className="py-20 px-4 relative">
     <div className="max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
-        {/* Left - Phone Mockup with alternating earn images */}
-        <div className="flex justify-center lg:justify-end order-2 lg:order-1 relative">
-          <PhoneMockup imageUrl={earnImages[earnImageIndex]} />
-        </div>
-        
-        {/* Right - Content */}
-        <div className="order-1 lg:order-2 text-center lg:text-left">
+        {/* Left - Content */}
+        <div className="text-center lg:text-left">
           <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-none">
             EARN.
           </h2>
@@ -27,6 +22,11 @@ export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnIm
           <p className="text-lg text-white max-w-lg">
             Gyűjts pontokat minden kortyért, felfedezésért és aktivitásért! Váltsd be őket exkluzív jutalmakra, miközben minden italoddal jótékony célt is támogatsz.
           </p>
+        </div>
+        
+        {/* Right - Phone Mockup with alternating earn images */}
+        <div className="flex justify-center lg:justify-start relative">
+          <PhoneMockup imageUrl={earnImages[earnImageIndex]} />
         </div>
       </div>
     </div>

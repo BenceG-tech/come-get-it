@@ -22,34 +22,37 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
     <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
     
     <div className="relative z-10 max-w-7xl mx-auto w-full">
-      <div className="text-center space-y-8">
-        {/* Main Title - Two lines, max 18 chars per line - Made bigger */}
-        <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight">
-          <span className="block text-white mb-2">INGYEN ITAL</span>
-          <span className="block text-white">MINDEN NAPRA</span>
-        </h1>
-        
-        {/* Subtitle - Max 2 short lines, centered */}
-        <div className="max-w-2xl mx-auto">
-          <p className="text-base md:text-lg text-electric-100 font-medium leading-tight">
-            Igyál minden nap ingyen Budapesten –<br />
-            fedezz fel új helyeket, gyűjts pontokat!
-          </p>
-        </div>
-        
-        {/* CTA Button - Unified styling */}
-        <div className="pt-4">
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
-            onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Regisztrálj most!
-          </Button>
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        {/* Left - Content */}
+        <div className="text-center lg:text-left">
+          {/* Main Title - Two lines, max 18 chars per line - Made bigger */}
+          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight">
+            <span className="block text-white mb-2">INGYEN ITAL</span>
+            <span className="block text-white">MINDEN NAPRA</span>
+          </h1>
+          
+          {/* Subtitle - Max 2 short lines */}
+          <div className="max-w-2xl lg:max-w-none">
+            <p className="text-base md:text-lg text-electric-100 font-medium leading-tight mt-6">
+              Igyál minden nap ingyen Budapesten –<br />
+              fedezz fel új helyeket, gyűjts pontokat!
+            </p>
+          </div>
+          
+          {/* CTA Button - Unified styling */}
+          <div className="pt-8">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+              onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Regisztrálj most!
+            </Button>
+          </div>
         </div>
 
-        {/* Phone mockup - Centered */}
-        <div className="flex justify-center pt-8">
+        {/* Right - Phone mockup */}
+        <div className="flex justify-center lg:justify-start">
           <PhoneMockup imageUrl={appImages[currentImageIndex]} />
         </div>
       </div>
