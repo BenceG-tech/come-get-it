@@ -1,10 +1,10 @@
 import React from 'react';
-import { Building, Users, Trophy, TrendingUp } from 'lucide-react';
+import { Cake, Users, CircleDot, TrendingUp } from 'lucide-react';
 
 export const VenueStats: React.FC = () => {
   const stats = [
     {
-      icon: Building,
+      icon: Cake,
       value: "24",
       label: "ÁTLAG ÉLETKOR",
       description: "Fiatal, aktív korosztály"
@@ -16,7 +16,7 @@ export const VenueStats: React.FC = () => {
       description: "Célzott demográfia"
     },
     {
-      icon: Trophy,
+      icon: CircleDot,
       value: "56%",
       label: "NŐI KÖZÖNSÉG",
       description: "Kiegyensúlyozott arány"

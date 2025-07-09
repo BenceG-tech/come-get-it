@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 export const VenueHeroSection: React.FC = () => {
   // Use the venue detail mockup image
-  const venueDetailImage = "/lovable-uploads/306d0815-37a6-4087-8408-3986c94eb037.png";
+  const venueDetailImage = "/lovable-uploads/49708be5-5db5-4f1e-adcf-e3b9ad6ddf45.png";
 
   return (
     <section className="relative py-16 px-4 overflow-hidden bg-black min-h-screen flex items-center">
@@ -19,10 +19,8 @@ export const VenueHeroSection: React.FC = () => {
           {/* Left side - Content */}
           <div className="text-center lg:text-left">
             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
-              <span className="block text-white mb-2">LOJALITÁS</span>
-              <span className="block text-white mb-2">AHOGY</span>
-              <span className="block text-electric-300">KELLENE,</span>
-              <span className="block text-electric-300">VÉGRE</span>
+              <span className="block text-white mb-2">LOJALITÁS AHOGY</span>
+              <span className="block text-electric-300">KELLENE, VÉGRE</span>
             </h1>
             
             <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">

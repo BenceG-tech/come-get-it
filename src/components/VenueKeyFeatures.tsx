@@ -1,13 +1,13 @@
 import React from 'react';
 import { PhoneMockup } from './PhoneMockup';
-import { TrendingUp, Star, Zap, MapPin, BarChart } from 'lucide-react';
+import { GlassWater, Star, CheckCircle, MapPin, Footprints } from 'lucide-react';
 
 export const VenueKeyFeatures: React.FC = () => {
   const venueDetailImage = "/lovable-uploads/306d0815-37a6-4087-8408-3986c94eb037.png";
 
   const features = [
     {
-      icon: TrendingUp,
+      icon: GlassWater,
       title: "NÖVELD A FORGALMAT",
       description: "Az alkalmazás növeli a fogyasztást és visszahozza a vendégeket több pontért és jutalmakért."
     },
@@ -17,12 +17,12 @@ export const VenueKeyFeatures: React.FC = () => {
       description: "Te döntöd el, milyen jutalmakat adsz – és így növeled az újralátogatások számát."
     },
     {
-      icon: Zap,
+      icon: CheckCircle,
       title: "EGYSZERŰ BEVEZETÉS",
       description: "Semmi extra oktatás vagy berendezés. Minden egyszerűen működik."
     },
     {
-      icon: BarChart,
+      icon: Footprints,
       title: "KÖVETHETŐ LÁBNYOM",
       description: "Küldünk néhány kódot és reklámanyagot a helyed számára - ez minden, amire szükség van."
     },
@@ -46,7 +46,7 @@ export const VenueKeyFeatures: React.FC = () => {
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left side - Phone Mockup */}
-          <div className="flex justify-center lg:justify-start">
+          <div className="flex justify-center">
             <PhoneMockup imageUrl={venueDetailImage} className="scale-110" />
           </div>
 

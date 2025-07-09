@@ -25,7 +25,7 @@ export const HowItWorksForVenues: React.FC = () => {
     {
       number: "4",
       icon: BarChart,
-      title: "KÖVESD EREDMÉNYEKET",
+      title: "KÖVESD AZ EREDMÉNYEKET",
       description: "Riportok és statisztikák élőben."
     }
   ];
