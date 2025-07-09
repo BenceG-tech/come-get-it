@@ -3,13 +3,17 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
 import { MobileNavigation } from './MobileNavigation';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface HeroSectionProps {
   currentImageIndex: number;
   appImages: string[];
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => (
+export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => {
+  const { t } = useLanguage();
+  
+  return (
   <section className="relative py-16 px-4 overflow-hidden">
     {/* Mobile Navigation */}
     <MobileNavigation />
@@ -46,7 +50,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
               onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Regisztrálj most!
+              {t('nav.signup')}!
             </Button>
           </div>
         </div>
@@ -58,4 +62,5 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
       </div>
     </div>
   </section>
-);
+  );
+};

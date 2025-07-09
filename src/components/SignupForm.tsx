@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const SignupForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ export const SignupForm: React.FC = () => {
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,10 +89,10 @@ export const SignupForm: React.FC = () => {
     <section id="signup" className="py-24 px-4 bg-[#0f384e]/20">
       <div className="max-w-md mx-auto text-center">
         <h2 className="text-3xl font-bold mb-6 text-white">
-          Csatlakozz az első 1000 taghoz, és élvezd az exkluzív előnyöket!
+          {t('signup.title')}
         </h2>
         <p className="text-white mb-8">
-          Lépj be elsőként a Come Get It közösségébe – értesítünk az indulásról és a bónuszokról!
+          {t('signup.subtitle')}
         </p>
         
         {!isSupabaseConfigured() && (
@@ -104,7 +106,7 @@ export const SignupForm: React.FC = () => {
         <form onSubmit={handleEmailSubmit} className="space-y-6">
           <Input
             type="email"
-            placeholder="Email címed"
+            placeholder={t('signup.emailPlaceholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="bg-[#0c323f]/50 border-[#3ba1cb]/30 text-white placeholder-[#3ba1cb]/70 focus:border-[#27dddf] focus:ring-[#27dddf] h-12"
@@ -132,7 +134,7 @@ export const SignupForm: React.FC = () => {
             disabled={!gdprAccepted || isLoading}
             className="w-full brand-gradient-cta hover:shadow-2xl text-white font-semibold py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed neon-glow-brand border-0"
           >
-            {isLoading ? '⏳ Küldés...' : isSubmitted ? '✓ Sikeresen regisztráltál!' : 'Regisztrálj most!'}
+            {isLoading ? '⏳ Küldés...' : isSubmitted ? t('signup.success') : t('signup.submit')}
           </Button>
         </form>
         

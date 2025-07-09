@@ -3,30 +3,33 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { MapPin, Heart, Zap } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const FeaturesSection: React.FC = () => {
+  const { t } = useLanguage();
+  
   const features = [
     {
-      title: "FEDEZD FEL.",
+      title: t('features.items.discover.title'),
       icon: MapPin,
-      description: "Találd meg Budapest legmenőbb helyeit GPS alapon.",
-      benefit: "Új helyek, új arcok, új élmények – minden nap!",
+      description: t('features.items.discover.description'),
+      benefit: t('features.items.discover.benefit'),
       gradientClass: "from-[#3ba1cb] via-[#27dddf] to-[#0f384e]",
       glowColor: "rgba(59, 161, 203, 0.6)"
     },
     {
-      title: "IGYÁL ÉS GYŰJTS.",
+      title: t('features.items.earn.title'),
       icon: Zap,
-      description: "Minden nap jár egy ingyen ital, minden fogyasztás után pont jár.",
-      benefit: "Pontjaidat értékes jutalmakra válthatod!",
+      description: t('features.items.earn.description'),
+      benefit: t('features.items.earn.benefit'),
       gradientClass: "from-[#27dddf] via-[#3ba1cb] to-[#0c323f]",
       glowColor: "rgba(39, 221, 223, 0.6)"
     },
     {
-      title: "SEGÍTS!",
+      title: t('features.items.impact.title'),
       icon: Heart,
-      description: "Minden ital után automatikusan támogatod a jótékonyságot.",
-      benefit: "Iszol, szórakozol, közben jót teszel – win-win.",
+      description: t('features.items.impact.description'),
+      benefit: t('features.items.impact.benefit'),
       gradientClass: "from-[#0f384e] via-[#0c323f] to-[#3ba1cb]",
       glowColor: "rgba(15, 56, 78, 0.6)"
     }
@@ -36,7 +39,7 @@ export const FeaturesSection: React.FC = () => {
     <section className="py-24 px-4 bg-[#0c323f]/30">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-16 text-white">
-          Miért válaszd a Come Get It-et?
+          {t('features.title')}
         </h2>
         
         {/* Desktop Layout */}
@@ -129,7 +132,7 @@ export const FeaturesSection: React.FC = () => {
             className="brand-gradient-cta hover:shadow-2xl text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
             onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            Regisztrálj most!
+            {t('nav.signup')}!
           </Button>
         </div>
       </div>
