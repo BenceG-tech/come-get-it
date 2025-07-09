@@ -7,15 +7,43 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-export const Navigation: React.FC = () => (
-  <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-[#3ba1cb]/20 hidden lg:block">
-    <div className="max-w-7xl mx-auto px-4 py-4 flex justify-end items-center">
-      <div className="flex space-x-8">
-        <a href="#drink" className="text-white hover:text-[#27dddf] transition-colors">Drink</a>
-        <a href="#link" className="text-white hover:text-[#27dddf] transition-colors">Link</a>
-        <a href="#earn" className="text-white hover:text-[#27dddf] transition-colors">Earn</a>
+export const Navigation: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleNavClick = (section: string) => {
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleSignupClick = () => {
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById('signup')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-[#3ba1cb]/20 hidden lg:block">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <Link to="/" className="text-2xl font-anton text-white hover:text-[#27dddf] transition-colors">
+          COME GET IT
+        </Link>
+        <div className="flex space-x-8">
+          <button onClick={() => handleNavClick('drink')} className="text-white hover:text-[#27dddf] transition-colors">Drink</button>
+          <button onClick={() => handleNavClick('link')} className="text-white hover:text-[#27dddf] transition-colors">Link</button>
+          <button onClick={() => handleNavClick('earn')} className="text-white hover:text-[#27dddf] transition-colors">Earn</button>
         
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center text-white hover:text-[#27dddf] transition-colors focus:outline-none">
@@ -46,8 +74,9 @@ export const Navigation: React.FC = () => (
           </DropdownMenuContent>
         </DropdownMenu>
         
-        <a href="#signup" className="text-white hover:text-[#27dddf] transition-colors">Regisztrálj</a>
+          <button onClick={handleSignupClick} className="text-white hover:text-[#27dddf] transition-colors">Regisztrálj</button>
+        </div>
       </div>
-    </div>
-  </nav>
-);
+    </nav>
+  );
+};

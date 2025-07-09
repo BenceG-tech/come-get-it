@@ -71,8 +71,8 @@ const RewardsPartners = () => {
       <MobileNavigation />
       <Navigation />
       
-      {/* Hero Section - Kompaktabb */}
-      <section className="relative py-12 px-4 overflow-hidden">
+      {/* Hero Section - Standardized */}
+      <section className="relative py-20 px-4 overflow-hidden min-h-screen flex items-center">
         {/* Unified background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
         
