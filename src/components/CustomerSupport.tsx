@@ -781,8 +781,8 @@ export const CustomerSupport: React.FC = () => {
             onClick={toggleSupport}
           />
           
-          <div className="fixed inset-0 z-50 md:flex md:items-center md:justify-center md:p-4">
-            <div className="w-full h-full md:w-full md:max-w-md md:h-[600px] bg-gray-900 md:rounded-2xl shadow-2xl border border-gray-700 overflow-hidden relative">
+          <div className="fixed inset-0 z-50 md:flex md:items-center md:justify-end md:p-4">
+            <div className="w-full h-full md:w-[500px] lg:w-[600px] xl:w-[700px] md:h-[80vh] lg:h-[85vh] bg-gray-900 md:rounded-2xl shadow-2xl border border-gray-700 overflow-hidden relative">
               {renderCurrentView()}
             </div>
           </div>

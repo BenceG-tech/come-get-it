@@ -2,8 +2,10 @@
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
-import { WorkWithUsSection } from '@/components/WorkWithUsSection';
+import { VenueHeroSection } from '@/components/VenueHeroSection';
 import { HowItWorksForVenues } from '@/components/HowItWorksForVenues';
+import { VenueKeyFeatures } from '@/components/VenueKeyFeatures';
+import { VenueStats } from '@/components/VenueStats';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
@@ -12,8 +14,10 @@ const Vendeglatohelyek = () => {
     <div className="min-h-screen bg-black text-white">
       <MobileNavigation />
       <Navigation />
-      <WorkWithUsSection />
+      <VenueHeroSection />
       <HowItWorksForVenues />
+      <VenueKeyFeatures />
+      <VenueStats />
       <VenueApplicationSection />
       <CustomerSupport />
     </div>
