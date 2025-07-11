@@ -139,7 +139,21 @@ export const analytics = {
     qualification_score: qualificationScore,
     lead_type: leadType,
     event_category: 'lead_scoring'
-  })
+  }),
+
+  // Lead Qualification System
+  leadScoring: {
+    pageView: (page: string, timeSpent?: number) => trackEvent('lead_score_page_view', { page, time_spent: timeSpent }),
+    formInteraction: (formType: string, fieldCount: number) => trackEvent('lead_score_form_interaction', { form_type: formType, field_count: fieldCount }),
+    qualificationQuestion: (question: string, answer: string, qualificationLevel: 'hot' | 'warm' | 'cold') => trackEvent('lead_qualification', { question, answer, qualification_level: qualificationLevel }),
+    businessProfile: (businessType: string, size: string, timeline: string, budget?: string) => trackEvent('lead_business_profile', { business_type: businessType, business_size: size, timeline, budget }),
+    leadCategory: (category: 'consumer' | 'business_partner' | 'venue_owner', priority: 'high' | 'medium' | 'low') => trackEvent('lead_categorization', { category, priority })
+  },
+
+  leadSource: {
+    capture: (source: string, medium: string, campaign?: string) => trackEvent('lead_source', { source, medium, campaign }),
+    conversion: (leadId: string, conversionType: string, value?: number) => trackEvent('lead_conversion', { lead_id: leadId, conversion_type: conversionType, value })
+  }
 };
 
 export default analytics;

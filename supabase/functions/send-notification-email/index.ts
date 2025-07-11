@@ -7,6 +7,28 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+interface LeadData {
+  email: string;
+  name?: string;
+  phone?: string;
+  company?: string;
+  lead_score?: number;
+  lead_quality?: 'hot' | 'warm' | 'cold';
+  lead_category?: 'consumer' | 'business_partner' | 'venue_owner';
+  business_type?: string;
+  business_size?: string;
+  timeline?: string;
+  budget_range?: string;
+  formData?: any;
+}
+
+interface EmailRequest {
+  type: 'signup' | 'venue_application' | 'qualified_lead';
+  email: string;
+  name?: string;
+  formData?: LeadData;
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
