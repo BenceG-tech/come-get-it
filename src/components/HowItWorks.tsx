@@ -1,19 +1,19 @@
 import React from 'react';
-import { Clock, CreditCard, Wine, Star } from 'lucide-react';
+import { Download, UserPlus, Wine, Star } from 'lucide-react';
 
 export const HowItWorks: React.FC = () => {
   const steps = [
     {
       number: 1,
-      icon: Clock,
+      icon: Download,
       title: "TÖLTSD LE",
-      description: "Töltsd le az appot és regisztrálj"
+      description: "Töltsd le az appot"
     },
     {
       number: 2,
-      icon: CreditCard,
-      title: "FIZESS",
-      description: "Fizess applikációban a kedvezményért"
+      icon: UserPlus,
+      title: "REGISZTRÁLJ",
+      description: "Regisztrálj és linkeld a kártyádat"
     },
     {
       number: 3,
@@ -45,11 +45,11 @@ export const HowItWorks: React.FC = () => {
               className="text-center group hover:scale-105 transition-all duration-300"
             >
               <div className="relative mb-6">
-                <div className="text-6xl md:text-8xl font-black text-white/10 absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-6xl md:text-8xl font-black bg-gradient-to-br from-electric-300/30 via-electric-300/20 to-transparent bg-clip-text text-transparent">
                   {step.number}
                 </div>
                 
-                <div className="relative z-10 w-16 h-16 md:w-20 md:h-20 mx-auto bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+                <div className="relative z-10 w-16 h-16 md:w-20 md:h-20 mx-auto bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-lg shadow-electric-300/10">
                   <step.icon className="w-8 h-8 md:w-10 md:h-10 text-electric-300 group-hover:text-white transition-colors duration-300" />
                 </div>
               </div>

@@ -13,7 +13,7 @@ export const VenueKeyFeatures: React.FC = () => {
     },
     {
       icon: Star,
-      title: "DUSK JUTALMAK",
+      title: "COME GET IT JUTALMAK",
       description: "Te döntöd el, milyen jutalmakat adsz – és így növeled az újralátogatások számát."
     },
     {

@@ -188,7 +188,7 @@ const ComeGetItAccelerator = () => {
                   {step.title}
                 </h4>
                 
-                <p className="text-sm text-electric-100 leading-tight">
+                <p className="text-sm text-electric-100 leading-tight px-2">
                   {step.description}
                 </p>
               </div>

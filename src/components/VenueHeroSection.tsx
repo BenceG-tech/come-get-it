@@ -24,7 +24,7 @@ export const VenueHeroSection: React.FC = () => {
             </h1>
             
             <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-              A DUSK felhasználók jutalmat kapnak a te helyed látogatásáért.
+              A Come Get It felhasználók jutalmat kapnak a te helyed látogatásáért.
               <br />
               <span className="text-white font-semibold">
                 Nincs kártya, nincs bélyegző, nincs macera. Csak zökkenőmentes lojalitás, végre.
