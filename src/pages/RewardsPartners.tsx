@@ -1,13 +1,74 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Gift, Settings, Zap, BarChart, Users } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { analytics } from '@/lib/analytics';
 
 const RewardsPartners = () => {
   const rewardsImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png";
+
+  // Analytics tracking
+  useEffect(() => {
+    analytics.rewardsPageView();
+    analytics.pageView('rewards_partners');
+    
+    const startTime = Date.now();
+    let maxScrollDepth = 0;
+    
+    const handleScroll = () => {
+      const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      if (scrollPercent > maxScrollDepth) {
+        maxScrollDepth = scrollPercent;
+        if (scrollPercent >= 25 && scrollPercent < 50) {
+          analytics.scrollDepth(25, 'rewards_partners');
+        } else if (scrollPercent >= 50 && scrollPercent < 75) {
+          analytics.scrollDepth(50, 'rewards_partners');
+        } else if (scrollPercent >= 75) {
+          analytics.scrollDepth(75, 'rewards_partners');
+        }
+      }
+    };
+
+    // Track feature views
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id || entry.target.className;
+          analytics.sectionView(sectionId, 'rewards_partners');
+          analytics.rewardsFeatureView(sectionId);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('section').forEach((section) => {
+      observer.observe(section);
+    });
+
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+      
+      const duration = Math.round((Date.now() - startTime) / 1000);
+      analytics.timeOnPage(duration, 'rewards_partners');
+      
+      // Lead engagement scoring for rewards partners
+      if (duration > 75 || maxScrollDepth > 55) {
+        analytics.leadEngagement('high', 'rewards_partners');
+        analytics.leadQualification(80, 'rewards_prospect');
+      } else if (duration > 40 || maxScrollDepth > 30) {
+        analytics.leadEngagement('medium', 'rewards_partners');
+        analytics.leadQualification(60, 'rewards_prospect');
+      } else {
+        analytics.leadEngagement('low', 'rewards_partners');
+        analytics.leadQualification(30, 'rewards_prospect');
+      }
+    };
+  }, []);
 
   const howItWorksSteps = [
     {
@@ -97,6 +158,10 @@ const RewardsPartners = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
+                onClick={() => {
+                  analytics.ctaClick('hero_section', 'Jutalom partner leszek');
+                  analytics.rewardsPartnerApplicationStart();
+                }}
               >
                 Jutalom partner leszek
                 <ArrowRight className="ml-2 h-5 w-5" />

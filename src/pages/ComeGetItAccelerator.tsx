@@ -1,14 +1,58 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clock, MessageCircle, Eye, Globe, Award, Rocket, FlaskConical, Activity, Play, FileText, Wine, NotebookPen } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { analytics } from '@/lib/analytics';
 
 const ComeGetItAccelerator = () => {
   const acceleratorImage = "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.png";
+
+  // Analytics tracking
+  useEffect(() => {
+    analytics.acceleratorPageView();
+    analytics.pageView('come_get_it_accelerator');
+    
+    const startTime = Date.now();
+    let maxScrollDepth = 0;
+    
+    const handleScroll = () => {
+      const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      if (scrollPercent > maxScrollDepth) {
+        maxScrollDepth = scrollPercent;
+        if (scrollPercent >= 25 && scrollPercent < 50) {
+          analytics.scrollDepth(25, 'come_get_it_accelerator');
+        } else if (scrollPercent >= 50 && scrollPercent < 75) {
+          analytics.scrollDepth(50, 'come_get_it_accelerator');
+        } else if (scrollPercent >= 75) {
+          analytics.scrollDepth(75, 'come_get_it_accelerator');
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      const duration = Math.round((Date.now() - startTime) / 1000);
+      analytics.timeOnPage(duration, 'come_get_it_accelerator');
+      
+      // Lead engagement scoring
+      if (duration > 60 || maxScrollDepth > 50) {
+        analytics.leadEngagement('high', 'come_get_it_accelerator');
+        analytics.leadQualification(85, 'accelerator_prospect');
+      } else if (duration > 30 || maxScrollDepth > 25) {
+        analytics.leadEngagement('medium', 'come_get_it_accelerator');
+        analytics.leadQualification(65, 'accelerator_prospect');
+      } else {
+        analytics.leadEngagement('low', 'come_get_it_accelerator');
+        analytics.leadQualification(35, 'accelerator_prospect');
+      }
+    };
+  }, []);
 
   const howItWorksSteps = [
     {
@@ -97,6 +141,10 @@ const ComeGetItAccelerator = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
+                onClick={() => {
+                  analytics.ctaClick('hero_section', 'Jelentkezz most!');
+                  analytics.acceleratorApplicationStart();
+                }}
               >
                 Jelentkezz most!
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -160,7 +208,10 @@ const ComeGetItAccelerator = () => {
           
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Fresh Package */}
-            <div className="glass-effect rounded-3xl p-8 border-2 border-electric-300/30 shadow-2xl hover:scale-105 transition-all duration-300">
+            <div 
+              className="glass-effect rounded-3xl p-8 border-2 border-electric-300/30 shadow-2xl hover:scale-105 transition-all duration-300"
+              onClick={() => analytics.acceleratorPackageView('fresh')}
+            >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-4xl font-black text-electric-300">FRESH</h3>
                 <Award className="w-10 h-10 text-electric-300" />
@@ -177,7 +228,10 @@ const ComeGetItAccelerator = () => {
             </div>
 
             {/* Super Fresh Package */}
-            <div className="glass-effect rounded-3xl p-8 border-2 border-green-400/30 shadow-2xl hover:scale-105 transition-all duration-300">
+            <div 
+              className="glass-effect rounded-3xl p-8 border-2 border-green-400/30 shadow-2xl hover:scale-105 transition-all duration-300"
+              onClick={() => analytics.acceleratorPackageView('super_fresh')}
+            >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-4xl font-black text-green-400">SUPER-FRESH</h3>
                 <Zap className="w-10 h-10 text-green-400" />
@@ -256,6 +310,10 @@ const ComeGetItAccelerator = () => {
           <Button 
             size="lg" 
             className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-black py-6 px-16 text-xl rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+            onClick={() => {
+              analytics.ctaClick('final_cta', 'JELENTKEZZ MOST');
+              analytics.acceleratorApplicationStart();
+            }}
           >
             JELENTKEZZ MOST
             <ArrowRight className="ml-3 h-6 w-6" />
