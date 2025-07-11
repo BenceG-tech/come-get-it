@@ -11,11 +11,22 @@ import { FOMOSection } from '@/components/FOMOSection';
 import { SignupForm } from '@/components/SignupForm';
 import { StickyCallToAction } from '@/components/StickyCallToAction';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { ExitIntentPopup } from '@/components/ExitIntentPopup';
+import { useExitIntent } from '@/hooks/useExitIntent';
+import { analytics } from '@/lib/analytics';
+import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [drinkImageIndex, setDrinkImageIndex] = useState(0);
   const [earnImageIndex, setEarnImageIndex] = useState(0);
+  const { showExitIntent, hideExitIntent } = useExitIntent();
+  const { toast } = useToast();
+
+  // Track page view
+  useEffect(() => {
+    analytics.pageView('index');
+  }, []);
 
   const appImages = [
     "/lovable-uploads/1d253158-a9a3-4377-bfe6-480c7551ca4b.png",
@@ -67,6 +78,25 @@ const Index = () => {
     return () => clearInterval(earnInterval);
   }, [earnImages.length]);
 
+  const handleExitIntentSignup = async (email: string) => {
+    try {
+      // Simulate signup process for exit intent
+      analytics.signupSubmit(email);
+      analytics.signupSuccess();
+      
+      toast({
+        title: "🎉 Sikeres regisztráció!",
+        description: "Köszönjük! Hamarosan jelentkezünk az indulással kapcsolatos részletekkel.",
+      });
+    } catch (error) {
+      toast({
+        title: "Hiba történt",
+        description: "Kérjük, próbálja újra később.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       <Navigation />
@@ -81,6 +111,14 @@ const Index = () => {
       <SignupForm />
       <StickyCallToAction />
       <CustomerSupport />
+      
+      {/* Exit Intent Popup */}
+      {showExitIntent && (
+        <ExitIntentPopup 
+          onClose={hideExitIntent}
+          onSignup={handleExitIntentSignup}
+        />
+      )}
     </div>
   );
 };

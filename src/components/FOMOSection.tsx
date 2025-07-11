@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { analytics } from '@/lib/analytics';
 
 export const FOMOSection: React.FC = () => (
   <section className="py-24 px-4 bg-black">
@@ -19,7 +20,10 @@ export const FOMOSection: React.FC = () => (
         <Button 
           size="lg" 
           className="brand-gradient-cta hover:shadow-2xl text-white font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 neon-glow-brand border-0"
-          onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => {
+            analytics.ctaClick('fomo_section', 'Regisztrálj most');
+            document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
+          }}
         >
           Regisztrálj most
         </Button>

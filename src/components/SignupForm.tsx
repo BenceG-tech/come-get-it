@@ -1,9 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
+import { analytics } from '@/lib/analytics';
 
 export const SignupForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,11 @@ export const SignupForm: React.FC = () => {
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Track when signup form is viewed
+    analytics.signupFormView();
+  }, []);
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +63,10 @@ export const SignupForm: React.FC = () => {
       }
 
       console.log('Email notification sent successfully:', data);
+      
+      // Track successful signup
+      analytics.signupSubmit(email);
+      analytics.signupSuccess();
       
       setIsSubmitted(true);
       toast({

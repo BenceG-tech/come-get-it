@@ -3,6 +3,8 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
 import { MobileNavigation } from './MobileNavigation';
+import { SocialProof } from './SocialProof';
+import { analytics } from '@/lib/analytics';
 
 interface HeroSectionProps {
   currentImageIndex: number;
@@ -39,12 +41,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             </p>
           </div>
           
+          {/* Social Proof */}
+          <div className="pt-6">
+            <SocialProof />
+          </div>
+          
           {/* CTA Button - Unified styling */}
-          <div className="pt-8">
+          <div className="pt-4">
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
-              onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => {
+                analytics.ctaClick('hero', 'Regisztrálj most!');
+                document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
               Regisztrálj most!
             </Button>
