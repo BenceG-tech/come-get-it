@@ -20,6 +20,9 @@ export const trackEvent = (eventName: string, parameters?: Record<string, any>) 
 
 // Specific event trackers for our site
 export const analytics = {
+  // Generic track method
+  track: (eventName: string, properties: Record<string, any>) => trackEvent(eventName, properties),
+  
   // User registration events
   signupFormView: () => trackEvent('signup_form_view'),
   signupSubmit: (email: string) => trackEvent('signup_submit', {

@@ -303,6 +303,46 @@
     animation: pulse-glow 2s ease-in-out infinite;
   }
 
+  /* Enhanced micro-interactions */
+  .hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+  }
+
+  .button-press {
+    transition: all 0.15s ease;
+  }
+
+  .button-press:active {
+    transform: scale(0.95);
+  }
+
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 212, 255, 0.1);
+  }
+
+  /* Staggered entrance animations */
+  .stagger-fade {
+    opacity: 0;
+    animation: staggerFade 0.6s ease-out forwards;
+  }
+
+  .stagger-fade:nth-child(1) { animation-delay: 0ms; }
+  .stagger-fade:nth-child(2) { animation-delay: 100ms; }
+  .stagger-fade:nth-child(3) { animation-delay: 200ms; }
+  .stagger-fade:nth-child(4) { animation-delay: 300ms; }
+  .stagger-fade:nth-child(5) { animation-delay: 400ms; }
+  .stagger-fade:nth-child(6) { animation-delay: 500ms; }
+
   /* Improved pulse glow animation - less intense, smoother */
   @keyframes pulse-glow {
     0%, 100% {
@@ -352,6 +392,39 @@
     }
     50% {
       background-position: 100% 50%;
+    }
+  }
+
+  @keyframes staggerFade {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInFromBottom {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 }
