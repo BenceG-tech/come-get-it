@@ -103,7 +103,7 @@ export const VenueApplicationSection: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <section id="partnerek" className="py-16 px-4 bg-[#0f384e]/10">
+    <section id="partnerek" className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black">{/* Unified gradient background */}
         <div className="max-w-4xl mx-auto">
           <Card className="bg-green-500/20 border-green-500/30 backdrop-blur-sm">
             <CardContent className="text-center py-12">
@@ -132,7 +132,7 @@ export const VenueApplicationSection: React.FC = () => {
   }
 
   return (
-    <section id="partnerek" className="py-16 px-4 bg-[#0f384e]/10">
+    <section id="venue-application" className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black">{/* Unified gradient background */}
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -162,7 +162,7 @@ export const VenueApplicationSection: React.FC = () => {
         )}
 
         {/* Application Form */}
-        <Card className="bg-black/40 border-electric-300/20 backdrop-blur-sm">
+        <Card className="glass-effect border-electric-300/20">{/* Unified glass effect */}
           <CardHeader>
             <CardTitle className="text-white text-center text-xl">
               Jelentkezés partnerségre
