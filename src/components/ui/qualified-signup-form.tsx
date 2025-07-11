@@ -10,7 +10,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import analytics from '@/lib/analytics';
-import { supabase } from '@/lib/supabase';
+import { getSupabaseClient } from '@/lib/supabase';
 import { ArrowRight, CheckCircle, Star, Building2, Calendar, DollarSign } from 'lucide-react';
 
 interface QualifiedSignupFormProps {
@@ -148,6 +148,7 @@ export const QualifiedSignupForm: React.FC<QualifiedSignupFormProps> = ({
         }
       };
 
+      const supabase = getSupabaseClient();
       if (supabase) {
         const { error } = await supabase.functions.invoke('send-notification-email', {
           body: emailData
