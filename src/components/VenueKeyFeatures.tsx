@@ -34,8 +34,9 @@ export const VenueKeyFeatures: React.FC = () => {
   ];
 
   return (
-    <section className="relative py-20 px-4 bg-black">
-      <div className="absolute inset-0 bg-gradient-to-b from-black to-gray-900"></div>
+    <section className="relative py-20 px-4 bg-gradient-to-b from-gray-900 to-black">{/* Unified gradient background */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-30 blur-[100px]"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-20 blur-[80px]"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-16">
