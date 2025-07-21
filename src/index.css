@@ -36,6 +36,10 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Electric and Ocean color variables */
+    --electric: 189 100% 50%;
+    --ocean: 204 91% 53%;
   }
 
   .dark {
@@ -66,6 +70,10 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Electric and Ocean color variables for dark mode */
+    --electric: 189 100% 50%;
+    --ocean: 204 91% 53%;
   }
 }
 
@@ -233,9 +241,35 @@
     @apply grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6;
   }
 
-  /* Phone Mockup Effects */
+  /* Enhanced phone mockup glow effects - smooth, multi-layer */
   .bg-optimized-phone-glow {
-    background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.4) 0%, rgba(34, 211, 238, 0.3) 25%, rgba(0, 212, 255, 0.2) 50%, transparent 70%);
+    background: radial-gradient(
+      ellipse 120% 150% at center,
+      hsl(var(--electric) / 0.15) 0%,
+      hsl(var(--electric) / 0.12) 15%,
+      hsl(var(--ocean) / 0.08) 35%,
+      hsl(var(--ocean) / 0.04) 60%,
+      transparent 80%
+    );
+  }
+
+  /* Smooth secondary glow layer */
+  .bg-phone-glow-secondary {
+    background: radial-gradient(
+      ellipse 80% 120% at center,
+      hsl(var(--electric) / 0.08) 0%,
+      hsl(var(--ocean) / 0.06) 40%,
+      transparent 70%
+    );
+  }
+
+  /* Soft tertiary glow for depth */
+  .bg-phone-glow-tertiary {
+    background: radial-gradient(
+      ellipse 60% 100% at center,
+      hsl(var(--electric) / 0.05) 0%,
+      transparent 50%
+    );
   }
 
   .phone-frame-solid {

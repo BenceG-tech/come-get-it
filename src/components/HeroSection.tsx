@@ -61,9 +61,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           </div>
         </div>
 
-        {/* Right - Phone mockup */}
-        <div className="flex justify-center lg:justify-start">
-          <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+        {/* Right - Phone mockup with standardized positioning */}
+        <div className="flex justify-center lg:justify-end">
+          <div className="scale-110 lg:scale-125">
+            <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+          </div>
         </div>
       </div>
     </div>

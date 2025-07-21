@@ -41,9 +41,11 @@ export const VenueHeroSection: React.FC = () => {
             </Button>
           </div>
           
-          {/* Right side - Phone Mockup */}
-          <div className="flex justify-center">
-            <PhoneMockup imageUrl={venueDetailImage} className="animate-glow-pulse scale-110" />
+          {/* Right side - Phone Mockup with standardized positioning */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="scale-110 lg:scale-125">
+              <PhoneMockup imageUrl={venueDetailImage} className="animate-glow-pulse" />
+            </div>
           </div>
         </div>
       </div>

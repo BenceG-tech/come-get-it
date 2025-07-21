@@ -9,8 +9,10 @@ interface PhoneMockupProps {
 export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = "" }) => {
   return (
     <div className={`relative ${className}`}>
-      {/* Optimized single glow layer with hardware acceleration */}
-      <div className="absolute -inset-16 bg-optimized-phone-glow opacity-8 blur-[40px] rounded-[4rem] transform-gpu will-change-transform backface-visibility-hidden contain-layout-style-paint"></div>
+      {/* Multi-layer smooth glow effects */}
+      <div className="absolute -inset-20 bg-optimized-phone-glow blur-[60px] rounded-[5rem] transform-gpu will-change-transform"></div>
+      <div className="absolute -inset-12 bg-phone-glow-secondary blur-[40px] rounded-[4rem] transform-gpu"></div>
+      <div className="absolute -inset-8 bg-phone-glow-tertiary blur-[20px] rounded-[3rem] transform-gpu"></div>
       
       {/* Phone frame with enhanced styling */}
       <div className="relative w-64 h-[520px] bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[3rem] p-2 shadow-2xl border border-gray-700/30 phone-frame-solid transform-gpu">
