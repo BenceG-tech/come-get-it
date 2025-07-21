@@ -1,15 +1,11 @@
-
 import React from 'react';
 import { Button, ButtonProps } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
 
 interface EnhancedButtonProps extends ButtonProps {
   loading?: boolean;
   success?: boolean;
   enhanced?: boolean;
-  buttonSize?: 'sm' | 'md' | 'lg' | 'xl';
-  buttonVariant?: 'primary' | 'secondary' | 'ghost';
 }
 
 export const EnhancedButton: React.FC<EnhancedButtonProps> = ({
@@ -17,55 +13,36 @@ export const EnhancedButton: React.FC<EnhancedButtonProps> = ({
   loading = false,
   success = false,
   enhanced = true,
-  buttonSize = 'md',
-  buttonVariant = 'primary',
   className,
   disabled,
   ...props
 }) => {
-  const enhancedClasses = enhanced ? cn(
-    "btn-base",
-    {
-      'btn-primary': buttonVariant === 'primary',
-      'btn-secondary': buttonVariant === 'secondary', 
-      'btn-ghost': buttonVariant === 'ghost',
-    },
-    {
-      'btn-size-sm': buttonSize === 'sm',
-      'btn-size-md': buttonSize === 'md',
-      'btn-size-lg': buttonSize === 'lg',
-      'btn-size-xl': buttonSize === 'xl',
-    },
-    "focus-ring relative overflow-hidden",
-    success && "!bg-green-500 hover:!bg-green-600",
-    loading && "animate-pulse cursor-not-allowed",
-    className
-  ) : className;
+  const enhancedClasses = enhanced ? [
+    "relative overflow-hidden",
+    "transition-all duration-300 ease-out",
+    "transform hover:scale-105 active:scale-95",
+    "hover:shadow-lg hover:shadow-electric-300/25",
+    "focus:ring-2 focus:ring-electric-300/50 focus:ring-offset-2",
+    "before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent",
+    "before:translate-x-[-200%] hover:before:translate-x-[200%] before:transition-transform before:duration-700",
+    success && "bg-green-500 hover:bg-green-600",
+    loading && "animate-pulse"
+  ].filter(Boolean).join(" ") : "";
 
   return (
     <Button
-      className={enhancedClasses}
+      className={cn(enhancedClasses, className)}
       disabled={disabled || loading}
       {...props}
     >
       {loading && (
-        <Loader2 className="loading-spinner" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+        </div>
       )}
-      {!loading && (
-        <span className={cn(
-          "transition-all duration-200",
-          success && "flex items-center gap-2"
-        )}>
-          {success ? (
-            <>
-              <span className="text-lg">✓</span>
-              <span>Sikeres!</span>
-            </>
-          ) : (
-            children
-          )}
-        </span>
-      )}
+      <span className={loading ? "opacity-0" : "opacity-100 transition-opacity"}>
+        {success ? "✓ Sikeres!" : children}
+      </span>
     </Button>
   );
 };

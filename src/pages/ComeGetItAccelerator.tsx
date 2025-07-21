@@ -151,11 +151,9 @@ const ComeGetItAccelerator = () => {
               </Button>
             </div>
             
-            {/* Right side - Phone Mockup with standardized positioning */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="scale-110 lg:scale-125">
-                <PhoneMockup imageUrl={acceleratorImage} className="animate-glow-pulse" />
-              </div>
+            {/* Right side - Phone Mockup */}
+            <div className="flex justify-center">
+              <PhoneMockup imageUrl={acceleratorImage} className="animate-glow-pulse scale-110" />
             </div>
           </div>
         </div>

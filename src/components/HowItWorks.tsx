@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Download, UserPlus, Wine, Star } from 'lucide-react';
 
@@ -31,59 +30,35 @@ export const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section 
-      className="py-16 md:py-24 px-4 bg-black"
-      aria-labelledby="how-it-works-heading"
-    >
-      <div className="container-lg">
-        <div className="text-center mb-12 animate-fade-in-up">
-          <h2 id="how-it-works-heading" className="text-white mb-4">
+    <section className="py-16 px-4 bg-black">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
             HOGYAN MŰKÖDIK
           </h2>
         </div>
         
-        <div className="grid-responsive-4 stagger-children">
-          {steps.map((step, index) => (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {steps.map((step) => (
             <div 
               key={step.number} 
-              className="text-center group relative"
+              className="text-center group hover:scale-105 transition-all duration-300"
             >
-              <div className="relative glass-card p-6 rounded-xl transition-all duration-500 hover:scale-105 hover:shadow-brand-strong">
-                <div className="mb-6">
-                  <div className="w-16 h-16 md:w-20 md:h-20 mx-auto glass-card rounded-full flex items-center justify-center shadow-brand-glow group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
-                    <step.icon className="w-8 h-8 md:w-10 md:h-10 text-electric-300 group-hover:text-white transition-colors duration-300" />
-                  </div>
-                </div>
-                
-                <h3 className="text-sm md:text-lg font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300">
-                  {step.title}
-                </h3>
-                
-                <p className="body-small text-electric-100 leading-tight px-2">
-                  {step.description}
-                </p>
-                
-                {/* Step number indicator - positioned properly within the card */}
-                <div className="absolute top-3 right-3 w-6 h-6 bg-electric-300 text-black rounded-full flex items-center justify-center text-xs font-bold">
-                  {step.number}
+              <div className="mb-6">
+                <div className="w-16 h-16 md:w-20 md:h-20 mx-auto bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-lg shadow-electric-300/10">
+                  <step.icon className="w-8 h-8 md:w-10 md:h-10 text-electric-300 group-hover:text-white transition-colors duration-300" />
                 </div>
               </div>
+              
+              <h3 className="text-sm md:text-lg font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">
+                {step.title}
+              </h3>
+              
+              <p className="text-xs md:text-sm text-electric-100 leading-tight px-2">
+                {step.description}
+              </p>
             </div>
           ))}
-        </div>
-
-        {/* Progress indicator */}
-        <div className="flex justify-center mt-12 animate-fade-in-up">
-          <div className="flex items-center gap-2">
-            {steps.map((_, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-electric-300 rounded-full"></div>
-                {index < steps.length - 1 && (
-                  <div className="w-8 h-0.5 bg-gradient-to-r from-electric-300 to-neon-300"></div>
-                )}
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>
