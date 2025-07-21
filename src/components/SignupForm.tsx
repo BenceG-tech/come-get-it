@@ -6,7 +6,7 @@ import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
 import { analytics } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
-import { AlertCircle, CheckCircle2, Mail, Shield } from 'lucide-react';
+import { CheckCircle2, Mail, Shield } from 'lucide-react';
 
 export const SignupForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -144,13 +144,6 @@ export const SignupForm: React.FC = () => {
           </p>
         </div>
         
-        {!isSupabaseConfigured() && (
-          <div className="message-warning mb-6 animate-fade-in-up max-w-md mx-auto">
-            <AlertCircle className="w-4 h-4 flex-shrink-0" />
-            <span>Demo Mode: Email küldés jelenleg nem elérhető</span>
-          </div>
-        )}
-        
         <form 
           onSubmit={handleEmailSubmit} 
           className="space-y-6 max-w-md mx-auto animate-fade-in-up"
@@ -184,7 +177,6 @@ export const SignupForm: React.FC = () => {
             </div>
             {emailError && (
               <div id="email-error" className="message-error" role="alert">
-                <AlertCircle className="w-4 h-4 flex-shrink-0" />
                 <span>{emailError}</span>
               </div>
             )}

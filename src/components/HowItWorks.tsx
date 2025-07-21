@@ -46,25 +46,27 @@ export const HowItWorks: React.FC = () => {
           {steps.map((step, index) => (
             <div 
               key={step.number} 
-              className="text-center group card-interactive"
+              className="text-center group relative"
             >
-              <div className="mb-6">
-                <div className="w-16 h-16 md:w-20 md:h-20 mx-auto glass-card rounded-full flex items-center justify-center shadow-brand-glow group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
-                  <step.icon className="w-8 h-8 md:w-10 md:h-10 text-electric-300 group-hover:text-white transition-colors duration-300" />
+              <div className="relative glass-card p-6 rounded-xl transition-all duration-500 hover:scale-105 hover:shadow-brand-strong">
+                <div className="mb-6">
+                  <div className="w-16 h-16 md:w-20 md:h-20 mx-auto glass-card rounded-full flex items-center justify-center shadow-brand-glow group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+                    <step.icon className="w-8 h-8 md:w-10 md:h-10 text-electric-300 group-hover:text-white transition-colors duration-300" />
+                  </div>
                 </div>
-              </div>
-              
-              <h3 className="text-sm md:text-lg font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">
-                {step.title}
-              </h3>
-              
-              <p className="body-small text-electric-100 leading-tight px-2">
-                {step.description}
-              </p>
-              
-              {/* Step number indicator */}
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-electric-300 text-black rounded-full flex items-center justify-center text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {step.number}
+                
+                <h3 className="text-sm md:text-lg font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300">
+                  {step.title}
+                </h3>
+                
+                <p className="body-small text-electric-100 leading-tight px-2">
+                  {step.description}
+                </p>
+                
+                {/* Step number indicator - positioned properly within the card */}
+                <div className="absolute top-3 right-3 w-6 h-6 bg-electric-300 text-black rounded-full flex items-center justify-center text-xs font-bold">
+                  {step.number}
+                </div>
               </div>
             </div>
           ))}
