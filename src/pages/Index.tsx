@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
@@ -12,6 +13,7 @@ import { SignupForm } from '@/components/SignupForm';
 import { StickyCallToAction } from '@/components/StickyCallToAction';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { ExitIntentPopup } from '@/components/ExitIntentPopup';
+import { AccessibilityEnhancement } from '@/components/AccessibilityEnhancement';
 import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
@@ -33,16 +35,13 @@ const Index = () => {
     "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.png"
   ];
 
-  // Drink section uses these two images alternating
   const drinkImages = [
     "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png",
     "/lovable-uploads/7f0ed43a-5016-4db8-89ae-f51f0c7e6126.png"
   ];
 
-  // Link section uses specific image
   const linkImage = "/lovable-uploads/d9b38dee-209b-4035-9d5a-5026e973ed21.png";
 
-  // Earn section uses these two images alternating
   const earnImages = [
     "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png",
     "/lovable-uploads/574c49aa-62ba-49c3-9425-e564722b764e.png"
@@ -80,7 +79,6 @@ const Index = () => {
 
   const handleExitIntentSignup = async (email: string) => {
     try {
-      // Simulate signup process for exit intent
       analytics.signupSubmit(email);
       analytics.signupSuccess();
       
@@ -98,28 +96,41 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <Navigation />
-      <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
-      <HowItWorks />
-      <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
-      <LinkSection linkImage={linkImage} />
-      <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
-      <BenefitsSection />
-      <VenueApplicationSection />
-      <FOMOSection />
-      <SignupForm />
-      <StickyCallToAction />
-      <CustomerSupport />
+    <>
+      <AccessibilityEnhancement />
       
-      {/* Exit Intent Popup */}
-      {showExitIntent && (
-        <ExitIntentPopup 
-          onClose={hideExitIntent}
-          onSignup={handleExitIntentSignup}
-        />
-      )}
-    </div>
+      <div className="min-h-screen bg-black text-white">
+        <header>
+          <Navigation />
+        </header>
+        
+        <main id="main-content" role="main">
+          <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
+          <HowItWorks />
+          <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
+          <LinkSection linkImage={linkImage} />
+          <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
+          <BenefitsSection />
+          <VenueApplicationSection />
+          <FOMOSection />
+          <SignupForm />
+        </main>
+        
+        <footer>
+          <CustomerSupport />
+        </footer>
+        
+        <StickyCallToAction />
+        
+        {/* Exit Intent Popup */}
+        {showExitIntent && (
+          <ExitIntentPopup 
+            onClose={hideExitIntent}
+            onSignup={handleExitIntentSignup}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

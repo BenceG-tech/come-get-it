@@ -78,353 +78,303 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   }
+
+  /* Typography Scale - Standardized */
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl font-bold leading-tight tracking-tight;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl font-semibold leading-tight;
+  }
+
+  h5 {
+    @apply text-lg md:text-xl font-semibold leading-tight;
+  }
+
+  h6 {
+    @apply text-base md:text-lg font-medium leading-tight;
+  }
+
+  /* Body text standardization */
+  .body-large {
+    @apply text-lg leading-relaxed;
+  }
+
+  .body-base {
+    @apply text-base leading-relaxed;
+  }
+
+  .body-small {
+    @apply text-sm leading-relaxed;
+  }
+
+  .body-xs {
+    @apply text-xs leading-normal;
+  }
 }
 
 @layer utilities {
-  /* Optimized phone glow effect - single clean gradient */
-  .bg-optimized-phone-glow {
-    background: radial-gradient(ellipse 150% 120%, rgba(0, 212, 255, 0.12) 0%, rgba(34, 211, 238, 0.08) 40%, transparent 70%);
+  /* Standardized Spacing System - 8px grid */
+  .spacing-xs { @apply p-1; } /* 4px */
+  .spacing-sm { @apply p-2; } /* 8px */
+  .spacing-md { @apply p-4; } /* 16px */
+  .spacing-lg { @apply p-6; } /* 24px */
+  .spacing-xl { @apply p-8; } /* 32px */
+  .spacing-2xl { @apply p-12; } /* 48px */
+  .spacing-3xl { @apply p-16; } /* 64px */
+
+  /* Margin variants */
+  .margin-xs { @apply m-1; }
+  .margin-sm { @apply m-2; }
+  .margin-md { @apply m-4; }
+  .margin-lg { @apply m-6; }
+  .margin-xl { @apply m-8; }
+  .margin-2xl { @apply m-12; }
+  .margin-3xl { @apply m-16; }
+
+  /* Standardized Component Shadows */
+  .shadow-brand-subtle {
+    box-shadow: 0 1px 3px 0 rgba(0, 212, 255, 0.1), 0 1px 2px 0 rgba(0, 212, 255, 0.06);
   }
 
-  /* Performance optimization utilities */
-  .transform-gpu {
-    transform: translateZ(0);
+  .shadow-brand-medium {
+    box-shadow: 0 4px 6px -1px rgba(0, 212, 255, 0.1), 0 2px 4px -1px rgba(0, 212, 255, 0.06);
   }
 
-  .backface-visibility-hidden {
-    backface-visibility: hidden;
+  .shadow-brand-strong {
+    box-shadow: 0 10px 15px -3px rgba(0, 212, 255, 0.1), 0 4px 6px -2px rgba(0, 212, 255, 0.05);
   }
 
-  .contain-layout-style-paint {
-    contain: layout style paint;
+  .shadow-brand-glow {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(34, 211, 238, 0.2);
   }
 
-  /* Updated gradients without royal blue */
-  .brand-gradient-cta {
-    background: linear-gradient(135deg, #00D4FF 0%, #22D3EE 30%, #0369a1 70%, #0c4a6e 100%);
+  /* Unified Glass Effects */
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-brand-medium;
   }
 
-  .liquid-gradient {
-    background: linear-gradient(45deg, #00D4FF, #22D3EE, #7dd3fc, #00D4FF);
-    background-size: 400% 400%;
-    animation: liquid-flow 4s ease-in-out infinite;
+  .glass-card-strong {
+    @apply backdrop-blur-2xl bg-white/10 border border-white/20 shadow-brand-strong;
   }
 
-  .ocean-depth-gradient {
-    background: radial-gradient(circle, #7dd3fc 0%, #0369a1 50%, #0c4a6e 100%);
+  /* Standardized Button Base Classes */
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  .electric-streak-gradient {
-    background: linear-gradient(90deg, transparent 0%, #00D4FF 50%, transparent 100%);
+  .btn-size-sm {
+    @apply px-3 py-1.5 text-sm h-8;
   }
 
-  /* Unified and improved neon and glow effects */
-  .unified-neon-glow {
-    box-shadow: 
-      0 0 20px rgba(0, 212, 255, 0.3),
-      0 0 40px rgba(34, 211, 238, 0.2),
-      0 0 60px rgba(125, 211, 252, 0.1);
-    transition: all 0.3s ease;
+  .btn-size-md {
+    @apply px-4 py-2 text-base h-10;
   }
 
-  .unified-neon-glow:hover {
-    box-shadow: 
-      0 0 25px rgba(0, 212, 255, 0.4),
-      0 0 50px rgba(34, 211, 238, 0.3),
-      0 0 75px rgba(125, 211, 252, 0.2);
+  .btn-size-lg {
+    @apply px-6 py-3 text-lg h-12;
   }
 
-  .neon-glow-electric {
-    box-shadow: 
-      0 0 10px rgba(0, 212, 255, 0.3),
-      0 0 20px rgba(34, 211, 238, 0.2),
-      0 0 30px rgba(125, 211, 252, 0.1);
-    transition: all 0.3s ease;
+  .btn-size-xl {
+    @apply px-8 py-4 text-xl h-14;
   }
 
-  .neon-glow-electric:hover {
-    box-shadow: 
-      0 0 15px rgba(0, 212, 255, 0.4),
-      0 0 30px rgba(34, 211, 238, 0.3),
-      0 0 45px rgba(125, 211, 252, 0.2);
+  /* Primary Button Variants */
+  .btn-primary {
+    @apply btn-base bg-gradient-to-r from-electric-300 to-neon-300 text-white shadow-brand-medium hover:shadow-brand-strong hover:scale-105 focus:ring-electric-300/50;
   }
 
-  .neon-glow-brand {
-    box-shadow: 
-      0 0 25px rgba(0, 212, 255, 0.4),
-      0 0 50px rgba(34, 211, 238, 0.2),
-      0 0 75px rgba(3, 105, 161, 0.1);
-    transition: all 0.3s ease;
+  .btn-secondary {
+    @apply btn-base bg-white/10 text-white border border-white/20 backdrop-blur-sm hover:bg-white/20 hover:shadow-brand-medium focus:ring-white/50;
   }
 
-  .neon-glow-brand:hover {
-    box-shadow: 
-      0 0 35px rgba(0, 212, 255, 0.6),
-      0 0 70px rgba(34, 211, 238, 0.4),
-      0 0 100px rgba(3, 105, 161, 0.2);
+  .btn-ghost {
+    @apply btn-base text-white hover:bg-white/10 focus:ring-white/50;
   }
 
-  /* Glass and Crystal effects */
-  .glass-effect {
-    background: rgba(0, 212, 255, 0.08);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 212, 255, 0.15);
-    box-shadow: 
-      0 8px 32px rgba(0, 212, 255, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  /* Standardized Card Components */
+  .card-base {
+    @apply rounded-xl border border-white/10 overflow-hidden transition-all duration-300;
   }
 
-  .crystal-border {
-    border: 2px solid transparent;
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(34, 211, 238, 0.2)) border-box;
-    background-clip: padding-box, border-box;
+  .card-interactive {
+    @apply card-base hover:scale-105 hover:shadow-brand-strong cursor-pointer;
   }
 
-  .reflection-overlay {
-    position: relative;
+  .card-glass {
+    @apply card-base glass-card;
   }
 
-  .reflection-overlay::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
-    border-radius: inherit;
-    pointer-events: none;
+  /* Standardized Container Sizes */
+  .container-sm { @apply max-w-2xl mx-auto px-4; }
+  .container-md { @apply max-w-4xl mx-auto px-4; }
+  .container-lg { @apply max-w-6xl mx-auto px-4; }
+  .container-xl { @apply max-w-7xl mx-auto px-4; }
+
+  /* Standardized Grid Systems */
+  .grid-responsive-2 {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
   }
 
-  /* Updated phone mockup frame to match unified colors */
-  .phone-frame-solid {
-    background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #000000 100%);
-    box-shadow: 
-      0 0 30px rgba(0, 212, 255, 0.25),
-      0 0 60px rgba(34, 211, 238, 0.15),
-      0 20px 40px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  .grid-responsive-3 {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
   }
 
-  /* Unified liquid ripple effect */
-  .unified-liquid-ripple {
-    position: relative;
-    overflow: hidden;
+  .grid-responsive-4 {
+    @apply grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6;
   }
 
-  .unified-liquid-ripple::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, rgba(34, 211, 238, 0.1) 50%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: unified-ripple 3s infinite;
-  }
-
-  /* Particle and liquid effects */
-  .liquid-ripple {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .liquid-ripple::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: ripple 2s infinite;
-  }
-
-  /* Unified background glow effects with consistent colors */
-  .bg-unified-glow-primary {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(34, 211, 238, 0.08) 40%, transparent 80%);
-  }
-
-  .bg-unified-glow-secondary {
-    background: radial-gradient(circle, rgba(3, 105, 161, 0.12) 0%, rgba(12, 74, 110, 0.06) 40%, transparent 80%);
-  }
-
-  .bg-unified-glow-phone {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, rgba(34, 211, 238, 0.1) 50%, transparent 100%);
-  }
-
-  .bg-glow-electric {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, rgba(34, 211, 238, 0.08) 50%, transparent 100%);
-  }
-
-  .bg-glow-ocean {
-    background: radial-gradient(circle, rgba(3, 105, 161, 0.15) 0%, rgba(12, 74, 110, 0.1) 50%, transparent 100%);
-  }
-
-  .bg-glow-primary {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, rgba(34, 211, 238, 0.06) 50%, transparent 100%);
-  }
-
-  .bg-glow-secondary {
-    background: radial-gradient(circle, rgba(3, 105, 161, 0.12) 0%, rgba(12, 74, 110, 0.08) 50%, transparent 100%);
-  }
-
-  /* Wave and motion effects */
-  .wave-effect {
-    position: relative;
-  }
-
-  .wave-effect::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
-    animation: liquid-flow 3s ease-in-out infinite;
-  }
-
-  /* Animation utilities */
-  .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+  /* Enhanced animations with better performance */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;
+    transform: translateY(20px);
   }
 
-  .animate-pulse-slow {
-    animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  .animate-glow-pulse {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-
-  /* Enhanced micro-interactions */
-  .hover-lift {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
-  }
-
-  .button-press {
-    transition: all 0.15s ease;
-  }
-
-  .button-press:active {
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+    opacity: 0;
     transform: scale(0.95);
   }
 
-  .card-hover {
-    transition: all 0.3s ease;
+  .animate-glow-pulse {
+    animation: glowPulse 2s ease-in-out infinite;
   }
 
-  .card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(0, 212, 255, 0.1);
-  }
-
-  /* Staggered entrance animations */
-  .stagger-fade {
+  /* Staggered animations for lists */
+  .stagger-children > * {
     opacity: 0;
-    animation: staggerFade 0.6s ease-out forwards;
+    animation: fadeInUp 0.6s ease-out forwards;
   }
 
-  .stagger-fade:nth-child(1) { animation-delay: 0ms; }
-  .stagger-fade:nth-child(2) { animation-delay: 100ms; }
-  .stagger-fade:nth-child(3) { animation-delay: 200ms; }
-  .stagger-fade:nth-child(4) { animation-delay: 300ms; }
-  .stagger-fade:nth-child(5) { animation-delay: 400ms; }
-  .stagger-fade:nth-child(6) { animation-delay: 500ms; }
+  .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-children > *:nth-child(2) { animation-delay: 100ms; }
+  .stagger-children > *:nth-child(3) { animation-delay: 200ms; }
+  .stagger-children > *:nth-child(4) { animation-delay: 300ms; }
+  .stagger-children > *:nth-child(5) { animation-delay: 400ms; }
+  .stagger-children > *:nth-child(6) { animation-delay: 500ms; }
 
-  /* Improved pulse glow animation - less intense, smoother */
-  @keyframes pulse-glow {
-    0%, 100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.8;
-      transform: scale(1.02);
-    }
+  /* Focus states for accessibility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-electric-300/50 focus:ring-offset-2 focus:ring-offset-black;
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Skip links for accessibility */
+  .skip-link {
+    @apply absolute -top-96 left-4 z-50 bg-black text-white px-4 py-2 rounded focus:top-4 transition-all;
+  }
+}
+
+@layer components {
+  /* Form Input Standardization */
+  .input-field {
+    @apply w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/60 focus:border-electric-300 focus:ring-2 focus:ring-electric-300/20 focus:outline-none transition-all duration-200;
   }
 
-  @keyframes pulse-slow {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
+  .input-error {
+    @apply border-red-500 focus:border-red-500 focus:ring-red-500/20;
   }
 
-  @keyframes unified-ripple {
-    0% {
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0.8;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(6);
-      opacity: 0;
-    }
+  .input-success {
+    @apply border-green-500 focus:border-green-500 focus:ring-green-500/20;
   }
 
-  @keyframes liquid-flow {
-    0%, 100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
+  /* Loading states */
+  .loading-spinner {
+    @apply inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin;
   }
 
-  @keyframes staggerFade {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .loading-skeleton {
+    @apply bg-white/10 animate-pulse rounded;
   }
 
-  @keyframes slideInFromBottom {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Error and success message styles */
+  .message-error {
+    @apply flex items-center gap-2 text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg p-3;
   }
 
-  @keyframes scaleIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+  .message-success {
+    @apply flex items-center gap-2 text-green-400 text-sm bg-green-500/10 border border-green-500/20 rounded-lg p-3;
+  }
+
+  .message-warning {
+    @apply flex items-center gap-2 text-yellow-400 text-sm bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3;
+  }
+
+  .message-info {
+    @apply flex items-center gap-2 text-blue-400 text-sm bg-blue-500/10 border border-blue-500/20 rounded-lg p-3;
+  }
+}
+
+/* Keyframes for animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    @apply border-2 border-white;
+  }
+  
+  .glass-card {
+    @apply bg-black border-white;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-scale-in,
+  .animate-glow-pulse,
+  .stagger-children > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .glass-card,
+  .btn-primary,
+  .btn-secondary {
+    @apply bg-white text-black border border-black;
   }
 }
