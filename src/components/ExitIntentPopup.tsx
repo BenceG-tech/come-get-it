@@ -1,8 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { analytics } from '@/lib/analytics';
+import { getSupabaseClient } from '@/lib/supabase';
+import { useToast } from '@/hooks/use-toast';
 
 interface ExitIntentPopupProps {
   onClose: () => void;
@@ -12,6 +15,8 @@ interface ExitIntentPopupProps {
 export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSignup }) => {
   const [email, setEmail] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     // Show popup with animation delay
@@ -21,14 +26,41 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
     return () => clearTimeout(timer);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (!email) return;
+
+    setIsLoading(true);
+    const supabase = getSupabaseClient();
+
+    if (supabase) {
+      try {
+        // Send notification email through Supabase Edge Function
+        await supabase.functions.invoke('send-notification-email', {
+          body: {
+            type: 'user_signup',
+            data: { email }
+          }
+        });
+        
+        analytics.exitIntentConvert();
+        onSignup(email);
+      } catch (error) {
+        console.error('Error sending exit intent signup:', error);
+        toast({
+          title: "Hiba történt",
+          description: "Kérjük, próbálja újra később.",
+          variant: "destructive",
+        });
+      }
+    } else {
+      // Fallback to the original onSignup
       onSignup(email);
-      analytics.exitIntentConvert();
-      setIsVisible(false);
-      setTimeout(onClose, 300);
     }
+
+    setIsLoading(false);
+    setIsVisible(false);
+    setTimeout(onClose, 300);
   };
 
   const handleClose = () => {
@@ -47,6 +79,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
         <button
           onClick={handleClose}
           className="absolute top-4 right-4 text-electric-100 hover:text-white transition-colors"
+          disabled={isLoading}
         >
           <X className="w-5 h-5" />
         </button>
@@ -70,13 +103,15 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
             onChange={(e) => setEmail(e.target.value)}
             className="bg-black/50 border-electric-300/30 text-white placeholder:text-electric-100/60"
             required
+            disabled={isLoading}
           />
           
           <Button 
             type="submit"
+            disabled={isLoading}
             className="w-full brand-gradient-cta hover:shadow-2xl text-white font-semibold py-3 rounded-full transition-all duration-300 neon-glow-brand"
           >
-            Regisztrálok az értesítésre
+            {isLoading ? '⏳ Küldés...' : 'Regisztrálok az értesítésre'}
           </Button>
         </form>
 

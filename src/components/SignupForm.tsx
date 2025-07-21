@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
+import { getSupabaseClient } from '@/lib/supabase';
 import { analytics } from '@/lib/analytics';
 
 export const SignupForm: React.FC = () => {
@@ -33,19 +33,19 @@ export const SignupForm: React.FC = () => {
     const supabase = getSupabaseClient();
     
     if (!supabase) {
-      console.warn('Supabase not configured, showing demo success message');
+      console.error('Supabase client not available');
       toast({
-        title: "Demo Mode",
-        description: "Az alkalmazás demo módban fut. A regisztráció sikeres lenne éles környezetben.",
+        title: "Hiba történt",
+        description: "A rendszer jelenleg nem elérhető. Kérjük, próbálja újra később.",
+        variant: "destructive",
       });
-      setIsSubmitted(true);
       return;
     }
 
     setIsLoading(true);
 
     try {
-      console.log('Attempting to send email notification...');
+      console.log('Attempting to send email notification for:', email);
       
       // Email küldés a Supabase Edge Function-ön keresztül
       const { data, error } = await supabase.functions.invoke('send-notification-email', {
@@ -82,7 +82,7 @@ export const SignupForm: React.FC = () => {
       }, 5000);
 
     } catch (error) {
-      console.error('Error sending emails:', error);
+      console.error('Error sending registration email:', error);
       toast({
         title: "Hiba történt",
         description: "Sajnos nem sikerült elküldeni a regisztrációt. Kérjük, próbálja újra később.",
@@ -102,14 +102,6 @@ export const SignupForm: React.FC = () => {
         <p className="text-white mb-8">
           Lépj be elsőként a Come Get It közösségébe – értesítünk az indulásról és a bónuszokról!
         </p>
-        
-        {!isSupabaseConfigured() && (
-          <div className="mb-4 p-3 bg-yellow-500/20 border border-yellow-500/30 rounded-lg">
-            <p className="text-yellow-100 text-sm">
-              ⚠️ Demo Mode: Email küldés jelenleg nem elérhető
-            </p>
-          </div>
-        )}
         
         <form onSubmit={handleEmailSubmit} className="space-y-6">
           <Input

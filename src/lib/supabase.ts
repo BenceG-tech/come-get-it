@@ -5,19 +5,13 @@ let supabaseClient: SupabaseClient | null = null;
 
 export const getSupabaseClient = (): SupabaseClient | null => {
   try {
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    const supabaseUrl = 'https://siefyekwetkywwgaqqhv.supabase.co';
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpZWZ5ZWt3ZXRreXd3Z2FxcWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4ODc3NDgsImV4cCI6MjA2NjQ2Mzc0OH0.ZK7J7DrMW_RD5tpJbvr3zmVYpPWyPQpxOBc7Aoa0s2A';
 
-    console.log('Environment variables check:', {
-      hasUrl: !!supabaseUrl,
-      hasKey: !!supabaseAnonKey,
-      url: supabaseUrl ? `${supabaseUrl.substring(0, 20)}...` : 'undefined'
+    console.log('Supabase client configuration:', {
+      url: supabaseUrl,
+      hasKey: !!supabaseAnonKey
     });
-
-    if (!supabaseUrl || !supabaseAnonKey) {
-      console.warn('Supabase environment variables are not configured');
-      return null;
-    }
 
     if (!supabaseClient) {
       supabaseClient = createClient(supabaseUrl, supabaseAnonKey);

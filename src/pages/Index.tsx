@@ -15,6 +15,7 @@ import { ExitIntentPopup } from '@/components/ExitIntentPopup';
 import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
+import { getSupabaseClient } from '@/lib/supabase';
 
 const Index = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -80,7 +81,18 @@ const Index = () => {
 
   const handleExitIntentSignup = async (email: string) => {
     try {
-      // Simulate signup process for exit intent
+      const supabase = getSupabaseClient();
+      
+      if (supabase) {
+        // Send through Supabase Edge Function
+        await supabase.functions.invoke('send-notification-email', {
+          body: {
+            type: 'user_signup',
+            data: { email }
+          }
+        });
+      }
+      
       analytics.signupSubmit(email);
       analytics.signupSuccess();
       
@@ -89,6 +101,7 @@ const Index = () => {
         description: "Köszönjük! Hamarosan jelentkezünk az indulással kapcsolatos részletekkel.",
       });
     } catch (error) {
+      console.error('Exit intent signup error:', error);
       toast({
         title: "Hiba történt",
         description: "Kérjük, próbálja újra később.",
