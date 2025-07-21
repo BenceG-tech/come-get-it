@@ -233,6 +233,26 @@
     @apply grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6;
   }
 
+  /* Phone Mockup Effects */
+  .bg-optimized-phone-glow {
+    background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.4) 0%, rgba(34, 211, 238, 0.3) 25%, rgba(0, 212, 255, 0.2) 50%, transparent 70%);
+  }
+
+  .phone-frame-solid {
+    box-shadow: 
+      0 0 40px rgba(0, 212, 255, 0.3),
+      0 0 80px rgba(34, 211, 238, 0.2),
+      inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  }
+
+  /* Neon glow effects */
+  .neon-glow-brand {
+    box-shadow: 
+      0 0 20px rgba(0, 212, 255, 0.5),
+      0 0 40px rgba(34, 211, 238, 0.3),
+      0 0 60px rgba(0, 212, 255, 0.2);
+  }
+
   /* Enhanced animations with better performance */
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out forwards;

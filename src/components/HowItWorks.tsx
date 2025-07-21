@@ -74,12 +74,12 @@ export const HowItWorks: React.FC = () => {
         <div className="flex justify-center mt-12 animate-fade-in-up">
           <div className="flex items-center gap-2">
             {steps.map((_, index) => (
-              <React.Fragment key={index}>
+              <div key={index} className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-electric-300 rounded-full"></div>
                 {index < steps.length - 1 && (
                   <div className="w-8 h-0.5 bg-gradient-to-r from-electric-300 to-neon-300"></div>
                 )}
-              </React.Fragment>
+              </div>
             ))}
           </div>
         </div>
