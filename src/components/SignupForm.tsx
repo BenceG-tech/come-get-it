@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
 import { analytics } from '@/lib/analytics';
+import { cn } from '@/lib/utils';
 import { AlertCircle, CheckCircle2, Mail, Shield } from 'lucide-react';
 
 export const SignupForm: React.FC = () => {

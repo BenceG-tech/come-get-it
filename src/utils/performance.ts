@@ -8,8 +8,8 @@ export const performanceMonitor = {
       const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
       
       return {
-        domContentLoaded: navigation.domContentLoadedEventEnd - navigation.navigationStart,
-        loadComplete: navigation.loadEventEnd - navigation.navigationStart,
+        domContentLoaded: navigation.domContentLoadedEventEnd - navigation.startTime,
+        loadComplete: navigation.loadEventEnd - navigation.startTime,
         firstPaint: performance.getEntriesByName('first-paint')[0]?.startTime || 0,
         firstContentfulPaint: performance.getEntriesByName('first-contentful-paint')[0]?.startTime || 0,
       };
