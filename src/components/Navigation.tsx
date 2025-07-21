@@ -8,9 +8,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
+import { UserMenu } from '@/components/UserMenu';
+import { Button } from '@/components/ui/button';
 
 export const Navigation: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleNavClick = (section: string) => {
     if (window.location.pathname !== '/') {
@@ -74,7 +78,21 @@ export const Navigation: React.FC = () => {
           </DropdownMenuContent>
         </DropdownMenu>
         
-          <button onClick={handleSignupClick} className="text-white hover:text-[#27dddf] transition-colors">Regisztrálj</button>
+          {user ? (
+            <UserMenu />
+          ) : (
+            <div className="flex items-center space-x-4">
+              <button onClick={handleSignupClick} className="text-white hover:text-[#27dddf] transition-colors">Regisztrálj</button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => navigate('/auth')}
+                className="border-[#27dddf] text-[#27dddf] hover:bg-[#27dddf] hover:text-black"
+              >
+                Bejelentkezés
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </nav>
