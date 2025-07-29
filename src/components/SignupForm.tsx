@@ -14,7 +14,7 @@ export const SignupForm: React.FC = () => {
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { user, signUp } = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     // Track when signup form is viewed
@@ -45,37 +45,44 @@ export const SignupForm: React.FC = () => {
     setIsLoading(true);
 
     try {
-      analytics.signupSubmit(email);
-
-      // Use Supabase Auth for registration
-      const { error: authError } = await signUp(email, 'temp-password-' + Math.random());
+      const supabase = getSupabaseClient();
       
-      if (authError && !authError.message.includes('already registered')) {
-        throw authError;
+      if (!supabase) {
+        throw new Error('Supabase client not available');
       }
 
-      // Also send notification email to admin
-      const supabase = getSupabaseClient();
-      if (supabase) {
-        await supabase.functions.invoke('send-notification-email', {
-          body: { 
-            type: 'signup',
+      console.log('Starting email registration for:', email);
+      
+      // Send notification email to admin and user
+      const { error: emailError } = await supabase.functions.invoke('send-notification-email', {
+        body: { 
+          type: 'user_signup',
+          data: { 
             email: email,
             timestamp: new Date().toISOString(),
             source: 'main_signup_form'
           }
-        });
+        }
+      });
+
+      if (emailError) {
+        console.error('Email sending error:', emailError);
+        // Don't block the signup if email fails, just log it
       }
 
+      // Track analytics
+      analytics.signupSubmit(email);
       analytics.signupSuccess();
 
       setIsSubmitted(true);
       setEmail('');
       setGdprAccepted(false);
 
+      console.log('Registration completed successfully for:', email);
+
       toast({
         title: "Sikeres regisztráció!",
-        description: "Ellenőrizze email fiókját a megerősítéshez. Értesítést küldünk, amikor az alkalmazás elérhető lesz.",
+        description: "Köszönjük a regisztrációt! Hamarosan jelentkezünk az indulással kapcsolatos részletekkel.",
       });
 
     } catch (error: any) {
@@ -121,7 +128,7 @@ export const SignupForm: React.FC = () => {
             </h2>
             <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-6">
               <p className="text-green-400 text-lg">
-                ✅ Sikeres regisztráció! Ellenőrizze email fiókját a megerősítéshez.
+                ✅ Sikeres regisztráció! Hamarosan jelentkezünk az indulással kapcsolatos részletekkel.
               </p>
             </div>
           </div>

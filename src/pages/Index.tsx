@@ -84,11 +84,15 @@ const Index = () => {
       const supabase = getSupabaseClient();
       
       if (supabase) {
-        // Send through Supabase Edge Function
+        // Send through Supabase Edge Function with correct payload structure
         await supabase.functions.invoke('send-notification-email', {
           body: {
             type: 'user_signup',
-            data: { email }
+            data: { 
+              email: email,
+              timestamp: new Date().toISOString(),
+              source: 'exit_intent_popup'
+            }
           }
         });
       }
