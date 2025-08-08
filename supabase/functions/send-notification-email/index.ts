@@ -53,24 +53,7 @@ serve(async (req) => {
     let emails = [];
 
     if (type === 'user_signup') {
-      // Értesítő email gataibence@gmail.com-ra
-      emails.push({
-        from: 'Come Get It <noreply@come-get-it.app>',
-        to: ['gataibence@gmail.com'],
-        reply_to: data.email,
-        subject: `Új előregisztráció: ${data.email}`,
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #0f384e;">Új előregisztráció</h2>
-            <p><strong>E-mail:</strong> ${data.email}</p>
-            <p><strong>Név (opcionális):</strong> ${data.name || '—'}</p>
-            <p><strong>Időbélyeg:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
-            <p><strong>Forrás:</strong> ${data.source || '—'}</p>
-          </div>
-        `
-      });
-
-      // Köszönő email a felhasználónak
+      // Köszönő email a felhasználónak - SEND FIRST
       emails.push({
         from: 'Come Get It <noreply@come-get-it.app>',
         to: [data.email],
@@ -87,10 +70,41 @@ serve(async (req) => {
           </div>
         `
       });
+
+      // Értesítő email az adminnak
+      emails.push({
+        from: 'Come Get It <noreply@come-get-it.app>',
+        to: ['gataibence@gmail.com'],
+        reply_to: data.email,
+        subject: `Új előregisztráció: ${data.email}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #0f384e;">Új előregisztráció</h2>
+            <p><strong>E-mail:</strong> ${data.email}</p>
+            <p><strong>Név (opcionális):</strong> ${data.name || '—'}</p>
+            <p><strong>Időbélyeg:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
+            <p><strong>Forrás:</strong> ${data.source || '—'}</p>
+          </div>
+        `
+      });
     }
 
     if (type === 'venue_application') {
-      // Értesítő email gataibence@gmail.com-ra
+      // Köszönő email a partnernek - SEND FIRST
+      emails.push({
+        from: 'Come Get It <noreply@come-get-it.app>',
+        to: [data.email],
+        subject: 'Köszönjük, hogy jelentkeztetek! 🍸',
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color: #111;">
+            <h1 style="text-align: center;">Köszönjük a partner jelentkezést!</h1>
+            <p style="font-size:16px;">Hamarosan felvesszük a kapcsolatot a következő lépésekkel (terheléscsúcsok, csomagok, riportok, onboarding).</p>
+            <p style="margin-top:24px; font-size:14px; color:#555;">Come Get It Business Team</p>
+          </div>
+        `
+      });
+
+      // Értesítő email az adminnak
       emails.push({
         from: 'Come Get It <noreply@come-get-it.app>',
         to: ['gataibence@gmail.com'],
@@ -108,20 +122,6 @@ serve(async (req) => {
           </div>
         `
       });
-
-      // Köszönő email a partnernek
-      emails.push({
-        from: 'Come Get It <noreply@come-get-it.app>',
-        to: [data.email],
-        subject: 'Köszönjük, hogy jelentkeztetek! 🍸',
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color: #111;">
-            <h1 style="text-align: center;">Köszönjük a partner jelentkezést!</h1>
-            <p style="font-size:16px;">Hamarosan felvesszük a kapcsolatot a következő lépésekkel (terheléscsúcsok, csomagok, riportok, onboarding).</p>
-            <p style="margin-top:24px; font-size:14px; color:#555;">Come Get It Business Team</p>
-          </div>
-        `
-      });
     }
 
     if (emails.length === 0) {
@@ -129,29 +129,71 @@ serve(async (req) => {
       throw new Error(`Unsupported email type: ${type}`);
     }
 
-    console.log(`Sending ${emails.length} emails...`);
+    console.log(`Preparing to send ${emails.length} emails...`);
 
-    // Email küldés
-    for (const email of emails) {
-      console.log(`Sending email to: ${email.to.join(', ')}`);
-      
-      const response = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${resendApiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(email),
-      });
+    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Email sending failed:', errorText);
-        throw new Error(`Failed to send email: ${errorText}`);
+    async function sendEmailWithRetry(email: any, maxRetries = 3) {
+      let attempt = 0;
+      while (attempt <= maxRetries) {
+        try {
+          const response = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${resendApiKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(email),
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            console.log(`Email sent successfully on attempt ${attempt + 1}:`, result);
+            return result;
+          }
+
+          const status = response.status;
+          const errorText = await response.text();
+          console.warn(`Email send failed (status ${status}) on attempt ${attempt + 1}: ${errorText}`);
+
+          // Retry on rate limit or server errors
+          if (status === 429 || status >= 500) {
+            if (attempt === maxRetries) {
+              throw new Error(`Failed after ${maxRetries + 1} attempts: ${errorText}`);
+            }
+            const base = 600; // ms
+            const wait = base * Math.pow(2, attempt) + Math.floor(Math.random() * 200);
+            console.log(`Retrying in ${wait}ms...`);
+            await delay(wait);
+            attempt++;
+            continue;
+          }
+
+          // Non-retryable error
+          throw new Error(`Failed to send email: ${errorText}`);
+        } catch (err) {
+          if (attempt === maxRetries) {
+            console.error('Email send error, no more retries:', err);
+            throw err;
+          }
+          const base = 600; // ms
+          const wait = base * Math.pow(2, attempt) + Math.floor(Math.random() * 200);
+          console.log(`Network/unknown error, retrying in ${wait}ms...`);
+          await delay(wait);
+          attempt++;
+        }
       }
+    }
 
-      const result = await response.json();
-      console.log('Email sent successfully:', result);
+    for (let i = 0; i < emails.length; i++) {
+      const email = emails[i];
+      console.log(`[${i + 1}/${emails.length}] Sending email to: ${email.to.join(', ')}`);
+      await sendEmailWithRetry(email, 3);
+      if (i < emails.length - 1) {
+        const gap = 800; // Respect Resend 2 req/sec rate limit
+        console.log(`Waiting ${gap}ms before next email to respect Resend rate limits...`);
+        await delay(gap);
+      }
     }
 
     console.log('All emails sent successfully');
