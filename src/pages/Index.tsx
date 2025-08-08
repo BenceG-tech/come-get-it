@@ -16,7 +16,8 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
-
+import { QuickAccessChips } from '@/components/QuickAccessChips';
+ 
 const Index = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [drinkImageIndex, setDrinkImageIndex] = useState(0);
@@ -136,6 +137,7 @@ const Index = () => {
     <div className="min-h-screen bg-black text-white">
       <Navigation />
       <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
+      <QuickAccessChips />
       <HowItWorks />
       <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
       <LinkSection linkImage={linkImage} />

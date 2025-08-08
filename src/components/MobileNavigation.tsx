@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Sheet,
   SheetContent,
@@ -8,16 +8,33 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { Menu, X, MessageCircle } from 'lucide-react';
+import { Menu, X, MessageCircle, Home, Store, Wine, Gift, Rocket, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const MobileNavigation: React.FC = () => {
+  const [showPulse, setShowPulse] = useState(false);
+
+  useEffect(() => {
+    const seen = localStorage.getItem('menu_pulse_seen');
+    if (!seen) {
+      setShowPulse(true);
+      const t = setTimeout(() => {
+        setShowPulse(false);
+        localStorage.setItem('menu_pulse_seen', '1');
+      }, 3000);
+      return () => clearTimeout(t);
+    }
+  }, []);
   return (
     <div className="lg:hidden">
       <Sheet>
         <SheetTrigger asChild>
-          <button className="fixed top-4 right-4 z-50 p-2.5 bg-black/90 backdrop-blur-sm rounded-lg border border-electric-300/20 text-white hover:text-electric-300 hover:border-electric-300/40 transition-all duration-300">
+          <button
+            aria-label="Menü megnyitása"
+            className={`fixed top-4 right-4 z-50 px-3 py-2 bg-black/90 backdrop-blur-sm rounded-full border border-electric-300/20 text-white hover:text-electric-300 hover:border-electric-300/40 transition-all duration-300 flex items-center gap-2 ${showPulse ? 'pulse' : ''}`}
+          >
             <Menu className="h-4 w-4" />
+            <span className="text-xs font-semibold tracking-wide">MENÜ</span>
           </button>
         </SheetTrigger>
         
@@ -42,78 +59,108 @@ export const MobileNavigation: React.FC = () => {
               </SheetClose>
             </div>
             
-            {/* Menu Items - Centered */}
-            <div className="space-y-4">
-              <SheetClose asChild>
-                <Link 
-                  to="/" 
-                  className="group flex items-center justify-center p-4 bg-gradient-to-r from-white/10 to-electric-300/10 hover:from-electric-300/20 hover:to-electric-300/30 rounded-xl border border-white/20 hover:border-electric-300/40 transition-all duration-300 backdrop-blur-sm"
-                >
-                  <span className="text-white group-hover:text-electric-300 font-bold text-lg tracking-wide">ÚTMUTATÓK</span>
-                </Link>
-              </SheetClose>
-              
-              {/* Csatlakozz section - more compact */}
-              <div className="bg-gradient-to-r from-white/15 to-electric-300/15 rounded-xl border border-electric-300/30 p-4 backdrop-blur-sm">
-                <div className="text-center mb-4">
-                  <h3 className="text-electric-300 font-black text-xl tracking-wide bg-gradient-to-r from-electric-300 via-white to-electric-300 bg-clip-text text-transparent">
-                    CSATLAKOZZ
-                  </h3>
-                </div>
-                <div className="grid grid-cols-1 gap-2">
+            {/* Menü elemek – Tappolható sorok, keretek nélkül */}
+            <nav className="pt-2">
+              <ul className="divide-y divide-white/5">
+                <li>
                   <SheetClose asChild>
-                    <Link 
-                      to="/vendeglatohelyek" 
-                      className="text-center text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30"
-                    >
-                      Vendéglátóhelyek
+                    <Link to="/" className="flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                      <div className="flex items-center gap-3">
+                        <Home className="h-5 w-5 text-electric-300" />
+                        <div>
+                          <span className="block text-white font-semibold">Főoldal</span>
+                          <span className="block text-xs text-muted-foreground">Kezdőszekciók és infók</span>
+                        </div>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-white/60" />
                     </Link>
                   </SheetClose>
+                </li>
+
+                <li>
                   <SheetClose asChild>
-                    <Link 
-                      to="/italmarkak" 
-                      className="text-center text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30"
-                    >
-                      Italmárkák
+                    <Link to="/vendeglatohelyek" className="flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                      <div className="flex items-center gap-3">
+                        <Store className="h-5 w-5 text-electric-300" />
+                        <div>
+                          <span className="block text-white font-semibold">Vendéglátóhelyek</span>
+                          <span className="block text-xs text-muted-foreground">Érdeklődés és jelentkezés</span>
+                        </div>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-white/60" />
                     </Link>
                   </SheetClose>
+                </li>
+
+                <li>
                   <SheetClose asChild>
-                    <Link 
-                      to="/rewards-partners" 
-                      className="text-center text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30"
-                    >
-                      Jutalom partnerek
+                    <Link to="/italmarkak" className="flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                      <div className="flex items-center gap-3">
+                        <Wine className="h-5 w-5 text-electric-300" />
+                        <div>
+                          <span className="block text-white font-semibold">Italmárkák</span>
+                          <span className="block text-xs text-muted-foreground">Együttműködés márkáknak</span>
+                        </div>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-white/60" />
                     </Link>
                   </SheetClose>
+                </li>
+
+                <li>
                   <SheetClose asChild>
-                    <Link 
-                      to="/come-get-it-accelerator" 
-                      className="text-center text-white hover:text-electric-300 text-base font-semibold py-3 px-4 hover:bg-white/20 rounded-lg transition-all duration-200 border border-transparent hover:border-electric-300/30"
-                    >
-                      Gyorsítóprogram
+                    <Link to="/rewards-partners" className="flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                      <div className="flex items-center gap-3">
+                        <Gift className="h-5 w-5 text-electric-300" />
+                        <div>
+                          <span className="block text-white font-semibold">Jutalom partnerek</span>
+                          <span className="block text-xs text-muted-foreground">Ajánlatok és integráció</span>
+                        </div>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-white/60" />
                     </Link>
                   </SheetClose>
-                </div>
-              </div>
-              
-              {/* Support button - more prominent */}
-              <SheetClose asChild>
-                <button 
-                  onClick={() => {
-                    const supportSection = document.getElementById('support');
-                    if (supportSection) {
-                      supportSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                  className="w-full group flex items-center justify-center p-4 bg-gradient-to-r from-electric-300/20 to-electric-300/30 hover:from-electric-300/30 hover:to-electric-300/40 rounded-xl border border-electric-300/40 hover:border-electric-300/60 transition-all duration-300 backdrop-blur-sm"
-                >
-                  <MessageCircle className="h-5 w-5 mr-3 text-electric-300" />
-                  <span className="text-white group-hover:text-electric-300 font-bold text-lg tracking-wide">TÁMOGATÁS</span>
-                </button>
-              </SheetClose>
-            </div>
-            
-            {/* Bottom accent - smaller */}
+                </li>
+
+                <li>
+                  <SheetClose asChild>
+                    <Link to="/come-get-it-accelerator" className="flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                      <div className="flex items-center gap-3">
+                        <Rocket className="h-5 w-5 text-electric-300" />
+                        <div>
+                          <span className="block text-white font-semibold">Gyorsítóprogram</span>
+                          <span className="block text-xs text-muted-foreground">Startup program részletek</span>
+                        </div>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-white/60" />
+                    </Link>
+                  </SheetClose>
+                </li>
+
+                <li>
+                  <SheetClose asChild>
+                    <button
+                      onClick={() => {
+                        const el = document.getElementById('support')
+                        if (el) el.scrollIntoView({ behavior: 'smooth' })
+                      }}
+                      className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition"
+                    >
+                      <div className="flex items-center gap-3">
+                        <MessageCircle className="h-5 w-5 text-electric-300" />
+                        <div>
+                          <span className="block text-white font-semibold">Támogatás</span>
+                          <span className="block text-xs text-muted-foreground">Kérdésed van? Írj nekünk</span>
+                        </div>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-white/60" />
+                    </button>
+                  </SheetClose>
+                </li>
+              </ul>
+            </nav>
+
+            {/* Bottom accent */}
             <div className="mt-8 flex justify-center">
               <div className="w-12 h-0.5 bg-gradient-to-r from-electric-300/60 via-electric-300 to-electric-300/60 rounded-full"></div>
             </div>
