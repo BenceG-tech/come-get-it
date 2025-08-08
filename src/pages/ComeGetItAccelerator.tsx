@@ -160,7 +160,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* How It Works - 2x2 Grid */}
-      <section className="py-16 px-4 pr-14 sm:pr-4 bg-white/5 backdrop-blur-sm" lang="hu">
+      <section className="py-16 px-4 pb-20 bg-white/5 backdrop-blur-sm" lang="hu">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
