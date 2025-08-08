@@ -57,11 +57,23 @@ export const VenueApplicationSection: React.FC = () => {
     try {
       console.log('Attempting to send venue application...');
       
+      // Build source context with UTM params and referrer
+      const params = new URLSearchParams(window.location.search);
+      const utmPairs = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
+        .map((k) => (params.get(k) ? `${k}=${params.get(k)}` : ''))
+        .filter(Boolean)
+        .join('&');
+      const ref = document.referrer ? `ref=${encodeURIComponent(document.referrer)}` : '';
+      const path = `path=${encodeURIComponent(window.location.pathname)}`;
+      const source = ['venue_application_form', utmPairs && `utm:${utmPairs}`, ref, path]
+        .filter(Boolean)
+        .join(' | ');
+      
       // Email küldés a Supabase Edge Function-ön keresztül
       const { data, error } = await supabase.functions.invoke('send-notification-email', {
         body: {
           type: 'venue_application',
-          data: formData
+          data: { ...formData, timestamp: new Date().toISOString(), source }
         }
       });
 

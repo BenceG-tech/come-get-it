@@ -31,36 +31,23 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
     if (!email) return;
 
     setIsLoading(true);
-    const supabase = getSupabaseClient();
 
-    if (supabase) {
-      try {
-        // Send notification email through Supabase Edge Function
-        await supabase.functions.invoke('send-notification-email', {
-          body: {
-            type: 'user_signup',
-            data: { email }
-          }
-        });
-        
-        analytics.exitIntentConvert();
-        onSignup(email);
-      } catch (error) {
-        console.error('Error sending exit intent signup:', error);
-        toast({
-          title: "Hiba történt",
-          description: "Kérjük, próbálja újra később.",
-          variant: "destructive",
-        });
-      }
-    } else {
-      // Fallback to the original onSignup
+    try {
+      // Let the parent handle the actual signup + email sending to avoid duplicates
+      analytics.exitIntentConvert();
       onSignup(email);
+    } catch (error) {
+      console.error('Error handling exit intent signup:', error);
+      toast({
+        title: "Hiba történt",
+        description: "Kérjük, próbálja újra később.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+      setIsVisible(false);
+      setTimeout(onClose, 300);
     }
-
-    setIsLoading(false);
-    setIsVisible(false);
-    setTimeout(onClose, 300);
   };
 
   const handleClose = () => {

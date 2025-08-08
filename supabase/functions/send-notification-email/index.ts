@@ -104,6 +104,7 @@ serve(async (req) => {
             <p><strong>E-mail:</strong> ${data.email}</p>
             <p><strong>Telefon:</strong> ${data.phone || '—'}</p>
             <p><strong>Időbélyeg:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
+            <p><strong>Forrás:</strong> ${data.source || '—'}</p>
           </div>
         `
       });

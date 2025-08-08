@@ -84,6 +84,18 @@ const Index = () => {
       const supabase = getSupabaseClient();
       
       if (supabase) {
+        // Build source context with UTM params and referrer
+        const params = new URLSearchParams(window.location.search);
+        const utmPairs = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
+          .map((k) => (params.get(k) ? `${k}=${params.get(k)}` : ''))
+          .filter(Boolean)
+          .join('&');
+        const ref = document.referrer ? `ref=${encodeURIComponent(document.referrer)}` : '';
+        const path = `path=${encodeURIComponent(window.location.pathname)}`;
+        const source = ['exit_intent_popup', utmPairs && `utm:${utmPairs}`, ref, path]
+          .filter(Boolean)
+          .join(' | ');
+
         // Send through Supabase Edge Function with correct payload structure
         await supabase.functions.invoke('send-notification-email', {
           body: {
@@ -91,7 +103,7 @@ const Index = () => {
             data: { 
               email: email,
               timestamp: new Date().toISOString(),
-              source: 'exit_intent_popup'
+              source
             }
           }
         });
@@ -99,7 +111,7 @@ const Index = () => {
         // Persist signup to database (insert-only; RLS allows public inserts)
         const { error: dbError } = await supabase
           .from('waitlist_signups')
-          .insert([{ email, source: 'exit_intent_popup' }]);
+          .insert([{ email, source }]);
         if (dbError) console.warn('DB insert failed (waitlist_signups):', dbError);
       }
       

@@ -51,6 +51,18 @@ export const SignupForm: React.FC = () => {
         throw new Error('Supabase client not available');
       }
 
+      // Build source context with UTM params and referrer
+      const params = new URLSearchParams(window.location.search);
+      const utmPairs = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
+        .map((k) => (params.get(k) ? `${k}=${params.get(k)}` : ''))
+        .filter(Boolean)
+        .join('&');
+      const ref = document.referrer ? `ref=${encodeURIComponent(document.referrer)}` : '';
+      const path = `path=${encodeURIComponent(window.location.pathname)}`;
+      const source = ['main_signup_form', utmPairs && `utm:${utmPairs}`, ref, path]
+        .filter(Boolean)
+        .join(' | ');
+
       console.log('Starting email registration for:', email);
       
       // Send notification email to admin and user
@@ -60,7 +72,7 @@ export const SignupForm: React.FC = () => {
           data: { 
             email: email,
             timestamp: new Date().toISOString(),
-            source: 'main_signup_form'
+            source
           }
         }
       });
@@ -73,7 +85,7 @@ export const SignupForm: React.FC = () => {
       // Persist to database (insert-only; RLS allows public inserts)
       const { error: dbError } = await supabase
         .from('waitlist_signups')
-        .insert([{ email, source: 'main_signup_form' }]);
+        .insert([{ email, source }]);
 
       if (dbError) {
         console.warn('DB insert failed (waitlist_signups):', dbError);
