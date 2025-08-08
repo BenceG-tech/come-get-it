@@ -95,6 +95,12 @@ const Index = () => {
             }
           }
         });
+
+        // Persist signup to database (insert-only; RLS allows public inserts)
+        const { error: dbError } = await supabase
+          .from('waitlist_signups')
+          .insert([{ email, source: 'exit_intent_popup' }]);
+        if (dbError) console.warn('DB insert failed (waitlist_signups):', dbError);
       }
       
       analytics.signupSubmit(email);

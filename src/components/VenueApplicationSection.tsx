@@ -72,6 +72,19 @@ export const VenueApplicationSection: React.FC = () => {
 
       console.log('Venue application sent successfully:', data);
 
+      // Persist application to database (insert-only; RLS allows public inserts)
+      const { error: dbError } = await supabase
+        .from('venue_applications')
+        .insert([{ 
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          venue_name: formData.venueName
+        }]);
+      if (dbError) {
+        console.warn('DB insert failed (venue_applications):', dbError);
+      }
+
       setIsSubmitted(true);
       toast({
         title: "🤝 Jelentkezés elküldve!",

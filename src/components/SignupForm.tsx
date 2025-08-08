@@ -70,6 +70,15 @@ export const SignupForm: React.FC = () => {
         // Don't block the signup if email fails, just log it
       }
 
+      // Persist to database (insert-only; RLS allows public inserts)
+      const { error: dbError } = await supabase
+        .from('waitlist_signups')
+        .insert([{ email, source: 'main_signup_form' }]);
+
+      if (dbError) {
+        console.warn('DB insert failed (waitlist_signups):', dbError);
+      }
+
       // Track analytics
       analytics.signupSubmit(email);
       analytics.signupSuccess();
