@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MessageCircle, X, Send, Search, Home, HelpCircle, ArrowLeft, ThumbsUp, ThumbsDown, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -13,6 +13,19 @@ export const CustomerSupport: React.FC = () => {
   const [message, setMessage] = useState('');
   const [selectedSection, setSelectedSection] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // Listen for global open-support events (from MobileNavigation, etc.)
+  useEffect(() => {
+    const open = () => setIsOpen(true);
+    window.addEventListener('open-support', open);
+    window.addEventListener('open_support', open);
+    window.addEventListener('openSupport', open);
+    return () => {
+      window.removeEventListener('open-support', open);
+      window.removeEventListener('open_support', open);
+      window.removeEventListener('openSupport', open);
+    };
+  }, []);
 
   const toggleSupport = () => {
     setIsOpen(!isOpen);

@@ -141,8 +141,7 @@ export const MobileNavigation: React.FC = () => {
                   <SheetClose asChild>
                     <button
                       onClick={() => {
-                        const el = document.getElementById('support')
-                        if (el) el.scrollIntoView({ behavior: 'smooth' })
+                        window.dispatchEvent(new Event('open-support'))
                       }}
                       className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition"
                     >
