@@ -10,7 +10,7 @@ interface DrinkSectionProps {
 }
 
 export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, drinkImages }) => (
-  <section className="py-20 px-4 -mt-32 lg:mt-0 relative z-20">
+  <section id="drink" className="py-20 px-4 -mt-32 lg:mt-0 relative z-20 scroll-mt-24">
     <div className="max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-2 gap-16 items-center pt-32 lg:pt-0">
         {/* Left - Content */}
