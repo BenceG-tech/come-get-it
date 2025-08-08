@@ -159,20 +159,20 @@ const ComeGetItAccelerator = () => {
         </div>
       </section>
 
-      {/* How It Works - Improved Layout */}
+      {/* How It Works - 2x2 Grid */}
       <section className="py-16 px-4 pr-14 sm:pr-4 bg-white/5 backdrop-blur-sm" lang="hu">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
               HOGYAN MŰKÖDIK?
             </SectionTitle>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
+          <div className="grid grid-cols-2 gap-6 max-w-4xl mx-auto">
             {howItWorksSteps.map((step, index) => (
               <div 
                 key={index} 
-                className="glass-effect rounded-2xl p-6 text-center group hover:scale-105 hover:shadow-lg hover:shadow-electric-300/20 transition-all duration-300 flex flex-col items-center justify-between h-full"
+                className="glass-effect rounded-2xl p-6 md:p-8 text-center group hover:scale-105 hover:shadow-lg hover:shadow-electric-300/20 transition-all duration-300 flex flex-col items-center justify-between h-full"
               >
                 <div className="flex flex-col items-center flex-grow">
                   <div className="text-3xl md:text-4xl font-black text-electric-300 mb-4">
@@ -185,12 +185,12 @@ const ComeGetItAccelerator = () => {
                     </div>
                   </div>
                   
-                  <h4 className="text-base md:text-lg font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300 text-center break-words [hyphens:auto] [text-wrap:balance]">
+                  <h4 className="text-sm md:text-lg font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300 text-center break-words [hyphens:auto] [text-wrap:balance]">
                     {step.title}
                   </h4>
                 </div>
                 
-                <p className="text-sm md:text-base text-electric-100 leading-tight text-center break-words [hyphens:auto] [text-wrap:balance] mt-auto">
+                <p className="text-xs md:text-base text-electric-100 leading-tight text-center break-words [hyphens:auto] [text-wrap:balance] mt-auto">
                   {step.description}
                 </p>
               </div>
