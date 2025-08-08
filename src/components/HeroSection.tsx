@@ -52,11 +52,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               size="lg" 
               className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
               onClick={() => {
-                analytics.ctaClick('hero', 'Regisztrálj most!');
+                analytics.ctaClick('hero', 'Csatlakozom – Első kör tőlünk');
                 document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Regisztrálj most!
+              Csatlakozom
             </Button>
           </div>
         </div>

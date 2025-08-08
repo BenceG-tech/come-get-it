@@ -7,29 +7,24 @@ export const VenueKeyFeatures: React.FC = () => {
 
   const features = [
     {
-      icon: GlassWater,
-      title: "NÖVELD A FORGALMAT",
-      description: "Az alkalmazás növeli a fogyasztást és visszahozza a vendégeket több pontért és jutalmakért."
-    },
-    {
-      icon: Star,
-      title: "COME GET IT JUTALMAK",
-      description: "Te döntöd el, milyen jutalmakat adsz – és így növeled az újralátogatások számát."
+      icon: Footprints,
+      title: "MINŐSÉGI FOOTFALL",
+      description: "Hétköznapokon is hozunk új, releváns vendégeket."
     },
     {
       icon: CheckCircle,
-      title: "EGYSZERŰ BEVEZETÉS",
-      description: "Semmi extra oktatás vagy berendezés. Minden egyszerűen működik."
+      title: "BIZONYÍTHATÓ ATTRIBUTION",
+      description: "Kártyalinkelt, valós forgalmi visszajelzés – nincsenek találgatások."
     },
     {
-      icon: Footprints,
-      title: "KÖVETHETŐ LÁBNYOM",
-      description: "Küldünk néhány kódot és reklámanyagot a helyed számára - ez minden, amire szükség van."
+      icon: Star,
+      title: "NEM NYOMOTT ÁR",
+      description: "Nem freebie-seekerek: élménykereső közönség, aki költ is."
     },
     {
-      icon: MapPin,
-      title: "GPS",
-      description: "Segítünk a vendégeknek megtalálni a helyed és egyszerűen eljutni hozzád."
+      icon: GlassWater,
+      title: "BEVÁLTÁS/ FORGALOM RIPORTOK",
+      description: "Átlátható jelentések a beváltásról és a forgalomról."
     }
   ];
 

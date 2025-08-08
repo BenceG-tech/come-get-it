@@ -17,10 +17,10 @@ export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnIm
             EARN.
           </h2>
           <p className="text-2xl md:text-3xl text-white mb-6 font-medium">
-            Gyűjts pontokat és segíts
+            Pontokból élmények
           </p>
           <p className="text-lg text-white max-w-lg">
-            Gyűjts pontokat minden kortyért, felfedezésért és aktivitásért! Váltsd be őket exkluzív jutalmakra, miközben minden italoddal jótékony célt is támogatsz.
+            Minden korty, felfedezés és aktivitás pont. Váltsd be exkluzív jutalmakra, és közben jó ügyeket is támogatsz. Igyál okosan, élj intenzíven.
           </p>
         </div>
         

@@ -100,23 +100,18 @@ const RewardsPartners = () => {
   const features = [
     {
       icon: Gift,
-      title: "Exkluzív ajánlatok",
-      description: "Hozz létre egyedi kedvezményeket és ajánlatokat az applikáció felhasználóinak."
+      title: "Közvetlen beváltás-meghajtás",
+      description: "A pontok azonnali beváltásával hozunk trafficet és konverziót."
     },
     {
       icon: Users,
-      title: "Célzott elérés",
-      description: "Juttatd el az ajánlataidat a megfelelő célcsoporthoz és növeld a konverziót."
+      title: "Fiatal, esti-aktív bázis",
+      description: "91% Gen Z & Millennial – elkötelezett közönség."
     },
     {
       icon: Zap,
-      title: "Azonnali aktiváció",
-      description: "A kupok és kedvezmények azonnal beválthatók, nincs hosszas várakozás."
-    },
-    {
-      icon: BarChart,
-      title: "Részletes statisztikák",
-      description: "Kövesd nyomon a kampányaid teljesítményét valós idejű adatokkal."
+      title: "Együttműködési csomagok",
+      description: "Kóstolótól a VIP-ig: rugalmas integrációk a céljaidhoz."
     }
   ];
 
@@ -146,24 +141,23 @@ const RewardsPartners = () => {
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
               <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
-                <span className="block text-white mb-2">JUTALOM &</span>
-                <span className="block text-electric-300">KEDVEZMÉNY</span>
+                <span className="block text-white mb-2">ÉLMÉNYEKKEL FIZETŐ</span>
+                <span className="block text-electric-300">KÖZÖNSÉG.</span>
               </h1>
               
               <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                Érj el több ezer aktív felhasználót –<br />
-                exkluzív ajánlatokkal és kedvezményekkel!
+                Pontokból lojalitás — hozd át a közösséget a helyedre/jegyrendszeredbe, és tedd a jutalmakat szokássá.
               </p>
               
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
                 onClick={() => {
-                  analytics.ctaClick('hero_section', 'Jutalom partner leszek');
+                  analytics.ctaClick('hero_section', 'Legyünk rewards partner');
                   analytics.rewardsPartnerApplicationStart();
                 }}
               >
-                Jutalom partner leszek
+                Legyünk rewards partner
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>

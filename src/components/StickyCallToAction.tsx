@@ -8,11 +8,11 @@ export const StickyCallToAction: React.FC = () => (
     <Button 
       className="brand-gradient-cta hover:shadow-2xl text-white font-semibold py-3 px-6 lg:px-8 rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand animate-pulse-slow"
       onClick={() => {
-        analytics.ctaClick('sticky_cta', '🍻 Regisztrálj most!');
+        analytics.ctaClick('sticky_cta', 'Jövök a körre! 🍻');
         document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
       }}
     >
-      🍻 Regisztrálj most!
+      Jövök a körre! 🍻
     </Button>
   </div>
 );

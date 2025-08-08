@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
+import { analytics } from '@/lib/analytics';
 
 interface DrinkSectionProps {
   currentImageIndex: number;
@@ -18,18 +19,21 @@ export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, d
             DRINK.
           </h2>
           <p className="text-2xl md:text-3xl text-white mb-6 font-medium">
-            Igyál ingyen minden nap
+            Az első pohár nyitja az estét
           </p>
           <p className="text-lg text-white max-w-lg mb-8">
-            Válassz egy bárt, mutasd fel az appod, és élvezd az aznapi ingyen italod! Minden nap új élmény, új hely, új társaság.
+            Válassz egy helyet, mutasd fel az appot és tedd emlékezetessé a napod első körét. Minden este más hangulat, más társaság — a sztori rajtad múlik.
           </p>
           
           <Button 
             size="lg" 
             className="bg-gradient-to-r from-electric-300 to-ocean-600 hover:shadow-2xl text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
-            onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => {
+              analytics.ctaClick('drink_section', 'Kezdjük ma este!');
+              document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
+            }}
           >
-            Kezdj el inni!
+            Kezdjük ma este!
           </Button>
         </div>
         

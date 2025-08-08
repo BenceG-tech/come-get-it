@@ -10,10 +10,10 @@ export const FOMOSection: React.FC = () => (
         Legyél alapító tag
       </h2>
       <p className="text-xl text-white mb-8">
-        Az első 1000 regisztrálónak exkluzív bónusz
+        Az első 1000 bennfentes külön badge‑et, extra jutalmakat és életre szóló bragging right‑ot kap.
       </p>
       <p className="text-lg text-white mb-12">
-        Írjuk együtt Budapest új italtérképét
+        Budapest éjszakája most íródik — velünk.
       </p>
       
       <div className="flex justify-center">
@@ -21,11 +21,11 @@ export const FOMOSection: React.FC = () => (
           size="lg" 
           className="brand-gradient-cta hover:shadow-2xl text-white font-semibold py-4 px-12 text-lg rounded-full transition-all duration-300 neon-glow-brand border-0"
           onClick={() => {
-            analytics.ctaClick('fomo_section', 'Regisztrálj most');
+            analytics.ctaClick('fomo_section', 'Jövök a körre');
             document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
           }}
         >
-          Regisztrálj most
+          Jövök a körre
         </Button>
       </div>
     </div>

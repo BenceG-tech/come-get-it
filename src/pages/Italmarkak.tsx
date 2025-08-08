@@ -62,23 +62,23 @@ const Italmarkak = () => {
   const features = [
     {
       icon: Compass,
-      title: "FOGYASZTÓI ELÉRÉS",
-      description: "Több ezer új fogyasztó havonta"
+      title: "BEÉPÍTETT FELFEDEZÉS ÉS KÓSTOLÁS",
+      description: "A közönség természetesen találkozik a márkáddal és kóstolja meg."
     },
     {
       icon: CreditCard,
-      title: "RUGALMASSÁG",
-      description: "Egy helytől országos skálázásig"
+      title: "CÉLZOTT ELÉRÉS",
+      description: "91% Gen Z & Millennial – pontos, értékes közönség."
     },
     {
       icon: Wine,
-      title: "MARKETING TÁMOGATÁS", 
-      description: "Social media, influencer program"
+      title: "KREATÍV ÉLMÉNYCSOMAGOK",
+      description: "Takeover hetek, limited kiadások, AR filter – emlékezetes aktivációk."
     },
     {
       icon: Gift,
-      title: "VALÓS IDEJŰ ADATOK",
-      description: "Pontos fogyasztási statisztikák"
+      title: "TELJESÍTMÉNYMÉRÉS",
+      description: "Kártyaalapú attribúció és valós idejű statisztikák."
     }
   ];
 
@@ -116,20 +116,19 @@ const Italmarkak = () => {
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
               <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
-                <span className="block text-white mb-2">ITALMÁRKA</span>
-                <span className="block text-electric-300">ÉLMÉNY</span>
+                <span className="block text-white">LÉGY AZ ELSŐ KORTY,</span>
+                <span className="block text-electric-300">AMIRŐL BESZÉLNEK.</span>
               </h1>
               
               <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                Indítsd be a márkád –<br />
-                Budapest legizgalmasabb közösségében!
+                A legemlékezetesebb pillanatnál találkozol a fogyasztóval — az első körnél. Aktiválj, mérj, és építs kultuszt a város éjszakájában.
               </p>
               
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
               >
-                Jelentkezz most!
+                Beszéljünk a márkád aktiválásáról
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
