@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { analytics } from '@/lib/analytics';
 
 const Italmarkak = () => {
   const brandImage = "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png";
@@ -127,6 +128,7 @@ const Italmarkak = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
+                onClick={() => analytics.ctaClick('brand_hero', 'Beszéljünk a márkád aktiválásáról')}
               >
                 Beszéljünk a márkád aktiválásáról
                 <ArrowRight className="ml-2 h-5 w-5" />

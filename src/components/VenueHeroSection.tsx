@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
 import { ArrowRight } from 'lucide-react';
+import { analytics } from '@/lib/analytics';
 
 export const VenueHeroSection: React.FC = () => {
   // Use the venue detail mockup image
@@ -34,7 +35,10 @@ export const VenueHeroSection: React.FC = () => {
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
-              onClick={() => document.querySelector('#venue-application')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => { 
+                analytics.ctaClick('venue_hero', 'Jelentkezem partnernek');
+                document.querySelector('#venue-application')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
               Jelentkezem partnernek
               <ArrowRight className="ml-2 h-5 w-5" />

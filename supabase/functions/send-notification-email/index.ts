@@ -55,56 +55,35 @@ serve(async (req) => {
     if (type === 'user_signup') {
       // Értesítő email gataibence@gmail.com-ra
       emails.push({
-        from: 'Come Get It <noreply@comegetit.hu>',
+        from: 'Come Get It <noreply@come-get-it.app>',
         to: ['gataibence@gmail.com'],
-        subject: '🎉 Új felhasználó regisztráció - Come Get It',
+        reply_to: data.email,
+        subject: `Új előregisztráció: ${data.email}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #0f384e;">Új felhasználó regisztráció</h2>
-            <p><strong>Email:</strong> ${data.email}</p>
-            <p><strong>Regisztráció időpontja:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
-            <p><strong>Forrás:</strong> ${data.source || 'main_signup_form'}</p>
-            <p>A felhasználó csatlakozott az első 1000 tag közé!</p>
+            <h2 style="color: #0f384e;">Új előregisztráció</h2>
+            <p><strong>E-mail:</strong> ${data.email}</p>
+            <p><strong>Név (opcionális):</strong> ${data.name || '—'}</p>
+            <p><strong>Időbélyeg:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
+            <p><strong>Forrás:</strong> ${data.source || '—'}</p>
           </div>
         `
       });
 
       // Köszönő email a felhasználónak
       emails.push({
-        from: 'Come Get It <noreply@comegetit.hu>',
+        from: 'Come Get It <noreply@come-get-it.app>',
         to: [data.email],
-        subject: '🎉 Köszönjük a regisztrációt! - Come Get It',
+        subject: 'Üdv a körben! 🍻 Az első kör hamarosan a tiéd',
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0f384e, #27dddf); color: white; padding: 20px; border-radius: 10px;">
-            <h1 style="text-align: center; margin-bottom: 30px;">Üdvözlünk a Come Get It közösségében! 🎉</h1>
-            
-            <p style="font-size: 18px; text-align: center; margin-bottom: 30px;">
-              Gratulálunk! Sikeresen csatlakoztál az első 1000 tag közé!
+          <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color: #111;">
+            <h1 style="text-align: center;">Üdv a Come Get It alapítói körében! 🎉</h1>
+            <p style="font-size:16px;">
+              ${data.name ? `Szia ${data.name},` : 'Szia!'}<br/>
+              Hamarosan érkezik az értesítés az első helyekről és jutalmakról.
             </p>
-            
-            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h2 style="color: #27dddf;">🌟 Exkluzív előnyeid:</h2>
-              <ul style="font-size: 16px; line-height: 1.8;">
-                <li>✨ <strong>Korai hozzáférés</strong> az alkalmazáshoz - Te leszel az első, aki kipróbálhatja!</li>
-                <li>🎯 <strong>Launch bónusz pontok</strong> - Extra pontokkal indítasz</li>
-                <li>🏆 <strong>VIP státusz</strong> - Különleges státusz az első 1000 tag között</li>
-                <li>🎁 <strong>Exkluzív ajánlatok</strong> - Csak neked szóló kedvezmények</li>
-                <li>💎 <strong>Dupla pontok</strong> az első vásárlásaidra</li>
-                <li>🚀 <strong>Elsőbbség</strong> az új funkciók kipróbálásában</li>
-              </ul>
-            </div>
-            
-            <p style="text-align: center; font-size: 16px; margin-top: 30px;">
-              Hamarosan jelentkezünk az indulással kapcsolatos részletekkel!<br>
-              Addig is kövesd a fejlesztéseket! 📱
-            </p>
-            
-            <div style="text-align: center; margin-top: 30px;">
-              <p style="font-size: 14px; opacity: 0.8;">
-                Come Get It Team<br>
-                🍹 Igyál ingyen • 🔗 Csatlakozz • 💰 Gyűjts pontokat
-              </p>
-            </div>
+            <p style="font-size:16px;">Tedd félre az este első sztoriját — a kör tőlünk, a folytatás tőled.</p>
+            <p style="margin-top:24px; font-size:14px; color:#555;">Üdv,<br/>a Come Get It csapat</p>
           </div>
         `
       });
@@ -113,61 +92,32 @@ serve(async (req) => {
     if (type === 'venue_application') {
       // Értesítő email gataibence@gmail.com-ra
       emails.push({
-        from: 'Come Get It <noreply@comegetit.hu>',
+        from: 'Come Get It <noreply@come-get-it.app>',
         to: ['gataibence@gmail.com'],
-        subject: '🏪 Új partner jelentkezés - Come Get It',
+        reply_to: data.email,
+        subject: `Új partner lead: ${data.venueName || 'Ismeretlen hely'} – ${data.name || 'Ismeretlen kapcsolattartó'} – ${data.phone || 'Nincs telefon'}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #0f384e;">Új partner jelentkezés</h2>
-            <p><strong>Név:</strong> ${data.name || 'Nincs megadva'}</p>
-            <p><strong>Email:</strong> ${data.email}</p>
-            <p><strong>Telefon:</strong> ${data.phone || 'Nincs megadva'}</p>
-            <p><strong>Üzlet neve:</strong> ${data.venueName || 'Nincs megadva'}</p>
-            <p><strong>Jelentkezés időpontja:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
+            <p><strong>Hely neve:</strong> ${data.venueName || '—'}</p>
+            <p><strong>Kapcsolattartó:</strong> ${data.name || '—'}</p>
+            <p><strong>E-mail:</strong> ${data.email}</p>
+            <p><strong>Telefon:</strong> ${data.phone || '—'}</p>
+            <p><strong>Időbélyeg:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
           </div>
         `
       });
 
       // Köszönő email a partnernek
       emails.push({
-        from: 'Come Get It <noreply@comegetit.hu>',
+        from: 'Come Get It <noreply@come-get-it.app>',
         to: [data.email],
-        subject: '🤝 Köszönjük a partner jelentkezést! - Come Get It',
+        subject: 'Köszönjük, hogy jelentkeztetek! 🍸',
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0f384e, #27dddf); color: white; padding: 20px; border-radius: 10px;">
-            <h1 style="text-align: center; margin-bottom: 30px;">Köszönjük a jelentkezést! 🤝</h1>
-            
-            <p style="font-size: 18px; text-align: center; margin-bottom: 30px;">
-              Kedves ${data.name || 'Érdeklődő'}!<br>
-              Örülünk, hogy csatlakozni szeretnél partnereink közé!
-            </p>
-            
-            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h2 style="color: #27dddf;">🚀 Partnerség előnyei:</h2>
-              <ul style="font-size: 16px; line-height: 1.8;">
-                <li>🎯 <strong>Ingyenes promóció</strong> - Térítésmentesen reklámozzuk üzleted</li>
-                <li>📈 <strong>Növekvő vendégforgalom</strong> - Új vendégeket hozunk neked</li>
-                <li>👥 <strong>Hűséges vendégkör</strong> - Építsd fel törzsvásárlóid bázisát</li>
-                <li>📊 <strong>Mérhető eredmények</strong> - Részletes statisztikák és jelentések</li>
-                <li>💰 <strong>Több bevétel</strong> - Növeld az árbevételed</li>
-                <li>🌟 <strong>Márkaépítés</strong> - Erősítsd a helyed hírnevét</li>
-              </ul>
-            </div>
-            
-            <div style="background: rgba(39, 221, 223, 0.2); padding: 15px; border-radius: 8px; margin: 20px 0;">
-              <p style="font-size: 16px; text-align: center; margin: 0;">
-                <strong>📋 Következő lépések:</strong><br>
-                Kollégánk hamarosan felveszi Önnel a kapcsolatot<br>
-                a partnerség részleteinek egyeztetése érdekében.
-              </p>
-            </div>
-            
-            <div style="text-align: center; margin-top: 30px;">
-              <p style="font-size: 14px; opacity: 0.8;">
-                Come Get It Business Team<br>
-                🏪 Partnerség • 📈 Növekedés • 💼 Siker
-              </p>
-            </div>
+          <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color: #111;">
+            <h1 style="text-align: center;">Köszönjük a partner jelentkezést!</h1>
+            <p style="font-size:16px;">Hamarosan felvesszük a kapcsolatot a következő lépésekkel (terheléscsúcsok, csomagok, riportok, onboarding).</p>
+            <p style="margin-top:24px; font-size:14px; color:#555;">Come Get It Business Team</p>
           </div>
         `
       });
