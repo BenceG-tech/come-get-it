@@ -17,6 +17,9 @@ interface EmailRequest {
     timestamp?: string;
     source?: string;
   };
+  // Optional flags to control which emails are sent
+  sendWelcome?: boolean; // default true
+  notifyAdmin?: boolean; // default true
 }
 
 serve(async (req) => {
@@ -27,10 +30,10 @@ serve(async (req) => {
   }
 
   try {
-    const requestBody = await req.json();
+    const requestBody: EmailRequest = await req.json();
     console.log('Request body:', JSON.stringify(requestBody, null, 2));
     
-    const { type, data }: EmailRequest = requestBody;
+    const { type, data, sendWelcome = true, notifyAdmin = true } = requestBody;
     
     if (!type || !data) {
       throw new Error('Missing required fields: type and data');
@@ -53,75 +56,97 @@ serve(async (req) => {
     let emails = [];
 
     if (type === 'user_signup') {
-      // Köszönő email a felhasználónak - SEND FIRST
-      emails.push({
-        from: 'Come Get It <noreply@come-get-it.app>',
-        to: [data.email],
-        subject: 'Üdv a körben! 🍻 Az első kör hamarosan a tiéd',
-        html: `
+      const preheader = 'Köszönjük a regisztrációt. Hamarosan küldjük a következő lépéseket.';
+      const greetingName = data.name ? `Szia ${data.name},` : 'Szia!';
+      const welcomeHtml = `
           <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color: #111;">
+            <span style="display:none; visibility:hidden; opacity:0; color:transparent; height:0; width:0; overflow:hidden;">${preheader}</span>
             <h1 style="text-align: center;">Üdv a Come Get It alapítói körében! 🎉</h1>
-            <p style="font-size:16px;">
-              ${data.name ? `Szia ${data.name},` : 'Szia!'}<br/>
-              Hamarosan érkezik az értesítés az első helyekről és jutalmakról.
+            <p style="font-size:16px;">${greetingName}<br/>
+              Sikeres előregisztráció! Hamarosan értesítünk az indulásról és az első jutalmakról.
             </p>
             <p style="font-size:16px;">Tedd félre az este első sztoriját — a kör tőlünk, a folytatás tőled.</p>
             <p style="margin-top:24px; font-size:14px; color:#555;">Üdv,<br/>a Come Get It csapat</p>
           </div>
-        `
-      });
+        `;
+      const welcomeText = `${data.name ? `Szia ${data.name},` : 'Szia!'}\n\nSikeres előregisztráció a Come Get It várólistájára. Hamarosan értesítünk az indulásról és az első jutalmakról.\n\nÜdv,\nCome Get It csapat`;
 
-      // Értesítő email az adminnak
-      emails.push({
-        from: 'Come Get It <noreply@come-get-it.app>',
-        to: ['gataibence@gmail.com'],
-        reply_to: data.email,
-        subject: `Új előregisztráció: ${data.email}`,
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #0f384e;">Új előregisztráció</h2>
-            <p><strong>E-mail:</strong> ${data.email}</p>
-            <p><strong>Név (opcionális):</strong> ${data.name || '—'}</p>
-            <p><strong>Időbélyeg:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
-            <p><strong>Forrás:</strong> ${data.source || '—'}</p>
-          </div>
-        `
-      });
+      if (sendWelcome) {
+        emails.push({
+          from: 'Come Get It <noreply@come-get-it.app>',
+          to: [data.email],
+          subject: 'Sikeres előregisztráció – Üdv a Come Get It-nél',
+          html: welcomeHtml,
+          text: welcomeText,
+          headers: {
+            'List-Unsubscribe': '<mailto:hello@come-get-it.app?subject=Leiratkozás>'
+          }
+        });
+      }
+
+      if (notifyAdmin) {
+        emails.push({
+          from: 'Come Get It <noreply@come-get-it.app>',
+          to: ['gataibence@gmail.com'],
+          reply_to: data.email,
+          subject: `Új előregisztráció: ${data.email}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <h2 style="color: #0f384e;">Új előregisztráció</h2>
+              <p><strong>E-mail:</strong> ${data.email}</p>
+              <p><strong>Név (opcionális):</strong> ${data.name || '—'}</p>
+              <p><strong>Időbélyeg:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
+              <p><strong>Forrás:</strong> ${data.source || '—'}</p>
+            </div>
+          `
+        });
+      }
     }
 
     if (type === 'venue_application') {
-      // Köszönő email a partnernek - SEND FIRST
-      emails.push({
-        from: 'Come Get It <noreply@come-get-it.app>',
-        to: [data.email],
-        subject: 'Köszönjük, hogy jelentkeztetek! 🍸',
-        html: `
+      const preheader = 'Köszönjük a jelentkezést. Hamarosan felvesszük a kapcsolatot.';
+      const thanksHtml = `
           <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color: #111;">
+            <span style="display:none; visibility:hidden; opacity:0; color:transparent; height:0; width:0; overflow:hidden;">${preheader}</span>
             <h1 style="text-align: center;">Köszönjük a partner jelentkezést!</h1>
             <p style="font-size:16px;">Hamarosan felvesszük a kapcsolatot a következő lépésekkel (terheléscsúcsok, csomagok, riportok, onboarding).</p>
             <p style="margin-top:24px; font-size:14px; color:#555;">Come Get It Business Team</p>
           </div>
-        `
-      });
+        `;
+      const thanksText = 'Köszönjük a jelentkezést! Hamarosan felvesszük a kapcsolatot a következő lépésekkel.\n\nCome Get It Business Team';
 
-      // Értesítő email az adminnak
-      emails.push({
-        from: 'Come Get It <noreply@come-get-it.app>',
-        to: ['gataibence@gmail.com'],
-        reply_to: data.email,
-        subject: `Új partner lead: ${data.venueName || 'Ismeretlen hely'} – ${data.name || 'Ismeretlen kapcsolattartó'} – ${data.phone || 'Nincs telefon'}`,
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #0f384e;">Új partner jelentkezés</h2>
-            <p><strong>Hely neve:</strong> ${data.venueName || '—'}</p>
-            <p><strong>Kapcsolattartó:</strong> ${data.name || '—'}</p>
-            <p><strong>E-mail:</strong> ${data.email}</p>
-            <p><strong>Telefon:</strong> ${data.phone || '—'}</p>
-            <p><strong>Időbélyeg:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
-            <p><strong>Forrás:</strong> ${data.source || '—'}</p>
-          </div>
-        `
-      });
+      if (sendWelcome) {
+        emails.push({
+          from: 'Come Get It <noreply@come-get-it.app>',
+          to: [data.email],
+          subject: 'Köszönjük a jelentkezést – Come Get It Business',
+          html: thanksHtml,
+          text: thanksText,
+          headers: {
+            'List-Unsubscribe': '<mailto:hello@come-get-it.app?subject=Leiratkozás>'
+          }
+        });
+      }
+
+      if (notifyAdmin) {
+        emails.push({
+          from: 'Come Get It <noreply@come-get-it.app>',
+          to: ['gataibence@gmail.com'],
+          reply_to: data.email,
+          subject: `Új partner lead: ${data.venueName || 'Ismeretlen hely'} – ${data.name || 'Ismeretlen kapcsolattartó'} – ${data.phone || 'Nincs telefon'}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <h2 style="color: #0f384e;">Új partner jelentkezés</h2>
+              <p><strong>Hely neve:</strong> ${data.venueName || '—'}</p>
+              <p><strong>Kapcsolattartó:</strong> ${data.name || '—'}</p>
+              <p><strong>E-mail:</strong> ${data.email}</p>
+              <p><strong>Telefon:</strong> ${data.phone || '—'}</p>
+              <p><strong>Időbélyeg:</strong> ${data.timestamp || new Date().toLocaleString('hu-HU')}</p>
+              <p><strong>Forrás:</strong> ${data.source || '—'}</p>
+            </div>
+          `
+        });
+      }
     }
 
     if (emails.length === 0) {

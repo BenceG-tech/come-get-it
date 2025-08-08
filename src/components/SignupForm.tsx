@@ -13,6 +13,8 @@ export const SignupForm: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [lastEmail, setLastEmail] = useState<string | null>(null);
+  const [isResending, setIsResending] = useState(false);
   const { toast } = useToast();
   const { user } = useAuth();
 
@@ -95,11 +97,12 @@ export const SignupForm: React.FC = () => {
       analytics.signupSubmit(email);
       analytics.signupSuccess();
 
+      setLastEmail(email);
       setIsSubmitted(true);
       setEmail('');
       setGdprAccepted(false);
 
-      console.log('Registration completed successfully for:', email);
+      console.log('Registration completed successfully for:', lastEmail || email);
 
       toast({
         title: "Sikeres regisztráció!",
@@ -116,6 +119,43 @@ export const SignupForm: React.FC = () => {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleResendWelcome = async () => {
+    if (!lastEmail) {
+      toast({ title: 'Hiányzó email', description: 'Nincs elmentett email cím az újraküldéshez.', variant: 'destructive' });
+      return;
+    }
+
+    try {
+      setIsResending(true);
+      const supabase = getSupabaseClient();
+      if (!supabase) throw new Error('Supabase client not available');
+
+      const { error } = await supabase.functions.invoke('send-notification-email', {
+        body: {
+          type: 'user_signup',
+          data: {
+            email: lastEmail,
+            timestamp: new Date().toISOString(),
+            source: 'resend_welcome_button'
+          },
+          sendWelcome: true,
+          notifyAdmin: false,
+        },
+      });
+
+      if (error) {
+        console.error('Resend welcome error:', error);
+        throw new Error('Az üdvözlő email újraküldése nem sikerült.');
+      }
+
+      toast({ title: 'Email újraküldve', description: 'Ellenőrizd a beérkező, promóciók vagy spam mappát is.' });
+    } catch (err: any) {
+      toast({ title: 'Hiba', description: err.message || 'Nem sikerült újraküldeni az emailt.', variant: 'destructive' });
+    } finally {
+      setIsResending(false);
     }
   };
 
@@ -147,10 +187,21 @@ export const SignupForm: React.FC = () => {
             <h2 className="text-4xl md:text-5xl font-anton text-white mb-6">
               KÖSZÖNJÜK A REGISZTRÁCIÓT!
             </h2>
-            <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-6">
+            <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-6 space-y-4">
               <p className="text-green-400 text-lg">
                 ✅ Sikeres regisztráció! Hamarosan jelentkezünk az indulással kapcsolatos részletekkel.
               </p>
+              <p className="text-gray-300 text-sm">Ha nem látod az üdvözlő emailt, ellenőrizd a Promóciók vagy Spam mappát.</p>
+              <div className="flex justify-center">
+                <Button 
+                  variant="outline"
+                  onClick={handleResendWelcome}
+                  disabled={isResending}
+                  className="border-[#27dddf] text-[#27dddf] hover:bg-[#27dddf] hover:text-black"
+                >
+                  {isResending ? 'Újraküldés...' : 'Üdvözlő email újraküldése'}
+                </Button>
+              </div>
             </div>
           </div>
         ) : (
