@@ -14,6 +14,7 @@ import Italmarkak from "./pages/Italmarkak";
 import RewardsPartners from "./pages/RewardsPartners";
 import ComeGetItAccelerator from "./pages/ComeGetItAccelerator";
 import NotFound from "./pages/NotFound";
+import AdatvedelmiSzabalyzat from "./pages/AdatvedelmiSzabalyzat";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
               <Route path="/italmarkak" element={<Italmarkak />} />
               <Route path="/rewards-partners" element={<RewardsPartners />} />
               <Route path="/come-get-it-accelerator" element={<ComeGetItAccelerator />} />
+              <Route path="/adatvedelmi-szabalyzat" element={<AdatvedelmiSzabalyzat />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

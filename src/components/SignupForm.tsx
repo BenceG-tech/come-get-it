@@ -7,6 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { getSupabaseClient } from '@/lib/supabase';
 import { analytics } from '@/lib/analytics';
 import { useAuth } from '@/contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 export const SignupForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -231,7 +232,7 @@ export const SignupForm: React.FC = () => {
                   className="border-[#3ba1cb] data-[state=checked]:bg-[#3ba1cb]"
                 />
                 <label htmlFor="gdpr" className="text-sm text-gray-300 cursor-pointer">
-                  Elfogadom az <span className="text-[#27dddf] underline">adatvédelmi szabályzatot</span>
+                  Elfogadom az <Link to="/adatvedelmi-szabalyzat" target="_blank" rel="noopener noreferrer" className="text-[#27dddf] underline focus:outline-none focus:ring-2 focus:ring-[#27dddf]/50">adatvédelmi szabályzatot</Link>
                 </label>
               </div>
               
