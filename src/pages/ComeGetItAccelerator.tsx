@@ -159,36 +159,38 @@ const ComeGetItAccelerator = () => {
         </div>
       </section>
 
-      {/* How It Works - 2x2 Grid */}
-      <section className="py-16 px-4 bg-white/5 backdrop-blur-sm">
-        <div className="max-w-5xl mx-auto">
+      {/* How It Works - Improved Layout */}
+      <section className="py-16 px-4 pr-14 sm:pr-4 bg-white/5 backdrop-blur-sm" lang="hu">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
               HOGYAN MŰKÖDIK?
             </SectionTitle>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
             {howItWorksSteps.map((step, index) => (
               <div 
                 key={index} 
-                className="glass-effect rounded-2xl p-8 text-center group hover:scale-105 hover:shadow-lg hover:shadow-electric-300/20 transition-all duration-300"
+                className="glass-effect rounded-2xl p-6 text-center group hover:scale-105 hover:shadow-lg hover:shadow-electric-300/20 transition-all duration-300 flex flex-col items-center justify-between h-full"
               >
-                <div className="text-4xl font-black text-electric-300 mb-6">
-                  {step.number}
-                </div>
-                
-                <div className="flex justify-center mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
-                    <step.icon className="w-8 h-8 text-electric-300 group-hover:text-white transition-colors duration-300" />
+                <div className="flex flex-col items-center flex-grow">
+                  <div className="text-3xl md:text-4xl font-black text-electric-300 mb-4">
+                    {step.number}
                   </div>
+                  
+                  <div className="flex justify-center mb-4">
+                    <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                      <step.icon className="w-7 h-7 md:w-8 md:h-8 text-electric-300 group-hover:text-white transition-colors duration-300" />
+                    </div>
+                  </div>
+                  
+                  <h4 className="text-base md:text-lg font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300 text-center break-words [hyphens:auto] [text-wrap:balance]">
+                    {step.title}
+                  </h4>
                 </div>
                 
-                <h4 className="text-lg font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300">
-                  {step.title}
-                </h4>
-                
-                <p className="text-sm text-electric-100 leading-tight px-2">
+                <p className="text-sm md:text-base text-electric-100 leading-tight text-center break-words [hyphens:auto] [text-wrap:balance] mt-auto">
                   {step.description}
                 </p>
               </div>
