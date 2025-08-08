@@ -116,7 +116,7 @@ const Italmarkak = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-tight tracking-tight break-words mb-6">
                 <span className="block text-white">LÉGY AZ ELSŐ KORTY,</span>
                 <span className="block text-electric-300">AMIRŐL BESZÉLNEK.</span>
               </h1>
@@ -127,11 +127,11 @@ const Italmarkak = () => {
               
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
+                className="w-full sm:w-auto max-w-full whitespace-normal flex-wrap break-words text-center mx-auto lg:mx-0 justify-center bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
                 onClick={() => analytics.ctaClick('brand_hero', 'Beszéljünk a márkád aktiválásáról')}
               >
                 Beszéljünk a márkád aktiválásáról
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-5 w-5 hidden sm:inline-block" aria-hidden="true" />
               </Button>
             </div>
             
