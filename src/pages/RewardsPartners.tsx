@@ -6,6 +6,7 @@ import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Gift, Settings, Zap, BarChart, Users } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
+import { HeroTitle, HeroSubtitle, SectionTitle } from '@/components/ui/typography';
 
 const RewardsPartners = () => {
   const rewardsImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png";
@@ -140,14 +141,14 @@ const RewardsPartners = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
+              <HeroTitle>
                 <span className="block text-white mb-2">ÉLMÉNYEKKEL FIZETŐ</span>
                 <span className="block text-electric-300">KÖZÖNSÉG.</span>
-              </h1>
+              </HeroTitle>
               
-              <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+              <HeroSubtitle>
                 Pontokból lojalitás — hozd át a közösséget a helyedre/jegyrendszeredbe, és tedd a jutalmakat szokássá.
-              </p>
+              </HeroSubtitle>
               
               <Button 
                 size="lg" 
@@ -174,9 +175,9 @@ const RewardsPartners = () => {
       <section className="py-12 px-4 bg-white/5 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-anton text-white mb-2">
+            <SectionTitle>
               HOGYAN MŰKÖDIK?
-            </h2>
+            </SectionTitle>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -212,9 +213,9 @@ const RewardsPartners = () => {
       <section className="py-12 px-4 bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-anton text-white mb-4">
+            <SectionTitle>
               Jutalom rendszer előnyei
-            </h2>
+            </SectionTitle>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
@@ -236,9 +237,9 @@ const RewardsPartners = () => {
       {/* Statistics - Kompaktabb */}
       <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-anton text-white mb-8">
+          <SectionTitle>
             Jutalom partnereink eredményei
-          </h2>
+          </SectionTitle>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => (

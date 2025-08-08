@@ -6,6 +6,7 @@ import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
+import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
 
 const Italmarkak = () => {
   const brandImage = "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png";
@@ -116,22 +117,22 @@ const Italmarkak = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-tight tracking-tight break-words mb-6">
+              <HeroTitle>
                 <span className="block text-white">LÉGY AZ ELSŐ KORTY,</span>
                 <span className="block text-electric-300">AMIRŐL BESZÉLNEK.</span>
-              </h1>
+              </HeroTitle>
               
-              <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+              <HeroSubtitle>
                 A legemlékezetesebb pillanatnál találkozol a fogyasztóval — az első körnél. Aktiválj, mérj, és építs kultuszt a város éjszakájában.
-              </p>
+              </HeroSubtitle>
               
               <Button 
                 size="lg" 
-                className="w-full sm:w-auto max-w-full whitespace-normal flex-wrap break-words text-center mx-auto lg:mx-0 justify-center bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
-                onClick={() => analytics.ctaClick('brand_hero', 'Beszéljünk a márkád aktiválásáról')}
+                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
+                onClick={() => analytics.ctaClick('brand_hero', 'Beszéljünk')}
               >
-                Beszéljünk a márkád aktiválásáról
-                <ArrowRight className="ml-2 h-5 w-5 hidden sm:inline-block" aria-hidden="true" />
+                Beszéljünk
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
             
@@ -147,9 +148,9 @@ const Italmarkak = () => {
       <section className="py-12 px-4 bg-white/5 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-anton text-white mb-2">
+            <SectionTitle>
               HOGYAN MŰKÖDIK?
-            </h2>
+            </SectionTitle>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -185,9 +186,9 @@ const Italmarkak = () => {
       <section className="py-12 px-4 bg-black">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-anton text-white mb-2">
+            <SectionTitle>
               MIT KÍNÁLUNK?
-            </h2>
+            </SectionTitle>
           </div>
           
           <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
@@ -206,9 +207,9 @@ const Italmarkak = () => {
       <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-anton text-white mb-2">
+            <SectionTitle>
               KINEK AJÁNLJUK?
-            </h2>
+            </SectionTitle>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -245,10 +246,10 @@ const Italmarkak = () => {
       {/* Final CTA - Kompaktabb */}
       <section className="py-12 px-4 bg-black text-center">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-anton text-white mb-4">
+          <CTATitle>
             INDÍTSD EL AZ
             <span className="block text-electric-300 mt-2">ÉLMÉNYKAMPÁNYT!</span>
-          </h2>
+          </CTATitle>
           <p className="text-base text-electric-100 mb-8">
             Írj nekünk, csatlakozz az elsők között!
           </p>

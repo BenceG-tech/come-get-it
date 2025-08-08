@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
@@ -7,6 +6,7 @@ import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clock, MessageCircle, Eye, Globe, Award, Rocket, FlaskConical, Activity, Play, FileText, Wine, NotebookPen } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
+import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
 
 const ComeGetItAccelerator = () => {
   const acceleratorImage = "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.png";
@@ -128,15 +128,15 @@ const ComeGetItAccelerator = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
+              <HeroTitle>
                 <span className="block text-white mb-2">COME GET IT</span>
                 <span className="block text-electric-300">GYORSÍTÓ</span>
-              </h1>
+              </HeroTitle>
               
-              <p className="text-lg md:text-xl text-electric-100 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+              <HeroSubtitle>
                 Indítsd be márkádat –<br />
                 Budapest legdinamikusabb italos közösségében!
-              </p>
+              </HeroSubtitle>
               
               <Button 
                 size="lg" 
@@ -163,9 +163,9 @@ const ComeGetItAccelerator = () => {
       <section className="py-16 px-4 bg-white/5 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-anton text-white mb-4">
+            <SectionTitle className="text-4xl md:text-5xl">
               HOGYAN MŰKÖDIK?
-            </h2>
+            </SectionTitle>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -201,9 +201,9 @@ const ComeGetItAccelerator = () => {
       <section className="py-16 px-4 bg-black">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-anton text-white mb-4">
+            <SectionTitle className="text-4xl md:text-5xl">
               PROGRAMCSOMAGOK ITALMÁRKÁKNAK
-            </h2>
+            </SectionTitle>
           </div>
           
           <div className="grid lg:grid-cols-2 gap-8">
@@ -254,9 +254,9 @@ const ComeGetItAccelerator = () => {
       <section className="py-16 px-4 bg-white/5 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-anton text-white mb-4">
+            <SectionTitle className="text-4xl md:text-5xl">
               MIÉRT VÁLASSZ MINKET?
-            </h2>
+            </SectionTitle>
           </div>
           
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -275,9 +275,9 @@ const ComeGetItAccelerator = () => {
       <section className="py-16 px-4 bg-black">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-anton text-white mb-4">
+            <SectionTitle className="text-4xl md:text-5xl">
               FELHASZNÁLÓI DEMÓ ADATOK
-            </h2>
+            </SectionTitle>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -299,9 +299,9 @@ const ComeGetItAccelerator = () => {
       {/* Final CTA */}
       <section className="py-20 px-4 bg-gradient-to-b from-black to-ocean-900 text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl md:text-6xl font-anton text-white mb-6">
+          <CTATitle className="text-5xl md:text-6xl">
             CSATLAKOZZ A PILOTHOZ!
-          </h2>
+          </CTATitle>
           <p className="text-xl text-electric-100 mb-10 leading-relaxed">
             Lépj be az elsők közé, akik meghatározzák<br />
             Budapest italtrendjeit!
