@@ -7,6 +7,7 @@ import { ArrowRight, Gift, Settings, Zap, BarChart, Users } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle } from '@/components/ui/typography';
+import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 
 const RewardsPartners = () => {
   const rewardsImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png";
@@ -156,6 +157,12 @@ const RewardsPartners = () => {
                 onClick={() => {
                   analytics.ctaClick('hero_section', 'Legyünk rewards partner');
                   analytics.rewardsPartnerApplicationStart();
+                  const el = document.getElementById('rewards-application');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    window.dispatchEvent(new Event('open-support'));
+                  }
                 }}
               >
                 Legyünk rewards partner
@@ -251,6 +258,8 @@ const RewardsPartners = () => {
           </div>
         </div>
       </section>
+
+      <PartnerApplicationSection id="rewards-application" partnerType="rewards" />
 
       <CustomerSupport />
     </div>

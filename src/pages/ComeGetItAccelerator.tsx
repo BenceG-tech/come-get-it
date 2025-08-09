@@ -7,6 +7,7 @@ import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clo
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
+import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 
 const ComeGetItAccelerator = () => {
   const acceleratorImage = "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.png";
@@ -144,6 +145,12 @@ const ComeGetItAccelerator = () => {
                 onClick={() => {
                   analytics.ctaClick('hero_section', 'Jelentkezz most!');
                   analytics.acceleratorApplicationStart();
+                  const el = document.getElementById('accelerator-application');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    window.dispatchEvent(new Event('open-support'));
+                  }
                 }}
               >
                 Jelentkezz most!
@@ -315,6 +322,12 @@ const ComeGetItAccelerator = () => {
             onClick={() => {
               analytics.ctaClick('final_cta', 'JELENTKEZZ MOST');
               analytics.acceleratorApplicationStart();
+              const el = document.getElementById('accelerator-application');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                window.dispatchEvent(new Event('open-support'));
+              }
             }}
           >
             JELENTKEZZ MOST
@@ -322,6 +335,8 @@ const ComeGetItAccelerator = () => {
           </Button>
         </div>
       </section>
+
+      <PartnerApplicationSection id="accelerator-application" partnerType="accelerator" />
 
       <CustomerSupport />
     </div>

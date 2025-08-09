@@ -7,6 +7,7 @@ import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket } from 'lucide-reac
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
+import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 
 const Italmarkak = () => {
   const brandImage = "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png";
@@ -129,7 +130,15 @@ const Italmarkak = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
-                onClick={() => analytics.ctaClick('brand_hero', 'Beszéljünk')}
+                onClick={() => {
+                  analytics.ctaClick('brand_hero', 'Beszéljünk');
+                  const el = document.getElementById('brand-application');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    window.dispatchEvent(new Event('open-support'));
+                  }
+                }}
               >
                 Beszéljünk
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -257,12 +266,23 @@ const Italmarkak = () => {
           <Button 
             size="lg" 
             className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-black py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+            onClick={() => {
+              analytics.ctaClick('brand_final_cta', 'KAPCSOLATFELVÉTEL');
+              const el = document.getElementById('brand-application');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                window.dispatchEvent(new Event('open-support'));
+              }
+            }}
           >
             KAPCSOLATFELVÉTEL
             <ArrowRight className="ml-3 h-5 w-5" />
           </Button>
         </div>
       </section>
+
+      <PartnerApplicationSection id="brand-application" partnerType="brand" />
 
       <CustomerSupport />
     </div>
