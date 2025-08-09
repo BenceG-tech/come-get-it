@@ -427,4 +427,11 @@
       transform: scale(1);
     }
   }
+
+  /* Smooth rounded clipping to avoid pixelated corners on high-radius screens */
+  .clip-rounded-2_5rem {
+    -webkit-clip-path: inset(0 round 2.5rem);
+    clip-path: inset(0 round 2.5rem);
+    will-change: clip-path;
+  }
 }
