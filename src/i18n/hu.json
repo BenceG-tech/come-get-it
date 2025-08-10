@@ -64,5 +64,77 @@
     "accelerator_desc": "Startup program részletek",
     "support": "Támogatás",
     "support_desc": "Kérdésed van? Írj nekünk"
+  },
+  "how_it_works": {
+    "title": "HOGYAN MŰKÖDIK",
+    "steps": {
+      "1": { "title": "TÖLTSD LE", "description": "Töltsd le az appot" },
+      "2": { "title": "REGISZTRÁLJ", "description": "Regisztrálj és linkeld a kártyádat" },
+      "3": { "title": "IGYÁL", "description": "Élvezd napi welcome drink-ed" },
+      "4": { "title": "GYŰJTS PONTOKAT", "description": "Gyűjtsd a pontokat és váltsd be további ingyen italokra, kedvezményekre" }
+    }
+  },
+  "home_features": {
+    "heading": "Miért válaszd a Come Get It-et?",
+    "cta": "Regisztrálj most!",
+    "cards": {
+      "1": {
+        "title": "FEDEZD FEL.",
+        "description": "Találd meg Budapest legmenőbb helyeit GPS alapon.",
+        "benefit": "Új helyek, új arcok, új élmények – minden nap!"
+      },
+      "2": {
+        "title": "IGYÁL ÉS GYŰJTS.",
+        "description": "Minden nap jár egy ingyen ital, minden fogyasztás után pont jár.",
+        "benefit": "Pontjaidat értékes jutalmakra válthatod!"
+      },
+      "3": {
+        "title": "SEGÍTS!",
+        "description": "Minden ital után automatikusan támogatod a jótékonyságot.",
+        "benefit": "Iszol, szórakozol, közben jót teszel – win-win."
+      }
+    }
+  },
+  "benefits": {
+    "title": "Miért éri meg mindenkinek?",
+    "user": {"title": "Felhasználó", "body": "Új helyek, napi ingyen ital.", "li1": "Pontgyűjtés, jutalmak", "li2": "Exkluzív ajánlatok"},
+    "venue": {"title": "Vendéglátóhely", "body": "Több vendég, nagyobb forgalom.", "li1": "Lojális közönség", "li2": "Ingyenes promóció"},
+    "sponsor": {"title": "Italszponzor", "body": "Erősebb márka, mérhető eredmény.", "li1": "Új fogyasztók", "li2": "Azonnali visszajelzés"},
+    "community": {"title": "Közösség", "body": "Közös élmény, jótékony hatás.", "li1": "Új barátságok", "li2": "Minden italoddal segítesz"}
+  },
+  "venues": {
+    "hero": {
+      "line1": "ÚJ ARCOK.",
+      "line2": "TELI PULT.",
+      "p1": "Garantált napi első kör forgalom a város legaktívabb 18–30 közönségéből.",
+      "p2": "Nincs kuponháború, nincs bonyodalom — belépőt adunk az estéhez, nálad folytatják.",
+      "cta": "Jelentkezem partnernek"
+    },
+    "how_it_works": {
+      "title": "HOGYAN MŰKÖDIK?",
+      "steps": {
+        "1": {"title": "REGISZTRÁLJ", "description": "Csatlakozz pár kattintással."},
+        "2": {"title": "ÁLLÍTSD BE", "description": "Add meg ajánlatod és időpontjaid."},
+        "3": {"title": "FOGADJ VENDÉGEKET", "description": "Növeld a forgalmat, érkeznek az új vendégek."},
+        "4": {"title": "KÖVESD AZ EREDMÉNYEKET", "description": "Riportok és statisztikák élőben."}
+      }
+    },
+    "key_features": {
+      "title": "KULCS FUNKCIÓK",
+      "items": {
+        "1": {"title": "MINŐSÉGI FOOTFALL", "description": "Hétköznapokon is hozunk új, releváns vendégeket."},
+        "2": {"title": "BIZONYÍTHATÓ ATTRIBUTION", "description": "Kártyalinkelt, valós forgalmi visszajelzés – nincsenek találgatások."},
+        "3": {"title": "NEM NYOMOTT ÁR", "description": "Nem freebie-seekerek: élménykereső közönség, aki költ is."},
+        "4": {"title": "BEVÁLTÁS/ FORGALOM RIPORTOK", "description": "Átlátható jelentések a beváltásról és a forgalomról."}
+      }
+    },
+    "stats": {
+      "items": {
+        "1": {"label": "ÁTLAG ÉLETKOR", "description": "Fiatal, aktív korosztály"},
+        "2": {"label": "MILLENNIÁL & GEN Z ADATBÁZIS", "description": "Célzott demográfia"},
+        "3": {"label": "NŐI KÖZÖNSÉG", "description": "Kiegyensúlyozott arány"},
+        "4": {"label": "ESTE/HÉTVÉGÉN AKTÍV", "description": "Rendszeres látogatók"}
+      }
+    }
   }
 }

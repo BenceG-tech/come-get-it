@@ -1,32 +1,34 @@
 
 import React from 'react';
 import { UserPlus, Settings, Users, BarChart } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
 export const HowItWorksForVenues: React.FC = () => {
+  const { t } = useI18n();
   const steps = [
     {
       number: "1",
       icon: UserPlus,
-      title: "REGISZTRÁLJ",
-      description: "Csatlakozz pár kattintással."
+      title: t('venues.how_it_works.steps.1.title'),
+      description: t('venues.how_it_works.steps.1.description')
     },
     {
       number: "2", 
       icon: Settings,
-      title: "ÁLLÍTSD BE",
-      description: "Add meg ajánlatod és időpontjaid."
+      title: t('venues.how_it_works.steps.2.title'),
+      description: t('venues.how_it_works.steps.2.description')
     },
     {
       number: "3",
       icon: Users,
-      title: "FOGADJ VENDÉGEKET",
-      description: "Növeld a forgalmat, érkeznek az új vendégek."
+      title: t('venues.how_it_works.steps.3.title'),
+      description: t('venues.how_it_works.steps.3.description')
     },
     {
       number: "4",
       icon: BarChart,
-      title: "KÖVESD AZ EREDMÉNYEKET",
-      description: "Riportok és statisztikák élőben."
+      title: t('venues.how_it_works.steps.4.title'),
+      description: t('venues.how_it_works.steps.4.description')
     }
   ];
 
@@ -35,7 +37,7 @@ export const HowItWorksForVenues: React.FC = () => {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-black text-white mb-2">
-            HOGYAN MŰKÖDIK?
+            {t('venues.how_it_works.title')}
           </h2>
         </div>
         

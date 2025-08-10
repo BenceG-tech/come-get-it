@@ -64,5 +64,77 @@
     "accelerator_desc": "Program details",
     "support": "Support",
     "support_desc": "Got a question? Message us"
+  },
+  "how_it_works": {
+    "title": "HOW IT WORKS",
+    "steps": {
+      "1": { "title": "DOWNLOAD", "description": "Download the app" },
+      "2": { "title": "SIGN UP", "description": "Sign up and link your card" },
+      "3": { "title": "DRINK", "description": "Enjoy your daily welcome drink" },
+      "4": { "title": "EARN POINTS", "description": "Earn points and redeem for free drinks and discounts" }
+    }
+  },
+  "home_features": {
+    "heading": "Why choose Come Get It?",
+    "cta": "Sign up now!",
+    "cards": {
+      "1": {
+        "title": "DISCOVER.",
+        "description": "Find Budapest’s hottest spots via GPS.",
+        "benefit": "New places, new faces, new experiences — every day!"
+      },
+      "2": {
+        "title": "DRINK & EARN.",
+        "description": "Get one free drink daily, earn points with every purchase.",
+        "benefit": "Redeem your points for valuable rewards!"
+      },
+      "3": {
+        "title": "GIVE BACK!",
+        "description": "Every drink automatically supports charity.",
+        "benefit": "You drink, have fun, and do good — win-win."
+      }
+    }
+  },
+  "benefits": {
+    "title": "Why does it work for everyone?",
+    "user": {"title": "User", "body": "New places, daily free drink.", "li1": "Collect points, rewards", "li2": "Exclusive offers"},
+    "venue": {"title": "Venue", "body": "More guests, higher revenue.", "li1": "Loyal audience", "li2": "Free promotion"},
+    "sponsor": {"title": "Drink sponsor", "body": "Stronger brand, measurable results.", "li1": "New consumers", "li2": "Instant feedback"},
+    "community": {"title": "Community", "body": "Shared experiences, positive impact.", "li1": "New friendships", "li2": "Every drink helps"}
+  },
+  "venues": {
+    "hero": {
+      "line1": "NEW FACES.",
+      "line2": "FULL BAR.",
+      "p1": "Guaranteed first round traffic daily from the city’s most active 18–30 crowd.",
+      "p2": "No coupon wars, no hassle — we start the night, they continue at your venue.",
+      "cta": "Apply as partner"
+    },
+    "how_it_works": {
+      "title": "HOW IT WORKS?",
+      "steps": {
+        "1": {"title": "SIGN UP", "description": "Join in a few taps."},
+        "2": {"title": "SET UP", "description": "Add your offer and schedule."},
+        "3": {"title": "WELCOME GUESTS", "description": "Grow traffic as new guests arrive."},
+        "4": {"title": "TRACK RESULTS", "description": "Live reports and stats."}
+      }
+    },
+    "key_features": {
+      "title": "KEY FEATURES",
+      "items": {
+        "1": {"title": "QUALITY FOOTFALL", "description": "Bring new, relevant guests even on weekdays."},
+        "2": {"title": "PROVABLE ATTRIBUTION", "description": "Card-linked, real traffic feedback — no guesswork."},
+        "3": {"title": "NO DISCOUNTING", "description": "Not freebie seekers: experience-driven audience who spend."},
+        "4": {"title": "REDEMPTIONS / TRAFFIC REPORTS", "description": "Transparent reports on redemptions and traffic."}
+      }
+    },
+    "stats": {
+      "items": {
+        "1": {"label": "AVG AGE", "description": "Young, active audience"},
+        "2": {"label": "MILLENNIAL & GEN Z DATABASE", "description": "Targeted demographics"},
+        "3": {"label": "FEMALE AUDIENCE", "description": "Balanced ratio"},
+        "4": {"label": "ACTIVE EVENINGS/WEEKENDS", "description": "Regular visitors"}
+      }
+    }
   }
 }

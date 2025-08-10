@@ -1,31 +1,33 @@
 import React from 'react';
 import { Cake, Users, CircleDot, TrendingUp } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
 export const VenueStats: React.FC = () => {
+  const { t } = useI18n();
   const stats = [
     {
       icon: Cake,
       value: "24",
-      label: "ÁTLAG ÉLETKOR",
-      description: "Fiatal, aktív korosztály"
+      label: t('venues.stats.items.1.label'),
+      description: t('venues.stats.items.1.description')
     },
     {
       icon: Users,
       value: "91%",
-      label: "MILLENNIÁL & GEN Z ADATBÁZIS",
-      description: "Célzott demográfia"
+      label: t('venues.stats.items.2.label'),
+      description: t('venues.stats.items.2.description')
     },
     {
       icon: CircleDot,
       value: "56%",
-      label: "NŐI KÖZÖNSÉG",
-      description: "Kiegyensúlyozott arány"
+      label: t('venues.stats.items.3.label'),
+      description: t('venues.stats.items.3.description')
     },
     {
       icon: TrendingUp,
       value: "85%",
-      label: "ESTE/HÉTVÉGÉN AKTÍV",
-      description: "Rendszeres látogatók"
+      label: t('venues.stats.items.4.label'),
+      description: t('venues.stats.items.4.description')
     }
   ];
 

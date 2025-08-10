@@ -1,31 +1,33 @@
 import React from 'react';
 import { Download, UserPlus, Wine, Star } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
 export const HowItWorks: React.FC = () => {
+  const { t } = useI18n();
   const steps = [
     {
       number: 1,
       icon: Download,
-      title: "TÖLTSD LE",
-      description: "Töltsd le az appot"
+      title: t('how_it_works.steps.1.title'),
+      description: t('how_it_works.steps.1.description')
     },
     {
       number: 2,
       icon: UserPlus,
-      title: "REGISZTRÁLJ",
-      description: "Regisztrálj és linkeld a kártyádat"
+      title: t('how_it_works.steps.2.title'),
+      description: t('how_it_works.steps.2.description')
     },
     {
       number: 3,
       icon: Wine,
-      title: "IGYÁL",
-      description: "Élvezd napi welcome drink-ed"
+      title: t('how_it_works.steps.3.title'),
+      description: t('how_it_works.steps.3.description')
     },
     {
       number: 4,
       icon: Star,
-      title: "GYŰJTS PONTOKAT",
-      description: "Gyűjtsd a pontokat és váltsd be további ingyen italokra, kedvezményekre"
+      title: t('how_it_works.steps.4.title'),
+      description: t('how_it_works.steps.4.description')
     }
   ];
 
@@ -34,7 +36,7 @@ export const HowItWorks: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-            HOGYAN MŰKÖDIK
+            {t('how_it_works.title')}
           </h2>
         </div>
         

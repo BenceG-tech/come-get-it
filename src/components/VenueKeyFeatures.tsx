@@ -1,30 +1,32 @@
 import React from 'react';
 import { PhoneMockup } from './PhoneMockup';
 import { GlassWater, Star, CheckCircle, MapPin, Footprints } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
 export const VenueKeyFeatures: React.FC = () => {
   const venueDetailImage = "/lovable-uploads/306d0815-37a6-4087-8408-3986c94eb037.png";
+  const { t } = useI18n();
 
   const features = [
     {
       icon: Footprints,
-      title: "MINŐSÉGI FOOTFALL",
-      description: "Hétköznapokon is hozunk új, releváns vendégeket."
+      title: t('venues.key_features.items.1.title'),
+      description: t('venues.key_features.items.1.description')
     },
     {
       icon: CheckCircle,
-      title: "BIZONYÍTHATÓ ATTRIBUTION",
-      description: "Kártyalinkelt, valós forgalmi visszajelzés – nincsenek találgatások."
+      title: t('venues.key_features.items.2.title'),
+      description: t('venues.key_features.items.2.description')
     },
     {
       icon: Star,
-      title: "NEM NYOMOTT ÁR",
-      description: "Nem freebie-seekerek: élménykereső közönség, aki költ is."
+      title: t('venues.key_features.items.3.title'),
+      description: t('venues.key_features.items.3.description')
     },
     {
       icon: GlassWater,
-      title: "BEVÁLTÁS/ FORGALOM RIPORTOK",
-      description: "Átlátható jelentések a beváltásról és a forgalomról."
+      title: t('venues.key_features.items.4.title'),
+      description: t('venues.key_features.items.4.description')
     }
   ];
 
@@ -36,7 +38,7 @@ export const VenueKeyFeatures: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-anton text-white mb-6">
-            KULCS FUNKCIÓK
+            {t('venues.key_features.title')}
           </h2>
         </div>
 
