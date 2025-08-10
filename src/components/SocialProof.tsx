@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { analytics } from '@/lib/analytics';
+import { useI18n } from '@/hooks/useI18n';
 
 export const SocialProof: React.FC = () => {
   const [count, setCount] = useState(0);
   const targetCount = 847; // Will be dynamic later
+  const { t } = useI18n();
 
   useEffect(() => {
     // Animated counter effect
@@ -46,7 +48,7 @@ export const SocialProof: React.FC = () => {
       </div>
       
       <p className="text-sm text-electric-100">
-        korai felhasználó várja az indulást
+        {t('social.early_users_waiting')}
       </p>
     </div>
   );

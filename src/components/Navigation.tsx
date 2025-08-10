@@ -53,45 +53,51 @@ export const Navigation: React.FC = () => {
         
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center text-white hover:text-[#27dddf] transition-colors focus:outline-none">
-            Partnerek
+            {t('nav.partners')}
             <ChevronDown className="ml-1 h-4 w-4" />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-black/90 backdrop-blur-sm border border-[#3ba1cb]/20 rounded-lg">
             <DropdownMenuItem asChild>
               <Link to="/vendeglatohelyek" className="text-white hover:text-[#27dddf] cursor-pointer w-full">
-                Vendéglátóhelyek
+                {t('nav.venues')}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link to="/italmarkak" className="text-white hover:text-[#27dddf] cursor-pointer w-full">
-                Italmárkák
+                {t('nav.brands')}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link to="/rewards-partners" className="text-white hover:text-[#27dddf] cursor-pointer w-full">
-                Jutalom Partnerek
+                {t('nav.rewards')}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link to="/come-get-it-accelerator" className="text-white hover:text-[#27dddf] cursor-pointer w-full">
-                Come Get It Accelerator
+                {t('nav.accelerator')}
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         
+          {/* Language switcher */}
+          <div className="flex items-center space-x-2">
+            <button onClick={() => setLang('hu')} className="text-white hover:text-[#27dddf] transition-colors" aria-label={t('nav.hu')}>{t('nav.hu')}</button>
+            <span className="text-white/50">|</span>
+            <button onClick={() => setLang('en')} className="text-white hover:text-[#27dddf] transition-colors" aria-label={t('nav.en')}>{t('nav.en')}</button>
+          </div>
           {user ? (
             <UserMenu />
           ) : (
             <div className="flex items-center space-x-4">
-              <button onClick={handleSignupClick} className="text-white hover:text-[#27dddf] transition-colors">Regisztrálj</button>
+              <button onClick={handleSignupClick} className="text-white hover:text-[#27dddf] transition-colors">{t('nav.signup')}</button>
               <Button 
                 variant="outline" 
                 size="sm"
                 onClick={() => navigate('/auth')}
                 className="border-[#27dddf] text-[#27dddf] hover:bg-[#27dddf] hover:text-black"
               >
-                Bejelentkezés
+                {t('nav.login')}
               </Button>
             </div>
           )}

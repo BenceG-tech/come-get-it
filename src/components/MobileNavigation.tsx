@@ -10,9 +10,11 @@ import {
 } from "@/components/ui/sheet";
 import { Menu, X, MessageCircle, Home, Store, Wine, Gift, Rocket, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useI18n } from '@/hooks/useI18n';
 
 export const MobileNavigation: React.FC = () => {
   const [showPulse, setShowPulse] = useState(false);
+  const { t, lang, setLang } = useI18n();
 
   useEffect(() => {
     const seen = localStorage.getItem('menu_pulse_seen');
@@ -30,11 +32,11 @@ export const MobileNavigation: React.FC = () => {
       <Sheet>
         <SheetTrigger asChild>
           <button
-            aria-label="Menü megnyitása"
+            aria-label={t('nav.menu')}
             className={`fixed top-4 right-4 z-50 px-3 py-2 bg-black/90 backdrop-blur-sm rounded-full border border-electric-300/20 text-white hover:text-electric-300 hover:border-electric-300/40 transition-all duration-300 flex items-center gap-2 ${showPulse ? 'pulse' : ''}`}
           >
             <Menu className="h-4 w-4" />
-            <span className="text-xs font-semibold tracking-wide">MENÜ</span>
+            <span className="text-xs font-semibold tracking-wide">{t('nav.menu')}</span>
           </button>
         </SheetTrigger>
         
@@ -68,8 +70,8 @@ export const MobileNavigation: React.FC = () => {
                       <div className="flex items-center gap-3">
                         <Home className="h-5 w-5 text-electric-300" />
                         <div>
-                          <span className="block text-white font-semibold">Főoldal</span>
-                          <span className="block text-xs text-muted-foreground">Kezdőszekciók és infók</span>
+                          <span className="block text-white font-semibold">{t('mobile_menu.home')}</span>
+                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.home_desc')}</span>
                         </div>
                       </div>
                       <ChevronRight className="h-5 w-5 text-white/60" />
@@ -83,8 +85,8 @@ export const MobileNavigation: React.FC = () => {
                       <div className="flex items-center gap-3">
                         <Store className="h-5 w-5 text-electric-300" />
                         <div>
-                          <span className="block text-white font-semibold">Vendéglátóhelyek</span>
-                          <span className="block text-xs text-muted-foreground">Érdeklődés és jelentkezés</span>
+                          <span className="block text-white font-semibold">{t('mobile_menu.venues')}</span>
+                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.venues_desc')}</span>
                         </div>
                       </div>
                       <ChevronRight className="h-5 w-5 text-white/60" />
@@ -98,8 +100,8 @@ export const MobileNavigation: React.FC = () => {
                       <div className="flex items-center gap-3">
                         <Wine className="h-5 w-5 text-electric-300" />
                         <div>
-                          <span className="block text-white font-semibold">Italmárkák</span>
-                          <span className="block text-xs text-muted-foreground">Együttműködés márkáknak</span>
+                          <span className="block text-white font-semibold">{t('mobile_menu.brands')}</span>
+                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.brands_desc')}</span>
                         </div>
                       </div>
                       <ChevronRight className="h-5 w-5 text-white/60" />
@@ -113,8 +115,8 @@ export const MobileNavigation: React.FC = () => {
                       <div className="flex items-center gap-3">
                         <Gift className="h-5 w-5 text-electric-300" />
                         <div>
-                          <span className="block text-white font-semibold">Jutalom partnerek</span>
-                          <span className="block text-xs text-muted-foreground">Ajánlatok és integráció</span>
+                          <span className="block text-white font-semibold">{t('mobile_menu.rewards')}</span>
+                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.rewards_desc')}</span>
                         </div>
                       </div>
                       <ChevronRight className="h-5 w-5 text-white/60" />
@@ -128,8 +130,8 @@ export const MobileNavigation: React.FC = () => {
                       <div className="flex items-center gap-3">
                         <Rocket className="h-5 w-5 text-electric-300" />
                         <div>
-                          <span className="block text-white font-semibold">Gyorsítóprogram</span>
-                          <span className="block text-xs text-muted-foreground">Startup program részletek</span>
+                          <span className="block text-white font-semibold">{t('mobile_menu.accelerator')}</span>
+                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.accelerator_desc')}</span>
                         </div>
                       </div>
                       <ChevronRight className="h-5 w-5 text-white/60" />
@@ -148,8 +150,8 @@ export const MobileNavigation: React.FC = () => {
                       <div className="flex items-center gap-3">
                         <MessageCircle className="h-5 w-5 text-electric-300" />
                         <div>
-                          <span className="block text-white font-semibold">Támogatás</span>
-                          <span className="block text-xs text-muted-foreground">Kérdésed van? Írj nekünk</span>
+                          <span className="block text-white font-semibold">{t('mobile_menu.support')}</span>
+                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.support_desc')}</span>
                         </div>
                       </div>
                       <ChevronRight className="h-5 w-5 text-white/60" />
@@ -158,6 +160,14 @@ export const MobileNavigation: React.FC = () => {
                 </li>
               </ul>
             </nav>
+
+            {/* Language Switcher */}
+            <div className="mt-6 flex items-center justify-center gap-3">
+              <span className="text-white/70 text-sm">{t('nav.language')}</span>
+              <button onClick={() => setLang('hu')} className="text-white hover:text-electric-300 transition-colors text-sm">{t('nav.hu')}</button>
+              <span className="text-white/50">|</span>
+              <button onClick={() => setLang('en')} className="text-white hover:text-electric-300 transition-colors text-sm">{t('nav.en')}</button>
+            </div>
 
             {/* Bottom accent */}
             <div className="mt-8 flex justify-center">
