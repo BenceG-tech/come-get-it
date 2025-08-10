@@ -8,9 +8,10 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { Menu, X, MessageCircle, Home, Store, Wine, Gift, Rocket, ChevronRight } from 'lucide-react';
+import { Menu, X, MessageCircle, Home, Store, Wine, Gift, Rocket, ChevronRight, Languages } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/hooks/useI18n';
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 export const MobileNavigation: React.FC = () => {
   const [showPulse, setShowPulse] = useState(false);
@@ -61,6 +62,34 @@ export const MobileNavigation: React.FC = () => {
               </SheetClose>
             </div>
             
+            {/* Nyelvváltó – jól látható a menü tetején */}
+            <div className="mb-6 p-3 rounded-xl border border-electric-300/30 bg-white/5">
+              <div className="flex items-center gap-2 mb-2 text-white">
+                <Languages className="h-4 w-4 text-electric-300" />
+                <span className="text-sm font-medium">Nyelv / Language</span>
+              </div>
+              <ToggleGroup
+                type="single"
+                value={lang}
+                onValueChange={(v) => v && setLang(v as 'hu' | 'en')}
+                aria-label={t('nav.language')}
+                className="w-full"
+              >
+                <ToggleGroupItem
+                  value="hu"
+                  className={`flex-1 ${lang === 'hu' ? 'bg-electric-300/20 text-white border-electric-300' : 'text-white/70'}`}
+                >
+                  HU
+                </ToggleGroupItem>
+                <ToggleGroupItem
+                  value="en"
+                  className={`flex-1 ${lang === 'en' ? 'bg-electric-300/20 text-white border-electric-300' : 'text-white/70'}`}
+                >
+                  EN
+                </ToggleGroupItem>
+              </ToggleGroup>
+            </div>
+
             {/* Menü elemek – Tappolható sorok, keretek nélkül */}
             <nav className="pt-2">
               <ul className="divide-y divide-white/5">
@@ -161,13 +190,6 @@ export const MobileNavigation: React.FC = () => {
               </ul>
             </nav>
 
-            {/* Language Switcher */}
-            <div className="mt-6 flex items-center justify-center gap-3">
-              <span className="text-white/70 text-sm">{t('nav.language')}</span>
-              <button onClick={() => setLang('hu')} className="text-white hover:text-electric-300 transition-colors text-sm">{t('nav.hu')}</button>
-              <span className="text-white/50">|</span>
-              <button onClick={() => setLang('en')} className="text-white hover:text-electric-300 transition-colors text-sm">{t('nav.en')}</button>
-            </div>
 
             {/* Bottom accent */}
             <div className="mt-8 flex justify-center">
