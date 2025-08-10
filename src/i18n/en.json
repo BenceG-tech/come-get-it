@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "brand": "COME GET IT",
+    "drink": "Drink",
+    "link": "Link",
+    "earn": "Earn",
+    "partners": "Partners",
+    "venues": "Venues",
+    "brands": "Drink Brands",
+    "rewards": "Rewards Partners",
+    "accelerator": "Come Get It Accelerator",
+    "signup": "Sign up",
+    "login": "Log in",
+    "menu": "MENU",
+    "support": "Support",
+    "language": "Language",
+    "hu": "HU",
+    "en": "EN"
+  },
+  "hero": {
+    "title_line1": "FREE DRINK",
+    "title_line2": "EVERY DAY",
+    "subtitle": "Drink free every day in Budapest – discover new spots, earn points!",
+    "cta": "Join now"
+  },
+  "drink": {
+    "title": "DRINK.",
+    "subtitle": "The first glass opens the night",
+    "body": "Pick a spot, show the app, and make your first round memorable. Every night a new vibe, new people — the story is yours.",
+    "button": "Start tonight!"
+  },
+  "link": {
+    "title": "LINK.",
+    "subtitle": "Insider experience in one move",
+    "body": "Securely link your card and earn points automatically with every purchase. No coupons, no QR—just flow."
+  },
+  "earn": {
+    "title": "EARN.",
+    "subtitle": "Points into experiences",
+    "body": "Every sip, discovery, and action gives points. Redeem for exclusive rewards while supporting good causes. Drink smart, live intensely."
+  },
+  "fomo": {
+    "title": "Become a founding member",
+    "p1": "The first 1000 insiders get a special badge, extra rewards, and lifelong bragging rights.",
+    "p2": "Budapest’s nightlife is being written now — with us.",
+    "button": "I’m in for a round"
+  },
+  "cta": {
+    "sticky_join_round": "I'm in for a round! 🍻"
+  },
+  "social": {
+    "early_users_waiting": "early users are waiting for launch"
+  },
+  "mobile_menu": {
+    "home": "Home",
+    "home_desc": "Top sections and info",
+    "venues": "Venues",
+    "venues_desc": "Interest and application",
+    "brands": "Drink Brands",
+    "brands_desc": "Collaboration for brands",
+    "rewards": "Rewards partners",
+    "rewards_desc": "Offers and integration",
+    "accelerator": "Accelerator",
+    "accelerator_desc": "Program details",
+    "support": "Support",
+    "support_desc": "Got a question? Message us"
+  }
+}

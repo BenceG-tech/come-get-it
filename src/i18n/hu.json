@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "brand": "COME GET IT",
+    "drink": "Drink",
+    "link": "Link",
+    "earn": "Earn",
+    "partners": "Partnerek",
+    "venues": "Vendéglátóhelyek",
+    "brands": "Italmárkák",
+    "rewards": "Jutalom Partnerek",
+    "accelerator": "Come Get It Accelerator",
+    "signup": "Regisztrálj",
+    "login": "Bejelentkezés",
+    "menu": "MENÜ",
+    "support": "Támogatás",
+    "language": "Nyelv",
+    "hu": "HU",
+    "en": "EN"
+  },
+  "hero": {
+    "title_line1": "INGYEN ITAL",
+    "title_line2": "MINDEN NAPRA",
+    "subtitle": "Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat!",
+    "cta": "Csatlakozom"
+  },
+  "drink": {
+    "title": "DRINK.",
+    "subtitle": "Az első pohár nyitja az estét",
+    "body": "Válassz egy helyet, mutasd fel az appot és tedd emlékezetessé a napod első körét. Minden este más hangulat, más társaság — a sztori rajtad múlik.",
+    "button": "Kezdjük ma este!"
+  },
+  "link": {
+    "title": "LINK.",
+    "subtitle": "Bennfentes élmény, egy mozdulattal",
+    "body": "Kösd össze biztonságosan a kártyád, és automatikusan jár a pont minden fogyasztás után. Nincs kupon, nincs QR—csak flow."
+  },
+  "earn": {
+    "title": "EARN.",
+    "subtitle": "Pontokból élmények",
+    "body": "Minden korty, felfedezés és aktivitás pont. Váltsd be exkluzív jutalmakra, és közben jó ügyeket is támogatsz. Igyál okosan, élj intenzíven."
+  },
+  "fomo": {
+    "title": "Legyél alapító tag",
+    "p1": "Az első 1000 bennfentes külön badge‑et, extra jutalmakat és életre szóló bragging right‑ot kap.",
+    "p2": "Budapest éjszakája most íródik — velünk.",
+    "button": "Jövök a körre"
+  },
+  "cta": {
+    "sticky_join_round": "Jövök a körre! 🍻"
+  },
+  "social": {
+    "early_users_waiting": "korai felhasználó várja az indulást"
+  },
+  "mobile_menu": {
+    "home": "Főoldal",
+    "home_desc": "Kezdőszekciók és infók",
+    "venues": "Vendéglátóhelyek",
+    "venues_desc": "Érdeklődés és jelentkezés",
+    "brands": "Italmárkák",
+    "brands_desc": "Együttműködés márkáknak",
+    "rewards": "Jutalom partnerek",
+    "rewards_desc": "Ajánlatok és integráció",
+    "accelerator": "Gyorsítóprogram",
+    "accelerator_desc": "Startup program részletek",
+    "support": "Támogatás",
+    "support_desc": "Kérdésed van? Írj nekünk"
+  }
+}

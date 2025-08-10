@@ -11,10 +11,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { UserMenu } from '@/components/UserMenu';
 import { Button } from '@/components/ui/button';
+import { useI18n } from '@/hooks/useI18n';
 
 export const Navigation: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { t, lang, setLang } = useI18n();
 
   const handleNavClick = (section: string) => {
     if (window.location.pathname !== '/') {
@@ -42,12 +44,12 @@ export const Navigation: React.FC = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-[#3ba1cb]/20 hidden lg:block">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <Link to="/" className="text-2xl font-anton text-white hover:text-[#27dddf] transition-colors">
-          COME GET IT
+          {t('nav.brand')}
         </Link>
         <div className="flex space-x-8">
-          <button onClick={() => handleNavClick('drink')} className="text-white hover:text-[#27dddf] transition-colors">Drink</button>
-          <button onClick={() => handleNavClick('link')} className="text-white hover:text-[#27dddf] transition-colors">Link</button>
-          <button onClick={() => handleNavClick('earn')} className="text-white hover:text-[#27dddf] transition-colors">Earn</button>
+          <button onClick={() => handleNavClick('drink')} className="text-white hover:text-[#27dddf] transition-colors">{t('nav.drink')}</button>
+          <button onClick={() => handleNavClick('link')} className="text-white hover:text-[#27dddf] transition-colors">{t('nav.link')}</button>
+          <button onClick={() => handleNavClick('earn')} className="text-white hover:text-[#27dddf] transition-colors">{t('nav.earn')}</button>
         
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center text-white hover:text-[#27dddf] transition-colors focus:outline-none">
