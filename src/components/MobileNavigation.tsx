@@ -63,13 +63,14 @@ export const MobileNavigation: React.FC = () => {
             </div>
             
             {/* Nyelvváltó – jól látható a menü tetején */}
-            <div className="mb-6 p-3 rounded-xl border border-electric-300/30 bg-white/5">
-              <div className="flex items-center gap-2 mb-2 text-white">
+            <div className="mb-4 p-2 rounded-xl border border-electric-300/30 bg-white/5">
+              <div className="flex items-center gap-2 mb-1.5 text-white">
                 <Languages className="h-4 w-4 text-electric-300" />
-                <span className="text-sm font-medium">Nyelv / Language</span>
+                <span className="text-xs font-medium">Nyelv / Language</span>
               </div>
               <ToggleGroup
                 type="single"
+                size="sm"
                 value={lang}
                 onValueChange={(v) => v && setLang(v as 'hu' | 'en')}
                 aria-label={t('nav.language')}
