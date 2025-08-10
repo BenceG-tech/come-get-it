@@ -306,5 +306,24 @@
       "signup_success_desc": "Please check your email to confirm your account.",
       "google_error": "An error occurred with Google sign-in"
     }
+  },
+  "exit_intent": {
+    "title": "Don't miss out! 🍻",
+    "subtitle": "Be among the first to get notified at launch",
+    "placeholder": "Your email",
+    "submit": "Sign me up for updates",
+    "submitting": "⏳ Sending...",
+    "footer": "Exclusive bonus for the first 1000 signups",
+    "toasts": { "error_title": "Error", "error_desc": "Please try again later." }
+  },
+  "quick_access": {
+    "aria": "Quick access"
+  },
+  "support": {
+    "tabs": { "home": "Home", "messages": "Messages", "help": "Help" },
+    "feedback": { "question": "Did this answer your question?", "yes": "Yes", "no": "No" },
+    "toc": "Table of contents",
+    "faq_label": "Frequently asked questions",
+    "contact_button": "Message us if you have more questions"
   }
 }

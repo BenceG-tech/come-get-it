@@ -4,8 +4,8 @@ import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { analytics } from '@/lib/analytics';
-import { getSupabaseClient } from '@/lib/supabase';
 import { useToast } from '@/hooks/use-toast';
+import { useI18n } from '@/hooks/useI18n';
 
 interface ExitIntentPopupProps {
   onClose: () => void;
@@ -17,6 +17,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { t } = useI18n();
 
   useEffect(() => {
     // Show popup with animation delay
@@ -39,8 +40,8 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
     } catch (error) {
       console.error('Error handling exit intent signup:', error);
       toast({
-        title: "Hiba történt",
-        description: "Kérjük, próbálja újra később.",
+        title: t('exit_intent.toasts.error_title'),
+        description: t('exit_intent.toasts.error_desc'),
         variant: "destructive",
       });
     } finally {
@@ -71,13 +72,12 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
           <X className="w-5 h-5" />
         </button>
 
-        {/* Content */}
         <div className="text-center mb-6">
           <h3 className="text-2xl font-black text-white mb-2">
-            Ne maradj le! 🍻
+            {t('exit_intent.title')}
           </h3>
           <p className="text-electric-100">
-            Légy az elsők között, akik megkapják az értesítést az induláskor
+            {t('exit_intent.subtitle')}
           </p>
         </div>
 
@@ -85,7 +85,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
             type="email"
-            placeholder="Email címed"
+            placeholder={t('exit_intent.placeholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="bg-black/50 border-electric-300/30 text-white placeholder:text-electric-100/60"
@@ -98,12 +98,12 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
             disabled={isLoading}
             className="w-full brand-gradient-cta hover:shadow-2xl text-white font-semibold py-3 rounded-full transition-all duration-300 neon-glow-brand"
           >
-            {isLoading ? '⏳ Küldés...' : 'Regisztrálok az értesítésre'}
+            {isLoading ? t('exit_intent.submitting') : t('exit_intent.submit')}
           </Button>
         </form>
 
         <p className="text-xs text-electric-100/60 text-center mt-4">
-          Exkluzív bónusz az első 1000 regisztrálónak
+          {t('exit_intent.footer')}
         </p>
       </div>
     </div>

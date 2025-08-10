@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { MessageCircle, X, Send, Search, Home, HelpCircle, ArrowLeft, ThumbsUp, ThumbsDown, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useI18n } from '@/hooks/useI18n';
 
 type MainTab = 'home' | 'messages' | 'help';
 type DetailView = 'ingyen-italok' | 'jutalmak' | 'regisztracio' | 'ajanlas' | null;
@@ -13,6 +14,7 @@ export const CustomerSupport: React.FC = () => {
   const [message, setMessage] = useState('');
   const [selectedSection, setSelectedSection] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { t } = useI18n();
 
   // Listen for global open-support events (from MobileNavigation, etc.)
   useEffect(() => {
@@ -101,7 +103,7 @@ export const CustomerSupport: React.FC = () => {
           }`}
         >
           <Home className="w-5 h-5 mb-1" />
-          <span className="text-xs">Kezdőoldal</span>
+          <span className="text-xs">{t('support.tabs.home')}</span>
         </button>
         
         <button
@@ -116,7 +118,7 @@ export const CustomerSupport: React.FC = () => {
           }`}
         >
           <MessageCircle className="w-5 h-5 mb-1" />
-          <span className="text-xs">Üzenetek</span>
+          <span className="text-xs">{t('support.tabs.messages')}</span>
         </button>
         
         <button
@@ -131,7 +133,7 @@ export const CustomerSupport: React.FC = () => {
           }`}
         >
           <HelpCircle className="w-5 h-5 mb-1" />
-          <span className="text-xs">Súgó</span>
+          <span className="text-xs">{t('support.tabs.help')}</span>
         </button>
       </div>
     </div>
@@ -139,15 +141,15 @@ export const CustomerSupport: React.FC = () => {
 
   const renderFeedbackSection = () => (
     <div className="mt-8 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
-      <p className="text-white text-center mb-4">Did this answer your question?</p>
+      <p className="text-white text-center mb-4">{t('support.feedback.question')}</p>
       <div className="flex justify-center space-x-4">
         <button className="flex items-center space-x-2 px-4 py-2 bg-green-600/20 hover:bg-green-600/30 rounded-lg border border-green-600/30 transition-colors">
           <ThumbsUp className="w-4 h-4 text-green-400" />
-          <span className="text-green-400 text-sm">Yes</span>
+          <span className="text-green-400 text-sm">{t('support.feedback.yes')}</span>
         </button>
         <button className="flex items-center space-x-2 px-4 py-2 bg-red-600/20 hover:bg-red-600/30 rounded-lg border border-red-600/30 transition-colors">
           <ThumbsDown className="w-4 h-4 text-red-400" />
-          <span className="text-red-400 text-sm">No</span>
+          <span className="text-red-400 text-sm">{t('support.feedback.no')}</span>
         </button>
       </div>
     </div>
@@ -298,7 +300,7 @@ export const CustomerSupport: React.FC = () => {
           <div className="flex-1 overflow-y-auto p-4">
             <div className="mb-4">
               <h3 className="text-xl font-bold text-white mb-2">{faqData.title}</h3>
-              <p className="text-gray-400 text-sm mb-4">Gyakori kérdések és válaszok</p>
+              <p className="text-gray-400 text-sm mb-4">{t('support.faq_label')}</p>
               
               {/* Table of Contents Dropdown */}
               <div className="relative mb-6">
@@ -307,7 +309,7 @@ export const CustomerSupport: React.FC = () => {
                   className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-left text-white flex items-center justify-between hover:bg-gray-700 transition-colors"
                 >
                   <span className="text-sm font-medium">
-                    {selectedSection ? faqData.sections.find(s => s.id === selectedSection)?.title : 'Tartalomjegyzék'}
+                    {selectedSection ? faqData.sections.find(s => s.id === selectedSection)?.title : t('support.toc')}
                   </span>
                   <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -354,7 +356,7 @@ export const CustomerSupport: React.FC = () => {
                 onClick={() => setCurrentTab('messages')}
                 className="w-full bg-electric-300 hover:bg-electric-400 text-black font-semibold py-3 rounded-xl"
               >
-                További kérdés esetén írj nekünk
+                {t('support.contact_button')}
               </Button>
             </div>
           </div>

@@ -306,5 +306,24 @@
       "signup_success_desc": "Kérjük, erősítsd meg az emailed.",
       "google_error": "Hiba történt a Google bejelentkezésnél"
     }
+  },
+  "exit_intent": {
+    "title": "Ne maradj le! 🍻",
+    "subtitle": "Légy az elsők között, akik megkapják az értesítést az induláskor",
+    "placeholder": "Email címed",
+    "submit": "Regisztrálok az értesítésre",
+    "submitting": "⏳ Küldés...",
+    "footer": "Exkluzív bónusz az első 1000 regisztrálónak",
+    "toasts": { "error_title": "Hiba történt", "error_desc": "Kérjük, próbálja újra később." }
+  },
+  "quick_access": {
+    "aria": "Gyors elérés"
+  },
+  "support": {
+    "tabs": { "home": "Kezdőoldal", "messages": "Üzenetek", "help": "Súgó" },
+    "feedback": { "question": "Megválaszolta a kérdésed?", "yes": "Igen", "no": "Nem" },
+    "toc": "Tartalomjegyzék",
+    "faq_label": "Gyakori kérdések és válaszok",
+    "contact_button": "További kérdés esetén írj nekünk"
   }
 }
