@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Handshake, Mail, Phone, User, Store } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
+import { useI18n } from '@/hooks/useI18n';
+
 
 export const VenueApplicationSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +19,7 @@ export const VenueApplicationSection: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
+  const { t } = useI18n();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,12 +32,11 @@ export const VenueApplicationSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
     if (!formData.name || !formData.email || !formData.venueName) {
       toast({
-        title: "Hiányzó adatok",
-        description: "Kérjük, töltse ki az összes kötelező mezőt.",
-        variant: "destructive",
+        title: t('venue_application.toasts.missing.title'),
+        description: t('venue_application.toasts.missing.desc'),
+        variant: 'destructive',
       });
       return;
     }
@@ -45,8 +46,8 @@ export const VenueApplicationSection: React.FC = () => {
     if (!supabase) {
       console.warn('Supabase not configured, showing demo success message');
       toast({
-        title: "Demo Mode",
-        description: "Az alkalmazás demo módban fut. A jelentkezés sikeres lenne éles környezetben.",
+        title: t('venue_application.toasts.demo.title'),
+        description: t('venue_application.toasts.demo.desc'),
       });
       setIsSubmitted(true);
       return;
@@ -99,8 +100,8 @@ export const VenueApplicationSection: React.FC = () => {
 
       setIsSubmitted(true);
       toast({
-        title: "🤝 Jelentkezés elküldve!",
-        description: "Köszönjük a jelentkezést! Hamarosan felvesszük Önnel a kapcsolatot. Ellenőrizze az email fiókját!",
+        title: t('venue_application.toasts.sent.title'),
+        description: t('venue_application.toasts.sent.desc'),
       });
 
       // Reset form after successful submission
@@ -117,9 +118,9 @@ export const VenueApplicationSection: React.FC = () => {
     } catch (error) {
       console.error('Error sending venue application:', error);
       toast({
-        title: "Hiba történt",
-        description: "Sajnos nem sikerült elküldeni a jelentkezést. Kérjük, próbálja újra később.",
-        variant: "destructive",
+        title: t('venue_application.toasts.error.title'),
+        description: t('venue_application.toasts.error.desc'),
+        variant: 'destructive',
       });
     } finally {
       setIsLoading(false);
@@ -168,20 +169,20 @@ export const VenueApplicationSection: React.FC = () => {
             </div>
           </div>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-            Üzlettulajdonos vagy?
+            {t('venue_application.header.title')}
           </h2>
           <p className="text-lg text-white mb-2">
-            Csatlakozz partnereink közé!
+            {t('venue_application.header.sub1')}
           </p>
           <p className="text-electric-100 max-w-2xl mx-auto">
-            Növeld vendégeid számát, építs hűséges közönséget és szerezz új vásárlókat az ingyenes promócióinkkal.
+            {t('venue_application.header.sub2')}
           </p>
         </div>
 
         {!isSupabaseConfigured() && (
           <div className="mb-6 p-4 bg-yellow-500/20 border border-yellow-500/30 rounded-lg text-center">
             <p className="text-yellow-100 text-sm">
-              ⚠️ Demo Mode: Email küldés jelenleg nem elérhető
+              {t('venue_application.demo_notice')}
             </p>
           </div>
         )}
@@ -190,7 +191,7 @@ export const VenueApplicationSection: React.FC = () => {
         <Card className="glass-effect border-electric-300/20">{/* Unified glass effect */}
           <CardHeader>
             <CardTitle className="text-white text-center text-xl">
-              Jelentkezés partnerségre
+              {t('venue_application.form.title')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -200,7 +201,7 @@ export const VenueApplicationSection: React.FC = () => {
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-white flex items-center">
                     <User className="w-4 h-4 mr-2" />
-                    Név *
+                    {t('venue_application.form.name')}
                   </Label>
                   <Input
                     id="name"
@@ -209,7 +210,7 @@ export const VenueApplicationSection: React.FC = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
-                    placeholder="Teljes név"
+                    placeholder={t('venue_application.form.placeholders.name')}
                     required
                     disabled={isLoading}
                   />
@@ -219,7 +220,7 @@ export const VenueApplicationSection: React.FC = () => {
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-white flex items-center">
                     <Mail className="w-4 h-4 mr-2" />
-                    Email *
+                    {t('venue_application.form.email')}
                   </Label>
                   <Input
                     id="email"
@@ -228,7 +229,7 @@ export const VenueApplicationSection: React.FC = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
-                    placeholder="email@example.com"
+                    placeholder={t('venue_application.form.placeholders.email')}
                     required
                     disabled={isLoading}
                   />
@@ -238,7 +239,7 @@ export const VenueApplicationSection: React.FC = () => {
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="text-white flex items-center">
                     <Phone className="w-4 h-4 mr-2" />
-                    Telefon
+                    {t('venue_application.form.phone')}
                   </Label>
                   <Input
                     id="phone"
@@ -247,7 +248,7 @@ export const VenueApplicationSection: React.FC = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
-                    placeholder="+36 30 123 4567"
+                    placeholder={t('venue_application.form.placeholders.phone')}
                     disabled={isLoading}
                   />
                 </div>
@@ -256,7 +257,7 @@ export const VenueApplicationSection: React.FC = () => {
                 <div className="space-y-2">
                   <Label htmlFor="venueName" className="text-white flex items-center">
                     <Store className="w-4 h-4 mr-2" />
-                    Üzlet neve *
+                    {t('venue_application.form.venue_name')}
                   </Label>
                   <Input
                     id="venueName"
@@ -265,7 +266,7 @@ export const VenueApplicationSection: React.FC = () => {
                     value={formData.venueName}
                     onChange={handleInputChange}
                     className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
-                    placeholder="Vendéglátóhely neve"
+                    placeholder={t('venue_application.form.placeholders.venue_name')}
                     required
                     disabled={isLoading}
                   />
@@ -282,12 +283,12 @@ export const VenueApplicationSection: React.FC = () => {
                   {isLoading ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      Küldés...
+                      {t('venue_application.form.submitting')}
                     </>
                   ) : (
                     <>
                       <Building2 className="w-4 h-4 mr-2" />
-                      Jelentkezés elküldése
+                      {t('venue_application.form.submit')}
                     </>
                   )}
                 </Button>
@@ -299,7 +300,7 @@ export const VenueApplicationSection: React.FC = () => {
         {/* Benefits for Venues */}
         <div className="mt-8 text-center">
           <p className="text-electric-100 text-sm">
-            🎯 Ingyenes promóció • 📈 Növekvő forgalom • 👥 Hűséges vendégek • 📊 Mérhető eredmények
+            {t('venue_application.benefits')}
           </p>
         </div>
       </div>

@@ -21,8 +21,9 @@ const Auth = () => {
   const { user, signUp, signIn, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   const { t } = useI18n();
+  const navigate = useNavigate();
 
-  useEffect(() => {
+useEffect(() => {
     if (user) {
       navigate('/');
     }
