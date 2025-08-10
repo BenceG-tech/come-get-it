@@ -321,6 +321,35 @@
   },
   "support": {
     "tabs": { "home": "Kezdőoldal", "messages": "Üzenetek", "help": "Súgó" },
+    "home": {
+      "greeting_title": "Szia! 👋",
+      "greeting_subtitle": "Miben segíthetünk?",
+      "write_message": "Írj nekünk üzenetet",
+      "search_help": "Keresés a súgóban"
+    },
+    "categories": {
+      "free_drinks": "Ingyen italok",
+      "points_rewards": "Pontok és Jutalmak",
+      "account_registration": "Fiók és regisztráció",
+      "referrals_sharing": "Ajánlások és megosztás"
+    },
+    "messages": {
+      "empty_title": "Nincs üzenet",
+      "empty_desc": "A csapat üzenetei itt fognak megjelenni. Írj nekünk, ha segítségre van szükséged!",
+      "input_placeholder": "Írj üzenetet..."
+    },
+    "help": {
+      "search_placeholder": "Keresés a súgóban...",
+      "collections_count": "4 gyűjtemény",
+      "free_drinks_desc": "Tudj meg mindent az ingyen italokról és hogyan juthatók hozzá.",
+      "free_drinks_count": "1 cikk",
+      "points_rewards_desc": "Minden a Come Get It Rewards rendszerről és pontgyűjtésről.",
+      "points_rewards_count": "10 cikk",
+      "account_registration_desc": "Regisztráció, fiókkezelés és beállítások.",
+      "account_registration_count": "2 cikk",
+      "referrals_desc": "Barátok meghívása és ajánlási rendszer.",
+      "referrals_count": "2 cikk"
+    },
     "feedback": { "question": "Megválaszolta a kérdésed?", "yes": "Igen", "no": "Nem" },
     "toc": "Tartalomjegyzék",
     "faq_label": "Gyakori kérdések és válaszok",

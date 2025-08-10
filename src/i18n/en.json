@@ -321,6 +321,35 @@
   },
   "support": {
     "tabs": { "home": "Home", "messages": "Messages", "help": "Help" },
+    "home": {
+      "greeting_title": "Hi! 👋",
+      "greeting_subtitle": "How can we help?",
+      "write_message": "Message us",
+      "search_help": "Search the help"
+    },
+    "categories": {
+      "free_drinks": "Free drinks",
+      "points_rewards": "Points and rewards",
+      "account_registration": "Account and registration",
+      "referrals_sharing": "Referrals and sharing"
+    },
+    "messages": {
+      "empty_title": "No messages",
+      "empty_desc": "Team messages will appear here. Message us if you need help!",
+      "input_placeholder": "Type a message..."
+    },
+    "help": {
+      "search_placeholder": "Search the help...",
+      "collections_count": "4 collections",
+      "free_drinks_desc": "Learn all about free drinks and how to get them.",
+      "free_drinks_count": "1 article",
+      "points_rewards_desc": "All about the Come Get It Rewards and earning points.",
+      "points_rewards_count": "10 articles",
+      "account_registration_desc": "Registration, account management and settings.",
+      "account_registration_count": "2 articles",
+      "referrals_desc": "Invite friends and the referral system.",
+      "referrals_count": "2 articles"
+    },
     "feedback": { "question": "Did this answer your question?", "yes": "Yes", "no": "No" },
     "toc": "Table of contents",
     "faq_label": "Frequently asked questions",

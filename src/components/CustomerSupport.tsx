@@ -376,7 +376,7 @@ export const CustomerSupport: React.FC = () => {
         <div className="flex-1 overflow-y-auto p-4">
           <div className="mb-4">
             <h3 className="text-xl font-bold text-white mb-2">{faqData.title}</h3>
-            <p className="text-gray-400 text-sm">Gyakori kérdések és válaszok</p>
+            <p className="text-gray-400 text-sm">{t('support.faq_label')}</p>
           </div>
 
           <div className="space-y-4 pb-20">
@@ -395,7 +395,7 @@ export const CustomerSupport: React.FC = () => {
               onClick={() => setCurrentTab('messages')}
               className="w-full bg-electric-300 hover:bg-electric-400 text-black font-semibold py-3 rounded-xl"
             >
-              További kérdés esetén írj nekünk
+              {t('support.contact_button')}
             </Button>
           </div>
         </div>
@@ -435,8 +435,8 @@ export const CustomerSupport: React.FC = () => {
       
       <div className="flex-1 overflow-y-auto p-4">
         <div className="mb-4">
-          <h3 className="text-xl font-bold text-white mb-1">Szia! 👋</h3>
-          <p className="text-sm text-gray-400">Miben segíthetünk?</p>
+          <h3 className="text-xl font-bold text-white mb-1">{t('support.home.greeting_title')}</h3>
+          <p className="text-sm text-gray-400">{t('support.home.greeting_subtitle')}</p>
         </div>
 
         <div className="space-y-2 mb-4">
@@ -444,7 +444,7 @@ export const CustomerSupport: React.FC = () => {
             onClick={() => setCurrentTab('messages')}
             className="w-full h-11 bg-electric-300 hover:bg-electric-400 text-black font-medium text-left flex items-center justify-between rounded-xl"
           >
-            <span>Írj nekünk üzenetet</span>
+            <span>{t('support.home.write_message')}</span>
             <Send className="w-4 h-4" />
           </Button>
 
@@ -452,7 +452,7 @@ export const CustomerSupport: React.FC = () => {
             onClick={() => setCurrentTab('help')}
             className="w-full h-11 bg-ocean-600 hover:bg-ocean-700 text-white font-medium text-left flex items-center justify-between rounded-xl"
           >
-            <span>Keresés a súgóban</span>
+            <span>{t('support.home.search_help')}</span>
             <Search className="w-4 h-4" />
           </Button>
         </div>
@@ -463,7 +463,7 @@ export const CustomerSupport: React.FC = () => {
             className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-white font-medium text-sm">Ingyen italok</span>
+              <span className="text-white font-medium text-sm">{t('support.categories.free_drinks')}</span>
               <span className="text-electric-300">›</span>
             </div>
           </button>
@@ -473,7 +473,7 @@ export const CustomerSupport: React.FC = () => {
             className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-white font-medium text-sm">Pontok és Jutalmak</span>
+              <span className="text-white font-medium text-sm">{t('support.categories.points_rewards')}</span>
               <span className="text-electric-300">›</span>
             </div>
           </button>
@@ -483,7 +483,7 @@ export const CustomerSupport: React.FC = () => {
             className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-white font-medium text-sm">Fiók és regisztráció</span>
+              <span className="text-white font-medium text-sm">{t('support.categories.account_registration')}</span>
               <span className="text-electric-300">›</span>
             </div>
           </button>
@@ -493,7 +493,7 @@ export const CustomerSupport: React.FC = () => {
             className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-white font-medium text-sm">Ajánlások és megosztás</span>
+              <span className="text-white font-medium text-sm">{t('support.categories.referrals_sharing')}</span>
               <span className="text-electric-300">›</span>
             </div>
           </button>
@@ -510,7 +510,7 @@ export const CustomerSupport: React.FC = () => {
             className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-electric-300 bg-electric-300/10"
           >
             <Home className="w-4 h-4 mb-0.5" />
-            <span className="text-[10px]">Kezdőoldal</span>
+            <span className="text-[10px]">{t('support.tabs.home')}</span>
           </button>
           
           <button
@@ -521,7 +521,7 @@ export const CustomerSupport: React.FC = () => {
             className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <MessageCircle className="w-4 h-4 mb-0.5" />
-            <span className="text-[10px]">Üzenetek</span>
+            <span className="text-[10px]">{t('support.tabs.messages')}</span>
           </button>
           
           <button
@@ -532,7 +532,7 @@ export const CustomerSupport: React.FC = () => {
             className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <HelpCircle className="w-4 h-4 mb-0.5" />
-            <span className="text-[10px]">Súgó</span>
+            <span className="text-[10px]">{t('support.tabs.help')}</span>
           </button>
         </div>
       </div>
@@ -543,7 +543,7 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full bg-gray-900">
       <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
         <div className="flex items-center space-x-3">
-          <h2 className="text-base font-semibold text-white">Üzenetek</h2>
+          <h2 className="text-base font-semibold text-white">{t('support.tabs.messages')}</h2>
         </div>
         <div className="flex items-center space-x-2">
           <div className="flex space-x-1">
@@ -569,9 +569,9 @@ export const CustomerSupport: React.FC = () => {
         <div className="bg-gray-800 rounded-full p-4 mb-3">
           <MessageCircle className="w-8 h-8 text-electric-300" />
         </div>
-        <h3 className="text-lg font-bold text-white mb-2">Nincs üzenet</h3>
+        <h3 className="text-lg font-bold text-white mb-2">{t('support.messages.empty_title')}</h3>
         <p className="text-gray-400 text-center text-sm max-w-sm">
-          A csapat üzenetei itt fognak megjelenni. Írj nekünk, ha segítségre van szükséged!
+          {t('support.messages.empty_desc')}
         </p>
       </div>
 
@@ -581,7 +581,7 @@ export const CustomerSupport: React.FC = () => {
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Írj nekünk üzenetet..."
+            placeholder={t('support.messages.input_placeholder')}
             className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-electric-300 text-sm"
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
@@ -604,7 +604,7 @@ export const CustomerSupport: React.FC = () => {
             className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <Home className="w-4 h-4 mb-0.5" />
-            <span className="text-[10px]">Kezdőoldal</span>
+            <span className="text-[10px]">{t('support.tabs.home')}</span>
           </button>
           
           <button
@@ -615,7 +615,7 @@ export const CustomerSupport: React.FC = () => {
             className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-electric-300 bg-electric-300/10"
           >
             <MessageCircle className="w-4 h-4 mb-0.5" />
-            <span className="text-[10px]">Üzenetek</span>
+            <span className="text-[10px]">{t('support.tabs.messages')}</span>
           </button>
           
           <button
@@ -626,7 +626,7 @@ export const CustomerSupport: React.FC = () => {
             className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <HelpCircle className="w-4 h-4 mb-0.5" />
-            <span className="text-[10px]">Súgó</span>
+            <span className="text-[10px]">{t('support.tabs.help')}</span>
           </button>
         </div>
       </div>
@@ -637,7 +637,7 @@ export const CustomerSupport: React.FC = () => {
     <div className="flex flex-col h-full bg-gray-900">
       <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
         <div className="flex items-center space-x-3">
-          <h2 className="text-base font-semibold text-white">Súgó</h2>
+          <h2 className="text-base font-semibold text-white">{t('support.tabs.help')}</h2>
         </div>
         <Button
           variant="ghost"
@@ -653,14 +653,14 @@ export const CustomerSupport: React.FC = () => {
         <div className="relative mb-4">
           <input
             type="text"
-            placeholder="Keresés a súgóban..."
+            placeholder={t('support.help.search_placeholder')}
             className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 pr-10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-electric-300 text-sm"
           />
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
         </div>
 
         <div className="space-y-3">
-          <p className="text-xs text-gray-400 font-medium">4 gyűjtemény</p>
+          <p className="text-xs text-gray-400 font-medium">{t('support.help.collections_count')}</p>
           
           <div className="space-y-2">
             <button 
@@ -669,9 +669,9 @@ export const CustomerSupport: React.FC = () => {
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white text-sm mb-1">Ingyen Italok</h3>
-                  <p className="text-xs text-gray-400 mb-1">Tudj meg mindent az ingyen italokról és hogyan juthatók hozzá.</p>
-                  <span className="text-[10px] text-electric-300">1 cikk</span>
+                  <h3 className="font-semibold text-white text-sm mb-1">{t('support.categories.free_drinks')}</h3>
+                  <p className="text-xs text-gray-400 mb-1">{t('support.help.free_drinks_desc')}</p>
+                  <span className="text-[10px] text-electric-300">{t('support.help.free_drinks_count')}</span>
                 </div>
                 <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
@@ -683,9 +683,9 @@ export const CustomerSupport: React.FC = () => {
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white text-sm mb-1">Pontok és Jutalmak</h3>
-                  <p className="text-xs text-gray-400 mb-1">Minden a Come Get It Rewards rendszerről és pontgyűjtésről.</p>
-                  <span className="text-[10px] text-electric-300">10 cikk</span>
+                  <h3 className="font-semibold text-white text-sm mb-1">{t('support.categories.points_rewards')}</h3>
+                  <p className="text-xs text-gray-400 mb-1">{t('support.help.points_rewards_desc')}</p>
+                  <span className="text-[10px] text-electric-300">{t('support.help.points_rewards_count')}</span>
                 </div>
                 <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
@@ -697,9 +697,9 @@ export const CustomerSupport: React.FC = () => {
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white text-sm mb-1">Fiók és regisztráció</h3>
-                  <p className="text-xs text-gray-400 mb-1">Regisztráció, fiókkezelés és beállítások.</p>
-                  <span className="text-[10px] text-electric-300">2 cikk</span>
+                  <h3 className="font-semibold text-white text-sm mb-1">{t('support.categories.account_registration')}</h3>
+                  <p className="text-xs text-gray-400 mb-1">{t('support.help.account_registration_desc')}</p>
+                  <span className="text-[10px] text-electric-300">{t('support.help.account_registration_count')}</span>
                 </div>
                 <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
@@ -711,9 +711,9 @@ export const CustomerSupport: React.FC = () => {
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white text-sm mb-1">Ajánlások és megosztás</h3>
-                  <p className="text-xs text-gray-400 mb-1">Barátok meghívása és ajánlási rendszer.</p>
-                  <span className="text-[10px] text-electric-300">2 cikk</span>
+                  <h3 className="font-semibold text-white text-sm mb-1">{t('support.categories.referrals_sharing')}</h3>
+                  <p className="text-xs text-gray-400 mb-1">{t('support.help.referrals_desc')}</p>
+                  <span className="text-[10px] text-electric-300">{t('support.help.referrals_count')}</span>
                 </div>
                 <span className="text-electric-300 text-lg ml-2">›</span>
               </div>
@@ -732,7 +732,7 @@ export const CustomerSupport: React.FC = () => {
             className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <Home className="w-4 h-4 mb-0.5" />
-            <span className="text-[10px]">Kezdőoldal</span>
+            <span className="text-[10px]">{t('support.tabs.home')}</span>
           </button>
           
           <button
@@ -743,7 +743,7 @@ export const CustomerSupport: React.FC = () => {
             className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-gray-400 hover:text-white"
           >
             <MessageCircle className="w-4 h-4 mb-0.5" />
-            <span className="text-[10px]">Üzenetek</span>
+            <span className="text-[10px]">{t('support.tabs.messages')}</span>
           </button>
           
           <button
@@ -754,7 +754,7 @@ export const CustomerSupport: React.FC = () => {
             className="flex-1 flex flex-col items-center py-2 px-2 transition-all duration-200 text-electric-300 bg-electric-300/10"
           >
             <HelpCircle className="w-4 h-4 mb-0.5" />
-            <span className="text-[10px]">Súgó</span>
+            <span className="text-[10px]">{t('support.tabs.help')}</span>
           </button>
         </div>
       </div>
