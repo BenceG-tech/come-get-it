@@ -4,6 +4,7 @@ import { Wine, Home, DollarSign, Users } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
 
 export const BenefitsSection: React.FC = () => {
+  const { t } = useI18n();
   return (
     <section className="py-16 px-4 bg-black">
       <div className="max-w-6xl mx-auto">
