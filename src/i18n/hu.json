@@ -440,7 +440,7 @@
           "2": { "q": "Hogyan változtathatom meg az adataimat?", "a": "A Profil menüben szerkesztheted a személyes adataidat, jelszavadat és értesítéseidet." }
         }
       },
-      ``"referrals": {
+      "referrals": {
         "title": "Ajánlások és megosztás",
         "items": {
           "1": { "q": "Hogyan hívhatom meg a barátaimat?", "a": "A Megosztás menüben találod a referral linked, amit elküldhetsz barátaidnak." },
