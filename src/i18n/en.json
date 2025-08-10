@@ -325,5 +325,121 @@
     "toc": "Table of contents",
     "faq_label": "Frequently asked questions",
     "contact_button": "Message us if you have more questions"
+  },
+  "form_common": {
+    "name_label": "Name *",
+    "email_label": "Email *",
+    "phone_label": "Phone",
+    "full_name_placeholder": "Full name",
+    "email_placeholder": "email@example.com",
+    "phone_placeholder": "+36 30 123 4567"
+  },
+  "signup": {
+    "toasts": {
+      "error_title": "Error",
+      "missing_email": "Please enter your email address.",
+      "gdpr_required": "Please accept the privacy policy to continue.",
+      "success_title": "Signup successful!",
+      "success_desc": "Thanks for signing up! We'll follow up with launch details soon.",
+      "error_generic_title": "Something went wrong",
+      "error_generic_desc": "Please try again later.",
+      "resend_missing_title": "Missing email",
+      "resend_missing_desc": "No saved email to resend to.",
+      "resend_failed_desc": "Failed to resend the welcome email.",
+      "resend_success_title": "Email resent",
+      "resend_success_desc": "Check your inbox, Promotions, or Spam folders."
+    },
+    "logged_in_title": "WELCOME!",
+    "logged_in_desc": "✅ You're already registered! We'll notify you when the app is available.",
+    "thanks_title": "THANK YOU FOR SIGNING UP!",
+    "success_line": "✅ Signup successful! We'll reach out soon with launch details.",
+    "check_spam": "If you don't see the welcome email, check Promotions or Spam.",
+    "resend_loading": "Resending...",
+    "resend_button": "Resend welcome email",
+    "main_title": "BE AMONG THE FIRST!",
+    "subtitle": "Join our waitlist and be the first to know when we launch!",
+    "placeholder_email": "Enter your email",
+    "gdpr_label_prefix": "I accept the",
+    "privacy_policy": "privacy policy",
+    "button_loading": "SIGNING UP...",
+    "button": "Sign me up",
+    "or": "Or",
+    "full_registration_google": "Full registration with Google"
+  },
+  "venue_app": {
+    "toasts": {
+      "missing_fields_title": "Missing information",
+      "missing_fields_desc": "Please fill in all required fields.",
+      "demo_title": "Demo Mode",
+      "demo_desc": "The app is running in demo mode. Your application would succeed in production.",
+      "success_title": "🤝 Application sent!",
+      "success_desc": "Thanks for applying! We'll contact you soon. Check your inbox!",
+      "error_title": "An error occurred",
+      "error_desc": "We couldn't send your application. Please try again later."
+    },
+    "submitted": {
+      "title": "🎉 Thank you for applying!",
+      "desc": "We received your partner application successfully.",
+      "email_tip": "📧 Check your inbox — we sent details about the partnership",
+      "call_tip": "📞 Our colleague will contact you soon"
+    },
+    "header": {
+      "heading": "Are you a venue owner?",
+      "sub1": "Join our partners!",
+      "sub2": "Grow guest count, build loyalty and get new customers with our free promotions."
+    },
+    "demo_banner": "⚠️ Demo Mode: Email sending is currently unavailable",
+    "form": {
+      "title": "Apply for partnership",
+      "venue_name_label": "Venue name *",
+      "venue_name_placeholder": "Venue name",
+      "sending": "Sending...",
+      "submit": "Send application"
+    },
+    "benefits_line": "🎯 Free promotion • 📈 Growing traffic • 👥 Loyal guests • 📊 Measurable results"
+  },
+  "partner_app": {
+    "toasts": {
+      "missing_fields_title": "Missing information",
+      "missing_fields_desc": "Please fill in all required fields.",
+      "demo_title": "Demo Mode",
+      "demo_desc": "The app is running in demo mode. Your application would succeed in production.",
+      "success_title": "🤝 Application sent!",
+      "success_desc": "Thank you! We'll contact you soon. Check your email!",
+      "error_title": "An error occurred",
+      "error_desc": "We couldn't send your application. Please try again later."
+    },
+    "submitted": {
+      "title": "🎉 Thank you for applying!",
+      "desc": "We successfully received your application.",
+      "email_tip": "📧 Check your email — we've sent a confirmation",
+      "call_tip": "📞 We'll be in touch soon"
+    },
+    "demo_banner": "⚠️ Demo Mode: Email sending is currently unavailable",
+    "form": {
+      "title": "Application",
+      "sending": "Sending...",
+      "submit": "Send application",
+      "company_placeholder": "Brand or company name"
+    },
+    "rewards": {
+      "heading": "Become a rewards partner?",
+      "sub1": "Join the rewards partners!",
+      "sub2": "Activate your offers and bring new customers, measurably.",
+      "company": "Brand / Company name *"
+    },
+    "brand": {
+      "heading": "Are you a brand? Let's start!",
+      "sub1": "Join the city's most vibrant community!",
+      "sub2": "Test, measure and scale with experience-based campaigns.",
+      "company": "Brand / Company name *"
+    },
+    "accelerator": {
+      "heading": "Apply for the pilot!",
+      "sub1": "Come Get It Accelerator program",
+      "sub2": "Fast go-to-market with real consumer data.",
+      "company": "Brand / Company name *"
+    },
+    "benefits_line": "🎯 Measurable results • 🚀 Fast start • 👥 Engaged audience"
   }
 }

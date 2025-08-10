@@ -8,7 +8,8 @@ import { getSupabaseClient } from '@/lib/supabase';
 import { analytics } from '@/lib/analytics';
 import { useAuth } from '@/contexts/AuthContext';
 import { Link } from 'react-router-dom';
-
+import { useI18n } from '@/hooks/useI18n';
+ 
 export const SignupForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -18,7 +19,7 @@ export const SignupForm: React.FC = () => {
   const [isResending, setIsResending] = useState(false);
   const { toast } = useToast();
   const { user } = useAuth();
-
+  const { t } = useI18n();
   useEffect(() => {
     // Track when signup form is viewed
     analytics.signupFormView();
@@ -29,18 +30,18 @@ export const SignupForm: React.FC = () => {
 
     if (!email) {
       toast({
-        title: "Hiba",
-        description: "Kérjük, adja meg az email címét.",
-        variant: "destructive"
+        title: t('signup.toasts.error_title'),
+        description: t('signup.toasts.missing_email'),
+        variant: 'destructive'
       });
       return;
     }
 
     if (!gdprAccepted) {
       toast({
-        title: "Hiba", 
-        description: "Kérjük, fogadja el az adatvédelmi szabályzatot a folytatáshoz.",
-        variant: "destructive"
+        title: t('signup.toasts.error_title'), 
+        description: t('signup.toasts.gdpr_required'),
+        variant: 'destructive'
       });
       return;
     }
@@ -106,17 +107,17 @@ export const SignupForm: React.FC = () => {
       console.log('Registration completed successfully for:', lastEmail || email);
 
       toast({
-        title: "Sikeres regisztráció!",
-        description: "Köszönjük a regisztrációt! Hamarosan jelentkezünk az indulással kapcsolatos részletekkel.",
+        title: t('signup.toasts.success_title'),
+        description: t('signup.toasts.success_desc'),
       });
 
     } catch (error: any) {
       console.error('Signup error:', error);
       
       toast({
-        title: "Hiba történt",
-        description: error.message || "Kérjük, próbálja meg később újra.",
-        variant: "destructive"
+        title: t('signup.toasts.error_generic_title'),
+        description: error.message || t('signup.toasts.error_generic_desc'),
+        variant: 'destructive'
       });
     } finally {
       setIsLoading(false);
@@ -125,7 +126,7 @@ export const SignupForm: React.FC = () => {
 
   const handleResendWelcome = async () => {
     if (!lastEmail) {
-      toast({ title: 'Hiányzó email', description: 'Nincs elmentett email cím az újraküldéshez.', variant: 'destructive' });
+      toast({ title: t('signup.toasts.resend_missing_title'), description: t('signup.toasts.resend_missing_desc'), variant: 'destructive' });
       return;
     }
 
@@ -149,12 +150,12 @@ export const SignupForm: React.FC = () => {
 
       if (error) {
         console.error('Resend welcome error:', error);
-        throw new Error('Az üdvözlő email újraküldése nem sikerült.');
+        throw new Error(t('signup.toasts.resend_failed_desc'));
       }
 
-      toast({ title: 'Email újraküldve', description: 'Ellenőrizd a beérkező, promóciók vagy spam mappát is.' });
+      toast({ title: t('signup.toasts.resend_success_title'), description: t('signup.toasts.resend_success_desc') });
     } catch (err: any) {
-      toast({ title: 'Hiba', description: err.message || 'Nem sikerült újraküldeni az emailt.', variant: 'destructive' });
+      toast({ title: t('signup.toasts.error_title'), description: err.message || t('signup.toasts.resend_failed_desc'), variant: 'destructive' });
     } finally {
       setIsResending(false);
     }
@@ -167,11 +168,11 @@ export const SignupForm: React.FC = () => {
         <div className="max-w-3xl mx-auto px-4 text-center">
           <div className="space-y-6">
             <h2 className="text-4xl md:text-5xl font-anton text-white mb-6">
-              ÜDVÖZÖLJÜK!
+              {t('signup.logged_in_title')}
             </h2>
             <div className="bg-[#3ba1cb]/20 border border-[#3ba1cb]/30 rounded-lg p-6">
               <p className="text-[#27dddf] text-lg">
-                ✅ Már regisztrált! Értesítjük, amikor az alkalmazás elérhető lesz.
+                {t('signup.logged_in_desc')}
               </p>
             </div>
           </div>
@@ -186,13 +187,13 @@ export const SignupForm: React.FC = () => {
         {isSubmitted ? (
           <div className="space-y-6">
             <h2 className="text-4xl md:text-5xl font-anton text-white mb-6">
-              KÖSZÖNJÜK A REGISZTRÁCIÓT!
+              {t('signup.thanks_title')}
             </h2>
             <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-6 space-y-4">
               <p className="text-green-400 text-lg">
-                ✅ Sikeres regisztráció! Hamarosan jelentkezünk az indulással kapcsolatos részletekkel.
+                {t('signup.success_line')}
               </p>
-              <p className="text-gray-300 text-sm">Ha nem látod az üdvözlő emailt, ellenőrizd a Promóciók vagy Spam mappát.</p>
+              <p className="text-gray-300 text-sm">{t('signup.check_spam')}</p>
               <div className="flex justify-center">
                 <Button 
                   variant="outline"
@@ -200,7 +201,7 @@ export const SignupForm: React.FC = () => {
                   disabled={isResending}
                   className="border-[#27dddf] text-[#27dddf] hover:bg-[#27dddf] hover:text-black"
                 >
-                  {isResending ? 'Újraküldés...' : 'Üdvözlő email újraküldése'}
+                  {isResending ? t('signup.resend_loading') : t('signup.resend_button')}
                 </Button>
               </div>
             </div>
@@ -208,16 +209,16 @@ export const SignupForm: React.FC = () => {
         ) : (
           <div className="space-y-8">
             <h2 className="text-4xl md:text-5xl font-anton text-white mb-6">
-              LEGYÉL KÖZTÜNK ELSŐK KÖZÖTT!
+              {t('signup.main_title')}
             </h2>
             <p className="text-gray-300 text-lg md:text-xl leading-relaxed">
-              Csatlakozz a várólistánkhoz és értesülj elsőként, amikor elindítjuk az alkalmazást!
+              {t('signup.subtitle')}
             </p>
             
             <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto space-y-4">
               <Input
                 type="email"
-                placeholder="Add meg az email címed"
+                placeholder={t('signup.placeholder_email')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-white/10 border-[#3ba1cb] text-white placeholder-gray-400 text-center"
@@ -232,7 +233,7 @@ export const SignupForm: React.FC = () => {
                   className="border-[#3ba1cb] data-[state=checked]:bg-[#3ba1cb]"
                 />
                 <label htmlFor="gdpr" className="text-sm text-gray-300 cursor-pointer">
-                  Elfogadom az <Link to="/adatvedelmi-szabalyzat" target="_blank" rel="noopener noreferrer" className="text-[#27dddf] underline focus:outline-none focus:ring-2 focus:ring-[#27dddf]/50">adatvédelmi szabályzatot</Link>
+                  {t('signup.gdpr_label_prefix')} <Link to="/adatvedelmi-szabalyzat" target="_blank" rel="noopener noreferrer" className="text-[#27dddf] underline focus:outline-none focus:ring-2 focus:ring-[#27dddf]/50">{t('signup.privacy_policy')}</Link>
                 </label>
               </div>
               
@@ -241,18 +242,18 @@ export const SignupForm: React.FC = () => {
                 className="w-full bg-gradient-to-r from-[#3ba1cb] to-[#27dddf] hover:from-[#27dddf] hover:to-[#3ba1cb] text-black font-bold py-3 text-lg transition-all duration-300"
                 disabled={isLoading}
               >
-                {isLoading ? 'REGISZTRÁCIÓ...' : 'REGISZTRÁLOK'}
+                {isLoading ? t('signup.button_loading') : t('signup.button')}
               </Button>
             </form>
             
             <div className="mt-6">
-              <p className="text-gray-400 text-sm mb-4">Vagy</p>
+              <p className="text-gray-400 text-sm mb-4">{t('signup.or')}</p>
               <Button 
                 variant="outline"
                 onClick={() => window.location.href = '/auth'}
                 className="border-[#27dddf] text-[#27dddf] hover:bg-[#27dddf] hover:text-black"
               >
-                Teljes regisztráció Google fiókkal
+                {t('signup.full_registration_google')}
               </Button>
             </div>
           </div>

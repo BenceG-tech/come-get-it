@@ -325,5 +325,121 @@
     "toc": "Tartalomjegyzék",
     "faq_label": "Gyakori kérdések és válaszok",
     "contact_button": "További kérdés esetén írj nekünk"
+  },
+  "form_common": {
+    "name_label": "Név *",
+    "email_label": "Email *",
+    "phone_label": "Telefon",
+    "full_name_placeholder": "Teljes név",
+    "email_placeholder": "email@example.com",
+    "phone_placeholder": "+36 30 123 4567"
+  },
+  "signup": {
+    "toasts": {
+      "error_title": "Hiba",
+      "missing_email": "Kérjük, add meg az email címed.",
+      "gdpr_required": "Kérjük, fogadd el az adatvédelmi szabályzatot a folytatáshoz.",
+      "success_title": "Sikeres regisztráció!",
+      "success_desc": "Köszönjük a regisztrációt! Hamarosan jelentkezünk az indulás részleteivel.",
+      "error_generic_title": "Hiba történt",
+      "error_generic_desc": "Kérjük, próbáld meg később újra.",
+      "resend_missing_title": "Hiányzó email",
+      "resend_missing_desc": "Nincs elmentett email cím az újraküldéshez.",
+      "resend_failed_desc": "Az üdvözlő email újraküldése nem sikerült.",
+      "resend_success_title": "Email újraküldve",
+      "resend_success_desc": "Ellenőrizd a beérkező, Promóciók vagy Spam mappát is."
+    },
+    "logged_in_title": "ÜDVÖZLÜNK!",
+    "logged_in_desc": "✅ Már regisztráltál! Értesítünk, amikor az alkalmazás elérhető.",
+    "thanks_title": "KÖSZÖNJÜK A REGISZTRÁCIÓT!",
+    "success_line": "✅ Sikeres regisztráció! Hamarosan jelentkezünk az indulás részleteivel.",
+    "check_spam": "Ha nem látod az üdvözlő emailt, nézd meg a Promóciók vagy Spam mappát.",
+    "resend_loading": "Újraküldés...",
+    "resend_button": "Üdvözlő email újraküldése",
+    "main_title": "LEGYÉL KÖZTÜNK ELSŐK KÖZÖTT!",
+    "subtitle": "Csatlakozz a várólistánkhoz és értesülj elsőként az indulásról!",
+    "placeholder_email": "Add meg az email címed",
+    "gdpr_label_prefix": "Elfogadom az",
+    "privacy_policy": "adatvédelmi szabályzatot",
+    "button_loading": "REGISZTRÁCIÓ...",
+    "button": "Regisztrálok",
+    "or": "Vagy",
+    "full_registration_google": "Teljes regisztráció Google‑lel"
+  },
+  "venue_app": {
+    "toasts": {
+      "missing_fields_title": "Hiányzó adatok",
+      "missing_fields_desc": "Kérjük, töltsd ki az összes kötelező mezőt.",
+      "demo_title": "Demo mód",
+      "demo_desc": "Az alkalmazás demo módban fut. A jelentkezés sikeres lenne éles környezetben.",
+      "success_title": "🤝 Jelentkezés elküldve!",
+      "success_desc": "Köszönjük a jelentkezést! Hamarosan felvesszük veled a kapcsolatot. Ellenőrizd az emailed!",
+      "error_title": "Hiba történt",
+      "error_desc": "Sajnos nem sikerült elküldeni a jelentkezést. Kérjük, próbáld újra később."
+    },
+    "submitted": {
+      "title": "🎉 Köszönjük a jelentkezést!",
+      "desc": "Sikeresen megkaptuk a partner jelentkezést.",
+      "email_tip": "📧 Ellenőrizd az email fiókodat – részletes tájékoztatót küldtünk a partnerségről",
+      "call_tip": "📞 Kollégánk hamarosan felveszi veled a kapcsolatot"
+    },
+    "header": {
+      "heading": "Üzlettulajdonos vagy?",
+      "sub1": "Csatlakozz partnereink közé!",
+      "sub2": "Növeld vendégeid számát, építs hűséges közönséget és szerezz új vásárlókat az ingyenes promócióinkkal."
+    },
+    "demo_banner": "⚠️ Demo mód: Email küldés jelenleg nem elérhető",
+    "form": {
+      "title": "Jelentkezés partnerségre",
+      "venue_name_label": "Üzlet neve *",
+      "venue_name_placeholder": "Vendéglátóhely neve",
+      "sending": "Küldés...",
+      "submit": "Jelentkezés elküldése"
+    },
+    "benefits_line": "🎯 Ingyenes promóció • 📈 Növekvő forgalom • 👥 Hűséges vendégek • 📊 Mérhető eredmények"
+  },
+  "partner_app": {
+    "toasts": {
+      "missing_fields_title": "Hiányzó adatok",
+      "missing_fields_desc": "Kérjük, töltsd ki az összes kötelező mezőt.",
+      "demo_title": "Demo mód",
+      "demo_desc": "Az alkalmazás demo módban fut. A jelentkezés sikeres lenne élesben.",
+      "success_title": "🤝 Jelentkezés elküldve!",
+      "success_desc": "Köszönjük! Hamarosan felvesszük veled a kapcsolatot. Ellenőrizd az emailed!",
+      "error_title": "Hiba történt",
+      "error_desc": "Nem sikerült elküldeni a jelentkezést. Próbáld újra később."
+    },
+    "submitted": {
+      "title": "🎉 Köszönjük a jelentkezést!",
+      "desc": "Sikeresen megkaptuk a jelentkezésed.",
+      "email_tip": "📧 Ellenőrizd az emailed – visszaigazolást küldtünk",
+      "call_tip": "📞 Hamarosan keresni fogunk"
+    },
+    "demo_banner": "⚠️ Demo mód: Email küldés jelenleg nem elérhető",
+    "form": {
+      "title": "Jelentkezés",
+      "sending": "Küldés...",
+      "submit": "Jelentkezés elküldése",
+      "company_placeholder": "Márka vagy cég neve"
+    },
+    "rewards": {
+      "heading": "Jutalom partner lennél?",
+      "sub1": "Csatlakozz a rewards partnerekhez!",
+      "sub2": "Aktiváld az ajánlataidat és hozz új vásárlókat mérhetően.",
+      "company": "Márka / Cég neve *"
+    },
+    "brand": {
+      "heading": "Márka vagy? Induljunk!",
+      "sub1": "Csatlakozz a város legélőbb közösségéhez!",
+      "sub2": "Tesztelj, mérj és skálázz élményalapú kampányokkal.",
+      "company": "Márka / Cég neve *"
+    },
+    "accelerator": {
+      "heading": "Jelentkezz a pilotra!",
+      "sub1": "Come Get It Gyorsító program",
+      "sub2": "Gyors piacra lépés, valódi fogyasztói adatok.",
+      "company": "Márka / Cég neve *"
+    },
+    "benefits_line": "🎯 Mérhető eredmények • 🚀 Gyors indulás • 👥 Elkötelezett közönség"
   }
 }
