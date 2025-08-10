@@ -95,75 +95,75 @@ export const MobileNavigation: React.FC = () => {
               <ul className="divide-y divide-white/5">
                 <li>
                   <SheetClose asChild>
-                    <Link to="/" className="flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
-                      <div className="flex items-center gap-3">
-                        <Home className="h-5 w-5 text-electric-300" />
-                        <div>
-                          <span className="block text-white font-semibold">{t('mobile_menu.home')}</span>
-                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.home_desc')}</span>
+                    <Link to="/" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <Home className="h-5 w-5 text-electric-300 shrink-0" />
+                        <div className="min-w-0">
+                          <span className="block text-white font-semibold truncate">{t('mobile_menu.home')}</span>
+                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.home_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60" />
+                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
                     </Link>
                   </SheetClose>
                 </li>
 
                 <li>
                   <SheetClose asChild>
-                    <Link to="/vendeglatohelyek" className="flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
-                      <div className="flex items-center gap-3">
-                        <Store className="h-5 w-5 text-electric-300" />
-                        <div>
-                          <span className="block text-white font-semibold">{t('mobile_menu.venues')}</span>
-                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.venues_desc')}</span>
+                    <Link to="/vendeglatohelyek" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <Store className="h-5 w-5 text-electric-300 shrink-0" />
+                        <div className="min-w-0">
+                          <span className="block text-white font-semibold truncate">{t('mobile_menu.venues')}</span>
+                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.venues_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60" />
+                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
                     </Link>
                   </SheetClose>
                 </li>
 
                 <li>
                   <SheetClose asChild>
-                    <Link to="/italmarkak" className="flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
-                      <div className="flex items-center gap-3">
-                        <Wine className="h-5 w-5 text-electric-300" />
-                        <div>
-                          <span className="block text-white font-semibold">{t('mobile_menu.brands')}</span>
-                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.brands_desc')}</span>
+                    <Link to="/italmarkak" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <Wine className="h-5 w-5 text-electric-300 shrink-0" />
+                        <div className="min-w-0">
+                          <span className="block text-white font-semibold truncate">{t('mobile_menu.brands')}</span>
+                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.brands_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60" />
+                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
                     </Link>
                   </SheetClose>
                 </li>
 
                 <li>
                   <SheetClose asChild>
-                    <Link to="/rewards-partners" className="flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
-                      <div className="flex items-center gap-3">
-                        <Gift className="h-5 w-5 text-electric-300" />
-                        <div>
-                          <span className="block text-white font-semibold">{t('mobile_menu.rewards')}</span>
-                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.rewards_desc')}</span>
+                    <Link to="/rewards-partners" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <Gift className="h-5 w-5 text-electric-300 shrink-0" />
+                        <div className="min-w-0">
+                          <span className="block text-white font-semibold truncate">{t('mobile_menu.rewards')}</span>
+                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.rewards_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60" />
+                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
                     </Link>
                   </SheetClose>
                 </li>
 
                 <li>
                   <SheetClose asChild>
-                    <Link to="/come-get-it-accelerator" className="flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
-                      <div className="flex items-center gap-3">
-                        <Rocket className="h-5 w-5 text-electric-300" />
-                        <div>
-                          <span className="block text-white font-semibold">{t('mobile_menu.accelerator')}</span>
-                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.accelerator_desc')}</span>
+                    <Link to="/come-get-it-accelerator" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <Rocket className="h-5 w-5 text-electric-300 shrink-0" />
+                        <div className="min-w-0">
+                          <span className="block text-white font-semibold truncate">{t('mobile_menu.accelerator')}</span>
+                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.accelerator_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60" />
+                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
                     </Link>
                   </SheetClose>
                 </li>
@@ -174,16 +174,16 @@ export const MobileNavigation: React.FC = () => {
                       onClick={() => {
                         window.dispatchEvent(new Event('open-support'))
                       }}
-                      className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition"
+                      className="w-full appearance-none bg-transparent text-left flex items-center justify-between px-2 py-4 active:scale-[0.98] transition"
                     >
-                      <div className="flex items-center gap-3">
-                        <MessageCircle className="h-5 w-5 text-electric-300" />
-                        <div>
-                          <span className="block text-white font-semibold">{t('mobile_menu.support')}</span>
-                          <span className="block text-xs text-muted-foreground">{t('mobile_menu.support_desc')}</span>
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <MessageCircle className="h-5 w-5 text-electric-300 shrink-0" />
+                        <div className="min-w-0">
+                          <span className="block text-white font-semibold truncate">{t('mobile_menu.support')}</span>
+                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.support_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60" />
+                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
                     </button>
                   </SheetClose>
                 </li>
