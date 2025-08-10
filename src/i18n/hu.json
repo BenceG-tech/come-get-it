@@ -353,7 +353,101 @@
     "feedback": { "question": "Megválaszolta a kérdésed?", "yes": "Igen", "no": "Nem" },
     "toc": "Tartalomjegyzék",
     "faq_label": "Gyakori kérdések és válaszok",
-    "contact_button": "További kérdés esetén írj nekünk"
+    "contact_button": "További kérdés esetén írj nekünk",
+    "faq": {
+      "free_drinks": {
+        "title": "Ingyen italok? Igen, jól hallottad!",
+        "sections": {
+          "miert_adunk": {
+            "title": "Miért adunk ingyen italokat?",
+            "content": "Egyszerűen azért, mert hisszük, hogy mindenkinek jár egy kis öröm, és közben a legmenőbb italmárkákkal dolgozunk együtt, hogy elsőként próbálhasd ki a legújabb italokat. Ezek a márkák szeretnének bemutatkozni neked, a bárok pedig örömmel látják, ha új arcok érkeznek hozzájuk.\n\nA te jelenléted, visszajelzésed és véleményed aranyat ér – segítesz abban, hogy a kedvenc italaid még jobbak legyenek, új ízeket fedezz fel, és közben olyan helyeket is kipróbálj, ahová magadtól talán sosem mennél el."
+          },
+          "hogyan_juthatsz": {
+            "title": "Hogyan juthatsz hozzá egy ingyen italhoz?",
+            "content": "Folyamatosan indítunk új ingyen italos akciókat, szóval érdemes résen lenni!\nNézd meg az applikációban a bárlistát, vagy keresd a térképen az ‘ingyen ital’ jelzést – ezek mutatják, hol vár rád a következő pohár öröm.\n\nAmikor a helyszínre érsz, csak nyomd meg az ‘Ingyen ital’ gombot, és mutasd meg a pultosnak a visszaigazoló képernyőt. Ennyi az egész!\n\nNe felejtsd el értékelni a helyet, a kiszolgálást és magát az italt! Az őszinte véleményed sokat számít – mind a bár, mind a márka számára hasznos visszajelzés lesz (és természetesen teljesen anonim módon)."
+          },
+          "miert_nem_latok": {
+            "title": "Miért nem látok most ital ajánlatokat?",
+            "content": "Előfordulhat, hogy éppen nincs aktív kampány a városodban. Ne aggódj, hamarosan visszatérünk újabb meglepetésekkel! Addig is, ha a partner bárjainkban a regisztrált kártyáddal fizetsz, exkluzív ajánlatokat és hűségjutalmakat gyűjthetsz."
+          },
+          "miert_zarolva": {
+            "title": "Miért van zárolva nálam az ingyen ital lehetőség?",
+            "content": "Az ingyen italok csak akkor érhetők el, ha összekapcsolod a bankkártyádat a Come Get It Rewards rendszerével. Ezzel nemcsak az italokhoz jutsz hozzá, hanem minden fogyasztásod után pontokat is gyűjtesz, amit további jutalmakra válthatsz be. Szóval tényleg megéri! A részleteket megtalálod az alkalmazásban."
+          },
+          "van_limit": {
+            "title": "Van valamilyen limit?",
+            "content": "Igen, egy este mindenki csak egy ingyen italt válthat be – de ne aggódj, a helyszínen további kedvezmények és exkluzív ajánlatok is várnak!"
+          },
+          "adhatok_visszajelzest": {
+            "title": "Adhatok még több visszajelzést?",
+            "content": "Igen! Egy‑egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte tapasztalataidra nagyon kíváncsiak vagyunk, mert ezek alapján fejlesztjük tovább az élményt."
+          },
+          "maradt_kerdes": {
+            "title": "Maradt még kérdésed?",
+            "content": "Írj nekünk bátran a live chat‑en! Szívesen segítünk bármiben. 👊"
+          }
+        }
+      },
+      "points_rewards": {
+        "title": "Pontok és Jutalmak",
+        "sections": {
+          "mi_az_a_rewards": {
+            "title": "Mi az a Come Get It Rewards?",
+            "content": "A Come Get It Rewards jutalmaz azért, mert kimész és élvezed a város legjobb helyeit. Gyűjts pontokat minden egyes fogyasztásod után a budapesti (és később más városok) partnerhelyeken – ezeket a pontokat exkluzív jutalmakra, menő márkák kedvezményeire válthatod be. Nincs szükség hűségkártyára, pecsétekre – sőt, nem kell minden alkalommal megnyitnod az appot (de érdemes, mert gyakran vár újdonság)."
+          },
+          "hogyan_szerezhetek_pontokat": {
+            "title": "Hogyan szerezhetek pontokat?",
+            "content": "Pontokat kapsz minden alkalommal, amikor partnerhelyen fogyasztasz. Kapcsold össze a bankkártyád az alkalmazással, és a résztvevő helyeken történt tranzakciók után automatikusan járnak a pontok. Meghívásokért bónuszpont is jár. A tranzakciókat és meghívásokat a Profilban követheted."
+          },
+          "mire_kolthetem": {
+            "title": "Mire költhetem a pontjaimat?",
+            "content": "A jutalmakat gondosan válogatjuk – a lifestyle termékektől a divaton át a legmenőbb márkák ajánlataiig. Az aktuális kínálatot a Jutalmak fül alatt találod. Folyamatosan bővítjük – örömmel várjuk az ötleteidet is!"
+          },
+          "hogyan_osszekotom": {
+            "title": "Hogyan tudom összekötni a kártyámat?",
+            "content": "Nyisd meg az alkalmazásban a Jutalmak menüt és válaszd a ‘Kártya összekötése’ opciót. Kézzel megadhatod, vagy a kamerával be is szkennelheted."
+          },
+          "biztonsag": {
+            "title": "Biztonságosak az adataim?",
+            "content": "Az adataid 100%‑ban biztonságban vannak, a kártyát soha nem terheljük meg. A kártya‑linkeléshez a Fidel.uk (Fidel API) PCI‑tanúsított SDK‑ját használjuk. Kártyaadatot nem tárolunk – tokenizáljuk, és csak a Visa/Mastercard/AmEx tranzakciók felismerésére használjuk, jogosult vásárlások attribúciójához."
+          },
+          "kartya_frissitese": {
+            "title": "Hogyan frissíthetem a kártyaadataimat?",
+            "content": "Ha lejár a kártya, de a száma változatlan, nincs teendő. Csere vagy új kártya hozzáadásához: Profil → ‘Kapcsolt kártyák megtekintése’."
+          },
+          "minden_tranzakcio": {
+            "title": "Minden tranzakciómat látjátok?",
+            "content": "Csak a partnerhelyeken, a regisztrált kártyával, terminálon végzett tranzakciókhoz férünk hozzá."
+          },
+          "lejarnak_pontok": {
+            "title": "Lejárnak a pontjaim?",
+            "content": "A pontok soha nem járnak le — gyűjtheted a nagyobb jutalmakhoz is."
+          },
+          "online_fizetes": {
+            "title": "Támogatjátok az online/asztali fizetést?",
+            "content": "Még nem. Csak a helyszíni kártyaterminálos tranzakciók számítanak a partnerhelyeken."
+          },
+          "miert_nem_kaptam_pontot": {
+            "title": "Miért nem kaptam pontot egy tranzakció után?",
+            "content": "Ha most linkeltél először Mastercardot, akár egy hét is lehet, mire az első adatok megérkeznek. A pontok közben is gyűlnek, csak később jelennek meg. Ha mégsem látod, írj nekünk a chaten és csatolj blokkot — segítünk! Utólag legfeljebb az elmúlt 7 nap tranzakcióit tudjuk jóváírni."
+          }
+        }
+      },
+      "account": {
+        "title": "Regisztráció és fiókkezelés",
+        "items": {
+          "1": { "q": "Hogyan regisztrálhatok?", "a": "Töltsd le az appot és kövesd a lépéseket. Email címre és telefonszámra lesz szükséged." },
+          "2": { "q": "Hogyan változtathatom meg az adataimat?", "a": "A Profil menüben szerkesztheted a személyes adataidat, jelszavadat és értesítéseidet." }
+        }
+      },
+      ``"referrals": {
+        "title": "Ajánlások és megosztás",
+        "items": {
+          "1": { "q": "Hogyan hívhatom meg a barátaimat?", "a": "A Megosztás menüben találod a referral linked, amit elküldhetsz barátaidnak." },
+          "2": { "q": "Mit kapok, ha meghívok valakit?", "a": "Minden sikeres meghívásért pont jár, amelyet jutalmakra válthatsz be." }
+        }
+      }
+    }
   },
   "form_common": {
     "name_label": "Név *",

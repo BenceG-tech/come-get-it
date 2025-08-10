@@ -353,7 +353,101 @@
     "feedback": { "question": "Did this answer your question?", "yes": "Yes", "no": "No" },
     "toc": "Table of contents",
     "faq_label": "Frequently asked questions",
-    "contact_button": "Message us if you have more questions"
+    "contact_button": "Message us if you have more questions",
+    "faq": {
+      "free_drinks": {
+        "title": "Free drinks? Yes!",
+        "sections": {
+          "miert_adunk": {
+            "title": "Why do we give free drinks?",
+            "content": "Because we believe everyone deserves a little joy — and we partner with top drink brands so you can try new drinks first. Brands want to meet you, and bars love welcoming new faces.\n\nYour presence and feedback are gold: you help make your favorite drinks even better, discover new flavors, and explore places you might not visit otherwise."
+          },
+          "hogyan_juthatsz": {
+            "title": "How to claim a free drink?",
+            "content": "We launch new free‑drink campaigns regularly — stay tuned!\nCheck the bar list in the app or look for the ‘free drink’ marker on the map — that’s where your next glass of joy awaits.\n\nAt the venue, tap ‘Free drink’ and show the confirmation screen to the bartender. That’s it!\n\nDon’t forget to rate the venue, service, and the drink. Your honest feedback matters to both the bar and the brand (anonymously, of course)."
+          },
+          "miert_nem_latok": {
+            "title": "Why don’t I see offers right now?",
+            "content": "There may be no active campaign in your city at the moment. No worries — new surprises are coming soon! Meanwhile, when you pay with your linked card at partner bars, you’ll still collect exclusive offers and loyalty rewards."
+          },
+          "miert_zarolva": {
+            "title": "Why is the free drink locked for me?",
+            "content": "Free drinks are available after you link your payment card to Come Get It Rewards. You’ll also earn points on every purchase to redeem for rewards — totally worth it! See details in the app."
+          },
+          "van_limit": {
+            "title": "Is there a limit?",
+            "content": "Yes. You can redeem one free drink per night — but don’t worry, there are more discounts and exclusive offers at the venue."
+          },
+          "adhatok_visszajelzest": {
+            "title": "Can I give more feedback?",
+            "content": "Yes! We may send a short survey after a drink. We care about your honest experience — that’s how we keep improving."
+          },
+          "maradt_kerdes": {
+            "title": "Still have questions?",
+            "content": "Message us on live chat — we’re happy to help. 👊"
+          }
+        }
+      },
+      "points_rewards": {
+        "title": "Points and Rewards",
+        "sections": {
+          "mi_az_a_rewards": {
+            "title": "What is Come Get It Rewards?",
+            "content": "Come Get It Rewards celebrates you for going out and enjoying the city’s best spots. Earn points on every purchase at partner venues in Budapest (and more cities later). Redeem points for exclusive rewards and great brand offers. No stamp cards, and you don’t even have to open the app every time (but you’ll want to — new stuff drops often)."
+          },
+          "hogyan_szerezhetek_pontokat": {
+            "title": "How do I earn points?",
+            "content": "Earn points whenever you spend at a partner venue. Link your payment card to the app — points are credited automatically for eligible transactions. Invite friends for bonus points. Track transactions and invites in your Profile."
+          },
+          "mire_kolthetem": {
+            "title": "What can I spend points on?",
+            "content": "Rewards are carefully curated — from lifestyle and fashion to top brand perks. See the current catalog in the Rewards tab. We update it frequently — and we’d love your suggestions!"
+          },
+          "hogyan_osszekotom": {
+            "title": "How do I link my card?",
+            "content": "Open the Rewards menu in the app and choose ‘Link card’. Enter your card details manually or scan them with your camera."
+          },
+          "biztonsag": {
+            "title": "Is my data secure?",
+            "content": "Your data is 100% safe — we never charge your card. We use Fidel.uk (Fidel API), a secure, PCI‑certified SDK for card‑linking. We don’t store card data — it’s tokenized and used only to recognize Visa, Mastercard, and AmEx transactions and attribute eligible purchases."
+          },
+          "kartya_frissitese": {
+            "title": "How can I update my card details?",
+            "content": "If your card expires but the number stays the same, you don’t need to do anything. To change or add a new card, open Profile → ‘View linked cards’ and manage them there."
+          },
+          "minden_tranzakcio": {
+            "title": "Do you see all my transactions?",
+            "content": "We only access transactions made with your linked card at partner venues via payment terminals."
+          },
+          "lejarnak_pontok": {
+            "title": "Do my points expire?",
+            "content": "Points never expire. Save up for the big rewards."
+          },
+          "online_fizetes": {
+            "title": "Do you support online/table payments?",
+            "content": "Not yet. We only support in‑venue terminal transactions at partner locations."
+          },
+          "miert_nem_kaptam_pontot": {
+            "title": "Why didn’t I receive points for a transaction?",
+            "content": "If you’ve just linked a Mastercard, it can take up to a week for the first transaction data to arrive. Points still accrue and will show later. If they still don’t appear, contact us in live chat and attach your receipt — we’ll help! Come Get It can only credit transactions from the last 7 days retroactively."
+          }
+        }
+      },
+      "account": {
+        "title": "Registration and account",
+        "items": {
+          "1": { "q": "How can I sign up?", "a": "Download the app and follow the registration steps. You’ll need an email address and phone number." },
+          "2": { "q": "How can I change my details?", "a": "Go to Profile to edit your personal data, password, and notification settings." }
+        }
+      },
+      "referrals": {
+        "title": "Referrals and sharing",
+        "items": {
+          "1": { "q": "How can I invite friends?", "a": "Find your referral link in the Share menu and send it to friends." },
+          "2": { "q": "What do I get for inviting someone?", "a": "You earn points for every successful invite — redeem them for rewards." }
+        }
+      }
+    }
   },
   "form_common": {
     "name_label": "Name *",

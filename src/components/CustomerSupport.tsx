@@ -156,131 +156,42 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderFAQDetail = (type: DetailView) => {
-    const content = {
-      'ingyen-italok': {
-        title: 'Ingyen italok? Igen, jól hallottad!',
-        sections: [
-          {
-            id: 'miert-adunk',
-            title: 'Miért adunk ingyen italokat?',
-            content: 'Egyszerűen azért, mert hisszük, hogy mindenkinek jár egy kis öröm, és közben a legmenőbb italmárkákkal dolgozunk együtt, hogy elsőként próbálhasd ki a legújabb italokat. Ezek a márkák szeretnének bemutatkozni neked, a bárok pedig örömmel látják, ha új arcok érkeznek hozzájuk.\n\nA te jelenléted, visszajelzésed és véleményed aranyat ér – segítesz abban, hogy a kedvenc italaid még jobbak legyenek, új ízeket fedezz fel, és közben olyan helyeket is kipróbálj, ahová magadtól talán sosem mennél el.'
-          },
-          {
-            id: 'hogyan-juthatsz',
-            title: 'Hogyan juthatsz hozzá egy ingyen italhoz?',
-            content: 'Folyamatosan indítunk új ingyen italos akciókat, szóval érdemes résen lenni!\nNézd meg az applikációban a bárlistát, vagy keresd a térképen az „ingyen ital" jelzést – ezek mutatják, hol vár rád a következő pohár öröm.\n\nAmikor a helyszínre érsz, csak nyomd meg az „Ingyen ital" gombot, és mutasd meg a pultosnak a visszaigazoló képernyőt. Ennyi az egész!\n\nNe felejtsd el értékelni a helyet, a kiszolgálást és magát az italt! Az őszinte véleményed sokat számít – mind a bár, mind a márka számára hasznos visszajelzés lesz (és természetesen teljesen anonim módon).'
-          },
-          {
-            id: 'miert-nem-latok',
-            title: 'Miért nem látok most ital ajánlatokat?',
-            content: 'Előfordulhat, hogy éppen nincs aktív kampány a városodban. Ne aggódj, hamarosan visszatérünk újabb meglepetésekkel! Addig is, ha a partner bárjainkban a regisztrált kártyáddal fizetsz, exkluzív ajánlatokat és hűségjutalmakat gyűjthetsz.'
-          },
-          {
-            id: 'miert-zarolva',
-            title: 'Miért van zárolva nálam az ingyen ital lehetőség?',
-            content: 'Az ingyen italok csak akkor érhetők el, ha összekapcsolod a bankkártyádat a Come Get It Rewards rendszerével. Ezzel nemcsak az italokhoz jutsz hozzá, hanem minden fogyasztásod után pontokat is gyűjtesz, amit további jutalmakra válthatsz be. Szóval tényleg megéri! A részleteket megtalálod az alkalmazásban.'
-          },
-          {
-            id: 'van-limit',
-            title: 'Van valamilyen limit?',
-            content: 'Igen, egy este mindenki csak egy ingyen italt válthat be – de ne aggódj, a helyszínen további kedvezmények és exkluzív ajánlatok is várnak!'
-          },
-          {
-            id: 'adhatok-visszajelzest',
-            title: 'Adhatok még több visszajelzést?',
-            content: 'Igen! Egy-egy ital után lehet, hogy küldünk egy rövid kérdőívet. Őszinte tapasztalataidra nagyon kíváncsiak vagyunk, mert ezek alapján fejlesztjük tovább az élményt.'
-          },
-          {
-            id: 'maradt-kerdes',
-            title: 'Maradt még kérdésed?',
-            content: 'Írj nekünk bátran a live chat-en! Szívesen segítünk bármiben. 👊'
-          }
-        ]
-      },
-      'jutalmak': {
-        title: 'Pontok és Jutalmak',
-        sections: [
-          {
-            id: 'mi-az-a-rewards',
-            title: 'Mi az a Come Get It Rewards?',
-            content: 'A Come Get It Rewards jutalmaz azért, mert kimész és élvezed a város legjobb helyeit. Gyűjts pontokat minden egyes fogyasztásod után a legjobb budapesti (vagy a jövőben más városi) partnerhelyeken – ezeket a pontokat exkluzív jutalmakra, menő márkák kedvezményeire válthatod be. Nincs szükség hűségkártyára, pecsétekre – sőt, még az appot sem kell megnyitnod minden alkalommal (de érdemes, mert mindig vár valami újdonság).'
-          },
-          {
-            id: 'hogyan-szerezhetek-pontokat',
-            title: 'Hogyan szerezhetek pontokat?',
-            content: 'Pontokat kapsz minden alkalommal, amikor partnerhelyen fogyasztasz. Csak kapcsolod össze a bankkártyád az alkalmazással, és minden, a résztvevő helyeken történő tranzakció után automatikusan járnak a pontok. Bónuszpontokat is szerezhetsz, ha meghívod az ismerőseidet, és ők is csatlakoznak. A tranzakciókat és a meghívások adatait a Profil menüpontban követheted nyomon.'
-          },
-          {
-            id: 'mire-kolthetem',
-            title: 'Mire költhetem a pontjaimat?',
-            content: 'A jutalmakat gondosan válogattuk össze – a lifestyle termékektől a divaton át a legmenőbb márkák ajánlataiig. Az aktuális kínálatot a Jutalmak fül alatt találod az appban. Folyamatosan bővítjük a kínálatot, ezért érdemes rendszeresen visszanézni, és szívesen várjuk az ötleteidet, hogy milyen márkákat látnál még szívesen!'
-          },
-          {
-            id: 'hogyan-osszekotom',
-            title: 'Hogyan tudom összekötni a kártyámat?',
-            content: 'Nyisd meg az alkalmazásban a Jutalmak menüpontot, és válaszd a kártya összekötése opciót. Megadhatod manuálisan a kártyaadatokat, vagy egyszerűen be is szkennelheted a kameráddal.'
-          },
-          {
-            id: 'biztonság',
-            title: 'Biztonságosak az adataim?',
-            content: 'Az adataid 100%-ban biztonságban vannak, és a kártyádat soha nem terheljük meg! A kártya összekötéséhez a Fidel.uk (Fidel API) biztonságos és PCI tanúsított SDK-ját használjuk. A kártyaadataidat nem tároljuk, hanem tokenizáljuk (titkosított azonosítóvá alakítjuk), amit a Fidel használ, hogy felismerje a Visa, Mastercard és American Express tranzakciókat, és rögzítse a jogosult vásárlásokat.'
-          },
-          {
-            id: 'kartya-frissitese',
-            title: 'Hogyan frissíthetem a kártyaadataimat?',
-            content: 'Ha lejár a kártyád, de az új kártya száma nem változik, akkor nincs teendőd – automatikusan működni fog tovább. Ha le akarod cserélni, vagy teljesen új kártyát adnál hozzá, nyisd meg az appban a Profil menüpontot, ott válaszd a „Kapcsolt kártyák megtekintése" opciót, és ott tudod kezelni a kártyáidat.'
-          },
-          {
-            id: 'minden-tranzakcio',
-            title: 'Minden tranzakciómat látjátok?',
-            content: 'Csak azokhoz a tranzakciókhoz férünk hozzá, amelyeket a partnerhelyeken, a regisztrált kártyáddal fizetsz a kártyaterminálokon keresztül.'
-          },
-          {
-            id: 'lejarnak-pontok',
-            title: 'Lejárnak a pontjaim?',
-            content: 'A pontjaid soha nem járnak le, bármennyit gyűjthetsz, hogy beválthasd a nagyobb jutalmakat is.'
-          },
-          {
-            id: 'online-fizetes',
-            title: 'Támogatjátok az online fizetéseket (asztalnál rendelést)?',
-            content: 'Sajnos nem támogatjuk az online, asztalnál történő rendeléseket vagy fizetéseket. Csak a kártyaterminálokon, partnerhelyeken végrehajtott tranzakciókat tudjuk figyelembe venni.'
-          },
-          {
-            id: 'miert-nem-kaptam-pontot',
-            title: 'Miért nem kaptam pontot egy tranzakció után?',
-            content: 'Ha most kapcsolsz össze először Mastercardot, akár egy hétbe is telhet, mire megérkeznek az első tranzakciós adatok. Ez idő alatt is gyűlnek a pontok, de csak később jelennek meg az appban. Ha ezután sem kapod meg a pontokat, vedd fel velünk a kapcsolatot élő chaten, csatolj vásárlási bizonylatot, és segítünk! A Come Get It csak az elmúlt 7 nap tranzakcióit tudja utólag jóváírni.'
-          }
-        ]
-      },
-      'regisztracio': {
-        title: 'Regisztráció és fiókkezelés',
-        content: [
-          {
-            question: 'Hogyan regisztrálhatok?',
-            answer: 'Töltsd le az alkalmazást és kövesd a regisztrációs lépéseket. Szükséged lesz egy email címre és telefonszámra.'
-          },
-          {
-            question: 'Hogyan változtathatom meg az adataim?',
-            answer: 'A Profil menüben szerkesztheted a személyes adataidat, jelszavadat és értesítési beállításaidat.'
-          }
-        ]
-      },
-      'ajanlas': {
-        title: 'Ajánlások és megosztás',
-        content: [
-          {
-            question: 'Hogyan hívhatom meg a barátaimat?',
-            answer: 'A Megosztás menüben találod a referral linkedet, amelyet elküldhetsz barátaidnak.'
-          },
-          {
-            question: 'Mit kapok, ha meghívok valakit?',
-            answer: 'Minden sikeres meghívásért pontokat kapsz, amelyeket jutalmakra válthatasz.'
-          }
-        ]
-      }
-    };
+    const getFaqData = (tKeyBase: string) => ({
+      title: t(`${tKeyBase}.title`),
+      sections: [
+        { id: 'miert-adunk', title: t(`${tKeyBase}.sections.miert_adunk.title`), content: t(`${tKeyBase}.sections.miert_adunk.content`) },
+        { id: 'hogyan-juthatsz', title: t(`${tKeyBase}.sections.hogyan_juthatsz.title`), content: t(`${tKeyBase}.sections.hogyan_juthatsz.content`) },
+        { id: 'miert-nem-latok', title: t(`${tKeyBase}.sections.miert_nem_latok.title`), content: t(`${tKeyBase}.sections.miert_nem_latok.content`) },
+        { id: 'miert-zarolva', title: t(`${tKeyBase}.sections.miert_zarolva.title`), content: t(`${tKeyBase}.sections.miert_zarolva.content`) },
+        { id: 'van-limit', title: t(`${tKeyBase}.sections.van_limit.title`), content: t(`${tKeyBase}.sections.van_limit.content`) },
+        { id: 'adhatok-visszajelzest', title: t(`${tKeyBase}.sections.adhatok_visszajelzest.title`), content: t(`${tKeyBase}.sections.adhatok_visszajelzest.content`) },
+        { id: 'maradt-kerdes', title: t(`${tKeyBase}.sections.maradt_kerdes.title`), content: t(`${tKeyBase}.sections.maradt_kerdes.content`) },
+      ],
+    });
 
-    const faqData = content[type!];
+    let faqData: any;
+
+    if (type === 'ingyen-italok') {
+      faqData = getFaqData('support.faq.free_drinks');
+    } else if (type === 'jutalmak') {
+      faqData = getFaqData('support.faq.points_rewards');
+    } else if (type === 'regisztracio') {
+      faqData = {
+        title: t('support.faq.account.title'),
+        content: [
+          { question: t('support.faq.account.items.1.q'), answer: t('support.faq.account.items.1.a') },
+          { question: t('support.faq.account.items.2.q'), answer: t('support.faq.account.items.2.a') },
+        ],
+      };
+    } else if (type === 'ajanlas') {
+      faqData = {
+        title: t('support.faq.referrals.title'),
+        content: [
+          { question: t('support.faq.referrals.items.1.q'), answer: t('support.faq.referrals.items.1.a') },
+          { question: t('support.faq.referrals.items.2.q'), answer: t('support.faq.referrals.items.2.a') },
+        ],
+      };
+    }
 
     // Handle sections-based content (ingyen-italok and jutalmak)
     if ('sections' in faqData) {
