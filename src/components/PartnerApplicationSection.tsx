@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Handshake, Mail, Phone, User, Store } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
-import { useI18n } from '@/hooks/useI18n';
 
 type PartnerType = 'rewards' | 'brand' | 'accelerator';
 
@@ -25,14 +24,27 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
-  const { t } = useI18n();
 
   const labels = {
-    heading: t(`partner_application.${partnerType}.heading`),
-    sub1: t(`partner_application.${partnerType}.sub1`),
-    sub2: t(`partner_application.${partnerType}.sub2`),
-    company: t(`partner_application.${partnerType}.company`),
-  };
+    rewards: {
+      heading: 'Jutalom partner lennél?',
+      sub1: 'Csatlakozz a rewards partnerekhez!',
+      sub2: 'Aktiváld az ajánlataidat és hozz új vásárlókat mérhetően.',
+      company: 'Márka / Cég neve *',
+    },
+    brand: {
+      heading: 'Márka vagy? Induljunk!',
+      sub1: 'Csatlakozz a város legélőbb közösségéhez!',
+      sub2: 'Tesztelj, mérj és skálázz élményalapú kampányokkal.',
+      company: 'Márka / Cég neve *',
+    },
+    accelerator: {
+      heading: 'Jelentkezz a pilotra!',
+      sub1: 'Come Get It Gyorsító program',
+      sub2: 'Gyors piacra lépés, valódi fogyasztói adatok.',
+      company: 'Márka / Cég neve *',
+    },
+  }[partnerType];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
