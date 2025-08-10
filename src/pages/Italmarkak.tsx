@@ -8,99 +8,37 @@ import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
+import { useI18n } from '@/hooks/useI18n';
 
 const Italmarkak = () => {
+  const { t } = useI18n();
   const brandImage = "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png";
 
   const statistics = [
-    {
-      icon: Compass,
-      number: "246+",
-      label: "FELHASZNÁLÓ"
-    },
-    {
-      icon: Wine,
-      number: "91%",
-      label: "WOMEN"
-    },
-    {
-      icon: Gift,
-      number: "250+",
-      label: "PARTNER"
-    },
-    {
-      icon: CreditCard,
-      number: "4.8",
-      label: "APP RATING"
-    }
+    { icon: Compass, number: "246+", label: t('brands_page.stats.labels.1') },
+    { icon: Wine, number: "91%", label: t('brands_page.stats.labels.2') },
+    { icon: Gift, number: "250+", label: t('brands_page.stats.labels.3') },
+    { icon: CreditCard, number: "4.8", label: t('brands_page.stats.labels.4') }
   ];
 
   const howItWorksSteps = [
-    {
-      number: "1",
-      icon: Wine,
-      title: "MUTASD BE",
-      description: "Töltsd fel italodat a Come Get It platformra, és mutasd meg a budapesti közönségnek!"
-    },
-    {
-      number: "2",
-      icon: Compass,
-      title: "TESZTELD",
-      description: "A közösség kipróbálja, értékeli, és azonnal visszajelzést ad."
-    },
-    {
-      number: "3",
-      icon: Gift,
-      title: "GYŰJTS VISSZAJELZÉST",
-      description: "Valódi, őszinte vélemények és adatok alapján optimalizálhatsz."
-    },
-    {
-      number: "4",
-      icon: Rocket,
-      title: "SKÁLÁZD FEL",
-      description: "Jusson el italod több helyre, növeld a márkaismertséget és az eladásokat!"
-    }
+    { number: "1", icon: Wine, title: t('brands_page.how_it_works.steps.1.title'), description: t('brands_page.how_it_works.steps.1.description') },
+    { number: "2", icon: Compass, title: t('brands_page.how_it_works.steps.2.title'), description: t('brands_page.how_it_works.steps.2.description') },
+    { number: "3", icon: Gift, title: t('brands_page.how_it_works.steps.3.title'), description: t('brands_page.how_it_works.steps.3.description') },
+    { number: "4", icon: Rocket, title: t('brands_page.how_it_works.steps.4.title'), description: t('brands_page.how_it_works.steps.4.description') }
   ];
 
   const features = [
-    {
-      icon: Compass,
-      title: "BEÉPÍTETT FELFEDEZÉS ÉS KÓSTOLÁS",
-      description: "A közönség természetesen találkozik a márkáddal és kóstolja meg."
-    },
-    {
-      icon: CreditCard,
-      title: "CÉLZOTT ELÉRÉS",
-      description: "91% Gen Z & Millennial – pontos, értékes közönség."
-    },
-    {
-      icon: Wine,
-      title: "KREATÍV ÉLMÉNYCSOMAGOK",
-      description: "Takeover hetek, limited kiadások, AR filter – emlékezetes aktivációk."
-    },
-    {
-      icon: Gift,
-      title: "TELJESÍTMÉNYMÉRÉS",
-      description: "Kártyaalapú attribúció és valós idejű statisztikák."
-    }
+    { icon: Compass, title: t('brands_page.features.items.1.title'), description: t('brands_page.features.items.1.description') },
+    { icon: CreditCard, title: t('brands_page.features.items.2.title'), description: t('brands_page.features.items.2.description') },
+    { icon: Wine, title: t('brands_page.features.items.3.title'), description: t('brands_page.features.items.3.description') },
+    { icon: Gift, title: t('brands_page.features.items.4.title'), description: t('brands_page.features.items.4.description') }
   ];
 
   const targetAudience = [
-    {
-      icon: Gift,
-      title: "ÚJ MÁRKÁK",
-      description: "Boutique, craft brandek"
-    },
-    {
-      icon: Compass,
-      title: "NAGY BRANDEK",
-      description: "Új célcsoportot keresők"
-    },
-    {
-      icon: Wine,
-      title: "ALKOHOLMENTES",
-      description: "Innovatív healthy opciók"
-    }
+    { icon: Gift, title: t('brands_page.target.items.1.title'), description: t('brands_page.target.items.1.description') },
+    { icon: Compass, title: t('brands_page.target.items.2.title'), description: t('brands_page.target.items.2.description') },
+    { icon: Wine, title: t('brands_page.target.items.3.title'), description: t('brands_page.target.items.3.description') }
   ];
 
   return (
@@ -119,12 +57,12 @@ const Italmarkak = () => {
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
               <HeroTitle>
-                <span className="block text-white">LÉGY AZ ELSŐ KORTY,</span>
-                <span className="block text-electric-300">AMIRŐL BESZÉLNEK.</span>
+                <span className="block text-white">{t('brands_page.hero.line1')}</span>
+                <span className="block text-electric-300">{t('brands_page.hero.line2')}</span>
               </HeroTitle>
               
               <HeroSubtitle>
-                A legemlékezetesebb pillanatnál találkozol a fogyasztóval — az első körnél. Aktiválj, mérj, és építs kultuszt a város éjszakájában.
+                {t('brands_page.hero.subtitle')}
               </HeroSubtitle>
               
               <Button 
@@ -140,7 +78,7 @@ const Italmarkak = () => {
                   }
                 }}
               >
-                Beszéljünk
+                {t('brands_page.hero.cta')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
@@ -158,7 +96,7 @@ const Italmarkak = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <SectionTitle>
-              HOGYAN MŰKÖDIK?
+              {t('brands_page.how_it_works.title')}
             </SectionTitle>
           </div>
           
@@ -196,7 +134,7 @@ const Italmarkak = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <SectionTitle>
-              MIT KÍNÁLUNK?
+              {t('brands_page.features.title')}
             </SectionTitle>
           </div>
           
@@ -217,7 +155,7 @@ const Italmarkak = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <SectionTitle>
-              KINEK AJÁNLJUK?
+              {t('brands_page.target.title')}
             </SectionTitle>
           </div>
           
@@ -256,11 +194,11 @@ const Italmarkak = () => {
       <section className="py-12 px-4 bg-black text-center">
         <div className="max-w-3xl mx-auto">
           <CTATitle>
-            INDÍTSD EL AZ
-            <span className="block text-electric-300 mt-2">ÉLMÉNYKAMPÁNYT!</span>
+            {t('brands_page.final_cta.title_line1')}
+            <span className="block text-electric-300 mt-2">{t('brands_page.final_cta.title_line2')}</span>
           </CTATitle>
           <p className="text-base text-electric-100 mb-8">
-            Írj nekünk, csatlakozz az elsők között!
+            {t('brands_page.final_cta.subtitle')}
           </p>
           
           <Button 
@@ -276,7 +214,7 @@ const Italmarkak = () => {
               }
             }}
           >
-            KAPCSOLATFELVÉTEL
+            {t('brands_page.final_cta.cta')}
             <ArrowRight className="ml-3 h-5 w-5" />
           </Button>
         </div>

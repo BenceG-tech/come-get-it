@@ -8,8 +8,10 @@ import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
+import { useI18n } from '@/hooks/useI18n';
 
 const ComeGetItAccelerator = () => {
+  const { t } = useI18n();
   const acceleratorImage = "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.png";
 
   // Analytics tracking
@@ -56,62 +58,42 @@ const ComeGetItAccelerator = () => {
   }, []);
 
   const howItWorksSteps = [
-    {
-      number: "1",
-      title: "JELENTKEZZ",
-      description: "Töltsd ki a pilot jelentkezést",
-      icon: NotebookPen
-    },
-    {
-      number: "2", 
-      title: "TESZTELD",
-      description: "Közösségünk kipróbálja az italodat",
-      icon: Wine
-    },
-    {
-      number: "3",
-      title: "GYŰJTS VISSZAJELZÉST",
-      description: "Valódi, mérhető fogyasztói vélemények",
-      icon: MessageCircle
-    },
-    {
-      number: "4",
-      title: "SKÁLÁZD FEL",
-      description: "Indítsd el több helyen – növeld az eladásokat!",
-      icon: Rocket
-    }
+    { number: "1", title: t('accelerator_page.how_it_works.steps.1.title'), description: t('accelerator_page.how_it_works.steps.1.description'), icon: NotebookPen },
+    { number: "2", title: t('accelerator_page.how_it_works.steps.2.title'), description: t('accelerator_page.how_it_works.steps.2.description'), icon: Wine },
+    { number: "3", title: t('accelerator_page.how_it_works.steps.3.title'), description: t('accelerator_page.how_it_works.steps.3.description'), icon: MessageCircle },
+    { number: "4", title: t('accelerator_page.how_it_works.steps.4.title'), description: t('accelerator_page.how_it_works.steps.4.description'), icon: Rocket }
   ];
 
   const freshFeatures = [
-    "Minimum 5 helyszín",
-    "Közösségi tesztkampány",
-    "Fogyasztói visszajelzések, piaci adatok",
-    "Social media + PR aktivitás",
-    "Influencer jelenlét",
-    "Heti riport, ajánlások"
+    t('accelerator_page.packages.fresh.features.1'),
+    t('accelerator_page.packages.fresh.features.2'),
+    t('accelerator_page.packages.fresh.features.3'),
+    t('accelerator_page.packages.fresh.features.4'),
+    t('accelerator_page.packages.fresh.features.5'),
+    t('accelerator_page.packages.fresh.features.6')
   ];
 
   const superFreshFeatures = [
-    "Már 1 helyszínnel elindítható",
-    "Közvetlen tesztelés a célcsoporton",
-    "Social poszt / TikTok reel",
-    "Heti visszajelzés",
-    "Adatalapú insightok",
-    "Márkaismertség boost"
+    t('accelerator_page.packages.super_fresh.features.1'),
+    t('accelerator_page.packages.super_fresh.features.2'),
+    t('accelerator_page.packages.super_fresh.features.3'),
+    t('accelerator_page.packages.super_fresh.features.4'),
+    t('accelerator_page.packages.super_fresh.features.5'),
+    t('accelerator_page.packages.super_fresh.features.6')
   ];
 
   const benefits = [
-    { icon: Zap, title: "GYORS PIACRA LÉPÉS", description: "Minimális időráfordítással" },
-    { icon: Target, title: "CÉLZOTT KÖZÖNSÉG", description: "18-34 éves aktív fiatalok" },
-    { icon: BarChart, title: "VALÓDI FOGYASZTÓI ADATOK", description: "Mérhető visszajelzések" },
-    { icon: Heart, title: "KÖNNYŰ BEVEZETÉS", description: "Egyszerű indulási folyamat" }
+    { icon: Zap, title: t('accelerator_page.why_us.items.1.title'), description: t('accelerator_page.why_us.items.1.description') },
+    { icon: Target, title: t('accelerator_page.why_us.items.2.title'), description: t('accelerator_page.why_us.items.2.description') },
+    { icon: BarChart, title: t('accelerator_page.why_us.items.3.title'), description: t('accelerator_page.why_us.items.3.description') },
+    { icon: Heart, title: t('accelerator_page.why_us.items.4.title'), description: t('accelerator_page.why_us.items.4.description') }
   ];
 
   const stats = [
-    { number: "24", label: "ÁTLAGÉLETKOR", icon: Users },
-    { number: "91%", label: "GEN Z/MILLENNIAL", icon: TrendingUp },
-    { number: "56%", label: "NŐI KÖZÖNSÉG", icon: Heart },
-    { number: "85%", label: "AKTÍV APPHASZNÁLÓ", icon: Activity }
+    { number: "24", label: t('accelerator_page.demo_stats.items.1.label'), icon: Users },
+    { number: "91%", label: t('accelerator_page.demo_stats.items.2.label'), icon: TrendingUp },
+    { number: "56%", label: t('accelerator_page.demo_stats.items.3.label'), icon: Heart },
+    { number: "85%", label: t('accelerator_page.demo_stats.items.4.label'), icon: Activity }
   ];
 
   return (
@@ -130,13 +112,12 @@ const ComeGetItAccelerator = () => {
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
               <HeroTitle>
-                <span className="block text-white mb-2">COME GET IT</span>
-                <span className="block text-electric-300">GYORSÍTÓ</span>
+                <span className="block text-white mb-2">{t('accelerator_page.hero.line1')}</span>
+                <span className="block text-electric-300">{t('accelerator_page.hero.line2')}</span>
               </HeroTitle>
               
               <HeroSubtitle>
-                Indítsd be márkádat –<br />
-                Budapest legdinamikusabb italos közösségében!
+                {t('accelerator_page.hero.subtitle')}
               </HeroSubtitle>
               
               <Button 
@@ -153,7 +134,7 @@ const ComeGetItAccelerator = () => {
                   }
                 }}
               >
-                Jelentkezz most!
+                {t('accelerator_page.hero.cta')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
@@ -171,7 +152,7 @@ const ComeGetItAccelerator = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
-              HOGYAN MŰKÖDIK?
+              {t('accelerator_page.how_it_works.title')}
             </SectionTitle>
           </div>
           
@@ -211,7 +192,7 @@ const ComeGetItAccelerator = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
-              PROGRAMCSOMAGOK ITALMÁRKÁKNAK
+              {t('accelerator_page.packages.title')}
             </SectionTitle>
           </div>
           
@@ -222,7 +203,7 @@ const ComeGetItAccelerator = () => {
               onClick={() => analytics.acceleratorPackageView('fresh')}
             >
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-4xl font-black text-electric-300">FRESH</h3>
+                <h3 className="text-4xl font-black text-electric-300">{t('accelerator_page.packages.fresh.title')}</h3>
                 <Award className="w-10 h-10 text-electric-300" />
               </div>
               
@@ -242,7 +223,7 @@ const ComeGetItAccelerator = () => {
               onClick={() => analytics.acceleratorPackageView('super_fresh')}
             >
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-4xl font-black text-green-400">SUPER-FRESH</h3>
+                <h3 className="text-4xl font-black text-green-400">{t('accelerator_page.packages.super_fresh.title')}</h3>
                 <Zap className="w-10 h-10 text-green-400" />
               </div>
               
@@ -264,7 +245,7 @@ const ComeGetItAccelerator = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
-              MIÉRT VÁLASSZ MINKET?
+              {t('accelerator_page.why_us.title')}
             </SectionTitle>
           </div>
           
@@ -285,7 +266,7 @@ const ComeGetItAccelerator = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
-              FELHASZNÁLÓI DEMÓ ADATOK
+              {t('accelerator_page.demo_stats.title')}
             </SectionTitle>
           </div>
           
@@ -309,11 +290,11 @@ const ComeGetItAccelerator = () => {
       <section className="py-20 px-4 bg-gradient-to-b from-black to-ocean-900 text-center">
         <div className="max-w-4xl mx-auto">
           <CTATitle className="text-5xl md:text-6xl">
-            CSATLAKOZZ A PILOTHOZ!
+            {t('accelerator_page.final_cta.title')}
           </CTATitle>
           <p className="text-xl text-electric-100 mb-10 leading-relaxed">
-            Lépj be az elsők közé, akik meghatározzák<br />
-            Budapest italtrendjeit!
+            {t('accelerator_page.final_cta.subtitle_line1')}<br />
+            {t('accelerator_page.final_cta.subtitle_line2')}
           </p>
           
           <Button 
@@ -330,7 +311,7 @@ const ComeGetItAccelerator = () => {
               }
             }}
           >
-            JELENTKEZZ MOST
+            {t('accelerator_page.final_cta.cta')}
             <ArrowRight className="ml-3 h-6 w-6" />
           </Button>
         </div>

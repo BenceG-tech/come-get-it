@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Lock, User, Chrome } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ const Auth = () => {
   
   const { user, signUp, signIn, signInWithGoogle } = useAuth();
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const { t } = useI18n();
 
   useEffect(() => {
     if (user) {
@@ -42,14 +43,14 @@ const Auth = () => {
 
     if (result.error) {
       toast({
-        title: 'Error',
-        description: result.error.message || 'An error occurred',
+        title: t('auth.toasts.error_title'),
+        description: result.error.message || t('auth.toasts.error_generic'),
         variant: 'destructive',
       });
     } else if (activeTab === 'signup') {
       toast({
-        title: 'Success!',
-        description: 'Please check your email to confirm your account.',
+        title: t('auth.toasts.signup_success_title'),
+        description: t('auth.toasts.signup_success_desc'),
       });
     }
 
@@ -62,8 +63,8 @@ const Auth = () => {
     
     if (error) {
       toast({
-        title: 'Error',
-        description: error.message || 'An error occurred with Google sign-in',
+        title: t('auth.toasts.error_title'),
+        description: error.message || t('auth.toasts.google_error'),
         variant: 'destructive',
       });
     }
@@ -74,28 +75,28 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Welcome to ComeGetIt</CardTitle>
+          <CardTitle className="text-2xl font-bold">{t('auth.title')}</CardTitle>
           <CardDescription>
-            Sign in to your account or create a new one
+            {t('auth.subtitle')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              <TabsTrigger value="signin">{t('auth.tabs.signin')}</TabsTrigger>
+              <TabsTrigger value="signup">{t('auth.tabs.signup')}</TabsTrigger>
             </TabsList>
             
             <TabsContent value="signin" className="space-y-4">
               <form onSubmit={handleEmailAuth} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email">Email</Label>
+                  <Label htmlFor="signin-email">{t('auth.fields.email')}</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="signin-email"
                       type="email"
-                      placeholder="Enter your email"
+                      placeholder={t('auth.placeholders.email')}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="pl-10"
@@ -104,13 +105,13 @@ const Auth = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password">Password</Label>
+                  <Label htmlFor="signin-password">{t('auth.fields.password')}</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="signin-password"
                       type="password"
-                      placeholder="Enter your password"
+                      placeholder={t('auth.placeholders.password_signin')}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className="pl-10"
@@ -119,7 +120,7 @@ const Auth = () => {
                   </div>
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? 'Signing in...' : 'Sign In'}
+                  {loading ? t('auth.buttons.signing_in') : t('auth.buttons.sign_in')}
                 </Button>
               </form>
             </TabsContent>
@@ -127,13 +128,13 @@ const Auth = () => {
             <TabsContent value="signup" className="space-y-4">
               <form onSubmit={handleEmailAuth} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-name">Full Name</Label>
+                  <Label htmlFor="signup-name">{t('auth.fields.full_name')}</Label>
                   <div className="relative">
                     <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="signup-name"
                       type="text"
-                      placeholder="Enter your full name"
+                      placeholder={t('auth.placeholders.full_name')}
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       className="pl-10"
@@ -141,13 +142,13 @@ const Auth = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-email">{t('auth.fields.email')}</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="signup-email"
                       type="email"
-                      placeholder="Enter your email"
+                      placeholder={t('auth.placeholders.email')}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="pl-10"
@@ -156,13 +157,13 @@ const Auth = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
+                  <Label htmlFor="signup-password">{t('auth.fields.password')}</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="signup-password"
                       type="password"
-                      placeholder="Create a password"
+                      placeholder={t('auth.placeholders.password_signup')}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className="pl-10"
@@ -171,7 +172,7 @@ const Auth = () => {
                   </div>
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? 'Creating account...' : 'Create Account'}
+                  {loading ? t('auth.buttons.creating_account') : t('auth.buttons.create_account')}
                 </Button>
               </form>
             </TabsContent>
@@ -184,7 +185,7 @@ const Auth = () => {
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
+                  {t('auth.or_continue_with')}
                 </span>
               </div>
             </div>
@@ -196,7 +197,7 @@ const Auth = () => {
               disabled={loading}
             >
               <Chrome className="mr-2 h-4 w-4" />
-              Continue with Google
+              {t('auth.buttons.continue_with_google')}
             </Button>
           </div>
         </CardContent>

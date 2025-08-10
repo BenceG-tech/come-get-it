@@ -136,5 +136,175 @@
         "4": {"label": "ESTE/HÉTVÉGÉN AKTÍV", "description": "Rendszeres látogatók"}
       }
     }
+  },
+  "brands_page": {
+    "hero": {
+      "line1": "LÉGY AZ ELSŐ KORTY,",
+      "line2": "AMIRŐL BESZÉLNEK.",
+      "subtitle": "A legemlékezetesebb pillanatnál találkozol a fogyasztóval — az első körnél. Aktiválj, mérj, és építs kultuszt a város éjszakájában.",
+      "cta": "Beszéljünk"
+    },
+    "how_it_works": {
+      "title": "HOGYAN MŰKÖDIK?",
+      "steps": {
+        "1": { "title": "MUTASD BE", "description": "Töltsd fel italodat a Come Get It platformra, és mutasd meg a budapesti közönségnek!" },
+        "2": { "title": "TESZTELD", "description": "A közösség kipróbálja, értékeli, és azonnal visszajelzést ad." },
+        "3": { "title": "GYŰJTS VISSZAJELZÉST", "description": "Valódi, őszinte vélemények és adatok alapján optimalizálhatsz." },
+        "4": { "title": "SKÁLÁZD FEL", "description": "Jusson el italod több helyre, növeld a márkaismertséget és az eladásokat!" }
+      }
+    },
+    "features": {
+      "title": "MIT KÍNÁLUNK?",
+      "items": {
+        "1": { "title": "BEÉPÍTETT FELFEDEZÉS ÉS KÓSTOLÁS", "description": "A közönség természetesen találkozik a márkáddal és kóstolja meg." },
+        "2": { "title": "CÉLZOTT ELÉRÉS", "description": "91% Gen Z & Millennial – pontos, értékes közönség." },
+        "3": { "title": "KREATÍV ÉLMÉNYCSOMAGOK", "description": "Takeover hetek, limited kiadások, AR filter – emlékezetes aktivációk." },
+        "4": { "title": "TELJESÍTMÉNYMÉRÉS", "description": "Kártyaalapú attribúció és valós idejű statisztikák." }
+      }
+    },
+    "target": {
+      "title": "KINEK AJÁNLJUK?",
+      "items": {
+        "1": { "title": "ÚJ MÁRKÁK", "description": "Boutique, craft brandek" },
+        "2": { "title": "NAGY BRANDEK", "description": "Új célcsoportot keresők" },
+        "3": { "title": "ALKOHOLMENTES", "description": "Innovatív healthy opciók" }
+      }
+    },
+    "stats": {
+      "labels": { "1": "FELHASZNÁLÓ", "2": "NŐK", "3": "PARTNER", "4": "APP ÉRTÉKELÉS" }
+    },
+    "final_cta": {
+      "title_line1": "INDÍTSD EL AZ",
+      "title_line2": "ÉLMÉNYKAMPÁNYT!",
+      "subtitle": "Írj nekünk, csatlakozz az elsők között!",
+      "cta": "KAPCSOLATFELVÉTEL"
+    }
+  },
+  "rewards_page": {
+    "hero": {
+      "line1": "ÉLMÉNYEKKEL FIZETŐ",
+      "line2": "KÖZÖNSÉG.",
+      "subtitle": "Pontokból lojalitás — hozd át a közösséget a helyedre/jegyrendszeredbe, és tedd a jutalmakat szokássá.",
+      "cta": "Legyünk rewards partner"
+    },
+    "how_it_works": {
+      "title": "HOGYAN MŰKÖDIK?",
+      "steps": {
+        "1": { "title": "REGISZTRÁLJ", "description": "Lépj be a programba!" },
+        "2": { "title": "HOZZ LÉTRE AJÁNLATOT", "description": "Adj exkluzív kedvezményt vagy jutalmat." },
+        "3": { "title": "AKTIVÁLD", "description": "Promód azonnal él!" },
+        "4": { "title": "KÖVESD EREDMÉNYEKET", "description": "Láss élő statisztikákat." }
+      }
+    },
+    "features": {
+      "title": "Jutalom rendszer előnyei",
+      "items": {
+        "1": { "title": "Közvetlen beváltás-meghajtás", "description": "A pontok azonnali beváltásával hozunk trafficet és konverziót." },
+        "2": { "title": "Fiatal, esti-aktív bázis", "description": "91% Gen Z & Millennial – elkötelezett közönség." },
+        "3": { "title": "Együttműködési csomagok", "description": "Kóstolótól a VIP-ig: rugalmas integrációk a céljaidhoz." }
+      }
+    },
+    "stats": {
+      "title": "Jutalom partnereink eredményei",
+      "items": {
+        "1": { "value": "85%", "label": "Kupon beváltási arány" },
+        "2": { "value": "+120%", "label": "Új vásárlók növekedése" },
+        "3": { "value": "50+", "label": "Aktív jutalom partner" },
+        "4": { "value": "95%", "label": "Partner elégedettség" }
+      }
+    }
+  },
+  "accelerator_page": {
+    "hero": {
+      "line1": "COME GET IT",
+      "line2": "GYORSÍTÓ",
+      "subtitle": "Indítsd be márkádat – Budapest legdinamikusabb italos közösségében!",
+      "cta": "Jelentkezz most!"
+    },
+    "how_it_works": {
+      "title": "HOGYAN MŰKÖDIK?",
+      "steps": {
+        "1": { "title": "JELENTKEZZ", "description": "Töltsd ki a pilot jelentkezést" },
+        "2": { "title": "TESZTELD", "description": "Közösségünk kipróbálja az italodat" },
+        "3": { "title": "GYŰJTS VISSZAJELZÉST", "description": "Valódi, mérhető fogyasztói vélemények" },
+        "4": { "title": "SKÁLÁZD FEL", "description": "Indítsd el több helyen – növeld az eladásokat!" }
+      }
+    },
+    "packages": {
+      "title": "PROGRAMCSOMAGOK ITALMÁRKÁKNAK",
+      "fresh": {
+        "title": "FRESH",
+        "features": {
+          "1": "Minimum 5 helyszín",
+          "2": "Közösségi tesztkampány",
+          "3": "Fogyasztói visszajelzések, piaci adatok",
+          "4": "Social media + PR aktivitás",
+          "5": "Influencer jelenlét",
+          "6": "Heti riport, ajánlások"
+        }
+      },
+      "super_fresh": {
+        "title": "SUPER-FRESH",
+        "features": {
+          "1": "Már 1 helyszínnel elindítható",
+          "2": "Közvetlen tesztelés a célcsoporton",
+          "3": "Social poszt / TikTok reel",
+          "4": "Heti visszajelzés",
+          "5": "Adatalapú insightok",
+          "6": "Márkaismertség boost"
+        }
+      }
+    },
+    "why_us": {
+      "title": "MIÉRT VÁLASSZ MINKET?",
+      "items": {
+        "1": { "title": "GYORS PIACRA LÉPÉS", "description": "Minimális időráfordítással" },
+        "2": { "title": "CÉLZOTT KÖZÖNSÉG", "description": "18-34 éves aktív fiatalok" },
+        "3": { "title": "VALÓDI FOGYASZTÓI ADATOK", "description": "Mérhető visszajelzések" },
+        "4": { "title": "KÖNNYŰ BEVEZETÉS", "description": "Egyszerű indulási folyamat" }
+      }
+    },
+    "demo_stats": {
+      "title": "FELHASZNÁLÓI DEMÓ ADATOK",
+      "items": {
+        "1": { "label": "ÁTLAGÉLETKOR" },
+        "2": { "label": "GEN Z/MILLENNIAL" },
+        "3": { "label": "NŐI KÖZÖNSÉG" },
+        "4": { "label": "AKTÍV APPHASZNÁLÓ" }
+      }
+    },
+    "final_cta": {
+      "title": "CSATLAKOZZ A PILOTHOZ!",
+      "subtitle_line1": "Lépj be az elsők közé, akik meghatározzák",
+      "subtitle_line2": "Budapest italtrendjeit!",
+      "cta": "JELENTKEZZ MOST"
+    }
+  },
+  "auth": {
+    "title": "Üdv a Come Get It-ben",
+    "subtitle": "Jelentkezz be vagy hozz létre új fiókot",
+    "tabs": { "signin": "Bejelentkezés", "signup": "Regisztráció" },
+    "fields": { "email": "Email", "password": "Jelszó", "full_name": "Teljes név" },
+    "placeholders": {
+      "email": "Add meg az emailed",
+      "password_signin": "Add meg a jelszavad",
+      "password_signup": "Adj meg egy jelszót",
+      "full_name": "Add meg a teljes neved"
+    },
+    "buttons": {
+      "sign_in": "Bejelentkezés",
+      "signing_in": "Bejelentkezés...",
+      "create_account": "Fiók létrehozása",
+      "creating_account": "Fiók létrehozása...",
+      "continue_with_google": "Folytatás Google-lel"
+    },
+    "or_continue_with": "Vagy folytasd ezzel",
+    "toasts": {
+      "error_title": "Hiba",
+      "error_generic": "Hiba történt",
+      "signup_success_title": "Siker!",
+      "signup_success_desc": "Kérjük, erősítsd meg az emailed.",
+      "google_error": "Hiba történt a Google bejelentkezésnél"
+    }
   }
 }

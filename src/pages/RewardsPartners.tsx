@@ -8,8 +8,10 @@ import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle } from '@/components/ui/typography';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
+import { useI18n } from '@/hooks/useI18n';
 
 const RewardsPartners = () => {
+  const { t } = useI18n();
   const rewardsImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png";
 
   // Analytics tracking
@@ -73,55 +75,23 @@ const RewardsPartners = () => {
   }, []);
 
   const howItWorksSteps = [
-    {
-      number: "1",
-      icon: Gift,
-      title: "REGISZTRÁLJ",
-      description: "Lépj be a programba!"
-    },
-    {
-      number: "2", 
-      icon: Settings,
-      title: "HOZZ LÉTRE AJÁNLATOT",
-      description: "Adj exkluzív kedvezményt vagy jutalmat."
-    },
-    {
-      number: "3",
-      icon: Zap,
-      title: "AKTIVÁLD",
-      description: "Promód azonnal él!"
-    },
-    {
-      number: "4",
-      icon: BarChart,
-      title: "KÖVESD EREDMÉNYEKET",
-      description: "Láss élő statisztikákat."
-    }
+    { number: "1", icon: Gift, title: t('rewards_page.how_it_works.steps.1.title'), description: t('rewards_page.how_it_works.steps.1.description') },
+    { number: "2", icon: Settings, title: t('rewards_page.how_it_works.steps.2.title'), description: t('rewards_page.how_it_works.steps.2.description') },
+    { number: "3", icon: Zap, title: t('rewards_page.how_it_works.steps.3.title'), description: t('rewards_page.how_it_works.steps.3.description') },
+    { number: "4", icon: BarChart, title: t('rewards_page.how_it_works.steps.4.title'), description: t('rewards_page.how_it_works.steps.4.description') }
   ];
 
   const features = [
-    {
-      icon: Gift,
-      title: "Közvetlen beváltás-meghajtás",
-      description: "A pontok azonnali beváltásával hozunk trafficet és konverziót."
-    },
-    {
-      icon: Users,
-      title: "Fiatal, esti-aktív bázis",
-      description: "91% Gen Z & Millennial – elkötelezett közönség."
-    },
-    {
-      icon: Zap,
-      title: "Együttműködési csomagok",
-      description: "Kóstolótól a VIP-ig: rugalmas integrációk a céljaidhoz."
-    }
+    { icon: Gift, title: t('rewards_page.features.items.1.title'), description: t('rewards_page.features.items.1.description') },
+    { icon: Users, title: t('rewards_page.features.items.2.title'), description: t('rewards_page.features.items.2.description') },
+    { icon: Zap, title: t('rewards_page.features.items.3.title'), description: t('rewards_page.features.items.3.description') }
   ];
 
   const stats = [
-    { value: "85%", label: "Kupon beváltási arány" },
-    { value: "+120%", label: "Új vásárlók növekedése" },
-    { value: "50+", label: "Aktív jutalom partner" },
-    { value: "95%", label: "Partner elégedettség" }
+    { value: t('rewards_page.stats.items.1.value'), label: t('rewards_page.stats.items.1.label') },
+    { value: t('rewards_page.stats.items.2.value'), label: t('rewards_page.stats.items.2.label') },
+    { value: t('rewards_page.stats.items.3.value'), label: t('rewards_page.stats.items.3.label') },
+    { value: t('rewards_page.stats.items.4.value'), label: t('rewards_page.stats.items.4.label') }
   ];
 
   return (
@@ -143,12 +113,12 @@ const RewardsPartners = () => {
             {/* Left side - Content */}
             <div className="text-center lg:text-left">
               <HeroTitle>
-                <span className="block text-white mb-2">ÉLMÉNYEKKEL FIZETŐ</span>
-                <span className="block text-electric-300">KÖZÖNSÉG.</span>
+                <span className="block text-white mb-2">{t('rewards_page.hero.line1')}</span>
+                <span className="block text-electric-300">{t('rewards_page.hero.line2')}</span>
               </HeroTitle>
               
               <HeroSubtitle>
-                Pontokból lojalitás — hozd át a közösséget a helyedre/jegyrendszeredbe, és tedd a jutalmakat szokássá.
+                {t('rewards_page.hero.subtitle')}
               </HeroSubtitle>
               
               <Button 
@@ -165,7 +135,7 @@ const RewardsPartners = () => {
                   }
                 }}
               >
-                Legyünk rewards partner
+                {t('rewards_page.hero.cta')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
@@ -183,7 +153,7 @@ const RewardsPartners = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <SectionTitle>
-              HOGYAN MŰKÖDIK?
+              {t('rewards_page.how_it_works.title')}
             </SectionTitle>
           </div>
           
@@ -221,7 +191,7 @@ const RewardsPartners = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle>
-              Jutalom rendszer előnyei
+              {t('rewards_page.features.title')}
             </SectionTitle>
           </div>
           
@@ -244,9 +214,9 @@ const RewardsPartners = () => {
       {/* Statistics - Kompaktabb */}
       <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
         <div className="max-w-7xl mx-auto text-center">
-          <SectionTitle>
-            Jutalom partnereink eredményei
-          </SectionTitle>
+            <SectionTitle>
+              {t('rewards_page.stats.title')}
+            </SectionTitle>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => (

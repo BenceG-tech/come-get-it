@@ -136,5 +136,175 @@
         "4": {"label": "ACTIVE EVENINGS/WEEKENDS", "description": "Regular visitors"}
       }
     }
+  },
+  "brands_page": {
+    "hero": {
+      "line1": "BE THE FIRST SIP,",
+      "line2": "PEOPLE TALK ABOUT.",
+      "subtitle": "Meet consumers at the most memorable moment — the first round. Activate, measure, and build a cult in the city's nightlife.",
+      "cta": "Let's talk"
+    },
+    "how_it_works": {
+      "title": "HOW IT WORKS?",
+      "steps": {
+        "1": { "title": "SHOWCASE", "description": "Upload your drink to Come Get It and show it to Budapest's crowd!" },
+        "2": { "title": "TEST", "description": "The community tries it, rates it, and gives instant feedback." },
+        "3": { "title": "COLLECT FEEDBACK", "description": "Optimize based on real opinions and data." },
+        "4": { "title": "SCALE UP", "description": "Get your drink to more venues, grow awareness and sales!" }
+      }
+    },
+    "features": {
+      "title": "WHAT DO WE OFFER?",
+      "items": {
+        "1": { "title": "BUILT-IN DISCOVERY & TASTING", "description": "People naturally meet your brand and taste it." },
+        "2": { "title": "TARGETED REACH", "description": "91% Gen Z & Millennial — precise, valuable audience." },
+        "3": { "title": "CREATIVE EXPERIENCE PACKS", "description": "Takeover weeks, limited editions, AR filters — memorable activations." },
+        "4": { "title": "PERFORMANCE MEASUREMENT", "description": "Card-linked attribution and real-time stats." }
+      }
+    },
+    "target": {
+      "title": "WHO IS IT FOR?",
+      "items": {
+        "1": { "title": "NEW BRANDS", "description": "Boutique, craft brands" },
+        "2": { "title": "BIG BRANDS", "description": "Looking for new audiences" },
+        "3": { "title": "ALCOHOL-FREE", "description": "Innovative healthy options" }
+      }
+    },
+    "stats": {
+      "labels": { "1": "USERS", "2": "WOMEN", "3": "PARTNERS", "4": "APP RATING" }
+    },
+    "final_cta": {
+      "title_line1": "LAUNCH YOUR",
+      "title_line2": "EXPERIENCE CAMPAIGN!",
+      "subtitle": "Message us and join early!",
+      "cta": "Contact us"
+    }
+  },
+  "rewards_page": {
+    "hero": {
+      "line1": "EXPERIENCE-DRIVEN",
+      "line2": "AUDIENCE.",
+      "subtitle": "Turn points into loyalty — bring the community into your venue/ticketing and make rewards a habit.",
+      "cta": "Become a rewards partner"
+    },
+    "how_it_works": {
+      "title": "HOW IT WORKS?",
+      "steps": {
+        "1": { "title": "SIGN UP", "description": "Join the program!" },
+        "2": { "title": "CREATE AN OFFER", "description": "Give an exclusive discount or reward." },
+        "3": { "title": "ACTIVATE", "description": "Your promo goes live instantly!" },
+        "4": { "title": "TRACK RESULTS", "description": "See live stats." }
+      }
+    },
+    "features": {
+      "title": "Rewards program benefits",
+      "items": {
+        "1": { "title": "Direct redemption drive", "description": "Instant point redemption brings traffic and conversions." },
+        "2": { "title": "Young, evening-active base", "description": "91% Gen Z & Millennial — engaged audience." },
+        "3": { "title": "Collaboration packages", "description": "From tasting to VIP: flexible integrations for your goals." }
+      }
+    },
+    "stats": {
+      "title": "Our rewards partners' results",
+      "items": {
+        "1": { "value": "85%", "label": "Coupon redemption rate" },
+        "2": { "value": "+120%", "label": "New customers growth" },
+        "3": { "value": "50+", "label": "Active rewards partners" },
+        "4": { "value": "95%", "label": "Partner satisfaction" }
+      }
+    }
+  },
+  "accelerator_page": {
+    "hero": {
+      "line1": "COME GET IT",
+      "line2": "ACCELERATOR",
+      "subtitle": "Kickstart your brand — inside Budapest’s most dynamic drinks community!",
+      "cta": "Apply now!"
+    },
+    "how_it_works": {
+      "title": "HOW IT WORKS?",
+      "steps": {
+        "1": { "title": "APPLY", "description": "Fill out the pilot application" },
+        "2": { "title": "TEST", "description": "Our community tries your drink" },
+        "3": { "title": "COLLECT FEEDBACK", "description": "Real, measurable consumer opinions" },
+        "4": { "title": "SCALE UP", "description": "Launch in more places — grow sales!" }
+      }
+    },
+    "packages": {
+      "title": "PROGRAM PACKAGES FOR DRINK BRANDS",
+      "fresh": {
+        "title": "FRESH",
+        "features": {
+          "1": "Minimum 5 locations",
+          "2": "Community test campaign",
+          "3": "Consumer feedback and market data",
+          "4": "Social media + PR activity",
+          "5": "Influencer presence",
+          "6": "Weekly report and recommendations"
+        }
+      },
+      "super_fresh": {
+        "title": "SUPER-FRESH",
+        "features": {
+          "1": "Startable with 1 location",
+          "2": "Direct testing on the target group",
+          "3": "Social post / TikTok reel",
+          "4": "Weekly feedback",
+          "5": "Data-driven insights",
+          "6": "Brand awareness boost"
+        }
+      }
+    },
+    "why_us": {
+      "title": "WHY CHOOSE US?",
+      "items": {
+        "1": { "title": "FAST GO-TO-MARKET", "description": "With minimal time investment" },
+        "2": { "title": "TARGETED AUDIENCE", "description": "Active 18–34 audience" },
+        "3": { "title": "REAL CONSUMER DATA", "description": "Measurable feedback" },
+        "4": { "title": "EASY ONBOARDING", "description": "Simple start process" }
+      }
+    },
+    "demo_stats": {
+      "title": "USER DEMO DATA",
+      "items": {
+        "1": { "label": "AVERAGE AGE" },
+        "2": { "label": "GEN Z/MILLENNIAL" },
+        "3": { "label": "FEMALE AUDIENCE" },
+        "4": { "label": "ACTIVE APP USERS" }
+      }
+    },
+    "final_cta": {
+      "title": "JOIN THE PILOT!",
+      "subtitle_line1": "Join the first to shape",
+      "subtitle_line2": "Budapest’s drink trends!",
+      "cta": "APPLY NOW"
+    }
+  },
+  "auth": {
+    "title": "Welcome to Come Get It",
+    "subtitle": "Sign in to your account or create a new one",
+    "tabs": { "signin": "Sign In", "signup": "Sign Up" },
+    "fields": { "email": "Email", "password": "Password", "full_name": "Full Name" },
+    "placeholders": {
+      "email": "Enter your email",
+      "password_signin": "Enter your password",
+      "password_signup": "Create a password",
+      "full_name": "Enter your full name"
+    },
+    "buttons": {
+      "sign_in": "Sign In",
+      "signing_in": "Signing in...",
+      "create_account": "Create Account",
+      "creating_account": "Creating account...",
+      "continue_with_google": "Continue with Google"
+    },
+    "or_continue_with": "Or continue with",
+    "toasts": {
+      "error_title": "Error",
+      "error_generic": "An error occurred",
+      "signup_success_title": "Success!",
+      "signup_success_desc": "Please check your email to confirm your account.",
+      "google_error": "An error occurred with Google sign-in"
+    }
   }
 }
