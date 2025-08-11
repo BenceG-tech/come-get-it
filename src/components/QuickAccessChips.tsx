@@ -9,7 +9,7 @@ export const QuickAccessChips: React.FC = () => {
   const onClick = (name: string) => () => analytics.ctaClick('quick_access_chips', name);
 
   const chipCls =
-    'inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-semibold bg-white/10 hover:bg-white/20 text-white transition-colors backdrop-blur-sm leading-none';
+    'inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-semibold bg-white/10 hover:bg-white/20 text-white transition-colors backdrop-blur-sm leading-none whitespace-nowrap shrink-0';
 
   return (
     <nav className="lg:hidden w-full px-4 -mt-4 mb-6" aria-label={t('quick_access.aria')}>
