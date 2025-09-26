@@ -53,7 +53,7 @@ export const CustomerSupport: React.FC = () => {
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between p-4 bg-dark-blue border-b border-gray-700">
+    <div className="flex items-center justify-between p-4 bg-gray-900 border-b border-gray-700">
       <div className="flex items-center space-x-3">
         {detailView && (
           <Button
@@ -89,7 +89,7 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderFooterNav = () => (
-    <div className="bg-dark-blue border-t border-gray-700">
+    <div className="bg-gray-900 border-t border-gray-700">
       <div className="flex">
         <button
           onClick={() => {
@@ -205,7 +205,7 @@ export const CustomerSupport: React.FC = () => {
       };
 
       return (
-        <div className="flex flex-col h-full bg-dark-blue">
+        <div className="flex flex-col h-full bg-gray-900">
           {renderHeader()}
           
           <div className="flex-1 overflow-y-auto p-4">
@@ -281,7 +281,7 @@ export const CustomerSupport: React.FC = () => {
 
     // Handle content-based sections (regisztracio and ajanlas)
     return (
-      <div className="flex flex-col h-full bg-dark-blue">
+      <div className="flex flex-col h-full bg-gray-900">
         {renderHeader()}
         
         <div className="flex-1 overflow-y-auto p-4">
@@ -319,8 +319,8 @@ export const CustomerSupport: React.FC = () => {
   };
 
   const renderHomeView = () => (
-    <div className="flex flex-col h-full bg-dark-blue">
-      <div className="flex items-center justify-between p-3 bg-dark-blue border-b border-gray-700">
+    <div className="flex flex-col h-full bg-gray-900">
+      <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
         <div className="flex items-center space-x-3">
           <h2 className="text-base font-semibold text-white">Come Get It</h2>
         </div>
@@ -411,7 +411,7 @@ export const CustomerSupport: React.FC = () => {
         </div>
       </div>
       
-      <div className="bg-dark-blue border-t border-gray-700">
+      <div className="bg-gray-900 border-t border-gray-700">
         <div className="flex">
           <button
             onClick={() => {
@@ -451,8 +451,8 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderMessagesView = () => (
-    <div className="flex flex-col h-full bg-dark-blue">
-      <div className="flex items-center justify-between p-3 bg-dark-blue border-b border-gray-700">
+    <div className="flex flex-col h-full bg-gray-900">
+      <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
         <div className="flex items-center space-x-3">
           <h2 className="text-base font-semibold text-white">{t('support.tabs.messages')}</h2>
         </div>
@@ -486,7 +486,7 @@ export const CustomerSupport: React.FC = () => {
         </p>
       </div>
 
-      <div className="p-3 bg-dark-blue/95 backdrop-blur-sm border-t border-gray-700">
+      <div className="p-3 bg-gray-900/95 backdrop-blur-sm border-t border-gray-700">
         <div className="flex space-x-2">
           <input
             type="text"
@@ -505,7 +505,7 @@ export const CustomerSupport: React.FC = () => {
         </div>
       </div>
       
-      <div className="bg-dark-blue border-t border-gray-700">
+      <div className="bg-gray-900 border-t border-gray-700">
         <div className="flex">
           <button
             onClick={() => {
@@ -545,8 +545,8 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderHelpView = () => (
-    <div className="flex flex-col h-full bg-dark-blue">
-      <div className="flex items-center justify-between p-3 bg-dark-blue border-b border-gray-700">
+    <div className="flex flex-col h-full bg-gray-900">
+      <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
         <div className="flex items-center space-x-3">
           <h2 className="text-base font-semibold text-white">{t('support.tabs.help')}</h2>
         </div>
@@ -633,7 +633,7 @@ export const CustomerSupport: React.FC = () => {
         </div>
       </div>
       
-      <div className="bg-dark-blue border-t border-gray-700">
+      <div className="bg-gray-900 border-t border-gray-700">
         <div className="flex">
           <button
             onClick={() => {
@@ -703,12 +703,12 @@ export const CustomerSupport: React.FC = () => {
       {isOpen && (
         <>
           <div 
-            className="fixed inset-0 bg-dark-blue/60 backdrop-blur-sm z-40"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
             onClick={toggleSupport}
           />
           
           <div className="fixed inset-0 z-50 md:flex md:items-center md:justify-end md:p-4">
-            <div className="w-full h-full md:w-[500px] lg:w-[600px] xl:w-[700px] md:h-[80vh] lg:h-[85vh] bg-dark-blue md:rounded-2xl shadow-2xl border border-gray-700 overflow-hidden relative">
+            <div className="w-full h-full md:w-[500px] lg:w-[600px] xl:w-[700px] md:h-[80vh] lg:h-[85vh] bg-gray-900 md:rounded-2xl shadow-2xl border border-gray-700 overflow-hidden relative">
               {renderCurrentView()}
             </div>
           </div>

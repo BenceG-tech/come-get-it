@@ -32,7 +32,7 @@ export const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 px-4 bg-dark-blue">
+    <section className="py-16 px-4 bg-black">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-black text-white mb-4">

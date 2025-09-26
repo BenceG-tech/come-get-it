@@ -143,7 +143,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-dark-blue text-white">
+    <div className="min-h-screen bg-black text-white">
       <Navigation />
       <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
       <QuickAccessChips />

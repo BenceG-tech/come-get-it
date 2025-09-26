@@ -58,9 +58,9 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
 
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${
-      isVisible ? 'bg-dark-blue/80 backdrop-blur-sm' : 'bg-dark-blue/0'
+      isVisible ? 'bg-black/80 backdrop-blur-sm' : 'bg-black/0'
     }`}>
-      <div className={`bg-dark-blue border border-electric-300/30 rounded-2xl p-8 max-w-md w-full relative transform transition-all duration-300 ${
+      <div className={`bg-black border border-electric-300/30 rounded-2xl p-8 max-w-md w-full relative transform transition-all duration-300 ${
         isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
       }`}>
         {/* Close button */}
@@ -88,7 +88,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({ onClose, onSig
             placeholder={t('exit_intent.placeholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-dark-blue/50 border-electric-300/30 text-white placeholder:text-electric-100/60"
+            className="bg-black/50 border-electric-300/30 text-white placeholder:text-electric-100/60"
             required
             disabled={isLoading}
           />

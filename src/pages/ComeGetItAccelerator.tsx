@@ -97,13 +97,13 @@ const ComeGetItAccelerator = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-dark-blue text-white">
+    <div className="min-h-screen bg-black text-white">
       <MobileNavigation />
       <Navigation />
       
       {/* Hero Section - Standardized */}
       <section className="relative py-16 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-dark-blue via-dark-blue to-ocean-800"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
         
@@ -188,7 +188,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Program Packages */}
-      <section className="py-16 px-4 bg-dark-blue">
+      <section className="py-16 px-4 bg-black">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
@@ -262,7 +262,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* User Demographics - 2x2 Grid */}
-      <section className="py-16 px-4 bg-dark-blue">
+      <section className="py-16 px-4 bg-black">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
@@ -287,7 +287,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-4 bg-gradient-to-b from-dark-blue to-ocean-900 text-center">
+      <section className="py-20 px-4 bg-gradient-to-b from-black to-ocean-900 text-center">
         <div className="max-w-4xl mx-auto">
           <CTATitle className="text-5xl md:text-6xl">
             {t('accelerator_page.final_cta.title')}

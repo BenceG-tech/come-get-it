@@ -41,7 +41,7 @@ export const Navigation: React.FC = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-blue/80 backdrop-blur-sm border-b border-[#3ba1cb]/20 hidden lg:block">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-[#3ba1cb]/20 hidden lg:block">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <Link to="/" className="text-2xl font-anton text-white hover:text-[#27dddf] transition-colors">
           {t('nav.brand')}
@@ -56,7 +56,7 @@ export const Navigation: React.FC = () => {
             {t('nav.partners')}
             <ChevronDown className="ml-1 h-4 w-4" />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-dark-blue/90 backdrop-blur-sm border border-[#3ba1cb]/20 rounded-lg">
+          <DropdownMenuContent className="bg-black/90 backdrop-blur-sm border border-[#3ba1cb]/20 rounded-lg">
             <DropdownMenuItem asChild>
               <Link to="/vendeglatohelyek" className="text-white hover:text-[#27dddf] cursor-pointer w-full">
                 {t('nav.venues')}

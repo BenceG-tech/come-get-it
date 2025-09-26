@@ -36,11 +36,11 @@
   }
 
   .dark {
-    --background: 200 100% 11%;
+    --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-    --card: 200 100% 11%;
+    --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-    --popover: 200 100% 11%;
+    --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
@@ -55,7 +55,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 200 100% 11%;
+    --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
@@ -195,11 +195,11 @@
 
   /* Updated phone mockup frame to match unified colors */
   .phone-frame-solid {
-    background: linear-gradient(135deg, #0f3651 0%, #0a2a3e 50%, #06192b 100%);
+    background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #000000 100%);
     box-shadow: 
       0 0 30px rgba(0, 212, 255, 0.25),
       0 0 60px rgba(34, 211, 238, 0.15),
-      0 20px 40px rgba(15, 54, 81, 0.4),
+      0 20px 40px rgba(0, 0, 0, 0.4),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 

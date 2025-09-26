@@ -78,8 +78,6 @@ export default {
 					800: '#005c73',
 					900: '#004d5e'
 				},
-				// New dark-blue color to replace black/gray-900
-				'dark-blue': '#0f3651',
 				ocean: {
 					50: '#f0f9ff',
 					100: '#e0f2fe',

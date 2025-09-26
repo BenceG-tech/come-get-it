@@ -167,7 +167,7 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
 
   if (isSubmitted) {
     return (
-      <section id={id} className="py-16 px-4 bg-gradient-to-b from-dark-blue to-dark-blue/80">
+      <section id={id} className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black">
         <div className="max-w-4xl mx-auto">
           <Card className="bg-green-500/20 border-green-500/30 backdrop-blur-sm">
             <CardContent className="text-center py-12">
@@ -192,7 +192,7 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
   }
 
   return (
-    <section id={id} className="py-16 px-4 bg-gradient-to-b from-dark-blue to-dark-blue/80">
+    <section id={id} className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -235,7 +235,7 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
                     type="text"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="bg-dark-blue/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
+                    className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder={t('form_common.full_name_placeholder')}
                     required
                     disabled={isLoading}
@@ -254,7 +254,7 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
                     type="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="bg-dark-blue/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
+                    className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder={t('form_common.email_placeholder')}
                     required
                     disabled={isLoading}
@@ -273,7 +273,7 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
                     type="tel"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="bg-dark-blue/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
+                    className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder={t('form_common.phone_placeholder')}
                     disabled={isLoading}
                   />
@@ -291,7 +291,7 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
                     type="text"
                     value={formData.companyName}
                     onChange={handleInputChange}
-                    className="bg-dark-blue/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
+                    className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder={t('partner_app.form.company_placeholder')}
                     required
                     disabled={isLoading}

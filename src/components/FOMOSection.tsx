@@ -6,7 +6,7 @@ import { useI18n } from '@/hooks/useI18n';
 export const FOMOSection: React.FC = () => {
   const { t } = useI18n();
   return (
-    <section className="py-24 px-4 bg-dark-blue">
+    <section className="py-24 px-4 bg-black">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
           {t('fomo.title')}
