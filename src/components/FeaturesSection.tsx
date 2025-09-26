@@ -74,7 +74,7 @@ export const FeaturesSection: React.FC = () => {
                   </p>
                 </div>
                 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-blue/20 to-transparent rounded-3xl"></div>
               </div>
             );
           })}
@@ -114,7 +114,7 @@ export const FeaturesSection: React.FC = () => {
                         </p>
                       </div>
                       
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-dark-blue/20 to-transparent rounded-3xl"></div>
                     </div>
                   </CarouselItem>
                 );

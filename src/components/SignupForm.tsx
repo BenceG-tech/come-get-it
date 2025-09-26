@@ -190,7 +190,7 @@ export const SignupForm: React.FC = () => {
   // Don't show signup form if user is already authenticated
   if (user) {
     return (
-      <section id="signup" className="py-20 bg-gradient-to-b from-black to-[#1a1a1a]">
+      <section id="signup" className="py-20 bg-gradient-to-b from-dark-blue to-dark-blue/80">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <div className="space-y-6">
             <h2 className="text-4xl md:text-5xl font-anton text-white mb-6">
@@ -208,7 +208,7 @@ export const SignupForm: React.FC = () => {
   }
 
   return (
-    <section id="signup" className="py-20 bg-gradient-to-b from-black to-[#1a1a1a]">
+    <section id="signup" className="py-20 bg-gradient-to-b from-dark-blue to-dark-blue/80">
       <div className="max-w-3xl mx-auto px-4 text-center">
         {isSubmitted ? (
           <div className="space-y-6">

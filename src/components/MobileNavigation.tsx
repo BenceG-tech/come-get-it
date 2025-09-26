@@ -34,7 +34,7 @@ export const MobileNavigation: React.FC = () => {
         <SheetTrigger asChild>
           <button
             aria-label={t('nav.menu')}
-            className={`fixed top-4 right-4 z-50 px-3 py-2 bg-black/90 backdrop-blur-sm rounded-full border border-electric-300/20 text-white hover:text-electric-300 hover:border-electric-300/40 transition-all duration-300 flex items-center gap-2 ${showPulse ? 'pulse' : ''}`}
+            className={`fixed top-4 right-4 z-50 px-3 py-2 bg-dark-blue/90 backdrop-blur-sm rounded-full border border-electric-300/20 text-white hover:text-electric-300 hover:border-electric-300/40 transition-all duration-300 flex items-center gap-2 ${showPulse ? 'pulse' : ''}`}
           >
             <Menu className="h-4 w-4" />
             <span className="text-xs font-semibold tracking-wide">{t('nav.menu')}</span>
@@ -43,7 +43,7 @@ export const MobileNavigation: React.FC = () => {
         
         <SheetContent 
           side="top" 
-          className="w-full h-full bg-gradient-to-br from-black via-gray-900/95 to-black backdrop-blur-xl border-0 p-0 flex items-center justify-center"
+          className="w-full h-full bg-gradient-to-br from-dark-blue via-dark-blue/95 to-dark-blue backdrop-blur-xl border-0 p-0 flex items-center justify-center"
         >
           <SheetHeader className="sr-only">
             <SheetTitle>Navigációs Menü</SheetTitle>

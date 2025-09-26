@@ -42,13 +42,13 @@ const Italmarkak = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-dark-blue text-white">
       <MobileNavigation />
       <Navigation />
       
       {/* Hero Section - Standardized */}
       <section className="relative py-16 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-blue via-dark-blue to-ocean-800"></div>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
         
@@ -130,7 +130,7 @@ const Italmarkak = () => {
       </section>
 
       {/* Features - 2x2 Grid */}
-      <section className="py-12 px-4 bg-black">
+      <section className="py-12 px-4 bg-dark-blue">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <SectionTitle>
@@ -151,7 +151,7 @@ const Italmarkak = () => {
       </section>
 
       {/* Target Audience - Kompakt 3 kártya */}
-      <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
+      <section className="py-12 px-4 bg-gradient-to-b from-dark-blue to-ocean-900">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <SectionTitle>
@@ -172,7 +172,7 @@ const Italmarkak = () => {
       </section>
 
       {/* Statistics Section - 2x2 Grid */}
-      <section className="py-8 px-4 bg-black">
+      <section className="py-8 px-4 bg-dark-blue">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 gap-4">
             {statistics.map((stat, index) => (
@@ -191,7 +191,7 @@ const Italmarkak = () => {
       </section>
 
       {/* Final CTA - Kompaktabb */}
-      <section className="py-12 px-4 bg-black text-center">
+      <section className="py-12 px-4 bg-dark-blue text-center">
         <div className="max-w-3xl mx-auto">
           <CTATitle>
             {t('brands_page.final_cta.title_line1')}

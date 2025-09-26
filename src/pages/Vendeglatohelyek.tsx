@@ -73,7 +73,7 @@ const Vendeglatohelyek = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-dark-blue text-white">
       <MobileNavigation />
       <Navigation />
       <VenueHeroSection />

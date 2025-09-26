@@ -95,14 +95,14 @@ const RewardsPartners = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-dark-blue text-white">
       <MobileNavigation />
       <Navigation />
       
       {/* Hero Section - Standardized */}
       <section className="relative py-16 px-4 overflow-hidden">
         {/* Unified background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-blue via-dark-blue to-ocean-800"></div>
         
         {/* Unified glow layers */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
@@ -187,7 +187,7 @@ const RewardsPartners = () => {
       </section>
 
       {/* Features Section - Kompaktabb grid */}
-      <section className="py-12 px-4 bg-black">
+      <section className="py-12 px-4 bg-dark-blue">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle>
@@ -212,7 +212,7 @@ const RewardsPartners = () => {
       </section>
 
       {/* Statistics - Kompaktabb */}
-      <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
+      <section className="py-12 px-4 bg-gradient-to-b from-dark-blue to-ocean-900">
         <div className="max-w-7xl mx-auto text-center">
             <SectionTitle>
               {t('rewards_page.stats.title')}
