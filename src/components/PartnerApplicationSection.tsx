@@ -121,18 +121,6 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
                 description: "Kérjük, próbáld újra később.",
                 variant: "destructive",
               });
-        // Demo fallback (no backend)
-        toast({
-          title: t('partner_app.toasts.demo_title'),
-          description: t('partner_app.toasts.demo_desc'),
-        });
-        setIsSubmitted(true);
-      }
-              toast({
-                title: t('partner_app.toasts.error_title'),
-                description: t('partner_app.toasts.error_desc'),
-                variant: "destructive",
-              });
             }
             setIsLoading(false);
             return;
@@ -156,11 +144,15 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
             description: t('partner_app.toasts.error_desc'),
             variant: 'destructive',
           });
-          setIsLoading(false);
-          return;
         }
       } else {
-
+        // Demo fallback (no backend)
+        toast({
+          title: t('partner_app.toasts.demo_title'),
+          description: t('partner_app.toasts.demo_desc'),
+        });
+        setIsSubmitted(true);
+      }
     } catch (err) {
       console.error('Error sending partner application:', err);
       toast({

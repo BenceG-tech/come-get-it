@@ -128,10 +128,15 @@ export const SignupForm: React.FC = () => {
             description: t('signup.toasts.error_generic_desc'),
             variant: 'destructive'
           });
-          return;
         }
+      } else {
         // Demo fallback (no backend)
-
+        toast({
+          title: t('signup.toasts.demo_title'),
+          description: t('signup.toasts.demo_desc'),
+        });
+        setIsSubmitted(true);
+      }
     } catch (error: any) {
       console.error('Signup error:', error);
       

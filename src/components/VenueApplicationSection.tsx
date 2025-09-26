@@ -59,6 +59,18 @@ export const VenueApplicationSection: React.FC = () => {
     try {
       console.log('Attempting to send venue application...');
       
+      // Generate source tracking
+      const params = new URLSearchParams(window.location.search);
+      const utmPairs = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
+        .map((k) => (params.get(k) ? `${k}=${params.get(k)}` : ''))
+        .filter(Boolean)
+        .join('&');
+      const ref = document.referrer ? `ref=${encodeURIComponent(document.referrer)}` : '';
+      const path = `path=${encodeURIComponent(window.location.pathname)}`;
+      const source = ['venue_application_form', utmPairs && `utm:${utmPairs}`, ref, path]
+        .filter(Boolean)
+        .join(' | ');
+      
       // If Supabase is configured, use the secure endpoint
       if (supabase) {
         try {
@@ -128,8 +140,14 @@ export const VenueApplicationSection: React.FC = () => {
           setIsLoading(false);
           return;
         }
+      } else {
         // Demo fallback (no backend)
-
+        toast({
+          title: t('venue_app.toasts.demo_title'),
+          description: t('venue_app.toasts.demo_desc'),
+        });
+        setIsSubmitted(true);
+      }
     } catch (error) {
       console.error('Error sending venue application:', error);
       toast({

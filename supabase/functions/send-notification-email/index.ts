@@ -1,6 +1,8 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.2';
 
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // Use Resend API directly instead of npm module
@@ -391,9 +393,22 @@ async function sendEmailWithRetry(email: any, maxRetries = 3) {
   let attempt = 0;
   while (attempt <= maxRetries) {
     try {
-      const response = await resend.emails.send(email);
-      console.log(`Email sent successfully on attempt ${attempt + 1}:`, response);
-      return response;
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${resendApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(email),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Resend API error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log(`Email sent successfully on attempt ${attempt + 1}:`, result);
+      return result;
     } catch (error: any) {
       if (attempt === maxRetries) {
         console.error('Email send error, no more retries:', error);
