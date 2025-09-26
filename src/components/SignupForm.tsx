@@ -69,47 +69,68 @@ export const SignupForm: React.FC = () => {
 
       console.log('Starting email registration for:', email);
       
-      // Send notification email to admin and user
-      const { error: emailError } = await supabase.functions.invoke('send-notification-email', {
-        body: { 
-          type: 'user_signup',
-          data: { 
-            email: email,
-            timestamp: new Date().toISOString(),
-            source
+      // If Supabase is configured, use the secure endpoint
+      if (supabase) {
+        try {
+          const { error: submitError } = await supabase.functions.invoke('send-notification-email', {
+            body: {
+              type: 'user_signup',
+              data: {
+                email: email,
+                source: source
+              }
+            }
+          });
+
+          if (submitError) {
+            console.error('Error submitting signup:', submitError);
+            if (submitError.message?.includes('Too many requests')) {
+              toast({
+                title: "Túl sok kérés",
+                description: "Kérjük, várj egy kicsit, majd próbáld újra.",
+                variant: "destructive",
+              });
+            } else if (submitError.message?.includes('Access denied')) {
+              toast({
+                title: "Hozzáférés megtagadva", 
+                description: "Kérjük, próbáld újra később.",
+                variant: "destructive",
+              });
+            } else {
+              toast({
+                title: t('signup.toasts.error_generic_title'),
+                description: t('signup.toasts.error_generic_desc'),
+                variant: "destructive",
+              });
+            }
+            return;
           }
+
+          // Track analytics
+          analytics.signupSubmit(email);
+          analytics.signupSuccess();
+
+          setLastEmail(email);
+          setIsSubmitted(true);
+          setEmail('');
+          setGdprAccepted(false);
+
+          console.log('Registration completed successfully for:', email);
+
+          toast({
+            title: t('signup.toasts.success_title'),
+            description: t('signup.toasts.success_desc'),
+          });
+        } catch (error) {
+          console.error('Error calling secure signup function:', error);
+          toast({
+            title: t('signup.toasts.error_generic_title'),
+            description: t('signup.toasts.error_generic_desc'),
+            variant: 'destructive'
+          });
+          return;
         }
-      });
-
-      if (emailError) {
-        console.error('Email sending error:', emailError);
-        // Don't block the signup if email fails, just log it
-      }
-
-      // Persist to database (insert-only; RLS allows public inserts)
-      const { error: dbError } = await supabase
-        .from('waitlist_signups')
-        .insert([{ email, source }]);
-
-      if (dbError) {
-        console.warn('DB insert failed (waitlist_signups):', dbError);
-      }
-
-      // Track analytics
-      analytics.signupSubmit(email);
-      analytics.signupSuccess();
-
-      setLastEmail(email);
-      setIsSubmitted(true);
-      setEmail('');
-      setGdprAccepted(false);
-
-      console.log('Registration completed successfully for:', lastEmail || email);
-
-      toast({
-        title: t('signup.toasts.success_title'),
-        description: t('signup.toasts.success_desc'),
-      });
+        // Demo fallback (no backend)
 
     } catch (error: any) {
       console.error('Signup error:', error);

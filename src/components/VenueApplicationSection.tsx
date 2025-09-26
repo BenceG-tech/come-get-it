@@ -59,62 +59,76 @@ export const VenueApplicationSection: React.FC = () => {
     try {
       console.log('Attempting to send venue application...');
       
-      // Build source context with UTM params and referrer
-      const params = new URLSearchParams(window.location.search);
-      const utmPairs = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
-        .map((k) => (params.get(k) ? `${k}=${params.get(k)}` : ''))
-        .filter(Boolean)
-        .join('&');
-      const ref = document.referrer ? `ref=${encodeURIComponent(document.referrer)}` : '';
-      const path = `path=${encodeURIComponent(window.location.pathname)}`;
-      const source = ['venue_application_form', utmPairs && `utm:${utmPairs}`, ref, path]
-        .filter(Boolean)
-        .join(' | ');
-      
-      // Email küldés a Supabase Edge Function-ön keresztül
-      const { data, error } = await supabase.functions.invoke('send-notification-email', {
-        body: {
-          type: 'venue_application',
-          data: { ...formData, timestamp: new Date().toISOString(), source }
+      // If Supabase is configured, use the secure endpoint
+      if (supabase) {
+        try {
+          const { error: submitError } = await supabase.functions.invoke('send-notification-email', {
+            body: {
+              type: 'venue_application',
+              data: {
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                venueName: formData.venueName,
+                source: source
+              }
+            }
+          });
+
+          if (submitError) {
+            console.error('Error submitting venue application:', submitError);
+            if (submitError.message?.includes('Too many requests')) {
+              toast({
+                title: "Túl sok kérés",
+                description: "Kérjük, várj egy kicsit, majd próbáld újra.",
+                variant: "destructive",
+              });
+            } else if (submitError.message?.includes('Access denied')) {
+              toast({
+                title: "Hozzáférés megtagadva",
+                description: "Kérjük, próbáld újra később.", 
+                variant: "destructive",
+              });
+            } else {
+              toast({
+                title: t('venue_app.toasts.error_title'),
+                description: t('venue_app.toasts.error_desc'),
+                variant: "destructive",
+              });
+            }
+            setIsLoading(false);
+            return;
+          }
+
+          toast({
+            title: t('venue_app.toasts.success_title'),
+            description: t('venue_app.toasts.success_desc'),
+          });
+          setIsSubmitted(true);
+          
+          // Reset form
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            venueName: '',
+          });
+          
+          // Reset form after successful submission
+          setTimeout(() => {
+            setIsSubmitted(false);
+          }, 8000);
+        } catch (error) {
+          console.error('Error calling secure venue application function:', error);
+          toast({
+            title: t('venue_app.toasts.error_title'),
+            description: t('venue_app.toasts.error_desc'),
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
         }
-      });
-
-      if (error) {
-        console.error('Supabase function error:', error);
-        throw error;
-      }
-
-      console.log('Venue application sent successfully:', data);
-
-      // Persist application to database (insert-only; RLS allows public inserts)
-      const { error: dbError } = await supabase
-        .from('venue_applications')
-        .insert([{ 
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null,
-          venue_name: formData.venueName
-        }]);
-      if (dbError) {
-        console.warn('DB insert failed (venue_applications):', dbError);
-      }
-
-      setIsSubmitted(true);
-      toast({
-        title: t('venue_app.toasts.success_title'),
-        description: t('venue_app.toasts.success_desc'),
-      });
-
-      // Reset form after successful submission
-      setTimeout(() => {
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          venueName: '',
-        });
-        setIsSubmitted(false);
-      }, 8000);
+        // Demo fallback (no backend)
 
     } catch (error) {
       console.error('Error sending venue application:', error);

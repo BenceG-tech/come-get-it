@@ -91,48 +91,75 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
         .filter(Boolean)
         .join(' | ');
 
-      // Email notification via Edge Function (reuse venue_application with enriched source)
-      const { data, error } = await supabase.functions.invoke('send-notification-email', {
-        body: {
-          type: 'venue_application',
-          data: { 
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            venueName: formData.companyName,
-            partnerType,
-            timestamp: new Date().toISOString(),
-            source
-          }
-        }
-      });
+      // If Supabase is configured, use the secure endpoint
+      if (supabase) {
+        try {
+          const { error: submitError } = await supabase.functions.invoke('send-notification-email', {
+            body: {
+              type: 'venue_application',
+              data: {
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                venueName: formData.companyName,
+                source: source
+              }
+            }
+          });
 
-      if (error) throw error;
-
-      // Persist minimal lead in venue_applications table (maps companyName -> venue_name)
-      const { error: dbError } = await supabase
-        .from('venue_applications')
-        .insert([{ 
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null,
-          venue_name: formData.companyName,
-        }]);
-      if (dbError) {
-        console.warn('DB insert failed (venue_applications):', dbError);
+          if (submitError) {
+            console.error('Error submitting partner application:', submitError);
+            if (submitError.message?.includes('Too many requests')) {
+              toast({
+                title: "Túl sok kérés",
+                description: "Kérjük, várj egy kicsit, majd próbáld újra.",
+                variant: "destructive",
+              });
+            } else if (submitError.message?.includes('Access denied')) {
+              toast({
+                title: "Hozzáférés megtagadva",
+                description: "Kérjük, próbáld újra később.",
+                variant: "destructive",
+              });
+        // Demo fallback (no backend)
+        toast({
+          title: t('partner_app.toasts.demo_title'),
+          description: t('partner_app.toasts.demo_desc'),
+        });
+        setIsSubmitted(true);
       }
+              toast({
+                title: t('partner_app.toasts.error_title'),
+                description: t('partner_app.toasts.error_desc'),
+                variant: "destructive",
+              });
+            }
+            setIsLoading(false);
+            return;
+          }
 
-      setIsSubmitted(true);
-      toast({
-        title: t('partner_app.toasts.success_title'),
-        description: t('partner_app.toasts.success_desc'),
-      });
+          setIsSubmitted(true);
+          toast({
+            title: t('partner_app.toasts.success_title'),
+            description: t('partner_app.toasts.success_desc'),
+          });
 
-      // Reset after some time
-      setTimeout(() => {
-        setFormData({ name: '', email: '', phone: '', companyName: '' });
-        setIsSubmitted(false);
-      }, 8000);
+          // Reset after some time
+          setTimeout(() => {
+            setFormData({ name: '', email: '', phone: '', companyName: '' });
+            setIsSubmitted(false);
+          }, 8000);
+        } catch (error) {
+          console.error('Error calling secure partner application function:', error);
+          toast({
+            title: t('partner_app.toasts.error_title'),
+            description: t('partner_app.toasts.error_desc'),
+            variant: 'destructive',
+          });
+          setIsLoading(false);
+          return;
+        }
+      } else {
 
     } catch (err) {
       console.error('Error sending partner application:', err);

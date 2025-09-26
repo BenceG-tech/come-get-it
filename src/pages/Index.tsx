@@ -81,50 +81,59 @@ const Index = () => {
   }, [earnImages.length]);
 
   const handleExitIntentSignup = async (email: string) => {
+    const supabase = getSupabaseClient();
+    
+    if (!supabase) {
+      toast({
+        title: "Hiba történt",
+        description: "Kérjük, próbáld újra később.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Build source context
+    const params = new URLSearchParams(window.location.search);
+    const utmPairs = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
+      .map((k) => (params.get(k) ? `${k}=${params.get(k)}` : ''))
+      .filter(Boolean)
+      .join('&');
+    const ref = document.referrer ? `ref=${encodeURIComponent(document.referrer)}` : '';
+    const path = `path=${encodeURIComponent(window.location.pathname)}`;
+    const source = ['exit_intent_popup', utmPairs && `utm:${utmPairs}`, ref, path]
+      .filter(Boolean)
+      .join(' | ');
+
     try {
-      const supabase = getSupabaseClient();
-      
-      if (supabase) {
-        // Build source context with UTM params and referrer
-        const params = new URLSearchParams(window.location.search);
-        const utmPairs = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
-          .map((k) => (params.get(k) ? `${k}=${params.get(k)}` : ''))
-          .filter(Boolean)
-          .join('&');
-        const ref = document.referrer ? `ref=${encodeURIComponent(document.referrer)}` : '';
-        const path = `path=${encodeURIComponent(window.location.pathname)}`;
-        const source = ['exit_intent_popup', utmPairs && `utm:${utmPairs}`, ref, path]
-          .filter(Boolean)
-          .join(' | ');
-
-        // Send through Supabase Edge Function with correct payload structure
-        await supabase.functions.invoke('send-notification-email', {
-          body: {
-            type: 'user_signup',
-            data: { 
-              email: email,
-              timestamp: new Date().toISOString(),
-              source
-            }
+      const { error: submitError } = await supabase.functions.invoke('send-notification-email', {
+        body: {
+          type: 'user_signup',
+          data: {
+            email,
+            source: source
           }
-        });
+        }
+      });
 
-        // Persist signup to database (insert-only; RLS allows public inserts)
-        const { error: dbError } = await supabase
-          .from('waitlist_signups')
-          .insert([{ email, source }]);
-        if (dbError) console.warn('DB insert failed (waitlist_signups):', dbError);
+      if (submitError) {
+        console.error('Error submitting exit intent signup:', submitError);
+        toast({
+          title: "Hiba történt",
+          description: "Kérjük, próbáld újra később.",
+          variant: "destructive",
+        });
+        return;
       }
-      
+
       analytics.signupSubmit(email);
       analytics.signupSuccess();
-      
+
       toast({
         title: "🎉 Sikeres regisztráció!",
         description: "Köszönjük! Hamarosan jelentkezünk az indulással kapcsolatos részletekkel.",
       });
     } catch (error) {
-      console.error('Exit intent signup error:', error);
+      console.error('Error in exit intent signup:', error);
       toast({
         title: "Hiba történt",
         description: "Kérjük, próbálja újra később.",
