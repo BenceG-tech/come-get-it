@@ -154,62 +154,103 @@ const handler = async (req: Request): Promise<Response> => {
       
       // User welcome email
       htmlContent = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); color: white; border-radius: 12px; overflow: hidden;">
-          <div style="background: linear-gradient(135deg, #00D4FF 0%, #00a9cc 100%); padding: 40px 20px; text-align: center;">
-            <h1 style="margin: 0; font-size: 32px; font-weight: bold;">Üdvözlünk! 🎉</h1>
-          </div>
-          
-          <div style="padding: 40px 30px;">
-            <h2 style="color: #00D4FF; margin-top: 0;">Hurrá, megcsináltad!</h2>
-            <p style="font-size: 18px; line-height: 1.6; margin: 20px 0;">
-              Fantasztikus, hogy csatlakoztál hozzánk! Hamarosan elérhetővé válik az app, ahol minden nap ingyen szerezhetsz italokat és kedvezményeket.
-            </p>
-            
-            <div style="background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 8px; padding: 20px; margin: 30px 0;">
-              <h3 style="color: #00D4FF; margin-top: 0;">Mit vársz tőlünk?</h3>
-              <ul style="margin: 0; padding-left: 20px;">
-                <li style="margin: 8px 0;">🥤 Napi ingyenes italok</li>
-                <li style="margin: 8px 0;">🎯 Exkluzív kedvezmények</li>
-                <li style="margin: 8px 0;">⚡ Pontgyűjtés minden vásárlásnál</li>
-                <li style="margin: 8px 0;">🏆 Különleges jutalmak</li>
-              </ul>
+        <!DOCTYPE html>
+        <html lang="hu">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Üdvözlünk a Come Get It-nél!</title>
+          <style>
+            @media (prefers-color-scheme: dark) {
+              .email-container {
+                background-color: #f8f9fa !important;
+              }
+              .email-content {
+                background-color: #ffffff !important;
+                color: #1a1a1a !important;
+              }
+              .text-muted {
+                color: #6c757d !important;
+              }
+            }
+          </style>
+        </head>
+        <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a1a; background-color: #f8f9fa; margin: 0; padding: 0;" class="email-container">
+          <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+            <div style="background-color: #ffffff; border: 2px solid #00D4FF; border-radius: 16px; padding: 40px; text-align: center; box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);" class="email-content">
+              <div style="margin-bottom: 30px;">
+                <h1 style="color: #00D4FF; font-size: 32px; font-weight: bold; margin: 0 0 10px 0;">
+                  Come Get It! 🍹
+                </h1>
+                <div style="width: 60px; height: 4px; background: linear-gradient(90deg, #00D4FF, #00bfe6); margin: 0 auto; border-radius: 2px;"></div>
+              </div>
+              
+              <h2 style="color: #1a1a1a; font-size: 24px; margin: 30px 0 20px 0;">
+                Üdvözlünk a Come Get It közösségében! 🎉
+              </h2>
+              
+              <p style="color: #4a5568; font-size: 18px; margin: 20px 0; line-height: 1.6;">
+                Szuper, hogy csatlakoztál! Hamarosan értesítünk, amikor elindítjuk az appot és te is elkezdheted gyűjteni a pontokat minden nap ingyen italokért! 🚀
+              </p>
+              
+              <div style="background-color: #f0f9ff; border-left: 4px solid #00D4FF; padding: 20px; margin: 30px 0; text-align: left; border-radius: 8px;">
+                <h3 style="color: #00D4FF; font-size: 20px; margin: 0 0 15px 0;">
+                  Mi vár rád? ✨
+                </h3>
+                <ul style="color: #4a5568; font-size: 16px; margin: 0; padding-left: 20px;">
+                  <li style="margin-bottom: 10px;">🎯 Napi pontgyűjtés egyszerű feladatokkal</li>
+                  <li style="margin-bottom: 10px;">🍹 Ingyen italok a kedvenc helyeidről</li>
+                  <li style="margin-bottom: 10px;">🎁 Exkluzív ajánlatok és meglepetések</li>
+                  <li style="margin-bottom: 10px;">🌟 Közösségi kihívások és versenyek</li>
+                </ul>
+              </div>
+              
+              <p style="color: #4a5568; font-size: 16px; margin: 30px 0;">
+                Addig is kövesd a fejlesztéseket és legyél az elsők között, akik megtudják mikor indul az app! 
+              </p>
+              
+              <div style="margin: 30px 0;">
+                <a href="https://come-get-it.app" style="display: inline-block; background: linear-gradient(135deg, #00D4FF, #00bfe6); color: #ffffff; padding: 16px 32px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 18px; box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3); transition: all 0.3s ease;">
+                  Látogasd meg a weboldalunkat
+                </a>
+              </div>
+              
+              <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid #e2e8f0;">
+                <p style="color: #718096; font-size: 14px; margin: 0;" class="text-muted">
+                  Izgalmas időszak következik! 🔥
+                </p>
+                <p style="color: #718096; font-size: 14px; margin: 10px 0 0 0;" class="text-muted">
+                  A Come Get It csapata ❤️
+                </p>
+              </div>
             </div>
             
-            <p style="font-size: 16px; line-height: 1.6;">
-              Kövesd a fejlesztéseket és légy az első, aki megtudja, mikor indul az app!
-            </p>
-            
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="https://come-get-it.app" style="display: inline-block; background: linear-gradient(135deg, #00D4FF 0%, #00a9cc 100%); color: #000; text-decoration: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; font-size: 16px;">
-                Látogasd meg az oldalt
-              </a>
+            <div style="text-align: center; margin-top: 20px;">
+              <p style="color: #718096; font-size: 12px; margin: 0;" class="text-muted">
+                Ez az email azért érkezett, mert feliratkoztál a Come Get It várólistájára.<br>
+                Ha nem szeretnél több emailt kapni, <a href="#" style="color: #00D4FF; text-decoration: none;">leiratkozhatsz itt</a>.
+              </p>
             </div>
           </div>
-          
-          <div style="text-align: center; padding: 20px; background: rgba(255, 255, 255, 0.05); font-size: 14px; color: #aaa;">
-            <p style="margin: 0;">Come Get It csapat ❤️</p>
-          </div>
-        </div>
+        </body>
+        </html>
       `;
 
       textContent = `
-Üdvözlünk a Come Get It családban! 🎉
+Üdvözlünk a Come Get It közösségében!
 
-Hurrá, megcsináltad!
+Szuper, hogy csatlakoztál! Hamarosan értesítünk, amikor elindítjuk az appot és te is elkezdheted gyűjteni a pontokat minden nap ingyen italokért!
 
-Fantasztikus, hogy csatlakoztál hozzánk! Hamarosan elérhetővé válik az app, ahol minden nap ingyen szerezhetsz italokat és kedvezményeket.
+Mi vár rád?
+• Napi pontgyűjtés egyszerű feladatokkal
+• Ingyen italok a kedvenc helyeidről  
+• Exkluzív ajánlatok és meglepetések
+• Közösségi kihívások és versenyek
 
-Mit vársz tőlünk?
-🥤 Napi ingyenes italok
-🎯 Exkluzív kedvezmények  
-⚡ Pontgyűjtés minden vásárlásnál
-🏆 Különleges jutalmak
+Addig is kövesd a fejlesztéseket: https://come-get-it.app
 
-Kövesd a fejlesztéseket és légy az első, aki megtudja, mikor indul az app!
-
-Látogasd meg az oldalt: https://come-get-it.app
-
-Come Get It csapat ❤️
+Izgalmas időszak következik!
+A Come Get It csapata
       `;
 
       // Admin notification
@@ -368,7 +409,7 @@ Forrás: ${sanitizedData.source || 'Nincs megadva'}
       console.log("Attempting to send admin notification email");
       adminEmailResponse = await sendEmailWithRetry({
         from: "Come Get It <noreply@come-get-it.app>",
-        to: ["hello@come-get-it.app"],
+        to: ["gataibence@gmail.com"],
         subject: adminSubject,
         html: adminHtmlContent,
         text: adminTextContent,
