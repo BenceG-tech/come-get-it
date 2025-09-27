@@ -339,7 +339,11 @@ Forrás: ${sanitizedData.source || 'Nincs megadva'}
 
     // Send the confirmation email to the user
     let emailResponse = null;
+    let userEmailSent = false;
+    let adminEmailSent = false;
+    
     try {
+      console.log(`Attempting to send welcome email to: ${sanitizedData.email}`);
       emailResponse = await sendEmailWithRetry({
         from: "Come Get It <noreply@come-get-it.app>",
         to: [sanitizedData.email],
@@ -347,15 +351,21 @@ Forrás: ${sanitizedData.source || 'Nincs megadva'}
         html: htmlContent,
         text: textContent,
       });
-      console.log("User email sent successfully");
+      userEmailSent = true;
+      console.log("✅ User welcome email sent successfully:", emailResponse.id);
     } catch (error) {
-      console.error("Failed to send user email:", error);
-      // Continue execution even if user email fails
+      console.error("❌ Failed to send user welcome email:", error);
+      console.error("Email details:", { 
+        to: sanitizedData.email, 
+        subject: emailSubject,
+        error: error instanceof Error ? error.message : String(error)
+      });
     }
 
     // Send notification to admin
     let adminEmailResponse = null;
     try {
+      console.log("Attempting to send admin notification email");
       adminEmailResponse = await sendEmailWithRetry({
         from: "Come Get It <noreply@come-get-it.app>",
         to: ["hello@come-get-it.app"],
@@ -364,13 +374,29 @@ Forrás: ${sanitizedData.source || 'Nincs megadva'}
         text: adminTextContent,
         reply_to: sanitizedData.email,
       });
-      console.log("Admin email sent successfully");
+      adminEmailSent = true;
+      console.log("✅ Admin notification email sent successfully:", adminEmailResponse.id);
     } catch (error) {
-      console.error("Failed to send admin email:", error);
-      // Continue execution even if admin email fails
+      console.error("❌ Failed to send admin notification email:", error);
+      console.error("Admin email details:", { 
+        to: "hello@come-get-it.app", 
+        subject: adminSubject,
+        error: error instanceof Error ? error.message : String(error)
+      });
     }
 
-    return new Response(JSON.stringify({ success: true, message: "Request processed successfully" }), {
+    // Log final email delivery status
+    console.log(`📧 Email delivery summary - Welcome: ${userEmailSent ? '✅' : '❌'}, Admin: ${adminEmailSent ? '✅' : '❌'}`);
+
+    // Return success with email delivery status
+    return new Response(JSON.stringify({ 
+      success: true, 
+      message: "Request processed successfully",
+      email_status: {
+        welcome_email_sent: userEmailSent,
+        admin_email_sent: adminEmailSent
+      }
+    }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
