@@ -15,17 +15,20 @@ export const VenueApplicationSection: React.FC = () => {
     email: '',
     phone: '',
     venueName: '',
+    venueType: '',
+    addressCity: '',
+    dailyCustomerCount: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
   const { t } = useI18n();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { id, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [id]: value
     }));
   };
 
@@ -33,10 +36,10 @@ export const VenueApplicationSection: React.FC = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.name || !formData.email || !formData.venueName) {
+    if (!formData.name || !formData.email || !formData.venueName || !formData.venueType || !formData.addressCity || !formData.dailyCustomerCount) {
       toast({
-        title: t('venue_app.toasts.missing_fields_title'),
-        description: t('venue_app.toasts.missing_fields_desc'),
+        title: "Hiányzó adatok",
+        description: "Kérlek töltsd ki az összes kötelező mezőt.",
         variant: "destructive",
       });
       return;
@@ -82,6 +85,9 @@ export const VenueApplicationSection: React.FC = () => {
                 email: formData.email,
                 phone: formData.phone,
                 venueName: formData.venueName,
+                venueType: formData.venueType,
+                addressCity: formData.addressCity,
+                dailyCustomerCount: formData.dailyCustomerCount,
                 source: source
               }
             }
@@ -119,12 +125,15 @@ export const VenueApplicationSection: React.FC = () => {
           setIsSubmitted(true);
           
           // Reset form
-          setFormData({
-            name: '',
-            email: '',
-            phone: '',
-            venueName: '',
-          });
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        venueName: '',
+        venueType: '',
+        addressCity: '',
+        dailyCustomerCount: '',
+      });
           
           // Reset form after successful submission
           setTimeout(() => {
@@ -303,6 +312,69 @@ export const VenueApplicationSection: React.FC = () => {
                     required
                     disabled={isLoading}
                   />
+                </div>
+
+                {/* Venue Type */}
+                <div className="space-y-2">
+                  <Label htmlFor="venueType" className="text-white">
+                    Helység típusa *
+                  </Label>
+                  <select
+                    id="venueType"
+                    value={formData.venueType}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 rounded-md border bg-black/50 border-electric-300/30 text-white focus:border-electric-300 focus:outline-none focus:ring-2 focus:ring-electric-500/20"
+                    required
+                    disabled={isLoading}
+                  >
+                    <option value="">Válassz típust...</option>
+                    <option value="Étterem">Étterem</option>
+                    <option value="Bár">Bár</option>
+                    <option value="Kávézó">Kávézó</option>
+                    <option value="Kocsma">Kocsma</option>
+                    <option value="Borozó">Borozó</option>
+                    <option value="Club/Szórakozóhely">Club/Szórakozóhely</option>
+                    <option value="Cukrászda">Cukrászda</option>
+                    <option value="Egyéb">Egyéb</option>
+                  </select>
+                </div>
+
+                {/* City */}
+                <div className="space-y-2">
+                  <Label htmlFor="addressCity" className="text-white">
+                    Város *
+                  </Label>
+                  <Input
+                    id="addressCity"
+                    type="text"
+                    value={formData.addressCity}
+                    onChange={handleInputChange}
+                    className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
+                    placeholder="Pl.: Budapest"
+                    required
+                    disabled={isLoading}
+                  />
+                </div>
+
+                {/* Daily Customer Count */}
+                <div className="space-y-2">
+                  <Label htmlFor="dailyCustomerCount" className="text-white">
+                    Becsült napi vendégszám *
+                  </Label>
+                  <select
+                    id="dailyCustomerCount"
+                    value={formData.dailyCustomerCount}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 rounded-md border bg-black/50 border-electric-300/30 text-white focus:border-electric-300 focus:outline-none focus:ring-2 focus:ring-electric-500/20"
+                    required
+                    disabled={isLoading}
+                  >
+                    <option value="">Válassz tartományt...</option>
+                    <option value="0-50">0-50 vendég</option>
+                    <option value="51-100">51-100 vendég</option>
+                    <option value="101-200">101-200 vendég</option>
+                    <option value="200+">200+ vendég</option>
+                  </select>
                 </div>
               </div>
 

@@ -137,6 +137,9 @@ const handler = async (req: Request): Promise<Response> => {
       name: sanitizeString(data.name || ''),
       phone: sanitizeString(data.phone || ''),
       venueName: sanitizeString(data.venueName || ''),
+      venueType: sanitizeString(data.venueType || ''),
+      addressCity: sanitizeString(data.addressCity || ''),
+      dailyCustomerCount: sanitizeString(data.dailyCustomerCount || ''),
       source: sanitizeString(data.source || '')
     };
 
@@ -269,7 +272,7 @@ Időpont: ${new Date().toLocaleString('hu-HU')}
 Forrás: ${sanitizedData.source || 'Nincs megadva'}
       `;
     } else if (type === 'venue_application') {
-      const { name, email, phone, venueName } = sanitizedData;
+      const { name, email, phone, venueName, venueType, addressCity, dailyCustomerCount } = sanitizedData;
       
       emailSubject = "Megkaptuk a jelentkezésedet! 🤝";
       
@@ -325,24 +328,110 @@ Csapatunk 1-2 munkanapon belül jelentkezni fog, hogy megbeszéljük a részlete
 Come Get It csapat ❤️
       `;
 
-      // Admin notification
+      // Admin notification with table format
       adminSubject = "Új vendéglátóhely jelentkezés";
       adminHtmlContent = `
-        <h2>Új vendéglátóhely jelentkezés érkezett!</h2>
-        <p><strong>Név:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Telefon:</strong> ${phone || 'Nincs megadva'}</p>
-        <p><strong>Hely neve:</strong> ${venueName}</p>
-        <p><strong>Időpont:</strong> ${new Date().toLocaleString('hu-HU')}</p>
-        <p><strong>Forrás:</strong> ${sanitizedData.source || 'Nincs megadva'}</p>
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #00D4FF 0%, #00a9cc 100%); color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 8px 8px; }
+            table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
+            th { background: #00D4FF; color: white; padding: 12px; text-align: left; font-weight: bold; }
+            td { padding: 12px; border-bottom: 1px solid #e5e7eb; }
+            tr:last-child td { border-bottom: none; }
+            .label { font-weight: bold; color: #555; width: 40%; }
+            .value { color: #333; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h2 style="margin: 0;">🏪 Új vendéglátóhely jelentkezés</h2>
+            </div>
+            <div class="content">
+              <p>Új partneri jelentkezés érkezett a rendszerbe!</p>
+              
+              <table>
+                <tr>
+                  <th colspan="2">Kapcsolattartó adatok</th>
+                </tr>
+                <tr>
+                  <td class="label">Név:</td>
+                  <td class="value">${name}</td>
+                </tr>
+                <tr>
+                  <td class="label">Email:</td>
+                  <td class="value"><a href="mailto:${email}">${email}</a></td>
+                </tr>
+                <tr>
+                  <td class="label">Telefon:</td>
+                  <td class="value">${phone || 'Nincs megadva'}</td>
+                </tr>
+              </table>
+
+              <table>
+                <tr>
+                  <th colspan="2">Helység adatok</th>
+                </tr>
+                <tr>
+                  <td class="label">Helység neve:</td>
+                  <td class="value">${venueName}</td>
+                </tr>
+                <tr>
+                  <td class="label">Típus:</td>
+                  <td class="value">${venueType || 'Nincs megadva'}</td>
+                </tr>
+                <tr>
+                  <td class="label">Város:</td>
+                  <td class="value">${addressCity || 'Nincs megadva'}</td>
+                </tr>
+                <tr>
+                  <td class="label">Napi vendégszám:</td>
+                  <td class="value">${dailyCustomerCount || 'Nincs megadva'}</td>
+                </tr>
+              </table>
+
+              <table>
+                <tr>
+                  <th colspan="2">Egyéb információk</th>
+                </tr>
+                <tr>
+                  <td class="label">Időpont:</td>
+                  <td class="value">${new Date().toLocaleString('hu-HU')}</td>
+                </tr>
+                <tr>
+                  <td class="label">Forrás:</td>
+                  <td class="value">${sanitizedData.source || 'Nincs megadva'}</td>
+                </tr>
+              </table>
+              
+              <p style="margin-top: 20px; color: #666; font-size: 14px;">
+                ⏰ Érdemes minél hamarabb felvenni a kapcsolatot a jelentkezővel!
+              </p>
+            </div>
+          </div>
+        </body>
+        </html>
       `;
       adminTextContent = `
 Új vendéglátóhely jelentkezés érkezett!
 
+KAPCSOLATTARTÓ ADATOK:
 Név: ${name}
 Email: ${email}
 Telefon: ${phone || 'Nincs megadva'}
-Hely neve: ${venueName}
+
+HELYSÉG ADATOK:
+Helység neve: ${venueName}
+Típus: ${venueType || 'Nincs megadva'}
+Város: ${addressCity || 'Nincs megadva'}
+Napi vendégszám: ${dailyCustomerCount || 'Nincs megadva'}
+
+EGYÉB INFORMÁCIÓK:
 Időpont: ${new Date().toLocaleString('hu-HU')}
 Forrás: ${sanitizedData.source || 'Nincs megadva'}
       `;
@@ -364,7 +453,10 @@ Forrás: ${sanitizedData.source || 'Nincs megadva'}
             email: sanitizedData.email,
             name: sanitizedData.name,
             phone: sanitizedData.phone,
-            venue_name: sanitizedData.venueName
+            venue_name: sanitizedData.venueName,
+            venue_type: sanitizedData.venueType,
+            address_city: sanitizedData.addressCity,
+            daily_customer_count: sanitizedData.dailyCustomerCount
           });
       }
     } catch (dbError) {

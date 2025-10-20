@@ -70,31 +70,40 @@ export type Database = {
       }
       venue_applications: {
         Row: {
+          address_city: string | null
           created_at: string
+          daily_customer_count: string | null
           email: string
           id: string
           name: string | null
           phone: string | null
           updated_at: string
           venue_name: string
+          venue_type: string | null
         }
         Insert: {
+          address_city?: string | null
           created_at?: string
+          daily_customer_count?: string | null
           email: string
           id?: string
           name?: string | null
           phone?: string | null
           updated_at?: string
           venue_name: string
+          venue_type?: string | null
         }
         Update: {
+          address_city?: string | null
           created_at?: string
+          daily_customer_count?: string | null
           email?: string
           id?: string
           name?: string | null
           phone?: string | null
           updated_at?: string
           venue_name?: string
+          venue_type?: string | null
         }
         Relationships: []
       }
