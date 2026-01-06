@@ -47,7 +47,9 @@ const sanitizeString = (str: string, maxLength: number = 200): string => {
 const validateOrigin = (request: Request): boolean => {
   const origin = request.headers.get('origin');
   if (!origin) return false;
-  return ALLOWED_ORIGINS.some(allowed => origin === allowed || origin.endsWith('.lovableproject.com'));
+  return ALLOWED_ORIGINS.some(allowed => origin === allowed) || 
+         origin.endsWith('.lovableproject.com') || 
+         origin.endsWith('.lovable.app');
 };
 
 const getClientIP = (request: Request): string => {
