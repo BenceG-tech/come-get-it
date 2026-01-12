@@ -136,9 +136,9 @@
 }
 
 @layer utilities {
-  /* Optimized phone glow effect */
+  /* Optimized phone glow effect - matches hero ocean-800 gradient */
   .bg-optimized-phone-glow {
-    background: radial-gradient(ellipse 150% 120%, rgba(0, 188, 212, 0.12) 0%, rgba(0, 188, 212, 0.08) 40%, transparent 70%);
+    background: radial-gradient(ellipse 150% 120%, rgba(7, 89, 133, 0.25) 0%, rgba(7, 89, 133, 0.15) 40%, transparent 70%);
   }
 
   /* Performance optimization utilities */
