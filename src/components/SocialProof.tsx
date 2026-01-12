@@ -34,20 +34,20 @@ export const SocialProof: React.FC = () => {
       <div className="flex items-center gap-2 mb-2">
         <div className="flex -space-x-2">
           {/* User avatars placeholder */}
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-electric-300/30 to-ocean-600/30 border-2 border-electric-300/50"></div>
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-ocean-400/30 to-electric-500/30 border-2 border-ocean-400/50"></div>
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-electric-500/30 to-ocean-300/30 border-2 border-electric-500/50"></div>
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-ocean-600/30 to-electric-400/30 border-2 border-ocean-600/50 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-nf-primary/30 to-nf-secondary/30 border-2 border-nf-primary/50"></div>
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-nf-secondary/30 to-nf-primary/30 border-2 border-nf-secondary/50"></div>
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-nf-primary/30 to-nf-secondary/30 border-2 border-nf-primary/50"></div>
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-nf-secondary/30 to-nf-primary/30 border-2 border-nf-secondary/50 flex items-center justify-center">
             <span className="text-xs text-white font-semibold">+</span>
           </div>
         </div>
         
-        <span className="text-lg md:text-xl font-bold text-electric-300 tabular-nums">
+        <span className="text-lg md:text-xl font-bold text-nf-primary tabular-nums">
           {count.toLocaleString('hu-HU')}+
         </span>
       </div>
       
-      <p className="text-sm text-electric-100">
+      <p className="text-sm text-nf-text-muted">
         {t('social.early_users_waiting')}
       </p>
     </div>

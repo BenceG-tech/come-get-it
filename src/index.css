@@ -5,64 +5,65 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Neon Fidelity Theme - Dark by default */
+    --background: 0 0% 2%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 187 100% 42%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 205 68% 29%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 7%;
+    --muted-foreground: 220 9% 64%;
+    --accent: 187 100% 42%;
+    --accent-foreground: 0 0% 0%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 13% 18%;
+    --input: 220 13% 18%;
+    --ring: 187 100% 42%;
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 187 100% 42%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 7%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 13% 18%;
+    --sidebar-ring: 187 100% 42%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --background: 0 0% 2%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 187 100% 42%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 205 68% 29%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 7%;
+    --muted-foreground: 220 9% 64%;
+    --accent: 187 100% 42%;
+    --accent-foreground: 0 0% 0%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 220 13% 18%;
+    --input: 220 13% 18%;
+    --ring: 187 100% 42%;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 187 100% 42%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 7%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 13% 18%;
+    --sidebar-ring: 187 100% 42%;
   }
 }
 
@@ -72,15 +73,56 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-nf-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   }
 }
 
+@layer components {
+  /* Neon Fidelity Button - Primary */
+  .nf-button-primary {
+    @apply bg-nf-primary text-black font-bold rounded-full shadow-neon transition-all duration-300;
+  }
+  .nf-button-primary:hover {
+    @apply scale-105 shadow-neon-hover;
+  }
+
+  /* Neon Fidelity Card */
+  .nf-card {
+    @apply bg-nf-surface rounded-2xl border border-nf-border transition-all duration-300;
+  }
+  .nf-card:hover {
+    @apply -translate-y-1 border-nf-primary;
+  }
+
+  /* Neon Fidelity Input */
+  .nf-input {
+    @apply bg-nf-surface-alt border border-nf-border text-white placeholder:text-nf-text-muted rounded-lg;
+  }
+  .nf-input:focus {
+    @apply border-nf-primary ring-2 ring-nf-primary/20 outline-none;
+  }
+
+  /* Neon Fidelity Section */
+  .nf-section {
+    @apply bg-nf-background py-16 px-4;
+  }
+
+  /* Neon Fidelity Icon Container */
+  .nf-icon-container {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-nf-primary to-nf-secondary;
+  }
+
+  /* Neon Fidelity Navbar */
+  .nf-navbar {
+    @apply fixed top-0 left-0 right-0 z-50 bg-nf-background/90 backdrop-blur-md border-b border-nf-border;
+  }
+}
+
 @layer utilities {
-  /* Optimized phone glow effect - single clean gradient */
+  /* Optimized phone glow effect */
   .bg-optimized-phone-glow {
-    background: radial-gradient(ellipse 150% 120%, rgba(0, 212, 255, 0.12) 0%, rgba(34, 211, 238, 0.08) 40%, transparent 70%);
+    background: radial-gradient(ellipse 150% 120%, rgba(0, 188, 212, 0.12) 0%, rgba(0, 188, 212, 0.08) 40%, transparent 70%);
   }
 
   /* Performance optimization utilities */
@@ -96,85 +138,93 @@
     contain: layout style paint;
   }
 
-  /* Updated gradients without royal blue */
+  /* Neon Fidelity Gradients */
+  .nf-gradient-primary {
+    background: linear-gradient(135deg, #00bcd4 0%, #16537e 100%);
+  }
+
+  .nf-gradient-button {
+    background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+  }
+
+  /* Legacy gradient support */
   .brand-gradient-cta {
-    background: linear-gradient(135deg, #00D4FF 0%, #22D3EE 30%, #0369a1 70%, #0c4a6e 100%);
+    background: linear-gradient(135deg, #00bcd4 0%, #16537e 100%);
   }
 
   .liquid-gradient {
-    background: linear-gradient(45deg, #00D4FF, #22D3EE, #7dd3fc, #00D4FF);
+    background: linear-gradient(45deg, #00bcd4, #0097a7, #16537e, #00bcd4);
     background-size: 400% 400%;
     animation: liquid-flow 4s ease-in-out infinite;
   }
 
   .ocean-depth-gradient {
-    background: radial-gradient(circle, #7dd3fc 0%, #0369a1 50%, #0c4a6e 100%);
+    background: radial-gradient(circle, #00bcd4 0%, #16537e 50%, #0c4a6e 100%);
   }
 
   .electric-streak-gradient {
-    background: linear-gradient(90deg, transparent 0%, #00D4FF 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, #00bcd4 50%, transparent 100%);
   }
 
-  /* Unified and improved neon and glow effects */
+  /* Unified Neon Glow Effects */
   .unified-neon-glow {
     box-shadow: 
-      0 0 20px rgba(0, 212, 255, 0.3),
-      0 0 40px rgba(34, 211, 238, 0.2),
-      0 0 60px rgba(125, 211, 252, 0.1);
+      0 0 20px rgba(0, 188, 212, 0.3),
+      0 0 40px rgba(0, 188, 212, 0.2),
+      0 0 60px rgba(0, 188, 212, 0.1);
     transition: all 0.3s ease;
   }
 
   .unified-neon-glow:hover {
     box-shadow: 
-      0 0 25px rgba(0, 212, 255, 0.4),
-      0 0 50px rgba(34, 211, 238, 0.3),
-      0 0 75px rgba(125, 211, 252, 0.2);
+      0 0 25px rgba(0, 188, 212, 0.4),
+      0 0 50px rgba(0, 188, 212, 0.3),
+      0 0 75px rgba(0, 188, 212, 0.2);
   }
 
   .neon-glow-electric {
     box-shadow: 
-      0 0 10px rgba(0, 212, 255, 0.3),
-      0 0 20px rgba(34, 211, 238, 0.2),
-      0 0 30px rgba(125, 211, 252, 0.1);
+      0 0 10px rgba(0, 188, 212, 0.3),
+      0 0 20px rgba(0, 188, 212, 0.2),
+      0 0 30px rgba(0, 188, 212, 0.1);
     transition: all 0.3s ease;
   }
 
   .neon-glow-electric:hover {
     box-shadow: 
-      0 0 15px rgba(0, 212, 255, 0.4),
-      0 0 30px rgba(34, 211, 238, 0.3),
-      0 0 45px rgba(125, 211, 252, 0.2);
+      0 0 15px rgba(0, 188, 212, 0.4),
+      0 0 30px rgba(0, 188, 212, 0.3),
+      0 0 45px rgba(0, 188, 212, 0.2);
   }
 
   .neon-glow-brand {
     box-shadow: 
-      0 0 25px rgba(0, 212, 255, 0.4),
-      0 0 50px rgba(34, 211, 238, 0.2),
-      0 0 75px rgba(3, 105, 161, 0.1);
+      0 0 25px rgba(0, 188, 212, 0.4),
+      0 0 50px rgba(0, 188, 212, 0.2),
+      0 0 75px rgba(22, 83, 126, 0.1);
     transition: all 0.3s ease;
   }
 
   .neon-glow-brand:hover {
     box-shadow: 
-      0 0 35px rgba(0, 212, 255, 0.6),
-      0 0 70px rgba(34, 211, 238, 0.4),
-      0 0 100px rgba(3, 105, 161, 0.2);
+      0 0 35px rgba(0, 188, 212, 0.6),
+      0 0 70px rgba(0, 188, 212, 0.4),
+      0 0 100px rgba(22, 83, 126, 0.2);
   }
 
   /* Glass and Crystal effects */
   .glass-effect {
-    background: rgba(0, 212, 255, 0.08);
+    background: rgba(10, 10, 10, 0.8);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 212, 255, 0.15);
+    border: 1px solid rgba(31, 41, 55, 1);
     box-shadow: 
-      0 8px 32px rgba(0, 212, 255, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      0 8px 32px rgba(0, 188, 212, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .crystal-border {
-    border: 2px solid transparent;
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(34, 211, 238, 0.2)) border-box;
-    background-clip: padding-box, border-box;
+    border: 1px solid #1f2937;
+    background: #0a0a0a;
   }
 
   .reflection-overlay {
@@ -188,17 +238,17 @@
     left: 0;
     right: 0;
     height: 50%;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
     border-radius: inherit;
     pointer-events: none;
   }
 
-  /* Updated phone mockup frame to match unified colors */
+  /* Phone mockup frame */
   .phone-frame-solid {
     background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #000000 100%);
     box-shadow: 
-      0 0 30px rgba(0, 212, 255, 0.25),
-      0 0 60px rgba(34, 211, 238, 0.15),
+      0 0 30px rgba(0, 188, 212, 0.25),
+      0 0 60px rgba(0, 188, 212, 0.15),
       0 20px 40px rgba(0, 0, 0, 0.4),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
@@ -216,7 +266,7 @@
     left: 50%;
     width: 0;
     height: 0;
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, rgba(34, 211, 238, 0.1) 50%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.2) 0%, rgba(0, 188, 212, 0.1) 50%, transparent 70%);
     border-radius: 50%;
     transform: translate(-50%, -50%);
     animation: unified-ripple 3s infinite;
@@ -235,39 +285,39 @@
     left: 50%;
     width: 0;
     height: 0;
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.3) 0%, transparent 70%);
     border-radius: 50%;
     transform: translate(-50%, -50%);
     animation: ripple 2s infinite;
   }
 
-  /* Unified background glow effects with consistent colors */
+  /* Background glow effects */
   .bg-unified-glow-primary {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(34, 211, 238, 0.08) 40%, transparent 80%);
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.15) 0%, rgba(0, 188, 212, 0.08) 40%, transparent 80%);
   }
 
   .bg-unified-glow-secondary {
-    background: radial-gradient(circle, rgba(3, 105, 161, 0.12) 0%, rgba(12, 74, 110, 0.06) 40%, transparent 80%);
+    background: radial-gradient(circle, rgba(22, 83, 126, 0.12) 0%, rgba(22, 83, 126, 0.06) 40%, transparent 80%);
   }
 
   .bg-unified-glow-phone {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, rgba(34, 211, 238, 0.1) 50%, transparent 100%);
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.2) 0%, rgba(0, 188, 212, 0.1) 50%, transparent 100%);
   }
 
   .bg-glow-electric {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, rgba(34, 211, 238, 0.08) 50%, transparent 100%);
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.12) 0%, rgba(0, 188, 212, 0.08) 50%, transparent 100%);
   }
 
   .bg-glow-ocean {
-    background: radial-gradient(circle, rgba(3, 105, 161, 0.15) 0%, rgba(12, 74, 110, 0.1) 50%, transparent 100%);
+    background: radial-gradient(circle, rgba(22, 83, 126, 0.15) 0%, rgba(22, 83, 126, 0.1) 50%, transparent 100%);
   }
 
   .bg-glow-primary {
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, rgba(34, 211, 238, 0.06) 50%, transparent 100%);
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.1) 0%, rgba(0, 188, 212, 0.06) 50%, transparent 100%);
   }
 
   .bg-glow-secondary {
-    background: radial-gradient(circle, rgba(3, 105, 161, 0.12) 0%, rgba(12, 74, 110, 0.08) 50%, transparent 100%);
+    background: radial-gradient(circle, rgba(22, 83, 126, 0.12) 0%, rgba(22, 83, 126, 0.08) 50%, transparent 100%);
   }
 
   /* Wave and motion effects */
@@ -282,7 +332,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 188, 212, 0.3), transparent);
     animation: liquid-flow 3s ease-in-out infinite;
   }
 
@@ -307,7 +357,7 @@
 
   .hover-lift:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 188, 212, 0.15);
   }
 
   .button-press {
@@ -324,7 +374,7 @@
 
   .card-hover:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(0, 212, 255, 0.1);
+    box-shadow: 0 12px 24px rgba(0, 188, 212, 0.1);
   }
 
   /* Staggered entrance animations */
@@ -340,7 +390,7 @@
   .stagger-fade:nth-child(5) { animation-delay: 400ms; }
   .stagger-fade:nth-child(6) { animation-delay: 500ms; }
 
-  /* Improved pulse glow animation - less intense, smoother */
+  /* Keyframe animations */
   @keyframes pulse-glow {
     0%, 100% {
       opacity: 1;
@@ -425,7 +475,7 @@
     }
   }
 
-  /* Smooth rounded clipping to avoid pixelated corners on high-radius screens */
+  /* Smooth rounded clipping */
   .clip-rounded-2_5rem {
     -webkit-clip-path: inset(0 round 2.5rem);
     clip-path: inset(0 round 2.5rem);

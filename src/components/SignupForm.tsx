@@ -190,14 +190,14 @@ export const SignupForm: React.FC = () => {
   // Don't show signup form if user is already authenticated
   if (user) {
     return (
-      <section id="signup" className="py-20 bg-gradient-to-b from-black to-[#1a1a1a]">
+      <section id="signup" className="py-20 bg-nf-background">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <div className="space-y-6">
-            <h2 className="text-4xl md:text-5xl font-anton text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-anton text-white mb-6 tracking-tight">
               {t('signup.logged_in_title')}
             </h2>
-            <div className="bg-[#3ba1cb]/20 border border-[#3ba1cb]/30 rounded-lg p-6">
-              <p className="text-[#27dddf] text-lg">
+            <div className="nf-card p-6 border-nf-primary/30">
+              <p className="text-nf-primary text-lg">
                 {t('signup.logged_in_desc')}
               </p>
             </div>
@@ -208,24 +208,24 @@ export const SignupForm: React.FC = () => {
   }
 
   return (
-    <section id="signup" className="py-20 bg-gradient-to-b from-black to-[#1a1a1a]">
+    <section id="signup" className="py-20 bg-nf-background">
       <div className="max-w-3xl mx-auto px-4 text-center">
         {isSubmitted ? (
           <div className="space-y-6">
-            <h2 className="text-4xl md:text-5xl font-anton text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-anton text-white mb-6 tracking-tight">
               {t('signup.thanks_title')}
             </h2>
-            <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-6 space-y-4">
-              <p className="text-green-400 text-lg">
+            <div className="nf-card p-6 border-green-500/30 bg-green-500/10">
+              <p className="text-green-400 text-lg mb-4">
                 {t('signup.success_line')}
               </p>
-              <p className="text-gray-300 text-sm">{t('signup.check_spam')}</p>
+              <p className="text-nf-text-muted text-sm mb-4">{t('signup.check_spam')}</p>
               <div className="flex justify-center">
                 <Button 
                   variant="outline"
                   onClick={handleResendWelcome}
                   disabled={isResending}
-                  className="border-[#27dddf] text-[#27dddf] hover:bg-[#27dddf] hover:text-black"
+                  className="border-nf-primary text-nf-primary hover:bg-nf-primary hover:text-black"
                 >
                   {isResending ? t('signup.resend_loading') : t('signup.resend_button')}
                 </Button>
@@ -234,10 +234,10 @@ export const SignupForm: React.FC = () => {
           </div>
         ) : (
           <div className="space-y-8">
-            <h2 className="text-4xl md:text-5xl font-anton text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-anton text-white mb-6 tracking-tight">
               {t('signup.main_title')}
             </h2>
-            <p className="text-gray-300 text-lg md:text-xl leading-relaxed">
+            <p className="text-nf-text-muted text-lg md:text-xl leading-relaxed">
               {t('signup.subtitle')}
             </p>
             
@@ -247,7 +247,7 @@ export const SignupForm: React.FC = () => {
                 placeholder={t('signup.placeholder_email')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-white/10 border-[#3ba1cb] text-white placeholder-gray-400 text-center"
+                className="text-center"
                 disabled={isLoading}
               />
               
@@ -256,16 +256,17 @@ export const SignupForm: React.FC = () => {
                   id="gdpr"
                   checked={gdprAccepted}
                   onCheckedChange={(checked) => setGdprAccepted(checked as boolean)}
-                  className="border-[#3ba1cb] data-[state=checked]:bg-[#3ba1cb]"
+                  className="border-nf-border data-[state=checked]:bg-nf-primary data-[state=checked]:border-nf-primary"
                 />
-                <label htmlFor="gdpr" className="text-sm text-gray-300 cursor-pointer">
-                  {t('signup.gdpr_label_prefix')} <Link to="/adatvedelmi-szabalyzat" target="_blank" rel="noopener noreferrer" className="text-[#27dddf] underline focus:outline-none focus:ring-2 focus:ring-[#27dddf]/50">{t('signup.privacy_policy')}</Link>
+                <label htmlFor="gdpr" className="text-sm text-nf-text-muted cursor-pointer">
+                  {t('signup.gdpr_label_prefix')} <Link to="/adatvedelmi-szabalyzat" target="_blank" rel="noopener noreferrer" className="text-nf-primary underline focus:outline-none focus:ring-2 focus:ring-nf-primary/50">{t('signup.privacy_policy')}</Link>
                 </label>
               </div>
               
               <Button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-[#3ba1cb] to-[#27dddf] hover:from-[#27dddf] hover:to-[#3ba1cb] text-black font-bold py-3 text-lg transition-all duration-300"
+                variant="neon"
+                className="w-full py-3 text-lg"
                 disabled={isLoading}
               >
                 {isLoading ? t('signup.button_loading') : t('signup.button')}
@@ -273,11 +274,11 @@ export const SignupForm: React.FC = () => {
             </form>
             
             <div className="mt-6">
-              <p className="text-gray-400 text-sm mb-4">{t('signup.or')}</p>
+              <p className="text-nf-text-muted text-sm mb-4">{t('signup.or')}</p>
               <Button 
                 variant="outline"
                 onClick={() => window.location.href = '/auth'}
-                className="border-[#27dddf] text-[#27dddf] hover:bg-[#27dddf] hover:text-black"
+                className="border-nf-primary text-nf-primary hover:bg-nf-primary hover:text-black"
               >
                 {t('signup.full_registration_google')}
               </Button>

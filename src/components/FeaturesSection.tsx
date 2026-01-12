@@ -13,31 +13,25 @@ export const FeaturesSection: React.FC = () => {
       icon: MapPin,
       description: t('home_features.cards.1.description'),
       benefit: t('home_features.cards.1.benefit'),
-      gradientClass: "from-[#3ba1cb] via-[#27dddf] to-[#0f384e]",
-      glowColor: "rgba(59, 161, 203, 0.6)"
     },
     {
       title: t('home_features.cards.2.title'),
       icon: Zap,
       description: t('home_features.cards.2.description'),
       benefit: t('home_features.cards.2.benefit'),
-      gradientClass: "from-[#27dddf] via-[#3ba1cb] to-[#0c323f]",
-      glowColor: "rgba(39, 221, 223, 0.6)"
     },
     {
       title: t('home_features.cards.3.title'),
       icon: Heart,
       description: t('home_features.cards.3.description'),
       benefit: t('home_features.cards.3.benefit'),
-      gradientClass: "from-[#0f384e] via-[#0c323f] to-[#3ba1cb]",
-      glowColor: "rgba(15, 56, 78, 0.6)"
     }
   ];
 
   return (
-    <section className="py-24 px-4 bg-[#0c323f]/30">
+    <section className="py-24 px-4 bg-nf-surface">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-16 text-white">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-16 text-white tracking-tight">
           {t('home_features.heading')}
         </h2>
         
@@ -48,15 +42,14 @@ export const FeaturesSection: React.FC = () => {
             return (
               <div 
                 key={index}
-                className={`relative group animate-fade-in bg-gradient-to-br ${card.gradientClass} p-8 rounded-3xl transform transition-all duration-500 hover:scale-105`}
+                className="relative group animate-fade-in nf-card p-8 hover:-translate-y-2 hover:border-nf-primary hover:shadow-neon"
                 style={{
                   animationDelay: `${index * 0.2}s`,
-                  boxShadow: `0 0 40px ${card.glowColor}, 0 0 80px ${card.glowColor.replace('0.6', '0.3')}`
                 }}
               >
                 <div className="relative z-10 text-center space-y-6">
                   <div className="flex justify-center mb-6">
-                    <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/30">
+                    <div className="w-20 h-20 bg-gradient-to-br from-nf-primary to-nf-secondary rounded-2xl flex items-center justify-center shadow-neon">
                       <IconComponent size={40} className="text-white" />
                     </div>
                   </div>
@@ -65,16 +58,14 @@ export const FeaturesSection: React.FC = () => {
                     {card.title}
                   </h3>
                   
-                  <p className="text-lg text-white/90 font-medium leading-tight">
+                  <p className="text-lg text-nf-text-muted font-medium leading-tight">
                     {card.description}
                   </p>
                   
-                  <p className="text-base text-white/80 italic font-medium">
+                  <p className="text-base text-nf-primary italic font-medium">
                     {card.benefit}
                   </p>
                 </div>
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
               </div>
             );
           })}
@@ -88,15 +79,10 @@ export const FeaturesSection: React.FC = () => {
                 const IconComponent = card.icon;
                 return (
                   <CarouselItem key={index}>
-                    <div 
-                      className={`relative bg-gradient-to-br ${card.gradientClass} p-8 rounded-3xl mx-2`}
-                      style={{
-                        boxShadow: `0 0 40px ${card.glowColor}, 0 0 80px ${card.glowColor.replace('0.6', '0.3')}`
-                      }}
-                    >
+                    <div className="nf-card p-8 mx-2">
                       <div className="relative z-10 text-center space-y-6">
                         <div className="flex justify-center mb-6">
-                          <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/30">
+                          <div className="w-20 h-20 bg-gradient-to-br from-nf-primary to-nf-secondary rounded-2xl flex items-center justify-center shadow-neon">
                             <IconComponent size={40} className="text-white" />
                           </div>
                         </div>
@@ -105,30 +91,29 @@ export const FeaturesSection: React.FC = () => {
                           {card.title}
                         </h3>
                         
-                        <p className="text-base text-white/90 font-medium leading-tight">
+                        <p className="text-base text-nf-text-muted font-medium leading-tight">
                           {card.description}
                         </p>
                         
-                        <p className="text-sm text-white/80 italic font-medium">
+                        <p className="text-sm text-nf-primary italic font-medium">
                           {card.benefit}
                         </p>
                       </div>
-                      
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
                     </div>
                   </CarouselItem>
                 );
               })}
             </CarouselContent>
-            <CarouselPrevious className="bg-white/20 border-white/30 text-white hover:bg-white/30" />
-            <CarouselNext className="bg-white/20 border-white/30 text-white hover:bg-white/30" />
+            <CarouselPrevious className="bg-nf-surface border-nf-border text-white hover:bg-nf-surface-alt hover:border-nf-primary" />
+            <CarouselNext className="bg-nf-surface border-nf-border text-white hover:bg-nf-surface-alt hover:border-nf-primary" />
           </Carousel>
         </div>
 
         <div className="flex justify-center mt-16">
           <Button 
+            variant="neon"
             size="lg" 
-            className="brand-gradient-cta hover:shadow-2xl text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 neon-glow-brand border-0"
+            className="py-4 px-12 text-lg"
             onClick={() => document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' })}
           >
             {t('home_features.cta')}
