@@ -8,15 +8,15 @@ export const HowItWorks: React.FC = () => {
   const cards = [
     {
       number: 1,
-      icon: CreditCard,
-      titleKey: 'how_it_works.cards.1.title',
-      descKey: 'how_it_works.cards.1.description'
-    },
-    {
-      number: 2,
       icon: Wine,
       titleKey: 'how_it_works.cards.2.title',
       descKey: 'how_it_works.cards.2.description'
+    },
+    {
+      number: 2,
+      icon: CreditCard,
+      titleKey: 'how_it_works.cards.1.title',
+      descKey: 'how_it_works.cards.1.description'
     },
     {
       number: 3,
