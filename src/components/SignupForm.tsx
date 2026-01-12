@@ -7,6 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { getSupabaseClient } from '@/lib/supabase';
 import { analytics } from '@/lib/analytics';
 import { useAuth } from '@/contexts/AuthContext';
+import { Chrome } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/hooks/useI18n';
  
@@ -17,9 +18,32 @@ export const SignupForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [lastEmail, setLastEmail] = useState<string | null>(null);
   const [isResending, setIsResending] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const { toast } = useToast();
-  const { user } = useAuth();
+  const { user, signInWithGoogle } = useAuth();
   const { t } = useI18n();
+
+  const handleGoogleSignup = async () => {
+    setIsGoogleLoading(true);
+    try {
+      const { error } = await signInWithGoogle();
+      if (error) {
+        toast({
+          title: "Hiba történt",
+          description: "A Google regisztráció nem sikerült. Kérjük, próbáld újra.",
+          variant: "destructive",
+        });
+      }
+    } catch (err) {
+      toast({
+        title: "Hiba történt",
+        description: "Váratlan hiba történt. Kérjük, próbáld újra.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
   useEffect(() => {
     // Track when signup form is viewed
     analytics.signupFormView();
@@ -277,10 +301,12 @@ export const SignupForm: React.FC = () => {
               <p className="text-nf-text-muted text-sm mb-4">{t('signup.or')}</p>
               <Button 
                 variant="outline"
-                onClick={() => window.location.href = '/auth'}
-                className="border-nf-primary text-nf-primary hover:bg-nf-primary hover:text-black"
+                onClick={handleGoogleSignup}
+                disabled={isGoogleLoading}
+                className="border-nf-primary text-nf-primary hover:bg-nf-primary hover:text-black flex items-center gap-2"
               >
-                {t('signup.full_registration_google')}
+                <Chrome className="w-5 h-5" />
+                {isGoogleLoading ? "Folyamatban..." : t('signup.full_registration_google')}
               </Button>
             </div>
           </div>
