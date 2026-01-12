@@ -5,6 +5,7 @@ import { HowItWorks } from '@/components/HowItWorks';
 import { DrinkSection } from '@/components/DrinkSection';
 import { LinkSection } from '@/components/LinkSection';
 import { EarnSection } from '@/components/EarnSection';
+import { GiveSection } from '@/components/GiveSection';
 import { BenefitsSection } from '@/components/BenefitsSection';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 import { FOMOSection } from '@/components/FOMOSection';
@@ -151,6 +152,7 @@ const Index = () => {
       <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
       <LinkSection linkImage={linkImage} />
       <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
+      <GiveSection />
       <BenefitsSection />
       <VenueApplicationSection />
       <FOMOSection />

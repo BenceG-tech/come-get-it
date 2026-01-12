@@ -4,6 +4,7 @@
     "drink": "Drink",
     "link": "Link",
     "earn": "Earn",
+    "give": "Give",
     "partners": "Partners",
     "venues": "Venues",
     "brands": "Drink Brands",
@@ -39,6 +40,12 @@
     "subtitle": "Points into experiences",
     "body": "Every sip, discovery, and action gives points. Redeem for exclusive rewards while supporting good causes. Drink smart, live intensely."
   },
+  "give": {
+    "title": "GIVE.",
+    "subtitle": "Every sip counts.",
+    "body": "The \"Drink for a Cause\" model is in our DNA. We don't just want to fuel the party — we want to fuel change.",
+    "quote": "For Gen Z, social responsibility isn't optional — it's expected. We donate after every Welcome Drink."
+  },
   "fomo": {
     "title": "Become a founding member",
     "p1": "The first 1000 insiders get a special badge, extra rewards, and lifelong bragging rights.",
@@ -67,6 +74,13 @@
   },
   "how_it_works": {
     "title": "HOW IT WORKS",
+    "headline": "Drink. Link. Earn. Give.",
+    "subheadline": "We call it the Invisible Loyalty Program. The app works, you party.",
+    "cards": {
+      "1": { "title": "Link", "description": "Connect your card — every spend automatically earns points. No extra steps, no coupons." },
+      "2": { "title": "Drink", "description": "Enjoy your daily Welcome Drink at partner venues. The first round starts the story." },
+      "3": { "title": "Earn & Give", "description": "Redeem your points for rewards, and every drink supports good causes too." }
+    },
     "steps": {
       "1": { "title": "DOWNLOAD", "description": "Download the app" },
       "2": { "title": "SIGN UP", "description": "Sign up and link your card" },
