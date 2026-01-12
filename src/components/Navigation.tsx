@@ -41,39 +41,39 @@ export const Navigation: React.FC = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-[#3ba1cb]/20 hidden lg:block">
+    <nav className="nf-navbar hidden lg:block">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-anton text-white hover:text-[#27dddf] transition-colors">
+        <Link to="/" className="text-2xl font-anton text-white hover:text-nf-primary transition-colors duration-300">
           {t('nav.brand')}
         </Link>
-        <div className="flex space-x-8">
-          <button onClick={() => handleNavClick('drink')} className="text-white hover:text-[#27dddf] transition-colors">{t('nav.drink')}</button>
-          <button onClick={() => handleNavClick('link')} className="text-white hover:text-[#27dddf] transition-colors">{t('nav.link')}</button>
-          <button onClick={() => handleNavClick('earn')} className="text-white hover:text-[#27dddf] transition-colors">{t('nav.earn')}</button>
+        <div className="flex space-x-8 items-center">
+          <button onClick={() => handleNavClick('drink')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.drink')}</button>
+          <button onClick={() => handleNavClick('link')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.link')}</button>
+          <button onClick={() => handleNavClick('earn')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.earn')}</button>
         
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center text-white hover:text-[#27dddf] transition-colors focus:outline-none">
+          <DropdownMenuTrigger className="flex items-center text-white hover:text-nf-primary transition-colors duration-300 focus:outline-none">
             {t('nav.partners')}
             <ChevronDown className="ml-1 h-4 w-4" />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-black/90 backdrop-blur-sm border border-[#3ba1cb]/20 rounded-lg">
+          <DropdownMenuContent className="bg-nf-surface backdrop-blur-md border border-nf-border rounded-xl">
             <DropdownMenuItem asChild>
-              <Link to="/vendeglatohelyek" className="text-white hover:text-[#27dddf] cursor-pointer w-full">
+              <Link to="/vendeglatohelyek" className="text-white hover:text-nf-primary cursor-pointer w-full">
                 {t('nav.venues')}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="/italmarkak" className="text-white hover:text-[#27dddf] cursor-pointer w-full">
+              <Link to="/italmarkak" className="text-white hover:text-nf-primary cursor-pointer w-full">
                 {t('nav.brands')}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="/rewards-partners" className="text-white hover:text-[#27dddf] cursor-pointer w-full">
+              <Link to="/rewards-partners" className="text-white hover:text-nf-primary cursor-pointer w-full">
                 {t('nav.rewards')}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link to="/come-get-it-accelerator" className="text-white hover:text-[#27dddf] cursor-pointer w-full">
+              <Link to="/come-get-it-accelerator" className="text-white hover:text-nf-primary cursor-pointer w-full">
                 {t('nav.accelerator')}
               </Link>
             </DropdownMenuItem>
@@ -82,20 +82,31 @@ export const Navigation: React.FC = () => {
         
           {/* Language switcher */}
           <div className="flex items-center space-x-2">
-            <button onClick={() => setLang('hu')} className="text-white hover:text-[#27dddf] transition-colors" aria-label={t('nav.hu')}>{t('nav.hu')}</button>
-            <span className="text-white/50">|</span>
-            <button onClick={() => setLang('en')} className="text-white hover:text-[#27dddf] transition-colors" aria-label={t('nav.en')}>{t('nav.en')}</button>
+            <button 
+              onClick={() => setLang('hu')} 
+              className={`transition-colors duration-300 ${lang === 'hu' ? 'text-nf-primary' : 'text-white hover:text-nf-primary'}`}
+              aria-label={t('nav.hu')}
+            >
+              {t('nav.hu')}
+            </button>
+            <span className="text-nf-border">|</span>
+            <button 
+              onClick={() => setLang('en')} 
+              className={`transition-colors duration-300 ${lang === 'en' ? 'text-nf-primary' : 'text-white hover:text-nf-primary'}`}
+              aria-label={t('nav.en')}
+            >
+              {t('nav.en')}
+            </button>
           </div>
           {user ? (
             <UserMenu />
           ) : (
             <div className="flex items-center space-x-4">
-              <button onClick={handleSignupClick} className="text-white hover:text-[#27dddf] transition-colors">{t('nav.signup')}</button>
+              <button onClick={handleSignupClick} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.signup')}</button>
               <Button 
-                variant="outline" 
+                variant="neon" 
                 size="sm"
                 onClick={() => navigate('/auth')}
-                className="border-[#27dddf] text-[#27dddf] hover:bg-[#27dddf] hover:text-black"
               >
                 {t('nav.login')}
               </Button>

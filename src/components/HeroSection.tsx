@@ -14,30 +14,27 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => {
   const { t } = useI18n();
   return (
-    <section className="relative py-16 px-4 overflow-hidden">
+    <section className="relative py-16 px-4 overflow-hidden bg-nf-background">
       {/* Mobile Navigation */}
       <MobileNavigation />
       
-      {/* Unified background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
-      
-      {/* Unified glow layers */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
+      {/* Subtle glow layers */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-nf-primary/10 opacity-40 blur-[100px] rounded-full"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-nf-secondary/10 opacity-25 blur-[80px] rounded-full"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Content */}
           <div className="text-center lg:text-left">
-            {/* Main Title - Two lines, max 18 chars per line - Made bigger */}
+            {/* Main Title */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight">
               <span className="block text-white mb-2">{t('hero.title_line1')}</span>
               <span className="block text-white">{t('hero.title_line2')}</span>
             </h1>
             
-            {/* Subtitle - Max 2 short lines */}
+            {/* Subtitle */}
             <div className="max-w-2xl lg:max-w-none">
-              <p className="text-base md:text-lg text-electric-100 font-medium leading-tight mt-6">
+              <p className="text-base md:text-lg text-nf-text-muted font-medium leading-tight mt-6">
                 {t('hero.subtitle')}
               </p>
             </div>
@@ -47,11 +44,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               <SocialProof />
             </div>
             
-            {/* CTA Button - Unified styling */}
+            {/* CTA Button - Neon Fidelity style */}
             <div className="pt-4">
               <Button 
+                variant="neon"
                 size="lg" 
-                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+                className="py-4 px-12 text-lg"
                 onClick={() => {
                   analytics.ctaClick('hero', t('hero.cta'));
                   document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });

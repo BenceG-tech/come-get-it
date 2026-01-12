@@ -34,7 +34,7 @@ export const MobileNavigation: React.FC = () => {
         <SheetTrigger asChild>
           <button
             aria-label={t('nav.menu')}
-            className={`fixed top-4 right-4 z-50 px-3 py-2 bg-black/90 backdrop-blur-sm rounded-full border border-electric-300/20 text-white hover:text-electric-300 hover:border-electric-300/40 transition-all duration-300 flex items-center gap-2 ${showPulse ? 'pulse' : ''}`}
+            className={`fixed top-4 right-4 z-50 px-3 py-2 bg-nf-surface/90 backdrop-blur-md rounded-full border border-nf-border text-white hover:text-nf-primary hover:border-nf-primary transition-all duration-300 flex items-center gap-2 ${showPulse ? 'pulse' : ''}`}
           >
             <Menu className="h-4 w-4" />
             <span className="text-xs font-semibold tracking-wide">{t('nav.menu')}</span>
@@ -43,7 +43,7 @@ export const MobileNavigation: React.FC = () => {
         
         <SheetContent 
           side="top" 
-          className="w-full h-full bg-gradient-to-br from-black via-gray-900/95 to-black backdrop-blur-xl border-0 p-0 flex items-center justify-center"
+          className="w-full h-full bg-nf-surface backdrop-blur-xl border-0 p-0 flex items-center justify-center"
         >
           <SheetHeader className="sr-only">
             <SheetTitle>Navigációs Menü</SheetTitle>
@@ -52,20 +52,20 @@ export const MobileNavigation: React.FC = () => {
           <div className="w-full max-w-md mx-auto px-6">
             {/* Header */}
             <div className="flex justify-between items-center mb-8">
-              <div className="text-white text-xl font-black tracking-wide bg-gradient-to-r from-electric-300 to-white bg-clip-text text-transparent">
-                COME GET IT
+              <div className="text-white text-xl font-black tracking-wide">
+                <span className="text-nf-primary">COME</span> GET IT
               </div>
               <SheetClose asChild>
-                <button className="p-2 bg-white/10 rounded-lg text-white hover:text-electric-300 hover:bg-white/20 transition-all duration-200">
+                <button className="p-2 bg-nf-surface-alt rounded-lg text-white hover:text-nf-primary hover:bg-nf-border transition-all duration-200">
                   <X className="h-5 w-5" />
                 </button>
               </SheetClose>
             </div>
             
-            {/* Nyelvváltó – jól látható a menü tetején */}
-            <div className="mb-4 p-2 rounded-xl border border-electric-300/30 bg-white/5">
+            {/* Nyelvváltó */}
+            <div className="mb-4 p-2 rounded-xl border border-nf-border bg-nf-surface-alt">
               <div className="flex items-center gap-2 mb-1.5 text-white">
-                <Languages className="h-4 w-4 text-electric-300" />
+                <Languages className="h-4 w-4 text-nf-primary" />
                 <span className="text-xs font-medium">Nyelv / Language</span>
               </div>
               <ToggleGroup
@@ -78,33 +78,33 @@ export const MobileNavigation: React.FC = () => {
               >
                 <ToggleGroupItem
                   value="hu"
-                  className={`flex-1 ${lang === 'hu' ? 'bg-electric-300/20 text-white border-electric-300' : 'text-white/70'}`}
+                  className={`flex-1 ${lang === 'hu' ? 'bg-nf-primary/20 text-nf-primary border-nf-primary' : 'text-nf-text-muted'}`}
                 >
                   HU
                 </ToggleGroupItem>
                 <ToggleGroupItem
                   value="en"
-                  className={`flex-1 ${lang === 'en' ? 'bg-electric-300/20 text-white border-electric-300' : 'text-white/70'}`}
+                  className={`flex-1 ${lang === 'en' ? 'bg-nf-primary/20 text-nf-primary border-nf-primary' : 'text-nf-text-muted'}`}
                 >
                   EN
                 </ToggleGroupItem>
               </ToggleGroup>
             </div>
 
-            {/* Menü elemek – Tappolható sorok, keretek nélkül */}
+            {/* Menü elemek */}
             <nav className="pt-2">
-              <ul className="divide-y divide-white/5">
+              <ul className="divide-y divide-nf-border">
                 <li>
                   <SheetClose asChild>
                     <Link to="/" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
                       <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <Home className="h-5 w-5 text-electric-300 shrink-0" />
+                        <Home className="h-5 w-5 text-nf-primary shrink-0" />
                         <div className="min-w-0">
                           <span className="block text-white font-semibold truncate">{t('mobile_menu.home')}</span>
-                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.home_desc')}</span>
+                          <span className="block text-xs text-nf-text-muted truncate">{t('mobile_menu.home_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
+                      <ChevronRight className="h-5 w-5 text-nf-text-muted shrink-0" />
                     </Link>
                   </SheetClose>
                 </li>
@@ -113,13 +113,13 @@ export const MobileNavigation: React.FC = () => {
                   <SheetClose asChild>
                     <Link to="/vendeglatohelyek" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
                       <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <Store className="h-5 w-5 text-electric-300 shrink-0" />
+                        <Store className="h-5 w-5 text-nf-primary shrink-0" />
                         <div className="min-w-0">
                           <span className="block text-white font-semibold truncate">{t('mobile_menu.venues')}</span>
-                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.venues_desc')}</span>
+                          <span className="block text-xs text-nf-text-muted truncate">{t('mobile_menu.venues_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
+                      <ChevronRight className="h-5 w-5 text-nf-text-muted shrink-0" />
                     </Link>
                   </SheetClose>
                 </li>
@@ -128,13 +128,13 @@ export const MobileNavigation: React.FC = () => {
                   <SheetClose asChild>
                     <Link to="/italmarkak" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
                       <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <Wine className="h-5 w-5 text-electric-300 shrink-0" />
+                        <Wine className="h-5 w-5 text-nf-primary shrink-0" />
                         <div className="min-w-0">
                           <span className="block text-white font-semibold truncate">{t('mobile_menu.brands')}</span>
-                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.brands_desc')}</span>
+                          <span className="block text-xs text-nf-text-muted truncate">{t('mobile_menu.brands_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
+                      <ChevronRight className="h-5 w-5 text-nf-text-muted shrink-0" />
                     </Link>
                   </SheetClose>
                 </li>
@@ -143,13 +143,13 @@ export const MobileNavigation: React.FC = () => {
                   <SheetClose asChild>
                     <Link to="/rewards-partners" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
                       <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <Gift className="h-5 w-5 text-electric-300 shrink-0" />
+                        <Gift className="h-5 w-5 text-nf-primary shrink-0" />
                         <div className="min-w-0">
                           <span className="block text-white font-semibold truncate">{t('mobile_menu.rewards')}</span>
-                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.rewards_desc')}</span>
+                          <span className="block text-xs text-nf-text-muted truncate">{t('mobile_menu.rewards_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
+                      <ChevronRight className="h-5 w-5 text-nf-text-muted shrink-0" />
                     </Link>
                   </SheetClose>
                 </li>
@@ -158,13 +158,13 @@ export const MobileNavigation: React.FC = () => {
                   <SheetClose asChild>
                     <Link to="/come-get-it-accelerator" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
                       <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <Rocket className="h-5 w-5 text-electric-300 shrink-0" />
+                        <Rocket className="h-5 w-5 text-nf-primary shrink-0" />
                         <div className="min-w-0">
                           <span className="block text-white font-semibold truncate">{t('mobile_menu.accelerator')}</span>
-                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.accelerator_desc')}</span>
+                          <span className="block text-xs text-nf-text-muted truncate">{t('mobile_menu.accelerator_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
+                      <ChevronRight className="h-5 w-5 text-nf-text-muted shrink-0" />
                     </Link>
                   </SheetClose>
                 </li>
@@ -178,13 +178,13 @@ export const MobileNavigation: React.FC = () => {
                       className="w-full appearance-none bg-transparent text-left flex items-center justify-between px-2 py-4 active:scale-[0.98] transition"
                     >
                       <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <MessageCircle className="h-5 w-5 text-electric-300 shrink-0" />
+                        <MessageCircle className="h-5 w-5 text-nf-primary shrink-0" />
                         <div className="min-w-0">
                           <span className="block text-white font-semibold truncate">{t('mobile_menu.support')}</span>
-                          <span className="block text-xs text-muted-foreground truncate">{t('mobile_menu.support_desc')}</span>
+                          <span className="block text-xs text-nf-text-muted truncate">{t('mobile_menu.support_desc')}</span>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-white/60 shrink-0" />
+                      <ChevronRight className="h-5 w-5 text-nf-text-muted shrink-0" />
                     </button>
                   </SheetClose>
                 </li>
@@ -194,7 +194,7 @@ export const MobileNavigation: React.FC = () => {
 
             {/* Bottom accent */}
             <div className="mt-8 flex justify-center">
-              <div className="w-12 h-0.5 bg-gradient-to-r from-electric-300/60 via-electric-300 to-electric-300/60 rounded-full"></div>
+              <div className="w-12 h-0.5 bg-gradient-to-r from-nf-primary/60 via-nf-primary to-nf-primary/60 rounded-full"></div>
             </div>
           </div>
         </SheetContent>

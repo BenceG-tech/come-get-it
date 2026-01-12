@@ -171,9 +171,9 @@ export const VenueApplicationSection: React.FC = () => {
 
   if (isSubmitted) {
     return (
-    <section id="partnerek" className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black">{/* Unified gradient background */}
+    <section id="partnerek" className="py-16 px-4 bg-nf-background">
         <div className="max-w-4xl mx-auto">
-          <Card className="bg-green-500/20 border-green-500/30 backdrop-blur-sm">
+          <Card className="bg-green-500/10 border-green-500/30">
             <CardContent className="text-center py-12">
               <div className="flex justify-center mb-6">
                 <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
@@ -186,7 +186,7 @@ export const VenueApplicationSection: React.FC = () => {
               <p className="text-green-100 text-lg mb-4">
                 {t('venue_app.submitted.desc')}
               </p>
-              <div className="bg-white/10 rounded-lg p-4 max-w-md mx-auto">
+              <div className="bg-nf-surface rounded-lg p-4 max-w-md mx-auto border border-nf-border">
                 <p className="text-white text-sm">
                   {t('venue_app.submitted.email_tip')}<br/><br/>
                   {t('venue_app.submitted.call_tip')}
@@ -200,29 +200,33 @@ export const VenueApplicationSection: React.FC = () => {
   }
 
   return (
-    <section id="venue-application" className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black">{/* Unified gradient background */}
+    <section id="venue-application" className="py-16 px-4 bg-nf-background">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">
             <div className="flex items-center space-x-2">
-              <Building2 className="w-8 h-8 text-electric-300" />
-              <Handshake className="w-8 h-8 text-electric-300" />
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-nf-primary to-nf-secondary flex items-center justify-center">
+                <Building2 className="w-6 h-6 text-white" />
+              </div>
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-nf-primary to-nf-secondary flex items-center justify-center">
+                <Handshake className="w-6 h-6 text-white" />
+              </div>
             </div>
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-4 tracking-tight">
             {t('venue_app.header.heading')}
           </h2>
           <p className="text-lg text-white mb-2">
             {t('venue_app.header.sub1')}
           </p>
-          <p className="text-electric-100 max-w-2xl mx-auto">
+          <p className="text-nf-text-muted max-w-2xl mx-auto">
             {t('venue_app.header.sub2')}
           </p>
         </div>
 
         {!isSupabaseConfigured() && (
-          <div className="mb-6 p-4 bg-yellow-500/20 border border-yellow-500/30 rounded-lg text-center">
+          <div className="mb-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-xl text-center">
             <p className="text-yellow-100 text-sm">
               {t('venue_app.demo_banner')}
             </p>
@@ -230,9 +234,9 @@ export const VenueApplicationSection: React.FC = () => {
         )}
 
         {/* Application Form */}
-        <Card className="glass-effect border-electric-300/20">{/* Unified glass effect */}
+        <Card>
           <CardHeader>
-            <CardTitle className="text-white text-center text-xl">
+            <CardTitle className="text-center text-xl">
               {t('venue_app.form.title')}
             </CardTitle>
           </CardHeader>
@@ -242,7 +246,7 @@ export const VenueApplicationSection: React.FC = () => {
                 {/* Name */}
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-white flex items-center">
-                    <User className="w-4 h-4 mr-2" />
+                    <User className="w-4 h-4 mr-2 text-nf-primary" />
                     {t('form_common.name_label')}
                   </Label>
                   <Input
@@ -251,7 +255,6 @@ export const VenueApplicationSection: React.FC = () => {
                     type="text"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder={t('form_common.full_name_placeholder')}
                     required
                     disabled={isLoading}
@@ -261,7 +264,7 @@ export const VenueApplicationSection: React.FC = () => {
                 {/* Email */}
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-white flex items-center">
-                    <Mail className="w-4 h-4 mr-2" />
+                    <Mail className="w-4 h-4 mr-2 text-nf-primary" />
                     {t('form_common.email_label')}
                   </Label>
                   <Input
@@ -270,7 +273,6 @@ export const VenueApplicationSection: React.FC = () => {
                     type="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder={t('form_common.email_placeholder')}
                     required
                     disabled={isLoading}
@@ -280,7 +282,7 @@ export const VenueApplicationSection: React.FC = () => {
                 {/* Phone */}
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="text-white flex items-center">
-                    <Phone className="w-4 h-4 mr-2" />
+                    <Phone className="w-4 h-4 mr-2 text-nf-primary" />
                     {t('form_common.phone_label')}
                   </Label>
                   <Input
@@ -289,7 +291,6 @@ export const VenueApplicationSection: React.FC = () => {
                     type="tel"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder={t('form_common.phone_placeholder')}
                     disabled={isLoading}
                   />
@@ -298,7 +299,7 @@ export const VenueApplicationSection: React.FC = () => {
                 {/* Venue Name */}
                 <div className="space-y-2">
                   <Label htmlFor="venueName" className="text-white flex items-center">
-                    <Store className="w-4 h-4 mr-2" />
+                    <Store className="w-4 h-4 mr-2 text-nf-primary" />
                     {t('venue_app.form.venue_name_label')}
                   </Label>
                   <Input
@@ -307,7 +308,6 @@ export const VenueApplicationSection: React.FC = () => {
                     type="text"
                     value={formData.venueName}
                     onChange={handleInputChange}
-                    className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder={t('venue_app.form.venue_name_placeholder')}
                     required
                     disabled={isLoading}
@@ -323,7 +323,7 @@ export const VenueApplicationSection: React.FC = () => {
                     id="venueType"
                     value={formData.venueType}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 rounded-md border bg-black/50 border-electric-300/30 text-white focus:border-electric-300 focus:outline-none focus:ring-2 focus:ring-electric-500/20"
+                    className="w-full px-3 py-2 rounded-lg border bg-nf-surface-alt border-nf-border text-white focus:border-nf-primary focus:outline-none focus:ring-2 focus:ring-nf-primary/20 transition-colors duration-200"
                     required
                     disabled={isLoading}
                   >
@@ -349,7 +349,6 @@ export const VenueApplicationSection: React.FC = () => {
                     type="text"
                     value={formData.addressCity}
                     onChange={handleInputChange}
-                    className="bg-black/50 border-electric-300/30 text-white placeholder:text-gray-400 focus:border-electric-300"
                     placeholder="Pl.: Budapest"
                     required
                     disabled={isLoading}
@@ -365,7 +364,7 @@ export const VenueApplicationSection: React.FC = () => {
                     id="dailyCustomerCount"
                     value={formData.dailyCustomerCount}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 rounded-md border bg-black/50 border-electric-300/30 text-white focus:border-electric-300 focus:outline-none focus:ring-2 focus:ring-electric-500/20"
+                    className="w-full px-3 py-2 rounded-lg border bg-nf-surface-alt border-nf-border text-white focus:border-nf-primary focus:outline-none focus:ring-2 focus:ring-nf-primary/20 transition-colors duration-200"
                     required
                     disabled={isLoading}
                   >
@@ -382,12 +381,13 @@ export const VenueApplicationSection: React.FC = () => {
               <div className="flex justify-center pt-4">
                 <Button 
                   type="submit"
+                  variant="neon"
                   disabled={isLoading}
-                  className="brand-gradient-cta hover:shadow-2xl text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 neon-glow-brand disabled:opacity-50"
+                  className="py-3 px-8"
                 >
                   {isLoading ? (
                     <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black mr-2"></div>
                       {t('venue_app.form.sending')}
                     </>
                   ) : (
@@ -404,7 +404,7 @@ export const VenueApplicationSection: React.FC = () => {
 
         {/* Benefits for Venues */}
         <div className="mt-8 text-center">
-          <p className="text-electric-100 text-sm">
+          <p className="text-nf-text-muted text-sm">
             {t('venue_app.benefits_line')}
           </p>
         </div>

@@ -19,6 +19,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
+				'sans': ['Inter', 'sans-serif'],
 				'anton': ['Anton', 'sans-serif'],
 			},
 			colors: {
@@ -65,12 +66,24 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Updated blue palette without royal blue
+				// Neon Fidelity Color Palette
+				nf: {
+					background: '#050505',
+					surface: '#0a0a0a',
+					'surface-alt': '#111111',
+					primary: '#00bcd4',
+					'primary-hover': '#0097a7',
+					secondary: '#16537e',
+					border: '#1f2937',
+					text: '#ffffff',
+					'text-muted': '#9ca3af',
+				},
+				// Legacy palettes (kept for compatibility)
 				electric: {
 					50: '#f0fdff',
 					100: '#ccf7fe',
 					200: '#99effd',
-					300: '#00D4FF',
+					300: '#00bcd4',
 					400: '#00bfe6',
 					500: '#00a9cc',
 					600: '#0087a8',
@@ -85,7 +98,7 @@ export default {
 					300: '#7dd3fc',
 					400: '#38bdf8',
 					500: '#0ea5e9',
-					600: '#0284c7',
+					600: '#16537e',
 					700: '#0369a1',
 					800: '#075985',
 					900: '#0c4a6e'
@@ -94,7 +107,7 @@ export default {
 					50: '#ecfeff',
 					100: '#cffafe',
 					200: '#a5f3fc',
-					300: '#22D3EE',
+					300: '#00bcd4',
 					400: '#06b6d4',
 					500: '#0891b2',
 					600: '#0e7490',
@@ -107,6 +120,11 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			boxShadow: {
+				'neon': '0 0 20px rgba(0, 188, 212, 0.3)',
+				'neon-hover': '0 0 30px rgba(0, 188, 212, 0.4)',
+				'neon-strong': '0 0 40px rgba(0, 188, 212, 0.6)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -137,10 +155,10 @@ export default {
 				},
 				'glow': {
 					'0%, 100%': {
-						textShadow: '0 0 5px #00D4FF, 0 0 10px #00D4FF, 0 0 20px #00D4FF'
+						textShadow: '0 0 5px #00bcd4, 0 0 10px #00bcd4, 0 0 20px #00bcd4'
 					},
 					'50%': {
-						textShadow: '0 0 10px #00D4FF, 0 0 20px #00D4FF, 0 0 40px #00D4FF'
+						textShadow: '0 0 10px #00bcd4, 0 0 20px #00bcd4, 0 0 40px #00bcd4'
 					}
 				},
 				'liquid-flow': {
@@ -182,10 +200,10 @@ export default {
 				},
 				'pulse-glow': {
 					'0%, 100%': {
-						boxShadow: '0 0 20px rgba(0, 212, 255, 0.4), 0 0 40px rgba(34, 211, 238, 0.3)'
+						boxShadow: '0 0 20px rgba(0, 188, 212, 0.4), 0 0 40px rgba(0, 188, 212, 0.3)'
 					},
 					'50%': {
-						boxShadow: '0 0 40px rgba(0, 212, 255, 0.6), 0 0 80px rgba(34, 211, 238, 0.5)'
+						boxShadow: '0 0 40px rgba(0, 188, 212, 0.6), 0 0 80px rgba(0, 188, 212, 0.5)'
 					}
 				}
 			},
