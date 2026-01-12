@@ -14,13 +14,16 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => {
   const { t } = useI18n();
   return (
-    <section className="relative py-16 px-4 overflow-hidden bg-nf-background">
+    <section className="relative py-16 px-4 overflow-hidden">
       {/* Mobile Navigation */}
       <MobileNavigation />
       
-      {/* Subtle glow layers */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-nf-primary/10 opacity-40 blur-[100px] rounded-full"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-nf-secondary/10 opacity-25 blur-[80px] rounded-full"></div>
+      {/* Unified background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
+      
+      {/* Unified glow layers */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
