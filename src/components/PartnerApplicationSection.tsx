@@ -167,18 +167,18 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
 
   if (isSubmitted) {
     return (
-      <section id={id} className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black">
+      <section id={id} className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-4xl mx-auto">
-          <Card className="bg-green-500/20 border-green-500/30 backdrop-blur-sm">
+          <Card className="bg-nf-surface border-green-500/30">
             <CardContent className="text-center py-12">
               <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-nf-primary to-green-500 rounded-full flex items-center justify-center">
                   <Building2 className="w-8 h-8 text-white" />
                 </div>
               </div>
               <h2 className="text-2xl font-black text-white mb-4">{t('partner_app.submitted.title')}</h2>
-              <p className="text-green-100 text-lg mb-4">{t('partner_app.submitted.desc')}</p>
-              <div className="bg-white/10 rounded-lg p-4 max-w-md mx-auto">
+              <p className="text-nf-primary text-lg mb-4">{t('partner_app.submitted.desc')}</p>
+              <div className="bg-nf-surface-alt rounded-lg p-4 max-w-md mx-auto border border-nf-border">
                 <p className="text-white text-sm">
                   {t('partner_app.submitted.email_tip')}<br/><br/>
                   {t('partner_app.submitted.call_tip')}
@@ -192,14 +192,14 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
   }
 
   return (
-    <section id={id} className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black">
+    <section id={id} className="py-16 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">
             <div className="flex items-center space-x-2">
-              <Building2 className="w-8 h-8 text-electric-300" />
-              <Handshake className="w-8 h-8 text-electric-300" />
+              <Building2 className="w-8 h-8 text-nf-primary" />
+              <Handshake className="w-8 h-8 text-nf-primary" />
             </div>
           </div>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
@@ -216,7 +216,7 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
           )}
 
         {/* Form */}
-        <Card className="glass-effect border-electric-300/20">
+        <Card className="bg-nf-surface border border-nf-border rounded-2xl">
           <CardHeader>
             <CardTitle className="text-white text-center text-xl">{t('partner_app.form.title')}</CardTitle>
           </CardHeader>

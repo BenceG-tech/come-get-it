@@ -53,7 +53,7 @@ export const CustomerSupport: React.FC = () => {
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between p-4 bg-gray-900 border-b border-gray-700">
+    <div className="flex items-center justify-between p-4 bg-nf-surface border-b border-nf-border">
       <div className="flex items-center space-x-3">
         {detailView && (
           <Button
@@ -89,7 +89,7 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderFooterNav = () => (
-    <div className="bg-gray-900 border-t border-gray-700">
+    <div className="bg-nf-surface border-t border-nf-border">
       <div className="flex">
         <button
           onClick={() => {
@@ -140,7 +140,7 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderFeedbackSection = () => (
-    <div className="mt-8 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+    <div className="mt-8 p-4 bg-nf-surface-alt rounded-lg border border-nf-border">
       <p className="text-white text-center mb-4">{t('support.feedback.question')}</p>
       <div className="flex justify-center space-x-4">
         <button className="flex items-center space-x-2 px-4 py-2 bg-green-600/20 hover:bg-green-600/30 rounded-lg border border-green-600/30 transition-colors">
@@ -205,7 +205,7 @@ export const CustomerSupport: React.FC = () => {
       };
 
       return (
-        <div className="flex flex-col h-full bg-gray-900">
+        <div className="flex flex-col h-full bg-nf-background">
           {renderHeader()}
           
           <div className="flex-1 overflow-y-auto p-4">
@@ -217,7 +217,7 @@ export const CustomerSupport: React.FC = () => {
               <div className="relative mb-6">
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-left text-white flex items-center justify-between hover:bg-gray-700 transition-colors"
+                  className="w-full bg-nf-surface-alt border border-nf-border rounded-xl px-4 py-3 text-left text-white flex items-center justify-between hover:bg-nf-surface transition-colors"
                 >
                   <span className="text-sm font-medium">
                     {selectedSection ? faqData.sections.find(s => s.id === selectedSection)?.title : t('support.toc')}
@@ -226,12 +226,12 @@ export const CustomerSupport: React.FC = () => {
                 </button>
                 
                 {isDropdownOpen && (
-                  <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-gray-800 border border-gray-700 rounded-xl shadow-xl max-h-64 overflow-y-auto">
+                  <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-nf-surface-alt border border-nf-border rounded-xl shadow-xl max-h-64 overflow-y-auto">
                     {faqData.sections.map((section) => (
                       <button
                         key={section.id}
                         onClick={() => scrollToSection(section.id)}
-                        className="w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors border-b border-gray-700 last:border-b-0"
+                        className="w-full text-left px-4 py-3 text-sm text-nf-text-muted hover:bg-nf-surface hover:text-white transition-colors border-b border-nf-border last:border-b-0"
                       >
                         {section.title}
                       </button>
@@ -241,13 +241,13 @@ export const CustomerSupport: React.FC = () => {
               </div>
             </div>
 
-            <div className="space-y-6 pb-20">
-              {faqData.sections.map((section) => (
-                <div 
-                  key={section.id} 
-                  id={section.id}
-                  className="bg-gray-800/50 border border-gray-700 rounded-xl p-4"
-                >
+              <div className="space-y-6 pb-20">
+                {faqData.sections.map((section) => (
+                  <div 
+                    key={section.id} 
+                    id={section.id}
+                    className="bg-nf-surface-alt border border-nf-border rounded-xl p-4"
+                  >
                   <h4 className="font-semibold text-white mb-3 text-base leading-relaxed">{section.title}</h4>
                   <div className="text-gray-300 leading-relaxed text-sm">
                     {section.content.split('\n').map((paragraph, index) => (
@@ -281,7 +281,7 @@ export const CustomerSupport: React.FC = () => {
 
     // Handle content-based sections (regisztracio and ajanlas)
     return (
-      <div className="flex flex-col h-full bg-gray-900">
+      <div className="flex flex-col h-full bg-nf-background">
         {renderHeader()}
         
         <div className="flex-1 overflow-y-auto p-4">
@@ -292,7 +292,7 @@ export const CustomerSupport: React.FC = () => {
 
           <div className="space-y-4 pb-20">
             {Array.isArray(faqData.content) && faqData.content.map((item, index) => (
-              <div key={index} className="bg-gray-800/50 border border-gray-700 rounded-xl p-4">
+              <div key={index} className="bg-nf-surface-alt border border-nf-border rounded-xl p-4">
                 <h4 className="font-semibold text-white mb-3 text-base leading-relaxed">{item.question}</h4>
                 <p className="text-gray-300 leading-relaxed text-sm">{item.answer}</p>
               </div>
@@ -319,8 +319,8 @@ export const CustomerSupport: React.FC = () => {
   };
 
   const renderHomeView = () => (
-    <div className="flex flex-col h-full bg-gray-900">
-      <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
+    <div className="flex flex-col h-full bg-nf-background">
+      <div className="flex items-center justify-between p-3 bg-nf-surface border-b border-nf-border">
         <div className="flex items-center space-x-3">
           <h2 className="text-base font-semibold text-white">Come Get It</h2>
         </div>
@@ -371,7 +371,7 @@ export const CustomerSupport: React.FC = () => {
         <div className="space-y-2">
           <button 
             onClick={() => openDetailView('ingyen-italok')}
-            className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
+            className="w-full text-left p-3 bg-nf-surface-alt hover:bg-nf-surface rounded-xl border border-nf-border transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
               <span className="text-white font-medium text-sm">{t('support.categories.free_drinks')}</span>
@@ -381,7 +381,7 @@ export const CustomerSupport: React.FC = () => {
           
           <button 
             onClick={() => openDetailView('jutalmak')}
-            className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
+            className="w-full text-left p-3 bg-nf-surface-alt hover:bg-nf-surface rounded-xl border border-nf-border transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
               <span className="text-white font-medium text-sm">{t('support.categories.points_rewards')}</span>
@@ -391,7 +391,7 @@ export const CustomerSupport: React.FC = () => {
           
           <button 
             onClick={() => openDetailView('regisztracio')}
-            className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
+            className="w-full text-left p-3 bg-nf-surface-alt hover:bg-nf-surface rounded-xl border border-nf-border transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
               <span className="text-white font-medium text-sm">{t('support.categories.account_registration')}</span>
@@ -401,7 +401,7 @@ export const CustomerSupport: React.FC = () => {
 
           <button 
             onClick={() => openDetailView('ajanlas')}
-            className="w-full text-left p-3 bg-gray-800/50 hover:bg-gray-800 rounded-xl border border-gray-700 transition-all duration-200 group"
+            className="w-full text-left p-3 bg-nf-surface-alt hover:bg-nf-surface rounded-xl border border-nf-border transition-all duration-200 group"
           >
             <div className="flex items-center justify-between">
               <span className="text-white font-medium text-sm">{t('support.categories.referrals_sharing')}</span>
@@ -411,7 +411,7 @@ export const CustomerSupport: React.FC = () => {
         </div>
       </div>
       
-      <div className="bg-gray-900 border-t border-gray-700">
+      <div className="bg-nf-surface border-t border-nf-border">
         <div className="flex">
           <button
             onClick={() => {
@@ -451,8 +451,8 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderMessagesView = () => (
-    <div className="flex flex-col h-full bg-gray-900">
-      <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
+    <div className="flex flex-col h-full bg-nf-background">
+      <div className="flex items-center justify-between p-3 bg-nf-surface border-b border-nf-border">
         <div className="flex items-center space-x-3">
           <h2 className="text-base font-semibold text-white">{t('support.tabs.messages')}</h2>
         </div>
@@ -477,23 +477,23 @@ export const CustomerSupport: React.FC = () => {
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center p-4">
-        <div className="bg-gray-800 rounded-full p-4 mb-3">
-          <MessageCircle className="w-8 h-8 text-electric-300" />
+        <div className="bg-nf-surface-alt rounded-full p-4 mb-3">
+          <MessageCircle className="w-8 h-8 text-nf-primary" />
         </div>
         <h3 className="text-lg font-bold text-white mb-2">{t('support.messages.empty_title')}</h3>
-        <p className="text-gray-400 text-center text-sm max-w-sm">
+        <p className="text-nf-text-muted text-center text-sm max-w-sm">
           {t('support.messages.empty_desc')}
         </p>
       </div>
 
-      <div className="p-3 bg-gray-900/95 backdrop-blur-sm border-t border-gray-700">
+      <div className="p-3 bg-nf-surface/95 backdrop-blur-sm border-t border-nf-border">
         <div className="flex space-x-2">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder={t('support.messages.input_placeholder')}
-            className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-electric-300 text-sm"
+            className="flex-1 bg-nf-surface-alt border border-nf-border rounded-xl px-3 py-2 text-white placeholder-nf-text-muted focus:outline-none focus:ring-2 focus:ring-nf-primary text-sm"
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
           <Button
@@ -505,7 +505,7 @@ export const CustomerSupport: React.FC = () => {
         </div>
       </div>
       
-      <div className="bg-gray-900 border-t border-gray-700">
+      <div className="bg-nf-surface border-t border-nf-border">
         <div className="flex">
           <button
             onClick={() => {
@@ -545,8 +545,8 @@ export const CustomerSupport: React.FC = () => {
   );
 
   const renderHelpView = () => (
-    <div className="flex flex-col h-full bg-gray-900">
-      <div className="flex items-center justify-between p-3 bg-gray-900 border-b border-gray-700">
+    <div className="flex flex-col h-full bg-nf-background">
+      <div className="flex items-center justify-between p-3 bg-nf-surface border-b border-nf-border">
         <div className="flex items-center space-x-3">
           <h2 className="text-base font-semibold text-white">{t('support.tabs.help')}</h2>
         </div>
@@ -565,7 +565,7 @@ export const CustomerSupport: React.FC = () => {
           <input
             type="text"
             placeholder={t('support.help.search_placeholder')}
-            className="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 pr-10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-electric-300 text-sm"
+            className="w-full bg-nf-surface-alt border border-nf-border rounded-xl px-3 py-2 pr-10 text-white placeholder-nf-text-muted focus:outline-none focus:ring-2 focus:ring-nf-primary text-sm"
           />
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
         </div>
@@ -576,7 +576,7 @@ export const CustomerSupport: React.FC = () => {
           <div className="space-y-2">
             <button 
               onClick={() => openDetailView('ingyen-italok')}
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-3 hover:bg-gray-800 transition-all duration-200 group text-left"
+              className="w-full bg-nf-surface-alt border border-nf-border rounded-xl p-3 hover:bg-nf-surface transition-all duration-200 group text-left"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -590,7 +590,7 @@ export const CustomerSupport: React.FC = () => {
 
             <button 
               onClick={() => openDetailView('jutalmak')}
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-3 hover:bg-gray-800 transition-all duration-200 group text-left"
+              className="w-full bg-nf-surface-alt border border-nf-border rounded-xl p-3 hover:bg-nf-surface transition-all duration-200 group text-left"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -604,7 +604,7 @@ export const CustomerSupport: React.FC = () => {
 
             <button 
               onClick={() => openDetailView('regisztracio')}
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-3 hover:bg-gray-800 transition-all duration-200 group text-left"
+              className="w-full bg-nf-surface-alt border border-nf-border rounded-xl p-3 hover:bg-nf-surface transition-all duration-200 group text-left"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -618,7 +618,7 @@ export const CustomerSupport: React.FC = () => {
 
             <button 
               onClick={() => openDetailView('ajanlas')}
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-xl p-3 hover:bg-gray-800 transition-all duration-200 group text-left"
+              className="w-full bg-nf-surface-alt border border-nf-border rounded-xl p-3 hover:bg-nf-surface transition-all duration-200 group text-left"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -633,7 +633,7 @@ export const CustomerSupport: React.FC = () => {
         </div>
       </div>
       
-      <div className="bg-gray-900 border-t border-gray-700">
+      <div className="bg-nf-surface border-t border-nf-border">
         <div className="flex">
           <button
             onClick={() => {
@@ -694,7 +694,7 @@ export const CustomerSupport: React.FC = () => {
       {!isOpen && (
         <button
           onClick={toggleSupport}
-          className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-electric-300 hover:bg-electric-400 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110"
+          className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-nf-primary hover:bg-nf-primary-hover rounded-full shadow-neon flex items-center justify-center transition-all duration-300 hover:scale-110"
         >
           <MessageCircle className="w-7 h-7 text-black" />
         </button>
@@ -708,7 +708,7 @@ export const CustomerSupport: React.FC = () => {
           />
           
           <div className="fixed inset-0 z-50 md:flex md:items-center md:justify-end md:p-4">
-            <div className="w-full h-full md:w-[500px] lg:w-[600px] xl:w-[700px] md:h-[80vh] lg:h-[85vh] bg-gray-900 md:rounded-2xl shadow-2xl border border-gray-700 overflow-hidden relative">
+            <div className="w-full h-full md:w-[500px] lg:w-[600px] xl:w-[700px] md:h-[80vh] lg:h-[85vh] bg-nf-background md:rounded-2xl shadow-2xl border border-nf-border overflow-hidden relative">
               {renderCurrentView()}
             </div>
           </div>

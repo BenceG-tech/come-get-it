@@ -148,7 +148,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* How It Works - 2x2 Grid */}
-      <section className="py-16 px-4 pb-20 bg-white/5 backdrop-blur-sm" lang="hu">
+      <section className="py-16 px-4 pb-20 bg-nf-surface" lang="hu">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
@@ -241,7 +241,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Why Choose Us - 2x2 Grid */}
-      <section className="py-16 px-4 bg-white/5 backdrop-blur-sm">
+      <section className="py-16 px-4 bg-nf-surface">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
@@ -287,7 +287,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-4 bg-gradient-to-b from-black to-ocean-900 text-center">
+      <section className="py-20 px-4 bg-nf-background nf-section-glow text-center">
         <div className="max-w-4xl mx-auto">
           <CTATitle className="text-5xl md:text-6xl">
             {t('accelerator_page.final_cta.title')}
