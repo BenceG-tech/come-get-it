@@ -14,7 +14,7 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => {
   const { t } = useI18n();
   return (
-    <section className="relative py-16 px-4 overflow-hidden min-h-screen">
+    <section className="relative py-16 px-4 overflow-hidden">
       {/* Mobile Navigation */}
       <MobileNavigation />
       
