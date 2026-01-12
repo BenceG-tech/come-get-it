@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 interface PhoneMockupProps {
   imageUrl: string;
@@ -7,8 +7,33 @@ interface PhoneMockupProps {
 }
 
 export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = "" }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const handleMouseEnter = () => {
+    setTilt({
+      x: (Math.random() - 0.5) * 16, // -8 to 8 degrees
+      y: (Math.random() - 0.5) * 16
+    });
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
-    <div className={`relative ${className}`}>
+    <div 
+      className={`relative ${className}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform: isHovered 
+          ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` 
+          : 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
+        transition: 'transform 0.3s ease-out'
+      }}
+    >
       {/* Optimized single glow layer with hardware acceleration */}
       <div className="absolute -inset-16 bg-optimized-phone-glow opacity-8 blur-[40px] rounded-[4rem] transform-gpu will-change-transform backface-visibility-hidden contain-layout-style-paint"></div>
       
@@ -20,7 +45,7 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = 
           <div className="relative w-full h-full">
             <img 
               src={imageUrl}
-              alt={`App Screenshot`} 
+              alt="App Screenshot" 
               className="w-full h-full object-cover object-top"
             />
             
