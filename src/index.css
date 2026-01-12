@@ -117,6 +117,22 @@
   .nf-navbar {
     @apply fixed top-0 left-0 right-0 z-50 bg-nf-background/90 backdrop-blur-md border-b border-nf-border;
   }
+
+  /* Neon Fidelity Section with Blue Glow */
+  .nf-section-glow {
+    position: relative;
+  }
+  .nf-section-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse 80% 50% at center top, rgba(0, 188, 212, 0.06) 0%, rgba(22, 83, 126, 0.04) 40%, transparent 70%);
+    pointer-events: none;
+  }
 }
 
 @layer utilities {

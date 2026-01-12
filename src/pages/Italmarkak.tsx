@@ -92,7 +92,7 @@ const Italmarkak = () => {
       </section>
 
       {/* How It Works - 4 Step 2x2 Grid */}
-      <section className="py-12 px-4 bg-white/5 backdrop-blur-sm">
+      <section className="py-12 px-4 bg-nf-surface">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <SectionTitle>
@@ -151,7 +151,7 @@ const Italmarkak = () => {
       </section>
 
       {/* Target Audience - Kompakt 3 kártya */}
-      <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
+      <section className="py-12 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <SectionTitle>

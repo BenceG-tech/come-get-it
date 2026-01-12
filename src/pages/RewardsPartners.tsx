@@ -149,7 +149,7 @@ const RewardsPartners = () => {
       </section>
 
       {/* How It Works - Egységes 2x2 grid */}
-      <section className="py-12 px-4 bg-white/5 backdrop-blur-sm">
+      <section className="py-12 px-4 bg-nf-surface">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <SectionTitle>
@@ -212,7 +212,7 @@ const RewardsPartners = () => {
       </section>
 
       {/* Statistics - Kompaktabb */}
-      <section className="py-12 px-4 bg-gradient-to-b from-black to-ocean-900">
+      <section className="py-12 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-7xl mx-auto text-center">
             <SectionTitle>
               {t('rewards_page.stats.title')}
