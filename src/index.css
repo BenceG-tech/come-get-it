@@ -572,14 +572,7 @@
   animation: float 6s ease-in-out infinite;
 }
 
-/* Secondary glow accent */
+/* Secondary glow accent - removed for cleaner look */
 .hero-glow-secondary {
-  position: absolute;
-  bottom: 30%;
-  left: 10%;
-  width: 150px;
-  height: 150px;
-  background: radial-gradient(circle, rgba(0, 212, 212, 0.3) 0%, transparent 60%);
-  filter: blur(25px);
-  animation: float 8s ease-in-out infinite reverse;
+  display: none;
 }
