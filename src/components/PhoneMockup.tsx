@@ -12,8 +12,8 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = 
 
   const handleMouseEnter = () => {
     setTilt({
-      x: (Math.random() - 0.5) * 16, // -8 to 8 degrees
-      y: (Math.random() - 0.5) * 16
+      x: (Math.random() - 0.5) * 24, // -12 to 12 degrees
+      y: (Math.random() - 0.5) * 24
     });
     setIsHovered(true);
   };
