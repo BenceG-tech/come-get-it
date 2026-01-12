@@ -48,9 +48,13 @@ const Italmarkak = () => {
       
       {/* Hero Section - Standardized */}
       <section className="relative py-16 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-ocean-800"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-unified-glow-primary opacity-40 blur-[100px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-unified-glow-secondary opacity-25 blur-[80px]"></div>
+        {/* Background - unified with main hero */}
+        <div className="hero-abstract-bg">
+          <div className="hero-shape-1"></div>
+          <div className="hero-shape-2"></div>
+          <div className="hero-glow-accent"></div>
+          <div className="hero-glow-secondary"></div>
+        </div>
         
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -66,8 +70,9 @@ const Italmarkak = () => {
               </HeroSubtitle>
               
               <Button 
+                variant="neon"
                 size="lg" 
-                className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-bold py-4 px-8 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-electric-300/20 border-0"
+                className="py-4 px-8 text-lg"
                 onClick={() => {
                   analytics.ctaClick('brand_hero', 'Beszéljünk');
                   const el = document.getElementById('brand-application');
