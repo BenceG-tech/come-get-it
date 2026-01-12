@@ -506,7 +506,12 @@
 .hero-abstract-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, #0A1A1F 0%, #0D2B33 50%, #0A1A1F 100%);
+  background: linear-gradient(180deg, 
+    #000000 0%,
+    #0A1A1F 25%,
+    #0D2B33 60%,
+    #0A1A1F 100%
+  );
   overflow: hidden;
 }
 
