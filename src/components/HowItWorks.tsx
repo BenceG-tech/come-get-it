@@ -1,63 +1,67 @@
 import React from 'react';
-import { Download, UserPlus, Wine, Star } from 'lucide-react';
+import { CreditCard, Wine, Zap } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
 
 export const HowItWorks: React.FC = () => {
   const { t } = useI18n();
-  const steps = [
+  
+  const cards = [
     {
       number: 1,
-      icon: Download,
-      title: t('how_it_works.steps.1.title'),
-      description: t('how_it_works.steps.1.description')
+      icon: CreditCard,
+      titleKey: 'how_it_works.cards.1.title',
+      descKey: 'how_it_works.cards.1.description'
     },
     {
       number: 2,
-      icon: UserPlus,
-      title: t('how_it_works.steps.2.title'),
-      description: t('how_it_works.steps.2.description')
+      icon: Wine,
+      titleKey: 'how_it_works.cards.2.title',
+      descKey: 'how_it_works.cards.2.description'
     },
     {
       number: 3,
-      icon: Wine,
-      title: t('how_it_works.steps.3.title'),
-      description: t('how_it_works.steps.3.description')
-    },
-    {
-      number: 4,
-      icon: Star,
-      title: t('how_it_works.steps.4.title'),
-      description: t('how_it_works.steps.4.description')
+      icon: Zap,
+      titleKey: 'how_it_works.cards.3.title',
+      descKey: 'how_it_works.cards.3.description'
     }
   ];
 
   return (
     <section className="py-16 px-4 bg-nf-background">
       <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">
-            {t('how_it_works.title')}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight">
+            {t('how_it_works.headline')}
           </h2>
+          <p className="text-nf-text-muted text-lg max-w-2xl mx-auto">
+            {t('how_it_works.subheadline')}
+          </p>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {steps.map((step) => (
+        {/* 3-Card Grid */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {cards.map((card) => (
             <div 
-              key={step.number} 
-              className="text-center group hover:scale-105 transition-all duration-300"
+              key={card.number}
+              className="bg-nf-surface border border-nf-border rounded-2xl p-6 hover:border-nf-primary/50 transition-all duration-300 group"
             >
-              <div className="mb-6">
-                <div className="w-16 h-16 md:w-20 md:h-20 mx-auto bg-gradient-to-br from-nf-primary to-nf-secondary rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-neon">
-                  <step.icon className="w-8 h-8 md:w-10 md:h-10 text-white" />
+              {/* Icon with number badge */}
+              <div className="relative mb-6">
+                <div className="w-16 h-16 rounded-full border-2 border-nf-primary/50 flex items-center justify-center group-hover:border-nf-primary group-hover:shadow-neon transition-all duration-300">
+                  <card.icon className="w-7 h-7 text-nf-primary" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-7 h-7 bg-nf-primary rounded-full flex items-center justify-center text-black font-bold text-sm">
+                  {card.number}
                 </div>
               </div>
               
-              <h3 className="text-sm md:text-lg font-black text-white mb-2 group-hover:text-nf-primary transition-colors duration-300">
-                {step.title}
+              {/* Content */}
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-nf-primary transition-colors duration-300">
+                {t(card.titleKey)}
               </h3>
-              
-              <p className="text-xs md:text-sm text-nf-text-muted leading-tight px-2">
-                {step.description}
+              <p className="text-nf-text-muted text-sm leading-relaxed">
+                {t(card.descKey)}
               </p>
             </div>
           ))}

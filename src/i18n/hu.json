@@ -4,6 +4,7 @@
     "drink": "Drink",
     "link": "Link",
     "earn": "Earn",
+    "give": "Give",
     "partners": "Partnerek",
     "venues": "Vendéglátóhelyek",
     "brands": "Italmárkák",
@@ -39,6 +40,12 @@
     "subtitle": "Pontokból élmények",
     "body": "Minden korty, felfedezés és aktivitás pont. Váltsd be exkluzív jutalmakra, és közben jó ügyeket is támogatsz. Igyál okosan, élj intenzíven."
   },
+  "give": {
+    "title": "GIVE.",
+    "subtitle": "Minden korty számít.",
+    "body": "A \"Drink for a Cause\" modell a DNS-ünk része. Nem csak a pörgést akarjuk támogatni, hanem a változást is.",
+    "quote": "A Z generáció számára a társadalmi felelősségvállalás nem opció, hanem alapkövetelmény. Minden Welcome Drink után adományozunk."
+  },
   "fomo": {
     "title": "Legyél alapító tag",
     "p1": "Az első 1000 bennfentes külön badge‑et, extra jutalmakat és életre szóló bragging right‑ot kap.",
@@ -67,6 +74,13 @@
   },
   "how_it_works": {
     "title": "HOGYAN MŰKÖDIK",
+    "headline": "Igyál. Kapcsolódj. Gyűjts. Adakozz.",
+    "subheadline": "Ezt hívjuk mi Láthatatlan Hűségprogramnak. Az app dolgozik, te szórakozol.",
+    "cards": {
+      "1": { "title": "Kapcsolódj", "description": "Kösd össze a kártyádat — minden költés automatikusan pontokat gyűjt. Semmi extra teendő, semmi kuponolás." },
+      "2": { "title": "Igyál", "description": "Élvezd a napi Welcome Drink-et a partner helyszíneken. Az első körrel indul a sztori." },
+      "3": { "title": "Gyűjts & Adakozz", "description": "A pontjaidat beválthatod jutalmakra, és közben minden italod után támogatsz jó ügyeket is." }
+    },
     "steps": {
       "1": { "title": "TÖLTSD LE", "description": "Töltsd le az appot" },
       "2": { "title": "REGISZTRÁLJ", "description": "Regisztrálj és linkeld a kártyádat" },
