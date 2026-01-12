@@ -508,8 +508,9 @@
   inset: 0;
   background: linear-gradient(180deg, 
     #000000 0%,
-    #0A1A1F 25%,
-    #0D2B33 60%,
+    #000000 40%,
+    #0A1A1F 60%,
+    #0D2B33 80%,
     #0A1A1F 100%
   );
   overflow: hidden;
