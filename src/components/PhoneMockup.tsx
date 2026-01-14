@@ -34,8 +34,11 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = 
         transition: 'transform 0.3s ease-out'
       }}
     >
-      {/* Optimized single glow layer with hardware acceleration */}
-      <div className="absolute -inset-16 bg-optimized-phone-glow opacity-8 blur-[40px] rounded-[4rem] transform-gpu will-change-transform backface-visibility-hidden contain-layout-style-paint"></div>
+      {/* Enhanced glow - tighter around phone edges */}
+      <div 
+        className="absolute -inset-6 blur-[25px] rounded-[3.5rem] transform-gpu will-change-transform"
+        style={{ background: 'radial-gradient(ellipse 100% 100%, rgba(0, 212, 255, 0.45) 0%, rgba(0, 191, 230, 0.3) 40%, rgba(0, 169, 204, 0.15) 70%, transparent 100%)' }}
+      />
       
       {/* Phone frame with enhanced styling */}
       <div className="relative w-64 h-[520px] bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[3rem] p-2 shadow-2xl border border-gray-700/30 phone-frame-solid">
