@@ -27,8 +27,8 @@ export const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 px-4 bg-nf-background">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-16 px-4 bg-nf-background overflow-visible">
+      <div className="max-w-6xl mx-auto overflow-visible">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight">
@@ -40,7 +40,7 @@ export const HowItWorks: React.FC = () => {
         </div>
         
         {/* 3-Card Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 pb-4">
           {cards.map((card) => (
             <div 
               key={card.number}
