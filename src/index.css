@@ -507,10 +507,11 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, 
-    #030808 0%,
-    #051515 40%,
-    #0a2828 70%,
-    #0d3535 100%
+    #000000 0%,
+    #000000 60%,
+    #050d10 75%,
+    #0A1A1F 90%,
+    #0D2B33 100%
   );
   overflow: hidden;
 }
@@ -522,14 +523,19 @@
   right: -10%;
   width: 60%;
   height: 80%;
-  background: radial-gradient(ellipse 100% 100%, 
-    rgba(0, 188, 212, 0.25) 0%, 
-    rgba(0, 151, 167, 0.15) 40%, 
-    transparent 70%
-  );
+  background: radial-gradient(ellipse 100% 100%, #2A6B70 0%, #1A4A52 40%, transparent 70%);
   border-radius: 50% 0 50% 50%;
-  filter: blur(60px);
-  opacity: 0.6;
+  filter: blur(40px);
+  opacity: 0.35;
+}
+
+/* Glowing edge for shape 1 */
+.hero-shape-1::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 30% 30%, rgba(0, 212, 212, 0.3) 0%, transparent 50%);
+  border-radius: inherit;
 }
 
 /* Abstract curved shape - Bottom left */
@@ -539,29 +545,31 @@
   left: -15%;
   width: 50%;
   height: 70%;
-  background: radial-gradient(ellipse 100% 100%, 
-    rgba(0, 188, 212, 0.2) 0%, 
-    rgba(22, 83, 126, 0.12) 50%, 
-    transparent 80%
-  );
+  background: radial-gradient(ellipse 100% 100%, #2A6B70 0%, #1A4A52 50%, transparent 80%);
   border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.5;
+  filter: blur(50px);
+  opacity: 0.3;
 }
 
-/* Cyan glow accent - subtle floating */
+/* Glowing edge for shape 2 */
+.hero-shape-2::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 70% 70%, rgba(0, 255, 255, 0.25) 0%, transparent 50%);
+  border-radius: inherit;
+}
+
+/* Cyan glow accent - floating */
 .hero-glow-accent {
   position: absolute;
-  top: 30%;
-  right: 25%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, 
-    rgba(0, 188, 212, 0.15) 0%, 
-    transparent 60%
-  );
-  filter: blur(50px);
-  animation: float 8s ease-in-out infinite;
+  top: 40%;
+  right: 20%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0, 212, 212, 0.2) 0%, rgba(0, 255, 255, 0.05) 40%, transparent 70%);
+  filter: blur(30px);
+  animation: float 6s ease-in-out infinite;
 }
 
 /* Secondary glow accent - removed for cleaner look */
