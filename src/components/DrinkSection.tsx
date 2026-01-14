@@ -12,9 +12,9 @@ interface DrinkSectionProps {
 export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, drinkImages }) => {
   const { t } = useI18n();
   return (
-    <section id="drink" className="py-20 px-4 -mt-32 lg:mt-0 relative z-20 scroll-mt-24 bg-nf-background">
+    <section id="drink" className="py-20 px-4 relative scroll-mt-24 bg-nf-background">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center pt-32 lg:pt-0">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Content */}
           <div className="text-center lg:text-left">
             <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-none tracking-tight">
