@@ -44,7 +44,7 @@ export const HowItWorks: React.FC = () => {
           {cards.map((card) => (
             <div 
               key={card.number}
-              className="bg-nf-surface border border-nf-border rounded-2xl p-6 hover:border-nf-primary/50 transition-all duration-300 group"
+              className="bg-nf-surface border border-nf-border rounded-2xl p-6 hover:border-nf-primary/50 transition-all duration-300 group min-h-[180px]"
             >
               {/* Icon with number badge */}
               <div className="relative mb-6">
