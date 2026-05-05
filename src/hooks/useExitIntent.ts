@@ -5,7 +5,7 @@ export const useExitIntent = () => {
   const [hasShownExitIntent, setHasShownExitIntent] = useState(false);
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
+    let timer: NodeJS.Timeout;
 
     const handleMouseLeave = (e: MouseEvent) => {
       // Only trigger if mouse is leaving through the top of the viewport
