@@ -5,6 +5,8 @@ import { MobileNavigation } from './MobileNavigation';
 import { SocialProof } from './SocialProof';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
+import { CinematicScene } from './cinematic/CinematicScene';
+import { SceneLayer } from './cinematic/SceneLayer';
 
 interface HeroSectionProps {
   currentImageIndex: number;
