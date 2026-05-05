@@ -126,5 +126,7 @@ export default function AdatvedelmiSzabalyzat() {
         </section>
       </article>
     </main>
+    <Footer />
+    </>
   );
 }
