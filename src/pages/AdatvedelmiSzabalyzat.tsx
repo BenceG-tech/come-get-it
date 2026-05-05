@@ -9,6 +9,12 @@ export default function AdatvedelmiSzabalyzat() {
   }, []);
 
   return (
+    <>
+      <SEO
+        title="Adatvédelmi szabályzat – Come Get It"
+        description="Hogyan kezeljük a személyes adataidat a Come Get It alkalmazásnál és weboldalán."
+        canonical="/adatvedelmi-szabalyzat"
+      />
     <main className="min-h-screen bg-background text-foreground">
       <article className="max-w-3xl mx-auto px-4 py-16">
         <header className="mb-10">
