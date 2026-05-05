@@ -10,6 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Lock, User, Chrome } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
+import { SEO } from '@/components/SEO';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
