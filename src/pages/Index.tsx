@@ -147,7 +147,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <SEO
+        title="Come Get It – Gyűjts pontokat, szerezz jutalmakat"
+        description="Az új generációs app, ahol minden korttyal pontokat gyűjtesz, jutalmakat szerzel és jótékonykodást támogatsz Magyarországon. Regisztrálj elő!"
+        canonical="/"
+      />
       <Navigation />
+      <main>
       <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
       <QuickAccessChips />
       <HowItWorks />
