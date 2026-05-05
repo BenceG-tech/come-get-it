@@ -165,6 +165,8 @@ const Index = () => {
       <VenueApplicationSection />
       <FOMOSection />
       <SignupForm />
+      </main>
+      <Footer />
       <StickyCallToAction />
       <CustomerSupport />
       
