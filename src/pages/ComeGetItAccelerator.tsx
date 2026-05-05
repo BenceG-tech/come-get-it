@@ -340,6 +340,7 @@ const ComeGetItAccelerator = () => {
       <PartnerApplicationSection id="accelerator-application" partnerType="accelerator" />
 
       <CustomerSupport />
+      <Footer />
     </div>
   );
 };
