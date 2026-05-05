@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { SEO } from '@/components/SEO';
+import { Footer } from '@/components/Footer';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
