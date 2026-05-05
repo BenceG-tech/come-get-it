@@ -1,27 +1,10 @@
 import React, { useEffect } from "react";
 import { analytics } from "@/lib/analytics";
+import { SEO } from "@/components/SEO";
+import { Footer } from "@/components/Footer";
 
 export default function AdatvedelmiSzabalyzat() {
   useEffect(() => {
-    document.title = "Adatvédelmi szabályzat | Come Get It";
-    // Meta description update
-    let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.name = 'description';
-      document.head.appendChild(meta);
-    }
-    meta.content = "Adatvédelmi szabályzat – hogyan kezeljük az adataidat a Come Get It alkalmazásnál.";
-
-    // Canonical (best-effort in SPA)
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.rel = 'canonical';
-      document.head.appendChild(canonical);
-    }
-    canonical.href = `${window.location.origin}/adatvedelmi-szabalyzat`;
-
     analytics.pageView('adatvedelmi-szabalyzat');
   }, []);
 
