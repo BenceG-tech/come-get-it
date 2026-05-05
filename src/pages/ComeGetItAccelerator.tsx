@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { SEO } from '@/components/SEO';
+import { Footer } from '@/components/Footer';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
@@ -98,6 +100,19 @@ const ComeGetItAccelerator = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <SEO
+        title="Come Get It Accelerator"
+        description="Felgyorsítjuk a vendéglátó- és italmárka-partnereket. Tudd meg, hogyan vehetsz részt az Acceleratorban."
+        canonical="/come-get-it-accelerator"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Főoldal', item: 'https://come-get-it.app/' },
+            { '@type': 'ListItem', position: 2, name: 'Accelerator', item: 'https://come-get-it.app/come-get-it-accelerator' },
+          ],
+        }}
+      />
       <MobileNavigation />
       <Navigation />
       
@@ -325,6 +340,7 @@ const ComeGetItAccelerator = () => {
       <PartnerApplicationSection id="accelerator-application" partnerType="accelerator" />
 
       <CustomerSupport />
+      <Footer />
     </div>
   );
 };

@@ -13,6 +13,8 @@ import { SignupForm } from '@/components/SignupForm';
 import { StickyCallToAction } from '@/components/StickyCallToAction';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { ExitIntentPopup } from '@/components/ExitIntentPopup';
+import { Footer } from '@/components/Footer';
+import { SEO } from '@/components/SEO';
 import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
@@ -145,7 +147,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <SEO
+        title="Come Get It – Gyűjts pontokat, szerezz jutalmakat"
+        description="Az új generációs app, ahol minden korttyal pontokat gyűjtesz, jutalmakat szerzel és jótékonykodást támogatsz Magyarországon. Regisztrálj elő!"
+        canonical="/"
+      />
       <Navigation />
+      <main>
       <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
       <QuickAccessChips />
       <HowItWorks />
@@ -157,6 +165,8 @@ const Index = () => {
       <VenueApplicationSection />
       <FOMOSection />
       <SignupForm />
+      </main>
+      <Footer />
       <StickyCallToAction />
       <CustomerSupport />
       

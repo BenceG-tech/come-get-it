@@ -8,6 +8,8 @@ import { VenueKeyFeatures } from '@/components/VenueKeyFeatures';
 import { VenueStats } from '@/components/VenueStats';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { Footer } from '@/components/Footer';
+import { SEO } from '@/components/SEO';
 import { analytics } from '@/lib/analytics';
 
 const Vendeglatohelyek = () => {
@@ -74,14 +76,30 @@ const Vendeglatohelyek = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <SEO
+        title="Vendéglátóhelyeknek – Come Get It Partner"
+        description="Csatlakozz a Come Get It-hez vendéglátóhelyként. Új vendégek, hűségrendszer, mérhető forgalom. Jelentkezz partnernek!"
+        canonical="/vendeglatohelyek"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Főoldal', item: 'https://come-get-it.app/' },
+            { '@type': 'ListItem', position: 2, name: 'Vendéglátóhelyeknek', item: 'https://come-get-it.app/vendeglatohelyek' },
+          ],
+        }}
+      />
       <MobileNavigation />
       <Navigation />
-      <VenueHeroSection />
-      <HowItWorksForVenues />
-      <VenueKeyFeatures />
-      <VenueStats />
-      <VenueApplicationSection />
+      <main>
+        <VenueHeroSection />
+        <HowItWorksForVenues />
+        <VenueKeyFeatures />
+        <VenueStats />
+        <VenueApplicationSection />
+      </main>
       <CustomerSupport />
+      <Footer />
     </div>
   );
 };

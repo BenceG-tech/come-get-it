@@ -1,4 +1,6 @@
 import React from 'react';
+import { SEO } from '@/components/SEO';
+import { Footer } from '@/components/Footer';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
@@ -43,6 +45,19 @@ const Italmarkak = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <SEO
+        title="Italmárkáknak – Come Get It Partner"
+        description="Érd el közvetlenül a fogyasztókat. Italmárkaként mérhető kampányok és aktivációk a Come Get It appban."
+        canonical="/italmarkak"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Főoldal', item: 'https://come-get-it.app/' },
+            { '@type': 'ListItem', position: 2, name: 'Italmárkáknak', item: 'https://come-get-it.app/italmarkak' },
+          ],
+        }}
+      />
       <MobileNavigation />
       <Navigation />
       
@@ -228,6 +243,7 @@ const Italmarkak = () => {
       <PartnerApplicationSection id="brand-application" partnerType="brand" />
 
       <CustomerSupport />
+      <Footer />
     </div>
   );
 };

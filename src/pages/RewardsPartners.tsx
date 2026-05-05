@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { SEO } from '@/components/SEO';
+import { Footer } from '@/components/Footer';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
@@ -96,6 +98,19 @@ const RewardsPartners = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <SEO
+        title="Rewards Partnerek – Come Get It"
+        description="Kínálj jutalmakat felhasználóinknak és növeld márkád ismertségét a Come Get It közösségében."
+        canonical="/rewards-partners"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Főoldal', item: 'https://come-get-it.app/' },
+            { '@type': 'ListItem', position: 2, name: 'Rewards Partnerek', item: 'https://come-get-it.app/rewards-partners' },
+          ],
+        }}
+      />
       <MobileNavigation />
       <Navigation />
       
@@ -234,6 +249,7 @@ const RewardsPartners = () => {
       <PartnerApplicationSection id="rewards-application" partnerType="rewards" />
 
       <CustomerSupport />
+      <Footer />
     </div>
   );
 };
