@@ -243,6 +243,7 @@ const Italmarkak = () => {
       <PartnerApplicationSection id="brand-application" partnerType="brand" />
 
       <CustomerSupport />
+      <Footer />
     </div>
   );
 };
