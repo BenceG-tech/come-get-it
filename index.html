@@ -52,10 +52,67 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Anton&display=swap" rel="stylesheet">
+
+    <!-- JSON-LD: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Come Get It",
+      "url": "https://come-get-it.app/",
+      "logo": "https://come-get-it.app/lovable-uploads/a420fa98-cae6-4fa9-bb7d-279de98e3cfb.png",
+      "email": "hello@come-get-it.app",
+      "sameAs": [
+        "https://instagram.com/comegetit_app",
+        "https://tiktok.com/@comegetit_app"
+      ]
+    }
+    </script>
+    <!-- JSON-LD: WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Come Get It",
+      "url": "https://come-get-it.app/",
+      "inLanguage": "hu-HU"
+    }
+    </script>
+    <!-- JSON-LD: MobileApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Come Get It",
+      "operatingSystem": "iOS, Android",
+      "applicationCategory": "LifestyleApplication",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "HUF" },
+      "description": "Gyűjts pontokat minden korttyal, válts be jutalmakat partnervendéglátóhelyeken és támogass jótékonysági célokat."
+    }
+    </script>
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- SEO fallback for non-JS crawlers; replaced on hydration -->
+      <noscript>
+        <h1>Come Get It – Gyűjts pontokat, szerezz jutalmakat</h1>
+        <p>Az új generációs app, ahol minden korttyal pontokat gyűjtesz, jutalmakat szerzel és jótékonykodást támogatsz Magyarországon. Regisztrálj elő a hivatalos indulásra.</p>
+      </noscript>
+      <div style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+        <h1>Come Get It</h1>
+        <p>Magyarországi loyalty és vendéglátó app: Drink, Link, Earn, Give. Gyűjts pontokat, válts be jutalmakat, támogass jótékonysági célokat.</p>
+        <ul>
+          <li><a href="/">Főoldal</a></li>
+          <li><a href="/vendeglatohelyek">Vendéglátóhelyeknek</a></li>
+          <li><a href="/italmarkak">Italmárkáknak</a></li>
+          <li><a href="/rewards-partners">Rewards Partnerek</a></li>
+          <li><a href="/come-get-it-accelerator">Come Get It Accelerator</a></li>
+          <li><a href="/adatvedelmi-szabalyzat">Adatvédelmi szabályzat</a></li>
+          <li><a href="/llm.html">AI/LLM összefoglaló</a></li>
+        </ul>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
