@@ -8,6 +8,8 @@ import { VenueKeyFeatures } from '@/components/VenueKeyFeatures';
 import { VenueStats } from '@/components/VenueStats';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { Footer } from '@/components/Footer';
+import { SEO } from '@/components/SEO';
 import { analytics } from '@/lib/analytics';
 
 const Vendeglatohelyek = () => {
