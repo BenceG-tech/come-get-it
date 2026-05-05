@@ -576,3 +576,38 @@
 .hero-glow-secondary {
   display: none;
 }
+
+/* ============= Cinematic depth utilities ============= */
+.cinematic-shadow {
+  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55))
+          drop-shadow(0 10px 20px rgba(0, 212, 255, 0.18));
+}
+.ambient-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 60% 40% at 30% 10%,
+              rgba(255,255,255,0.08) 0%, transparent 60%);
+  mix-blend-mode: screen;
+}
+.scene-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+              rgba(0,0,0,0.0) 0%,
+              rgba(0,0,0,0.0) 70%,
+              hsl(var(--background)) 100%);
+}
+.scene-gradient-overlay-top {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+              hsl(var(--background)) 0%,
+              rgba(0,0,0,0.0) 30%,
+              rgba(0,0,0,0.0) 100%);
+}
+.depth-blur-sm { filter: blur(2px); }
+.depth-blur-md { filter: blur(6px); }
+.depth-blur-lg { filter: blur(12px); }
