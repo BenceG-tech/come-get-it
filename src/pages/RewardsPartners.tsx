@@ -249,6 +249,7 @@ const RewardsPartners = () => {
       <PartnerApplicationSection id="rewards-application" partnerType="rewards" />
 
       <CustomerSupport />
+      <Footer />
     </div>
   );
 };
