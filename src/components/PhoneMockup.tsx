@@ -41,7 +41,13 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = 
       />
       
       {/* Phone frame with enhanced styling */}
-      <div className="relative w-64 h-[520px] bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[3rem] p-2 shadow-2xl border border-gray-700/30 phone-frame-solid">
+      <div
+        className="relative w-64 h-[520px] bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[3rem] p-2 border border-gray-700/30 phone-frame-solid"
+        style={{
+          boxShadow:
+            '0 40px 80px -20px rgba(0,0,0,0.7), 0 18px 36px -12px rgba(0,212,255,0.25), inset 0 1px 0 rgba(255,255,255,0.08)',
+        }}
+      >
         <div className="w-full h-full bg-gradient-to-br from-gray-50 to-white rounded-[2.5rem] overflow-hidden relative clip-rounded-2_5rem">
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-gradient-to-b from-gray-900 to-black rounded-b-2xl z-30"></div>
           
