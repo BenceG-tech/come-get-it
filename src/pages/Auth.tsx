@@ -74,6 +74,7 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
+      <SEO title="Bejelentkezés – Come Get It" description="Bejelentkezés a Come Get It fiókodba." canonical="/auth" noindex />
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">{t('auth.title')}</CardTitle>
