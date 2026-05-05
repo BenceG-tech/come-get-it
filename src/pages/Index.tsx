@@ -13,6 +13,8 @@ import { SignupForm } from '@/components/SignupForm';
 import { StickyCallToAction } from '@/components/StickyCallToAction';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { ExitIntentPopup } from '@/components/ExitIntentPopup';
+import { Footer } from '@/components/Footer';
+import { SEO } from '@/components/SEO';
 import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
