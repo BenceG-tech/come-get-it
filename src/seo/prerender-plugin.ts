@@ -18,7 +18,7 @@ import {
   SITE_ORIGIN,
   DEFAULT_OG_IMAGE,
   type RouteSEO,
-} from "../src/seo/routes";
+} from "./routes";
 
 const escapeHtml = (s: string) =>
   s
@@ -58,7 +58,7 @@ function buildJsonLdScripts(route: RouteSEO): string {
   if (!route.jsonLd?.length) return "";
   return route.jsonLd
     .map(
-      (block) =>
+      (block: Record<string, unknown>) =>
         `<script type="application/ld+json" data-prerender-route="${route.path}">${JSON.stringify(
           block,
         )}</script>`,
@@ -102,8 +102,8 @@ function applyRouteToHtml(template: string, route: RouteSEO): string {
 }
 
 function buildSitemap(): string {
-  const urls = ROUTES.filter((r) => !r.noindex)
-    .map((r) => {
+  const urls = ROUTES.filter((r: RouteSEO) => !r.noindex)
+    .map((r: RouteSEO) => {
       const loc = `${SITE_ORIGIN}${r.path === "/" ? "/" : r.path}`;
       return `  <url>
     <loc>${loc}</loc>
@@ -173,7 +173,7 @@ export function prerenderPlugin(): Plugin {
         const declared = Array.from(
           appSrc.matchAll(/<Route\s+path="([^"]+)"/g),
         ).map((m) => m[1]);
-        const known = new Set(ROUTES.map((r) => r.path));
+        const known = new Set(ROUTES.map((r: RouteSEO) => r.path));
         const skip = new Set(["*", "/auth"]);
         for (const p of declared) {
           if (!skip.has(p) && !known.has(p)) {
