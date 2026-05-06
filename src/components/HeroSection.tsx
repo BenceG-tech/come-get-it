@@ -53,18 +53,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               <SocialProof />
             </div>
             
-            {/* CTA Button - Neon Fidelity style */}
-            <div className="pt-4">
-              <Button 
+            {/* CTA Buttons - Neon Fidelity style */}
+            <div className="pt-4 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center lg:justify-start">
+              <Button
                 variant="neon"
-                size="lg" 
-                className="py-4 px-12 text-lg"
+                size="lg"
+                className="py-4 px-10 text-lg w-full sm:w-auto"
                 onClick={() => {
-                  analytics.ctaClick('hero', t('hero.cta'));
+                  analytics.ctaClick('hero_primary', t('hero.cta'));
                   document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
                 {t('hero.cta')}
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="py-4 px-8 text-lg w-full sm:w-auto rounded-full border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
+                onClick={() => {
+                  analytics.ctaClick('hero_secondary', t('hero.cta_secondary'));
+                  document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                {t('hero.cta_secondary')}
               </Button>
             </div>
           </div>

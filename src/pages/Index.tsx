@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
+import { MibenSegitSection } from '@/components/MibenSegitSection';
 import { HowItWorks } from '@/components/HowItWorks';
 import { DrinkSection } from '@/components/DrinkSection';
 import { LinkSection } from '@/components/LinkSection';
@@ -155,6 +156,7 @@ const Index = () => {
       <Navigation />
       <main>
       <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
+      <MibenSegitSection />
       <QuickAccessChips />
       <HowItWorks />
       <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
