@@ -115,7 +115,7 @@ const RewardsPartners = () => {
       <Navigation />
       
       {/* Hero Section - Standardized */}
-      <section className="relative py-16 px-4 overflow-hidden">
+      <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden">
         {/* Background - unified with main hero */}
         <div className="hero-abstract-bg">
           <div className="hero-shape-1"></div>
