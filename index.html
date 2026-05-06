@@ -1,44 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="hu">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Come Get It - Regisztrálj elő!</title>
-    <title>Come Get It – Gyűjts pontokat, szerezz jutalmakat</title>
-    <meta name="description" content="Az új generációs app, ahol minden korttyal pontokat gyűjtesz, jutalmakat szerzel és jótékonykodást támogatsz. Regisztrálj elő!" />
     <meta name="author" content="Come Get It" />
-    <meta name="robots" content="index,follow" />
     <link rel="alternate" hreflang="hu" href="https://come-get-it.app/" />
     <link rel="alternate" hreflang="x-default" href="https://come-get-it.app/" />
 
-    <meta property="og:title" content="Come Get It – Gyűjts pontokat, szerezz jutalmakat" />
-    <meta property="og:description" content="Az új generációs app, ahol minden korttyal pontokat gyűjtesz, jutalmakat szerzel és jótékonykodást támogatsz." />
+    <!-- PRERENDER:HEAD -->
+    <title>Come Get It – Igyál, gyűjts pontokat, segíts másokon</title>
+    <meta name="description" content="Magyarországi loyalty app: gyűjts pontokat minden italért, válts be jutalmakat partnervendéglátóhelyeken, és minden beváltott italért egy napi tiszta ivóvizet biztosíts egy rászorulónak. Budapesten indulunk." />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://come-get-it.app/" />
-    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Come Get It – Igyál, gyűjts pontokat, segíts másokon" />
+    <meta property="og:description" content="Magyarországi loyalty app: gyűjts pontokat minden italért, válts be jutalmakat partnerhelyeken." />
     <meta property="og:url" content="https://come-get-it.app/" />
+    <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Come Get It" />
     <meta property="og:locale" content="hu_HU" />
     <meta property="og:image" content="https://come-get-it.app/lovable-uploads/a420fa98-cae6-4fa9-bb7d-279de98e3cfb.png?v=20250808-4" />
     <meta property="og:image:secure_url" content="https://come-get-it.app/lovable-uploads/a420fa98-cae6-4fa9-bb7d-279de98e3cfb.png?v=20250808-4" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Come Get It – hero kép telefon mockuppal (v3)" />
-    <meta property="og:updated_time" content="2025-08-08T14:10:00Z" />
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@comegetit_app" />
-    <meta name="twitter:title" content="Come Get It – Gyűjts pontokat, szerezz jutalmakat" />
-    <meta name="twitter:description" content="Az új generációs app, ahol minden korttyal pontokat gyűjtesz, jutalmakat szerzel és jótékonykodást támogatsz." />
+    <meta name="twitter:title" content="Come Get It – Igyál, gyűjts pontokat, segíts másokon" />
+    <meta name="twitter:description" content="Magyarországi loyalty app: gyűjts pontokat, segíts másokon." />
     <meta name="twitter:image" content="https://come-get-it.app/lovable-uploads/a420fa98-cae6-4fa9-bb7d-279de98e3cfb.png?v=20250808-4" />
-    <meta name="twitter:image:src" content="https://come-get-it.app/lovable-uploads/a420fa98-cae6-4fa9-bb7d-279de98e3cfb.png?v=20250808-4" />
-    <meta name="twitter:image:alt" content="Come Get It – hero kép telefon mockuppal (v3)" />
-    <link rel="image_src" href="https://come-get-it.app/lovable-uploads/a420fa98-cae6-4fa9-bb7d-279de98e3cfb.png?v=20250808-4" />
-    
+    <!-- /PRERENDER:HEAD -->
+
     <link rel="icon" href="/favicon.ico?v=2" sizes="any">
     <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon">
-    
+
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
@@ -47,13 +38,13 @@
       gtag('js', new Date());
       gtag('config', 'GA_MEASUREMENT_ID');
     </script>
-    
-    <!-- Google Fonts for modern typography -->
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Anton&display=swap" rel="stylesheet">
 
-    <!-- JSON-LD: Organization -->
+    <!-- Global JSON-LD: Organization -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -68,7 +59,7 @@
       ]
     }
     </script>
-    <!-- JSON-LD: WebSite -->
+    <!-- Global JSON-LD: WebSite -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -78,7 +69,7 @@
       "inLanguage": "hu-HU"
     }
     </script>
-    <!-- JSON-LD: MobileApplication -->
+    <!-- Global JSON-LD: MobileApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -86,33 +77,18 @@
       "name": "Come Get It",
       "operatingSystem": "iOS, Android",
       "applicationCategory": "LifestyleApplication",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "HUF" },
-      "description": "Gyűjts pontokat minden korttyal, válts be jutalmakat partnervendéglátóhelyeken és támogass jótékonysági célokat."
+      "offers": [
+        { "@type": "Offer", "name": "Ingyenes verzió", "price": "0", "priceCurrency": "HUF" },
+        { "@type": "Offer", "name": "Heti előfizetés", "price": "990", "priceCurrency": "HUF" },
+        { "@type": "Offer", "name": "Havi előfizetés", "price": "2990", "priceCurrency": "HUF" }
+      ],
+      "description": "Hibrid loyalty app: ingyenes pontgyűjtés vagy előfizetés napi 1 ingyen italért partnerhelyeken. Minden beváltott italért 1 napi tiszta ivóvíz egy rászorulónak."
     }
     </script>
   </head>
 
   <body>
-    <div id="root">
-      <!-- SEO fallback for non-JS crawlers; replaced on hydration -->
-      <noscript>
-        <h1>Come Get It – Gyűjts pontokat, szerezz jutalmakat</h1>
-        <p>Az új generációs app, ahol minden korttyal pontokat gyűjtesz, jutalmakat szerzel és jótékonykodást támogatsz Magyarországon. Regisztrálj elő a hivatalos indulásra.</p>
-      </noscript>
-      <div style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
-        <h1>Come Get It</h1>
-        <p>Magyarországi loyalty és vendéglátó app: Drink, Link, Earn, Give. Gyűjts pontokat, válts be jutalmakat, támogass jótékonysági célokat.</p>
-        <ul>
-          <li><a href="/">Főoldal</a></li>
-          <li><a href="/vendeglatohelyek">Vendéglátóhelyeknek</a></li>
-          <li><a href="/italmarkak">Italmárkáknak</a></li>
-          <li><a href="/rewards-partners">Rewards Partnerek</a></li>
-          <li><a href="/come-get-it-accelerator">Come Get It Accelerator</a></li>
-          <li><a href="/adatvedelmi-szabalyzat">Adatvédelmi szabályzat</a></li>
-          <li><a href="/llm.html">AI/LLM összefoglaló</a></li>
-        </ul>
-      </div>
-    </div>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
