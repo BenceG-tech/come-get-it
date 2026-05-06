@@ -1,6 +1,6 @@
 import React from 'react';
 import { PhoneMockup } from './PhoneMockup';
-import { GlassWater, Star, CheckCircle, Footprints } from 'lucide-react';
+import { GlassWater, Star, CheckCircle, Footprints, Compass } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
 
 export const VenueKeyFeatures: React.FC = () => {
@@ -8,26 +8,11 @@ export const VenueKeyFeatures: React.FC = () => {
   const { t } = useI18n();
 
   const features = [
-    {
-      icon: Footprints,
-      title: t('venues.key_features.items.1.title'),
-      description: t('venues.key_features.items.1.description')
-    },
-    {
-      icon: CheckCircle,
-      title: t('venues.key_features.items.2.title'),
-      description: t('venues.key_features.items.2.description')
-    },
-    {
-      icon: Star,
-      title: t('venues.key_features.items.3.title'),
-      description: t('venues.key_features.items.3.description')
-    },
-    {
-      icon: GlassWater,
-      title: t('venues.key_features.items.4.title'),
-      description: t('venues.key_features.items.4.description')
-    }
+    { icon: Footprints,  title: t('venues.key_features.items.1.title'), description: t('venues.key_features.items.1.description') },
+    { icon: CheckCircle, title: t('venues.key_features.items.2.title'), description: t('venues.key_features.items.2.description') },
+    { icon: Star,        title: t('venues.key_features.items.3.title'), description: t('venues.key_features.items.3.description') },
+    { icon: GlassWater,  title: t('venues.key_features.items.4.title'), description: t('venues.key_features.items.4.description') },
+    { icon: Compass,     title: t('venues.key_features.items.5.title'), description: t('venues.key_features.items.5.description') },
   ];
 
   return (

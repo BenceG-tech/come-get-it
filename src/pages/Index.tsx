@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
+import { MibenSegitSection } from '@/components/MibenSegitSection';
 import { HowItWorks } from '@/components/HowItWorks';
 import { DrinkSection } from '@/components/DrinkSection';
 import { LinkSection } from '@/components/LinkSection';
@@ -148,13 +149,14 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Come Get It – Gyűjts pontokat, szerezz jutalmakat"
-        description="Az új generációs app, ahol minden korttyal pontokat gyűjtesz, jutalmakat szerzel és jótékonykodást támogatsz Magyarországon. Regisztrálj elő!"
+        title="Come Get It – Találd meg, hova menj ma Budapesten"
+        description="A Come Get It megmutatja Budapest azon partnerhelyeit, ahol napi ingyen italt, pontokat és jutalmakat kapsz — így könnyebb eldönteni, hova menj reggelizni, ebédelni, inni vagy bulizni."
         canonical="/"
       />
       <Navigation />
       <main>
       <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
+      <MibenSegitSection />
       <QuickAccessChips />
       <HowItWorks />
       <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />

@@ -1,35 +1,20 @@
 import React from 'react';
-import { CreditCard, Wine, Zap } from 'lucide-react';
+import { MapPin, Footprints, Wine, HeartHandshake } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
 
 export const HowItWorks: React.FC = () => {
   const { t } = useI18n();
-  
+
   const cards = [
-    {
-      number: 1,
-      icon: Wine,
-      titleKey: 'how_it_works.cards.2.title',
-      descKey: 'how_it_works.cards.2.description'
-    },
-    {
-      number: 2,
-      icon: CreditCard,
-      titleKey: 'how_it_works.cards.1.title',
-      descKey: 'how_it_works.cards.1.description'
-    },
-    {
-      number: 3,
-      icon: Zap,
-      titleKey: 'how_it_works.cards.3.title',
-      descKey: 'how_it_works.cards.3.description'
-    }
+    { number: 1, icon: MapPin,         titleKey: 'how_it_works.cards.1.title', descKey: 'how_it_works.cards.1.description' },
+    { number: 2, icon: Footprints,     titleKey: 'how_it_works.cards.2.title', descKey: 'how_it_works.cards.2.description' },
+    { number: 3, icon: Wine,           titleKey: 'how_it_works.cards.3.title', descKey: 'how_it_works.cards.3.description' },
+    { number: 4, icon: HeartHandshake, titleKey: 'how_it_works.cards.4.title', descKey: 'how_it_works.cards.4.description' },
   ];
 
   return (
     <section className="py-16 px-4 bg-nf-background overflow-visible">
       <div className="max-w-6xl mx-auto overflow-visible">
-        {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight">
             {t('how_it_works.headline')}
@@ -38,15 +23,13 @@ export const HowItWorks: React.FC = () => {
             {t('how_it_works.subheadline')}
           </p>
         </div>
-        
-        {/* 3-Card Grid */}
-        <div className="grid md:grid-cols-3 gap-6 pb-4">
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 pb-4">
           {cards.map((card) => (
-            <div 
+            <div
               key={card.number}
               className="bg-nf-surface border border-nf-border rounded-2xl p-6 hover:border-nf-primary/50 transition-all duration-300 group min-h-[180px]"
             >
-              {/* Icon with number badge */}
               <div className="relative mb-6">
                 <div className="w-16 h-16 rounded-full border-2 border-nf-primary/50 flex items-center justify-center group-hover:border-nf-primary group-hover:shadow-neon transition-all duration-300">
                   <card.icon className="w-7 h-7 text-nf-primary" />
@@ -55,8 +38,7 @@ export const HowItWorks: React.FC = () => {
                   {card.number}
                 </div>
               </div>
-              
-              {/* Content */}
+
               <h3 className="text-xl font-bold text-white mb-3 group-hover:text-nf-primary transition-colors duration-300">
                 {t(card.titleKey)}
               </h3>

@@ -48,26 +48,35 @@ export const ROUTES: RouteSEO[] = [
   {
     path: "/",
     distDir: "",
-    title: "Come Get It – Igyál, gyűjts pontokat, segíts másokon",
+    title: "Come Get It – Találd meg, hova menj ma Budapesten",
     description:
-      "Magyarországi loyalty app: gyűjts pontokat minden italért, válts be jutalmakat partnervendéglátóhelyeken, és minden beváltott italért egy napi tiszta ivóvizet biztosíts egy rászorulónak. Budapesten indulunk.",
-    h1: "Come Get It – Igyál, gyűjts pontokat, segíts másokon",
+      "A Come Get It megmutatja Budapest azon partnerhelyeit, ahol napi ingyen italt, pontokat és jutalmakat kapsz — így könnyebb eldönteni, hova menj reggelizni, ebédelni, inni vagy bulizni.",
+    h1: "Nem tudod, hova menj ma?",
     lastmod: "2026-05-06",
     priority: 1.0,
     changefreq: "weekly",
     bodyHtml: `
 <main data-prerender="true">
   <header>
-    <h1>Come Get It – Igyál, gyűjts pontokat, segíts másokon</h1>
-    <p><strong>Come Get It</strong> egy budapesti indulású loyalty app vendéglátós élményekre. Minden korttyal pontot gyűjtesz, jutalmakat szerzel partnerhelyeken, és minden beváltott italért egy napi tiszta ivóvizet biztosítasz egy rászorulónak.</p>
+    <h1>Nem tudod, hova menj ma?</h1>
+    <p>A <strong>Come Get It</strong> segít eldönteni, hova menj Budapesten. Megmutatja azokat a partnerhelyeket, ahol <strong>napi ingyen italt</strong>, pontokat és jutalmakat kapsz — így könnyebb választani, hol reggelizz, ebédelj, igyál vagy bulizz.</p>
   </header>
+  <section>
+    <h2>Miben segít?</h2>
+    <ul>
+      <li><strong>Hol reggelizzek?</strong> – Találj helyet, ahol a napindításhoz extra jutalom is jár.</li>
+      <li><strong>Hol ebédeljek?</strong> – Válassz gyorsabban a közeli partnerhelyek közül.</li>
+      <li><strong>Hova üljünk be?</strong> – Találj jó helyet kávéra, randira vagy afterworkre.</li>
+      <li><strong>Hol bulizzunk?</strong> – Menj oda, ahol az esti program mellé napi ingyen ital is jár.</li>
+    </ul>
+  </section>
   <section>
     <h2>Hogyan működik</h2>
     <ol>
-      <li><strong>Drink</strong> – Válassz egy partnervendéglátóhelyet és igyál.</li>
-      <li><strong>Link</strong> – Kapcsold össze a fizetést az appal QR-rel.</li>
-      <li><strong>Earn</strong> – Pontokat és jutalmakat kapsz minden vásárlással.</li>
-      <li><strong>Give</strong> – Minden beváltott italért 1 napi tiszta ivóvíz egy rászorulónak.</li>
+      <li><strong>Válassz</strong> – Nézd meg, melyik partnerhely ad ma pluszt.</li>
+      <li><strong>Menj el</strong> – Indulj el oda, ahol tényleg megéri beülni.</li>
+      <li><strong>Igyál</strong> – Használd ki a napi ingyen italod és gyűjts pontokat.</li>
+      <li><strong>Adj vissza</strong> – Minden beváltott ital egy nap tiszta ivóvizet biztosít egy rászorulónak.</li>
     </ol>
   </section>
   <section>
@@ -78,12 +87,8 @@ export const ROUTES: RouteSEO[] = [
     </ul>
   </section>
   <section>
-    <h2>GIVE – Tiszta víz minden italért</h2>
-    <p>Minden, az appon keresztül beváltott italért egy napi tiszta ivóvizet biztosítunk egy rászorulónak. Az appban visszamenőleg is látod, hány napi tiszta vizet adományoztál már (pl. „Te már 25 napi tiszta vizet biztosítottál”).</p>
-  </section>
-  <section>
     <h2>Csatlakozz a várólistához</h2>
-    <p>Az indulás Budapesten kezdődik, később országosan terjeszkedünk. <a href="/#signup">Iratkozz fel a várólistára</a>, és elsők között próbálhatod ki.</p>
+    <p>Az indulás Budapesten kezdődik. <a href="/#signup">Iratkozz fel a várólistára</a>, és elsők között próbálhatod ki.</p>
   </section>
   <nav aria-label="További oldalak">
     <ul>
@@ -133,10 +138,10 @@ export const ROUTES: RouteSEO[] = [
   {
     path: "/vendeglatohelyek",
     distDir: "vendeglatohelyek",
-    title: "Vendéglátóhelyeknek – Csatlakozz a Come Get It hálózathoz",
+    title: "Vendéglátóhelyeknek – Több vendég, egyszerűbben | Come Get It",
     description:
-      "Bár, kávézó vagy étterem? Hozz új vendégeket, építs hűségrendszert és mérd a forgalmat a Come Get It-tel. Jelentkezz partnerhelynek Budapesten.",
-    h1: "Vendéglátóhelyeknek – Csatlakozz a Come Get It hálózathoz",
+      "A Come Get It segít, hogy azok találjanak rád, akik épp azt keresik, hova menjenek enni, inni vagy bulizni Budapesten — az ingyen ital pedig segít, hogy téged válasszanak.",
+    h1: "Több vendég. Egyszerűbben.",
     lastmod: "2026-05-06",
     priority: 0.8,
     changefreq: "monthly",
@@ -194,10 +199,10 @@ export const ROUTES: RouteSEO[] = [
   {
     path: "/italmarkak",
     distDir: "italmarkak",
-    title: "Italmárkáknak – Mérhető fogyasztói aktiváció a Come Get It-ben",
+    title: "Italmárkáknak – Légy ott, amikor inni készülnek | Come Get It",
     description:
-      "Italmárkaként érd el közvetlenül a fogyasztókat: aktivációk, sponsorship és mérhető kampányok a Come Get It hálózatban. Budapesti indulás.",
-    h1: "Italmárkáknak – Mérhető fogyasztói aktiváció",
+      "Juttasd el az italodat azokhoz, akik épp helyet választanak Budapesten, rendelnek és új márkákat próbálnának ki — kóstolás valódi helyzetben, mérhető eredmények.",
+    h1: "Légy ott, amikor inni készülnek.",
     lastmod: "2026-05-06",
     priority: 0.8,
     changefreq: "monthly",
@@ -253,10 +258,10 @@ export const ROUTES: RouteSEO[] = [
   {
     path: "/rewards-partners",
     distDir: "rewards-partners",
-    title: "Rewards Partnerek – Kínálj jutalmat, érj el új közönséget",
+    title: "Rewards Partnerek – Legyél a következő program, amit választanak | Come Get It",
     description:
-      "Add hozzá saját jutalmadat a Come Get It katalógushoz: új közönség, márkaismertség, mérhető beváltás. Jelentkezz rewards partnernek.",
-    h1: "Rewards Partnerek – Kínálj jutalmat, érj el új közönséget",
+      "Ajánlj jutalmat azoknak, akik Budapesten keresnek helyet, programot vagy új élményt — érj el új közönséget a Come Get It-en keresztül.",
+    h1: "Legyél a következő program, amit választanak.",
     lastmod: "2026-05-06",
     priority: 0.8,
     changefreq: "monthly",

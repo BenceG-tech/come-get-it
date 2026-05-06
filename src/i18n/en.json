@@ -19,10 +19,20 @@
     "en": "EN"
   },
   "hero": {
-    "title_line1": "FREE DRINK",
-    "title_line2": "EVERY DAY",
-    "subtitle": "Drink free every day in Budapest – discover new spots, earn points!",
-    "cta": "Join now"
+    "title_line1": "DON'T KNOW",
+    "title_line2": "WHERE TO GO TODAY?",
+    "subtitle": "Come Get It shows you where to grab a daily free drink, points and rewards in Budapest — making it easier to decide where to have breakfast, lunch, drinks or a night out.",
+    "cta": "Show me places",
+    "cta_secondary": "Join the launch"
+  },
+  "miben_segit": {
+    "title": "How does it help?",
+    "cards": {
+      "1": { "title": "Where should I have breakfast?", "description": "Find a spot where starting the day comes with an extra reward." },
+      "2": { "title": "Where should I have lunch?", "description": "Choose faster from nearby partner venues." },
+      "3": { "title": "Where should we hang out?", "description": "Find a great place for coffee, a date or afterwork." },
+      "4": { "title": "Where should we party?", "description": "Go where the night out comes with a daily free drink." }
+    }
   },
   "drink": {
     "title": "DRINK.",
@@ -74,12 +84,13 @@
   },
   "how_it_works": {
     "title": "HOW IT WORKS",
-    "headline": "Drink. Link. Earn. Give.",
-    "subheadline": "We call it the Invisible Loyalty Program. The app works, you party.",
+    "headline": "Choose. Go. Drink. Give back.",
+    "subheadline": "A few steps and you know where to go today.",
     "cards": {
-      "1": { "title": "Link", "description": "Connect your card — every spend automatically earns points. No extra steps, no coupons." },
-      "2": { "title": "Drink", "description": "Enjoy your daily Welcome Drink at partner venues. The first round starts the story." },
-      "3": { "title": "Earn & Give", "description": "Redeem your points for rewards, and every drink supports good causes too." }
+      "1": { "title": "Choose", "description": "See which partner venue gives you a perk today." },
+      "2": { "title": "Go", "description": "Head to a place where it's actually worth dropping in." },
+      "3": { "title": "Drink", "description": "Enjoy your daily free drink and earn points." },
+      "4": { "title": "Give back", "description": "Every redeemed drink provides a day of clean drinking water for someone in need." }
     },
     "steps": {
       "1": { "title": "DOWNLOAD", "description": "Download the app" },
@@ -118,10 +129,10 @@
   },
   "venues": {
     "hero": {
-      "line1": "NEW FACES.",
-      "line2": "FULL BAR.",
-      "p1": "Guaranteed first round traffic daily from the city’s most active 18–30 crowd.",
-      "p2": "No coupon wars, no hassle — we start the night, they continue at your venue.",
+      "line1": "MORE GUESTS.",
+      "line2": "MADE SIMPLER.",
+      "p1": "Come Get It helps people who are deciding where to eat, drink, lunch or party in Budapest find your venue.",
+      "p2": "When someone doesn't know where to go, the app can recommend your place — and the free drink helps them pick you.",
       "cta": "Apply as partner"
     },
     "how_it_works": {
@@ -139,7 +150,8 @@
         "1": {"title": "QUALITY FOOTFALL", "description": "Bring new, relevant guests even on weekdays."},
         "2": {"title": "PROVABLE ATTRIBUTION", "description": "Card-linked, real traffic feedback — no guesswork."},
         "3": {"title": "NO DISCOUNTING", "description": "Not freebie seekers: experience-driven audience who spend."},
-        "4": {"title": "REDEMPTIONS / TRAFFIC REPORTS", "description": "Transparent reports on redemptions and traffic."}
+        "4": {"title": "REDEMPTIONS / TRAFFIC REPORTS", "description": "Transparent reports on redemptions and traffic."},
+        "5": {"title": "BE THERE WHEN PEOPLE PICK A PLACE", "description": "When someone doesn't know where to go, the app can recommend your venue — and the free drink helps them choose you."}
       }
     },
     "stats": {
@@ -153,9 +165,9 @@
   },
   "brands_page": {
     "hero": {
-      "line1": "BE THE FIRST SIP,",
-      "line2": "PEOPLE TALK ABOUT.",
-      "subtitle": "Meet consumers at the most memorable moment — the first round. Activate, measure, and build a cult in the city's nightlife.",
+      "line1": "BE THERE",
+      "line2": "WHEN THEY'RE READY TO DRINK.",
+      "subtitle": "Get your drink in front of people who are choosing a place, ordering, and ready to try a new brand.",
       "cta": "Let's talk"
     },
     "how_it_works": {
@@ -173,7 +185,8 @@
         "1": { "title": "BUILT-IN DISCOVERY & TASTING", "description": "People naturally meet your brand and taste it." },
         "2": { "title": "TARGETED REACH", "description": "91% Gen Z & Millennial — precise, valuable audience." },
         "3": { "title": "CREATIVE EXPERIENCE PACKS", "description": "Takeover weeks, limited editions, AR filters — memorable activations." },
-        "4": { "title": "PERFORMANCE MEASUREMENT", "description": "Card-linked attribution and real-time stats." }
+        "4": { "title": "PERFORMANCE MEASUREMENT", "description": "Card-linked attribution and real-time stats." },
+        "5": { "title": "TASTING IN A REAL SITUATION", "description": "Users don't just see your brand — they can actually taste it at a partner venue." }
       }
     },
     "target": {
@@ -196,9 +209,9 @@
   },
   "rewards_page": {
     "hero": {
-      "line1": "EXPERIENCE-DRIVEN",
-      "line2": "AUDIENCE.",
-      "subtitle": "Turn points into loyalty — bring the community into your venue/ticketing and make rewards a habit.",
+      "line1": "BE THE NEXT",
+      "line2": "PROGRAM THEY CHOOSE.",
+      "subtitle": "Offer rewards to people in Budapest who are looking for a venue, a program or a new experience.",
       "cta": "Become a rewards partner"
     },
     "how_it_works": {

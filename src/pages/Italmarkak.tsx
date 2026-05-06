@@ -34,7 +34,8 @@ const Italmarkak = () => {
     { icon: Compass, title: t('brands_page.features.items.1.title'), description: t('brands_page.features.items.1.description') },
     { icon: CreditCard, title: t('brands_page.features.items.2.title'), description: t('brands_page.features.items.2.description') },
     { icon: Wine, title: t('brands_page.features.items.3.title'), description: t('brands_page.features.items.3.description') },
-    { icon: Gift, title: t('brands_page.features.items.4.title'), description: t('brands_page.features.items.4.description') }
+    { icon: Gift, title: t('brands_page.features.items.4.title'), description: t('brands_page.features.items.4.description') },
+    { icon: Rocket, title: t('brands_page.features.items.5.title'), description: t('brands_page.features.items.5.description') }
   ];
 
   const targetAudience = [
@@ -46,8 +47,8 @@ const Italmarkak = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Italmárkáknak – Come Get It Partner"
-        description="Érd el közvetlenül a fogyasztókat. Italmárkaként mérhető kampányok és aktivációk a Come Get It appban."
+        title="Italmárkáknak – Légy ott, amikor inni készülnek | Come Get It"
+        description="Juttasd el az italodat azokhoz, akik épp helyet választanak Budapesten, rendelnek és új márkákat próbálnának ki — kóstolás valódi helyzetben, mérhető eredmények."
         canonical="/italmarkak"
         jsonLd={{
           '@context': 'https://schema.org',
