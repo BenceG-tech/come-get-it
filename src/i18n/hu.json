@@ -19,10 +19,20 @@
     "en": "EN"
   },
   "hero": {
-    "title_line1": "INGYEN ITAL",
-    "title_line2": "MINDEN NAPRA",
-    "subtitle": "Igyál minden nap ingyen Budapesten – fedezz fel új helyeket, gyűjts pontokat!",
-    "cta": "Csatlakozom"
+    "title_line1": "NEM TUDOD,",
+    "title_line2": "HOVA MENJ MA?",
+    "subtitle": "A Come Get It megmutatja, hol kapsz napi ingyen italt, pontokat és jutalmakat Budapesten — így könnyebb eldönteni, hol reggelizz, ebédelj, igyál vagy bulizz.",
+    "cta": "Mutasd a helyeket",
+    "cta_secondary": "Csatlakozom az induláshoz"
+  },
+  "miben_segit": {
+    "title": "Miben segít?",
+    "cards": {
+      "1": { "title": "Hol reggelizzek?", "description": "Találj helyet, ahol a napindításhoz extra jutalom is jár." },
+      "2": { "title": "Hol ebédeljek?", "description": "Válassz gyorsabban a közeli partnerhelyek közül." },
+      "3": { "title": "Hova üljünk be?", "description": "Találj jó helyet kávéra, randira vagy afterworkre." },
+      "4": { "title": "Hol bulizzunk?", "description": "Menj oda, ahol az esti program mellé napi ingyen ital is jár." }
+    }
   },
   "drink": {
     "title": "DRINK.",
@@ -74,12 +84,13 @@
   },
   "how_it_works": {
     "title": "HOGYAN MŰKÖDIK",
-    "headline": "Igyál. Kapcsolódj. Gyűjts. Adakozz.",
-    "subheadline": "Ezt hívjuk mi Láthatatlan Hűségprogramnak. Az app dolgozik, te szórakozol.",
+    "headline": "Válassz. Menj el. Igyál. Adj vissza.",
+    "subheadline": "Pár lépés, és tudod, hova menj ma.",
     "cards": {
-      "1": { "title": "Kapcsolódj", "description": "Kösd össze a kártyádat — minden költés automatikusan pontokat gyűjt. Semmi extra teendő, semmi kuponolás." },
-      "2": { "title": "Igyál", "description": "Élvezd a napi Welcome Drink-et a partner helyszíneken. Az első körrel indul a sztori." },
-      "3": { "title": "Gyűjts & Adakozz", "description": "A pontjaidat beválthatod jutalmakra, és közben minden italod után támogatsz jó ügyeket is." }
+      "1": { "title": "Válassz", "description": "Nézd meg, melyik partnerhely ad ma pluszt." },
+      "2": { "title": "Menj el", "description": "Indulj el oda, ahol tényleg megéri beülni." },
+      "3": { "title": "Igyál", "description": "Használd ki a napi ingyen italod és gyűjts pontokat." },
+      "4": { "title": "Adj vissza", "description": "Minden beváltott ital egy nap tiszta ivóvizet biztosít egy rászorulónak." }
     },
     "steps": {
       "1": { "title": "TÖLTSD LE", "description": "Töltsd le az appot" },
@@ -118,10 +129,10 @@
   },
   "venues": {
     "hero": {
-      "line1": "ÚJ ARCOK.",
-      "line2": "TELI PULT.",
-      "p1": "Garantált napi első kör forgalom a város legaktívabb 18–30 közönségéből.",
-      "p2": "Nincs kuponháború, nincs bonyodalom — belépőt adunk az estéhez, nálad folytatják.",
+      "line1": "TÖBB VENDÉG.",
+      "line2": "EGYSZERŰBBEN.",
+      "p1": "A Come Get It segít, hogy azok találjanak rád, akik épp azt keresik, hova menjenek enni, inni, ebédelni vagy bulizni Budapesten.",
+      "p2": "Ha valaki nem tudja, hova menjen, az app ajánlhatja a helyedet — az ingyen ital pedig segít, hogy téged válasszon.",
       "cta": "Jelentkezem partnernek"
     },
     "how_it_works": {
@@ -139,7 +150,8 @@
         "1": {"title": "MINŐSÉGI FOOTFALL", "description": "Hétköznapokon is hozunk új, releváns vendégeket."},
         "2": {"title": "BIZONYÍTHATÓ ATTRIBUTION", "description": "Kártyalinkelt, valós forgalmi visszajelzés – nincsenek találgatások."},
         "3": {"title": "NEM NYOMOTT ÁR", "description": "Nem freebie-seekerek: élménykereső közönség, aki költ is."},
-        "4": {"title": "BEVÁLTÁS/ FORGALOM RIPORTOK", "description": "Átlátható jelentések a beváltásról és a forgalomról."}
+        "4": {"title": "BEVÁLTÁS/ FORGALOM RIPORTOK", "description": "Átlátható jelentések a beváltásról és a forgalomról."},
+        "5": {"title": "LEGYÉL OTT, AMIKOR HELYET KERESNEK", "description": "Ha valaki nem tudja, hova menjen, az app ajánlhatja a helyedet — az ingyen ital pedig segít, hogy téged válasszon."}
       }
     },
     "stats": {
@@ -153,9 +165,9 @@
   },
   "brands_page": {
     "hero": {
-      "line1": "LÉGY AZ ELSŐ KORTY,",
-      "line2": "AMIRŐL BESZÉLNEK.",
-      "subtitle": "A legemlékezetesebb pillanatnál találkozol a fogyasztóval — az első körnél. Aktiválj, mérj, és építs kultuszt a város éjszakájában.",
+      "line1": "LÉGY OTT,",
+      "line2": "AMIKOR INNI KÉSZÜLNEK.",
+      "subtitle": "Juttasd el az italodat azokhoz, akik épp helyet választanak, rendelnek és új márkákat próbálnának ki.",
       "cta": "Beszéljünk"
     },
     "how_it_works": {
@@ -173,7 +185,8 @@
         "1": { "title": "BEÉPÍTETT FELFEDEZÉS ÉS KÓSTOLÁS", "description": "A közönség természetesen találkozik a márkáddal és kóstolja meg." },
         "2": { "title": "CÉLZOTT ELÉRÉS", "description": "91% Gen Z & Millennial – pontos, értékes közönség." },
         "3": { "title": "KREATÍV ÉLMÉNYCSOMAGOK", "description": "Takeover hetek, limited kiadások, AR filter – emlékezetes aktivációk." },
-        "4": { "title": "TELJESÍTMÉNYMÉRÉS", "description": "Kártyaalapú attribúció és valós idejű statisztikák." }
+        "4": { "title": "TELJESÍTMÉNYMÉRÉS", "description": "Kártyaalapú attribúció és valós idejű statisztikák." },
+        "5": { "title": "KÓSTOLÁS VALÓDI HELYZETBEN", "description": "A felhasználó nem csak látja a márkád, hanem egy partnerhelyen meg is kóstolhatja." }
       }
     },
     "target": {
@@ -196,9 +209,9 @@
   },
   "rewards_page": {
     "hero": {
-      "line1": "ÉLMÉNYEKKEL FIZETŐ",
-      "line2": "KÖZÖNSÉG.",
-      "subtitle": "Pontokból lojalitás — hozd át a közösséget a helyedre/jegyrendszeredbe, és tedd a jutalmakat szokássá.",
+      "line1": "LEGYÉL A KÖVETKEZŐ",
+      "line2": "PROGRAM, AMIT VÁLASZTANAK.",
+      "subtitle": "Ajánlj jutalmat azoknak, akik Budapesten keresnek helyet, programot vagy új élményt.",
       "cta": "Legyünk rewards partner"
     },
     "how_it_works": {
