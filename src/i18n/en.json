@@ -19,11 +19,13 @@
     "en": "EN"
   },
   "hero": {
+    "badge": "LAUNCHING IN BUDAPEST — SEPTEMBER 2026",
     "title_line1": "DON'T KNOW",
     "title_line2": "WHERE TO GO TODAY?",
-    "subtitle": "Come Get It shows you where to grab a daily free drink, points and rewards in Budapest — making it easier to decide where to have breakfast, lunch, drinks or a night out.",
-    "cta": "Show me places",
-    "cta_secondary": "Join the launch"
+    "subtitle": "Come Get It helps you decide where to go in Budapest — partner venues with daily free drinks, points and rewards. Discover the city's best places, and every redemption provides one day of clean drinking water to someone in need.",
+    "cta": "Join as a founding member",
+    "cta_secondary": "How it works",
+    "founding_note": "The first 500 founding members get lifetime Founding Member status and 1 month of Plus free."
   },
   "miben_segit": {
     "title": "How does it help?",
