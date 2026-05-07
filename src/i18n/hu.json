@@ -9,7 +9,7 @@
     "venues": "Vendéglátóhelyek",
     "brands": "Italmárkák",
     "rewards": "Jutalom Partnerek",
-    "accelerator": "Come Get It Accelerator",
+    "accelerator": "Founding Partner Program",
     "signup": "Regisztrálj",
     "login": "Bejelentkezés",
     "menu": "MENÜ",
@@ -120,8 +120,8 @@
     "brands_desc": "Együttműködés márkáknak",
     "rewards": "Jutalom partnerek",
     "rewards_desc": "Ajánlatok és integráció",
-    "accelerator": "Gyorsítóprogram",
-    "accelerator_desc": "Startup program részletek",
+    "accelerator": "Founding Partner Program",
+    "accelerator_desc": "Exkluzív launch előtti program",
     "support": "Támogatás",
     "support_desc": "Kérdésed van? Írj nekünk"
   },
@@ -287,9 +287,9 @@
   },
   "accelerator_page": {
     "hero": {
-      "line1": "COME GET IT",
-      "line2": "GYORSÍTÓ",
-      "subtitle": "Indítsd be márkádat – Budapest legdinamikusabb italos közösségében!",
+      "line1": "LÉGY OTT,",
+      "line2": "AZ ELSŐK KÖZÖTT.",
+      "subtitle": "A Come Get It Founding Partner Program a budapesti launch előtti exkluzív szakasz. Vendéglátóhelyek, italmárkák és rewards-partnerek számára nyitva — csak az elsőként csatlakozóknak.",
       "cta": "Jelentkezz most!"
     },
     "how_it_works": {
