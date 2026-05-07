@@ -1,43 +1,29 @@
-## Hero copy update (homepage)
+## Update card + DRINK/LINK/EARN/GIVE copy
 
-Goal: only update hero text content. Keep current layout, neon styling, phone mockup, animations, and CTA variants.
+Text-only updates to `src/i18n/hu.json`. No component, layout, icon, or styling changes.
 
-### 1) i18n updates
+### `miben_segit.cards`
+- 1 description → `"Találj helyet, ahol a napindításhoz pont vagy jutalom is jár."`
+- 2 description → unchanged (already matches)
+- 3 description → unchanged (already matches)
+- 4 description → `"Menj oda, ahol az esti program mellé extra előny is jár."`
 
-**`src/i18n/hu.json` → `hero` block**
+### `drink`
+- `subtitle` → `"Az első pohár nyitja az estét."` (add trailing period)
+- `body`, `button`, `title` unchanged
 
-- Add `badge`: `"BUDAPESTEN INDULUNK — SZEPTEMBER 2026"`
-- Keep `title_line1`: `"NEM TUDOD,"`
-- Keep `title_line2`: `"HOVA MENJ MA?"`
-- Replace `subtitle`: `"A Come Get It segít eldönteni, hova menj Budapesten — partnerhelyeken, ahol napi ingyen ital, pontok és jutalmak várnak. Az appban felfedezed a város legjobb helyeit, miközben minden beváltással egy napi tiszta ivóvizet biztosítasz egy rászorulónak."`
-- Replace `cta`: `"Csatlakozom alapító tagként"`
-- Replace `cta_secondary`: `"Hogyan működik?"`
-- Add `founding_note`: `"Az első 500 alapító tag életre szóló Founding Member státuszt és 1 hónap Plus-t kap ingyen."`
+### `link`
+- `subtitle` → `"Bennfentes élmény, egy mozdulattal."` (add trailing period)
+- `body` → `"Kösd össze biztonságosan a kártyádat, és automatikusan jár a pont minden fogyasztás után. Nincs kupon, nincs QR — csak flow."`
 
-**`src/i18n/en.json` → `hero` block** (parallel English versions)
+### `earn`
+- `subtitle` → `"Pontokból élmények."` (add trailing period)
+- `body`, `title` unchanged
 
-- `badge`: `"LAUNCHING IN BUDAPEST — SEPTEMBER 2026"`
-- `title_line1`: `"DON'T KNOW"`
-- `title_line2`: `"WHERE TO GO TODAY?"`
-- `subtitle`: `"Come Get It helps you decide where to go in Budapest — partner venues with daily free drinks, points and rewards. Discover the city's best places, and every redemption provides one day of clean drinking water to someone in need."`
-- `cta`: `"Join as a founding member"`
-- `cta_secondary`: `"How it works"`
-- `founding_note`: `"The first 500 founding members get lifetime Founding Member status and 1 month of Plus free."`
-
-### 2) `src/components/HeroSection.tsx`
-
-- Add a small badge above the `<h1>` using existing cyan/teal accent style:
-  - Inline pill: `inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold tracking-wide border border-nf-primary/40 bg-nf-primary/10 text-nf-primary mb-5`
-  - Renders `t('hero.badge')`
-- Update secondary CTA: change `Hogyan működik?` behavior to scroll to `#how-it-works` section instead of `#signup` (keep `#signup` for primary). If the HowItWorks section lacks an `id`, add `id="how-it-works"` to its root section.
-- Below the CTA row, add a muted helper line:
-  - `<p class="pt-3 text-xs md:text-sm text-nf-text-muted/80 max-w-xl">{t('hero.founding_note')}</p>`
-- No layout/animation/color changes otherwise.
-
-### 3) Verify HowItWorks anchor
-
-Quick check `src/components/HowItWorks.tsx` for an existing `id`. If missing, add `id="how-it-works"` to its `<section>` so the secondary CTA scroll target works.
+### `give`
+- `body` → `"A \"Drink for a Cause\" modell a kártyád DNS-ének része. Nem csak a pörgést akarjuk támogatni, hanem a változást is. Minden appon keresztül beváltott italért egy napi tiszta ivóvizet biztosítunk egy rászorulónak."`
+- `title`, `subtitle`, `quote` unchanged
 
 ### Out of scope
-
-- No design system changes, no new images, no analytics renames (keep `hero_primary` / `hero_secondary` events). Other pages/components untouched.
+- `src/i18n/en.json` not requested — leave as-is.
+- No component edits.
