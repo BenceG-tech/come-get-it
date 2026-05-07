@@ -84,6 +84,10 @@ const Italmarkak = () => {
               <HeroSubtitle>
                 {t('brands_page.hero.subtitle')}
               </HeroSubtitle>
+
+              <div className="mt-4 mb-6 mx-auto lg:mx-0 max-w-xl border-l-2 border-electric-300 bg-white/5 px-4 py-3 rounded-r-md text-sm text-white/70">
+                Az italmárka-aktivációk a 2. fázisban indulnak el — első 15 vendéglátóhely-partner aláírása után.
+              </div>
               
               <Button 
                 variant="neon"
