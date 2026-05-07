@@ -164,6 +164,7 @@ const Index = () => {
       <LinkSection linkImage={linkImage} />
       <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
       <GiveSection />
+      <PricingSection />
       <BenefitsSection />
       <VenueApplicationSection />
       <FOMOSection />
