@@ -5,7 +5,7 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Check, Users, Target, TrendingUp, BarChart, Heart, Zap, Clock, MessageCircle, Eye, Globe, Award, Rocket, FlaskConical, Activity, Play, FileText, Wine, NotebookPen } from 'lucide-react';
+import { ArrowRight, Target, BarChart, Heart, Zap, MessageCircle, Rocket, Wine, NotebookPen } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
@@ -66,36 +66,11 @@ const ComeGetItAccelerator = () => {
     { number: "4", title: t('accelerator_page.how_it_works.steps.4.title'), description: t('accelerator_page.how_it_works.steps.4.description'), icon: Rocket }
   ];
 
-  const freshFeatures = [
-    t('accelerator_page.packages.fresh.features.1'),
-    t('accelerator_page.packages.fresh.features.2'),
-    t('accelerator_page.packages.fresh.features.3'),
-    t('accelerator_page.packages.fresh.features.4'),
-    t('accelerator_page.packages.fresh.features.5'),
-    t('accelerator_page.packages.fresh.features.6')
-  ];
-
-  const superFreshFeatures = [
-    t('accelerator_page.packages.super_fresh.features.1'),
-    t('accelerator_page.packages.super_fresh.features.2'),
-    t('accelerator_page.packages.super_fresh.features.3'),
-    t('accelerator_page.packages.super_fresh.features.4'),
-    t('accelerator_page.packages.super_fresh.features.5'),
-    t('accelerator_page.packages.super_fresh.features.6')
-  ];
-
   const benefits = [
     { icon: Zap, title: t('accelerator_page.why_us.items.1.title'), description: t('accelerator_page.why_us.items.1.description') },
     { icon: Target, title: t('accelerator_page.why_us.items.2.title'), description: t('accelerator_page.why_us.items.2.description') },
     { icon: BarChart, title: t('accelerator_page.why_us.items.3.title'), description: t('accelerator_page.why_us.items.3.description') },
     { icon: Heart, title: t('accelerator_page.why_us.items.4.title'), description: t('accelerator_page.why_us.items.4.description') }
-  ];
-
-  const stats = [
-    { number: "24", label: t('accelerator_page.demo_stats.items.1.label'), icon: Users },
-    { number: "91%", label: t('accelerator_page.demo_stats.items.2.label'), icon: TrendingUp },
-    { number: "56%", label: t('accelerator_page.demo_stats.items.3.label'), icon: Heart },
-    { number: "85%", label: t('accelerator_page.demo_stats.items.4.label'), icon: Activity }
   ];
 
   return (
@@ -207,60 +182,6 @@ const ComeGetItAccelerator = () => {
         </div>
       </section>
 
-      {/* Program Packages */}
-      <section className="py-16 px-4 bg-black">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <SectionTitle className="text-4xl md:text-5xl">
-              {t('accelerator_page.packages.title')}
-            </SectionTitle>
-          </div>
-          
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Fresh Package */}
-            <div 
-              className="glass-effect rounded-3xl p-8 border-2 border-electric-300/30 shadow-2xl hover:scale-105 transition-all duration-300"
-              onClick={() => analytics.acceleratorPackageView('fresh')}
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-4xl font-black text-electric-300">{t('accelerator_page.packages.fresh.title')}</h3>
-                <Award className="w-10 h-10 text-electric-300" />
-              </div>
-              
-              <div className="space-y-4">
-                {freshFeatures.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-1" />
-                    <p className="text-base text-electric-100 font-medium">{feature}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Super Fresh Package */}
-            <div 
-              className="glass-effect rounded-3xl p-8 border-2 border-green-400/30 shadow-2xl hover:scale-105 transition-all duration-300"
-              onClick={() => analytics.acceleratorPackageView('super_fresh')}
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-4xl font-black text-green-400">{t('accelerator_page.packages.super_fresh.title')}</h3>
-                <Zap className="w-10 h-10 text-green-400" />
-              </div>
-              
-              <div className="space-y-4">
-                {superFreshFeatures.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-1" />
-                    <p className="text-base text-electric-100 font-medium">{feature}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us - 2x2 Grid */}
       <section className="py-16 px-4 bg-nf-surface">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
@@ -281,47 +202,21 @@ const ComeGetItAccelerator = () => {
         </div>
       </section>
 
-      {/* User Demographics - 2x2 Grid */}
-      <section className="py-16 px-4 bg-black">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <SectionTitle className="text-4xl md:text-5xl">
-              {t('accelerator_page.demo_stats.title')}
-            </SectionTitle>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <div key={index} className="glass-effect rounded-2xl p-6 text-center group hover:scale-105 transition-all duration-300">
-                <stat.icon className="w-12 h-12 mx-auto mb-4 text-electric-300 group-hover:scale-110 transition-transform duration-300" />
-                <div className="text-3xl font-black text-white mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-electric-100 font-bold uppercase tracking-wider">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Final CTA */}
       <section className="py-20 px-4 bg-nf-background nf-section-glow text-center">
         <div className="max-w-4xl mx-auto">
           <CTATitle className="text-5xl md:text-6xl">
-            {t('accelerator_page.final_cta.title')}
+            Csatlakozz az elsők közé
           </CTATitle>
           <p className="text-xl text-electric-100 mb-10 leading-relaxed">
-            {t('accelerator_page.final_cta.subtitle_line1')}<br />
-            {t('accelerator_page.final_cta.subtitle_line2')}
+            Légy te az egyik első Founding Partner — vendéglátóhelyként, italmárkaként vagy rewards-partnerként.
           </p>
           
           <Button 
             size="lg" 
             className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-black py-6 px-16 text-xl rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
             onClick={() => {
-              analytics.ctaClick('final_cta', 'JELENTKEZZ MOST');
+              analytics.ctaClick('final_cta', 'Jelentkezem most');
               analytics.acceleratorApplicationStart();
               const el = document.getElementById('accelerator-application');
               if (el) {
@@ -331,7 +226,7 @@ const ComeGetItAccelerator = () => {
               }
             }}
           >
-            {t('accelerator_page.final_cta.cta')}
+            Jelentkezem most
             <ArrowRight className="ml-3 h-6 w-6" />
           </Button>
         </div>
