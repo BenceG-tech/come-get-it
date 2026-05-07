@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
             <li><Link to="/vendeglatohelyek" className="hover:text-nf-primary transition-colors">Vendéglátóhelyeknek</Link></li>
             <li><Link to="/italmarkak" className="hover:text-nf-primary transition-colors">Italmárkáknak</Link></li>
             <li><Link to="/rewards-partners" className="hover:text-nf-primary transition-colors">Rewards Partnerek</Link></li>
-            <li><Link to="/come-get-it-accelerator" className="hover:text-nf-primary transition-colors">Accelerator</Link></li>
+            <li><Link to="/come-get-it-accelerator" className="hover:text-nf-primary transition-colors">Founding Partner Program</Link></li>
           </ul>
         </div>
 

@@ -9,7 +9,7 @@
     "venues": "Venues",
     "brands": "Drink Brands",
     "rewards": "Rewards Partners",
-    "accelerator": "Come Get It Accelerator",
+    "accelerator": "Founding Partner Program",
     "signup": "Sign up",
     "login": "Log in",
     "menu": "MENU",
@@ -79,8 +79,8 @@
     "brands_desc": "Collaboration for brands",
     "rewards": "Rewards partners",
     "rewards_desc": "Offers and integration",
-    "accelerator": "Accelerator",
-    "accelerator_desc": "Program details",
+    "accelerator": "Founding Partner Program",
+    "accelerator_desc": "Exclusive pre-launch program",
     "support": "Support",
     "support_desc": "Got a question? Message us"
   },
@@ -246,9 +246,9 @@
   },
   "accelerator_page": {
     "hero": {
-      "line1": "COME GET IT",
-      "line2": "ACCELERATOR",
-      "subtitle": "Kickstart your brand — inside Budapest’s most dynamic drinks community!",
+      "line1": "BE THERE,",
+      "line2": "AMONG THE FIRST.",
+      "subtitle": "The Come Get It Founding Partner Program is the exclusive phase before the Budapest launch. Open to venues, drink brands, and rewards partners — only for those who join first.",
       "cta": "Apply now!"
     },
     "how_it_works": {
