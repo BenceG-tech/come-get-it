@@ -1,19 +1,20 @@
-## Replace `HowItWorksForVenues` with 5-step "Csatlakozás 5 lépésben"
+## Changes
 
-Rewrite `src/components/HowItWorksForVenues.tsx` to render 5 steps with hardcoded HU copy (matches user spec verbatim). Keep existing `nf-card` numbered card style with cyan number badge, gradient icon circle, hover scale + neon shadow. Keep `id="how-it-works-venues"` so the hero secondary CTA still scrolls here.
+### 1. Hero copy (`src/i18n/hu.json` + `src/i18n/en.json`)
+Update `accelerator_page.hero` keys:
+- `line1`: `"LÉGY OTT,"`
+- `line2`: `"AZ ELSŐK KÖZÖTT."`
+- `subtitle`: `"A Come Get It Founding Partner Program a budapesti launch előtti exkluzív szakasz. Vendéglátóhelyek, italmárkák és rewards-partnerek számára nyitva — csak az elsőként csatlakozóknak."`
 
-Section title (centered): "Csatlakozás 5 lépésben"
+Mirror reasonable English equivalents in `en.json`. CTA, layout, phone mockup, and content below the hero stay unchanged. (Hero in `ComeGetItAccelerator.tsx` already renders once — no duplicate found.)
 
-Steps (number, lucide icon, title, description):
-1. `MessageCircle` — "Beszélgetünk" — "Online vagy személyesen találkozunk. Megmutatjuk az appot, az admin felületet, és válaszolunk minden kérdésedre."
-2. `FileSignature` — "Aláírjuk a Letter of Intent-et" — full description.
-3. `Settings` — "Beállítjuk a profilodat" — full description.
-4. `Rocket` — "Elindulunk szeptember 1-én" — full description.
-5. `ShieldCheck` — "Az első 6 hónap teljesen jutalékmentes" — full description.
+### 2. Navigation labels → "Founding Partner Program"
+- `src/i18n/hu.json` `nav.accelerator`: `"Come Get It Accelerator"` → `"Founding Partner Program"`
+- `src/i18n/hu.json` `mobile_menu.accelerator`: `"Gyorsítóprogram"` → `"Founding Partner Program"`
+- `src/i18n/hu.json` `mobile_menu.accelerator_desc`: update to `"Exkluzív launch előtti program"` (short supporting line)
+- Same updates to `src/i18n/en.json` (`nav.accelerator`, `mobile_menu.accelerator`, `mobile_menu.accelerator_desc`)
 
-Grid: `grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5` so 5 cards lay out cleanly.
+URLs unchanged. `Navigation.tsx` and `MobileNavigation.tsx` already reference these keys, no JSX edits needed.
 
-Drops `useI18n` usage (copy is hardcoded HU as provided). The unused `venues.how_it_works.*` i18n keys can stay untouched.
-
-### Out of scope
-- No changes to other sections on the page or to `i18n` files.
+### 3. Footer (`src/components/Footer.tsx` line 22)
+Change link text `Accelerator` → `Founding Partner Program`. URL stays `/come-get-it-accelerator`.
