@@ -7,6 +7,7 @@ import { HowItWorksForVenues } from '@/components/HowItWorksForVenues';
 import { VenueWhyWorth } from '@/components/VenueWhyWorth';
 import { FoundingPartnerPerks } from '@/components/FoundingPartnerPerks';
 import { VenueROI } from '@/components/VenueROI';
+import { VenueStats } from '@/components/VenueStats';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { Footer } from '@/components/Footer';
@@ -98,6 +99,7 @@ const Vendeglatohelyek = () => {
         <FoundingPartnerPerks />
         <VenueWhyWorth />
         <VenueROI />
+        <VenueStats />
         <VenueApplicationSection />
       </main>
       <CustomerSupport />
