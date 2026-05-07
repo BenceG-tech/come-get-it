@@ -18,13 +18,14 @@ export const VenueApplicationSection: React.FC = () => {
     venueType: '',
     addressCity: '',
     dailyCustomerCount: '',
+    availability: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
   const { t } = useI18n();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -36,7 +37,7 @@ export const VenueApplicationSection: React.FC = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.name || !formData.email || !formData.venueName || !formData.venueType || !formData.addressCity || !formData.dailyCustomerCount) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.venueName || !formData.venueType || !formData.addressCity || !formData.dailyCustomerCount) {
       toast({
         title: "Hiányzó adatok",
         description: "Kérlek töltsd ki az összes kötelező mezőt.",
@@ -88,6 +89,7 @@ export const VenueApplicationSection: React.FC = () => {
                 venueType: formData.venueType,
                 addressCity: formData.addressCity,
                 dailyCustomerCount: formData.dailyCustomerCount,
+                availability: formData.availability,
                 source: source
               }
             }
@@ -133,6 +135,7 @@ export const VenueApplicationSection: React.FC = () => {
         venueType: '',
         addressCity: '',
         dailyCustomerCount: '',
+        availability: '',
       });
           
           // Reset form after successful submission
@@ -181,17 +184,11 @@ export const VenueApplicationSection: React.FC = () => {
                 </div>
               </div>
               <h2 className="text-2xl font-bold text-white mb-4">
-                {t('venue_app.submitted.title')}
+                Köszönjük!
               </h2>
               <p className="text-green-100 text-lg mb-4">
-                {t('venue_app.submitted.desc')}
+                24 órán belül felvesszük veled a kapcsolatot.
               </p>
-              <div className="bg-nf-surface rounded-lg p-4 max-w-md mx-auto border border-nf-border">
-                <p className="text-white text-sm">
-                  {t('venue_app.submitted.email_tip')}<br/><br/>
-                  {t('venue_app.submitted.call_tip')}
-                </p>
-              </div>
             </CardContent>
           </Card>
         </div>
@@ -214,14 +211,11 @@ export const VenueApplicationSection: React.FC = () => {
               </div>
             </div>
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4 tracking-tight">
-            {t('venue_app.header.heading')}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight">
+            Csatlakozz az első 15 közé
           </h2>
-          <p className="text-lg text-white mb-2">
-            {t('venue_app.header.sub1')}
-          </p>
-          <p className="text-nf-text-muted max-w-2xl mx-auto">
-            {t('venue_app.header.sub2')}
+          <p className="text-base md:text-lg text-nf-text-muted max-w-2xl mx-auto leading-relaxed">
+            A Founding Partner Program szeptember 1-ig nyitva — vagy amíg az első 15 hely megtelik. Nincs fizetési kötelezettség, nincs hosszú szerződés.
           </p>
         </div>
 
