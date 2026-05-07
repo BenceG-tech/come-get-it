@@ -58,6 +58,37 @@
     "body": "A \"Drink for a Cause\" modell a kártyád DNS-ének része. Nem csak a pörgést akarjuk támogatni, hanem a változást is. Minden appon keresztül beváltott italért egy napi tiszta ivóvizet biztosítunk egy rászorulónak.",
     "quote": "A Z generáció számára a társadalmi felelősségvállalás nem opció, hanem alapkövetelmény. Minden Welcome Drink után adományozunk."
   },
+  "pricing": {
+    "title": "Ingyen kezded. Plusként többet kapsz.",
+    "subtitle": "A Come Get It alap funkciói örökre ingyenesek. Akik többet akarnak, Plus előfizetéssel napi 1 ingyen italt kapnak partnerhelyeken.",
+    "free": {
+      "label": "INGYENES",
+      "price": "0 Ft",
+      "b1": "Helyek felfedezése a városban",
+      "b2": "2 ingyen ital / hó (alkoholmentes és limonádé)",
+      "b3": "Lokáció-alapú értesítések",
+      "b4": "Pontgyűjtés és jutalmak",
+      "b5": "GIVE hatás követése",
+      "b6": "Referral bónuszok",
+      "cta": "Regisztrálok ingyen"
+    },
+    "plus": {
+      "label": "COME GET IT PLUS",
+      "badge": "AJÁNLOTT",
+      "price": "990 Ft / hét vagy 2990 Ft / hó",
+      "b1": "Minden ami az ingyenesben",
+      "b2": "Napi 1 ingyen ital — sör, bor, koktél, üdítő",
+      "b3": "Teljes italkínálat a partnerhelyeken",
+      "b4": "Extra jutalmak és exkluzív ajánlatok",
+      "b5": "Saját tiszta víz számláló",
+      "cta": "Csatlakozom Plusként"
+    },
+    "info": "A partnerhelyek maguk választják ki, milyen italokat ajánlanak ingyen — egy hideg korsó sörtől a házi limonádén át a frissen készített koktélig. Az ajánlat helyenként eltér, ezért érdemes a Come Get It-en böngészni, mielőtt elindulsz.",
+    "promo": {
+      "label": "🎁 LAUNCH-AKCIÓ",
+      "body": "Az első 500 alapító tag 1 hónap Plust kap ingyen + életre szóló Founding Member badge-et. A regisztráció utáni első 1500 user 2 hét Plust kap ajándékba. Egy haver meghívásával te és ő is +1 hét Plust kaptok."
+    }
+  },
   "fomo": {
     "title": "Legyél alapító tag",
     "p1": "Az első 1000 bennfentes külön badge‑et, extra jutalmakat és életre szóló bragging right‑ot kap.",
