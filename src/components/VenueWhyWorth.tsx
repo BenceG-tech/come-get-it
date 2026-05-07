@@ -10,7 +10,7 @@ const cards = [
   {
     icon: DollarSign,
     title: 'Nulla pénzügyi rizikó',
-    description: 'Az első 6 hónap teljesen jutalékmentes. Nincs fix havidíj, nincs setup-fee. Az ital, amit ingyen adsz, fillérekbe kerül beszerzési áron — egy korsó sör 200-300 Ft, egy limonádé 80-150 Ft. Cserébe egy átlagos 3500 Ft-ot költő vendéget kapsz.',
+    description: 'Az első 6 hónap teljesen jutalékmentes. Nincs fix havidíj, nincs setup-fee. A free drink költsége a beszerzési árad — egy alacsony marketing-befektetés, amiért egy átlagos 3500 Ft-ot költő vendéget kapsz cserébe.',
   },
   {
     icon: Clock,
