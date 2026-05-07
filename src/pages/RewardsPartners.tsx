@@ -136,6 +136,10 @@ const RewardsPartners = () => {
               <HeroSubtitle>
                 {t('rewards_page.hero.subtitle')}
               </HeroSubtitle>
+
+              <div className="mt-4 mb-6 mx-auto lg:mx-0 max-w-xl border-l-2 border-electric-300 bg-white/5 px-4 py-3 rounded-r-md text-sm text-white/70">
+                A rewards-partnerprogram a 2. fázisban indul, miután az első felhasználói bázis kialakul.
+              </div>
               
               <Button 
                 variant="neon"
