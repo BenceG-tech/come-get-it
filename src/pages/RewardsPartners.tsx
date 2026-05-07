@@ -5,7 +5,7 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Gift, Settings, Zap, BarChart, Users } from 'lucide-react';
+import { ArrowRight, Gift, Settings, Zap, BarChart, Users, BarChart3, Handshake } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle } from '@/components/ui/typography';
@@ -89,11 +89,11 @@ const RewardsPartners = () => {
     { icon: Zap, title: t('rewards_page.features.items.3.title'), description: t('rewards_page.features.items.3.description') }
   ];
 
-  const stats = [
-    { value: t('rewards_page.stats.items.1.value'), label: t('rewards_page.stats.items.1.label') },
-    { value: t('rewards_page.stats.items.2.value'), label: t('rewards_page.stats.items.2.label') },
-    { value: t('rewards_page.stats.items.3.value'), label: t('rewards_page.stats.items.3.label') },
-    { value: t('rewards_page.stats.items.4.value'), label: t('rewards_page.stats.items.4.label') }
+  const valueProps = [
+    { icon: Users, title: 'ÚJ KÖZÖNSÉG', description: 'Olyan emberekhez jutsz el, akik aktívan keresnek élményt a városban.' },
+    { icon: Gift, title: 'POZITÍV BRAND-ÉLMÉNY', description: 'A jutalom egy boldog pillanatban kapcsolódik a márkádhoz — ez a legjobb fajta marketing.' },
+    { icon: BarChart3, title: 'MÉRHETŐ BEVÁLTÁS', description: 'Pontosan látod, hányan aktiválták és használták az ajánlatodat.' },
+    { icon: Handshake, title: 'KÖZÖS KAMPÁNYOK', description: 'Hírlevél, app highlight, social media — együtt erősítjük a kampányt.' }
   ];
 
   return (
@@ -235,15 +235,20 @@ const RewardsPartners = () => {
       {/* Statistics - Kompaktabb */}
       <section className="py-12 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-7xl mx-auto text-center">
-            <SectionTitle>
-              {t('rewards_page.stats.title')}
+          <SectionTitle>
+              A jutalom-partnerség előnyei
             </SectionTitle>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <div key={index} className="glass-effect rounded-2xl p-6 text-center">
-                <div className="text-4xl font-black text-electric-300 mb-2">{stat.value}</div>
-                <div className="text-electric-100 font-medium text-sm">{stat.label}</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {valueProps.map((item, index) => (
+              <div key={index} className="glass-effect rounded-2xl p-6 text-center group hover:scale-105 transition-all duration-300">
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30">
+                    <item.icon className="w-6 h-6 text-electric-300" />
+                  </div>
+                </div>
+                <h4 className="text-sm font-black text-white mb-2">{item.title}</h4>
+                <p className="text-xs text-electric-100 leading-tight">{item.description}</p>
               </div>
             ))}
           </div>
