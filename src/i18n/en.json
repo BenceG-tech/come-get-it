@@ -131,11 +131,12 @@
   },
   "venues": {
     "hero": {
+      "badge": "FOUNDING PARTNER PROGRAM — 15 SPOTS",
       "line1": "MORE GUESTS.",
-      "line2": "MADE SIMPLER.",
-      "p1": "Come Get It helps people who are deciding where to eat, drink, lunch or party in Budapest find your venue.",
-      "p2": "When someone doesn't know where to go, the app can recommend your place — and the free drink helps them pick you.",
-      "cta": "Apply as partner"
+      "line2": "FEWER EMPTY TABLES.",
+      "subtitle": "Come Get It helps new guests discover your venue during slow hours. The daily free drink gives them a reason to come to you tonight — the quality of your place does the rest.",
+      "cta": "Become a Founding Partner",
+      "cta_secondary": "How it works"
     },
     "how_it_works": {
       "title": "HOW IT WORKS?",

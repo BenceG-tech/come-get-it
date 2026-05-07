@@ -33,7 +33,7 @@ export const HowItWorksForVenues: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 px-4 bg-nf-surface">
+    <section id="how-it-works-venues" className="py-12 px-4 bg-nf-surface">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-black text-white mb-2 tracking-tight">
