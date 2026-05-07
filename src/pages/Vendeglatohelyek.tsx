@@ -79,8 +79,8 @@ const Vendeglatohelyek = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Vendéglátóhelyeknek – Több vendég, egyszerűbben | Come Get It"
-        description="A Come Get It segít, hogy azok találjanak rád, akik épp azt keresik, hova menjenek enni, inni vagy bulizni Budapesten — az ingyen ital pedig segít, hogy téged válasszanak."
+        title="Vendéglátóhelyeknek — Founding Partner Program | Come Get It"
+        description="Csatlakozz az első 15 budapesti partnerhelyhez. 6 hónap jutalékmentes, 100+ új vendég havonta a holtidőkben."
         canonical="/vendeglatohelyek"
         jsonLd={{
           '@context': 'https://schema.org',

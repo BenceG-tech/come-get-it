@@ -47,8 +47,8 @@ const Italmarkak = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Italmárkáknak – Légy ott, amikor inni készülnek | Come Get It"
-        description="Juttasd el az italodat azokhoz, akik épp helyet választanak Budapesten, rendelnek és új márkákat próbálnának ki — kóstolás valódi helyzetben, mérhető eredmények."
+        title="Italmárkáknak — Digitális sampling Budapesten | Come Get It"
+        description="Mérhető brand-aktiváció valódi fogyasztási helyzetben. Az italmárka-program a 2. fázisban indul."
         canonical="/italmarkak"
         jsonLd={{
           '@context': 'https://schema.org',
