@@ -1,20 +1,32 @@
-## Changes
+## Update per-page SEO meta tags
 
-### 1. Hero copy (`src/i18n/hu.json` + `src/i18n/en.json`)
-Update `accelerator_page.hero` keys:
-- `line1`: `"LÉGY OTT,"`
-- `line2`: `"AZ ELSŐK KÖZÖTT."`
-- `subtitle`: `"A Come Get It Founding Partner Program a budapesti launch előtti exkluzív szakasz. Vendéglátóhelyek, italmárkák és rewards-partnerek számára nyitva — csak az elsőként csatlakozóknak."`
+The site already has a `<SEO>` component (`src/components/SEO.tsx`) that sets title, description, canonical, og:title, og:description, og:url, twitter tags, etc. Each page already calls it — only the title/description strings need updating. Canonical paths are already correct.
 
-Mirror reasonable English equivalents in `en.json`. CTA, layout, phone mockup, and content below the hero stay unchanged. (Hero in `ComeGetItAccelerator.tsx` already renders once — no duplicate found.)
+### Edits
 
-### 2. Navigation labels → "Founding Partner Program"
-- `src/i18n/hu.json` `nav.accelerator`: `"Come Get It Accelerator"` → `"Founding Partner Program"`
-- `src/i18n/hu.json` `mobile_menu.accelerator`: `"Gyorsítóprogram"` → `"Founding Partner Program"`
-- `src/i18n/hu.json` `mobile_menu.accelerator_desc`: update to `"Exkluzív launch előtti program"` (short supporting line)
-- Same updates to `src/i18n/en.json` (`nav.accelerator`, `mobile_menu.accelerator`, `mobile_menu.accelerator_desc`)
+**`src/pages/Index.tsx`** (lines 154–155)
+- title: `Come Get It — Találd meg, hova menj ma Budapesten`
+- description: `Budapesti loyalty és discovery app. Ingyen italok, pontok, jutalmak — szeptemberben indulunk. Csatlakozz alapító tagként.`
 
-URLs unchanged. `Navigation.tsx` and `MobileNavigation.tsx` already reference these keys, no JSX edits needed.
+**`src/pages/Vendeglatohelyek.tsx`** (lines 82–83)
+- title: `Vendéglátóhelyeknek — Founding Partner Program | Come Get It`
+- description: `Csatlakozz az első 15 budapesti partnerhelyhez. 6 hónap jutalékmentes, 100+ új vendég havonta a holtidőkben.`
 
-### 3. Footer (`src/components/Footer.tsx` line 22)
-Change link text `Accelerator` → `Founding Partner Program`. URL stays `/come-get-it-accelerator`.
+**`src/pages/Italmarkak.tsx`** (lines 50–51)
+- title: `Italmárkáknak — Digitális sampling Budapesten | Come Get It`
+- description: `Mérhető brand-aktiváció valódi fogyasztási helyzetben. Az italmárka-program a 2. fázisban indul.`
+
+**`src/pages/RewardsPartners.tsx`** (lines 102–103)
+- title: `Rewards Partnereknek — Legyél beváltható jutalom | Come Get It`
+- description: `Add a saját termékedet a Come Get It közösségnek. A rewards-program a 2. fázisban indul.`
+
+**`src/pages/ComeGetItAccelerator.tsx`** (lines 104–105)
+- title: `Founding Partner Program — Csatlakozz korán | Come Get It`
+- description: `A Come Get It Founding Partner Program vendéglátóknak, italmárkáknak és rewards-partnereknek. Korai hozzáférés, exkluzív feltételek, lifetime preferred státusz.`
+
+### Sitemap
+`public/sitemap.xml` already includes all 5 routes with correct canonical URLs. Bump each `<lastmod>` for the 5 routes to today's date (`2026-05-07`). No structural changes.
+
+### Notes
+- og:title / og:description / og:url / twitter tags are auto-derived from title/description/canonical inside the `SEO` component, so no further changes needed.
+- Existing JSON-LD breadcrumbs remain untouched.

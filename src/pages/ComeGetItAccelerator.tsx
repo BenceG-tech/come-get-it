@@ -101,8 +101,8 @@ const ComeGetItAccelerator = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Come Get It Accelerator"
-        description="Felgyorsítjuk a vendéglátó- és italmárka-partnereket. Tudd meg, hogyan vehetsz részt az Acceleratorban."
+        title="Founding Partner Program — Csatlakozz korán | Come Get It"
+        description="A Come Get It Founding Partner Program vendéglátóknak, italmárkáknak és rewards-partnereknek. Korai hozzáférés, exkluzív feltételek, lifetime preferred státusz."
         canonical="/come-get-it-accelerator"
         jsonLd={{
           '@context': 'https://schema.org',

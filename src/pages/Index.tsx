@@ -151,8 +151,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Come Get It – Találd meg, hova menj ma Budapesten"
-        description="A Come Get It megmutatja Budapest azon partnerhelyeit, ahol napi ingyen italt, pontokat és jutalmakat kapsz — így könnyebb eldönteni, hova menj reggelizni, ebédelni, inni vagy bulizni."
+        title="Come Get It — Találd meg, hova menj ma Budapesten"
+        description="Budapesti loyalty és discovery app. Ingyen italok, pontok, jutalmak — szeptemberben indulunk. Csatlakozz alapító tagként."
         canonical="/"
       />
       <Navigation />

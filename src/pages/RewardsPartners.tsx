@@ -99,8 +99,8 @@ const RewardsPartners = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Rewards Partnerek – Legyél a következő program, amit választanak | Come Get It"
-        description="Ajánlj jutalmat azoknak, akik Budapesten keresnek helyet, programot vagy új élményt — érj el új közönséget a Come Get It-en keresztül."
+        title="Rewards Partnereknek — Legyél beváltható jutalom | Come Get It"
+        description="Add a saját termékedet a Come Get It közösségnek. A rewards-program a 2. fázisban indul."
         canonical="/rewards-partners"
         jsonLd={{
           '@context': 'https://schema.org',
