@@ -172,11 +172,12 @@
   },
   "venues": {
     "hero": {
+      "badge": "FOUNDING PARTNER PROGRAM — 15 HELY",
       "line1": "TÖBB VENDÉG.",
-      "line2": "EGYSZERŰBBEN.",
-      "p1": "A Come Get It segít, hogy azok találjanak rád, akik épp azt keresik, hova menjenek enni, inni, ebédelni vagy bulizni Budapesten.",
-      "p2": "Ha valaki nem tudja, hova menjen, az app ajánlhatja a helyedet — az ingyen ital pedig segít, hogy téged válasszon.",
-      "cta": "Jelentkezem partnernek"
+      "line2": "KEVESEBB ÜRES ASZTAL.",
+      "subtitle": "A Come Get It segít, hogy új vendégek fedezzék fel a helyedet a holtidőkben. A napi ingyen ital ad nekik egy okot, hogy ma este pont hozzád menjenek — a hely minősége adja a többit.",
+      "cta": "Founding Partnerré válok",
+      "cta_secondary": "Hogyan működik?"
     },
     "how_it_works": {
       "title": "HOGYAN MŰKÖDIK?",
