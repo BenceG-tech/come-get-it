@@ -3,6 +3,7 @@ import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { MibenSegitSection } from '@/components/MibenSegitSection';
 import { PricingSection } from '@/components/PricingSection';
+import { VenuePartnerTeaser } from '@/components/VenuePartnerTeaser';
 import { HowItWorks } from '@/components/HowItWorks';
 import { DrinkSection } from '@/components/DrinkSection';
 import { LinkSection } from '@/components/LinkSection';
@@ -165,6 +166,7 @@ const Index = () => {
       <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
       <GiveSection />
       <PricingSection />
+      <VenuePartnerTeaser />
       <BenefitsSection />
       <VenueApplicationSection />
       <FOMOSection />

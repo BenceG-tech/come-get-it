@@ -89,6 +89,16 @@
       "body": "Az első 500 alapító tag 1 hónap Plust kap ingyen + életre szóló Founding Member badge-et. A regisztráció utáni első 1500 user 2 hét Plust kap ajándékba. Egy haver meghívásával te és ő is +1 hét Plust kaptok."
     }
   },
+  "venue_teaser": {
+    "title": "Vendéglátóhely vagy?",
+    "subtitle": "A Come Get It Founding Partner Programmal az első 15 budapesti partner csatlakozása teljesen jutalékmentes az első 6 hónapban. Mi hozzuk a vendégeket — te megtartod őket.",
+    "cards": {
+      "1": { "title": "ÚJ VENDÉGEK", "description": "Garantált forgalmat hozunk a holtidőkben — mérhetően és kockázatmentesen." },
+      "2": { "title": "NULLA RIZIKÓ", "description": "Nincs fix díj, nincs hosszú szerződés. Ha 2 hét után nem éred el a célt, egy mondat és kilépsz." },
+      "3": { "title": "VALÓDI INSIGHT", "description": "Adatokat kapsz arról, ki mikor jön, melyik italra reagálnak — A/B tesztelheted az ajánlataidat." }
+    },
+    "cta": "Vendéglátóhelyként csatlakozom →"
+  },
   "fomo": {
     "title": "Legyél alapító tag",
     "p1": "Az első 1000 bennfentes külön badge‑et, extra jutalmakat és életre szóló bragging right‑ot kap.",
