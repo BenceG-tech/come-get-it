@@ -286,6 +286,7 @@ export const VenueApplicationSection: React.FC = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder={t('form_common.phone_placeholder')}
+                    required
                     disabled={isLoading}
                   />
                 </div>
@@ -311,7 +312,7 @@ export const VenueApplicationSection: React.FC = () => {
                 {/* Venue Type */}
                 <div className="space-y-2">
                   <Label htmlFor="venueType" className="text-white">
-                    Helység típusa *
+                    Helyszín típusa *
                   </Label>
                   <select
                     id="venueType"
@@ -322,28 +323,26 @@ export const VenueApplicationSection: React.FC = () => {
                     disabled={isLoading}
                   >
                     <option value="">Válassz típust...</option>
-                    <option value="Étterem">Étterem</option>
-                    <option value="Bár">Bár</option>
-                    <option value="Kávézó">Kávézó</option>
-                    <option value="Kocsma">Kocsma</option>
-                    <option value="Borozó">Borozó</option>
-                    <option value="Club/Szórakozóhely">Club/Szórakozóhely</option>
-                    <option value="Cukrászda">Cukrászda</option>
-                    <option value="Egyéb">Egyéb</option>
+                    <option value="bár">Bár</option>
+                    <option value="kávézó">Kávézó</option>
+                    <option value="étterem">Étterem</option>
+                    <option value="koktélbár">Koktélbár</option>
+                    <option value="pub">Pub</option>
+                    <option value="egyéb">Egyéb</option>
                   </select>
                 </div>
 
-                {/* City */}
+                {/* Address */}
                 <div className="space-y-2">
                   <Label htmlFor="addressCity" className="text-white">
-                    Város *
+                    Cím *
                   </Label>
                   <Input
                     id="addressCity"
                     type="text"
                     value={formData.addressCity}
                     onChange={handleInputChange}
-                    placeholder="Pl.: Budapest"
+                    placeholder="Pl. 1075 Budapest, Király u. 21."
                     required
                     disabled={isLoading}
                   />
@@ -363,11 +362,26 @@ export const VenueApplicationSection: React.FC = () => {
                     disabled={isLoading}
                   >
                     <option value="">Válassz tartományt...</option>
-                    <option value="0-50">0-50 vendég</option>
-                    <option value="51-100">51-100 vendég</option>
-                    <option value="101-200">101-200 vendég</option>
-                    <option value="200+">200+ vendég</option>
+                    <option value="0-50">0-50</option>
+                    <option value="50-150">50-150</option>
+                    <option value="150-300">150-300</option>
+                    <option value="300+">300+</option>
                   </select>
+                </div>
+
+                {/* Availability */}
+                <div className="space-y-2 md:col-span-2">
+                  <Label htmlFor="availability" className="text-white">
+                    Mikor érnél rá egy 30 perces beszélgetésre?
+                  </Label>
+                  <Input
+                    id="availability"
+                    type="text"
+                    value={formData.availability}
+                    onChange={handleInputChange}
+                    placeholder="Pl. jövő héten délután 14-17 között"
+                    disabled={isLoading}
+                  />
                 </div>
               </div>
 
@@ -387,7 +401,7 @@ export const VenueApplicationSection: React.FC = () => {
                   ) : (
                     <>
                       <Building2 className="w-4 h-4 mr-2" />
-                      {t('venue_app.form.submit')}
+                      Founding Partner jelentkezés elküldése
                     </>
                   )}
                 </Button>
