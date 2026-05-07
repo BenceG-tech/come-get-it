@@ -18,13 +18,14 @@ export const VenueApplicationSection: React.FC = () => {
     venueType: '',
     addressCity: '',
     dailyCustomerCount: '',
+    availability: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
   const { t } = useI18n();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -36,7 +37,7 @@ export const VenueApplicationSection: React.FC = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.name || !formData.email || !formData.venueName || !formData.venueType || !formData.addressCity || !formData.dailyCustomerCount) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.venueName || !formData.venueType || !formData.addressCity || !formData.dailyCustomerCount) {
       toast({
         title: "Hiányzó adatok",
         description: "Kérlek töltsd ki az összes kötelező mezőt.",
@@ -88,6 +89,7 @@ export const VenueApplicationSection: React.FC = () => {
                 venueType: formData.venueType,
                 addressCity: formData.addressCity,
                 dailyCustomerCount: formData.dailyCustomerCount,
+                availability: formData.availability,
                 source: source
               }
             }
@@ -133,6 +135,7 @@ export const VenueApplicationSection: React.FC = () => {
         venueType: '',
         addressCity: '',
         dailyCustomerCount: '',
+        availability: '',
       });
           
           // Reset form after successful submission
@@ -181,17 +184,11 @@ export const VenueApplicationSection: React.FC = () => {
                 </div>
               </div>
               <h2 className="text-2xl font-bold text-white mb-4">
-                {t('venue_app.submitted.title')}
+                Köszönjük!
               </h2>
               <p className="text-green-100 text-lg mb-4">
-                {t('venue_app.submitted.desc')}
+                24 órán belül felvesszük veled a kapcsolatot.
               </p>
-              <div className="bg-nf-surface rounded-lg p-4 max-w-md mx-auto border border-nf-border">
-                <p className="text-white text-sm">
-                  {t('venue_app.submitted.email_tip')}<br/><br/>
-                  {t('venue_app.submitted.call_tip')}
-                </p>
-              </div>
             </CardContent>
           </Card>
         </div>
@@ -214,14 +211,11 @@ export const VenueApplicationSection: React.FC = () => {
               </div>
             </div>
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4 tracking-tight">
-            {t('venue_app.header.heading')}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight">
+            Csatlakozz az első 15 közé
           </h2>
-          <p className="text-lg text-white mb-2">
-            {t('venue_app.header.sub1')}
-          </p>
-          <p className="text-nf-text-muted max-w-2xl mx-auto">
-            {t('venue_app.header.sub2')}
+          <p className="text-base md:text-lg text-nf-text-muted max-w-2xl mx-auto leading-relaxed">
+            A Founding Partner Program szeptember 1-ig nyitva — vagy amíg az első 15 hely megtelik. Nincs fizetési kötelezettség, nincs hosszú szerződés.
           </p>
         </div>
 
@@ -292,6 +286,7 @@ export const VenueApplicationSection: React.FC = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder={t('form_common.phone_placeholder')}
+                    required
                     disabled={isLoading}
                   />
                 </div>
@@ -317,7 +312,7 @@ export const VenueApplicationSection: React.FC = () => {
                 {/* Venue Type */}
                 <div className="space-y-2">
                   <Label htmlFor="venueType" className="text-white">
-                    Helység típusa *
+                    Helyszín típusa *
                   </Label>
                   <select
                     id="venueType"
@@ -328,28 +323,26 @@ export const VenueApplicationSection: React.FC = () => {
                     disabled={isLoading}
                   >
                     <option value="">Válassz típust...</option>
-                    <option value="Étterem">Étterem</option>
-                    <option value="Bár">Bár</option>
-                    <option value="Kávézó">Kávézó</option>
-                    <option value="Kocsma">Kocsma</option>
-                    <option value="Borozó">Borozó</option>
-                    <option value="Club/Szórakozóhely">Club/Szórakozóhely</option>
-                    <option value="Cukrászda">Cukrászda</option>
-                    <option value="Egyéb">Egyéb</option>
+                    <option value="bár">Bár</option>
+                    <option value="kávézó">Kávézó</option>
+                    <option value="étterem">Étterem</option>
+                    <option value="koktélbár">Koktélbár</option>
+                    <option value="pub">Pub</option>
+                    <option value="egyéb">Egyéb</option>
                   </select>
                 </div>
 
-                {/* City */}
+                {/* Address */}
                 <div className="space-y-2">
                   <Label htmlFor="addressCity" className="text-white">
-                    Város *
+                    Cím *
                   </Label>
                   <Input
                     id="addressCity"
                     type="text"
                     value={formData.addressCity}
                     onChange={handleInputChange}
-                    placeholder="Pl.: Budapest"
+                    placeholder="Pl. 1075 Budapest, Király u. 21."
                     required
                     disabled={isLoading}
                   />
@@ -369,11 +362,26 @@ export const VenueApplicationSection: React.FC = () => {
                     disabled={isLoading}
                   >
                     <option value="">Válassz tartományt...</option>
-                    <option value="0-50">0-50 vendég</option>
-                    <option value="51-100">51-100 vendég</option>
-                    <option value="101-200">101-200 vendég</option>
-                    <option value="200+">200+ vendég</option>
+                    <option value="0-50">0-50</option>
+                    <option value="50-150">50-150</option>
+                    <option value="150-300">150-300</option>
+                    <option value="300+">300+</option>
                   </select>
+                </div>
+
+                {/* Availability */}
+                <div className="space-y-2 md:col-span-2">
+                  <Label htmlFor="availability" className="text-white">
+                    Mikor érnél rá egy 30 perces beszélgetésre?
+                  </Label>
+                  <Input
+                    id="availability"
+                    type="text"
+                    value={formData.availability}
+                    onChange={handleInputChange}
+                    placeholder="Pl. jövő héten délután 14-17 között"
+                    disabled={isLoading}
+                  />
                 </div>
               </div>
 
@@ -393,7 +401,7 @@ export const VenueApplicationSection: React.FC = () => {
                   ) : (
                     <>
                       <Building2 className="w-4 h-4 mr-2" />
-                      {t('venue_app.form.submit')}
+                      Founding Partner jelentkezés elküldése
                     </>
                   )}
                 </Button>
