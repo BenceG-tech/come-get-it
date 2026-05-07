@@ -1,25 +1,19 @@
-## /vendeglatohelyek — replace benefits with "6 érv" section
+## Replace `HowItWorksForVenues` with 5-step "Csatlakozás 5 lépésben"
 
-### New component: `src/components/VenueWhyWorth.tsx`
+Rewrite `src/components/HowItWorksForVenues.tsx` to render 5 steps with hardcoded HU copy (matches user spec verbatim). Keep existing `nf-card` numbered card style with cyan number badge, gradient icon circle, hover scale + neon shadow. Keep `id="how-it-works-venues"` so the hero secondary CTA still scrolls here.
 
-A 6-card "Miért éri meg neked?" grid (md:2 cols / lg:3 cols) using the existing `nf-card` glass styling, gradient cyan icon tile, and hover lift, matching `MibenSegitSection` patterns.
+Section title (centered): "Csatlakozás 5 lépésben"
 
-Cards (icon → title → description), copy verbatim:
-1. `Users` — "Garantált új vendégek" — "A juzereink azért nyitják meg az appot, mert döntéshelyzetben vannak: „hova menjek ma?" Te megjelensz a válaszuk között."
-2. `DollarSign` — "Nulla pénzügyi rizikó" — full description as provided.
-3. `Clock` — "Te döntöd el, mit és mikor adsz ingyen" — full description.
-4. `BarChart3` — "Adatok, amiket sehol máshol nem kapsz" — full description.
-5. `MapPin` — "Lokáció-alapú push az utcán" — full description.
-6. `DoorOpen` — "Kockázatmentes kilépés" — full description.
+Steps (number, lucide icon, title, description):
+1. `MessageCircle` — "Beszélgetünk" — "Online vagy személyesen találkozunk. Megmutatjuk az appot, az admin felületet, és válaszolunk minden kérdésedre."
+2. `FileSignature` — "Aláírjuk a Letter of Intent-et" — full description.
+3. `Settings` — "Beállítjuk a profilodat" — full description.
+4. `Rocket` — "Elindulunk szeptember 1-én" — full description.
+5. `ShieldCheck` — "Az első 6 hónap teljesen jutalékmentes" — full description.
 
-Section header: "Miért éri meg neked?" (centered, `text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white`).
+Grid: `grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5` so 5 cards lay out cleanly.
 
-Copy is hardcoded HU in the component (matches what the user provided; no i18n keys requested for this section).
-
-### `src/pages/Vendeglatohelyek.tsx`
-- Replace `import { VenueKeyFeatures } from '@/components/VenueKeyFeatures'` with `import { VenueWhyWorth } from '@/components/VenueWhyWorth'`.
-- Replace `<VenueKeyFeatures />` with `<VenueWhyWorth />` in the JSX (placement unchanged: after `HowItWorksForVenues`, before `VenueStats`).
+Drops `useI18n` usage (copy is hardcoded HU as provided). The unused `venues.how_it_works.*` i18n keys can stay untouched.
 
 ### Out of scope
-- `VenueKeyFeatures.tsx` left in place but unused (safe to delete later if desired).
-- No hero, stats, or application form changes.
+- No changes to other sections on the page or to `i18n` files.
