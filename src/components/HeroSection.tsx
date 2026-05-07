@@ -35,6 +35,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Content */}
           <div className="text-center lg:text-left">
+            {/* Launch badge */}
+            <div className="mb-5 flex justify-center lg:justify-start">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold tracking-wide border border-nf-primary/40 bg-nf-primary/10 text-nf-primary">
+                {t('hero.badge')}
+              </span>
+            </div>
+
             {/* Main Title */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight">
               <span className="block text-white mb-2">{t('hero.title_line1')}</span>
@@ -43,7 +50,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             
             {/* Subtitle */}
             <div className="max-w-2xl lg:max-w-none">
-              <p className="text-base md:text-lg text-nf-text-muted font-medium leading-tight mt-6">
+              <p className="text-base md:text-lg text-nf-text-muted font-medium leading-snug mt-6">
                 {t('hero.subtitle')}
               </p>
             </div>
@@ -72,12 +79,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
                 className="py-4 px-8 text-lg w-full sm:w-auto rounded-full border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
                 onClick={() => {
                   analytics.ctaClick('hero_secondary', t('hero.cta_secondary'));
-                  document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
+                  document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
                 {t('hero.cta_secondary')}
               </Button>
             </div>
+
+            {/* Founding member note */}
+            <p className="pt-3 text-xs md:text-sm text-nf-text-muted/80 max-w-xl mx-auto lg:mx-0">
+              {t('hero.founding_note')}
+            </p>
           </div>
 
           {/* Right - Phone mockup */}
