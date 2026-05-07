@@ -95,6 +95,7 @@ const Vendeglatohelyek = () => {
       <main>
         <VenueHeroSection />
         <HowItWorksForVenues />
+        <FoundingPartnerPerks />
         <VenueWhyWorth />
         <VenueStats />
         <VenueApplicationSection />
