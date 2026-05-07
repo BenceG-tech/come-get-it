@@ -5,6 +5,7 @@ import { MobileNavigation } from '@/components/MobileNavigation';
 import { VenueHeroSection } from '@/components/VenueHeroSection';
 import { HowItWorksForVenues } from '@/components/HowItWorksForVenues';
 import { VenueWhyWorth } from '@/components/VenueWhyWorth';
+import { FoundingPartnerPerks } from '@/components/FoundingPartnerPerks';
 import { VenueStats } from '@/components/VenueStats';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 import { CustomerSupport } from '@/components/CustomerSupport';
@@ -94,6 +95,7 @@ const Vendeglatohelyek = () => {
       <main>
         <VenueHeroSection />
         <HowItWorksForVenues />
+        <FoundingPartnerPerks />
         <VenueWhyWorth />
         <VenueStats />
         <VenueApplicationSection />
