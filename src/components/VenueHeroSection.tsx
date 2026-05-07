@@ -28,8 +28,8 @@ export const VenueHeroSection: React.FC = () => {
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
-              <span className="block text-white mb-2">{t('venues.hero.line1')}</span>
-              <span className="block text-nf-primary">{t('venues.hero.line2')}</span>
+              <span className="block text-white mb-2 lg:whitespace-nowrap">{t('venues.hero.line1')}</span>
+              <span className="block text-nf-primary lg:whitespace-nowrap">{t('venues.hero.line2')}</span>
             </h1>
 
             <p className="text-lg md:text-xl text-nf-text-muted font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
