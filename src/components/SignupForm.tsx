@@ -26,11 +26,16 @@ export const SignupForm: React.FC = () => {
   const handleGoogleSignup = async () => {
     setIsGoogleLoading(true);
     try {
+      analytics.ctaClick('signup_google', 'Google regisztráció');
       const { error } = await signInWithGoogle();
       if (error) {
+        const msg = (error as any)?.message || '';
+        const isProviderDisabled = /validation_failed|Unsupported provider|provider is not enabled/i.test(msg);
         toast({
-          title: "Hiba történt",
-          description: "A Google regisztráció nem sikerült. Kérjük, próbáld újra.",
+          title: isProviderDisabled ? "Google bejelentkezés még nem elérhető" : "Hiba történt",
+          description: isProviderDisabled
+            ? "A Google regisztráció hamarosan elérhető lesz. Addig is regisztrálj e-mail címeddel feljebb."
+            : "A Google regisztráció nem sikerült. Kérjük, próbáld újra.",
           variant: "destructive",
         });
       }
