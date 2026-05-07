@@ -30,32 +30,32 @@
   "miben_segit": {
     "title": "Miben segít?",
     "cards": {
-      "1": { "title": "Hol reggelizzek?", "description": "Találj helyet, ahol a napindításhoz extra jutalom is jár." },
+      "1": { "title": "Hol reggelizzek?", "description": "Találj helyet, ahol a napindításhoz pont vagy jutalom is jár." },
       "2": { "title": "Hol ebédeljek?", "description": "Válassz gyorsabban a közeli partnerhelyek közül." },
       "3": { "title": "Hova üljünk be?", "description": "Találj jó helyet kávéra, randira vagy afterworkre." },
-      "4": { "title": "Hol bulizzunk?", "description": "Menj oda, ahol az esti program mellé napi ingyen ital is jár." }
+      "4": { "title": "Hol bulizzunk?", "description": "Menj oda, ahol az esti program mellé extra előny is jár." }
     }
   },
   "drink": {
     "title": "DRINK.",
-    "subtitle": "Az első pohár nyitja az estét",
+    "subtitle": "Az első pohár nyitja az estét.",
     "body": "Válassz egy helyet, mutasd fel az appot és tedd emlékezetessé a napod első körét. Minden este más hangulat, más társaság — a sztori rajtad múlik.",
     "button": "Kezdjük ma este!"
   },
   "link": {
     "title": "LINK.",
-    "subtitle": "Bennfentes élmény, egy mozdulattal",
-    "body": "Kösd össze biztonságosan a kártyád, és automatikusan jár a pont minden fogyasztás után. Nincs kupon, nincs QR—csak flow."
+    "subtitle": "Bennfentes élmény, egy mozdulattal.",
+    "body": "Kösd össze biztonságosan a kártyádat, és automatikusan jár a pont minden fogyasztás után. Nincs kupon, nincs QR — csak flow."
   },
   "earn": {
     "title": "EARN.",
-    "subtitle": "Pontokból élmények",
+    "subtitle": "Pontokból élmények.",
     "body": "Minden korty, felfedezés és aktivitás pont. Váltsd be exkluzív jutalmakra, és közben jó ügyeket is támogatsz. Igyál okosan, élj intenzíven."
   },
   "give": {
     "title": "GIVE.",
     "subtitle": "Minden korty számít.",
-    "body": "A \"Drink for a Cause\" modell a DNS-ünk része. Nem csak a pörgést akarjuk támogatni, hanem a változást is.",
+    "body": "A \"Drink for a Cause\" modell a kártyád DNS-ének része. Nem csak a pörgést akarjuk támogatni, hanem a változást is. Minden appon keresztül beváltott italért egy napi tiszta ivóvizet biztosítunk egy rászorulónak.",
     "quote": "A Z generáció számára a társadalmi felelősségvállalás nem opció, hanem alapkövetelmény. Minden Welcome Drink után adományozunk."
   },
   "fomo": {
