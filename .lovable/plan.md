@@ -1,32 +1,22 @@
-## Update per-page SEO meta tags
+## Changes
 
-The site already has a `<SEO>` component (`src/components/SEO.tsx`) that sets title, description, canonical, og:title, og:description, og:url, twitter tags, etc. Each page already calls it — only the title/description strings need updating. Canonical paths are already correct.
+### 1. `src/components/VenueWhyWorth.tsx`
+Update the `description` of the second card (`title: 'Nulla pénzügyi rizikó'`) to:
 
-### Edits
+> "Az első 6 hónap teljesen jutalékmentes. Nincs fix havidíj, nincs setup-fee. A free drink költsége a beszerzési árad — egy alacsony marketing-befektetés, amiért egy átlagos 3500 Ft-ot költő vendéget kapsz cserébe."
 
-**`src/pages/Index.tsx`** (lines 154–155)
-- title: `Come Get It — Találd meg, hova menj ma Budapesten`
-- description: `Budapesti loyalty és discovery app. Ingyen italok, pontok, jutalmak — szeptemberben indulunk. Csatlakozz alapító tagként.`
+Title, icon, styling: unchanged.
 
-**`src/pages/Vendeglatohelyek.tsx`** (lines 82–83)
-- title: `Vendéglátóhelyeknek — Founding Partner Program | Come Get It`
-- description: `Csatlakozz az első 15 budapesti partnerhelyhez. 6 hónap jutalékmentes, 100+ új vendég havonta a holtidőkben.`
+### 2. `src/pages/Italmarkak.tsx` — Statistics section
+Replace the placeholder stats block (246+ / 91% / 250+ / 4.8) with four value-prop cards. Same 2-col-on-mobile / 4-col-on-desktop grid and same `glass-effect` card styling, but content swapped from `icon + number + label` to `icon + title + description`.
 
-**`src/pages/Italmarkak.tsx`** (lines 50–51)
-- title: `Italmárkáknak — Digitális sampling Budapesten | Come Get It`
-- description: `Mérhető brand-aktiváció valódi fogyasztási helyzetben. Az italmárka-program a 2. fázisban indul.`
+Replace the `statistics` array with a `valueProps` array using lucide icons `Target`, `MapPin`, `BarChart3`, `Rocket`:
 
-**`src/pages/RewardsPartners.tsx`** (lines 102–103)
-- title: `Rewards Partnereknek — Legyél beváltható jutalom | Come Get It`
-- description: `Add a saját termékedet a Come Get It közösségnek. A rewards-program a 2. fázisban indul.`
+1. **PRECÍZ CÉLZÁS** — "A Come Get It közössége budapesti, vendéglátóhelyekre járó fiatal felnőtt."
+2. **VALÓDI HELYZET** — "A márkád ott van, ahol a fogyasztó épp dönt — nem hirdetésen, hanem a kezében."
+3. **MÉRHETŐ HATÁS** — "Beváltások, ízlésvisszajelzések, demográfia — minden adatot megosztunk."
+4. **RUGALMAS KAMPÁNY** — "Egy hetes kóstoltatástól országos launch-ig — együtt szabjuk a méretet."
 
-**`src/pages/ComeGetItAccelerator.tsx`** (lines 104–105)
-- title: `Founding Partner Program — Csatlakozz korán | Come Get It`
-- description: `A Come Get It Founding Partner Program vendéglátóknak, italmárkáknak és rewards-partnereknek. Korai hozzáférés, exkluzív feltételek, lifetime preferred státusz.`
+Card markup updated to render: icon (top, electric-300), uppercase bold title, small muted description. Padding bumped slightly (`p-5`) so the description fits cleanly. Remove now-unused `brands_page.stats.labels.*` references in this file (i18n entries left intact in `hu.json`/`en.json` since unused keys are harmless).
 
-### Sitemap
-`public/sitemap.xml` already includes all 5 routes with correct canonical URLs. Bump each `<lastmod>` for the 5 routes to today's date (`2026-05-07`). No structural changes.
-
-### Notes
-- og:title / og:description / og:url / twitter tags are auto-derived from title/description/canonical inside the `SEO` component, so no further changes needed.
-- Existing JSON-LD breadcrumbs remain untouched.
+No other sections touched.

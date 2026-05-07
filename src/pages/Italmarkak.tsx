@@ -5,7 +5,7 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket } from 'lucide-react';
+import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket, Target, MapPin, BarChart3 } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
@@ -16,11 +16,11 @@ const Italmarkak = () => {
   const { t } = useI18n();
   const brandImage = "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png";
 
-  const statistics = [
-    { icon: Compass, number: "246+", label: t('brands_page.stats.labels.1') },
-    { icon: Wine, number: "91%", label: t('brands_page.stats.labels.2') },
-    { icon: Gift, number: "250+", label: t('brands_page.stats.labels.3') },
-    { icon: CreditCard, number: "4.8", label: t('brands_page.stats.labels.4') }
+  const valueProps = [
+    { icon: Target, title: "PRECÍZ CÉLZÁS", description: "A Come Get It közössége budapesti, vendéglátóhelyekre járó fiatal felnőtt." },
+    { icon: MapPin, title: "VALÓDI HELYZET", description: "A márkád ott van, ahol a fogyasztó épp dönt — nem hirdetésen, hanem a kezében." },
+    { icon: BarChart3, title: "MÉRHETŐ HATÁS", description: "Beváltások, ízlésvisszajelzések, demográfia — minden adatot megosztunk." },
+    { icon: Rocket, title: "RUGALMAS KAMPÁNY", description: "Egy hetes kóstoltatástól országos launch-ig — együtt szabjuk a méretet." }
   ];
 
   const howItWorksSteps = [
@@ -196,19 +196,19 @@ const Italmarkak = () => {
         </div>
       </section>
 
-      {/* Statistics Section - 2x2 Grid */}
+      {/* Value Props Section - 2x2 / 4-col Grid */}
       <section className="py-8 px-4 bg-black">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 gap-4">
-            {statistics.map((stat, index) => (
-              <div key={index} className="glass-effect rounded-xl p-4 text-center group hover:scale-105 transition-all duration-300">
-                <stat.icon className="w-6 h-6 mx-auto mb-2 text-electric-300 group-hover:scale-110 transition-transform duration-300" />
-                <div className="text-xl font-black text-white mb-1">
-                  {stat.number}
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {valueProps.map((item, index) => (
+              <div key={index} className="glass-effect rounded-xl p-5 text-center group hover:scale-105 transition-all duration-300">
+                <item.icon className="w-8 h-8 mx-auto mb-3 text-electric-300 group-hover:scale-110 transition-transform duration-300" />
+                <div className="text-sm font-black text-white mb-2 uppercase tracking-wider">
+                  {item.title}
                 </div>
-                <div className="text-xs text-electric-100 font-medium uppercase tracking-wider">
-                  {stat.label}
-                </div>
+                <p className="text-xs text-electric-100 leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
