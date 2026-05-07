@@ -19,11 +19,13 @@
     "en": "EN"
   },
   "hero": {
+    "badge": "BUDAPESTEN INDULUNK — SZEPTEMBER 2026",
     "title_line1": "NEM TUDOD,",
     "title_line2": "HOVA MENJ MA?",
-    "subtitle": "A Come Get It megmutatja, hol kapsz napi ingyen italt, pontokat és jutalmakat Budapesten — így könnyebb eldönteni, hol reggelizz, ebédelj, igyál vagy bulizz.",
-    "cta": "Mutasd a helyeket",
-    "cta_secondary": "Csatlakozom az induláshoz"
+    "subtitle": "A Come Get It segít eldönteni, hova menj Budapesten — partnerhelyeken, ahol napi ingyen ital, pontok és jutalmak várnak. Az appban felfedezed a város legjobb helyeit, miközben minden beváltással egy napi tiszta ivóvizet biztosítasz egy rászorulónak.",
+    "cta": "Csatlakozom alapító tagként",
+    "cta_secondary": "Hogyan működik?",
+    "founding_note": "Az első 500 alapító tag életre szóló Founding Member státuszt és 1 hónap Plus-t kap ingyen."
   },
   "miben_segit": {
     "title": "Miben segít?",
