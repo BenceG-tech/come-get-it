@@ -26,11 +26,16 @@ export const SignupForm: React.FC = () => {
   const handleGoogleSignup = async () => {
     setIsGoogleLoading(true);
     try {
+      analytics.ctaClick('signup_google', 'Google regisztráció');
       const { error } = await signInWithGoogle();
       if (error) {
+        const msg = (error as any)?.message || '';
+        const isProviderDisabled = /validation_failed|Unsupported provider|provider is not enabled/i.test(msg);
         toast({
-          title: "Hiba történt",
-          description: "A Google regisztráció nem sikerült. Kérjük, próbáld újra.",
+          title: isProviderDisabled ? "Google bejelentkezés még nem elérhető" : "Hiba történt",
+          description: isProviderDisabled
+            ? "A Google regisztráció hamarosan elérhető lesz. Addig is regisztrálj e-mail címeddel feljebb."
+            : "A Google regisztráció nem sikerült. Kérjük, próbáld újra.",
           variant: "destructive",
         });
       }
@@ -297,18 +302,33 @@ export const SignupForm: React.FC = () => {
               </Button>
             </form>
             
-            <div className="mt-6">
-              <p className="text-nf-text-muted text-sm mb-4">{t('signup.or')}</p>
-              <Button 
-                variant="outline"
+            <div className="mt-8">
+              <div className="relative mb-5">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-nf-border"></div>
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="bg-nf-surface px-4 text-sm text-nf-text-muted uppercase tracking-wider">
+                    {t('signup.or')}
+                  </span>
+                </div>
+              </div>
+              <Button
+                type="button"
                 onClick={handleGoogleSignup}
                 disabled={isGoogleLoading}
-                className="border-nf-primary text-nf-primary hover:bg-nf-primary hover:text-black flex items-center gap-2"
+                className="w-full py-4 text-base md:text-lg font-semibold rounded-full bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
               >
-                <Chrome className="w-5 h-5" />
+                <svg className="w-6 h-6" viewBox="0 0 48 48" aria-hidden="true">
+                  <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                  <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                  <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                  <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                </svg>
                 {isGoogleLoading ? "Folyamatban..." : t('signup.full_registration_google')}
               </Button>
             </div>
+
           </div>
         )}
       </div>
