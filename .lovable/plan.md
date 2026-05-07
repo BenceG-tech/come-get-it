@@ -1,34 +1,25 @@
-## /vendeglatohelyek hero refresh
+## /vendeglatohelyek — replace benefits with "6 érv" section
 
-Text/structure-only update. Keep dark layout, cyan accents, phone mockup.
+### New component: `src/components/VenueWhyWorth.tsx`
 
-### `src/i18n/hu.json` — `venues.hero`
-Replace with:
-- `badge`: `"FOUNDING PARTNER PROGRAM — 15 HELY"`
-- `line1`: `"TÖBB VENDÉG."`
-- `line2`: `"KEVESEBB ÜRES ASZTAL."`
-- `subtitle`: `"A Come Get It segít, hogy új vendégek fedezzék fel a helyedet a holtidőkben. A napi ingyen ital ad nekik egy okot, hogy ma este pont hozzád menjenek — a hely minősége adja a többit."`
-- `cta`: `"Founding Partnerré válok"`
-- `cta_secondary`: `"Hogyan működik?"`
+A 6-card "Miért éri meg neked?" grid (md:2 cols / lg:3 cols) using the existing `nf-card` glass styling, gradient cyan icon tile, and hover lift, matching `MibenSegitSection` patterns.
 
-### `src/i18n/en.json` — `venues.hero`
-Mirror keys (English):
-- `badge`: `"FOUNDING PARTNER PROGRAM — 15 SPOTS"`
-- `line1`: `"MORE GUESTS."`
-- `line2`: `"FEWER EMPTY TABLES."`
-- `subtitle`: `"Come Get It helps new guests discover your venue during slow hours. The daily free drink gives them a reason to come to you tonight — the quality of your place does the rest."`
-- `cta`: `"Become a Founding Partner"`
-- `cta_secondary`: `"How it works"`
+Cards (icon → title → description), copy verbatim:
+1. `Users` — "Garantált új vendégek" — "A juzereink azért nyitják meg az appot, mert döntéshelyzetben vannak: „hova menjek ma?" Te megjelensz a válaszuk között."
+2. `DollarSign` — "Nulla pénzügyi rizikó" — full description as provided.
+3. `Clock` — "Te döntöd el, mit és mikor adsz ingyen" — full description.
+4. `BarChart3` — "Adatok, amiket sehol máshol nem kapsz" — full description.
+5. `MapPin` — "Lokáció-alapú push az utcán" — full description.
+6. `DoorOpen` — "Kockázatmentes kilépés" — full description.
 
-### `src/components/VenueHeroSection.tsx`
-- Add a small cyan pill badge above the `<h1>` rendering `t('venues.hero.badge')` (same style as homepage hero badge: `inline-flex px-3 py-1 rounded-full text-xs md:text-sm font-semibold tracking-wide border border-nf-primary/40 bg-nf-primary/10 text-nf-primary mb-5`).
-- Replace the two-line `<p>` (using `p1`/`p2`) with a single `<p>` rendering `t('venues.hero.subtitle')`.
-- Add a secondary outline CTA next to primary; on click scrolls to `#how-it-works-venues` (or existing anchor — verify `HowItWorksForVenues` section id; if missing, add `id="how-it-works-venues"` to its root section).
-- Keep primary CTA text bound to `t('venues.hero.cta')` and the existing scroll-to `#venue-application` behavior, ArrowRight icon retained.
-- Wrap CTAs in a `flex flex-col sm:flex-row gap-3 sm:gap-4` container.
+Section header: "Miért éri meg neked?" (centered, `text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white`).
 
-### `src/components/HowItWorksForVenues.tsx`
-- Ensure root `<section>` has `id="how-it-works-venues"` so secondary CTA scroll target works.
+Copy is hardcoded HU in the component (matches what the user provided; no i18n keys requested for this section).
+
+### `src/pages/Vendeglatohelyek.tsx`
+- Replace `import { VenueKeyFeatures } from '@/components/VenueKeyFeatures'` with `import { VenueWhyWorth } from '@/components/VenueWhyWorth'`.
+- Replace `<VenueKeyFeatures />` with `<VenueWhyWorth />` in the JSX (placement unchanged: after `HowItWorksForVenues`, before `VenueStats`).
 
 ### Out of scope
-- No design system, color, or phone mockup changes. No other sections on this page touched.
+- `VenueKeyFeatures.tsx` left in place but unused (safe to delete later if desired).
+- No hero, stats, or application form changes.
