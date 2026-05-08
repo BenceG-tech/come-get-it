@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Users, ShieldCheck, BarChart3 } from 'lucide-react';
+import { Users, ShieldCheck, BarChart3, Store } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useI18n } from '@/hooks/useI18n';
 import { analytics } from '@/lib/analytics';
@@ -15,13 +15,26 @@ export const VenuePartnerTeaser: React.FC = () => {
   ];
 
   return (
-    <section id="venue-teaser" className="py-20 px-4 bg-nf-background">
-      <div className="max-w-6xl mx-auto">
+    <section id="venue-teaser" className="py-20 px-4 bg-nf-background relative overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none opacity-60"
+        style={{
+          background:
+            'radial-gradient(ellipse 50% 40% at 50% 0%, rgba(0,188,212,0.08) 0%, transparent 70%)',
+        }}
+      />
+      <div className="max-w-6xl mx-auto relative">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          <div className="flex justify-center mb-4">
+            <div className="w-12 h-12 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] flex items-center justify-center shadow-[0_0_30px_rgba(0,188,212,0.25)]">
+              <Store className="w-5 h-5 text-nf-primary" strokeWidth={1.5} />
+            </div>
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight">
             {t('venue_teaser.title')}
           </h2>
-          <p className="mt-4 text-base md:text-lg text-nf-text-muted max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-4 text-base md:text-lg text-white/65 max-w-3xl mx-auto leading-relaxed">
             {t('venue_teaser.subtitle')}
           </p>
         </div>
@@ -30,17 +43,17 @@ export const VenuePartnerTeaser: React.FC = () => {
           {cards.map((card, idx) => (
             <div
               key={idx}
-              className="nf-card p-6 md:p-7 text-center hover:-translate-y-1 hover:border-nf-primary transition-all duration-300 group"
+              className="group relative h-full bg-white/[0.03] backdrop-blur-md border border-nf-primary/20 rounded-2xl p-7 text-center transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]"
             >
-              <div className="flex justify-center mb-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-nf-primary to-nf-secondary flex items-center justify-center shadow-neon">
-                  <card.icon className="w-7 h-7 text-white" />
+              <div className="flex justify-center mb-5">
+                <div className="w-14 h-14 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] flex items-center justify-center group-hover:border-nf-primary group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500">
+                  <card.icon className="w-6 h-6 text-nf-primary" strokeWidth={1.5} />
                 </div>
               </div>
               <h3 className="text-lg md:text-xl font-bold text-white mb-2 tracking-wide group-hover:text-nf-primary transition-colors">
                 {t(card.titleKey)}
               </h3>
-              <p className="text-sm md:text-base text-nf-text-muted leading-relaxed">
+              <p className="text-sm md:text-base text-white/60 leading-relaxed">
                 {t(card.descKey)}
               </p>
             </div>
