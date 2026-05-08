@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket, Target, MapPin, BarChart3 } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { ServiceCard } from '@/components/ui/ServiceCard';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
