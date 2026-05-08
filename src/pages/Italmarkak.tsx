@@ -316,14 +316,17 @@ const Italmarkak = () => {
                     const el = document.getElementById('brand-application');
                     if (el) {
                       el.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                window.dispatchEvent(new Event('open-support'));
-              }
-            }}
-          >
-            {t('brands_page.final_cta.cta')}
-            <ArrowRight className="ml-3 h-5 w-5" />
-          </Button>
+                    } else {
+                      window.dispatchEvent(new Event('open-support'));
+                    }
+                  }}
+                >
+                  {t('brands_page.final_cta.cta')}
+                  <ArrowRight className="ml-3 h-5 w-5" />
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
