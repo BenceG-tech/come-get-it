@@ -6,6 +6,7 @@ import { SocialProof } from './SocialProof';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNight from '@/assets/budapest-night-hero.jpg';
+import cyanCocktail from '@/assets/cyan-cocktail.png';
 
 interface HeroSectionProps {
   currentImageIndex: number;
@@ -15,28 +16,46 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => {
   const { t } = useI18n();
   return (
-    <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden">
+    <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden bg-nf-background">
       {/* Mobile Navigation */}
       <MobileNavigation />
 
-      {/* Cinematic Budapest night background */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={budapestNight}
-          alt=""
-          aria-hidden="true"
-          className="w-full h-full object-cover opacity-60"
-          width={1920}
-          height={1080}
-        />
-        {/* Dark navy overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#03060d]/85 via-[#050b18]/80 to-[#03060d]" />
-        {/* Cyan radial glow accents */}
+      {/* Background layers */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Parliament image — confined to middle band, faded top & bottom */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-x-0"
+          style={{
+            top: '30%',
+            bottom: '20%',
+            WebkitMaskImage:
+              'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
+            maskImage:
+              'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
+          }}
+        >
+          <img
+            src={budapestNight}
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover opacity-55"
+            style={{ objectPosition: 'center 55%' }}
+            width={1920}
+            height={1080}
+          />
+        </div>
+
+        {/* Top dark fade — clean background behind headline */}
+        <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-[#03060d] via-[#03060d]/85 to-transparent" />
+        {/* Bottom dark fade — clean background under CTA */}
+        <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-[#03060d] via-[#03060d]/85 to-transparent" />
+
+        {/* Cyan radial glow accents focused on the middle band */}
+        <div
+          className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 60% 50% at 75% 45%, rgba(0,188,212,0.18) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 15% 70%, rgba(0,151,167,0.10) 0%, transparent 65%)',
+              'radial-gradient(ellipse 55% 40% at 75% 50%, rgba(0,188,212,0.20) 0%, transparent 65%), radial-gradient(ellipse 45% 35% at 20% 55%, rgba(0,151,167,0.10) 0%, transparent 65%)',
           }}
         />
       </div>
@@ -104,20 +123,43 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             </p>
           </div>
 
-          {/* Right - Phone mockup with cyan glow */}
-          <div className="relative flex justify-center lg:justify-end">
+          {/* Right - Phone mockup + cocktail */}
+          <div className="relative flex justify-center items-center min-h-[520px] lg:min-h-[580px]">
             {/* Soft cyan glow behind phone */}
             <div
               aria-hidden="true"
               className="absolute inset-0 -z-0 pointer-events-none"
               style={{
                 background:
-                  'radial-gradient(ellipse 70% 70% at center, rgba(0,188,212,0.35) 0%, rgba(0,188,212,0.15) 40%, transparent 75%)',
+                  'radial-gradient(ellipse 60% 60% at 40% 50%, rgba(0,188,212,0.32) 0%, rgba(0,188,212,0.12) 45%, transparent 75%)',
                 filter: 'blur(30px)',
               }}
             />
-            <div className="relative scale-105 lg:scale-110">
+
+            {/* Phone — pulled inward toward hero center on desktop */}
+            <div className="relative z-20 lg:-translate-x-10 xl:-translate-x-14">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+            </div>
+
+            {/* Cocktail — desktop only, right side */}
+            <div
+              aria-hidden="true"
+              className="hidden lg:block absolute right-0 xl:right-2 bottom-2 lg:bottom-6 z-10"
+            >
+              {/* Cocktail glow */}
+              <div
+                className="absolute inset-0 blur-3xl"
+                style={{
+                  background:
+                    'radial-gradient(ellipse 70% 70% at center, rgba(0,188,212,0.55) 0%, rgba(0,188,212,0.2) 50%, transparent 80%)',
+                }}
+              />
+              <img
+                src={cyanCocktail}
+                alt=""
+                aria-hidden="true"
+                className="relative w-[170px] xl:w-[210px] h-auto drop-shadow-[0_0_45px_rgba(0,188,212,0.6)]"
+              />
             </div>
           </div>
         </div>
