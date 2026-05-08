@@ -210,6 +210,41 @@
   .azure-beam {
     position: relative;
     isolation: isolate;
+    transition: border-color 500ms ease, box-shadow 500ms ease, transform 500ms ease;
+  }
+  .azure-beam:hover {
+    border-color: hsl(187 100% 60% / 0.6) !important;
+    box-shadow: 0 20px 60px -10px hsl(187 100% 42% / 0.55);
+    transform: translateY(-4px);
+  }
+  .azure-beam::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(187 100% 50%), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 700ms ease-out;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .azure-beam:hover::after {
+    transform: scaleX(1);
+  }
+  .azure-beam .azure-clamp {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 500ms ease-out;
+  }
+  .azure-beam:hover .azure-clamp {
+    grid-template-rows: 1fr;
+  }
+  .azure-beam .azure-clamp > * {
+    overflow: hidden;
+    min-height: 0;
   }
   .azure-beam::before {
     content: '';
