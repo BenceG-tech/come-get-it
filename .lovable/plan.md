@@ -1,73 +1,76 @@
 ## Cél
 
-A megadott prémium "ServiceCard" effektus replikálása **azúrkék** (`hsl(187 100% 42%)` — a projekt `nf-primary` token) színnel, és alkalmazása az összes value-prop kártya blokkra (italmárkák, rewards-partners, founding partner / accelerator).
+1. **Visszaállítani** az összes value-prop kártyát az eredeti `glass-effect` markup-jára (a `ServiceCard` cseréje miatt több helyen rosszul pozicionálódik a tartalom).
+2. **ServiceCard komponenst eltávolítani** a kódból (használat nélkül).
+3. **Egységes "futó kék fénycsóva" effektust** (`azure-beam`) bevezetni egyetlen CSS utility osztályként, és minden value-prop kártyára rárakni — ez az egyetlen új vizuális elem.
 
-Háttérkép helyett **gradient háttér** (kép nélküli verzió), a jelenlegi rács-arányok megtartásával (nem portré 4/5).
+## 1. Új CSS utility: `.azure-beam` az `src/index.css`-ben
 
-## 1. Design tokenek bővítése
+A `@layer utilities` blokkba (a `.unified-neon-glow:hover` után). Modern conic-gradient + `@property` trükk a kártya keretén futó kék fénycsóváért:
 
-**`tailwind.config.ts`** — `boxShadow` blokkba új azúr glow:
-- `'azure': '0 10px 40px -10px hsl(187 100% 42% / 0.45)'`
-- `'azure-strong': '0 20px 60px -10px hsl(187 100% 42% / 0.6)'`
-- `'elegant': '0 8px 30px -12px hsl(0 0% 0% / 0.6)'`
-
-(Mind HSL alapú, a projekt `nf-primary`-jével harmonizál.)
-
-## 2. Új komponens: `src/components/ui/ServiceCard.tsx`
-
-Egységes, újrahasznosítható kártya az összes value-prop blokkhoz. Props:
-
-```ts
-interface ServiceCardProps {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  index?: number;        // staggered belépőhöz
-  badge?: string;        // opcionális bal felső pasztilla (pl. "01" / "ÚJ")
-  deliverables?: string[]; // opcionális, hover-on lecsúszó lista
+```css
+.azure-beam { position: relative; isolation: isolate; }
+.azure-beam::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--azure-beam-angle, 0deg),
+    transparent 0deg 280deg,
+    hsl(187 100% 60% / 0.9) 320deg,
+    hsl(187 100% 70% / 1) 340deg,
+    hsl(187 100% 60% / 0.9) 360deg,
+    transparent 400deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: azure-beam-spin 4s linear infinite;
+  pointer-events: none;
 }
+@property --azure-beam-angle {
+  syntax: '<angle>'; initial-value: 0deg; inherits: false;
+}
+@keyframes azure-beam-spin { to { --azure-beam-angle: 360deg; } }
 ```
 
-Felépítés (1:1 a specifikáció szerint, csak gold→azúr csere és kép helyett gradient):
+Eredmény: a kártya keretén egy kb. 80°-os fényívű azúr csóva fut körbe folyamatosan, 4 másodperces ciklusban. Nincs hover-trigger, mindig megy.
 
-- **Keret**: `group relative rounded-2xl overflow-hidden border border-white/10 hover:border-nf-primary/60 shadow-elegant hover:shadow-azure transition-all duration-500`
-- **Háttér** (kép helyett): abszolút div, `bg-gradient-to-br from-nf-surface via-nf-surface-alt to-black`, fölötte egy második réteg `bg-[radial-gradient(circle_at_30%_20%,hsl(187_100%_42%/0.18),transparent_60%)]` — `transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110` (lassú zoom a gradient rétegen)
-- **Sötét overlay**: `bg-gradient-to-t from-black/95 via-black/60 to-black/10 group-hover:from-black/98 group-hover:via-black/85 group-hover:to-black/40 transition-all duration-500`
-- **Jobb felső lebegő ikon**: `h-11 w-11 rounded-full bg-nf-primary/95 backdrop-blur-sm shadow-azure group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500` — fekete Lucide ikonnal
-- **Bal felső pasztilla** (ha `badge`): `bg-black/70 backdrop-blur-md border border-nf-primary/30 rounded-full px-3 py-1 text-xs`
-- **Tartalom (alul)**: cím `group-hover:text-nf-primary transition-colors duration-300`, leírás `line-clamp-2 group-hover:line-clamp-none`
-- **Deliverables lista (ha van)**: külső `grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out`, belül `overflow-hidden` div listával
-- **Alsó azúr vonal**: abszolút `h-0.5 bg-gradient-to-r from-transparent via-nf-primary to-transparent scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700`
-- **Belépő animáció**: `motion.div` — `initial={{ opacity: 0, y: 32 }}`, `whileInView={{ opacity: 1, y: 0 }}`, `viewport={{ once: true, margin: '-50px' }}`, `transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}`
+## 2. Visszaállítás — `ServiceCard` cseréje az eredeti markup-ra
 
-**Fontos eltérés a spec-től**: nem `aspect-[4/5]`, hanem `min-h-[280px]` flex-column, hogy beilleszkedjen a megadott rácsokba (megtartjuk a jelenlegi arányokat).
+Minden alábbi helyen visszaírjuk az eredeti `<div className="glass-effect rounded-... ">` blokkot, **+ hozzáadjuk** az `azure-beam` osztályt a kártya gyökerére:
 
-## 3. Bekötés a value-prop blokkokba
-
-Az összes alábbi helyen a meglévő `glass-effect rounded-xl/2xl ...` `<div>`-eket lecseréljük `<ServiceCard ... index={index} />`-re. A rács `grid` és `gap` osztályok maradnak változatlanul.
-
-| Fájl | Sor (kb.) | Szekció |
+| Fájl | Sorok | Mit állítunk vissza |
 |---|---|---|
-| `src/pages/ComeGetItAccelerator.tsx` | 156–180 | "Hogyan működik?" 5 kártya |
-| `src/pages/ComeGetItAccelerator.tsx` | 194–202 | "Miért válassz minket?" 4 kártya |
-| `src/pages/Italmarkak.tsx` | 128–153 | Brands "How it works" 4 kártya |
-| `src/pages/Italmarkak.tsx` | 166–174 | Brands "Features" 4 kártya |
-| `src/pages/Italmarkak.tsx` | 187–195 | Brands "Target audience" 3 kártya |
-| `src/pages/Italmarkak.tsx` | 202–214 | Brands value-props 4 kártya |
-| `src/pages/RewardsPartners.tsx` | 181–206 | Rewards "How it works" 4 kártya |
-| `src/pages/RewardsPartners.tsx` | 219–231 | Rewards "Features" 2 kártya |
-| `src/pages/RewardsPartners.tsx` | 242–254 | Rewards "A jutalom-partnerség előnyei" 4 kártya |
-| `src/components/VenueWhyWorth.tsx` | 47–66 | Vendéglátók "Miért éri meg?" 6 kártya |
+| `src/components/VenueWhyWorth.tsx` | 48–58 | `nf-card p-6 md:p-7` 6 kártya |
+| `src/pages/Italmarkak.tsx` | 128–139 | "How it works" 4 kártya (number + icon + title + desc) |
+| `src/pages/Italmarkak.tsx` | 154–164 | "Features" 4 kártya |
+| `src/pages/Italmarkak.tsx` | 177–187 | "Target audience" 3 kártya |
+| `src/pages/Italmarkak.tsx` | 194–204 | Value-props 4 kártya |
+| `src/pages/RewardsPartners.tsx` | 181–192 | "How it works" 4 kártya |
+| `src/pages/RewardsPartners.tsx` | 219–229 | "Features" 2 kártya |
+| `src/pages/RewardsPartners.tsx` | 242–252 | "A jutalom-partnerség előnyei" 4 kártya |
+| `src/pages/ComeGetItAccelerator.tsx` | 156–167 | "Hogyan működik?" 5 kártya (eredeti `glass-effect` markup `step.number`-rel) |
+| `src/pages/ComeGetItAccelerator.tsx` | 189–197 | "Miért válassz minket?" 4 kártya |
 
-Ahol `step.number` van (How it works blokkok), a `badge` propon adjuk át. Ahol nincs, a `badge` kimarad.
+Minden visszaállított kártya className-je így alakul (példa):
+```tsx
+className="azure-beam glass-effect rounded-xl p-6 text-center group hover:scale-105 transition-all duration-300"
+```
 
-## 4. Mit NEM piszkálunk
+A `ServiceCard` import sorokat töröljük a 4 fájlból (`Italmarkak.tsx`, `RewardsPartners.tsx`, `ComeGetItAccelerator.tsx`, `VenueWhyWorth.tsx`).
 
-- A szekciók címsorait, padding-jét, háttérszínét és `grid` osztályait nem módosítjuk.
-- A `framer-motion` már installálva van a projektben, új csomag nem kell.
-- `index.css`-ben nincs új token — csak a `tailwind.config.ts` `boxShadow` bővül.
-- I18n kulcsok és tartalmak változatlanok.
+## 3. Takarítás
+
+- `src/components/ui/ServiceCard.tsx` fájl törlése (már nincs használatban).
+- `tailwind.config.ts` `boxShadow` blokkban a múltkor hozzáadott `azure`, `azure-strong`, `elegant` tokenek **maradnak** (ártalmatlanok, később jól jöhetnek), nem piszkáljuk.
+- `framer-motion` csomag bent marad (a projekt máshol is használja a Memory szerint).
 
 ## Tech megjegyzés
 
-A "titkos szósz" három eleme megmarad: `cubic-bezier(0.22, 1, 0.36, 1)` easing, `grid-rows-[0fr] → [1fr]` reveal trükk, és 6 párhuzamos hover-átmenet (300/500/500/500/700/1400ms). Színváltás: `gold` → `nf-primary` (`#00bcd4` / `hsl(187 100% 42%)`), `shadow-gold` → `shadow-azure`.
+- A `conic-gradient` + `@property` + `mask-composite: exclude` kombináció modern böngészőkben (Chrome 105+, Safari 16.4+, Firefox 128+) hardware-gyorsított, JS nélkül animálódik.
+- Mivel a `.azure-beam::before` `inset: -1px` és `mask`-kal csak a keretet rajzolja, **nem fed le tartalmat**, és nem kell `overflow:hidden` — a meglévő `glass-effect` belső padding/igazítás érintetlen marad, a tartalom pozicionálási problémák megszűnnek.
+- A keret `rounded-xl` / `rounded-2xl` automatikusan öröklődik a `border-radius: inherit` miatt.

@@ -198,6 +198,43 @@
       0 0 75px rgba(0, 188, 212, 0.2);
   }
 
+  /* Azure Beam — animated blue light running around the card border */
+  @property --azure-beam-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes azure-beam-spin {
+    to { --azure-beam-angle: 360deg; }
+  }
+  .azure-beam {
+    position: relative;
+    isolation: isolate;
+  }
+  .azure-beam::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--azure-beam-angle, 0deg),
+      transparent 0deg,
+      transparent 280deg,
+      hsl(187 100% 60% / 0.9) 320deg,
+      hsl(187 100% 75% / 1) 340deg,
+      hsl(187 100% 60% / 0.9) 360deg,
+      transparent 400deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: azure-beam-spin 4s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
   .neon-glow-electric {
     box-shadow: 
       0 0 10px rgba(0, 188, 212, 0.3),
