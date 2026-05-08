@@ -5,7 +5,7 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Target, BarChart, Heart, Zap, MessageCircle, Rocket, FileSignature, UserCog, Gift } from 'lucide-react';
+import { ArrowRight, MessageCircle, Rocket, FileSignature, UserCog, Gift, Award, Wallet, Megaphone, Handshake } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
@@ -68,10 +68,10 @@ const ComeGetItAccelerator = () => {
   ];
 
   const benefits = [
-    { icon: Zap, title: t('accelerator_page.why_us.items.1.title'), description: t('accelerator_page.why_us.items.1.description') },
-    { icon: Target, title: t('accelerator_page.why_us.items.2.title'), description: t('accelerator_page.why_us.items.2.description') },
-    { icon: BarChart, title: t('accelerator_page.why_us.items.3.title'), description: t('accelerator_page.why_us.items.3.description') },
-    { icon: Heart, title: t('accelerator_page.why_us.items.4.title'), description: t('accelerator_page.why_us.items.4.description') }
+    { icon: Award, title: "EXKLUZÍV STÁTUSZ", description: "Founding Partner badge örökre az appban — örök megkülönböztetés a később csatlakozóktól." },
+    { icon: Wallet, title: "NULLA RIZIKÓ", description: "6 hónap teljesen jutalékmentes. Nincs setup-fee, nincs hosszú szerződés, bármikor kiléphetsz." },
+    { icon: Megaphone, title: "KÖZÖS LAUNCH-PR", description: "Sajtómegjelenés, social media kampány, dedikált tartalom — közösen erősítjük az indulást." },
+    { icon: Handshake, title: "LIFETIME ELŐNYÖK", description: "Alacsonyabb jutalék-sáv örökre, korai hozzáférés a brand-kampányokhoz, prioritás minden új feature-nél." }
   ];
 
   return (
@@ -187,7 +187,7 @@ const ComeGetItAccelerator = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
-              {t('accelerator_page.why_us.title')}
+              Miért válassz minket?
             </SectionTitle>
           </div>
           
