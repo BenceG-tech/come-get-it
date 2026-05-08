@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { ArrowRight, MessageCircle, Rocket, FileSignature, UserCog, Gift, Award, Wallet, Megaphone, Handshake } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { ServiceCard } from '@/components/ui/ServiceCard';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
@@ -154,30 +155,14 @@ const ComeGetItAccelerator = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
             {howItWorksSteps.map((step, index) => (
-              <div 
-                key={index} 
-                className="glass-effect rounded-2xl p-6 md:p-8 text-center group hover:scale-105 hover:shadow-lg hover:shadow-electric-300/20 transition-all duration-300 flex flex-col items-center justify-between h-full"
-              >
-                <div className="flex flex-col items-center flex-grow">
-                  <div className="text-3xl md:text-4xl font-black text-electric-300 mb-4">
-                    {step.number}
-                  </div>
-                  
-                  <div className="flex justify-center mb-4">
-                    <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
-                      <step.icon className="w-7 h-7 md:w-8 md:h-8 text-electric-300 group-hover:text-white transition-colors duration-300" />
-                    </div>
-                  </div>
-                  
-                  <h4 className="text-sm md:text-lg font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300 text-center break-words [hyphens:auto] [text-wrap:balance]">
-                    {step.title}
-                  </h4>
-                </div>
-                
-                <p className="text-xs md:text-base text-electric-100 leading-tight text-center break-words [hyphens:auto] [text-wrap:balance] mt-auto">
-                  {step.description}
-                </p>
-              </div>
+              <ServiceCard
+                key={index}
+                icon={step.icon}
+                title={step.title}
+                description={step.description}
+                badge={step.number}
+                index={index}
+              />
             ))}
           </div>
         </div>
@@ -193,11 +178,13 @@ const ComeGetItAccelerator = () => {
           
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {benefits.map((benefit, index) => (
-              <div key={index} className="glass-effect rounded-2xl p-8 text-center group hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-electric-300/20">
-                <benefit.icon className="w-16 h-16 mx-auto mb-6 text-electric-300 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                <h4 className="text-xl font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300">{benefit.title}</h4>
-                <p className="text-base text-electric-100">{benefit.description}</p>
-              </div>
+              <ServiceCard
+                key={index}
+                icon={benefit.icon}
+                title={benefit.title}
+                description={benefit.description}
+                index={index}
+              />
             ))}
           </div>
         </div>
