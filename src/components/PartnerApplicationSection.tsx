@@ -218,7 +218,7 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
           )}
 
         {/* Form */}
-        <Card className="bg-nf-surface border border-nf-border rounded-2xl">
+        <Card className="bg-white/[0.03] backdrop-blur-md border border-nf-primary/20 rounded-2xl">
           <CardHeader>
             <CardTitle className="text-white text-center text-xl">{t('partner_app.form.title')}</CardTitle>
           </CardHeader>
@@ -305,8 +305,10 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
               <div className="flex justify-center pt-4">
                 <Button
                   type="submit"
+                  variant="neon"
+                  size="lg"
                   disabled={isLoading}
-                  className="brand-gradient-cta hover:shadow-2xl text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 neon-glow-brand disabled:opacity-50"
+                  className="py-4 px-8 text-base disabled:opacity-50"
                 >
                   {isLoading ? (
                     <>
