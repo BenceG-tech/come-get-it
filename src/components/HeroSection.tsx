@@ -26,20 +26,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           src={budapestNight}
           alt=""
           aria-hidden="true"
-          className="w-full h-full object-cover opacity-75"
+          className="w-full h-full object-cover opacity-85"
           width={1920}
           height={1080}
         />
-        {/* Left readability shield */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03060d]/95 via-[#03060d]/70 to-transparent" />
-        {/* Bottom vignette */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#03060d]" />
+        {/* Left readability shield (only over text side) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#03060d]/95 from-0% via-[#03060d]/55 via-35% to-transparent to-60%" />
+        {/* Soft bottom vignette */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#03060d]/85" />
         {/* Right-side cyan glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 55% 60% at 72% 50%, rgba(0,188,212,0.28) 0%, rgba(0,151,167,0.12) 45%, transparent 75%)',
+              'radial-gradient(ellipse 65% 70% at 70% 55%, rgba(0,188,212,0.30) 0%, rgba(0,151,167,0.12) 45%, transparent 78%)',
           }}
         />
       </div>
