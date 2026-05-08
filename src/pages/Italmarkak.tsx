@@ -222,7 +222,7 @@ const Italmarkak = () => {
             <h2 className={sectionTitle}>{t('brands_page.target.title')}</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-5 max-w-3xl mx-auto">
             {targetAudience.map((audience, index) => (
               <div key={index} className={cardCls}>
                 <div className={chipCls}>
@@ -239,13 +239,16 @@ const Italmarkak = () => {
       {/* Value Props */}
       <section className="py-12 px-4 bg-nf-background">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {valueProps.map((item, index) => (
-              <div key={index} className={cardCls}>
-                <div className={chipCls}>
-                  <item.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
+              <div
+                key={index}
+                className="group relative h-full flex flex-col items-center text-center p-4 rounded-xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:border-nf-primary/60 hover:shadow-[0_15px_45px_-10px_rgba(0,188,212,0.4)]"
+              >
+                <div className="mb-3 flex items-center justify-center w-12 h-12 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] group-hover:border-nf-primary group-hover:shadow-[0_0_25px_rgba(0,188,212,0.5)] transition-all duration-500">
+                  <item.icon className="w-5 h-5 text-nf-primary" strokeWidth={1.5} />
                 </div>
-                <div className="text-sm font-bold text-white mb-2 uppercase tracking-wider group-hover:text-nf-primary transition-colors">{item.title}</div>
+                <div className="text-xs md:text-sm font-bold text-nf-primary mb-1.5 uppercase tracking-wider">{item.title}</div>
                 <p className="text-xs text-white/60 leading-relaxed">{item.description}</p>
               </div>
             ))}
@@ -253,26 +256,66 @@ const Italmarkak = () => {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-16 px-4 bg-nf-background text-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-anton uppercase leading-[0.9] tracking-tight">
-            <span className="block text-white">{t('brands_page.final_cta.title_line1')}</span>
-            <span className="block text-nf-primary mt-2 drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">{t('brands_page.final_cta.title_line2')}</span>
-          </h2>
-          <p className="text-base md:text-lg text-white/70 mb-8 mt-6">
-            {t('brands_page.final_cta.subtitle')}
-          </p>
+      {/* Final CTA — wide cinematic glass banner */}
+      <section className="py-16 px-4 bg-nf-background">
+        <div className="max-w-6xl mx-auto">
+          <div className="relative overflow-hidden rounded-3xl border border-nf-primary/30 bg-white/[0.03] backdrop-blur-md p-8 md:p-12 lg:p-14 shadow-[0_30px_120px_-30px_rgba(0,188,212,0.45)]">
+            {/* Cyan mesh wave decoration on left */}
+            <div
+              aria-hidden="true"
+              className="absolute left-0 top-0 bottom-0 w-1/2 pointer-events-none opacity-40"
+              style={{
+                WebkitMaskImage: 'linear-gradient(to right, black, transparent)',
+                maskImage: 'linear-gradient(to right, black, transparent)',
+              }}
+            >
+              <svg className="w-full h-full" viewBox="0 0 400 400" preserveAspectRatio="none" fill="none">
+                <path d="M0 80 Q100 40 200 90 T400 70" stroke="hsl(var(--nf-primary))" strokeWidth="1" opacity="0.6" />
+                <path d="M0 160 Q100 110 200 170 T400 150" stroke="hsl(var(--nf-primary))" strokeWidth="1" opacity="0.5" />
+                <path d="M0 240 Q100 200 200 250 T400 230" stroke="hsl(var(--nf-primary))" strokeWidth="1" opacity="0.4" />
+                <path d="M0 320 Q100 280 200 330 T400 310" stroke="hsl(var(--nf-primary))" strokeWidth="1" opacity="0.35" />
+              </svg>
+            </div>
+            {/* Blurred bar atmosphere on right */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-y-0 right-0 w-1/2 pointer-events-none opacity-25"
+              style={{
+                backgroundImage: `url(${budapestNightHero})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                filter: 'blur(2px)',
+                WebkitMaskImage: 'linear-gradient(to left, black, transparent)',
+                maskImage: 'linear-gradient(to left, black, transparent)',
+              }}
+            />
+            {/* Cyan glow */}
+            <div
+              aria-hidden="true"
+              className="absolute -top-20 left-1/4 w-72 h-72 rounded-full bg-nf-primary/15 blur-3xl pointer-events-none"
+            />
 
-          <Button
-            variant="neon"
-            size="lg"
-            className="py-4 px-10 text-lg"
-            onClick={() => {
-              analytics.ctaClick('brand_final_cta', 'KAPCSOLATFELVÉTEL');
-              const el = document.getElementById('brand-application');
-              if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8 text-center md:text-left">
+              <div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase leading-[0.95] tracking-tight">
+                  <span className="block text-white">{t('brands_page.final_cta.title_line1')}</span>
+                  <span className="block text-nf-primary mt-1 drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">{t('brands_page.final_cta.title_line2')}</span>
+                </h2>
+                <p className="text-base md:text-lg text-white/70 mt-4 max-w-xl">
+                  {t('brands_page.final_cta.subtitle')}
+                </p>
+              </div>
+
+              <div className="shrink-0 flex justify-center md:justify-end">
+                <Button
+                  variant="neon"
+                  size="lg"
+                  className="py-4 px-8 text-base md:text-lg shadow-[0_0_35px_rgba(0,188,212,0.5)]"
+                  onClick={() => {
+                    analytics.ctaClick('brand_final_cta', 'KAPCSOLATFELVÉTEL');
+                    const el = document.getElementById('brand-application');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
               } else {
                 window.dispatchEvent(new Event('open-support'));
               }
