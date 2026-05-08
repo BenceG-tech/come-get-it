@@ -196,17 +196,19 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="flex justify-center mb-4">
-            <div className="flex items-center space-x-2">
-              <Building2 className="w-8 h-8 text-nf-primary" />
-              <Handshake className="w-8 h-8 text-nf-primary" />
+          <div className="flex justify-center mb-4 gap-3">
+            <div className="w-12 h-12 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] flex items-center justify-center">
+              <Building2 className="w-5 h-5 text-nf-primary" strokeWidth={1.5} />
+            </div>
+            <div className="w-12 h-12 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] flex items-center justify-center">
+              <Handshake className="w-5 h-5 text-nf-primary" strokeWidth={1.5} />
             </div>
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight mb-4">
             {labels.heading}
           </h2>
-          <p className="text-lg text-white mb-2">{labels.sub1}</p>
-          <p className="text-electric-100 max-w-2xl mx-auto">{labels.sub2}</p>
+          <p className="text-lg text-white/85 mb-2">{labels.sub1}</p>
+          <p className="text-white/60 max-w-2xl mx-auto">{labels.sub2}</p>
         </div>
 
           {!isSupabaseConfigured() && (
