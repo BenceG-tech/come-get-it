@@ -1,74 +1,58 @@
-## Vizuális redesign — Főoldal felső szakasz + Come Get It logó
+## Visual redesign — homepage middle flow
 
-A feltöltött `Transparent_1_copy.png` (átlátszó "Come Get It" script logó) lesz az új márka-vizuál a headerben, footerben, és minden helyen, ahol jelenleg a "Come Get It" szövegmárka jelenik meg. A főoldal felső szekciói átkapnak egy filmes, sötétkék/fekete + cyan glow look-ot a referenciakép alapján. **Tartalom, sorrend, linkek, formok, fordítások, analytics, SEO változatlan.**
+Scope (visual + responsive only, no copy/route/SEO/analytics changes):
+1. Benefit icon row under hero (`QuickAccessChips.tsx`)
+2. `MibenSegitSection.tsx`
+3. `HowItWorks.tsx` — "Válassz. Menj el. Igyál. Adj vissza."
+4. `DrinkSection.tsx` — start/hero of Drink
 
-### 1. Logó-eszköz
+Global aesthetic: dark navy/black, cyan accents (`text-nf-primary`, `border-nf-primary/20–60`), glassmorphism (`bg-white/[0.03] backdrop-blur-md`), thin cyan borders, soft radial cyan glows, condensed uppercase titles (`font-anton`), muted body (`text-white/60`). No yellow, no new copy.
 
-- `user-uploads://Transparent_1_copy.png` → `src/assets/come-get-it-logo.png`
-- Új komponens: `src/components/ui/Logo.tsx` — `<img src=... alt="Come Get It" className="h-8 md:h-10 w-auto" />`
-- Behelyettesítve:
-  - `Navigation.tsx` (a `t('nav.brand')` szövegmárka helyett, link megmarad `/`-ra)
-  - `MobileNavigation.tsx` (ua.)
-  - `Footer.tsx` (a "Come Get It" h3 helyett)
-- Más oldalakon (Vendéglatohelyek, Italmarkak stb.) a Navigation komponensen keresztül automatikusan érvényesül.
+---
 
-### 2. Hero (`HeroSection.tsx`)
+### 1. Benefit icon row (`QuickAccessChips.tsx`)
+Currently mobile-only. Promote to a unified row directly under hero on all breakpoints.
+- Remove `lg:hidden`; render on desktop too.
+- Desktop: single horizontal row, centered, max-w container, items separated by thin `border-l border-nf-primary/15` dividers (skip first).
+- Each item: cyan line icon (`strokeWidth={1.5}`, `text-nf-primary`) + label, no pill background, hover → `text-nf-primary` + soft glow.
+- Mobile: 2x2 grid (`grid-cols-2 gap-3`), glass tile per item, icon centered above label.
+- Top/bottom spacing: `py-8 md:py-10`, sits flush against hero bottom.
 
-- Háttér: filmes Budapest éjszaka kép (`/lovable-uploads/...` meglévő városkép, ha van — különben generálok egyet `src/assets/budapest-night-hero.jpg` néven), sötét navy overlay (`bg-[#050b18]/80` + radial cyan glow).
-- Headline 2. sora cyan: `text-nf-primary` a `title_line2` spanre.
-- Bal oldal: badge + headline + subtitle + social proof + CTA-k — **szöveg változatlan**, csak tipográfia/spacing.
-- Jobb oldal: PhoneMockup nagyobb (`scale-110`), mellette/mögötte cyan glow. **Nem teszek rá szövegdobozt.** A jelenlegi `appImages` marad (a PhoneMockup belül a screenshotot mutatja); ital-vizuált nem rakok mellé, mert új asset-generálás külön kérdés — a meglévő telefonos mockup marad, csak premium glow-val.
-- Eltávolítom a régi `hero-shape-1/2` absztrakt formákat — helyette a városi háttér + cyan radial glow-k.
+### 2. `MibenSegitSection.tsx`
+Already glass cards — refine for premium look.
+- Desktop: keep 4-in-a-row, enforce equal height (`h-full` already there) and consistent padding `p-7`.
+- Circular icon container upgraded: `w-16 h-16 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06]`, hover → `border-nf-primary` + cyan ring glow.
+- Mobile: `grid-cols-2` (already), tighten gap to `gap-3`, ensure descriptions don't overflow (`text-xs` on smallest, `text-sm md:text-base`).
+- Add subtle ambient cyan radial glow at top (already present, keep).
 
-### 3. Hero alatti benefit ikonok
+### 3. `HowItWorks.tsx`
+- Desktop (lg+): keep 4-card row + dotted cyan connector line behind icon centers (already exists, refine to align with new icon size and stop at edges).
+- Numbered cyan badge on each card top-right of icon (already present).
+- Mobile: switch from grid to **vertical timeline**:
+  - Layout: flex column, each step = `flex gap-4` row.
+  - Left column: numbered cyan badge `w-9 h-9 rounded-full bg-nf-primary text-black` + vertical `border-l border-dashed border-nf-primary/30` continuing down to next badge (last item: no line).
+  - Right column: full-width glass card containing icon + title + description.
+- Use `lg:hidden` for timeline + `hidden lg:grid` for current desktop grid.
 
-- Jelenleg ezek a `MibenSegitSection` előtt nincsenek külön — a referenciaképen 4 kis ikon (Napi 1 ingyen ital / Pontok & Jutalmak / Adj vissza / Budapesten). **Ezek a sávban már léteznek mint `MibenSegitSection` kártyák** vagy `QuickAccessChips` — ellenőrzöm; ha nincsenek, NEM adok hozzá újat (mert a user szabály: ne változtassunk tartalmat / sorrendet). Csak a meglévő elemeket stilizálom át.
+### 4. `DrinkSection.tsx`
+Already split layout with cyan glow — polish and improve mobile.
+- Desktop: keep 2-col grid; widen `gap-20`, tighten title leading, ensure phone glow behind phone (radial cyan, blur 40px).
+- Add subtle `bg-gradient-to-br from-[#040a14] via-nf-background to-[#040a14]` and a faint cyan vignette top-right.
+- Mobile: title/subtitle/paragraph/CTA first, then phone below; CTA full-width (`w-full sm:w-auto`); reduce phone scale on small screens so section isn't too tall (`scale-90 sm:scale-100`).
 
-### 4. `MibenSegitSection`
+---
 
-- Glassmorphism: `bg-white/[0.03] backdrop-blur-md border border-nf-primary/20`.
-- Ikon: kör (`rounded-full`) cyan vonalas keret, ikon `text-nf-primary` `stroke-[1.5]` (line style), nem gradiens fill.
-- Hover: `border-nf-primary/60`, soft cyan box-shadow glow.
-- Egységes magasság: `h-full flex flex-col`.
+### Files to edit
+- `src/components/QuickAccessChips.tsx`
+- `src/components/MibenSegitSection.tsx`
+- `src/components/HowItWorks.tsx`
+- `src/components/DrinkSection.tsx`
 
-### 5. `HowItWorks` ("Válassz. Menj el. Igyál. Adj vissza.")
+### Out of scope (explicitly untouched)
+- All `t(...)` keys, translations, copy
+- `Index.tsx` section order
+- Routes, links, SEO, prerender, analytics calls
+- Other sections (Earn, Give, Pricing, etc.)
 
-- 4 vízszintes glass-step kártya desktopon (változatlan: `lg:grid-cols-4`).
-- Kis cyan számbadge (már van), kör line ikon (már van) — finomítva: glassmorphism BG, vékonyabb cyan border.
-- Desktop: szaggatott cyan connector vonal a kártyák között (pseudo-element vagy közbenső `<div>`-ekkel a gridben — abszolút pozíciójú szaggatott `border-t border-dashed border-nf-primary/30`, csak `lg:` breakpointon).
-- Mobil: 1 oszlop / 2x2 stack.
-
-### 6. `DrinkSection` (első Drink blokk)
-
-- Split layout megmarad. Bal oldal tipográfia premiumosítása (`font-anton`, nagyobb tracking).
-- Jobb oldal phone mockup soft cyan glow-val (a meglévő `PhoneMockup` glow-ja már OK, finomhangolás).
-- Subtle dark gradient bg: `bg-gradient-to-b from-nf-background via-[#050b18] to-nf-background`.
-- **Szöveg, CTA változatlan.**
-
-### 7. Globális finomságok (`index.css`)
-
-- Új utility: `.cyan-glow-soft { box-shadow: 0 0 60px -10px hsl(187 100% 42% / 0.35); }`
-- Esetleges szaggatott vonal segéd: `.dotted-cyan-line { border-top: 1px dashed hsl(187 100% 42% / 0.3); }`
-
-### Érintett fájlok
-
-```
-src/assets/come-get-it-logo.png           (új — feltöltésből másolva)
-src/components/ui/Logo.tsx                 (új)
-src/components/Navigation.tsx              (logó csere)
-src/components/MobileNavigation.tsx        (logó csere)
-src/components/Footer.tsx                  (logó csere)
-src/components/HeroSection.tsx             (vizuál: háttér, glow, 2. sor cyan, phone scale)
-src/components/MibenSegitSection.tsx       (glass kártyák, line ikonok)
-src/components/HowItWorks.tsx              (glass + dotted connector)
-src/components/DrinkSection.tsx            (premium split, glow, gradient bg)
-src/index.css                              (új cyan glow utility-k)
-```
-
-### Amit NEM változtatok
-
-- Egy szó copy / fordítás sem.
-- Sorrend, route-ok, formok, gombok funkciója, analytics eventek, SEO meta-k.
-- Más oldalak (Vendéglatohelyek, Italmarkak stb.) layoutja — csak a logó frissül a megosztott Navigation/Footer-en keresztül.
-
-Jóváhagyás után megépítem.
+### Verification
+After edits: visual check at 375px (mobile), 768px (tablet), 1339px (current viewport), 1440px+ — confirm no overflow, equal card heights, timeline alignment on mobile, phone glow rendering on Drink.
