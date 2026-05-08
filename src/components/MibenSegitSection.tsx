@@ -13,10 +13,19 @@ export const MibenSegitSection: React.FC = () => {
   ];
 
   return (
-    <section id="miben-segit" className="py-16 px-4 bg-nf-background">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight">
+    <section id="miben-segit" className="py-20 px-4 bg-nf-background relative overflow-hidden">
+      {/* subtle cyan ambient glow */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none opacity-60"
+        style={{
+          background:
+            'radial-gradient(ellipse 50% 40% at 50% 0%, rgba(0,188,212,0.08) 0%, transparent 70%)',
+        }}
+      />
+      <div className="max-w-6xl mx-auto relative">
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight">
             {t('miben_segit.title')}
           </h2>
         </div>
@@ -25,17 +34,15 @@ export const MibenSegitSection: React.FC = () => {
           {cards.map((card, idx) => (
             <div
               key={idx}
-              className="nf-card p-5 md:p-6 text-center hover:-translate-y-1 hover:border-nf-primary transition-all duration-300 group"
+              className="group relative h-full flex flex-col items-center text-center p-6 md:p-7 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]"
             >
-              <div className="flex justify-center mb-4">
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-nf-primary to-nf-secondary flex items-center justify-center shadow-neon">
-                  <card.icon className="w-6 h-6 md:w-7 md:h-7 text-white" />
-                </div>
+              <div className="mb-5 flex items-center justify-center w-16 h-16 md:w-18 md:h-18 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] group-hover:border-nf-primary group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500">
+                <card.icon className="w-7 h-7 md:w-8 md:h-8 text-nf-primary" strokeWidth={1.5} />
               </div>
               <h3 className="text-base md:text-lg font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">
                 {t(card.titleKey)}
               </h3>
-              <p className="text-sm text-nf-text-muted leading-relaxed">
+              <p className="text-sm text-white/60 leading-relaxed">
                 {t(card.descKey)}
               </p>
             </div>
