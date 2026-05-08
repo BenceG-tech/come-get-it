@@ -113,19 +113,29 @@ const Italmarkak = () => {
             </div>
 
             {/* Phone + cocktail composition */}
-            <div className="relative flex justify-center items-center min-h-[520px] lg:min-h-[600px]">
-              {/* Cyan radial glow base */}
+            <div className="relative flex justify-center items-center min-h-[480px] lg:min-h-[640px]">
+              {/* Dark shadow halo */}
               <div
                 aria-hidden="true"
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
-                    'radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,188,212,0.32) 0%, rgba(0,188,212,0.12) 45%, transparent 75%)',
-                  filter: 'blur(30px)',
+                    'radial-gradient(ellipse 55% 60% at 50% 55%, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.45) 35%, transparent 70%)',
+                  filter: 'blur(40px)',
+                }}
+              />
+              {/* Stronger cyan glow */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(ellipse 55% 55% at 50% 50%, rgba(0,188,212,0.55) 0%, rgba(0,188,212,0.22) 45%, transparent 75%)',
+                  filter: 'blur(28px)',
                 }}
               />
               {/* Phone */}
-              <div className="relative z-10 lg:scale-[1.15] xl:scale-[1.2] origin-center drop-shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
+              <div className="relative z-10 lg:scale-[1.22] xl:scale-[1.32] origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
                 <PhoneMockup imageUrl={brandImage} />
               </div>
               {/* Cocktail (desktop+) */}
@@ -135,7 +145,7 @@ const Italmarkak = () => {
                   className="absolute inset-0 blur-2xl"
                   style={{
                     background:
-                      'radial-gradient(ellipse 70% 70% at 50% 60%, rgba(0,188,212,0.45) 0%, rgba(0,188,212,0.15) 50%, transparent 80%)',
+                      'radial-gradient(ellipse 70% 70% at 50% 60%, rgba(0,188,212,0.30) 0%, rgba(0,188,212,0.10) 50%, transparent 80%)',
                   }}
                 />
                 <img
