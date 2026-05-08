@@ -37,17 +37,19 @@ export const VenueHeroSection: React.FC = () => {
         </div>
         <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-[#03060d] via-[#03060d]/85 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-[#03060d] via-[#03060d]/85 to-transparent" />
+        {/* Left-side dark overlay for text readability */}
+        <div className="hidden lg:block absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-[#03060d] via-[#03060d]/85 to-transparent" />
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 55% 40% at 75% 50%, rgba(0,188,212,0.20) 0%, transparent 65%), radial-gradient(ellipse 45% 35% at 20% 55%, rgba(0,151,167,0.10) 0%, transparent 65%)',
+              'radial-gradient(ellipse 55% 45% at 72% 50%, rgba(0,188,212,0.26) 0%, transparent 65%), radial-gradient(ellipse 45% 35% at 20% 55%, rgba(0,151,167,0.10) 0%, transparent 65%)',
           }}
         />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-12 items-center">
           <div className="text-center lg:text-left">
             <div className="mb-5 flex justify-center lg:justify-start">
               <span className="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold tracking-wide border border-nf-primary/40 bg-nf-primary/10 text-nf-primary">
@@ -102,7 +104,7 @@ export const VenueHeroSection: React.FC = () => {
                 filter: 'blur(30px)',
               }}
             />
-            <div className="relative z-10">
+            <div className="relative z-10 lg:scale-[1.18] xl:scale-125 origin-center drop-shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
               <PhoneMockup imageUrl={venueDetailImage} />
             </div>
           </div>

@@ -25,13 +25,16 @@ export const VenueROI: React.FC = () => {
               Egy átlagos Come Get It partner havonta:
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-4 mb-10">
               {stats.map((s, idx) => (
-                <div key={idx} className="text-center">
-                  <div className="text-3xl md:text-5xl font-anton text-nf-primary tracking-tight mb-2 [text-shadow:0_0_25px_rgba(0,188,212,0.5)]">
+                <div
+                  key={idx}
+                  className={`text-center px-2 ${idx > 0 ? 'lg:border-l lg:border-nf-primary/15' : ''}`}
+                >
+                  <div className="text-3xl md:text-4xl lg:text-5xl font-anton text-nf-primary tracking-tight mb-2 [text-shadow:0_0_25px_rgba(0,188,212,0.5)]">
                     {s.value}
                   </div>
-                  <div className="text-sm md:text-base text-white/60">
+                  <div className="text-xs md:text-sm text-white/60 leading-snug">
                     {s.label}
                   </div>
                 </div>
@@ -42,8 +45,8 @@ export const VenueROI: React.FC = () => {
               <div className="text-xs md:text-sm uppercase tracking-[0.25em] text-white/55 mb-3">
                 Tiszta extra haszon
               </div>
-              <div className="text-4xl md:text-6xl lg:text-7xl font-anton text-nf-primary tracking-tight [text-shadow:0_0_35px_rgba(0,188,212,0.6)]">
-                ~475 000 Ft <span className="text-2xl md:text-3xl text-white/80">/ hó</span>
+              <div className="text-5xl md:text-7xl lg:text-8xl font-anton text-nf-primary tracking-tight [text-shadow:0_0_45px_rgba(0,188,212,0.65)]">
+                ~475 000 Ft <span className="text-2xl md:text-3xl text-white/80 font-anton">/ hó</span>
               </div>
             </div>
           </div>
