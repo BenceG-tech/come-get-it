@@ -5,7 +5,7 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { ArrowRight, Target, BarChart, Heart, Zap, MessageCircle, Rocket, Wine, NotebookPen } from 'lucide-react';
+import { ArrowRight, Target, BarChart, Heart, Zap, MessageCircle, Rocket, FileSignature, UserCog, Gift } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
@@ -60,10 +60,11 @@ const ComeGetItAccelerator = () => {
   }, []);
 
   const howItWorksSteps = [
-    { number: "1", title: t('accelerator_page.how_it_works.steps.1.title'), description: t('accelerator_page.how_it_works.steps.1.description'), icon: NotebookPen },
-    { number: "2", title: t('accelerator_page.how_it_works.steps.2.title'), description: t('accelerator_page.how_it_works.steps.2.description'), icon: Wine },
-    { number: "3", title: t('accelerator_page.how_it_works.steps.3.title'), description: t('accelerator_page.how_it_works.steps.3.description'), icon: MessageCircle },
-    { number: "4", title: t('accelerator_page.how_it_works.steps.4.title'), description: t('accelerator_page.how_it_works.steps.4.description'), icon: Rocket }
+    { number: "1", title: "Beszélgetünk", description: "Online vagy személyesen találkozunk. Megmutatjuk az appot és válaszolunk minden kérdésedre.", icon: MessageCircle },
+    { number: "2", title: "Aláírjuk a Letter of Intent-et", description: "Egyszerű szándéknyilatkozat, hogy szeptemberben együtt indulunk.", icon: FileSignature },
+    { number: "3", title: "Beállítjuk a profilodat", description: "Felvesszük az adataidat, ajánlataidat, időablakaidat. Te döntöd el, mit, mikor és kinek.", icon: UserCog },
+    { number: "4", title: "Elindulunk szeptember 1-én", description: "Founding Partner badge-eddel az első naptól megjelensz az appban — közös launch-kampánnyal.", icon: Rocket },
+    { number: "5", title: "Az első 6 hónap jutalékmentes", description: "Pénz csak akkor lép be a képbe, ha mindketten azt látjuk, hogy működik.", icon: Gift }
   ];
 
   const benefits = [
@@ -147,11 +148,11 @@ const ComeGetItAccelerator = () => {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <SectionTitle className="text-4xl md:text-5xl">
-              {t('accelerator_page.how_it_works.title')}
+              Hogyan működik?
             </SectionTitle>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
             {howItWorksSteps.map((step, index) => (
               <div 
                 key={index} 
