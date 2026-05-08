@@ -11,6 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { UserMenu } from '@/components/UserMenu';
 import { Button } from '@/components/ui/button';
+import { Logo } from '@/components/ui/Logo';
 import { useI18n } from '@/hooks/useI18n';
 
 export const Navigation: React.FC = () => {
@@ -43,8 +44,8 @@ export const Navigation: React.FC = () => {
   return (
     <nav className="nf-navbar hidden lg:block">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-anton text-white hover:text-nf-primary transition-colors duration-300">
-          {t('nav.brand')}
+        <Link to="/" aria-label={t('nav.brand')} className="flex items-center transition-opacity duration-300 hover:opacity-80">
+          <Logo />
         </Link>
         <div className="flex space-x-8 items-center">
           <button onClick={() => handleNavClick('drink')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.drink')}</button>
