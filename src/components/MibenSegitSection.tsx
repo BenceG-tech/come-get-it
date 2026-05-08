@@ -30,19 +30,19 @@ export const MibenSegitSection: React.FC = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
           {cards.map((card, idx) => (
             <div
               key={idx}
-              className="group relative h-full flex flex-col items-center text-center p-6 md:p-7 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]"
+              className="group relative h-full flex flex-col items-center text-center p-5 md:p-7 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]"
             >
-              <div className="mb-5 flex items-center justify-center w-16 h-16 md:w-18 md:h-18 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] group-hover:border-nf-primary group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500">
-                <card.icon className="w-7 h-7 md:w-8 md:h-8 text-nf-primary" strokeWidth={1.5} />
+              <div className="mb-5 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] group-hover:border-nf-primary group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500">
+                <card.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
               </div>
-              <h3 className="text-base md:text-lg font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">
+              <h3 className="text-sm md:text-lg font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">
                 {t(card.titleKey)}
               </h3>
-              <p className="text-sm text-white/60 leading-relaxed">
+              <p className="text-xs md:text-sm text-white/60 leading-relaxed">
                 {t(card.descKey)}
               </p>
             </div>
