@@ -142,7 +142,7 @@ export const VenueApplicationSection: React.FC = () => {
   }
 
   const inputCls =
-    'w-full px-3 py-2 rounded-lg bg-[#03070d]/80 border border-nf-primary/25 text-white placeholder:text-white/40 focus:border-nf-primary focus:outline-none focus:ring-2 focus:ring-nf-primary/30 transition-colors duration-200';
+    'w-full px-3 py-2 rounded-lg bg-[#03070d]/80 border border-nf-primary/25 text-white placeholder:text-white/40 hover:border-nf-primary/50 focus:border-nf-primary focus:outline-none focus:ring-2 focus:ring-nf-primary/30 transition-colors duration-200';
 
   return (
     <section id="venue-application" className="py-20 px-4 bg-nf-background relative overflow-hidden">
@@ -177,13 +177,13 @@ export const VenueApplicationSection: React.FC = () => {
           </div>
         )}
 
-        <div className="relative rounded-2xl border border-nf-primary/30 bg-white/[0.03] backdrop-blur-md p-6 md:p-10 shadow-[0_30px_120px_-30px_rgba(0,188,212,0.35)]">
-          <h3 className="text-center text-xl font-bold text-white mb-6">
+        <div className="relative rounded-2xl border border-nf-primary/30 bg-white/[0.03] backdrop-blur-md p-6 md:p-12 shadow-[0_30px_120px_-30px_rgba(0,188,212,0.35)]">
+          <h3 className="text-center text-xl font-bold text-white mb-8">
             {t('venue_app.form.title')}
           </h3>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-white flex items-center">
                   <User className="w-4 h-4 mr-2 text-nf-primary" />
@@ -261,7 +261,7 @@ export const VenueApplicationSection: React.FC = () => {
 
             <div className="flex justify-center pt-4">
               <Button type="submit" variant="neon" disabled={isLoading}
-                className="py-3 px-8 shadow-[0_0_30px_rgba(0,188,212,0.45)]">
+                className="py-3 px-8 w-full sm:w-auto shadow-[0_0_30px_rgba(0,188,212,0.45)]">
                 {isLoading ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black mr-2"></div>
@@ -278,9 +278,11 @@ export const VenueApplicationSection: React.FC = () => {
           </form>
         </div>
 
-        <div className="mt-8 flex items-center justify-center gap-2 text-center px-4">
-          <ShieldCheck className="w-4 h-4 text-nf-primary shrink-0" strokeWidth={1.5} />
-          <p className="text-white/70 text-sm">{t('venue_app.benefits_line')}</p>
+        <div className="mt-8 flex justify-center px-4">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-nf-primary/30 bg-nf-primary/[0.06]">
+            <ShieldCheck className="w-4 h-4 text-nf-primary shrink-0" strokeWidth={1.5} />
+            <p className="text-white/75 text-sm">{t('venue_app.benefits_line')}</p>
+          </span>
         </div>
       </div>
     </section>

@@ -44,11 +44,16 @@ export const HowItWorksForVenues: React.FC = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+        <div className="relative grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+          {/* Desktop connector line */}
+          <div
+            aria-hidden="true"
+            className="hidden lg:block absolute left-[8%] right-[8%] top-[88px] h-px bg-gradient-to-r from-transparent via-nf-primary/40 to-transparent z-0"
+          />
           {steps.map((step, index) => (
             <div
               key={index}
-              className="group relative h-full flex flex-col items-center text-center p-5 md:p-6 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]"
+              className="group relative z-10 h-full flex flex-col items-center text-center p-5 md:p-6 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]"
             >
               <div className="text-2xl font-anton text-nf-primary mb-3">
                 {step.number}
