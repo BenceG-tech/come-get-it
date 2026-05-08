@@ -205,9 +205,13 @@ const RewardsPartners = () => {
             <h2 className={sectionTitle}>{t('rewards_page.how_it_works.title')}</h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+          <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 auto-rows-fr">
+            <div
+              aria-hidden="true"
+              className="hidden md:block absolute left-[10%] right-[10%] top-[88px] h-px bg-gradient-to-r from-transparent via-nf-primary/40 to-transparent z-0"
+            />
             {howItWorksSteps.map((step, index) => (
-              <div key={index} className={cardCls}>
+              <div key={index} className={`${cardCls} z-10`}>
                 <div className="text-2xl font-anton text-nf-primary mb-3">{step.number}</div>
                 <div className={chipCls}>
                   <step.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
@@ -220,23 +224,44 @@ const RewardsPartners = () => {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Features — larger horizontal glass cards */}
       <section className="py-16 px-4 bg-nf-background">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className={sectionTitle}>{t('rewards_page.features.title')}</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {features.map((feature, index) => (
-              <div key={index} className={cardCls}>
-                <div className={chipCls}>
-                  <feature.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
+          <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+            {features.map((feature, index) => {
+              const isLastOdd = features.length % 2 === 1 && index === features.length - 1;
+              return (
+                <div
+                  key={index}
+                  className={`group relative overflow-hidden rounded-2xl border border-nf-primary/30 bg-white/[0.03] backdrop-blur-md p-6 md:p-7 transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_25px_70px_-10px_rgba(0,188,212,0.5)] ${isLastOdd ? 'md:col-span-2 md:max-w-3xl md:mx-auto md:w-full' : ''}`}
+                >
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 pointer-events-none opacity-[0.08]"
+                    style={{
+                      backgroundImage: `url(${budapestNightHero})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      WebkitMaskImage: 'linear-gradient(to left, black, transparent)',
+                      maskImage: 'linear-gradient(to left, black, transparent)',
+                    }}
+                  />
+                  <div className="relative z-10 flex flex-col md:flex-row gap-5 items-center md:items-start text-center md:text-left">
+                    <div className="shrink-0 flex items-center justify-center w-14 h-14 rounded-xl border border-nf-primary/40 bg-nf-primary/[0.08] group-hover:border-nf-primary group-hover:shadow-[0_0_25px_rgba(0,188,212,0.5)] transition-all duration-500">
+                      <feature.icon className="w-6 h-6 text-nf-primary" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <h4 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">{feature.title}</h4>
+                      <p className="text-sm md:text-base text-white/65 leading-relaxed">{feature.description}</p>
+                    </div>
+                  </div>
                 </div>
-                <h4 className="text-lg md:text-xl font-bold text-white mb-3 group-hover:text-nf-primary transition-colors">{feature.title}</h4>
-                <p className="text-sm md:text-base text-white/60 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -246,13 +271,13 @@ const RewardsPartners = () => {
         <div className="max-w-7xl mx-auto text-center">
           <h2 className={`${sectionTitle} mb-10`}>A jutalom-partnerség előnyei</h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 auto-rows-fr">
             {valueProps.map((item, index) => (
               <div key={index} className={cardCls}>
                 <div className={chipCls}>
                   <item.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
                 </div>
-                <h4 className="text-sm font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">{item.title}</h4>
+                <h4 className="text-sm font-bold text-nf-primary mb-2 uppercase tracking-wider">{item.title}</h4>
                 <p className="text-xs text-white/60 leading-snug">{item.description}</p>
               </div>
             ))}
