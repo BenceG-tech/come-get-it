@@ -125,6 +125,9 @@ export default {
 				'neon': '0 0 20px rgba(0, 188, 212, 0.3)',
 				'neon-hover': '0 0 30px rgba(0, 188, 212, 0.4)',
 				'neon-strong': '0 0 40px rgba(0, 188, 212, 0.6)',
+				'azure': '0 10px 40px -10px hsl(187 100% 42% / 0.45)',
+				'azure-strong': '0 20px 60px -10px hsl(187 100% 42% / 0.6)',
+				'elegant': '0 8px 30px -12px hsl(0 0% 0% / 0.6)',
 			},
 			keyframes: {
 				'accordion-down': {
