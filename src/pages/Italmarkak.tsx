@@ -5,10 +5,10 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
+import { HeroBackground, PhoneGlowWrapper } from '@/components/HeroBackground';
 import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket, Target, MapPin, BarChart3 } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
-import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
 
@@ -44,6 +44,10 @@ const Italmarkak = () => {
     { icon: Wine, title: t('brands_page.target.items.3.title'), description: t('brands_page.target.items.3.description') }
   ];
 
+  const cardCls = "group relative h-full flex flex-col items-center text-center p-6 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]";
+  const chipCls = "mb-4 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] group-hover:border-nf-primary group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500";
+  const sectionTitle = "text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight";
+
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
@@ -61,38 +65,31 @@ const Italmarkak = () => {
       />
       <MobileNavigation />
       <Navigation />
-      
-      {/* Hero Section - Standardized */}
-      <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden">
-        {/* Background - unified with main hero */}
-        <div className="hero-abstract-bg">
-          <div className="hero-shape-1"></div>
-          <div className="hero-shape-2"></div>
-          <div className="hero-glow-accent"></div>
-          <div className="hero-glow-secondary"></div>
-        </div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left side - Content */}
-            <div className="text-center lg:text-left">
-              <HeroTitle>
-                <span className="block text-white">{t('brands_page.hero.line1')}</span>
-                <span className="block text-electric-300">{t('brands_page.hero.line2')}</span>
-              </HeroTitle>
-              
-              <HeroSubtitle>
-                {t('brands_page.hero.subtitle')}
-              </HeroSubtitle>
 
-              <div className="mt-4 mb-6 mx-auto lg:mx-0 max-w-xl border-l-2 border-electric-300 bg-white/5 px-4 py-3 rounded-r-md text-sm text-white/70">
+      {/* Hero */}
+      <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden bg-nf-background">
+        <HeroBackground />
+
+        <div className="relative z-10 max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="text-center lg:text-left">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight uppercase">
+                <span className="block text-white mb-2">{t('brands_page.hero.line1')}</span>
+                <span className="block text-nf-primary drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">{t('brands_page.hero.line2')}</span>
+              </h1>
+
+              <p className="text-base md:text-lg text-white/75 font-medium leading-snug mt-6 max-w-xl mx-auto lg:mx-0">
+                {t('brands_page.hero.subtitle')}
+              </p>
+
+              <div className="mt-6 mb-6 mx-auto lg:mx-0 max-w-xl border-l-2 border-nf-primary/60 bg-white/[0.03] px-4 py-3 rounded-r-md text-sm text-white/70">
                 Az italmárka-aktivációk a 2. fázisban indulnak el — első 15 vendéglátóhely-partner aláírása után.
               </div>
-              
-              <Button 
+
+              <Button
                 variant="neon"
-                size="lg" 
-                className="py-4 px-8 text-lg"
+                size="lg"
+                className="py-4 px-10 text-lg"
                 onClick={() => {
                   analytics.ctaClick('brand_hero', 'Beszéljünk');
                   const el = document.getElementById('brand-application');
@@ -107,128 +104,110 @@ const Italmarkak = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
-            
-            {/* Right side - Phone Mockup */}
-            <div className="flex justify-center">
-              <PhoneMockup imageUrl={brandImage} className="animate-glow-pulse scale-110" />
-            </div>
+
+            <PhoneGlowWrapper>
+              <PhoneMockup imageUrl={brandImage} />
+            </PhoneGlowWrapper>
           </div>
         </div>
       </section>
 
-      {/* How It Works - 4 Step 2x2 Grid */}
-      <section className="py-12 px-4 bg-nf-surface">
+      {/* How It Works */}
+      <section className="py-16 px-4 bg-nf-surface">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-8">
-            <SectionTitle>
-              {t('brands_page.how_it_works.title')}
-            </SectionTitle>
+          <div className="text-center mb-10">
+            <h2 className={sectionTitle}>{t('brands_page.how_it_works.title')}</h2>
           </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
             {howItWorksSteps.map((step, index) => (
-              <div 
-                key={index} 
-                className="azure-beam glass-effect rounded-xl p-6 text-center group hover:scale-105 hover:shadow-lg hover:shadow-electric-300/20 transition-all duration-300"
-              >
-                <div className="text-2xl font-black text-electric-300 mb-3">
-                  {step.number}
+              <div key={index} className={cardCls}>
+                <div className="text-2xl font-anton text-nf-primary mb-3">{step.number}</div>
+                <div className={chipCls}>
+                  <step.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
                 </div>
-                
-                <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
-                    <step.icon className="w-6 h-6 text-electric-300 group-hover:text-white transition-colors duration-300" />
-                  </div>
-                </div>
-                
-                <h4 className="text-sm font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">
-                  {step.title}
-                </h4>
-                
-                <p className="text-xs text-electric-100 leading-tight">
-                  {step.description}
-                </p>
+                <h4 className="text-sm md:text-base font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">{step.title}</h4>
+                <p className="text-xs md:text-sm text-white/60 leading-snug">{step.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features - 2x2 Grid */}
-      <section className="py-12 px-4 bg-black">
+      {/* Features */}
+      <section className="py-16 px-4 bg-nf-background">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-8">
-            <SectionTitle>
-              {t('brands_page.features.title')}
-            </SectionTitle>
+          <div className="text-center mb-10">
+            <h2 className={sectionTitle}>{t('brands_page.features.title')}</h2>
           </div>
-          
-          <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+
+          <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
             {features.map((feature, index) => (
-              <div key={index} className="azure-beam glass-effect rounded-xl p-6 text-center group hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-electric-300/20">
-                <feature.icon className="w-12 h-12 mx-auto mb-3 text-electric-300 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                <h4 className="text-lg font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">{feature.title}</h4>
-                <p className="text-sm text-electric-100">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Target Audience - Kompakt 3 kártya */}
-      <section className="py-12 px-4 bg-nf-background nf-section-glow">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-8">
-            <SectionTitle>
-              {t('brands_page.target.title')}
-            </SectionTitle>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {targetAudience.map((audience, index) => (
-              <div key={index} className="azure-beam glass-effect rounded-xl p-6 text-center group hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-electric-300/20">
-                <audience.icon className="w-12 h-12 mx-auto mb-3 text-electric-300 group-hover:scale-110 transition-transform duration-300" />
-                <h4 className="text-lg font-black text-white mb-2 group-hover:text-electric-300 transition-colors duration-300">{audience.title}</h4>
-                <p className="text-sm text-electric-100">{audience.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Value Props Section - 2x2 / 4-col Grid */}
-      <section className="py-8 px-4 bg-black">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {valueProps.map((item, index) => (
-              <div key={index} className="azure-beam glass-effect rounded-xl p-5 text-center group hover:scale-105 transition-all duration-300">
-                <item.icon className="w-8 h-8 mx-auto mb-3 text-electric-300 group-hover:scale-110 transition-transform duration-300" />
-                <div className="text-sm font-black text-white mb-2 uppercase tracking-wider">
-                  {item.title}
+              <div key={index} className={cardCls}>
+                <div className={chipCls}>
+                  <feature.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
                 </div>
-                <p className="text-xs text-electric-100 leading-relaxed">
-                  {item.description}
-                </p>
+                <h4 className="text-base md:text-lg font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">{feature.title}</h4>
+                <p className="text-sm text-white/60">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Final CTA - Kompaktabb */}
-      <section className="py-12 px-4 bg-black text-center">
+      {/* Target Audience */}
+      <section className="py-16 px-4 bg-nf-surface">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className={sectionTitle}>{t('brands_page.target.title')}</h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+            {targetAudience.map((audience, index) => (
+              <div key={index} className={cardCls}>
+                <div className={chipCls}>
+                  <audience.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
+                </div>
+                <h4 className="text-base md:text-lg font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">{audience.title}</h4>
+                <p className="text-sm text-white/60">{audience.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Value Props */}
+      <section className="py-12 px-4 bg-nf-background">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+            {valueProps.map((item, index) => (
+              <div key={index} className={cardCls}>
+                <div className={chipCls}>
+                  <item.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
+                </div>
+                <div className="text-sm font-bold text-white mb-2 uppercase tracking-wider group-hover:text-nf-primary transition-colors">{item.title}</div>
+                <p className="text-xs text-white/60 leading-relaxed">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-16 px-4 bg-nf-background text-center">
         <div className="max-w-3xl mx-auto">
-          <CTATitle>
-            {t('brands_page.final_cta.title_line1')}
-            <span className="block text-electric-300 mt-2">{t('brands_page.final_cta.title_line2')}</span>
-          </CTATitle>
-          <p className="text-base text-electric-100 mb-8">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-anton uppercase leading-[0.9] tracking-tight">
+            <span className="block text-white">{t('brands_page.final_cta.title_line1')}</span>
+            <span className="block text-nf-primary mt-2 drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">{t('brands_page.final_cta.title_line2')}</span>
+          </h2>
+          <p className="text-base md:text-lg text-white/70 mb-8 mt-6">
             {t('brands_page.final_cta.subtitle')}
           </p>
-          
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-black py-4 px-12 text-lg rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+
+          <Button
+            variant="neon"
+            size="lg"
+            className="py-4 px-10 text-lg"
             onClick={() => {
               analytics.ctaClick('brand_final_cta', 'KAPCSOLATFELVÉTEL');
               const el = document.getElementById('brand-application');

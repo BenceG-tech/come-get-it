@@ -5,10 +5,10 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
+import { HeroBackground, PhoneGlowWrapper } from '@/components/HeroBackground';
 import { ArrowRight, MessageCircle, Rocket, FileSignature, UserCog, Gift, Award, Wallet, Megaphone, Handshake } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
-import { HeroTitle, HeroSubtitle, SectionTitle, CTATitle } from '@/components/ui/typography';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
 
@@ -16,14 +16,13 @@ const ComeGetItAccelerator = () => {
   const { t } = useI18n();
   const acceleratorImage = "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.png";
 
-  // Analytics tracking
   useEffect(() => {
     analytics.acceleratorPageView();
     analytics.pageView('come_get_it_accelerator');
-    
+
     const startTime = Date.now();
     let maxScrollDepth = 0;
-    
+
     const handleScroll = () => {
       const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
       if (scrollPercent > maxScrollDepth) {
@@ -39,13 +38,12 @@ const ComeGetItAccelerator = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       const duration = Math.round((Date.now() - startTime) / 1000);
       analytics.timeOnPage(duration, 'come_get_it_accelerator');
-      
-      // Lead engagement scoring
+
       if (duration > 60 || maxScrollDepth > 50) {
         analytics.leadEngagement('high', 'come_get_it_accelerator');
         analytics.leadQualification(85, 'accelerator_prospect');
@@ -74,6 +72,10 @@ const ComeGetItAccelerator = () => {
     { icon: Handshake, title: "LIFETIME ELŐNYÖK", description: "Alacsonyabb jutalék-sáv örökre, korai hozzáférés a brand-kampányokhoz, prioritás minden új feature-nél." }
   ];
 
+  const cardCls = "group relative h-full flex flex-col items-center text-center p-6 md:p-7 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]";
+  const chipCls = "mb-4 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] group-hover:border-nf-primary group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500";
+  const sectionTitle = "text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight";
+
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
@@ -91,34 +93,27 @@ const ComeGetItAccelerator = () => {
       />
       <MobileNavigation />
       <Navigation />
-      
-      {/* Hero Section - Standardized */}
-      <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden">
-        {/* Background - unified with main hero */}
-        <div className="hero-abstract-bg">
-          <div className="hero-shape-1"></div>
-          <div className="hero-shape-2"></div>
-          <div className="hero-glow-accent"></div>
-          <div className="hero-glow-secondary"></div>
-        </div>
-        
+
+      {/* Hero */}
+      <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden bg-nf-background">
+        <HeroBackground />
+
         <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left side - Content */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="text-center lg:text-left">
-              <HeroTitle>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight uppercase">
                 <span className="block text-white mb-2">{t('accelerator_page.hero.line1')}</span>
-                <span className="block text-electric-300">{t('accelerator_page.hero.line2')}</span>
-              </HeroTitle>
-              
-              <HeroSubtitle>
+                <span className="block text-nf-primary drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">{t('accelerator_page.hero.line2')}</span>
+              </h1>
+
+              <p className="text-base md:text-lg text-white/75 font-medium leading-snug mt-6 max-w-xl mx-auto lg:mx-0 mb-8">
                 {t('accelerator_page.hero.subtitle')}
-              </HeroSubtitle>
-              
-              <Button 
+              </p>
+
+              <Button
                 variant="neon"
-                size="lg" 
-                className="py-4 px-8 text-lg"
+                size="lg"
+                className="py-4 px-10 text-lg"
                 onClick={() => {
                   analytics.ctaClick('hero_section', 'Jelentkezz most!');
                   analytics.acceleratorApplicationStart();
@@ -134,69 +129,51 @@ const ComeGetItAccelerator = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
-            
-            {/* Right side - Phone Mockup */}
-            <div className="flex justify-center">
-              <PhoneMockup imageUrl={acceleratorImage} className="animate-glow-pulse scale-110" />
-            </div>
+
+            <PhoneGlowWrapper>
+              <PhoneMockup imageUrl={acceleratorImage} />
+            </PhoneGlowWrapper>
           </div>
         </div>
       </section>
 
-      {/* How It Works - 2x2 Grid */}
-      <section className="py-16 px-4 pb-20 bg-nf-surface" lang="hu">
-        <div className="max-w-5xl mx-auto">
+      {/* How It Works */}
+      <section className="py-16 px-4 bg-nf-surface" lang="hu">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <SectionTitle className="text-4xl md:text-5xl">
-              Hogyan működik?
-            </SectionTitle>
+            <h2 className={sectionTitle}>Hogyan működik?</h2>
           </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 max-w-6xl mx-auto">
             {howItWorksSteps.map((step, index) => (
-              <div 
-                key={index} 
-                className="azure-beam glass-effect rounded-2xl p-6 md:p-8 text-center group hover:scale-105 hover:shadow-lg hover:shadow-electric-300/20 transition-all duration-300 flex flex-col items-center justify-between h-full"
-              >
-                <div className="flex flex-col items-center flex-grow">
-                  <div className="text-3xl md:text-4xl font-black text-electric-300 mb-4">
-                    {step.number}
-                  </div>
-                  
-                  <div className="flex justify-center mb-4">
-                    <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-electric-300/20 to-ocean-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-electric-300/30 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
-                      <step.icon className="w-7 h-7 md:w-8 md:h-8 text-electric-300 group-hover:text-white transition-colors duration-300" />
-                    </div>
-                  </div>
-                  
-                  <h4 className="text-sm md:text-lg font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300 text-center break-words [hyphens:auto] [text-wrap:balance]">
-                    {step.title}
-                  </h4>
+              <div key={index} className={cardCls}>
+                <div className="text-2xl md:text-3xl font-anton text-nf-primary mb-3">{step.number}</div>
+                <div className={chipCls}>
+                  <step.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
                 </div>
-                
-                <p className="text-xs md:text-base text-electric-100 leading-tight text-center break-words [hyphens:auto] [text-wrap:balance] mt-auto">
-                  {step.description}
-                </p>
+                <h4 className="text-sm md:text-base font-bold text-white mb-2 group-hover:text-nf-primary transition-colors text-center break-words [hyphens:auto] [text-wrap:balance]">{step.title}</h4>
+                <p className="text-xs md:text-sm text-white/60 leading-snug text-center mt-auto break-words [hyphens:auto] [text-wrap:balance]">{step.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-nf-surface">
+      {/* Benefits */}
+      <section className="py-16 px-4 bg-nf-background">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <SectionTitle className="text-4xl md:text-5xl">
-              Miért válassz minket?
-            </SectionTitle>
+            <h2 className={sectionTitle}>Miért válassz minket?</h2>
           </div>
-          
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+
+          <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
             {benefits.map((benefit, index) => (
-              <div key={index} className="azure-beam glass-effect rounded-2xl p-8 text-center group hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-electric-300/20">
-                <benefit.icon className="w-16 h-16 mx-auto mb-6 text-electric-300 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                <h4 className="text-xl font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300">{benefit.title}</h4>
-                <p className="text-base text-electric-100">{benefit.description}</p>
+              <div key={index} className={cardCls}>
+                <div className={chipCls}>
+                  <benefit.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
+                </div>
+                <h4 className="text-lg md:text-xl font-bold text-white mb-3 group-hover:text-nf-primary transition-colors">{benefit.title}</h4>
+                <p className="text-sm md:text-base text-white/60">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -204,18 +181,20 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-4 bg-nf-background nf-section-glow text-center">
+      <section className="py-20 px-4 bg-nf-background text-center">
         <div className="max-w-4xl mx-auto">
-          <CTATitle className="text-5xl md:text-6xl">
-            Csatlakozz az elsők közé
-          </CTATitle>
-          <p className="text-xl text-electric-100 mb-10 leading-relaxed">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-anton uppercase leading-[0.9] tracking-tight">
+            <span className="block text-white">Csatlakozz</span>
+            <span className="block text-nf-primary mt-2 drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">az elsők közé</span>
+          </h2>
+          <p className="text-base md:text-lg text-white/70 mb-10 mt-6 leading-relaxed">
             Légy te az egyik első Founding Partner — vendéglátóhelyként, italmárkaként vagy rewards-partnerként.
           </p>
-          
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-black py-6 px-16 text-xl rounded-full transition-all duration-300 transform hover:scale-105 unified-neon-glow border-0"
+
+          <Button
+            variant="neon"
+            size="lg"
+            className="py-4 px-12 text-lg"
             onClick={() => {
               analytics.ctaClick('final_cta', 'Jelentkezem most');
               analytics.acceleratorApplicationStart();
@@ -228,7 +207,7 @@ const ComeGetItAccelerator = () => {
             }}
           >
             Jelentkezem most
-            <ArrowRight className="ml-3 h-6 w-6" />
+            <ArrowRight className="ml-3 h-5 w-5" />
           </Button>
         </div>
       </section>
