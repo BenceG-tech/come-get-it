@@ -11,6 +11,8 @@ import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
+import cyanCocktail from '@/assets/cyan-cocktail.png';
+import budapestNightHero from '@/assets/budapest-night-hero.jpg';
 
 const Italmarkak = () => {
   const { t } = useI18n();
@@ -69,9 +71,14 @@ const Italmarkak = () => {
       {/* Hero */}
       <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden bg-nf-background">
         <HeroBackground />
+        {/* Left dark overlay for text readability */}
+        <div
+          aria-hidden="true"
+          className="hidden lg:block absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-[#03060d] via-[#03060d]/85 to-transparent z-[1] pointer-events-none"
+        />
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-12 lg:gap-16 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight uppercase">
                 <span className="block text-white mb-2">{t('brands_page.hero.line1')}</span>
@@ -105,9 +112,40 @@ const Italmarkak = () => {
               </Button>
             </div>
 
-            <PhoneGlowWrapper>
-              <PhoneMockup imageUrl={brandImage} />
-            </PhoneGlowWrapper>
+            {/* Phone + cocktail composition */}
+            <div className="relative flex justify-center items-center min-h-[520px] lg:min-h-[600px]">
+              {/* Cyan radial glow base */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,188,212,0.32) 0%, rgba(0,188,212,0.12) 45%, transparent 75%)',
+                  filter: 'blur(30px)',
+                }}
+              />
+              {/* Phone */}
+              <div className="relative z-10 lg:scale-[1.15] xl:scale-[1.2] origin-center drop-shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
+                <PhoneMockup imageUrl={brandImage} />
+              </div>
+              {/* Cocktail (desktop+) */}
+              <div className="hidden md:block absolute right-0 lg:right-[-6%] bottom-2 w-[42%] max-w-[260px] z-20 pointer-events-none">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 blur-2xl"
+                  style={{
+                    background:
+                      'radial-gradient(ellipse 70% 70% at 50% 60%, rgba(0,188,212,0.45) 0%, rgba(0,188,212,0.15) 50%, transparent 80%)',
+                  }}
+                />
+                <img
+                  src={cyanCocktail}
+                  alt=""
+                  aria-hidden="true"
+                  className="relative w-full h-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.7)]"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -119,7 +157,12 @@ const Italmarkak = () => {
             <h2 className={sectionTitle}>{t('brands_page.how_it_works.title')}</h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+          <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 auto-rows-fr">
+            {/* Cyan connector line (desktop) */}
+            <div
+              aria-hidden="true"
+              className="hidden md:block absolute left-[10%] right-[10%] top-[88px] h-px bg-gradient-to-r from-transparent via-nf-primary/40 to-transparent z-0"
+            />
             {howItWorksSteps.map((step, index) => (
               <div key={index} className={cardCls}>
                 <div className="text-2xl font-anton text-nf-primary mb-3">{step.number}</div>
@@ -142,7 +185,7 @@ const Italmarkak = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
-            {features.map((feature, index) => (
+            {features.slice(0, 4).map((feature, index) => (
               <div key={index} className={cardCls}>
                 <div className={chipCls}>
                   <feature.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
@@ -152,6 +195,23 @@ const Italmarkak = () => {
               </div>
             ))}
           </div>
+
+          {features[4] && (
+            <div className="mt-5 max-w-3xl mx-auto">
+              <div className="group relative flex flex-col md:flex-row items-center md:items-start gap-5 p-6 md:p-8 rounded-2xl border border-nf-primary/40 bg-white/[0.04] backdrop-blur-md transition-all duration-500 hover:border-nf-primary/70 hover:shadow-[0_25px_70px_-10px_rgba(0,188,212,0.5)]">
+                <div className="shrink-0 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full border border-nf-primary/50 bg-nf-primary/[0.08] group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500">
+                  {(() => {
+                    const Icon = features[4].icon;
+                    return <Icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />;
+                  })()}
+                </div>
+                <div className="text-center md:text-left">
+                  <h4 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">{features[4].title}</h4>
+                  <p className="text-sm md:text-base text-white/65 leading-relaxed">{features[4].description}</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
