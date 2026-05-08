@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Logo } from '@/components/ui/Logo';
 
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-black border-t border-white/10 text-white/80 mt-16">
       <div className="max-w-7xl mx-auto px-4 py-12 grid gap-10 md:grid-cols-4">
         <div>
-          <h3 className="text-white font-anton text-xl mb-3">Come Get It</h3>
+          <Logo className="h-9 mb-4" />
           <p className="text-sm text-white/60">
             Gyűjts pontokat, szerezz jutalmakat, támogass jótékonysági célokat – minden korttyal.
           </p>

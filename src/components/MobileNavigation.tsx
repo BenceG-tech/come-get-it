@@ -12,6 +12,7 @@ import { Menu, X, MessageCircle, Home, Store, Wine, Gift, Rocket, ChevronRight, 
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/hooks/useI18n';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Logo } from '@/components/ui/Logo';
 
 export const MobileNavigation: React.FC = () => {
   const [showPulse, setShowPulse] = useState(false);
@@ -52,9 +53,7 @@ export const MobileNavigation: React.FC = () => {
           <div className="w-full max-w-md mx-auto px-6">
             {/* Header */}
             <div className="flex justify-between items-center mb-8">
-              <div className="text-white text-xl font-black tracking-wide">
-                <span className="text-nf-primary">COME</span> GET IT
-              </div>
+              <Logo className="h-8" />
               <SheetClose asChild>
                 <button className="p-2 bg-nf-surface-alt rounded-lg text-white hover:text-nf-primary hover:bg-nf-border transition-all duration-200">
                   <X className="h-5 w-5" />
