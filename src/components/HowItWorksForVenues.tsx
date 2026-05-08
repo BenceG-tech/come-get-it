@@ -39,7 +39,7 @@ export const HowItWorksForVenues: React.FC = () => {
     <section id="how-it-works-venues" className="py-16 px-4 bg-nf-surface">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight">
             Csatlakozás 5 lépésben
           </h2>
         </div>
@@ -48,20 +48,18 @@ export const HowItWorksForVenues: React.FC = () => {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="nf-card p-5 md:p-6 text-center group hover:scale-105 hover:shadow-neon transition-all duration-300"
+              className="group relative h-full flex flex-col items-center text-center p-5 md:p-6 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]"
             >
-              <div className="text-2xl font-black text-nf-primary mb-3">
+              <div className="text-2xl font-anton text-nf-primary mb-3">
                 {step.number}
               </div>
-              <div className="flex justify-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-nf-primary to-nf-secondary rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-neon">
-                  <step.icon className="w-6 h-6 text-white" />
-                </div>
+              <div className="mb-4 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] group-hover:border-nf-primary group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500">
+                <step.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
               </div>
-              <h4 className="text-sm md:text-base font-black text-white mb-2 group-hover:text-nf-primary transition-colors duration-300">
+              <h4 className="text-sm md:text-base font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">
                 {step.title}
               </h4>
-              <p className="text-xs md:text-sm text-nf-text-muted leading-snug">
+              <p className="text-xs md:text-sm text-white/60 leading-snug">
                 {step.description}
               </p>
             </div>

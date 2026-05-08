@@ -39,7 +39,7 @@ export const VenueWhyWorth: React.FC = () => {
     <section id="venue-why-worth" className="py-20 px-4 bg-nf-background">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight">
             Miért éri meg neked?
           </h2>
         </div>
@@ -48,17 +48,15 @@ export const VenueWhyWorth: React.FC = () => {
           {cards.map((card, idx) => (
             <div
               key={idx}
-              className="azure-beam nf-card p-6 md:p-7 hover:-translate-y-1 hover:border-nf-primary transition-all duration-300 group"
+              className="group relative h-full flex flex-col p-6 md:p-7 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]"
             >
-              <div className="mb-4">
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-nf-primary to-nf-secondary flex items-center justify-center shadow-neon">
-                  <card.icon className="w-6 h-6 md:w-7 md:h-7 text-white" />
-                </div>
+              <div className="mb-4 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] group-hover:border-nf-primary group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500">
+                <card.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
               </div>
               <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">
                 {card.title}
               </h3>
-              <p className="text-sm md:text-base text-nf-text-muted leading-relaxed">
+              <p className="text-sm md:text-base text-white/60 leading-relaxed">
                 {card.description}
               </p>
             </div>

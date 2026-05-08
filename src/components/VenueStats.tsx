@@ -32,14 +32,14 @@ export const VenueStats: React.FC = () => {
           {items.map((item, index) => (
             <div key={index} className="text-center group">
               <div className="mb-4 flex justify-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-nf-primary to-nf-secondary rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-neon">
-                  <item.icon className="w-8 h-8 text-white" />
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] flex items-center justify-center group-hover:border-nf-primary group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500">
+                  <item.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
                 </div>
               </div>
-              <div className="text-sm md:text-base font-black text-white mb-2 tracking-wide group-hover:text-nf-primary transition-colors duration-300">
+              <div className="text-sm md:text-base font-bold text-white mb-2 tracking-wide group-hover:text-nf-primary transition-colors duration-300">
                 {item.title}
               </div>
-              <div className="text-xs md:text-sm text-nf-text-muted/80 leading-snug">
+              <div className="text-xs md:text-sm text-white/60 leading-snug">
                 {item.description}
               </div>
             </div>

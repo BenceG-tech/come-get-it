@@ -4,18 +4,46 @@ import { PhoneMockup } from './PhoneMockup';
 import { ArrowRight } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
+import budapestNight from '@/assets/budapest-night-hero.jpg';
 
 export const VenueHeroSection: React.FC = () => {
   const venueDetailImage = "/lovable-uploads/49708be5-5db5-4f1e-adcf-e3b9ad6ddf45.png";
   const { t } = useI18n();
 
   return (
-    <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden">
-      <div className="hero-abstract-bg">
-        <div className="hero-shape-1"></div>
-        <div className="hero-shape-2"></div>
-        <div className="hero-glow-accent"></div>
-        <div className="hero-glow-secondary"></div>
+    <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden bg-nf-background">
+      {/* Background layers — unified with main hero */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div
+          className="absolute inset-x-0"
+          style={{
+            top: '30%',
+            bottom: '20%',
+            WebkitMaskImage:
+              'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
+            maskImage:
+              'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
+          }}
+        >
+          <img
+            src={budapestNight}
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover opacity-55"
+            style={{ objectPosition: 'center 55%' }}
+            width={1920}
+            height={1080}
+          />
+        </div>
+        <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-[#03060d] via-[#03060d]/85 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-[#03060d] via-[#03060d]/85 to-transparent" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 55% 40% at 75% 50%, rgba(0,188,212,0.20) 0%, transparent 65%), radial-gradient(ellipse 45% 35% at 20% 55%, rgba(0,151,167,0.10) 0%, transparent 65%)',
+          }}
+        />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
@@ -27,12 +55,12 @@ export const VenueHeroSection: React.FC = () => {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight mb-6">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight uppercase mb-6">
               <span className="block text-white mb-2 lg:whitespace-nowrap">{t('venues.hero.line1')}</span>
-              <span className="block text-nf-primary lg:whitespace-nowrap">{t('venues.hero.line2')}</span>
+              <span className="block text-nf-primary lg:whitespace-nowrap drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">{t('venues.hero.line2')}</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-nf-text-muted font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-white/75 font-medium max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
               {t('venues.hero.subtitle')}
             </p>
 
@@ -63,8 +91,20 @@ export const VenueHeroSection: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-center">
-            <PhoneMockup imageUrl={venueDetailImage} className="scale-110" />
+          {/* Right - Phone mockup with cyan glow */}
+          <div className="relative flex justify-center items-center min-h-[520px] lg:min-h-[580px]">
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-0 pointer-events-none"
+              style={{
+                background:
+                  'radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,188,212,0.32) 0%, rgba(0,188,212,0.12) 45%, transparent 75%)',
+                filter: 'blur(30px)',
+              }}
+            />
+            <div className="relative z-10">
+              <PhoneMockup imageUrl={venueDetailImage} />
+            </div>
           </div>
         </div>
       </div>
