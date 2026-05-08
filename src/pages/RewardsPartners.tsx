@@ -5,12 +5,13 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
-import { HeroBackground, PhoneGlowWrapper } from '@/components/HeroBackground';
+import { HeroBackground } from '@/components/HeroBackground';
 import { ArrowRight, Gift, Settings, Zap, BarChart, Users, BarChart3, Handshake } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
+import budapestNightHero from '@/assets/budapest-night-hero.jpg';
 
 const RewardsPartners = () => {
   const { t } = useI18n();
@@ -118,9 +119,14 @@ const RewardsPartners = () => {
       {/* Hero */}
       <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden bg-nf-background">
         <HeroBackground />
+        {/* Left dark overlay for text readability */}
+        <div
+          aria-hidden="true"
+          className="hidden lg:block absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-[#03060d] via-[#03060d]/85 to-transparent z-[1] pointer-events-none"
+        />
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-12 lg:gap-16 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight uppercase">
                 <span className="block text-white mb-2">{t('rewards_page.hero.line1')}</span>
@@ -155,9 +161,39 @@ const RewardsPartners = () => {
               </Button>
             </div>
 
-            <PhoneGlowWrapper>
-              <PhoneMockup imageUrl={rewardsImage} />
-            </PhoneGlowWrapper>
+            {/* Phone composition */}
+            <div className="relative flex justify-center items-center min-h-[520px] lg:min-h-[600px]">
+              {/* Cyan radial glow */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,188,212,0.32) 0%, rgba(0,188,212,0.12) 45%, transparent 75%)',
+                  filter: 'blur(30px)',
+                }}
+              />
+              {/* Cyan mesh wave decoration on right */}
+              <div
+                aria-hidden="true"
+                className="hidden md:block absolute right-0 top-0 bottom-0 w-1/2 pointer-events-none opacity-40"
+                style={{
+                  WebkitMaskImage: 'linear-gradient(to right, black, transparent 90%)',
+                  maskImage: 'linear-gradient(to right, black, transparent 90%)',
+                }}
+              >
+                <svg className="w-full h-full" viewBox="0 0 400 600" preserveAspectRatio="none" fill="none">
+                  <path d="M0 60 Q120 20 240 80 T400 60" stroke="hsl(var(--nf-primary))" strokeWidth="1" opacity="0.55" />
+                  <path d="M0 160 Q120 110 240 180 T400 160" stroke="hsl(var(--nf-primary))" strokeWidth="1" opacity="0.45" />
+                  <path d="M0 280 Q120 230 240 300 T400 280" stroke="hsl(var(--nf-primary))" strokeWidth="1" opacity="0.4" />
+                  <path d="M0 400 Q120 350 240 420 T400 400" stroke="hsl(var(--nf-primary))" strokeWidth="1" opacity="0.35" />
+                  <path d="M0 520 Q120 470 240 540 T400 520" stroke="hsl(var(--nf-primary))" strokeWidth="1" opacity="0.3" />
+                </svg>
+              </div>
+              <div className="relative z-10 lg:scale-[1.18] xl:scale-125 origin-center drop-shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
+                <PhoneMockup imageUrl={rewardsImage} />
+              </div>
+            </div>
           </div>
         </div>
       </section>
