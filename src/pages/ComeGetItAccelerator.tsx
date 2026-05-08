@@ -193,13 +193,11 @@ const ComeGetItAccelerator = () => {
           
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {benefits.map((benefit, index) => (
-              <ServiceCard
-                key={index}
-                icon={benefit.icon}
-                title={benefit.title}
-                description={benefit.description}
-                index={index}
-              />
+              <div key={index} className="azure-beam glass-effect rounded-2xl p-8 text-center group hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-electric-300/20">
+                <benefit.icon className="w-16 h-16 mx-auto mb-6 text-electric-300 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+                <h4 className="text-xl font-black text-white mb-3 group-hover:text-electric-300 transition-colors duration-300">{benefit.title}</h4>
+                <p className="text-base text-electric-100">{benefit.description}</p>
+              </div>
             ))}
           </div>
         </div>
