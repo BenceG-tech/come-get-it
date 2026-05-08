@@ -1,70 +1,45 @@
-# Hero Section Visual Refinement
+# Hero Right-Side — Match Reference Composition
 
-Scope: `src/components/HeroSection.tsx` only (plus one new asset). No copy, CTA, link, SEO, route, order, or functionality changes.
+Scope: `src/components/HeroSection.tsx` only. No copy, CTA, link, route, or functionality changes.
 
-## Goals
-- Make the right side feel rich and balanced.
-- Phone becomes the clear focal point; unbranded cyan drink is the secondary supporting visual.
-- Budapest night background stays visible but cleanly separated from foreground.
+## What's different from current
 
-## 1. New Asset — Unbranded Cyan Drink
+Reference shows:
+- Phone tilted slightly to the **right** (~+8°), not to the left.
+- Phone is large and centered in the right column, app screen fully visible (no clipping).
+- Budapest skyline is clearly visible *behind and around* the phone — not hidden by a black gradient.
+- A **large, full-height drink glass** sits on the far right, roughly the same height as the phone, partially overlapping the right edge.
+- Cyan/blue ambient glow ties phone + drink + city together.
+- Subtle reflection on the "table" surface beneath both phone and drink.
 
-Generate a transparent PNG via `imagegen--generate_image` (premium, transparent_background):
-- Path: `src/assets/cyan-drink.png`
-- Prompt: tall slim highball / long drink glass with cyan-blue sparkling liquid, clear ice cubes, mint leaf and lime wedge, soft cyan rim light, photorealistic, no logo, no label, no text, no brand, on a clean background.
-- Size ~768x1280 (portrait) for crisp downscaling.
+## Changes
 
-No bottle, no branding, no text. Will be imported into `HeroSection.tsx`.
+### 1. Phone
+- Flip rotation: `rotate-[6deg] lg:rotate-[8deg]` (was negative).
+- Keep `lg:scale-125`; ensure container has enough room (`min-h-[600px] lg:min-h-[640px]`) so nothing clips.
+- Keep dark drop shadow for separation.
 
-## 2. Right-Side Composition Changes
+### 2. Drink (far-right, large)
+- Scale up significantly: `w-[220px] sm:w-[280px] lg:w-[360px]` (currently 150–240px).
+- Anchor to bottom-right of the right column: `absolute right-[-3rem] lg:right-[-4rem] bottom-0`.
+- Remove the `rotate-[6deg]` — keep upright like in the reference.
+- Stronger cyan drop shadow: `drop-shadow-[0_30px_50px_rgba(0,188,212,0.45)]`.
+- Z-order: drink at `z-[5]`, phone at `z-10` so phone overlaps the glass slightly on its right edge (matches reference).
+- Hide on `<sm` only if it overflows; keep visible from `sm` upward at smaller width.
 
-In the right column of the hero grid:
+### 3. Reflection strip
+- Add a thin horizontal reflection bar at the bottom of the right column: gradient `linear-gradient(to top, rgba(0,188,212,0.18), transparent)` with `mask-image` fade, simulating the wet-table look in the reference.
 
-- Wrap phone + drink in a single relative container so they form one composition.
-- Increase phone scale on desktop: `scale-110 lg:scale-125` (≈20% bigger), keep mobile unchanged-ish (`scale-95 sm:scale-100`).
-- Slight tilt for depth: phone wrapper gets `rotate-[-4deg] lg:rotate-[-6deg]` with `transform-gpu`. App screen stays readable (PhoneMockup internals untouched).
-- Position phone toward center-right: container uses `justify-center lg:justify-start lg:pl-8` instead of `lg:justify-end`, and drink absolutely positioned to the far right.
-- Drink placement (desktop): `absolute right-[-2rem] lg:right-[-3rem] bottom-0 w-[180px] lg:w-[240px] rotate-[6deg] z-0`, behind phone (`z-0`), phone at `z-10`.
-- Drink on mobile: `hidden sm:block` so mobile hero doesn't get too tall; phone stays primary.
+### 4. Background — let the city show through on the right
+In the hero background layer:
+- Reduce the left readability shield so it only covers the text side: change `from-[#03060d]/95 via-[#03060d]/70 to-transparent` to stop earlier — use `bg-gradient-to-r from-[#03060d]/95 from-0% via-[#03060d]/55 via-35% to-transparent to-60%`.
+- Bump background image opacity from `75` → `85`.
+- Soften bottom vignette so the "table reflection" area isn't pure black: `to-[#03060d]/85` instead of `to-[#03060d]`.
+- Keep the right-side cyan radial glow but widen it slightly: `ellipse 65% 70% at 70% 55%`.
 
-## 3. Glows & Shadows
-
-Behind phone:
-- Strengthen existing cyan radial glow: `rgba(0,188,212,0.55)` core → `0.20` mid → transparent, blur 40px, slightly larger ellipse.
-- Add a soft dark drop shadow behind phone for separation: `shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)]` on phone wrapper.
-
-Behind drink:
-- Subtle elliptical cyan glow under glass: `radial-gradient(ellipse 60% 25% at 50% 90%, rgba(0,188,212,0.45), transparent 70%)`, blur 24px.
-- Faint reflection: thin white/cyan gradient strip beneath the glass.
-
-## 4. Background Adjustments
-
-In hero `.absolute inset-0 z-0`:
-- Keep `budapest-night-hero.jpg` but bump opacity from `60` to `75` so city is more visible.
-- Replace single bottom-fade overlay with side-aware gradient:
-  - Left readability shield: `bg-gradient-to-r from-[#03060d]/92 via-[#03060d]/70 to-transparent` (covers ~55% width).
-  - Bottom vignette: `bg-gradient-to-b from-transparent via-transparent to-[#03060d]` (last 25%).
-- Right-side cyan-blue radial: stronger glow centered roughly behind phone — `radial-gradient(ellipse 55% 60% at 72% 50%, rgba(0,188,212,0.28) 0%, rgba(0,151,167,0.12) 45%, transparent 75%)`.
-- Remove the secondary 15%/70% glow (no longer needed).
-
-Net result: text side stays dark and readable; right side breathes with city + cyan light; right side never goes pure black.
-
-## 5. Mobile Behavior
-
-- Hero grid order unchanged (text → phone via grid).
-- Drink hidden on `<sm`, shown from `sm` upward as a smaller accent (`w-[140px]`), positioned behind phone.
-- Phone keeps current mobile scale; no shrinking.
-- All absolute elements constrained inside `overflow-hidden` parent (already present) — no horizontal overflow.
-
-## 6. Things Explicitly Not Changed
-
-- All translation strings (`hero.badge`, `hero.title_line1/2`, `hero.subtitle`, `hero.cta`, `hero.cta_secondary`, `hero.founding_note`).
-- Button variants, click handlers, analytics calls, scroll targets.
-- `PhoneMockup` component internals.
-- Section order, SEO, routes.
-- No yellow, no purple, no branded bottles.
+### 5. No new assets
+- Reuse existing `cyan-drink.png` (already imported). No regeneration.
+- Reuse existing `budapest-night-hero.jpg`.
 
 ## Files Touched
-
-- `src/assets/cyan-drink.png` (new, generated)
-- `src/components/HeroSection.tsx` (visual edits only)
+- `src/components/HeroSection.tsx`

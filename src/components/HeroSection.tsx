@@ -26,20 +26,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           src={budapestNight}
           alt=""
           aria-hidden="true"
-          className="w-full h-full object-cover opacity-75"
+          className="w-full h-full object-cover opacity-85"
           width={1920}
           height={1080}
         />
-        {/* Left readability shield */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03060d]/95 via-[#03060d]/70 to-transparent" />
-        {/* Bottom vignette */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#03060d]" />
+        {/* Left readability shield (only over text side) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#03060d]/95 from-0% via-[#03060d]/55 via-35% to-transparent to-60%" />
+        {/* Soft bottom vignette */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#03060d]/85" />
         {/* Right-side cyan glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 55% 60% at 72% 50%, rgba(0,188,212,0.28) 0%, rgba(0,151,167,0.12) 45%, transparent 75%)',
+              'radial-gradient(ellipse 65% 70% at 70% 55%, rgba(0,188,212,0.30) 0%, rgba(0,151,167,0.12) 45%, transparent 78%)',
           }}
         />
       </div>
@@ -108,7 +108,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           </div>
 
           {/* Right - Phone mockup + unbranded cyan drink */}
-          <div className="relative flex justify-center lg:justify-start lg:pl-4 min-h-[560px]">
+          <div className="relative flex justify-center lg:justify-start lg:pl-4 min-h-[600px] lg:min-h-[640px]">
             {/* Strong cyan glow behind phone */}
             <div
               aria-hidden="true"
@@ -120,26 +120,37 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               }}
             />
 
-            {/* Unbranded cyan drink — secondary visual */}
+            {/* Unbranded cyan drink — far right, full-height */}
             <img
               src={cyanDrink}
               alt=""
               aria-hidden="true"
-              className="hidden sm:block absolute right-[-1rem] sm:right-[-1.5rem] lg:right-[-2rem] bottom-0 w-[150px] sm:w-[180px] lg:w-[240px] z-0 rotate-[6deg] drop-shadow-[0_25px_45px_rgba(0,188,212,0.35)] pointer-events-none select-none"
+              className="hidden sm:block absolute right-[-2rem] sm:right-[-3rem] lg:right-[-4rem] bottom-0 w-[220px] sm:w-[280px] lg:w-[360px] z-[5] drop-shadow-[0_30px_50px_rgba(0,188,212,0.45)] pointer-events-none select-none"
             />
             {/* Cyan reflection under drink */}
             <div
               aria-hidden="true"
-              className="hidden sm:block absolute right-[-1rem] sm:right-[-1.5rem] lg:right-[-2rem] bottom-[-10px] w-[150px] sm:w-[180px] lg:w-[240px] h-12 z-0 pointer-events-none"
+              className="hidden sm:block absolute right-[-2rem] sm:right-[-3rem] lg:right-[-4rem] bottom-[-12px] w-[220px] sm:w-[280px] lg:w-[360px] h-14 z-[4] pointer-events-none"
               style={{
                 background:
                   'radial-gradient(ellipse 60% 100% at 50% 0%, rgba(0,188,212,0.45) 0%, transparent 70%)',
-                filter: 'blur(14px)',
+                filter: 'blur(16px)',
+              }}
+            />
+
+            {/* Wet-table reflection strip */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 bottom-0 h-20 z-[3] pointer-events-none"
+              style={{
+                background: 'linear-gradient(to top, rgba(0,188,212,0.18), transparent)',
+                maskImage: 'linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)',
               }}
             />
 
             {/* Phone — primary focal point */}
-            <div className="relative z-10 scale-100 sm:scale-105 lg:scale-125 transform-gpu rotate-[-4deg] lg:rotate-[-6deg] drop-shadow-[0_40px_60px_rgba(0,0,0,0.75)]">
+            <div className="relative z-10 scale-100 sm:scale-105 lg:scale-125 transform-gpu rotate-[6deg] lg:rotate-[8deg] drop-shadow-[0_40px_60px_rgba(0,0,0,0.75)]">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
             </div>
           </div>
