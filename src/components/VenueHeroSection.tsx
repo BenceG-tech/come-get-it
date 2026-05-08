@@ -4,7 +4,7 @@ import { PhoneMockup } from './PhoneMockup';
 import { ArrowRight } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
-import budapestNight from '@/assets/budapest-night-hero.jpg';
+import venueInteriorHero from '@/assets/venue-interior-hero.jpg';
 
 export const VenueHeroSection: React.FC = () => {
   const venueDetailImage = "/lovable-uploads/49708be5-5db5-4f1e-adcf-e3b9ad6ddf45.png";
@@ -17,8 +17,8 @@ export const VenueHeroSection: React.FC = () => {
         <div
           className="absolute inset-x-0"
           style={{
-            top: '30%',
-            bottom: '20%',
+            top: '25%',
+            bottom: '18%',
             WebkitMaskImage:
               'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
             maskImage:
@@ -26,11 +26,11 @@ export const VenueHeroSection: React.FC = () => {
           }}
         >
           <img
-            src={budapestNight}
+            src={venueInteriorHero}
             alt=""
             aria-hidden="true"
-            className="w-full h-full object-cover opacity-55"
-            style={{ objectPosition: 'center 55%' }}
+            className="w-full h-full object-cover opacity-65"
+            style={{ objectPosition: 'center 50%' }}
             width={1920}
             height={1080}
           />
