@@ -231,8 +231,15 @@
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     animation: azure-beam-spin 4s linear infinite;
+    animation-play-state: paused;
+    opacity: 0;
+    transition: opacity 0.3s ease;
     pointer-events: none;
     z-index: 1;
+  }
+  .azure-beam:hover::before {
+    opacity: 1;
+    animation-play-state: running;
   }
 
   .neon-glow-electric {
