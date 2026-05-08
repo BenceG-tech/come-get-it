@@ -6,6 +6,7 @@ import { SocialProof } from './SocialProof';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNight from '@/assets/budapest-night-hero.jpg';
+import cyanDrink from '@/assets/cyan-drink.png';
 
 interface HeroSectionProps {
   currentImageIndex: number;
@@ -25,18 +26,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           src={budapestNight}
           alt=""
           aria-hidden="true"
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover opacity-75"
           width={1920}
           height={1080}
         />
-        {/* Dark navy overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#03060d]/85 via-[#050b18]/80 to-[#03060d]" />
-        {/* Cyan radial glow accents */}
+        {/* Left readability shield */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#03060d]/95 via-[#03060d]/70 to-transparent" />
+        {/* Bottom vignette */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#03060d]" />
+        {/* Right-side cyan glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 60% 50% at 75% 45%, rgba(0,188,212,0.18) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 15% 70%, rgba(0,151,167,0.10) 0%, transparent 65%)',
+              'radial-gradient(ellipse 55% 60% at 72% 50%, rgba(0,188,212,0.28) 0%, rgba(0,151,167,0.12) 45%, transparent 75%)',
           }}
         />
       </div>
@@ -104,19 +107,39 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             </p>
           </div>
 
-          {/* Right - Phone mockup with cyan glow */}
-          <div className="relative flex justify-center lg:justify-end">
-            {/* Soft cyan glow behind phone */}
+          {/* Right - Phone mockup + unbranded cyan drink */}
+          <div className="relative flex justify-center lg:justify-start lg:pl-4 min-h-[560px]">
+            {/* Strong cyan glow behind phone */}
             <div
               aria-hidden="true"
               className="absolute inset-0 -z-0 pointer-events-none"
               style={{
                 background:
-                  'radial-gradient(ellipse 70% 70% at center, rgba(0,188,212,0.35) 0%, rgba(0,188,212,0.15) 40%, transparent 75%)',
-                filter: 'blur(30px)',
+                  'radial-gradient(ellipse 75% 75% at 45% 50%, rgba(0,188,212,0.55) 0%, rgba(0,188,212,0.20) 40%, transparent 75%)',
+                filter: 'blur(40px)',
               }}
             />
-            <div className="relative scale-105 lg:scale-110">
+
+            {/* Unbranded cyan drink — secondary visual */}
+            <img
+              src={cyanDrink}
+              alt=""
+              aria-hidden="true"
+              className="hidden sm:block absolute right-[-1rem] sm:right-[-1.5rem] lg:right-[-2rem] bottom-0 w-[150px] sm:w-[180px] lg:w-[240px] z-0 rotate-[6deg] drop-shadow-[0_25px_45px_rgba(0,188,212,0.35)] pointer-events-none select-none"
+            />
+            {/* Cyan reflection under drink */}
+            <div
+              aria-hidden="true"
+              className="hidden sm:block absolute right-[-1rem] sm:right-[-1.5rem] lg:right-[-2rem] bottom-[-10px] w-[150px] sm:w-[180px] lg:w-[240px] h-12 z-0 pointer-events-none"
+              style={{
+                background:
+                  'radial-gradient(ellipse 60% 100% at 50% 0%, rgba(0,188,212,0.45) 0%, transparent 70%)',
+                filter: 'blur(14px)',
+              }}
+            />
+
+            {/* Phone — primary focal point */}
+            <div className="relative z-10 scale-100 sm:scale-105 lg:scale-125 transform-gpu rotate-[-4deg] lg:rotate-[-6deg] drop-shadow-[0_40px_60px_rgba(0,0,0,0.75)]">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
             </div>
           </div>
