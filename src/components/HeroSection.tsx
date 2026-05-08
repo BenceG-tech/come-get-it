@@ -6,7 +6,6 @@ import { SocialProof } from './SocialProof';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNight from '@/assets/budapest-night-hero.jpg';
-import cyanDrink from '@/assets/cyan-drink.png';
 
 interface HeroSectionProps {
   currentImageIndex: number;
@@ -26,20 +25,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           src={budapestNight}
           alt=""
           aria-hidden="true"
-          className="w-full h-full object-cover opacity-85"
+          className="w-full h-full object-cover opacity-60"
           width={1920}
           height={1080}
         />
-        {/* Left readability shield (only over text side) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03060d]/95 from-0% via-[#03060d]/55 via-35% to-transparent to-60%" />
-        {/* Soft bottom vignette */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#03060d]/85" />
-        {/* Right-side cyan glow */}
+        {/* Dark navy overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#03060d]/85 via-[#050b18]/80 to-[#03060d]" />
+        {/* Cyan radial glow accents */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 65% 70% at 70% 55%, rgba(0,188,212,0.30) 0%, rgba(0,151,167,0.12) 45%, transparent 78%)',
+              'radial-gradient(ellipse 60% 50% at 75% 45%, rgba(0,188,212,0.18) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 15% 70%, rgba(0,151,167,0.10) 0%, transparent 65%)',
           }}
         />
       </div>
@@ -107,50 +104,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             </p>
           </div>
 
-          {/* Right - Phone mockup + unbranded cyan drink */}
-          <div className="relative flex justify-center lg:justify-start lg:pl-4 min-h-[600px] lg:min-h-[640px]">
-            {/* Strong cyan glow behind phone */}
+          {/* Right - Phone mockup with cyan glow */}
+          <div className="relative flex justify-center lg:justify-end">
+            {/* Soft cyan glow behind phone */}
             <div
               aria-hidden="true"
               className="absolute inset-0 -z-0 pointer-events-none"
               style={{
                 background:
-                  'radial-gradient(ellipse 75% 75% at 45% 50%, rgba(0,188,212,0.55) 0%, rgba(0,188,212,0.20) 40%, transparent 75%)',
-                filter: 'blur(40px)',
+                  'radial-gradient(ellipse 70% 70% at center, rgba(0,188,212,0.35) 0%, rgba(0,188,212,0.15) 40%, transparent 75%)',
+                filter: 'blur(30px)',
               }}
             />
-
-            {/* Unbranded cyan drink — far right, full-height */}
-            <img
-              src={cyanDrink}
-              alt=""
-              aria-hidden="true"
-              className="hidden sm:block absolute right-[-2rem] sm:right-[-3rem] lg:right-[-4rem] bottom-0 w-[220px] sm:w-[280px] lg:w-[360px] z-[5] drop-shadow-[0_30px_50px_rgba(0,188,212,0.45)] pointer-events-none select-none"
-            />
-            {/* Cyan reflection under drink */}
-            <div
-              aria-hidden="true"
-              className="hidden sm:block absolute right-[-2rem] sm:right-[-3rem] lg:right-[-4rem] bottom-[-12px] w-[220px] sm:w-[280px] lg:w-[360px] h-14 z-[4] pointer-events-none"
-              style={{
-                background:
-                  'radial-gradient(ellipse 60% 100% at 50% 0%, rgba(0,188,212,0.45) 0%, transparent 70%)',
-                filter: 'blur(16px)',
-              }}
-            />
-
-            {/* Wet-table reflection strip */}
-            <div
-              aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 h-20 z-[3] pointer-events-none"
-              style={{
-                background: 'linear-gradient(to top, rgba(0,188,212,0.18), transparent)',
-                maskImage: 'linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)',
-              }}
-            />
-
-            {/* Phone — primary focal point */}
-            <div className="relative z-10 scale-100 sm:scale-105 lg:scale-125 transform-gpu rotate-[6deg] lg:rotate-[8deg] drop-shadow-[0_40px_60px_rgba(0,0,0,0.75)]">
+            <div className="relative scale-105 lg:scale-110">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
             </div>
           </div>
