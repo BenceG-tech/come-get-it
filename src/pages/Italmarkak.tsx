@@ -11,7 +11,6 @@ import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
-import cyanCocktail from '@/assets/cyan-cocktail.png';
 import budapestNightHero from '@/assets/budapest-night-hero.jpg';
 
 const Italmarkak = () => {
@@ -135,25 +134,8 @@ const Italmarkak = () => {
                 }}
               />
               {/* Phone */}
-              <div className="relative z-10 lg:scale-[1.22] xl:scale-[1.32] origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
+              <div className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
                 <PhoneMockup imageUrl={brandImage} />
-              </div>
-              {/* Cocktail (desktop+) */}
-              <div className="hidden md:block absolute right-0 lg:right-[-6%] bottom-2 w-[42%] max-w-[260px] z-20 pointer-events-none">
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 blur-2xl"
-                  style={{
-                    background:
-                      'radial-gradient(ellipse 70% 70% at 50% 60%, rgba(0,188,212,0.30) 0%, rgba(0,188,212,0.10) 50%, transparent 80%)',
-                  }}
-                />
-                <img
-                  src={cyanCocktail}
-                  alt=""
-                  aria-hidden="true"
-                  className="relative w-full h-auto drop-shadow-[0_25px_50px_rgba(0,0,0,0.7)]"
-                />
               </div>
             </div>
           </div>

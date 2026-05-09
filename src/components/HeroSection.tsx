@@ -6,7 +6,6 @@ import { SocialProof } from './SocialProof';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNight from '@/assets/budapest-night-hero.jpg';
-import cyanCocktail from '@/assets/cyan-cocktail.png';
 
 interface HeroSectionProps {
   currentImageIndex: number;
@@ -136,30 +135,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               }}
             />
 
-            {/* Phone — pulled inward toward hero center on desktop */}
-            <div className="relative z-20 lg:-translate-x-10 xl:-translate-x-14">
+            {/* Phone */}
+            <div className="relative z-20">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
-            </div>
-
-            {/* Cocktail — desktop only, right side */}
-            <div
-              aria-hidden="true"
-              className="hidden lg:block absolute right-0 xl:right-2 bottom-2 lg:bottom-6 z-10"
-            >
-              {/* Cocktail glow */}
-              <div
-                className="absolute inset-0 blur-3xl"
-                style={{
-                  background:
-                    'radial-gradient(ellipse 70% 70% at center, rgba(0,188,212,0.55) 0%, rgba(0,188,212,0.2) 50%, transparent 80%)',
-                }}
-              />
-              <img
-                src={cyanCocktail}
-                alt=""
-                aria-hidden="true"
-                className="relative w-[170px] xl:w-[210px] h-auto drop-shadow-[0_0_45px_rgba(0,188,212,0.6)]"
-              />
             </div>
           </div>
         </div>

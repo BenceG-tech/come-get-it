@@ -115,7 +115,7 @@ export const VenueHeroSection: React.FC = () => {
                 filter: 'blur(28px)',
               }}
             />
-            <div className="relative z-10 lg:scale-[1.22] xl:scale-[1.32] origin-center drop-shadow-[0_30px_70px_rgba(0,0,0,0.75)] [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
+            <div className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
               <PhoneMockup imageUrl={venueDetailImage} />
             </div>
           </div>
