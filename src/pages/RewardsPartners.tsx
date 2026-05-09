@@ -200,7 +200,7 @@ const RewardsPartners = () => {
                   <path d="M0 520 Q120 470 240 540 T400 520" stroke="hsl(var(--nf-primary))" strokeWidth="1" opacity="0.3" />
                 </svg>
               </div>
-              <div className="relative z-10 lg:scale-[1.22] xl:scale-[1.32] origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
+              <div className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
                 <PhoneMockup imageUrl={rewardsImage} />
               </div>
             </div>
