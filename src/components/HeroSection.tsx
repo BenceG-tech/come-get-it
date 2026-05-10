@@ -60,9 +60,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left - Content */}
-          <div className="text-center lg:text-left">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-16 lg:items-center">
+          {/* 1. Headline block (badge + H1 + subtitle) */}
+          <div className="text-center lg:text-left order-1 lg:order-1 lg:col-start-1 lg:row-start-1">
             {/* Launch badge */}
             <div className="mb-5 flex justify-center lg:justify-start">
               <span className="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold tracking-wide border border-nf-primary/40 bg-nf-primary/10 text-nf-primary">
@@ -84,46 +84,36 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
                 {t('hero.subtitle')}
               </p>
             </div>
-
-            {/* Social Proof */}
-            <div className="pt-6">
-              <SocialProof />
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="pt-4 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center lg:justify-start">
-              <Button
-                variant="neon"
-                size="lg"
-                className="py-4 px-10 text-lg w-full sm:w-auto"
-                onClick={() => {
-                  analytics.ctaClick('hero_primary', t('hero.cta'));
-                  document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {t('hero.cta')}
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="py-4 px-8 text-lg w-full sm:w-auto rounded-full border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
-                onClick={() => {
-                  analytics.ctaClick('hero_secondary', t('hero.cta_secondary'));
-                  document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {t('hero.cta_secondary')}
-              </Button>
-            </div>
-
-            {/* Founding member note */}
-            <p className="pt-3 text-xs md:text-sm text-white/55 max-w-xl mx-auto lg:mx-0">
-              {t('hero.founding_note')}
-            </p>
           </div>
 
-          {/* Right - Phone mockup + cocktail */}
-          <div className="relative flex justify-center items-center min-h-[520px] lg:min-h-[580px]">
+          {/* 2. CTA Buttons */}
+          <div className="order-2 lg:order-3 lg:col-start-1 lg:row-start-2 pt-2 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center lg:justify-start">
+            <Button
+              variant="neon"
+              size="lg"
+              className="py-4 px-10 text-lg w-full sm:w-auto"
+              onClick={() => {
+                analytics.ctaClick('hero_primary', t('hero.cta'));
+                document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              {t('hero.cta')}
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="py-4 px-8 text-lg w-full sm:w-auto rounded-full border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
+              onClick={() => {
+                analytics.ctaClick('hero_secondary', t('hero.cta_secondary'));
+                document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              {t('hero.cta_secondary')}
+            </Button>
+          </div>
+
+          {/* 3. Phone mockup — between CTAs and founding note on mobile, right column on desktop */}
+          <div className="order-3 lg:order-2 lg:col-start-2 lg:row-start-1 lg:row-span-3 relative flex justify-center items-center min-h-[380px] lg:min-h-[580px]">
             {/* Soft cyan glow behind phone */}
             <div
               aria-hidden="true"
@@ -134,12 +124,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
                 filter: 'blur(30px)',
               }}
             />
-
-            {/* Phone */}
             <div className="relative z-20">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
             </div>
           </div>
+
+          {/* 4. Founding member note */}
+          <p className="order-4 lg:order-4 lg:col-start-1 lg:row-start-3 pt-1 text-xs md:text-sm text-white/55 max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
+            {t('hero.founding_note')}
+          </p>
         </div>
       </div>
     </section>
