@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
 import { MobileNavigation } from './MobileNavigation';
-import { SocialProof } from './SocialProof';
+
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNight from '@/assets/budapest-night-hero.jpg';
