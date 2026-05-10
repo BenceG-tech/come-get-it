@@ -315,6 +315,55 @@
       "cta": "APPLY NOW"
     }
   },
+  "partners_page": {
+    "hero": {
+      "badge": "PARTNER PROGRAM — 2026",
+      "line1": "LET'S BUILD",
+      "line2": "BUDAPEST'S NIGHTLIFE TOGETHER.",
+      "subtitle": "Three different ways to join Come Get It. Find the one that fits you."
+    },
+    "sections": {
+      "venues": {
+        "phase": "PHASE 1 — LAUNCH",
+        "title": "Are you a venue?",
+        "description": "We bring new guests during slow hours. The daily free drink gives them a concrete reason to come to you tonight — the venue takes care of the rest.",
+        "bullets": {
+          "1": "6 months commission-free",
+          "2": "New guests during slow hours",
+          "3": "Real consumer data"
+        },
+        "cta": "Details"
+      },
+      "brands": {
+        "phase": "PHASE 2 — POST LAUNCH",
+        "title": "Are you a drink brand?",
+        "description": "Show your drink to the people who are deciding right now what to drink. Not as an ad — as a first sip. Sampling at scale, with measurable results.",
+        "bullets": {
+          "1": "Precise targeting on Gen Z & Millennial consumers",
+          "2": "Real-time sampling data",
+          "3": "Measurable brand activations"
+        },
+        "cta": "Details"
+      },
+      "rewards": {
+        "phase": "PHASE 2 — POST LAUNCH",
+        "title": "Are you a rewards partner?",
+        "description": "Our users earn points with every spend. What do they redeem them for? That's where you come in. Tickets, experiences, gym, beauty, coffee, brunch — anything a Budapest local values.",
+        "bullets": {
+          "1": "Reach a new audience",
+          "2": "Positive brand experience",
+          "3": "Measurable redemption"
+        },
+        "cta": "Details"
+      }
+    },
+    "founding": {
+      "title_line1": "Founding Partner status",
+      "title_line2": "in every category",
+      "body": "The first 15 venues, the first drink brands and the first rewards partners get lifetime preferred rates and Founding Partner status. Pre-launch only.",
+      "cta": "Founding Partner Program"
+    }
+  },
   "auth": {
     "title": "Welcome to Come Get It",
     "subtitle": "Sign in to your account or create a new one",
