@@ -8,7 +8,7 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { Menu, X, MessageCircle, Home, Store, Wine, Gift, Rocket, ChevronRight, Languages } from 'lucide-react';
+import { Menu, X, MessageCircle, Home, Store, Handshake, Rocket, ChevronRight, Languages } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/hooks/useI18n';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -125,27 +125,12 @@ export const MobileNavigation: React.FC = () => {
 
                 <li>
                   <SheetClose asChild>
-                    <Link to="/italmarkak" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
+                    <Link to="/partnerek" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
                       <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <Wine className="h-5 w-5 text-nf-primary shrink-0" />
+                        <Handshake className="h-5 w-5 text-nf-primary shrink-0" />
                         <div className="min-w-0">
-                          <span className="block text-white font-semibold truncate">{t('mobile_menu.brands')}</span>
-                          <span className="block text-xs text-nf-text-muted truncate">{t('mobile_menu.brands_desc')}</span>
-                        </div>
-                      </div>
-                      <ChevronRight className="h-5 w-5 text-nf-text-muted shrink-0" />
-                    </Link>
-                  </SheetClose>
-                </li>
-
-                <li>
-                  <SheetClose asChild>
-                    <Link to="/rewards-partners" className="w-full flex items-center justify-between px-2 py-4 active:scale-[0.98] transition">
-                      <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <Gift className="h-5 w-5 text-nf-primary shrink-0" />
-                        <div className="min-w-0">
-                          <span className="block text-white font-semibold truncate">{t('mobile_menu.rewards')}</span>
-                          <span className="block text-xs text-nf-text-muted truncate">{t('mobile_menu.rewards_desc')}</span>
+                          <span className="block text-white font-semibold truncate">{t('mobile_menu.partners')}</span>
+                          <span className="block text-xs text-nf-text-muted truncate">{t('mobile_menu.partners_desc')}</span>
                         </div>
                       </div>
                       <ChevronRight className="h-5 w-5 text-nf-text-muted shrink-0" />

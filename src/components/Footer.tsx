@@ -22,8 +22,7 @@ export const Footer: React.FC = () => {
           <ul className="space-y-2 text-sm">
             <li><Link to="/" className={linkCls}>Főoldal</Link></li>
             <li><Link to="/vendeglatohelyek" className={linkCls}>Vendéglátóhelyeknek</Link></li>
-            <li><Link to="/italmarkak" className={linkCls}>Italmárkáknak</Link></li>
-            <li><Link to="/rewards-partners" className={linkCls}>Rewards Partnerek</Link></li>
+            <li><Link to="/partnerek" className={linkCls}>Partnerek</Link></li>
             <li><Link to="/come-get-it-accelerator" className={linkCls}>Founding Partner Program</Link></li>
           </ul>
         </div>

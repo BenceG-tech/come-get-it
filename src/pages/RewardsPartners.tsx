@@ -138,7 +138,7 @@ const RewardsPartners = () => {
               </p>
 
               <div className="mt-6 mb-6 mx-auto lg:mx-0 max-w-xl border-l-2 border-nf-primary/60 bg-white/[0.03] px-4 py-3 rounded-r-md text-sm text-white/70">
-                A rewards-partnerprogram a 2. fázisban indul, miután az első felhasználói bázis kialakul.
+                {t('rewards_page.hero.phase_note')}
               </div>
 
               <Button

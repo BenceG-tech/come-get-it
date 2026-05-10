@@ -6,6 +6,7 @@
     "earn": "Earn",
     "give": "Give",
     "partners": "Work with us",
+    "partners_link": "Partners",
     "venues": "Venues",
     "brands": "Drink Brands",
     "rewards": "Rewards Partners",
@@ -75,6 +76,8 @@
     "home_desc": "Top sections and info",
     "venues": "Venues",
     "venues_desc": "Interest and application",
+    "partners": "Partners",
+    "partners_desc": "3 ways to join",
     "brands": "Drink Brands",
     "brands_desc": "Collaboration for brands",
     "rewards": "Rewards partners",
@@ -134,7 +137,7 @@
       "badge": "FOUNDING PARTNER PROGRAM — 15 SPOTS",
       "line1": "MORE GUESTS.",
       "line2": "FEWER EMPTY TABLES.",
-      "subtitle": "Come Get It helps new guests discover your venue during slow hours. The daily free drink gives them a reason to come to you tonight — the quality of your place does the rest.",
+      "subtitle": "We bring new guests during slow hours. The daily free drink gives them a concrete reason to come to you tonight — the venue takes care of the rest.",
       "cta": "Become a Founding Partner",
       "cta_secondary": "How it works"
     },
@@ -168,9 +171,10 @@
   },
   "brands_page": {
     "hero": {
-      "line1": "BE THERE",
-      "line2": "WHEN THEY'RE READY TO DRINK.",
-      "subtitle": "Get your drink in front of people who are choosing a place, ordering, and ready to try a new brand.",
+      "line1": "WE'LL MEET",
+      "line2": "AT THE FIRST SIP.",
+      "subtitle": "Show your drink to the people who are deciding right now what to drink. Not as an ad — as a first sip. Sampling at scale, with measurable results.",
+      "phase_note": "Drink-brand activations launch after the Founding Partner venues sign on. You can apply now for early access — the target audience and the first campaign blueprints are ready, waiting to be rolled out together.",
       "cta": "Let's talk"
     },
     "how_it_works": {
@@ -212,9 +216,10 @@
   },
   "rewards_page": {
     "hero": {
-      "line1": "BE THE NEXT",
-      "line2": "PROGRAM THEY CHOOSE.",
-      "subtitle": "Offer rewards to people in Budapest who are looking for a venue, a program or a new experience.",
+      "line1": "BE THERE WHEN",
+      "line2": "POINTS GET REDEEMED.",
+      "subtitle": "Our users earn points with every spend. What do they redeem them for? That's where you come in. Tickets, experiences, gym, beauty, coffee, brunch — anything a Budapest local values.",
+      "phase_note": "The rewards-partner program launches in phase 2, after the user base is established. You can apply now for early access so you're among the first listed in the redemption menu when we go live.",
       "cta": "Become a rewards partner"
     },
     "how_it_works": {
@@ -248,7 +253,7 @@
     "hero": {
       "line1": "BE THERE,",
       "line2": "AMONG THE FIRST.",
-      "subtitle": "The Come Get It Founding Partner Program is the exclusive phase before the Budapest launch. Open to venues, drink brands, and rewards partners — only for those who join first.",
+      "subtitle": "The first 15 venues, the first drink brands, the first rewards partners. 6 months commission-free, lifetime preferred rates, joint launch PR. Pre-launch only — once we go live, this offer is gone.",
       "cta": "Apply now!"
     },
     "how_it_works": {
@@ -308,6 +313,55 @@
       "subtitle_line1": "Join the first to shape",
       "subtitle_line2": "Budapest’s drink trends!",
       "cta": "APPLY NOW"
+    }
+  },
+  "partners_page": {
+    "hero": {
+      "badge": "PARTNER PROGRAM — 2026",
+      "line1": "LET'S BUILD",
+      "line2": "BUDAPEST'S NIGHTLIFE TOGETHER.",
+      "subtitle": "Three different ways to join Come Get It. Find the one that fits you."
+    },
+    "sections": {
+      "venues": {
+        "phase": "PHASE 1 — LAUNCH",
+        "title": "Are you a venue?",
+        "description": "We bring new guests during slow hours. The daily free drink gives them a concrete reason to come to you tonight — the venue takes care of the rest.",
+        "bullets": {
+          "1": "6 months commission-free",
+          "2": "New guests during slow hours",
+          "3": "Real consumer data"
+        },
+        "cta": "Details"
+      },
+      "brands": {
+        "phase": "PHASE 2 — POST LAUNCH",
+        "title": "Are you a drink brand?",
+        "description": "Show your drink to the people who are deciding right now what to drink. Not as an ad — as a first sip. Sampling at scale, with measurable results.",
+        "bullets": {
+          "1": "Precise targeting on Gen Z & Millennial consumers",
+          "2": "Real-time sampling data",
+          "3": "Measurable brand activations"
+        },
+        "cta": "Details"
+      },
+      "rewards": {
+        "phase": "PHASE 2 — POST LAUNCH",
+        "title": "Are you a rewards partner?",
+        "description": "Our users earn points with every spend. What do they redeem them for? That's where you come in. Tickets, experiences, gym, beauty, coffee, brunch — anything a Budapest local values.",
+        "bullets": {
+          "1": "Reach a new audience",
+          "2": "Positive brand experience",
+          "3": "Measurable redemption"
+        },
+        "cta": "Details"
+      }
+    },
+    "founding": {
+      "title_line1": "Founding Partner status",
+      "title_line2": "in every category",
+      "body": "The first 15 venues, the first drink brands and the first rewards partners get lifetime preferred rates and Founding Partner status. Pre-launch only.",
+      "cta": "Founding Partner Program"
     }
   },
   "auth": {

@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 import Vendeglatohelyek from "./pages/Vendeglatohelyek";
 import Italmarkak from "./pages/Italmarkak";
 import RewardsPartners from "./pages/RewardsPartners";
+import Partnerek from "./pages/Partnerek";
 import ComeGetItAccelerator from "./pages/ComeGetItAccelerator";
 import NotFound from "./pages/NotFound";
 import AdatvedelmiSzabalyzat from "./pages/AdatvedelmiSzabalyzat";
@@ -33,6 +34,7 @@ const App = () => (
               <Route path="/vendeglatohelyek" element={<Vendeglatohelyek />} />
               <Route path="/italmarkak" element={<Italmarkak />} />
               <Route path="/rewards-partners" element={<RewardsPartners />} />
+              <Route path="/partnerek" element={<Partnerek />} />
               <Route path="/come-get-it-accelerator" element={<ComeGetItAccelerator />} />
               <Route path="/adatvedelmi-szabalyzat" element={<AdatvedelmiSzabalyzat />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

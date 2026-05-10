@@ -1,12 +1,5 @@
 
 import React from 'react';
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ChevronDown } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { UserMenu } from '@/components/UserMenu';
@@ -52,35 +45,10 @@ export const Navigation: React.FC = () => {
           <button onClick={() => handleNavClick('link')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.link')}</button>
           <button onClick={() => handleNavClick('earn')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.earn')}</button>
           <button onClick={() => handleNavClick('give')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.give')}</button>
-        
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center text-white hover:text-nf-primary transition-colors duration-300 focus:outline-none">
-            {t('nav.partners')}
-            <ChevronDown className="ml-1 h-4 w-4" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-nf-surface backdrop-blur-md border border-nf-border rounded-xl">
-            <DropdownMenuItem asChild>
-              <Link to="/vendeglatohelyek" className="text-white hover:text-nf-primary cursor-pointer w-full">
-                {t('nav.venues')}
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to="/italmarkak" className="text-white hover:text-nf-primary cursor-pointer w-full">
-                {t('nav.brands')}
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to="/rewards-partners" className="text-white hover:text-nf-primary cursor-pointer w-full">
-                {t('nav.rewards')}
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to="/come-get-it-accelerator" className="text-white hover:text-nf-primary cursor-pointer w-full">
-                {t('nav.accelerator')}
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+
+          <Link to="/vendeglatohelyek" className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.venues')}</Link>
+          <Link to="/partnerek" className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.partners_link')}</Link>
+          <Link to="/come-get-it-accelerator" className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.accelerator')}</Link>
         
           {/* Language switcher */}
           <div className="flex items-center space-x-2">
