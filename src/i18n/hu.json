@@ -356,6 +356,55 @@
       "cta": "JELENTKEZZ MOST"
     }
   },
+  "partners_page": {
+    "hero": {
+      "badge": "PARTNERPROGRAM — 2026",
+      "line1": "ÉPÍTSÜK KÖZÖSEN",
+      "line2": "BUDAPEST ÉJSZAKAI ÉLETÉT.",
+      "subtitle": "Három különböző módon csatlakozhatsz a Come Get It-hez. Találd meg a tiédet."
+    },
+    "sections": {
+      "venues": {
+        "phase": "1. FÁZIS — INDULÁS",
+        "title": "Vendéglátóhely vagy?",
+        "description": "Új vendégeket hozunk a holtidőkben. A napi ingyen ital ad nekik konkrét okot, hogy ma este hozzád menjenek — a többit a hely már intézi.",
+        "bullets": {
+          "1": "6 hónap jutalékmentesen",
+          "2": "Új vendégek a holtidőkben",
+          "3": "Valós fogyasztói adatok"
+        },
+        "cta": "Részletek"
+      },
+      "brands": {
+        "phase": "2. FÁZIS — INDULÁS UTÁN",
+        "title": "Italmárka vagy?",
+        "description": "Mutasd meg az italodat azoknak, akik most döntenek arról, mit isznak. Nem reklámként — első kortyként. Sampling at scale, mérhető eredménnyel.",
+        "bullets": {
+          "1": "Precíz célzás Gen Z & Millennial fogyasztókra",
+          "2": "Real-time sampling-adatok",
+          "3": "Mérhető brand-aktivációk"
+        },
+        "cta": "Részletek"
+      },
+      "rewards": {
+        "phase": "2. FÁZIS — INDULÁS UTÁN",
+        "title": "Rewards-partner vagy?",
+        "description": "A felhasználóink minden költésük után pontot gyűjtenek. Mire váltják be? Erre te válaszolsz. Jegyek, élmények, sportbérlet, beauty, kávé, brunch — bármi, ami egy budapesti fiatalnak érték.",
+        "bullets": {
+          "1": "Új közönség elérése",
+          "2": "Pozitív brand-élmény",
+          "3": "Mérhető beváltás"
+        },
+        "cta": "Részletek"
+      }
+    },
+    "founding": {
+      "title_line1": "Founding Partner státusz",
+      "title_line2": "minden kategóriában",
+      "body": "Az első 15 vendéglátóhely, az első italmárkák és az első rewards-partnerek lifetime kedvezményt és Founding Partner státuszt kapnak. Csak indulás előtt elérhető.",
+      "cta": "Founding Partner Program"
+    }
+  },
   "auth": {
     "title": "Üdv a Come Get It-ben",
     "subtitle": "Jelentkezz be vagy hozz létre új fiókot",
