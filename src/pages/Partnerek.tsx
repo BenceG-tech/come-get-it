@@ -6,7 +6,7 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { HeroBackground } from '@/components/HeroBackground';
-import { ArrowRight, Check, Store, Wine, Gift, Rocket } from 'lucide-react';
+import { ArrowRight, Check, Store, Wine, Gift, Rocket, type LucideIcon } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
@@ -19,7 +19,7 @@ type PartnerSection = {
   bullets: string[];
   ctaLabel: string;
   href: string;
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  icon: LucideIcon;
 };
 
 const Partnerek = () => {
