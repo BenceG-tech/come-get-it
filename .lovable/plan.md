@@ -1,23 +1,57 @@
-## Változtatások
+## Hero szekció újrarendezése (főoldal)
 
-**1. Koktél eltávolítása**
-- `src/components/HeroSection.tsx`: töröljük a jobb oldali `cyanCocktail` képet és annak glow-ját, valamint a `cyanCocktail` importot. A telefon visszakerül középre (eltávolítjuk a `lg:-translate-x-10 xl:-translate-x-14` eltolást).
-- `src/pages/Italmarkak.tsx`: töröljük a koktél képet, glow-ját és az importot a hero szekcióból. A háttér 3-rétegű glow (sötét halo + cián glow) marad.
+A jelenlegi mobil hero túl zsúfolt: cím + 4 soros leírás + 847+ counter + 2 gomb + founding note → a telefon mockup csak scroll után jelenik meg. Az alábbi módosítások a fold-on belülre hozzák a mockupot, és letisztítják a hierarchiát.
 
-**2. Telefon mockup méret egységesítése**
-A főoldali hero telefon natív méretben (scale nélkül) jelenik meg. Az aloldalakon jelenleg `lg:scale-[1.22] xl:scale-[1.32]` van — ezt eltávolítjuk, hogy ugyanakkora legyen, mint a főoldalon.
+### 1. Copy rövidítése (i18n)
 
-Érintett fájlok:
-- `src/components/VenueHeroSection.tsx` (Vendéglátóhelyek)
-- `src/pages/Italmarkak.tsx` (Italmárkák)
-- `src/pages/RewardsPartners.tsx` (Rewards Partners)
+**Fájl:** `src/i18n/hu.json` és `src/i18n/en.json`
 
-Mindháromban a phone wrapper:
+`hero.subtitle` átírása:
+- HU: `"Partnerhelyek Budapesten. Napi ingyen ital. Minden beváltással tiszta ivóvíz egy rászorulónak."`
+- EN: ekvivalens rövid változat (`"Partner venues in Budapest. A free drink every day. Each redemption funds clean water for someone in need."`)
+
+A többi kulcs (`badge`, `title_line1`, `title_line2`, `cta`, `cta_secondary`, `founding_note`) változatlan marad.
+
+### 2. Mobil sorrend újraépítése
+
+**Fájl:** `src/components/HeroSection.tsx`
+
+Mobilon (single column) az új top-to-bottom sorrend:
+
+```text
+[Badge]
+H1 (title_line1 + title_line2)
+Rövid subtitle (1 mondat)
+[CTA elsődleges]
+[CTA másodlagos]
+[Telefon mockup]  ← közvetlenül a gombok alatt, minimális padding
+[Founding note]   ← utolsó elem
 ```
-className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]"
-```
-(a `lg:scale-[1.22] xl:scale-[1.32]` és a duplikált `drop-shadow-[...]` osztály eltávolítva)
 
-A `min-h-[480px] lg:min-h-[640px]` konténer marad, így a kompozíció nem ugrik szét. A 3-rétegű háttér glow (sötét halo + cián glow) változatlan.
+Desktop (`lg:`) marad kétoszlopos: bal = badge + H1 + subtitle + CTA-k + founding note, jobb = mockup. A bal oszlopban a sorrend desktopon nem változik.
 
-**Amit NEM változtatunk:** copy, CTA, formok, analytics, SEO, navigáció, háttérképek, sötét overlay-ek, a többi szekció.
+Implementáció: a jelenlegi két `<div>` (bal text-block + jobb mockup-block) helyett mobilon flex-orderrel rendezzük át a részeket, vagy a mockup blokkját mobilon a CTA gombok után, a founding note elé renderejlük (`order` osztályok: pl. mockup `order-3 lg:order-none`, founding-note `order-4 lg:order-none`). A `SocialProof` komponenst kivesszük a hero JSX-ből.
+
+A mockup konténer mobil `min-h`-ját csökkentjük (`min-h-[420px]` → `min-h-[380px]`) és a vertikális paddingot szűkítjük, hogy ne legyen üres rés.
+
+### 3. SocialProof (847+) eltávolítása a heróból
+
+A `<SocialProof />` hívást és az importot töröljük a `HeroSection.tsx`-ből. A komponens fájlja marad (más helyen nincs használva, de nem törlünk).
+
+### 4. Amit NEM változtatunk
+
+- CTA labelek, badge szöveg, H1, founding note copy
+- Form, analytics, route-ok, SEO/OG, prerender, navigáció
+- Háttér (Budapest night image, glow-k, fade-ek)
+- PhoneMockup komponens, képek (`appImages` továbbra is a meglévő `/lovable-uploads/...` képek — IMG_5872 cserét nem kérünk, mert nincs feltöltve)
+- Aloldalak (Vendéglátóhelyek, Italmárkák, Rewards Partners) heró szekciói
+
+### Érintett fájlok
+
+- `src/i18n/hu.json`
+- `src/i18n/en.json`
+- `src/components/HeroSection.tsx`
+
+### Ellenőrzés
+
+A 402×700-as preview viewporton ellenőrzöm, hogy a CTA gombok és a telefon mockup felső kétharmada a fold-on belülre kerül-e, és nincs horizontális overflow.
