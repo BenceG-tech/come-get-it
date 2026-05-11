@@ -181,7 +181,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-4 bg-nf-background text-center">
+      <section className="py-20 px-4 bg-nf-background nf-section-glow text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-anton uppercase leading-[0.9] tracking-tight">
             <span className="block text-white">Csatlakozz</span>
