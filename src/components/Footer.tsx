@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
   const linkCls = 'text-white/65 hover:text-nf-primary transition-colors';
 
   return (
-    <footer className="relative mt-16 border-t border-nf-primary/20 bg-gradient-to-b from-[#03070d] to-black text-white/80">
+    <footer className="relative mt-16 border-t border-nf-primary/20 bg-nf-background text-white/80">
       <div className="max-w-7xl mx-auto px-4 py-12 grid gap-10 md:grid-cols-4">
         <div>
           <Logo className="h-9 mb-4" />

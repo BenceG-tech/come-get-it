@@ -35,10 +35,10 @@ export const VenueHeroSection: React.FC = () => {
             height={1080}
           />
         </div>
-        <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-[#03060d] via-[#03060d]/85 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-[#03060d] via-[#03060d]/85 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-nf-background via-nf-background/85 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-nf-background via-nf-background/85 to-transparent" />
         {/* Left-side dark overlay for text readability */}
-        <div className="hidden lg:block absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-[#03060d] via-[#03060d]/85 to-transparent" />
+        <div className="hidden lg:block absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-nf-background via-nf-background/85 to-transparent" />
         <div
           className="absolute inset-0"
           style={{
