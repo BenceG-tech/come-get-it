@@ -2,11 +2,8 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
 import { MobileNavigation } from './MobileNavigation';
-import { ReflectionFloor } from './ReflectionFloor';
-
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
-import budapestNight from '@/assets/budapest-night-hero.jpg';
 import cyanCocktail from '@/assets/cocktail-pour.png';
 
 interface HeroSectionProps {
@@ -23,26 +20,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
 
       {/* Background layers */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Parliament image — full height with soft mask, no visible band edges */}
-        <div
-          className="absolute inset-0"
-          style={{
-            WebkitMaskImage:
-              'linear-gradient(to bottom, transparent 0%, black 35%, black 70%, transparent 95%)',
-            maskImage:
-              'linear-gradient(to bottom, transparent 0%, black 35%, black 70%, transparent 95%)',
-          }}
-        >
-          <img
-            src={budapestNight}
-            alt=""
-            aria-hidden="true"
-            className="w-full h-full object-cover opacity-50"
-            style={{ objectPosition: 'center 55%' }}
-            width={1920}
-            height={1080}
-          />
-        </div>
+        {/* (Parliament background removed to eliminate visible mask edge / line) */}
 
         {/* Top dark fade — clean background behind headline */}
         <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-[#03060d] via-[#03060d]/85 to-transparent" />
@@ -70,8 +48,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         />
       </div>
 
-      {/* Reflective floor */}
-      <ReflectionFloor />
+      {/* Reflective floor removed */}
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-16 lg:items-center">
@@ -150,14 +127,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
                 maskImage: 'radial-gradient(circle at 50% 50%, black 0%, transparent 70%)',
               }}
             />
-            <div className="relative z-20 flex items-end justify-center gap-2 md:gap-4">
+            <div className="relative z-20 flex items-center justify-center gap-2 md:gap-4">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
-              {/* Cocktail glass — desktop only, sits beside the phone, tilted as if being poured into */}
+              {/* Cocktail glass — desktop only, phone-sized, tilted as if being poured into */}
               <img
                 src={cyanCocktail}
                 alt=""
                 aria-hidden="true"
-                className="hidden lg:block w-48 xl:w-60 -ml-4 xl:-ml-6 self-end translate-y-4 translate-x-2 rotate-[10deg] select-none pointer-events-none [filter:drop-shadow(0_25px_40px_rgba(0,0,0,0.6))_drop-shadow(0_0_40px_rgba(0,188,212,0.55))]"
+                className="hidden lg:block w-72 xl:w-96 -ml-6 xl:-ml-10 self-center translate-y-2 translate-x-2 rotate-[10deg] select-none pointer-events-none [filter:drop-shadow(0_25px_40px_rgba(0,0,0,0.6))_drop-shadow(0_0_40px_rgba(0,188,212,0.55))]"
                 draggable={false}
               />
             </div>
