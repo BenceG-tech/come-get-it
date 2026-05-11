@@ -6,7 +6,6 @@ import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { HeroBackground } from '@/components/HeroBackground';
-import { ReflectionFloor } from '@/components/ReflectionFloor';
 import { ArrowRight, Gift, Settings, Zap, BarChart, Users, BarChart3, Handshake } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
@@ -120,7 +119,6 @@ const RewardsPartners = () => {
       {/* Hero */}
       <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden bg-nf-background">
         <HeroBackground />
-        <ReflectionFloor />
         {/* Left dark overlay for text readability */}
         <div
           aria-hidden="true"

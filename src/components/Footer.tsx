@@ -73,25 +73,12 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Decorative Budapest skyline — layered for depth */}
-      <div aria-hidden="true" className="max-w-7xl mx-auto px-4 relative">
-        {/* Back layer — soft, distant */}
-        <svg viewBox="0 0 1200 80" preserveAspectRatio="none" className="absolute inset-x-4 bottom-0 w-[calc(100%-2rem)] h-14 text-nf-primary/20">
+      {/* Decorative skyline */}
+      <div aria-hidden="true" className="max-w-7xl mx-auto px-4">
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none" className="w-full h-10 text-nf-primary/15">
           <path
             fill="currentColor"
-            d="M0,80 L0,55 L60,55 L60,42 L120,42 L120,52 L180,52 L180,38 L240,38 L240,48 L320,48 L320,32 L380,32 L380,46 L460,46 L460,40 L540,40 L540,28 L600,28 L600,42 L680,42 L680,36 L760,36 L760,48 L840,48 L840,30 L920,30 L920,44 L1000,44 L1000,38 L1080,38 L1080,50 L1200,50 L1200,80 Z"
-          />
-        </svg>
-        {/* Front layer — sharper, with cyan glow */}
-        <svg
-          viewBox="0 0 1200 80"
-          preserveAspectRatio="none"
-          className="relative w-full h-16 text-nf-primary/45"
-          style={{ filter: 'drop-shadow(0 -2px 8px rgba(0,188,212,0.35))' }}
-        >
-          <path
-            fill="currentColor"
-            d="M0,80 L0,60 L40,60 L40,50 L60,50 L60,58 L90,58 L90,40 L100,40 L100,58 L130,58 L130,48 L160,48 L160,60 L200,60 L200,35 L210,35 L210,28 L220,28 L220,35 L230,35 L230,60 L270,60 L270,52 L300,52 L300,62 L340,62 L340,45 L360,45 L360,38 L380,38 L380,45 L400,45 L400,62 L440,62 L440,50 L470,50 L470,60 L510,60 L510,42 L530,42 L530,32 L550,32 L550,42 L570,42 L570,60 L610,60 L610,52 L640,52 L640,62 L680,62 L680,48 L700,48 L700,38 L720,38 L720,48 L740,48 L740,62 L780,62 L780,50 L820,50 L820,60 L860,60 L860,40 L880,40 L880,30 L900,30 L900,40 L920,40 L920,60 L960,60 L960,52 L1000,52 L1000,62 L1040,62 L1040,48 L1070,48 L1070,58 L1110,58 L1110,50 L1150,50 L1150,60 L1200,60 L1200,80 Z"
+            d="M0,60 L0,40 L40,40 L40,30 L60,30 L60,38 L90,38 L90,20 L100,20 L100,38 L130,38 L130,28 L160,28 L160,40 L200,40 L200,15 L210,15 L210,8 L220,8 L220,15 L230,15 L230,40 L270,40 L270,32 L300,32 L300,42 L340,42 L340,25 L360,25 L360,18 L380,18 L380,25 L400,25 L400,42 L440,42 L440,30 L470,30 L470,40 L510,40 L510,22 L530,22 L530,12 L550,12 L550,22 L570,22 L570,40 L610,40 L610,32 L640,32 L640,42 L680,42 L680,28 L700,28 L700,18 L720,18 L720,28 L740,28 L740,42 L780,42 L780,30 L820,30 L820,40 L860,40 L860,20 L880,20 L880,10 L900,10 L900,20 L920,20 L920,40 L960,40 L960,32 L1000,32 L1000,42 L1040,42 L1040,28 L1070,28 L1070,38 L1110,38 L1110,30 L1150,30 L1150,40 L1200,40 L1200,60 Z"
           />
         </svg>
       </div>

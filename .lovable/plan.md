@@ -1,16 +1,49 @@
-## Hero szekció finomítás
+## Cél
 
-**1. Törésvonal / tükröződés eltávolítása**
-- `src/components/HeroSection.tsx`-ből kiveszem a `<ReflectionFloor />` komponens használatát (ez okozza a vízszintes csíkot a hero alján).
-- A `budapestNight` parlament képet is kiveszem teljesen a hero háttérből (a maszk széle adhatja a látható "törést"), helyette csak a tiszta `#03060d` háttér + cyan radial glow + diagonal light-leak marad. Tisztább, törésmentes hero.
+A főoldal (és kapcsolódó komponensek) szöveg- és struktúra-fixei a visszajelzések alapján. Képeket NEM cseréljük most (saját képek, később frissülnek).
 
-**2. Koktélpohár nagyobb — telefon méretű**
-- `HeroSection.tsx`-ben a `<img src={cyanCocktail}>`-en:
-  - méret: `w-48 xl:w-60` → `w-72 xl:w-96` (kb. a phone mockup szélességével azonos)
-  - igazítás: `self-end` helyett `self-center`, így a telefon mellett középen áll, mintha mellette tartanák
-  - dőlés és pozíció marad: `rotate-[10deg] translate-x-2`, drop-shadow változatlan
-  - mobile: marad `hidden lg:block` (mobilon nem fér el két ekkora elem egymás mellett)
+## Változtatások
 
-**Érintett fájl:** `src/components/HeroSection.tsx` (egyetlen fájl)
+### 1. Terminológia egységesítés: "Jutalom Partnerek" → "Rewards-partnerek"
+Minden előfordulás cseréje (nav, mobil-nav, partner-link kártyák, footer ha van) HU + EN i18n-ben.
+- Fájlok: `src/i18n/hu.json`, `src/i18n/en.json`, `src/components/Navigation.tsx`, `src/components/MobileNavigation.tsx`, `src/pages/Partnerek.tsx`, `src/components/QuickAccessChips.tsx` (ha érintett)
 
-Nem nyúlok a `ReflectionFloor.tsx`-hez magához (más oldalakon még használatban lehet), csak a homepage hero-ból veszem ki.
+### 2. Terminológia: "Italszponzor" → "Italmárka"
+A "Miért éri meg mindenkinek?" / BenefitsSection oszlopcímek és szövegek átírása.
+- Fájl: `src/components/BenefitsSection.tsx` + i18n kulcsok
+
+### 3. "Közösség" oszlop a BenefitsSection-ben → "Jótékonysági partner"
+Átnevezés, hogy a Give-modellhez logikusan kapcsolódjon. Szöveg finomítása ennek megfelelően.
+- Fájl: `src/components/BenefitsSection.tsx` + i18n
+
+### 4. Főoldali 4-kártyás partner-szekció redukálása 1 CTA-ra
+A `VenuePartnerTeaser` (vagy a 4 partner-link kártyát megjelenítő szekció) átalakítása:
+- Egyetlen blokk: cím "Partnerként csatlakoznál?" + 1 gomb "Partnerek programja →" → `/partnerek`
+- A 4 különálló kártya (Vendéglátóhelyek / Italmárkák / Rewards-partnerek / Founding Partner) eltávolítása a főoldalról (a /partnerek hub-on maradnak)
+- Fájl: `src/components/VenuePartnerTeaser.tsx` (vagy a megfelelő komponens — ellenőrzendő)
+
+### 5. Duplikált "alapító tag" szekciók egyesítése
+Jelenleg két szekció van egymás után:
+- "Legyél alapító tag" (1000 bennfentes, "Jövök a körre" gomb) — `FOMOSection`
+- "Legyél az alapító tagok között" (500 Plus, email form) — `SignupForm`
+
+Megoldás: a `FOMOSection` eltávolítása a főoldalról (Index.tsx), csak a `SignupForm` marad. Számok következetesek lesznek a PricingSection-nel (500 / 1500 / haver-meghívás).
+- Fájl: `src/pages/Index.tsx` (FOMOSection import + render törlése)
+
+### 6. "Saját tiszta víz számláló" → "Saját Give-impact: lásd hány liter tiszta víz adományoztál"
+A Plus csomag listájában a `PricingSection`-ben.
+- Fájl: `src/components/PricingSection.tsx` + i18n
+
+### 7. Helyszín típusa dropdown ellenőrzése
+A `VenueApplicationSection` form "Helyszín típusa" dropdown opcióinak ellenőrzése. Ha hiányzik, kiegészítés: Bár, Étterem, Kávézó, Pub, Bisztró, Klub, Fine dining, Reggelizős, Vegyes/Egyéb.
+- Fájl: `src/components/VenueApplicationSection.tsx`
+
+## Amit NEM csinálunk most
+- App screenshot cserék (DRINK/LINK/EARN mockupok) — saját képek, később
+- BESTIA / FIRST CRAFT BEER referenciák — később, friss screenshotokkal
+- 2x2 grid magasság-finomítás (stilisztikai, nem fontos)
+
+## Ellenőrzés
+- Build hibamentes
+- Mobil preview (390×844) — minden módosított szekció vizuális ellenőrzése
+- HU + EN nyelvváltó működik az új kulcsokon

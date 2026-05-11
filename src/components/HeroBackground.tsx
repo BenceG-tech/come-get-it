@@ -38,16 +38,6 @@ export const HeroBackground: React.FC = () => {
             'radial-gradient(ellipse 55% 40% at 75% 50%, rgba(0,188,212,0.20) 0%, transparent 65%), radial-gradient(ellipse 45% 35% at 20% 55%, rgba(0,151,167,0.10) 0%, transparent 65%)',
         }}
       />
-      {/* Diagonal cyan light-leak across the hero */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none mix-blend-screen"
-        style={{
-          background:
-            'linear-gradient(115deg, transparent 38%, rgba(0,188,212,0.10) 48%, rgba(0,212,255,0.16) 52%, rgba(0,188,212,0.10) 56%, transparent 66%)',
-          filter: 'blur(8px)',
-        }}
-      />
     </div>
   );
 };

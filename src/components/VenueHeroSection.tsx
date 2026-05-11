@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
-import { ReflectionFloor } from './ReflectionFloor';
 import { ArrowRight } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
@@ -47,18 +46,7 @@ export const VenueHeroSection: React.FC = () => {
               'radial-gradient(ellipse 55% 45% at 72% 50%, rgba(0,188,212,0.26) 0%, transparent 65%), radial-gradient(ellipse 45% 35% at 20% 55%, rgba(0,151,167,0.10) 0%, transparent 65%)',
           }}
         />
-        {/* Diagonal cyan light-leak */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none mix-blend-screen"
-          style={{
-            background:
-              'linear-gradient(115deg, transparent 38%, rgba(0,188,212,0.10) 48%, rgba(0,212,255,0.18) 52%, rgba(0,188,212,0.10) 56%, transparent 66%)',
-            filter: 'blur(8px)',
-          }}
-        />
       </div>
-      <ReflectionFloor />
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-12 items-center">
