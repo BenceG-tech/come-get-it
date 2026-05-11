@@ -30,6 +30,7 @@
   },
   "miben_segit": {
     "title": "Miben segít?",
+    "subtitle": "Bármilyen napszak, bármilyen hangulat — egy app, ami megmondja, hova érdemes menni.",
     "cards": {
       "1": { "title": "Hol reggelizzek?", "description": "Találj helyet, ahol a napindításhoz pont vagy jutalom is jár." },
       "2": { "title": "Hol ebédeljek?", "description": "Válassz gyorsabban a közeli partnerhelyek közül." },
