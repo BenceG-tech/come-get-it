@@ -1,49 +1,83 @@
-## Cél
+# Vizuális frissítés terve — referencia képek alapján
 
-A főoldal (és kapcsolódó komponensek) szöveg- és struktúra-fixei a visszajelzések alapján. Képeket NEM cseréljük most (saját képek, később frissülnek).
+A 4 feltöltött screenshotból ezeket az elemeket veszem át:
 
-## Változtatások
+## 1. Hero — fénycsóva + tükröződő felület + pohár (Index + Vendéglátóhelyek + Italmárkák + Rewards)
 
-### 1. Terminológia egységesítés: "Jutalom Partnerek" → "Rewards-partnerek"
-Minden előfordulás cseréje (nav, mobil-nav, partner-link kártyák, footer ha van) HU + EN i18n-ben.
-- Fájlok: `src/i18n/hu.json`, `src/i18n/en.json`, `src/components/Navigation.tsx`, `src/components/MobileNavigation.tsx`, `src/pages/Partnerek.tsx`, `src/components/QuickAccessChips.tsx` (ha érintett)
+**Mit átveszünk** (a 3. és 4. ref. képből):
+- A telefon **mellé jobbra egy ikonikus pohár** (jeges koktél, lime, szívószál) — ugyanaz a kompozíció mint az "Italmárkáknak" oldalon, de finomabban a főoldalon.
+- **Tükröződő, nedves padló-effekt** a hero alján: alulról halvány cyan reflexió a telefonra és a pohárra (CSS gradient + blur, nem új asset).
+- **Diagonális fénycsóva** a háttérben jobb oldalról balra le — vékony cyan glow sáv, ami a Parlament felett halad át (light-leak hatás).
 
-### 2. Terminológia: "Italszponzor" → "Italmárka"
-A "Miért éri meg mindenkinek?" / BenefitsSection oszlopcímek és szövegek átírása.
-- Fájl: `src/components/BenefitsSection.tsx` + i18n kulcsok
+**Hol**: 
+- `HeroSection.tsx` — hozzáadok egy `glass-hero.png` (vagy meglévő pohár asset, ha van) komponenst a telefon jobbjára desktopon, mobilon a telefon alá kisebben.
+- Új `<HeroLightBeam />` SVG/div overlay — reusable komponens.
+- Új `<ReflectionFloor />` overlay alul a hero szekciókban.
 
-### 3. "Közösség" oszlop a BenefitsSection-ben → "Jótékonysági partner"
-Átnevezés, hogy a Give-modellhez logikusan kapcsolódjon. Szöveg finomítása ennek megfelelően.
-- Fájl: `src/components/BenefitsSection.tsx` + i18n
+## 2. Kártyák halvány képes háttérrel ("MIÉRT ÉRI MEG MINDENKINEK?" / "JUTALOM RENDSZER ELŐNYEI")
 
-### 4. Főoldali 4-kártyás partner-szekció redukálása 1 CTA-ra
-A `VenuePartnerTeaser` (vagy a 4 partner-link kártyát megjelenítő szekció) átalakítása:
-- Egyetlen blokk: cím "Partnerként csatlakoznál?" + 1 gomb "Partnerek programja →" → `/partnerek`
-- A 4 különálló kártya (Vendéglátóhelyek / Italmárkák / Rewards-partnerek / Founding Partner) eltávolítása a főoldalról (a /partnerek hub-on maradnak)
-- Fájl: `src/components/VenuePartnerTeaser.tsx` (vagy a megfelelő komponens — ellenőrzendő)
+**Mit átveszünk** (1., 2. ref. kép):
+- A kártyák mögé **halvány, témához illő fotó** (~10–18% opacity, sötét overlay-jel, jobb-oldali maszkkal kifutva — pont mint a `RewardsPartners` features szekcióban már működik).
+- Erőteljesebb hover: a kép kissé fényesebb lesz (opacity 18→28%).
 
-### 5. Duplikált "alapító tag" szekciók egyesítése
-Jelenleg két szekció van egymás után:
-- "Legyél alapító tag" (1000 bennfentes, "Jövök a körre" gomb) — `FOMOSection`
-- "Legyél az alapító tagok között" (500 Plus, email form) — `SignupForm`
+**Hol**:
+- `BenefitsSection.tsx` (főoldal "Miért éri meg mindenkinek?" — 4 kártya) — minden kártyához témához illő bg image:
+  - Felhasználók → emberek bárban
+  - Vendéglátóhelyek → bár belső
+  - Italmárkák → koktél/üveg close-up
+  - Jótékonysági partner → tiszta víz / kézfogás
+- Ugyanezt alkalmazom: `MibenSegitSection.tsx` 4 kártyájára is (reggeli/ebéd/randi/buli — finom étel/ital fotók).
+- `RewardsPartners.tsx` "value props" 4 kártyájára (közönség, brand, mérés, kampány).
 
-Megoldás: a `FOMOSection` eltávolítása a főoldalról (Index.tsx), csak a `SignupForm` marad. Számok következetesek lesznek a PricingSection-nel (500 / 1500 / haver-meghívás).
-- Fájl: `src/pages/Index.tsx` (FOMOSection import + render törlése)
+**Implementáció**: kivonok egy közös `GlassImageCard` wrapper-t a `RewardsPartners` features mintájára (már megvan ott), és `src/components/ui/glass-image-card.tsx` néven megosztom.
 
-### 6. "Saját tiszta víz számláló" → "Saját Give-impact: lásd hány liter tiszta víz adományoztál"
-A Plus csomag listájában a `PricingSection`-ben.
-- Fájl: `src/components/PricingSection.tsx` + i18n
+## 3. Footer — élesebb kék városi skyline
 
-### 7. Helyszín típusa dropdown ellenőrzése
-A `VenueApplicationSection` form "Helyszín típusa" dropdown opcióinak ellenőrzése. Ha hiányzik, kiegészítés: Bár, Étterem, Kávézó, Pub, Bisztró, Klub, Fine dining, Reggelizős, Vegyes/Egyéb.
-- Fájl: `src/components/VenueApplicationSection.tsx`
+**Mit átveszünk** (mind a 4 ref. kép footere):
+- A jelenlegi nagyon halvány (`text-nf-primary/15`) skyline helyett **kontrasztosabb cyan**, két rétegben: hátul halvány (15%), elöl élesebb (35–45%) — mélységérzet.
+- Finom **cyan glow** a skyline tetején (drop-shadow), mintha a város világítana.
+- Magasabb skyline (h-10 → h-14/16), részletesebb SVG path (Lánchíd / Parlament sziluett utalás).
 
-## Amit NEM csinálunk most
-- App screenshot cserék (DRINK/LINK/EARN mockupok) — saját képek, később
-- BESTIA / FIRST CRAFT BEER referenciák — később, friss screenshotokkal
-- 2x2 grid magasság-finomítás (stilisztikai, nem fontos)
+**Hol**: `Footer.tsx` SVG csere + glow.
 
-## Ellenőrzés
-- Build hibamentes
-- Mobil preview (390×844) — minden módosított szekció vizuális ellenőrzése
-- HU + EN nyelvváltó működik az új kulcsokon
+## 4. Hero háttér finomítás — diagonális fénycsóva minden hero-n
+
+**Mit átveszünk**: A 3–4. képen a Parlament fölött átsuhanó cyan light-leak nagyon hangulatos.
+- Új réteg a `HeroBackground.tsx`-be: `linear-gradient(115deg, transparent 40%, rgba(0,188,212,0.12) 50%, transparent 60%)` blur-rel.
+- Ez automatikusan minden hero-n megjelenik (Vendéglátóhelyek, Italmárkák, Rewards is használja).
+
+## 5. Mobil hero — telefon "fénycsóva" glow erősítése
+
+A 3. ref. képen mobilon a telefon mögött erős sugaras cyan glow van.
+- `HeroSection.tsx` mobil view-ban (lg alatt) erősítem a `radial-gradient` glow-t a telefon mögött (0.32 → 0.5) és hozzáadok egy második, sugár-szerű `conic-gradient`-et.
+
+---
+
+## Amit NEM csinálok most (jelezted vagy nem aktuális)
+- App screenshot cserék (DRINK/LINK/EARN mockupok) — saját képeid, később cseréled.
+- BESTIA / FIRST CRAFT BEER referencia logók.
+- Nem nyúlok a copy-hoz, csak vizuális réteg.
+
+---
+
+## Technikai részletek
+
+**Új fájlok**:
+- `src/components/ui/glass-image-card.tsx` — közös kártya wrapper image bg-vel
+- `src/components/HeroLightBeam.tsx` — diagonális fénycsóva overlay
+- `src/components/ReflectionFloor.tsx` — tükröződő padló overlay (hero alján)
+- `src/assets/hero-glass.png` (vagy reuse meglévő) — pohár image a hero-ba
+
+**Módosított fájlok**:
+- `src/components/HeroSection.tsx` — pohár + reflection + light beam
+- `src/components/HeroBackground.tsx` — light beam + intenzívebb glow réteg
+- `src/components/VenueHeroSection.tsx` — light beam + reflection
+- `src/pages/RewardsPartners.tsx` — light beam + reflection a hero-ban
+- `src/pages/Italmarkak.tsx` — light beam + reflection (a meglévő pohárhoz)
+- `src/components/BenefitsSection.tsx` — image-bg kártyák
+- `src/components/MibenSegitSection.tsx` — image-bg kártyák
+- `src/components/Footer.tsx` — élesebb 2-rétegű skyline
+
+**Asset stratégia**: a kártya háttérképekhez újrahasznosítom a meglévő `budapest-night-hero.jpg`, `venue-interior-hero.jpg` képeket + szükség esetén 2-3 új image generálással (koktél close-up, kézfogás-jótékonyság).
+
+Jóváhagyás után megyek.
