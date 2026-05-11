@@ -1,6 +1,10 @@
 import React from 'react';
 import { Wine, Home, DollarSign, Users } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
+import bgUser from '@/assets/venue-why/lokacio-push.jpg';
+import bgVenue from '@/assets/venue-why/uj-vendegek.jpg';
+import bgSponsor from '@/assets/venue-why/nulla-rizikó.jpg';
+import bgCommunity from '@/assets/miben-segit/beulos.jpg';
 
 interface BenefitCard {
   icon: React.ElementType;
@@ -9,6 +13,7 @@ interface BenefitCard {
   li1Key: string;
   li2Key: string;
   glow: string;
+  bg: string;
 }
 
 export const BenefitsSection: React.FC = () => {
@@ -23,6 +28,7 @@ export const BenefitsSection: React.FC = () => {
       li2Key: 'benefits.user.li2',
       glow:
         'radial-gradient(ellipse 70% 50% at 20% 10%, rgba(0,188,212,0.20) 0%, transparent 60%)',
+      bg: bgUser,
     },
     {
       icon: Home,
@@ -32,6 +38,7 @@ export const BenefitsSection: React.FC = () => {
       li2Key: 'benefits.venue.li2',
       glow:
         'radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,188,212,0.18) 0%, transparent 65%)',
+      bg: bgVenue,
     },
     {
       icon: DollarSign,
@@ -41,6 +48,7 @@ export const BenefitsSection: React.FC = () => {
       li2Key: 'benefits.sponsor.li2',
       glow:
         'radial-gradient(ellipse 70% 50% at 80% 90%, rgba(0,188,212,0.22) 0%, transparent 65%)',
+      bg: bgSponsor,
     },
     {
       icon: Users,
@@ -50,6 +58,7 @@ export const BenefitsSection: React.FC = () => {
       li2Key: 'benefits.community.li2',
       glow:
         'radial-gradient(ellipse 60% 50% at 80% 10%, rgba(0,188,212,0.20) 0%, transparent 60%)',
+      bg: bgCommunity,
     },
   ];
 
@@ -61,11 +70,20 @@ export const BenefitsSection: React.FC = () => {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {cards.map(({ icon: Icon, titleKey, bodyKey, li1Key, li2Key, glow }, idx) => (
+          {cards.map(({ icon: Icon, titleKey, bodyKey, li1Key, li2Key, glow, bg }, idx) => (
             <div
               key={idx}
-              className="group relative h-full min-h-[320px] rounded-2xl overflow-hidden border border-nf-primary/20 bg-[linear-gradient(180deg,#04070d_0%,rgba(0,0,0,0.85)_100%)] p-6 flex flex-col transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]"
+              className="group relative h-full min-h-[320px] rounded-2xl overflow-hidden border border-nf-primary/20 bg-cover bg-center p-6 flex flex-col transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]"
+              style={{ backgroundImage: `url(${bg})` }}
             >
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(5,5,5,0.70) 0%, rgba(5,5,5,0.90) 100%)',
+                }}
+              />
               <div
                 aria-hidden="true"
                 className="absolute inset-0 pointer-events-none"
