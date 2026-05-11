@@ -30,6 +30,7 @@
   },
   "miben_segit": {
     "title": "How does it help?",
+    "subtitle": "Any time of day, any mood — one app that tells you where to go.",
     "cards": {
       "1": { "title": "Where should I have breakfast?", "description": "Find a spot where starting the day comes with an extra reward." },
       "2": { "title": "Where should I have lunch?", "description": "Choose faster from nearby partner venues." },
