@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Music2, Mail } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
+import footerSkyline from '@/assets/footer-skyline.png';
 
 export const Footer: React.FC = () => {
   const headingCls = 'text-white/90 font-anton uppercase tracking-wider text-xs mb-3';
