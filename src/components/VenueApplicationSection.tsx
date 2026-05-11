@@ -125,7 +125,7 @@ export const VenueApplicationSection: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <section id="partnerek" className="py-16 px-4 bg-nf-background">
+      <section id="partnerek" className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-2xl border border-nf-primary/40 bg-white/[0.04] backdrop-blur-md p-12 text-center shadow-[0_30px_120px_-30px_rgba(0,188,212,0.45)]">
             <div className="flex justify-center mb-6">
@@ -145,7 +145,7 @@ export const VenueApplicationSection: React.FC = () => {
     'w-full px-3 py-2 rounded-lg bg-[#03070d]/80 border border-nf-primary/25 text-white placeholder:text-white/40 hover:border-nf-primary/50 focus:border-nf-primary focus:outline-none focus:ring-2 focus:ring-nf-primary/30 transition-colors duration-200';
 
   return (
-    <section id="venue-application" className="py-20 px-4 bg-nf-background relative overflow-hidden">
+    <section id="venue-application" className="py-20 px-4 bg-nf-background nf-section-glow relative overflow-hidden">
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"

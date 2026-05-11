@@ -13,7 +13,7 @@ const perks = [
 
 export const FoundingPartnerPerks: React.FC = () => {
   return (
-    <section id="founding-partner-perks" className="py-20 px-4 bg-nf-background">
+    <section id="founding-partner-perks" className="py-20 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-4xl mx-auto">
         <div className="relative rounded-3xl p-8 md:p-12 bg-white/[0.03] backdrop-blur-md border border-nf-primary/30 shadow-[0_30px_80px_-20px_rgba(0,188,212,0.35)] overflow-hidden">
           <div className="absolute -top-20 -right-20 w-64 h-64 bg-nf-primary/15 rounded-full blur-3xl pointer-events-none" />

@@ -7,7 +7,7 @@ import { useI18n } from '@/hooks/useI18n';
 export const FOMOSection: React.FC = () => {
   const { t } = useI18n();
   return (
-    <section className="py-12 px-4 bg-nf-background">
+    <section className="py-12 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-5xl mx-auto">
         <div
           className="relative rounded-2xl border border-dashed border-nf-primary/40 bg-white/[0.03] backdrop-blur-md p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 overflow-hidden"

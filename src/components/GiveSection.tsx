@@ -6,7 +6,7 @@ export const GiveSection: React.FC = () => {
   const { t } = useI18n();
   
   return (
-    <section id="give" className="py-20 px-4 relative bg-nf-background">
+    <section id="give" className="py-20 px-4 relative bg-nf-background nf-section-glow">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Icon Composition */}

@@ -15,7 +15,7 @@ export const VenuePartnerTeaser: React.FC = () => {
   ];
 
   return (
-    <section id="venue-teaser" className="py-20 px-4 bg-nf-background relative overflow-hidden">
+    <section id="venue-teaser" className="py-20 px-4 bg-nf-background nf-section-glow relative overflow-hidden">
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none opacity-60"

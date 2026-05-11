@@ -219,7 +219,7 @@ export const SignupForm: React.FC = () => {
   // Don't show signup form if user is already authenticated
   if (user) {
     return (
-      <section id="signup" className="py-20 bg-nf-background">
+      <section id="signup" className="py-20 bg-nf-background nf-section-glow">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <div className="space-y-6">
             <h2 className="text-4xl md:text-5xl font-anton text-white mb-6 tracking-tight">
@@ -237,7 +237,7 @@ export const SignupForm: React.FC = () => {
   }
 
   return (
-    <section id="signup" className="py-12 px-4 bg-nf-background">
+    <section id="signup" className="py-12 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-5xl mx-auto">
         <div
           className="relative rounded-2xl border border-dashed border-nf-primary/40 bg-white/[0.03] backdrop-blur-md p-6 md:p-10 overflow-hidden"
@@ -318,7 +318,7 @@ export const SignupForm: React.FC = () => {
                     <div className="w-full border-t border-nf-primary/20"></div>
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-nf-background px-4 text-xs text-white/50 uppercase tracking-wider">
+                    <span className="bg-nf-background nf-section-glow px-4 text-xs text-white/50 uppercase tracking-wider">
                       {t('signup.or')}
                     </span>
                   </div>

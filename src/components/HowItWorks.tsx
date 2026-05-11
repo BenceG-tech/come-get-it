@@ -13,7 +13,7 @@ export const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 px-4 bg-nf-background overflow-visible">
+    <section id="how-it-works" className="py-20 px-4 bg-nf-background nf-section-glow overflow-visible">
       <div className="max-w-6xl mx-auto overflow-visible">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white mb-4 tracking-tight">
