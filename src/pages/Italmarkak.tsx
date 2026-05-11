@@ -6,6 +6,7 @@ import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from '@/components/PhoneMockup';
 import { HeroBackground, PhoneGlowWrapper } from '@/components/HeroBackground';
+import { ReflectionFloor } from '@/components/ReflectionFloor';
 import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket, Target, MapPin, BarChart3 } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
@@ -70,6 +71,7 @@ const Italmarkak = () => {
       {/* Hero */}
       <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden bg-nf-background">
         <HeroBackground />
+        <ReflectionFloor />
         {/* Left dark overlay for text readability */}
         <div
           aria-hidden="true"
