@@ -1,69 +1,28 @@
-# Javítások: hero csík + koktél + kártya-háttérképek
+## Változtatások
 
-## 1. Hero alatti kék csík eltávolítása
+### 1. Hero — törésvonal eltávolítása
+A `HeroSection.tsx`-ben a Parliament háttérkép alsó/felső maszkjából eredő látható "vágás" mellett a parliament-kép sávhatára egy vízszintes csíknak látszik. Az `img` mask-ját lazítom (puhább fade) + esetleges `bg-gradient` találkozást teljes egészében átfedő gradient-tel takarom, hogy ne legyen éles átmenet. (A `ReflectionFloor`-ből a horizon glow-t korábban már kivettük.)
 
-A `src/components/ReflectionFloor.tsx` komponens egy fényes cián vízszintes vonalat (horizon glow) renderel, ami a hero szekció alján egy kék csíkként jelenik meg, és átfolyik a következő (`Hogyan működik`) szekcióba.
+### 2. Új koktélpohár (4. csatolt kép)
+- Bemásolom: `user-uploads://Runway_..._Szerkesztve.png` → `src/assets/cocktail-pour.png`
+- `HeroSection.tsx`-ben a meglévő `cocktail-glass.png` helyett ezt importálom.
+- Pozíció: a telefon **jobb oldalára** kerül (jelenleg balra van, kód: `flex items-end justify-center` és az `img -ml-6`). Átállítom úgy, hogy a pohár a telefon jobb oldalán legyen, kissé lejjebb és kicsit jobbra dőlve (kb. `rotate-[8deg] translate-x-4 translate-y-6`), nagyobb méret (`w-44 xl:w-56`), drop-shadow megmarad. A kép maga már úgy néz ki mintha felülről töltenék, így a dőléssel ezt erősítjük.
+- Mobilon is megjelenik kicsiben (`block w-28` a phone mellett jobbra), nem csak desktopon — vagy maradhat csak desktop, ha túl szűk; alapértelmezésnek desktop-only marad, mobilon kihagyom hogy ne torlódjon.
 
-- Eltávolítjuk a "Horizon glow line" div-et.
-- A reflective sheen megmarad (halvány gradient), de a markáns csík nélkül.
+### 3. Kártya háttérképek cseréje (Hova üljünk be / Hol bulizzunk / Jótékonysági partner)
+A jelenlegi `lounge-evening.jpg`, `nightclub-party.jpg`, `charity-water.jpg` képek nem tetszenek. Újragenerálok 3 új képet `premium` minőségben, sötétebb, atmoszférikusabb és relevánsabb stílusban:
+- `lounge-evening.jpg` → modern sötét lounge mély tealgreen/cyan ambient fénnyel, plüss bársony fotelek, üres koktélasztal, finom bokeh — nincs zsúfoltság
+- `nightclub-party.jpg` → finomabb klub környezet, lézersugarak helyett puha cyan/magenta ambient, sziluettes tánctér, kevésbé "rave"
+- `charity-water.jpg` → tiszta vízcsepp makró sötét háttéren cyan visszaverődéssel, minimalista (jelenleg már ilyen, de sötétebb verzió)
 
-## 2. Koktél kép (`cyan-cocktail.png`) cseréje
+### 4. Kártyák egy árnyalattal sötétebbek
+A `glass-image-card.tsx` overlay-ben:
+- alap kép opacity: `0.55` → `0.45`
+- hover opacity: `0.8` → `0.7`
+- sötét gradient erősítése: `rgba(3,7,13,0.55) → 0.25 → cyan 0.08` helyett `rgba(3,7,13,0.7) → 0.4 → cyan 0.08`
 
-A jelenlegi koktél kép gagyinak hat a hero mellett és a kártyákban is.
-
-- Új, fotórealisztikus, prémium hangulatú cián világítású koktél generálása `imagegen` (`premium`) használatával, transzparens háttérrel: `src/assets/cocktail-glass.png`.
-- A `HeroSection.tsx`-ben kicseréljük az importot.
-- A `BenefitsSection` és `MibenSegit` "sponsor"/"sofa" kártyájából eltávolítjuk a koktélt és relevánsabb saját képet kapnak (lásd lent).
-
-## 3. Egyedi, releváns háttérképek minden kártyához
-
-Jelenleg 8 kártya összesen 3 képet újrahasznál, és túl sötét az overlay (alig látszanak).
-
-### MibenSegit szekció (4 kártya — napszakok / alkalmak)
-Új generált képek (`fast` quality, ~1024×1024, fotórealisztikus, cián tinttel):
-
-1. `breakfast-cafe.jpg` — reggeli kávézó, croissant, latte, reggeli fény
-2. `lunch-bistro.jpg` — bisztró ebéd, asztal felülről, ételek
-3. `lounge-evening.jpg` — kanapés lounge, esti hangulat, neon
-4. `nightclub-party.jpg` — éjszakai klub, neon fények, tömeg
-
-### Benefits szekció (4 kártya — célcsoportok)
-
-1. `user-friends-drinks.jpg` — fiatal csoport koccint cián drinkekkel (felhasználó)
-2. `venue-bartender.jpg` — bartender koktélt készít a pult mögött (vendéglátóhely)
-3. `brand-bottles.jpg` — prémium italmárka palackok cián világításban (sponsor/brand)
-4. `charity-water.jpg` — tiszta víz csepp / közösségi segítés vizuális (charity)
-
-Mind sötét háttérrel, cián accent-tel, hogy illeszkedjenek a Neon Fidelity stílushoz.
-
-## 4. GlassImageCard overlay világosítása
-
-Jelenleg az overlay tul sotet (`rgba(3,7,13,0.85)` tetejen) — a kép alig latszik.
-
-A `src/components/ui/glass-image-card.tsx`-ben:
-- Alap kép opacitás: `0.14` → `0.32`, hover: `0.28` → `0.5`.
-- Sötét overlay gradient: `rgba(3,7,13,0.85) → 0.55` lecsökkentve `0.55 → 0.25`-re a kép láthatóságához.
-- Maszk kicsit gyengébb, hogy a kép feljebb is áttörjön.
-
-## 5. Érintett fájlok
-
-```text
-módosított:
-  src/components/ReflectionFloor.tsx        — horizon csík törölve
-  src/components/ui/glass-image-card.tsx    — világosabb overlay
-  src/components/HeroSection.tsx            — új cocktail import
-  src/components/MibenSegitSection.tsx      — 4 új egyedi bgImage
-  src/components/BenefitsSection.tsx        — 4 új egyedi bgImage
-új:
-  src/assets/cocktail-glass.png             — új koktél (premium)
-  src/assets/breakfast-cafe.jpg
-  src/assets/lunch-bistro.jpg
-  src/assets/lounge-evening.jpg
-  src/assets/nightclub-party.jpg
-  src/assets/user-friends-drinks.jpg
-  src/assets/venue-bartender.jpg
-  src/assets/brand-bottles.jpg
-  src/assets/charity-water.jpg
-```
-
-A kártyák így mind egyedi, releváns, jól látható képet kapnak; a hero-csík eltűnik; a koktél prémium hangulatú lesz.
+### Érintett fájlok
+- `src/components/HeroSection.tsx` (parliament mask + cocktail import/pozíció)
+- `src/components/ui/glass-image-card.tsx` (overlay finomítás)
+- 3 új generált asset: `lounge-evening.jpg`, `nightclub-party.jpg`, `charity-water.jpg` (felülírás)
+- 1 új másolt asset: `src/assets/cocktail-pour.png`
