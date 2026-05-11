@@ -127,10 +127,11 @@
   },
   "benefits": {
     "title": "Why does it work for everyone?",
-    "user": {"title": "User", "body": "New places, daily free drink.", "li1": "Collect points, rewards", "li2": "Exclusive offers"},
-    "venue": {"title": "Venue", "body": "More guests, higher revenue.", "li1": "Loyal audience", "li2": "Free promotion"},
-    "sponsor": {"title": "Drink brand", "body": "Stronger brand, measurable results.", "li1": "New consumers", "li2": "Instant feedback"},
-    "community": {"title": "Charity partner", "body": "Shared cause, measurable impact — every redeemed drink funds clean water for someone in need.", "li1": "Lasting social impact", "li2": "Transparent reporting"}
+    "user": {"title": "USERS", "desc": "More experiences, more perks, more great places — all in one app."},
+    "venue": {"title": "VENUES", "desc": "Higher traffic, more loyal guests, a stronger brand."},
+    "brand": {"title": "DRINK BRANDS", "desc": "Greater visibility, real consumer connections, measurable results."},
+    "rewards": {"title": "REWARDS PARTNERS", "desc": "Exclusive partnership, shared growth and long-term collaborations."},
+    "community": {"title": "COMMUNITY", "desc": "A stronger, more connected venue and consumer community."}
   },
   "venues": {
     "hero": {

@@ -168,10 +168,11 @@
   },
   "benefits": {
     "title": "Miért éri meg mindenkinek?",
-    "user": {"title": "Felhasználó", "body": "Új helyek, napi ingyen ital.", "li1": "Pontgyűjtés, jutalmak", "li2": "Exkluzív ajánlatok"},
-    "venue": {"title": "Vendéglátóhely", "body": "Több vendég, nagyobb forgalom.", "li1": "Lojális közönség", "li2": "Ingyenes promóció"},
-    "sponsor": {"title": "Italmárka", "body": "Erősebb márka, mérhető eredmény.", "li1": "Új fogyasztók", "li2": "Azonnali visszajelzés"},
-    "community": {"title": "Jótékonysági partner", "body": "Közös ügy, mérhető hatás — minden beváltott ital tiszta vizet ad egy rászorulónak.", "li1": "Tartós social impact", "li2": "Átlátható elszámolás"}
+    "user": {"title": "FELHASZNÁLÓK", "desc": "Több élmény, több kedvezmény, több jó hely – egy appban."},
+    "venue": {"title": "VENDÉGLÁTÓHELYEK", "desc": "Nagyobb forgalom, hűségesebb vendégek, erősebb márka."},
+    "brand": {"title": "ITALMÁRKÁK", "desc": "Nagyobb láthatóság, valós fogyasztói kapcsolódás, mérhető eredmények."},
+    "rewards": {"title": "REWARDS PARTNEREK", "desc": "Exkluzív partnerség, közös növekedés és hosszú távú együttműködések."},
+    "community": {"title": "KÖZÖSSÉG", "desc": "Egy erősebb, összetartóbb vendéglátó és fogyasztói közösség."}
   },
   "venues": {
     "hero": {
