@@ -1,83 +1,69 @@
-# Vizuális frissítés terve — referencia képek alapján
+# Javítások: hero csík + koktél + kártya-háttérképek
 
-A 4 feltöltött screenshotból ezeket az elemeket veszem át:
+## 1. Hero alatti kék csík eltávolítása
 
-## 1. Hero — fénycsóva + tükröződő felület + pohár (Index + Vendéglátóhelyek + Italmárkák + Rewards)
+A `src/components/ReflectionFloor.tsx` komponens egy fényes cián vízszintes vonalat (horizon glow) renderel, ami a hero szekció alján egy kék csíkként jelenik meg, és átfolyik a következő (`Hogyan működik`) szekcióba.
 
-**Mit átveszünk** (a 3. és 4. ref. képből):
-- A telefon **mellé jobbra egy ikonikus pohár** (jeges koktél, lime, szívószál) — ugyanaz a kompozíció mint az "Italmárkáknak" oldalon, de finomabban a főoldalon.
-- **Tükröződő, nedves padló-effekt** a hero alján: alulról halvány cyan reflexió a telefonra és a pohárra (CSS gradient + blur, nem új asset).
-- **Diagonális fénycsóva** a háttérben jobb oldalról balra le — vékony cyan glow sáv, ami a Parlament felett halad át (light-leak hatás).
+- Eltávolítjuk a "Horizon glow line" div-et.
+- A reflective sheen megmarad (halvány gradient), de a markáns csík nélkül.
 
-**Hol**: 
-- `HeroSection.tsx` — hozzáadok egy `glass-hero.png` (vagy meglévő pohár asset, ha van) komponenst a telefon jobbjára desktopon, mobilon a telefon alá kisebben.
-- Új `<HeroLightBeam />` SVG/div overlay — reusable komponens.
-- Új `<ReflectionFloor />` overlay alul a hero szekciókban.
+## 2. Koktél kép (`cyan-cocktail.png`) cseréje
 
-## 2. Kártyák halvány képes háttérrel ("MIÉRT ÉRI MEG MINDENKINEK?" / "JUTALOM RENDSZER ELŐNYEI")
+A jelenlegi koktél kép gagyinak hat a hero mellett és a kártyákban is.
 
-**Mit átveszünk** (1., 2. ref. kép):
-- A kártyák mögé **halvány, témához illő fotó** (~10–18% opacity, sötét overlay-jel, jobb-oldali maszkkal kifutva — pont mint a `RewardsPartners` features szekcióban már működik).
-- Erőteljesebb hover: a kép kissé fényesebb lesz (opacity 18→28%).
+- Új, fotórealisztikus, prémium hangulatú cián világítású koktél generálása `imagegen` (`premium`) használatával, transzparens háttérrel: `src/assets/cocktail-glass.png`.
+- A `HeroSection.tsx`-ben kicseréljük az importot.
+- A `BenefitsSection` és `MibenSegit` "sponsor"/"sofa" kártyájából eltávolítjuk a koktélt és relevánsabb saját képet kapnak (lásd lent).
 
-**Hol**:
-- `BenefitsSection.tsx` (főoldal "Miért éri meg mindenkinek?" — 4 kártya) — minden kártyához témához illő bg image:
-  - Felhasználók → emberek bárban
-  - Vendéglátóhelyek → bár belső
-  - Italmárkák → koktél/üveg close-up
-  - Jótékonysági partner → tiszta víz / kézfogás
-- Ugyanezt alkalmazom: `MibenSegitSection.tsx` 4 kártyájára is (reggeli/ebéd/randi/buli — finom étel/ital fotók).
-- `RewardsPartners.tsx` "value props" 4 kártyájára (közönség, brand, mérés, kampány).
+## 3. Egyedi, releváns háttérképek minden kártyához
 
-**Implementáció**: kivonok egy közös `GlassImageCard` wrapper-t a `RewardsPartners` features mintájára (már megvan ott), és `src/components/ui/glass-image-card.tsx` néven megosztom.
+Jelenleg 8 kártya összesen 3 képet újrahasznál, és túl sötét az overlay (alig látszanak).
 
-## 3. Footer — élesebb kék városi skyline
+### MibenSegit szekció (4 kártya — napszakok / alkalmak)
+Új generált képek (`fast` quality, ~1024×1024, fotórealisztikus, cián tinttel):
 
-**Mit átveszünk** (mind a 4 ref. kép footere):
-- A jelenlegi nagyon halvány (`text-nf-primary/15`) skyline helyett **kontrasztosabb cyan**, két rétegben: hátul halvány (15%), elöl élesebb (35–45%) — mélységérzet.
-- Finom **cyan glow** a skyline tetején (drop-shadow), mintha a város világítana.
-- Magasabb skyline (h-10 → h-14/16), részletesebb SVG path (Lánchíd / Parlament sziluett utalás).
+1. `breakfast-cafe.jpg` — reggeli kávézó, croissant, latte, reggeli fény
+2. `lunch-bistro.jpg` — bisztró ebéd, asztal felülről, ételek
+3. `lounge-evening.jpg` — kanapés lounge, esti hangulat, neon
+4. `nightclub-party.jpg` — éjszakai klub, neon fények, tömeg
 
-**Hol**: `Footer.tsx` SVG csere + glow.
+### Benefits szekció (4 kártya — célcsoportok)
 
-## 4. Hero háttér finomítás — diagonális fénycsóva minden hero-n
+1. `user-friends-drinks.jpg` — fiatal csoport koccint cián drinkekkel (felhasználó)
+2. `venue-bartender.jpg` — bartender koktélt készít a pult mögött (vendéglátóhely)
+3. `brand-bottles.jpg` — prémium italmárka palackok cián világításban (sponsor/brand)
+4. `charity-water.jpg` — tiszta víz csepp / közösségi segítés vizuális (charity)
 
-**Mit átveszünk**: A 3–4. képen a Parlament fölött átsuhanó cyan light-leak nagyon hangulatos.
-- Új réteg a `HeroBackground.tsx`-be: `linear-gradient(115deg, transparent 40%, rgba(0,188,212,0.12) 50%, transparent 60%)` blur-rel.
-- Ez automatikusan minden hero-n megjelenik (Vendéglátóhelyek, Italmárkák, Rewards is használja).
+Mind sötét háttérrel, cián accent-tel, hogy illeszkedjenek a Neon Fidelity stílushoz.
 
-## 5. Mobil hero — telefon "fénycsóva" glow erősítése
+## 4. GlassImageCard overlay világosítása
 
-A 3. ref. képen mobilon a telefon mögött erős sugaras cyan glow van.
-- `HeroSection.tsx` mobil view-ban (lg alatt) erősítem a `radial-gradient` glow-t a telefon mögött (0.32 → 0.5) és hozzáadok egy második, sugár-szerű `conic-gradient`-et.
+Jelenleg az overlay tul sotet (`rgba(3,7,13,0.85)` tetejen) — a kép alig latszik.
 
----
+A `src/components/ui/glass-image-card.tsx`-ben:
+- Alap kép opacitás: `0.14` → `0.32`, hover: `0.28` → `0.5`.
+- Sötét overlay gradient: `rgba(3,7,13,0.85) → 0.55` lecsökkentve `0.55 → 0.25`-re a kép láthatóságához.
+- Maszk kicsit gyengébb, hogy a kép feljebb is áttörjön.
 
-## Amit NEM csinálok most (jelezted vagy nem aktuális)
-- App screenshot cserék (DRINK/LINK/EARN mockupok) — saját képeid, később cseréled.
-- BESTIA / FIRST CRAFT BEER referencia logók.
-- Nem nyúlok a copy-hoz, csak vizuális réteg.
+## 5. Érintett fájlok
 
----
+```text
+módosított:
+  src/components/ReflectionFloor.tsx        — horizon csík törölve
+  src/components/ui/glass-image-card.tsx    — világosabb overlay
+  src/components/HeroSection.tsx            — új cocktail import
+  src/components/MibenSegitSection.tsx      — 4 új egyedi bgImage
+  src/components/BenefitsSection.tsx        — 4 új egyedi bgImage
+új:
+  src/assets/cocktail-glass.png             — új koktél (premium)
+  src/assets/breakfast-cafe.jpg
+  src/assets/lunch-bistro.jpg
+  src/assets/lounge-evening.jpg
+  src/assets/nightclub-party.jpg
+  src/assets/user-friends-drinks.jpg
+  src/assets/venue-bartender.jpg
+  src/assets/brand-bottles.jpg
+  src/assets/charity-water.jpg
+```
 
-## Technikai részletek
-
-**Új fájlok**:
-- `src/components/ui/glass-image-card.tsx` — közös kártya wrapper image bg-vel
-- `src/components/HeroLightBeam.tsx` — diagonális fénycsóva overlay
-- `src/components/ReflectionFloor.tsx` — tükröződő padló overlay (hero alján)
-- `src/assets/hero-glass.png` (vagy reuse meglévő) — pohár image a hero-ba
-
-**Módosított fájlok**:
-- `src/components/HeroSection.tsx` — pohár + reflection + light beam
-- `src/components/HeroBackground.tsx` — light beam + intenzívebb glow réteg
-- `src/components/VenueHeroSection.tsx` — light beam + reflection
-- `src/pages/RewardsPartners.tsx` — light beam + reflection a hero-ban
-- `src/pages/Italmarkak.tsx` — light beam + reflection (a meglévő pohárhoz)
-- `src/components/BenefitsSection.tsx` — image-bg kártyák
-- `src/components/MibenSegitSection.tsx` — image-bg kártyák
-- `src/components/Footer.tsx` — élesebb 2-rétegű skyline
-
-**Asset stratégia**: a kártya háttérképekhez újrahasznosítom a meglévő `budapest-night-hero.jpg`, `venue-interior-hero.jpg` képeket + szükség esetén 2-3 új image generálással (koktél close-up, kézfogás-jótékonyság).
-
-Jóváhagyás után megyek.
+A kártyák így mind egyedi, releváns, jól látható képet kapnak; a hero-csík eltűnik; a koktél prémium hangulatú lesz.
