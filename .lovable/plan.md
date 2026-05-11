@@ -1,25 +1,49 @@
 ## Cél
 
-A `06-rewards-partnerek.pdf` újragenerálása, mert az előző verzióban valami elcsúszott a layoutban (valószínűleg a teljes-oldalas screenshot készítésekor a lazy-load / animáció / sticky elemek miatt).
+A főoldal (és kapcsolódó komponensek) szöveg- és struktúra-fixei a visszajelzések alapján. Képeket NEM cseréljük most (saját képek, később frissülnek).
 
-## Lépések
+## Változtatások
 
-1. **Friss mobil screenshot készítése** a `/rewards-partners` oldalról Playwright-tal:
-   - 390×844 viewport, iPhone user agent, magyar locale
-   - Navigáció után várunk `networkidle`-ig
-   - Lassú scroll végig az oldalon, hogy minden lazy-loaded elem (képek, framer-motion animációk, IntersectionObserver-triggerelt szekciók) betöltsön és a végleges állapotba kerüljön
-   - Vissza scroll a tetejére, várakozás
-   - Bármilyen sticky/floating elem (pl. CustomerSupport widget, StickyCallToAction) elrejtése CSS-injekcióval, hogy ne takarjon tartalmat
-   - `full_page=True` screenshot
+### 1. Terminológia egységesítés: "Jutalom Partnerek" → "Rewards-partnerek"
+Minden előfordulás cseréje (nav, mobil-nav, partner-link kártyák, footer ha van) HU + EN i18n-ben.
+- Fájlok: `src/i18n/hu.json`, `src/i18n/en.json`, `src/components/Navigation.tsx`, `src/components/MobileNavigation.tsx`, `src/pages/Partnerek.tsx`, `src/components/QuickAccessChips.tsx` (ha érintett)
 
-2. **PDF újragenerálása** a friss PNG-ből:
-   - Felszeletelés A4 arányú lapokra (ugyanaz a logika mint a többi PDF-nél)
-   - Mentés: `/mnt/documents/06-rewards-partnerek_v2.pdf`
+### 2. Terminológia: "Italszponzor" → "Italmárka"
+A "Miért éri meg mindenkinek?" / BenefitsSection oszlopcímek és szövegek átírása.
+- Fájl: `src/components/BenefitsSection.tsx` + i18n kulcsok
 
-3. **QA**: a PDF lapok képpé konvertálása (`pdftoppm`) és vizuális ellenőrzés — szövegátfedés, levágott elemek, üres lapok, sticky overlay maradványok keresése. Ha hiba, fix és újra.
+### 3. "Közösség" oszlop a BenefitsSection-ben → "Jótékonysági partner"
+Átnevezés, hogy a Give-modellhez logikusan kapcsolódjon. Szöveg finomítása ennek megfelelően.
+- Fájl: `src/components/BenefitsSection.tsx` + i18n
 
-4. **Átadás**: `<lov-artifact>` tag a `06-rewards-partnerek_v2.pdf`-hez.
+### 4. Főoldali 4-kártyás partner-szekció redukálása 1 CTA-ra
+A `VenuePartnerTeaser` (vagy a 4 partner-link kártyát megjelenítő szekció) átalakítása:
+- Egyetlen blokk: cím "Partnerként csatlakoznál?" + 1 gomb "Partnerek programja →" → `/partnerek`
+- A 4 különálló kártya (Vendéglátóhelyek / Italmárkák / Rewards-partnerek / Founding Partner) eltávolítása a főoldalról (a /partnerek hub-on maradnak)
+- Fájl: `src/components/VenuePartnerTeaser.tsx` (vagy a megfelelő komponens — ellenőrzendő)
 
-## Megjegyzés
+### 5. Duplikált "alapító tag" szekciók egyesítése
+Jelenleg két szekció van egymás után:
+- "Legyél alapító tag" (1000 bennfentes, "Jövök a körre" gomb) — `FOMOSection`
+- "Legyél az alapító tagok között" (500 Plus, email form) — `SignupForm`
 
-Az eredeti `06-rewards-partnerek.pdf` megmarad referenciának, az új `_v2` suffix-szel készül, hogy össze lehessen hasonlítani.
+Megoldás: a `FOMOSection` eltávolítása a főoldalról (Index.tsx), csak a `SignupForm` marad. Számok következetesek lesznek a PricingSection-nel (500 / 1500 / haver-meghívás).
+- Fájl: `src/pages/Index.tsx` (FOMOSection import + render törlése)
+
+### 6. "Saját tiszta víz számláló" → "Saját Give-impact: lásd hány liter tiszta víz adományoztál"
+A Plus csomag listájában a `PricingSection`-ben.
+- Fájl: `src/components/PricingSection.tsx` + i18n
+
+### 7. Helyszín típusa dropdown ellenőrzése
+A `VenueApplicationSection` form "Helyszín típusa" dropdown opcióinak ellenőrzése. Ha hiányzik, kiegészítés: Bár, Étterem, Kávézó, Pub, Bisztró, Klub, Fine dining, Reggelizős, Vegyes/Egyéb.
+- Fájl: `src/components/VenueApplicationSection.tsx`
+
+## Amit NEM csinálunk most
+- App screenshot cserék (DRINK/LINK/EARN mockupok) — saját képek, később
+- BESTIA / FIRST CRAFT BEER referenciák — később, friss screenshotokkal
+- 2x2 grid magasság-finomítás (stilisztikai, nem fontos)
+
+## Ellenőrzés
+- Build hibamentes
+- Mobil preview (390×844) — minden módosított szekció vizuális ellenőrzése
+- HU + EN nyelvváltó működik az új kulcsokon
