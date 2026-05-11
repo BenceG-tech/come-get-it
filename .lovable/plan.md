@@ -1,44 +1,27 @@
-# HU mobil overflow javítás — Rewards Partnerek hero (folytatás)
+## Cél
+A főoldali "Miben segít?" szekció kártyáin a hover-effekt finomítása: simább, lassabb átmenet és áttetsző háttér a felugró leírás alatt (full fekete helyett).
 
-## Probléma
-A magyar fordítások hosszú, nem-tördelhető szavakat tartalmaznak ("rewards-partner­program", "rewards-partnerként", "felhasználóink", "költésük"), amelyek mobilon (402px) kilógnak a viewportból. Az angol verzió rövidebb / könnyebben tördelhető szavakat használ, ezért ott nem látszik a hiba.
+## Változások — `src/components/MibenSegitSection.tsx`
 
-Konkrétan túlnyúlik:
-1. Az alcím `<p>` ("A felhasználóink minden költésük után pontot…")
-2. A "phase_note" doboz ("A rewards-partnerprogram a felhasználói bázis…")
-3. A CTA gomb ("Csatlakozom rewards-partnerként") — a hosszú szó nyújtja szét a gombot a viewporton túl.
+**1. Smoother előugrás (description panel)**
+- A jelenlegi `translate-y-full → translate-y-0` váltás helyett kombinált fade + slide:
+  - Alapértelmezett: `opacity-0 translate-y-6`
+  - Hover: `opacity-100 translate-y-0`
+- Átmenet finomítása: `duration-700` + `ease-[cubic-bezier(0.22,1,0.36,1)]` (soft "ease-out-expo" érzet) a jelenlegi `duration-500 ease-out` helyett.
+- Kép zoom is lassabbra: `duration-[1100ms]` és kisebb skálázás (`group-hover:scale-[1.03]`).
 
-## Megoldás
-Csak a `src/pages/RewardsPartners.tsx` hero blokk presentational módosítása — szó-tördelést engedélyezünk ezekre az elemekre.
+**2. Áttetsző háttér a felugró szöveg alatt**
+- A jelenlegi tömör `rgba(5,5,5,0.92→0.98)` gradient lecserélése áttetsző + blur kombóra:
+  - `bg-nf-background/55` + `backdrop-blur-md`
+  - Felül lágy gradient peremmel (`linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.55) 35%, rgba(5,5,5,0.7) 100%)`), hogy a szöveg olvasható maradjon, de a kép átsejlik.
+- Felső border `border-nf-primary/40` → `border-nf-primary/30` (finomabb).
 
-### Konkrét változtatások
+**3. Title fade a hover alatt**
+- Hogy ne ütközzön a felugró panellel: a kártya alján lévő `<h3>` hover állapotban `opacity-0` finoman (`transition-opacity duration-500`), mert a felugró szöveg fedi.
 
-1) Alcím:
-```tsx
-<p className="text-base md:text-lg ... max-w-xl mx-auto lg:mx-0 break-words [hyphens:auto]">
-```
+**4. Bottom-fade gradient**
+- Hover alatt is megmarad, de kicsit gyengítve, hogy a kép áttünése természetesebb legyen.
 
-2) Phase-note doboz:
-```tsx
-<div className="... text-sm text-white/70 break-words [hyphens:auto]">
-```
-
-3) CTA gomb — engedjük tördelni a szöveget mobilon, hogy ne nyújtsa szét a gombot:
-```tsx
-<Button
-  variant="neon"
-  size="lg"
-  className="py-4 px-6 sm:px-10 text-base sm:text-lg max-w-full whitespace-normal break-words [hyphens:auto] text-center"
-  ...
->
-```
-
-A `[hyphens:auto]` Tailwind arbitrary utility a CSS `hyphens: auto`-t adja hozzá, ami magyar `lang="hu"` mellett automatikusan elválasztja a hosszú szavakat. Ha a böngésző nem támogatná, a `break-words` (`overflow-wrap: break-word`) garantálja, hogy a hosszú szó megtörjön a konténer szélénél.
-
-Funkcionális/üzleti logika nem változik, csak Tailwind className-ek bővülnek.
-
-## Érintett fájlok
-- `src/pages/RewardsPartners.tsx` — három className módosítás a hero szekcióban (kb. 145–175 sor körül).
-
-## Verifikáció
-Mobile preview (402px), HU nyelv: alcím, phase-note és gomb a viewporton belül marad; hosszú szavak elválasztva vagy tördelve. Desktop megjelenés változatlan.
+## Érintetlen
+- Layout, grid, méretek, ikonok, i18n kulcsok, desktop megjelenés.
+- Csak a `MibenSegitSection.tsx` módosul.
