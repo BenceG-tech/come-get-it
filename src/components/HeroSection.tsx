@@ -23,23 +23,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
 
       {/* Background layers */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Parliament image — confined to middle band, faded top & bottom */}
+        {/* Parliament image — full height with soft mask, no visible band edges */}
         <div
-          className="absolute inset-x-0"
+          className="absolute inset-0"
           style={{
-            top: '30%',
-            bottom: '20%',
             WebkitMaskImage:
-              'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
+              'linear-gradient(to bottom, transparent 0%, black 35%, black 70%, transparent 95%)',
             maskImage:
-              'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
+              'linear-gradient(to bottom, transparent 0%, black 35%, black 70%, transparent 95%)',
           }}
         >
           <img
             src={budapestNight}
             alt=""
             aria-hidden="true"
-            className="w-full h-full object-cover opacity-55"
+            className="w-full h-full object-cover opacity-50"
             style={{ objectPosition: 'center 55%' }}
             width={1920}
             height={1080}
@@ -154,12 +152,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             />
             <div className="relative z-20 flex items-end justify-center gap-2 md:gap-4">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
-              {/* Cocktail glass — desktop only, sits beside the phone */}
+              {/* Cocktail glass — desktop only, sits beside the phone, tilted as if being poured into */}
               <img
                 src={cyanCocktail}
                 alt=""
                 aria-hidden="true"
-                className="hidden lg:block w-40 xl:w-48 -ml-6 xl:-ml-8 self-end translate-y-2 select-none pointer-events-none [filter:drop-shadow(0_25px_40px_rgba(0,0,0,0.6))_drop-shadow(0_0_30px_rgba(0,188,212,0.45))]"
+                className="hidden lg:block w-48 xl:w-60 -ml-4 xl:-ml-6 self-end translate-y-4 translate-x-2 rotate-[10deg] select-none pointer-events-none [filter:drop-shadow(0_25px_40px_rgba(0,0,0,0.6))_drop-shadow(0_0_40px_rgba(0,188,212,0.55))]"
                 draggable={false}
               />
             </div>
