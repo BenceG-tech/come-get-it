@@ -6,7 +6,7 @@ import { ArrowRight, Plus, Star, CheckCircle, TrendingUp, Building, Heart, Users
 
 export const WorkWithUsSection: React.FC = () => {
   // Using one of the existing app images for the phone mockup
-  const businessImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png";
+  const businessImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.webp";
 
   const keyFeatures = [
     {

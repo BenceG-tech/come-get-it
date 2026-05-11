@@ -15,7 +15,7 @@ import budapestNightHero from '@/assets/budapest-night-hero.jpg';
 
 const Italmarkak = () => {
   const { t } = useI18n();
-  const brandImage = "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png";
+  const brandImage = "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.webp";
 
   const valueProps = [
     { icon: Target, title: "PRECÍZ CÉLZÁS", description: "A Come Get It közössége budapesti, vendéglátóhelyekre járó fiatal felnőtt." },

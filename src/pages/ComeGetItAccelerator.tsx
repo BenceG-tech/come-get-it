@@ -14,7 +14,7 @@ import { useI18n } from '@/hooks/useI18n';
 
 const ComeGetItAccelerator = () => {
   const { t } = useI18n();
-  const acceleratorImage = "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.png";
+  const acceleratorImage = "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.webp";
 
   useEffect(() => {
     analytics.acceleratorPageView();
