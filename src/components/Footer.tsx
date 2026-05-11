@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="relative mt-16 border-t border-nf-primary/20 bg-nf-background text-white/80">
-      <div className="max-w-7xl mx-auto px-4 py-12 grid gap-10 md:grid-cols-4">
+      <div className="max-w-7xl mx-auto px-4 pt-12 pb-4 md:pb-12 grid gap-10 md:grid-cols-4">
         <div>
           <Logo className="h-9 mb-4" />
           <p className="text-sm text-white/60 leading-relaxed">
@@ -75,7 +75,7 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Decorative skyline */}
-      <div aria-hidden="true" className="max-w-7xl mx-auto px-4">
+      <div aria-hidden="true" className="max-w-7xl mx-auto px-0 md:px-4">
         <img
           src={footerSkyline}
           alt=""
@@ -85,7 +85,7 @@ export const Footer: React.FC = () => {
         />
       </div>
 
-      <div className="border-t border-nf-primary/15 py-6 text-center text-xs text-white/50">
+      <div className="border-t border-nf-primary/15 py-4 md:py-6 text-center text-xs text-white/50">
         © {new Date().getFullYear()} Come Get It. Minden jog fenntartva.
       </div>
     </footer>
