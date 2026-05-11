@@ -133,18 +133,18 @@ const RewardsPartners = () => {
                 <span className="block text-nf-primary drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">{t('rewards_page.hero.line2')}</span>
               </h1>
 
-              <p className="text-base md:text-lg text-white/75 font-medium leading-snug mt-6 max-w-xl mx-auto lg:mx-0">
+              <p className="text-base md:text-lg text-white/75 font-medium leading-snug mt-6 max-w-xl mx-auto lg:mx-0 break-words [hyphens:auto]" lang="hu">
                 {t('rewards_page.hero.subtitle')}
               </p>
 
-              <div className="mt-6 mb-6 mx-auto lg:mx-0 max-w-xl border-l-2 border-nf-primary/60 bg-white/[0.03] px-4 py-3 rounded-r-md text-sm text-white/70">
+              <div className="mt-6 mb-6 mx-auto lg:mx-0 max-w-xl border-l-2 border-nf-primary/60 bg-white/[0.03] px-4 py-3 rounded-r-md text-sm text-white/70 break-words [hyphens:auto]" lang="hu">
                 {t('rewards_page.hero.phase_note')}
               </div>
 
               <Button
                 variant="neon"
                 size="lg"
-                className="py-4 px-10 text-lg"
+                className="py-4 px-6 sm:px-10 text-base sm:text-lg max-w-full whitespace-normal break-words [hyphens:auto] text-center h-auto min-h-14"
                 onClick={() => {
                   analytics.ctaClick('hero_section', 'Legyünk rewards partner');
                   analytics.rewardsPartnerApplicationStart();
