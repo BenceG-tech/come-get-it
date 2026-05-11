@@ -20,26 +20,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
 
       {/* Background layers */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Parliament image — full height with soft mask, no visible band edges */}
-        <div
-          className="absolute inset-0"
-          style={{
-            WebkitMaskImage:
-              'linear-gradient(to bottom, transparent 0%, black 35%, black 70%, transparent 95%)',
-            maskImage:
-              'linear-gradient(to bottom, transparent 0%, black 35%, black 70%, transparent 95%)',
-          }}
-        >
-          <img
-            src={budapestNight}
-            alt=""
-            aria-hidden="true"
-            className="w-full h-full object-cover opacity-50"
-            style={{ objectPosition: 'center 55%' }}
-            width={1920}
-            height={1080}
-          />
-        </div>
+        {/* (Parliament background removed to eliminate visible mask edge / line) */}
 
         {/* Top dark fade — clean background behind headline */}
         <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-[#03060d] via-[#03060d]/85 to-transparent" />
