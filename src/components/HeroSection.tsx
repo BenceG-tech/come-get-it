@@ -2,10 +2,12 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
 import { MobileNavigation } from './MobileNavigation';
+import { ReflectionFloor } from './ReflectionFloor';
 
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNight from '@/assets/budapest-night-hero.jpg';
+import cyanCocktail from '@/assets/cyan-cocktail.png';
 
 interface HeroSectionProps {
   currentImageIndex: number;
