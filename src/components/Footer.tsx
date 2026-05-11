@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Music2, Mail } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
-import footerSkyline from '@/assets/footer-skyline.png';
 
 export const Footer: React.FC = () => {
   const headingCls = 'text-white/90 font-anton uppercase tracking-wider text-xs mb-3';
@@ -10,7 +9,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="relative mt-16 border-t border-nf-primary/20 bg-nf-background text-white/80">
-      <div className="max-w-7xl mx-auto px-4 pt-12 pb-4 md:pb-12 grid gap-10 md:grid-cols-4">
+      <div className="max-w-7xl mx-auto px-4 py-12 grid gap-10 md:grid-cols-4">
         <div>
           <Logo className="h-9 mb-4" />
           <p className="text-sm text-white/60 leading-relaxed">
@@ -75,17 +74,16 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Decorative skyline */}
-      <div aria-hidden="true" className="max-w-7xl mx-auto px-0 md:px-4">
-        <img
-          src={footerSkyline}
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          className="w-full h-auto select-none pointer-events-none"
-        />
+      <div aria-hidden="true" className="max-w-7xl mx-auto px-4">
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none" className="w-full h-10 text-nf-primary/15">
+          <path
+            fill="currentColor"
+            d="M0,60 L0,40 L40,40 L40,30 L60,30 L60,38 L90,38 L90,20 L100,20 L100,38 L130,38 L130,28 L160,28 L160,40 L200,40 L200,15 L210,15 L210,8 L220,8 L220,15 L230,15 L230,40 L270,40 L270,32 L300,32 L300,42 L340,42 L340,25 L360,25 L360,18 L380,18 L380,25 L400,25 L400,42 L440,42 L440,30 L470,30 L470,40 L510,40 L510,22 L530,22 L530,12 L550,12 L550,22 L570,22 L570,40 L610,40 L610,32 L640,32 L640,42 L680,42 L680,28 L700,28 L700,18 L720,18 L720,28 L740,28 L740,42 L780,42 L780,30 L820,30 L820,40 L860,40 L860,20 L880,20 L880,10 L900,10 L900,20 L920,20 L920,40 L960,40 L960,32 L1000,32 L1000,42 L1040,42 L1040,28 L1070,28 L1070,38 L1110,38 L1110,30 L1150,30 L1150,40 L1200,40 L1200,60 Z"
+          />
+        </svg>
       </div>
 
-      <div className="border-t border-nf-primary/15 py-4 md:py-6 text-center text-xs text-white/50">
+      <div className="border-t border-nf-primary/15 py-6 text-center text-xs text-white/50">
         © {new Date().getFullYear()} Come Get It. Minden jog fenntartva.
       </div>
     </footer>

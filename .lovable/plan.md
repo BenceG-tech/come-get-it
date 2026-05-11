@@ -1,13 +1,18 @@
-## Footer skyline gap csökkentése
+## Mobil 2×2 grid a `MibenSegitSection`-ben
 
-A `Footer.tsx`-ben a skyline kép felett túl nagy üres rész van mobilon, mert:
-- a fő grid `py-12` (96px függőleges padding)
-- a skyline konténer `max-w-7xl mx-auto px-4` — mobilon a `px-4` miatt fehér térköz van bal/jobb oldalon, és a kép ezért kisebb és magasabban "lebeg"
+Jelenleg mobilon `grid-cols-1` (egymás alatt 4 nagy portré-kártya). Kérés: **mobilon is 2×2** legyen.
 
-### Lépések `src/components/Footer.tsx`-ben
+### Változtatás
+- `MibenSegitSection.tsx` grid osztály:
+  - **Régi:** `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6`
+  - **Új:** `grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6`
+- Mobilon a kisebb kártyákhoz finomítás (csak ha `<sm`):
+  - Cím: `text-lg md:text-xl` → `text-base sm:text-lg md:text-xl`
+  - Belső paddingek (`left-5 right-5 bottom-5`, ikon `top-4 left-4`) maradnak — még jól férnek `~165px` széles kártyán.
 
-1. A felső grid padding csökkentése mobilon: `py-12` → `pt-12 pb-4 md:pb-12` (mobilon kicsi alsó térköz, desktopon marad).
-2. A skyline konténerről mobilon levesszük az oldalsó paddinget, hogy a kép széltől-szélig érjen és vizuálisan a footer aljához tapadjon: `max-w-7xl mx-auto px-4` → `max-w-7xl mx-auto px-0 md:px-4`.
-3. A copyright sáv felső bordert/elválasztót megtartjuk, de csökkentjük a `py-6`-ot mobilon: `py-6` → `py-4 md:py-6`.
+### Mi marad
+- Portré arány (`aspect-[3/4]`), ikon-chip, hover-csúszó leírás, fade, glow, képek.
+- Tablet és desktop layout (sm/lg breakpoint) változatlan.
 
-Nem nyúlunk a kép méretéhez (marad `w-full h-auto`), csak a körülötte lévő térközökhöz mobilon. Desktopon a jelenlegi megjelenés változatlan.
+### Érintett fájl
+- `src/components/MibenSegitSection.tsx` — egy sor grid + egy cím-osztály tweak.
