@@ -7,7 +7,7 @@ import { ReflectionFloor } from './ReflectionFloor';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNight from '@/assets/budapest-night-hero.jpg';
-import cyanCocktail from '@/assets/cocktail-glass.png';
+import cyanCocktail from '@/assets/cocktail-pour.png';
 
 interface HeroSectionProps {
   currentImageIndex: number;
