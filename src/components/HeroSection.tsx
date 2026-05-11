@@ -128,7 +128,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             </Button>
           </div>
 
-          {/* 3. Phone mockup — between CTAs and founding note on mobile, right column on desktop */}
+          {/* 3. Phone mockup + cocktail glass — between CTAs and founding note on mobile, right column on desktop */}
           <div className="order-3 lg:order-2 lg:col-start-2 lg:row-start-1 lg:row-span-3 relative flex justify-center items-center min-h-[380px] lg:min-h-[580px]">
             {/* Soft cyan glow behind phone */}
             <div
@@ -136,12 +136,32 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               className="absolute inset-0 -z-0 pointer-events-none"
               style={{
                 background:
-                  'radial-gradient(ellipse 60% 60% at 40% 50%, rgba(0,188,212,0.32) 0%, rgba(0,188,212,0.12) 45%, transparent 75%)',
-                filter: 'blur(30px)',
+                  'radial-gradient(ellipse 60% 60% at 40% 50%, rgba(0,188,212,0.42) 0%, rgba(0,188,212,0.16) 45%, transparent 75%)',
+                filter: 'blur(34px)',
               }}
             />
-            <div className="relative z-20">
+            {/* Conic light-rays — stronger on mobile to mimic the beam reference */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-0 pointer-events-none lg:opacity-60 opacity-90"
+              style={{
+                background:
+                  'conic-gradient(from 200deg at 50% 50%, transparent 0deg, rgba(0,188,212,0.18) 30deg, transparent 70deg, transparent 200deg, rgba(0,212,255,0.16) 230deg, transparent 280deg)',
+                filter: 'blur(18px)',
+                WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 0%, transparent 70%)',
+                maskImage: 'radial-gradient(circle at 50% 50%, black 0%, transparent 70%)',
+              }}
+            />
+            <div className="relative z-20 flex items-end justify-center gap-2 md:gap-4">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+              {/* Cocktail glass — desktop only, sits beside the phone */}
+              <img
+                src={cyanCocktail}
+                alt=""
+                aria-hidden="true"
+                className="hidden lg:block w-40 xl:w-48 -ml-6 xl:-ml-8 self-end translate-y-2 select-none pointer-events-none [filter:drop-shadow(0_25px_40px_rgba(0,0,0,0.6))_drop-shadow(0_0_30px_rgba(0,188,212,0.45))]"
+                draggable={false}
+              />
             </div>
           </div>
 
