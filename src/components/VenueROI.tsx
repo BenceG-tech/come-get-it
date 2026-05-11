@@ -9,7 +9,7 @@ const stats = [
 
 export const VenueROI: React.FC = () => {
   return (
-    <section id="venue-roi" className="py-20 px-4 bg-nf-background">
+    <section id="venue-roi" className="py-20 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight">

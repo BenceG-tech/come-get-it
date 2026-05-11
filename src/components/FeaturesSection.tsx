@@ -29,7 +29,7 @@ export const FeaturesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 px-4 bg-nf-surface">
+    <section className="py-24 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-16 text-white tracking-tight">
           {t('home_features.heading')}

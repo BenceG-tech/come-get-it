@@ -143,7 +143,7 @@ const Italmarkak = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-4 bg-nf-surface">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h2 className={sectionTitle}>{t('brands_page.how_it_works.title')}</h2>
@@ -170,7 +170,7 @@ const Italmarkak = () => {
       </section>
 
       {/* Features */}
-      <section className="py-16 px-4 bg-nf-background">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h2 className={sectionTitle}>{t('brands_page.features.title')}</h2>
@@ -208,7 +208,7 @@ const Italmarkak = () => {
       </section>
 
       {/* Target Audience */}
-      <section className="py-16 px-4 bg-nf-surface">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h2 className={sectionTitle}>{t('brands_page.target.title')}</h2>
@@ -229,7 +229,7 @@ const Italmarkak = () => {
       </section>
 
       {/* Value Props */}
-      <section className="py-12 px-4 bg-nf-background">
+      <section className="py-12 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {valueProps.map((item, index) => (
@@ -249,7 +249,7 @@ const Italmarkak = () => {
       </section>
 
       {/* Final CTA — wide cinematic glass banner */}
-      <section className="py-16 px-4 bg-nf-background">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-6xl mx-auto">
           <div className="relative overflow-hidden rounded-3xl border border-nf-primary/30 bg-white/[0.03] backdrop-blur-md p-8 md:p-12 lg:p-14 shadow-[0_30px_120px_-30px_rgba(0,188,212,0.45)]">
             {/* Cyan mesh wave decoration on left */}

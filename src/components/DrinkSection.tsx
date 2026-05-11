@@ -14,7 +14,7 @@ export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, d
   return (
     <section
       id="drink"
-      className="py-20 md:py-24 px-4 relative z-20 scroll-mt-24 overflow-hidden bg-gradient-to-br from-[#040a14] via-nf-background to-[#040a14]"
+      className="py-20 md:py-24 px-4 relative z-20 scroll-mt-24 overflow-hidden bg-nf-background nf-section-glow"
     >
       {/* ambient cyan glow top-right */}
       <div

@@ -209,7 +209,7 @@ const RewardsPartners = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-4 bg-nf-surface">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h2 className={sectionTitle}>{t('rewards_page.how_it_works.title')}</h2>
@@ -235,7 +235,7 @@ const RewardsPartners = () => {
       </section>
 
       {/* Features — larger horizontal glass cards */}
-      <section className="py-16 px-4 bg-nf-background">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className={sectionTitle}>{t('rewards_page.features.title')}</h2>
@@ -277,7 +277,7 @@ const RewardsPartners = () => {
       </section>
 
       {/* Value props */}
-      <section className="py-16 px-4 bg-nf-surface">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className={`${sectionTitle} mb-10`}>A jutalom-partnerség előnyei</h2>
 

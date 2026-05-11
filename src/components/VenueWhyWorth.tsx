@@ -36,7 +36,7 @@ const cards = [
 
 export const VenueWhyWorth: React.FC = () => {
   return (
-    <section id="venue-why-worth" className="py-20 px-4 bg-nf-background">
+    <section id="venue-why-worth" className="py-20 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight">

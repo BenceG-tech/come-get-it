@@ -16,7 +16,7 @@ export const VenueKeyFeatures: React.FC = () => {
   ];
 
   return (
-    <section className="relative py-20 px-4 bg-nf-background">
+    <section className="relative py-20 px-4 bg-nf-background nf-section-glow">
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-nf-primary/10 opacity-30 blur-[100px] rounded-full"></div>
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-nf-secondary/10 opacity-20 blur-[80px] rounded-full"></div>
       

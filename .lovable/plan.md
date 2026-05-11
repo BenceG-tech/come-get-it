@@ -1,53 +1,37 @@
-# Egyedi háttérképek a kártyákhoz
-
 ## Cél
-Minden kártya háttere kapjon egy egyedi, releváns képet — sötétített overlay-jel, brand-image szerint (Neon Fidelity: cyan #00bcd4 accent, sötét #050505 alap, cinematic mood).
+Egységesíteni az összes szekció hátterét minden oldalon: fekete alap (`bg-nf-background` = #050505) + finom azúr radial glow szekciónként. Eltűnnek a `bg-nf-surface` váltakozások és az egyedi gradiensek (gray/black, #040a14).
 
-## Generálandó képek (10 db)
+## Mit változtatok
 
-### MibenSegitSection (4 kártya) → `src/assets/miben-segit/`
-1. **reggeli.jpg** — Reggeli jelenet: kávé + croissant pulton, lágy reggeli fény, sötét mood
-2. **ebed.jpg** — Bisztró ebéd asztal felülről, étel közeli, meleg tónus, sötétített
-3. **beulos.jpg** — Hangulatos kávézó/kocsma sarok, kanapé, esti fény, intim
-4. **bulizas.jpg** — Klub/bár éjjel, neon fények, koktélok, mozgó tömeg silhouette
+### 1. `src/index.css` — `.nf-section-glow` finomítás
+A meglévő `.nf-section-glow` utility már létezik (radial azúr glow felülről). Picit visszafogom (még diszkrétebb, minden szekcióhoz illik), és hozzáadok egy `.nf-section-glow-center` variánst a középre helyezett változathoz, ha szükséges. Egyetlen egységes szabályt használok mindenhol.
 
-### VenueWhyWorth (6 kártya) → `src/assets/venue-why/`
-1. **uj-vendegek.jpg** — Vendégek belépnek egy bárba, mozgás
-2. **nulla-rizikó.jpg** — Pénztárgép / koccintó pohár close-up, anyagi nyugalom
-3. **te-dontesz.jpg** — Csapos italt készít, kontroll érzés, pult mögött
-4. **adatok.jpg** — Bár belső analytics-feel, fények grafikon-szerű ritmusban (absztraktabb)
-5. **lokacio-push.jpg** — Utcai séta éjjel város, telefon a kézben, neon utcai fények
-6. **kockazatmentes.jpg** — Nyitott ajtó/függöny bárba, "easy out" érzés
+### 2. Komponensek — `bg-nf-surface` → `bg-nf-background nf-section-glow`
+Cserék (mind csak className-edit):
+- `src/components/FeaturesSection.tsx` (32)
+- `src/components/HowItWorksForVenues.tsx` (39)
+- `src/components/LinkSection.tsx` (12)
 
-## Vizuális stílus (mindegyikre)
-- Cinematic, sötét, magas kontraszt
-- Cyan/teal accent fények (#00bcd4 hangulat)
-- Filmszerű, nem stock-fotó-szerű
-- Tájolás: 4:3 vagy 3:2 (1024×768 / 1280×853)
-- Modell: `fast` (10 kép, költség miatt)
+### 3. Egyedi gradiensek normalizálása
+- `src/components/WorkWithUsSection.tsx` (66): `bg-gradient-to-b from-gray-900 to-black` → `bg-nf-background nf-section-glow`
+- `src/components/DrinkSection.tsx` (17): `bg-gradient-to-br from-[#040a14] via-nf-background to-[#040a14]` → `bg-nf-background nf-section-glow`
 
-## Komponens-módosítások
+### 4. Oldalak — alternáló `bg-nf-surface` eltávolítása
+- `src/pages/Italmarkak.tsx` (146, 211): `bg-nf-surface` → `bg-nf-background nf-section-glow`
+- `src/pages/RewardsPartners.tsx` (212, 280): ugyanaz
+- `src/pages/ComeGetItAccelerator.tsx` (141): ugyanaz
+- `src/pages/Partnerek.tsx` (123): a `${idx % 2 === 0 ? 'bg-nf-background' : 'bg-nf-surface'}` ternary kivétele → minden szekció `bg-nf-background nf-section-glow`
 
-### `MibenSegitSection.tsx`
-- Importálni a 4 képet
-- Hozzárendelni a `cards` tömbhöz egy `bgImage` mezővel
-- Kártyára: `style={{ backgroundImage: 'url(...)' }}` + `bg-cover bg-center`
-- Sötétítő overlay: `before:absolute before:inset-0 before:bg-black/65 before:rounded-2xl` (vagy gradient overlay)
-- Tartalom marad `relative z-10`
-- Hover: overlay enyhén világosodik (`hover:before:bg-black/55`)
+### 5. Hozzáadom a `nf-section-glow`-t a már `bg-nf-background`-os szekciókhoz
+Hogy mindenhol legyen ugyanaz a finom azúr fény (egységes érzet):
+- `HeroSection`, `VenueHeroSection`: kihagyom (hero-nak már saját abstract bg/parallax háttere van)
+- A többi `bg-nf-background` szekciónál hozzáadom: `MibenSegitSection`, `HowItWorks`, `EarnSection`, `GiveSection`, `PricingSection`, `VenuePartnerTeaser`, `BenefitsSection`, `VenueApplicationSection`, `SignupForm`, `FOMOSection`, `VenueKeyFeatures`, `VenueROI`, `VenueStats`, `VenueWhyWorth`, `FoundingPartnerPerks`.
+- `PartnerApplicationSection`-nél már megvan.
 
-### `VenueWhyWorth.tsx`
-- Ugyanaz a minta, 6 képpel
-- A meglévő `border + bg-white/[0.03]` lecserélve háttérképre + sötét overlayre
+## Mit NEM változtatok
+- Hero szekciók (saját parallax/abstract bg)
+- Kártyák, gombok, ikonok színei (azúr accent marad)
+- Tipográfia, layout, animációk
 
-## Háttér-overlay recept (mindkét szekcióhoz egységes)
-```
-- bg-cover bg-center
-- before: linear-gradient(180deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.85) 100%)
-- border-nf-primary/20 megmarad
-- hover shadow cyan glow megmarad
-```
-Ez biztosítja a szöveg olvashatóságát és a brand-konzisztenciát.
-
-## Megjegyzés
-Nem nyúlok más szekciókhoz, csak a két kérteshez. Ha tetszik a megoldás, ugyanezt a mintát később kiterjeszthetjük a `BenefitsSection`-ra is.
+## Eredmény
+Minden oldalon (/, /vendeglatohelyek, /partnerek, /italmarkak, /rewards-partners, /come-get-it-accelerator) minden szekció ugyanaz a #050505 fekete + diszkrét azúr radial glow. Nincs többé világosabb sáv, gray-900, vagy egyedi #040a14.

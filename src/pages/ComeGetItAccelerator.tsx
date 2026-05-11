@@ -138,7 +138,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-4 bg-nf-surface" lang="hu">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow" lang="hu">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className={sectionTitle}>Hogyan működik?</h2>
@@ -160,7 +160,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Benefits */}
-      <section className="py-16 px-4 bg-nf-background">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className={sectionTitle}>Miért válassz minket?</h2>
@@ -181,7 +181,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-4 bg-nf-background text-center">
+      <section className="py-20 px-4 bg-nf-background nf-section-glow text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-anton uppercase leading-[0.9] tracking-tight">
             <span className="block text-white">Csatlakozz</span>

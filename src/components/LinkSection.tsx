@@ -9,7 +9,7 @@ interface LinkSectionProps {
 export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => {
   const { t } = useI18n();
   return (
-    <section id="link" className="py-20 px-4 bg-nf-surface relative">
+    <section id="link" className="py-20 px-4 bg-nf-background nf-section-glow relative">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Phone Mockup */}
