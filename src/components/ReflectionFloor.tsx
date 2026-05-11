@@ -10,15 +10,6 @@ export const ReflectionFloor: React.FC<{ className?: string }> = ({ className = 
       aria-hidden="true"
       className={`absolute inset-x-0 bottom-0 h-40 md:h-52 z-[3] pointer-events-none ${className}`}
     >
-      {/* Horizon glow line */}
-      <div
-        className="absolute inset-x-0 top-0 h-px"
-        style={{
-          background:
-            'linear-gradient(to right, transparent 0%, rgba(0,188,212,0.55) 40%, rgba(0,212,255,0.7) 50%, rgba(0,188,212,0.55) 60%, transparent 100%)',
-          boxShadow: '0 0 20px rgba(0,188,212,0.45)',
-        }}
-      />
       {/* Reflective sheen */}
       <div
         className="absolute inset-0"

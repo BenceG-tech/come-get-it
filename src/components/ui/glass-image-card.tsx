@@ -30,15 +30,11 @@ export const GlassImageCard: React.FC<GlassImageCardProps> = ({
         <>
           <div
             aria-hidden="true"
-            className="absolute inset-0 pointer-events-none opacity-[0.14] group-hover:opacity-[0.28] transition-opacity duration-500"
+            className="absolute inset-0 pointer-events-none opacity-[0.55] group-hover:opacity-[0.8] transition-opacity duration-500"
             style={{
               backgroundImage: `url(${bgImage})`,
               backgroundSize: 'cover',
               backgroundPosition: bgPosition,
-              WebkitMaskImage:
-                'linear-gradient(to top, black 0%, rgba(0,0,0,0.7) 50%, transparent 100%)',
-              maskImage:
-                'linear-gradient(to top, black 0%, rgba(0,0,0,0.7) 50%, transparent 100%)',
             }}
           />
           <div
@@ -46,7 +42,7 @@ export const GlassImageCard: React.FC<GlassImageCardProps> = ({
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                'linear-gradient(180deg, rgba(3,7,13,0.85) 0%, rgba(3,7,13,0.55) 55%, rgba(0,188,212,0.06) 100%)',
+                'linear-gradient(180deg, rgba(3,7,13,0.55) 0%, rgba(3,7,13,0.25) 55%, rgba(0,188,212,0.08) 100%)',
             }}
           />
         </>
