@@ -36,7 +36,7 @@ export const MibenSegitSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6">
           {cards.map(({ icon: Icon, titleKey, descKey, bg }, idx) => (
             <article
               key={idx}
@@ -65,7 +65,7 @@ export const MibenSegitSection: React.FC = () => {
                 </div>
 
                 {/* Title — single line, sits on bottom fade */}
-                <h3 className="absolute left-5 right-5 bottom-5 z-10 font-anton uppercase tracking-tight text-white text-lg md:text-xl leading-none">
+                <h3 className="absolute left-4 right-4 bottom-4 sm:left-5 sm:right-5 sm:bottom-5 z-10 font-anton uppercase tracking-tight text-white text-base sm:text-lg md:text-xl leading-none">
                   {t(titleKey)}
                 </h3>
 
