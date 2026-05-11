@@ -44,16 +44,16 @@ export const MibenSegitSection: React.FC = () => {
             >
               {/* Image */}
               <div
-                className="relative aspect-[3/4] bg-cover bg-center transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+                className="relative aspect-[3/4] bg-cover bg-center transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                 style={{ backgroundImage: `url(${bg})` }}
               >
                 {/* Bottom-only fade for title legibility */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+                  className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none transition-opacity duration-700 group-hover:opacity-70"
                   style={{
                     background:
-                      'linear-gradient(180deg, transparent 0%, rgba(5,5,5,0.85) 80%, rgba(5,5,5,0.96) 100%)',
+                      'linear-gradient(180deg, transparent 0%, rgba(5,5,5,0.75) 80%, rgba(5,5,5,0.9) 100%)',
                   }}
                 />
 
@@ -64,21 +64,21 @@ export const MibenSegitSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Title — single line, sits on bottom fade */}
-                <h3 className="absolute left-4 right-4 bottom-4 sm:left-5 sm:right-5 sm:bottom-5 z-10 font-anton uppercase tracking-tight text-white text-base sm:text-lg md:text-xl leading-none">
+                {/* Title — fades out on hover when description appears */}
+                <h3 className="absolute left-4 right-4 bottom-4 sm:left-5 sm:right-5 sm:bottom-5 z-10 font-anton uppercase tracking-tight text-white text-base sm:text-lg md:text-xl leading-none transition-opacity duration-500 group-hover:opacity-0">
                   {t(titleKey)}
                 </h3>
 
-                {/* Description — slides up on hover */}
-                <div className="absolute inset-x-0 bottom-0 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                {/* Description — fades + slides up on hover with translucent blur */}
+                <div className="absolute inset-x-0 bottom-0 z-20 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
                   <div
-                    className="px-5 pt-5 pb-5 border-t border-nf-primary/40"
+                    className="px-5 pt-5 pb-5 border-t border-nf-primary/30 backdrop-blur-md"
                     style={{
                       background:
-                        'linear-gradient(180deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.98) 100%)',
+                        'linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.55) 35%, rgba(5,5,5,0.7) 100%)',
                     }}
                   >
-                    <p className="text-sm text-white/85 leading-relaxed">
+                    <p className="text-sm text-white/90 leading-relaxed">
                       {t(descKey)}
                     </p>
                   </div>
