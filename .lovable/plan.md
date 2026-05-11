@@ -1,49 +1,53 @@
+# Egyedi háttérképek a kártyákhoz
+
 ## Cél
+Minden kártya háttere kapjon egy egyedi, releváns képet — sötétített overlay-jel, brand-image szerint (Neon Fidelity: cyan #00bcd4 accent, sötét #050505 alap, cinematic mood).
 
-A főoldal (és kapcsolódó komponensek) szöveg- és struktúra-fixei a visszajelzések alapján. Képeket NEM cseréljük most (saját képek, később frissülnek).
+## Generálandó képek (10 db)
 
-## Változtatások
+### MibenSegitSection (4 kártya) → `src/assets/miben-segit/`
+1. **reggeli.jpg** — Reggeli jelenet: kávé + croissant pulton, lágy reggeli fény, sötét mood
+2. **ebed.jpg** — Bisztró ebéd asztal felülről, étel közeli, meleg tónus, sötétített
+3. **beulos.jpg** — Hangulatos kávézó/kocsma sarok, kanapé, esti fény, intim
+4. **bulizas.jpg** — Klub/bár éjjel, neon fények, koktélok, mozgó tömeg silhouette
 
-### 1. Terminológia egységesítés: "Jutalom Partnerek" → "Rewards-partnerek"
-Minden előfordulás cseréje (nav, mobil-nav, partner-link kártyák, footer ha van) HU + EN i18n-ben.
-- Fájlok: `src/i18n/hu.json`, `src/i18n/en.json`, `src/components/Navigation.tsx`, `src/components/MobileNavigation.tsx`, `src/pages/Partnerek.tsx`, `src/components/QuickAccessChips.tsx` (ha érintett)
+### VenueWhyWorth (6 kártya) → `src/assets/venue-why/`
+1. **uj-vendegek.jpg** — Vendégek belépnek egy bárba, mozgás
+2. **nulla-rizikó.jpg** — Pénztárgép / koccintó pohár close-up, anyagi nyugalom
+3. **te-dontesz.jpg** — Csapos italt készít, kontroll érzés, pult mögött
+4. **adatok.jpg** — Bár belső analytics-feel, fények grafikon-szerű ritmusban (absztraktabb)
+5. **lokacio-push.jpg** — Utcai séta éjjel város, telefon a kézben, neon utcai fények
+6. **kockazatmentes.jpg** — Nyitott ajtó/függöny bárba, "easy out" érzés
 
-### 2. Terminológia: "Italszponzor" → "Italmárka"
-A "Miért éri meg mindenkinek?" / BenefitsSection oszlopcímek és szövegek átírása.
-- Fájl: `src/components/BenefitsSection.tsx` + i18n kulcsok
+## Vizuális stílus (mindegyikre)
+- Cinematic, sötét, magas kontraszt
+- Cyan/teal accent fények (#00bcd4 hangulat)
+- Filmszerű, nem stock-fotó-szerű
+- Tájolás: 4:3 vagy 3:2 (1024×768 / 1280×853)
+- Modell: `fast` (10 kép, költség miatt)
 
-### 3. "Közösség" oszlop a BenefitsSection-ben → "Jótékonysági partner"
-Átnevezés, hogy a Give-modellhez logikusan kapcsolódjon. Szöveg finomítása ennek megfelelően.
-- Fájl: `src/components/BenefitsSection.tsx` + i18n
+## Komponens-módosítások
 
-### 4. Főoldali 4-kártyás partner-szekció redukálása 1 CTA-ra
-A `VenuePartnerTeaser` (vagy a 4 partner-link kártyát megjelenítő szekció) átalakítása:
-- Egyetlen blokk: cím "Partnerként csatlakoznál?" + 1 gomb "Partnerek programja →" → `/partnerek`
-- A 4 különálló kártya (Vendéglátóhelyek / Italmárkák / Rewards-partnerek / Founding Partner) eltávolítása a főoldalról (a /partnerek hub-on maradnak)
-- Fájl: `src/components/VenuePartnerTeaser.tsx` (vagy a megfelelő komponens — ellenőrzendő)
+### `MibenSegitSection.tsx`
+- Importálni a 4 képet
+- Hozzárendelni a `cards` tömbhöz egy `bgImage` mezővel
+- Kártyára: `style={{ backgroundImage: 'url(...)' }}` + `bg-cover bg-center`
+- Sötétítő overlay: `before:absolute before:inset-0 before:bg-black/65 before:rounded-2xl` (vagy gradient overlay)
+- Tartalom marad `relative z-10`
+- Hover: overlay enyhén világosodik (`hover:before:bg-black/55`)
 
-### 5. Duplikált "alapító tag" szekciók egyesítése
-Jelenleg két szekció van egymás után:
-- "Legyél alapító tag" (1000 bennfentes, "Jövök a körre" gomb) — `FOMOSection`
-- "Legyél az alapító tagok között" (500 Plus, email form) — `SignupForm`
+### `VenueWhyWorth.tsx`
+- Ugyanaz a minta, 6 képpel
+- A meglévő `border + bg-white/[0.03]` lecserélve háttérképre + sötét overlayre
 
-Megoldás: a `FOMOSection` eltávolítása a főoldalról (Index.tsx), csak a `SignupForm` marad. Számok következetesek lesznek a PricingSection-nel (500 / 1500 / haver-meghívás).
-- Fájl: `src/pages/Index.tsx` (FOMOSection import + render törlése)
+## Háttér-overlay recept (mindkét szekcióhoz egységes)
+```
+- bg-cover bg-center
+- before: linear-gradient(180deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.85) 100%)
+- border-nf-primary/20 megmarad
+- hover shadow cyan glow megmarad
+```
+Ez biztosítja a szöveg olvashatóságát és a brand-konzisztenciát.
 
-### 6. "Saját tiszta víz számláló" → "Saját Give-impact: lásd hány liter tiszta víz adományoztál"
-A Plus csomag listájában a `PricingSection`-ben.
-- Fájl: `src/components/PricingSection.tsx` + i18n
-
-### 7. Helyszín típusa dropdown ellenőrzése
-A `VenueApplicationSection` form "Helyszín típusa" dropdown opcióinak ellenőrzése. Ha hiányzik, kiegészítés: Bár, Étterem, Kávézó, Pub, Bisztró, Klub, Fine dining, Reggelizős, Vegyes/Egyéb.
-- Fájl: `src/components/VenueApplicationSection.tsx`
-
-## Amit NEM csinálunk most
-- App screenshot cserék (DRINK/LINK/EARN mockupok) — saját képek, később
-- BESTIA / FIRST CRAFT BEER referenciák — később, friss screenshotokkal
-- 2x2 grid magasság-finomítás (stilisztikai, nem fontos)
-
-## Ellenőrzés
-- Build hibamentes
-- Mobil preview (390×844) — minden módosított szekció vizuális ellenőrzése
-- HU + EN nyelvváltó működik az új kulcsokon
+## Megjegyzés
+Nem nyúlok más szekciókhoz, csak a két kérteshez. Ha tetszik a megoldás, ugyanezt a mintát később kiterjeszthetjük a `BenefitsSection`-ra is.
