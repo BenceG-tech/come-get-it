@@ -37,23 +37,23 @@ const Index = () => {
   }, []);
 
   const appImages = [
-    "/lovable-uploads/1d253158-a9a3-4377-bfe6-480c7551ca4b.png",
-    "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.png"
+    "/lovable-uploads/1d253158-a9a3-4377-bfe6-480c7551ca4b.webp",
+    "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.webp"
   ];
 
   // Drink section uses these two images alternating
   const drinkImages = [
-    "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.png",
-    "/lovable-uploads/7f0ed43a-5016-4db8-89ae-f51f0c7e6126.png"
+    "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.webp",
+    "/lovable-uploads/7f0ed43a-5016-4db8-89ae-f51f0c7e6126.webp"
   ];
 
   // Link section uses specific image
-  const linkImage = "/lovable-uploads/d9b38dee-209b-4035-9d5a-5026e973ed21.png";
+  const linkImage = "/lovable-uploads/d9b38dee-209b-4035-9d5a-5026e973ed21.webp";
 
   // Earn section uses these two images alternating
   const earnImages = [
-    "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png",
-    "/lovable-uploads/574c49aa-62ba-49c3-9425-e564722b764e.png"
+    "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.webp",
+    "/lovable-uploads/574c49aa-62ba-49c3-9425-e564722b764e.webp"
   ];
 
   useEffect(() => {

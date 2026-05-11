@@ -1,5 +1,5 @@
 import React from 'react';
-import logoSrc from '@/assets/come-get-it-logo.png';
+import logoSrc from '@/assets/come-get-it-logo.webp';
 import { cn } from '@/lib/utils';
 
 interface LogoProps {

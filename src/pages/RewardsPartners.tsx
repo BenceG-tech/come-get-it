@@ -15,7 +15,7 @@ import budapestNightHero from '@/assets/budapest-night-hero.jpg';
 
 const RewardsPartners = () => {
   const { t } = useI18n();
-  const rewardsImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.png";
+  const rewardsImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.webp";
 
   useEffect(() => {
     analytics.rewardsPageView();
