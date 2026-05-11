@@ -127,14 +127,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
                 maskImage: 'radial-gradient(circle at 50% 50%, black 0%, transparent 70%)',
               }}
             />
-            <div className="relative z-20 flex items-end justify-center gap-2 md:gap-4">
+            <div className="relative z-20 flex items-center justify-center gap-2 md:gap-4">
               <PhoneMockup imageUrl={appImages[currentImageIndex]} />
-              {/* Cocktail glass — desktop only, sits beside the phone, tilted as if being poured into */}
+              {/* Cocktail glass — desktop only, phone-sized, tilted as if being poured into */}
               <img
                 src={cyanCocktail}
                 alt=""
                 aria-hidden="true"
-                className="hidden lg:block w-48 xl:w-60 -ml-4 xl:-ml-6 self-end translate-y-4 translate-x-2 rotate-[10deg] select-none pointer-events-none [filter:drop-shadow(0_25px_40px_rgba(0,0,0,0.6))_drop-shadow(0_0_40px_rgba(0,188,212,0.55))]"
+                className="hidden lg:block w-72 xl:w-96 -ml-6 xl:-ml-10 self-center translate-y-2 translate-x-2 rotate-[10deg] select-none pointer-events-none [filter:drop-shadow(0_25px_40px_rgba(0,0,0,0.6))_drop-shadow(0_0_40px_rgba(0,188,212,0.55))]"
                 draggable={false}
               />
             </div>
