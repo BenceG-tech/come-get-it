@@ -27,6 +27,10 @@ export const HeroBackground: React.FC = () => {
           style={{ objectPosition: 'center 55%' }}
           width={1920}
           height={1080}
+          loading="eager"
+          decoding="async"
+          // @ts-ignore - fetchpriority is a valid HTML attribute
+          fetchpriority="high"
         />
       </div>
       <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-[#03060d] via-[#03060d]/85 to-transparent" />
