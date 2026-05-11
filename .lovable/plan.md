@@ -1,18 +1,15 @@
-## Mobil 2×2 grid a `MibenSegitSection`-ben
+## Footer skyline csere
 
-Jelenleg mobilon `grid-cols-1` (egymás alatt 4 nagy portré-kártya). Kérés: **mobilon is 2×2** legyen.
+A `Footer.tsx`-ben jelenleg egy inline SVG skyline van. Lecseréljük a feltöltött Budapest skyline képre.
 
-### Változtatás
-- `MibenSegitSection.tsx` grid osztály:
-  - **Régi:** `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6`
-  - **Új:** `grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6`
-- Mobilon a kisebb kártyákhoz finomítás (csak ha `<sm`):
-  - Cím: `text-lg md:text-xl` → `text-base sm:text-lg md:text-xl`
-  - Belső paddingek (`left-5 right-5 bottom-5`, ikon `top-4 left-4`) maradnak — még jól férnek `~165px` széles kártyán.
+### Lépések
 
-### Mi marad
-- Portré arány (`aspect-[3/4]`), ikon-chip, hover-csúszó leírás, fade, glow, képek.
-- Tablet és desktop layout (sm/lg breakpoint) változatlan.
+1. A két feltöltött kép közül a **átlátszó hátterű PNG-t** (`68A5C11C-...png`) másoljuk `src/assets/footer-skyline.png` néven — ez illeszkedik a footer sötét hátterére anélkül, hogy fekete blokk látszódna alul.
+2. `src/components/Footer.tsx`-ben:
+   - Töröljük a meglévő inline `<svg>` skyline blokkot.
+   - Importáljuk az új képet ES6 importtal.
+   - Helyette `<img>` tag, `w-full h-auto`, `aria-hidden`, `loading="lazy"` attribútumokkal, a meglévő `max-w-7xl mx-auto px-4` konténerben.
+   - Megtartjuk a nf-primary tónust (a kép már cyan), nincs szín-overlay.
 
-### Érintett fájl
-- `src/components/MibenSegitSection.tsx` — egy sor grid + egy cím-osztály tweak.
+### Megjegyzés
+Az átlátszó verziót választom alapból, mert a footer háttere `bg-nf-background` (közel fekete), így a fekete hátterű JPG-nek nem lenne előnye, az átlátszó PNG viszont tisztább illesztést ad. Ha mégis a fekete hátterűt szeretnéd, szólj.
