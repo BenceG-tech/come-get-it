@@ -1,33 +1,44 @@
-# Mobil overflow javítás — Rewards Partnerek hero
+# HU mobil overflow javítás — Rewards Partnerek hero (folytatás)
 
 ## Probléma
-A `/rewards-partners` oldal hero szekciójában mobil nézetben (≤402px) a főcím kilóg a képernyőből. Az Anton font, uppercase, `text-5xl` (48px) méretben a "LEGYÉL OTT, AMIKOR" és "PONTOKAT VÁLTANAK BE." sorok szélesebbek, mint a 370px-es belső tartalmi terület, ezért a szöveg jobbra túlnyúlik (a section `overflow-hidden`-je elrejti a scrollbart, de a vágott szöveg vizuálisan így is csúnya).
+A magyar fordítások hosszú, nem-tördelhető szavakat tartalmaznak ("rewards-partner­program", "rewards-partnerként", "felhasználóink", "költésük"), amelyek mobilon (402px) kilógnak a viewportból. Az angol verzió rövidebb / könnyebben tördelhető szavakat használ, ezért ott nem látszik a hiba.
 
-A többi hero (HeroSection, VenueHeroSection) rövidebb sorokkal dolgozik, ott nincs hiba — csak a rewards oldal címe hosszabb.
+Konkrétan túlnyúlik:
+1. Az alcím `<p>` ("A felhasználóink minden költésük után pontot…")
+2. A "phase_note" doboz ("A rewards-partnerprogram a felhasználói bázis…")
+3. A CTA gomb ("Csatlakozom rewards-partnerként") — a hosszú szó nyújtja szét a gombot a viewporton túl.
 
 ## Megoldás
-Csak a `src/pages/RewardsPartners.tsx` hero `<h1>`-ét módosítjuk — kisebb mobil betűméret és tördelést segítő utility-k. Funkcionális/üzleti logika nem változik.
+Csak a `src/pages/RewardsPartners.tsx` hero blokk presentational módosítása — szó-tördelést engedélyezünk ezekre az elemekre.
 
-### Konkrét változtatás
-A jelenlegi:
+### Konkrét változtatások
+
+1) Alcím:
 ```tsx
-<h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight uppercase">
-```
-helyett:
-```tsx
-<h1 className="text-[2.25rem] xs:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.95] md:leading-[0.9] tracking-tight uppercase break-words">
+<p className="text-base md:text-lg ... max-w-xl mx-auto lg:mx-0 break-words [hyphens:auto]">
 ```
 
-- Mobil: `text-[2.25rem]` (~36px) → "PONTOKAT VÁLTANAK BE." kényelmesen befér 402px alatt is.
-- `break-words` biztosítja, hogy szélsőséges esetben se nyúljon túl.
-- `leading-[0.95]` mobilon picit lazábbra a kétsoros olvashatóságért, desktopon marad `0.9`.
-- `sm`/`md`/`lg`/`xl` méretek érintetlenek — desktop look nem változik.
+2) Phase-note doboz:
+```tsx
+<div className="... text-sm text-white/70 break-words [hyphens:auto]">
+```
 
-### Opcionális: alcím
-Az alcím `text-base` mobilon már most is jó, nem kell módosítani.
+3) CTA gomb — engedjük tördelni a szöveget mobilon, hogy ne nyújtsa szét a gombot:
+```tsx
+<Button
+  variant="neon"
+  size="lg"
+  className="py-4 px-6 sm:px-10 text-base sm:text-lg max-w-full whitespace-normal break-words [hyphens:auto] text-center"
+  ...
+>
+```
+
+A `[hyphens:auto]` Tailwind arbitrary utility a CSS `hyphens: auto`-t adja hozzá, ami magyar `lang="hu"` mellett automatikusan elválasztja a hosszú szavakat. Ha a böngésző nem támogatná, a `break-words` (`overflow-wrap: break-word`) garantálja, hogy a hosszú szó megtörjön a konténer szélénél.
+
+Funkcionális/üzleti logika nem változik, csak Tailwind className-ek bővülnek.
 
 ## Érintett fájlok
-- `src/pages/RewardsPartners.tsx` — egy sor (a hero `<h1>` className).
+- `src/pages/RewardsPartners.tsx` — három className módosítás a hero szekcióban (kb. 145–175 sor körül).
 
 ## Verifikáció
-Mobile preview (402px) — a két címsor a viewporton belül marad, semmi nem lóg ki jobbra.
+Mobile preview (402px), HU nyelv: alcím, phase-note és gomb a viewporton belül marad; hosszú szavak elválasztva vagy tördelve. Desktop megjelenés változatlan.
