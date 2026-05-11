@@ -9,7 +9,7 @@
     "partners_link": "Partners",
     "venues": "Venues",
     "brands": "Drink Brands",
-    "rewards": "Rewards Partners",
+    "rewards": "Rewards-partners",
     "accelerator": "Founding Partner Program",
     "signup": "Sign up",
     "login": "Log in",
@@ -129,8 +129,8 @@
     "title": "Why does it work for everyone?",
     "user": {"title": "User", "body": "New places, daily free drink.", "li1": "Collect points, rewards", "li2": "Exclusive offers"},
     "venue": {"title": "Venue", "body": "More guests, higher revenue.", "li1": "Loyal audience", "li2": "Free promotion"},
-    "sponsor": {"title": "Drink sponsor", "body": "Stronger brand, measurable results.", "li1": "New consumers", "li2": "Instant feedback"},
-    "community": {"title": "Community", "body": "Shared experiences, positive impact.", "li1": "New friendships", "li2": "Every drink helps"}
+    "sponsor": {"title": "Drink brand", "body": "Stronger brand, measurable results.", "li1": "New consumers", "li2": "Instant feedback"},
+    "community": {"title": "Charity partner", "body": "Shared cause, measurable impact — every redeemed drink funds clean water for someone in need.", "li1": "Lasting social impact", "li2": "Transparent reporting"}
   },
   "venues": {
     "hero": {
