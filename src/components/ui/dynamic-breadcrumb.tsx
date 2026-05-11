@@ -21,7 +21,7 @@ const PAGE_BREADCRUMBS: Record<string, BreadcrumbItem[]> = {
   ],
   '/rewards-partners': [
     { label: 'Főoldal', path: '/' },
-    { label: 'Jutalom Partnerek', path: '/rewards-partners', active: true }
+    { label: 'Rewards-partnerek', path: '/rewards-partners', active: true }
   ],
   '/come-get-it-accelerator': [
     { label: 'Főoldal', path: '/' },

@@ -226,11 +226,15 @@ export const VenueApplicationSection: React.FC = () => {
                   className={inputCls} required disabled={isLoading}>
                   <option value="">Válassz típust...</option>
                   <option value="bár">Bár</option>
-                  <option value="kávézó">Kávézó</option>
                   <option value="étterem">Étterem</option>
-                  <option value="koktélbár">Koktélbár</option>
+                  <option value="kávézó">Kávézó</option>
                   <option value="pub">Pub</option>
-                  <option value="egyéb">Egyéb</option>
+                  <option value="bisztró">Bisztró</option>
+                  <option value="klub">Klub</option>
+                  <option value="koktélbár">Koktélbár</option>
+                  <option value="fine_dining">Fine dining</option>
+                  <option value="reggelizős">Reggelizős</option>
+                  <option value="vegyes">Vegyes / Egyéb</option>
                 </select>
               </div>
 

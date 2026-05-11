@@ -9,7 +9,7 @@
     "partners_link": "Partnerek",
     "venues": "Vendéglátóhelyek",
     "brands": "Italmárkák",
-    "rewards": "Jutalom Partnerek",
+    "rewards": "Rewards-partnerek",
     "accelerator": "Founding Partner Program",
     "signup": "Regisztrálj",
     "login": "Bejelentkezés",
@@ -81,7 +81,7 @@
       "b2": "Napi 1 ingyen ital — sör, bor, koktél, üdítő",
       "b3": "Teljes italkínálat a partnerhelyeken",
       "b4": "Extra jutalmak és exkluzív ajánlatok",
-      "b5": "Saját tiszta víz számláló",
+      "b5": "Saját Give-impact: lásd hány liter tiszta víz adományoztál",
       "cta": "Csatlakozom Plusként"
     },
     "info": "A partnerhelyek maguk választják ki, milyen italokat ajánlanak ingyen — egy hideg korsó sörtől a házi limonádén át a frissen készített koktélig. Az ajánlat helyenként eltér, ezért érdemes a Come Get It-en böngészni, mielőtt elindulsz.",
@@ -121,7 +121,7 @@
     "partners_desc": "3 mód a csatlakozásra",
     "brands": "Italmárkák",
     "brands_desc": "Együttműködés márkáknak",
-    "rewards": "Jutalom partnerek",
+    "rewards": "Rewards-partnerek",
     "rewards_desc": "Ajánlatok és integráció",
     "accelerator": "Founding Partner Program",
     "accelerator_desc": "Exkluzív launch előtti program",
@@ -170,8 +170,8 @@
     "title": "Miért éri meg mindenkinek?",
     "user": {"title": "Felhasználó", "body": "Új helyek, napi ingyen ital.", "li1": "Pontgyűjtés, jutalmak", "li2": "Exkluzív ajánlatok"},
     "venue": {"title": "Vendéglátóhely", "body": "Több vendég, nagyobb forgalom.", "li1": "Lojális közönség", "li2": "Ingyenes promóció"},
-    "sponsor": {"title": "Italszponzor", "body": "Erősebb márka, mérhető eredmény.", "li1": "Új fogyasztók", "li2": "Azonnali visszajelzés"},
-    "community": {"title": "Közösség", "body": "Közös élmény, jótékony hatás.", "li1": "Új barátságok", "li2": "Minden italoddal segítesz"}
+    "sponsor": {"title": "Italmárka", "body": "Erősebb márka, mérhető eredmény.", "li1": "Új fogyasztók", "li2": "Azonnali visszajelzés"},
+    "community": {"title": "Jótékonysági partner", "body": "Közös ügy, mérhető hatás — minden beváltott ital tiszta vizet ad egy rászorulónak.", "li1": "Tartós social impact", "li2": "Átlátható elszámolás"}
   },
   "venues": {
     "hero": {
