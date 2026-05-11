@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PhoneMockup } from './PhoneMockup';
+import { ReflectionFloor } from './ReflectionFloor';
 import { ArrowRight } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
