@@ -40,7 +40,7 @@ const NEXT_STEPS: Record<string, NextStepSuggestion[]> = {
   '/rewards-partners': [
     {
       title: 'Partner alkalmazás',
-      description: 'Csatlakozz a jutalom programunkhoz és növeld az ügyfélkörömödet',
+      description: 'Csatlakozz a rewards programunkhoz és növeld az ügyfélkörödet',
       action: 'Jelentkezés',
       path: '#partner-signup'
     }
@@ -64,8 +64,8 @@ const RELATED_PAGES: Record<string, RelatedPage[]> = {
       badge: 'Partnerek'
     },
     {
-      title: 'Jutalom Partnerek',
-      description: 'Tudj meg többet a jutalom rendszerünkről',
+      title: 'Rewards-partnerek',
+      description: 'Tudj meg többet a rewards rendszerünkről',
       path: '/rewards-partners',
       badge: 'Előnyök'
     }

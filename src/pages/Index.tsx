@@ -11,7 +11,7 @@ import { EarnSection } from '@/components/EarnSection';
 import { GiveSection } from '@/components/GiveSection';
 import { BenefitsSection } from '@/components/BenefitsSection';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
-import { FOMOSection } from '@/components/FOMOSection';
+// FOMOSection removed — duplicated SignupForm CTA
 import { SignupForm } from '@/components/SignupForm';
 import { StickyCallToAction } from '@/components/StickyCallToAction';
 import { CustomerSupport } from '@/components/CustomerSupport';
@@ -22,7 +22,7 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
-import { QuickAccessChips } from '@/components/QuickAccessChips';
+// QuickAccessChips removed from homepage — partner-link cards moved to /partnerek hub
  
 const Index = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -159,7 +159,7 @@ const Index = () => {
       <main>
       <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
       <MibenSegitSection />
-      <QuickAccessChips />
+      {/* QuickAccessChips eltávolítva — a 4 partner-link a /partnerek hub-on érhető el */}
       <HowItWorks />
       <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
       <LinkSection linkImage={linkImage} />
@@ -169,7 +169,7 @@ const Index = () => {
       <VenuePartnerTeaser />
       <BenefitsSection />
       <VenueApplicationSection />
-      <FOMOSection />
+      {/* FOMOSection eltávolítva — a SignupForm már lefedi az alapító tag CTA-t */}
       <SignupForm />
       </main>
       <Footer />
