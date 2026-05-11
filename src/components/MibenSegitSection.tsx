@@ -2,18 +2,19 @@ import React from 'react';
 import { Coffee, UtensilsCrossed, Sofa, PartyPopper } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
 import { GlassImageCard } from '@/components/ui/glass-image-card';
-import budapestNight from '@/assets/budapest-night-hero.jpg';
-import venueInterior from '@/assets/venue-interior-hero.jpg';
-import cyanCocktail from '@/assets/cyan-cocktail.png';
+import breakfastCafe from '@/assets/breakfast-cafe.jpg';
+import lunchBistro from '@/assets/lunch-bistro.jpg';
+import loungeEvening from '@/assets/lounge-evening.jpg';
+import nightclubParty from '@/assets/nightclub-party.jpg';
 
 export const MibenSegitSection: React.FC = () => {
   const { t } = useI18n();
 
   const cards = [
-    { icon: Coffee, titleKey: 'miben_segit.cards.1.title', descKey: 'miben_segit.cards.1.description', bgImage: venueInterior, bgPosition: 'center 30%' },
-    { icon: UtensilsCrossed, titleKey: 'miben_segit.cards.2.title', descKey: 'miben_segit.cards.2.description', bgImage: venueInterior, bgPosition: 'center 60%' },
-    { icon: Sofa, titleKey: 'miben_segit.cards.3.title', descKey: 'miben_segit.cards.3.description', bgImage: cyanCocktail, bgPosition: 'center' },
-    { icon: PartyPopper, titleKey: 'miben_segit.cards.4.title', descKey: 'miben_segit.cards.4.description', bgImage: budapestNight, bgPosition: 'center 60%' },
+    { icon: Coffee, titleKey: 'miben_segit.cards.1.title', descKey: 'miben_segit.cards.1.description', bgImage: breakfastCafe, bgPosition: 'center' },
+    { icon: UtensilsCrossed, titleKey: 'miben_segit.cards.2.title', descKey: 'miben_segit.cards.2.description', bgImage: lunchBistro, bgPosition: 'center' },
+    { icon: Sofa, titleKey: 'miben_segit.cards.3.title', descKey: 'miben_segit.cards.3.description', bgImage: loungeEvening, bgPosition: 'center' },
+    { icon: PartyPopper, titleKey: 'miben_segit.cards.4.title', descKey: 'miben_segit.cards.4.description', bgImage: nightclubParty, bgPosition: 'center' },
   ];
 
   return (

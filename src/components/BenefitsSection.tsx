@@ -2,9 +2,10 @@ import React from 'react';
 import { Wine, Home, DollarSign, Users } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
 import { GlassImageCard } from '@/components/ui/glass-image-card';
-import budapestNight from '@/assets/budapest-night-hero.jpg';
-import venueInterior from '@/assets/venue-interior-hero.jpg';
-import cyanCocktail from '@/assets/cyan-cocktail.png';
+import userFriendsDrinks from '@/assets/user-friends-drinks.jpg';
+import venueBartender from '@/assets/venue-bartender.jpg';
+import brandBottles from '@/assets/brand-bottles.jpg';
+import charityWater from '@/assets/charity-water.jpg';
 
 interface BenefitCard {
   icon: React.ElementType;
@@ -26,8 +27,8 @@ export const BenefitsSection: React.FC = () => {
       bodyKey: 'benefits.user.body',
       li1Key: 'benefits.user.li1',
       li2Key: 'benefits.user.li2',
-      bgImage: budapestNight,
-      bgPosition: 'center 40%',
+      bgImage: userFriendsDrinks,
+      bgPosition: 'center',
     },
     {
       icon: Home,
@@ -35,7 +36,7 @@ export const BenefitsSection: React.FC = () => {
       bodyKey: 'benefits.venue.body',
       li1Key: 'benefits.venue.li1',
       li2Key: 'benefits.venue.li2',
-      bgImage: venueInterior,
+      bgImage: venueBartender,
       bgPosition: 'center',
     },
     {
@@ -44,7 +45,7 @@ export const BenefitsSection: React.FC = () => {
       bodyKey: 'benefits.sponsor.body',
       li1Key: 'benefits.sponsor.li1',
       li2Key: 'benefits.sponsor.li2',
-      bgImage: cyanCocktail,
+      bgImage: brandBottles,
       bgPosition: 'center',
     },
     {
@@ -53,8 +54,8 @@ export const BenefitsSection: React.FC = () => {
       bodyKey: 'benefits.community.body',
       li1Key: 'benefits.community.li1',
       li2Key: 'benefits.community.li2',
-      bgImage: budapestNight,
-      bgPosition: 'center 70%',
+      bgImage: charityWater,
+      bgPosition: 'center',
     },
   ];
 
