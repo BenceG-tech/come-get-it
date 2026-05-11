@@ -1,18 +1,33 @@
-## Mobil 2×2 grid a `MibenSegitSection`-ben
+# Mobil overflow javítás — Rewards Partnerek hero
 
-Jelenleg mobilon `grid-cols-1` (egymás alatt 4 nagy portré-kártya). Kérés: **mobilon is 2×2** legyen.
+## Probléma
+A `/rewards-partners` oldal hero szekciójában mobil nézetben (≤402px) a főcím kilóg a képernyőből. Az Anton font, uppercase, `text-5xl` (48px) méretben a "LEGYÉL OTT, AMIKOR" és "PONTOKAT VÁLTANAK BE." sorok szélesebbek, mint a 370px-es belső tartalmi terület, ezért a szöveg jobbra túlnyúlik (a section `overflow-hidden`-je elrejti a scrollbart, de a vágott szöveg vizuálisan így is csúnya).
 
-### Változtatás
-- `MibenSegitSection.tsx` grid osztály:
-  - **Régi:** `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6`
-  - **Új:** `grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6`
-- Mobilon a kisebb kártyákhoz finomítás (csak ha `<sm`):
-  - Cím: `text-lg md:text-xl` → `text-base sm:text-lg md:text-xl`
-  - Belső paddingek (`left-5 right-5 bottom-5`, ikon `top-4 left-4`) maradnak — még jól férnek `~165px` széles kártyán.
+A többi hero (HeroSection, VenueHeroSection) rövidebb sorokkal dolgozik, ott nincs hiba — csak a rewards oldal címe hosszabb.
 
-### Mi marad
-- Portré arány (`aspect-[3/4]`), ikon-chip, hover-csúszó leírás, fade, glow, képek.
-- Tablet és desktop layout (sm/lg breakpoint) változatlan.
+## Megoldás
+Csak a `src/pages/RewardsPartners.tsx` hero `<h1>`-ét módosítjuk — kisebb mobil betűméret és tördelést segítő utility-k. Funkcionális/üzleti logika nem változik.
 
-### Érintett fájl
-- `src/components/MibenSegitSection.tsx` — egy sor grid + egy cím-osztály tweak.
+### Konkrét változtatás
+A jelenlegi:
+```tsx
+<h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight uppercase">
+```
+helyett:
+```tsx
+<h1 className="text-[2.25rem] xs:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.95] md:leading-[0.9] tracking-tight uppercase break-words">
+```
+
+- Mobil: `text-[2.25rem]` (~36px) → "PONTOKAT VÁLTANAK BE." kényelmesen befér 402px alatt is.
+- `break-words` biztosítja, hogy szélsőséges esetben se nyúljon túl.
+- `leading-[0.95]` mobilon picit lazábbra a kétsoros olvashatóságért, desktopon marad `0.9`.
+- `sm`/`md`/`lg`/`xl` méretek érintetlenek — desktop look nem változik.
+
+### Opcionális: alcím
+Az alcím `text-base` mobilon már most is jó, nem kell módosítani.
+
+## Érintett fájlok
+- `src/pages/RewardsPartners.tsx` — egy sor (a hero `<h1>` className).
+
+## Verifikáció
+Mobile preview (402px) — a két címsor a viewporton belül marad, semmi nem lóg ki jobbra.

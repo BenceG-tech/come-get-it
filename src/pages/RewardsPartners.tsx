@@ -128,7 +128,7 @@ const RewardsPartners = () => {
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-12 lg:gap-16 items-center">
             <div className="text-center lg:text-left">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight uppercase">
+              <h1 className="text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.95] md:leading-[0.9] tracking-tight uppercase break-words">
                 <span className="block text-white mb-2">{t('rewards_page.hero.line1')}</span>
                 <span className="block text-nf-primary drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">{t('rewards_page.hero.line2')}</span>
               </h1>
