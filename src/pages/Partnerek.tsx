@@ -172,7 +172,7 @@ const Partnerek = () => {
         })}
 
         {/* Founding Partner closing banner */}
-        <section className="py-16 px-4 bg-nf-background">
+        <section className="py-16 px-4 bg-nf-background nf-section-glow">
           <div className="max-w-5xl mx-auto">
             <div className="relative overflow-hidden rounded-3xl border border-nf-primary/40 bg-white/[0.04] backdrop-blur-md p-8 md:p-12 shadow-[0_30px_120px_-30px_rgba(0,188,212,0.45)] text-center">
               <div

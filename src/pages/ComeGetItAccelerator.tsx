@@ -160,7 +160,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* Benefits */}
-      <section className="py-16 px-4 bg-nf-background">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className={sectionTitle}>Miért válassz minket?</h2>

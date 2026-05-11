@@ -235,7 +235,7 @@ const RewardsPartners = () => {
       </section>
 
       {/* Features — larger horizontal glass cards */}
-      <section className="py-16 px-4 bg-nf-background">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className={sectionTitle}>{t('rewards_page.features.title')}</h2>

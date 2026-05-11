@@ -318,7 +318,7 @@ export const SignupForm: React.FC = () => {
                     <div className="w-full border-t border-nf-primary/20"></div>
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-nf-background nf-section-glow px-4 text-xs text-white/50 uppercase tracking-wider">
+                    <span className="bg-nf-background px-4 text-xs text-white/50 uppercase tracking-wider">
                       {t('signup.or')}
                     </span>
                   </div>
