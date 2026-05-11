@@ -138,7 +138,7 @@ const ComeGetItAccelerator = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-4 bg-nf-surface" lang="hu">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow" lang="hu">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className={sectionTitle}>Hogyan működik?</h2>

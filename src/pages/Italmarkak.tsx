@@ -143,7 +143,7 @@ const Italmarkak = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-4 bg-nf-surface">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h2 className={sectionTitle}>{t('brands_page.how_it_works.title')}</h2>
@@ -208,7 +208,7 @@ const Italmarkak = () => {
       </section>
 
       {/* Target Audience */}
-      <section className="py-16 px-4 bg-nf-surface">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h2 className={sectionTitle}>{t('brands_page.target.title')}</h2>
