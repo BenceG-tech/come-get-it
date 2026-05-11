@@ -1,15 +1,13 @@
-## Footer skyline csere
+## Footer skyline gap csökkentése
 
-A `Footer.tsx`-ben jelenleg egy inline SVG skyline van. Lecseréljük a feltöltött Budapest skyline képre.
+A `Footer.tsx`-ben a skyline kép felett túl nagy üres rész van mobilon, mert:
+- a fő grid `py-12` (96px függőleges padding)
+- a skyline konténer `max-w-7xl mx-auto px-4` — mobilon a `px-4` miatt fehér térköz van bal/jobb oldalon, és a kép ezért kisebb és magasabban "lebeg"
 
-### Lépések
+### Lépések `src/components/Footer.tsx`-ben
 
-1. A két feltöltött kép közül a **átlátszó hátterű PNG-t** (`68A5C11C-...png`) másoljuk `src/assets/footer-skyline.png` néven — ez illeszkedik a footer sötét hátterére anélkül, hogy fekete blokk látszódna alul.
-2. `src/components/Footer.tsx`-ben:
-   - Töröljük a meglévő inline `<svg>` skyline blokkot.
-   - Importáljuk az új képet ES6 importtal.
-   - Helyette `<img>` tag, `w-full h-auto`, `aria-hidden`, `loading="lazy"` attribútumokkal, a meglévő `max-w-7xl mx-auto px-4` konténerben.
-   - Megtartjuk a nf-primary tónust (a kép már cyan), nincs szín-overlay.
+1. A felső grid padding csökkentése mobilon: `py-12` → `pt-12 pb-4 md:pb-12` (mobilon kicsi alsó térköz, desktopon marad).
+2. A skyline konténerről mobilon levesszük az oldalsó paddinget, hogy a kép széltől-szélig érjen és vizuálisan a footer aljához tapadjon: `max-w-7xl mx-auto px-4` → `max-w-7xl mx-auto px-0 md:px-4`.
+3. A copyright sáv felső bordert/elválasztót megtartjuk, de csökkentjük a `py-6`-ot mobilon: `py-6` → `py-4 md:py-6`.
 
-### Megjegyzés
-Az átlátszó verziót választom alapból, mert a footer háttere `bg-nf-background` (közel fekete), így a fekete hátterű JPG-nek nem lenne előnye, az átlátszó PNG viszont tisztább illesztést ad. Ha mégis a fekete hátterűt szeretnéd, szólj.
+Nem nyúlunk a kép méretéhez (marad `w-full h-auto`), csak a körülötte lévő térközökhöz mobilon. Desktopon a jelenlegi megjelenés változatlan.
