@@ -48,8 +48,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
         />
       </div>
 
-      {/* Reflective floor */}
-      <ReflectionFloor />
+      {/* Reflective floor removed */}
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-16 lg:items-center">
