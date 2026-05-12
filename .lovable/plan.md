@@ -1,63 +1,40 @@
-# Dokumentumok újragyártása — egységes stílusban
+# Új doksi-csomag — v3 + extra anyagok
 
-## Mi a változás
+A korábbi `nf_gen.py` Neon Fidelity engine-t kibővítem **logó-támogatással** és **screenshot-támogatással** (a honlapról + meglévő app mockup-okból). Mindent egy menetben legyártok, vizuális QA-val.
 
-A `come-get-it-founding-partner-pitch.pdf` lett a referencia stílus. A többi PDF-en zavaróak a tömör kék kockák — azokat lecserélem erre a letisztultabb, magazin-szerű layout-ra.
+## Mit gyártok le (egy körben, párhuzamosan)
 
-## Stílus-elvek (a referenciából)
+### A) Frissített befektetői csomag (v2)
+1. **11-befekteto-overview_v2.pdf** — frissítve a részletes számokkal, status %-okkal, screenshotokkal a hero/app képekből, logóval a borítón
+2. **12-befekteto-1pager_v2.pdf** — barát-verzió (3-5M Ft scenárió kiemelve)
+3. **13-letter-of-intent-sablon_v2.pdf** — három struktúra (equity / convertible / profit-share)
 
-- Háttér: mély fekete (#050505), nem kék panelek
-- Headline: óriási bold display betű, kulcsszó cyan színnel kiemelve (pl. „TÖBB VENDÉG. **KEVESEBB ÜRES ASZTAL.**")
-- Top fejléc: bal felül „COME GET IT" cyan aláhúzással, jobb felül cyan pill-tag (pl. „FOUNDING PARTNER PROGRAM 2026")
-- Tartalmi blokkok: vékony cyan keretes kártyák sötét háttéren, NEM tömör kék téglák
-- Számozott kártyák: nagy cyan szám (01, 02, 03) + cím + body
-- Lista-itemek: cyan pipa-ikon + bold cím + body
-- Folyamat: körök (1→2→3→4→5) cyan vonallal összekötve
-- Kiemelt érték-blokk: vékony cyan keret, belül bold szám + label, EGY cyan kártyával a fő szám kiemelésére
-- Footer: minden oldalon `come-get-it.app` bal, cím középen, `hello@come-get-it.app` jobb
+### B) Barát-specifikus csomag (új)
+4. **14-barat-bemutato.pdf** — személyes hangvételű 6-8 oldal: "miért most, miért én, miért te" + konkrét milestone & return tábla (3M / 5M / 8M Ft scenáriók)
+5. **15-milestone-return-tabla.pdf** — 1-2 oldalas vizuális: 24 hónapos timeline, pesszimista/reális/optimista return
+6. **16-barat-loi-sablon.pdf** — egyszerű, baráti hangvételű LOI (equity vagy kamatos kölcsön opció)
 
-## Domain javítás
+### C) Sales & Onboarding csomag (új)
+7. **17-cold-email-pack.pdf** — 9 email: 3 célcsoport (venue / brand / reward partner) × 3 variáció (cold / follow-up / breakup)
+8. **18-linkedin-dm-scripts.pdf** — DM scriptek + connection request szövegek
+9. **19-venue-onboarding-playbook.pdf** — 30 napos venue onboarding (week 1-4 task lista, KPI-k)
+10. **20-in-venue-print-kit-brief.pdf** — tent-card / QR poszter / ablakmatrica design brief és QR-flow
 
-Mindenhol `come-get-it.app` (a memóriában is ez van, korábbi PDF-ek `comegetitapp.com`-ot tartalmaznak — cserélem). Email: `hello@come-get-it.app`.
+### D) PR & Launch csomag (új)
+11. **21-sajtokozlemeny-launch.pdf** — szeptemberi launch press release sablon
+12. **22-founder-bio-qa.pdf** — Bence bio + 15 várható kérdés-válasz interjúkhoz
 
-## Újragyártandó PDF-ek (`_v2` verzióban, az eredetik megmaradnak)
+## Vizuális frissítések az engine-ben
+- **Logo a borítón**: `src/assets/come-get-it-logo.webp` betöltése reportlab-bal (PIL-en keresztül), centrálva a kicker felett
+- **Screenshot blokk**: új `screenshot_card()` helper — phone-frame szerű cyan border-card képpel és caption-nel. Forrás: `public/lovable-uploads/*.webp` (DRINK / LINK / EARN képek) + browser--screenshot a `/` és `/vendeglatohelyek` hero-kból
+- **Footer**: minden lapon `come-get-it.app · hello@come-get-it.app · Bence Gátai` egységesen
+- **Stílus változatlan**: #050505 bg, cyan #00bcd4 border-cards, NEM tömör kék panelek, Liberation Sans
 
-1. `01-master-overview_v2.pdf` — cég/termék overview, új layout
-2. `02-pitch-vendeglatohelyek_v2.pdf` — helyek deck
-3. `03-pitch-italmarkak_v2.pdf` — márkák deck
-4. `04-pitch-rewards-partnerek_v2.pdf` — rewards deck
-5. `05-onepager-helyek_v2.pdf` / `06-onepager-markak_v2.pdf` / `07-onepager-rewards_v2.pdf` — egyoldalasok
-6. `08-media-kit_v2.pdf` — media kit
-7. `09-faq-partnereknek_v2.pdf` — FAQ
-8. `10-founding-partner-term-sheet_v2.pdf` — term sheet
+## QA folyamat
+Minden PDF-et `pdftoppm`-mel képpé renderelek, és minden oldalt átnézek (overflow, overlap, kontraszt, logó-pozíció, screenshot minőség). Hibákat javítom, újra renderelem, amíg tiszta.
 
-Egységes Python generátor: közös `nf_style.py` modul (header, footer, számozott kártya, pipa-lista, folyamat-lánc, érték-blokk komponensek) — minden doksi ezt használja, így garantáltan konzisztens.
+## Output
+Minden a `/mnt/documents/` alá kerül, és minden fájlhoz `<lov-artifact>` taggel adom át.
 
-## Új doksi-ötletek (amit készíthetek még)
-
-**Értékesítés / partner megnyerés:**
-- **Cold outreach email-csomag** (3-5 előre megírt HU email helyekre/márkákra/rewards partnerekre — copy-paste használható)
-- **LinkedIn DM script-ek** (alapító outreach-hez)
-- **Sales call script + objection handling** (gyakori kifogások + válaszok telefon/meeting-hez)
-
-**Onboarding / partner kiszolgálás:**
-- **Venue onboarding playbook** (lépésről-lépésre első 30 nap a partner helynek)
-- **In-venue marketing kit** (asztali tent-card, QR poszter, ablakmatrica design — nyomdakész PDF)
-- **Brand activation playbook** (italmárkáknak — hogyan futtatunk együtt kampányt)
-
-**Befektető / növekedés:**
-- **Investor teaser (2 oldal)** — rövid, friss befektetők előszűrésére
-- **Pénzügyi modell összefoglaló (1 oldal)** — unit economics, CAC, LTV vázlat
-- **Roadmap & milestone doc** — 6/12/24 hónapos terv
-
-**Sajtó / PR:**
-- **Sajtóközlemény sablon** (launch announcement HU)
-- **Founder bio + Q&A doc** (interjúkhoz, podcast-okhoz)
-
-**Jogi / operatív:**
-- **Founding Partner megállapodás MVP** (egyszerű, aláírható partner agreement vázlat)
-- **Adatvédelmi 1-pager partnereknek** (mit gyűjtünk, mit látnak ők)
-
-## Kérdés mielőtt elindulok
-
-Két kérdést teszek fel külön (nyelv + új doksik prioritása), aztán neki is állok.
+## Megjegyzés
+Mivel ez **artifact-generálás** (nem app-fejlesztés), nem módosítok forrásfájlt — csak a `/tmp/` engine-t és a `/mnt/documents/` outputokat. Az app működésére semmilyen hatás.
