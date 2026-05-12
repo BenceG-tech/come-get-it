@@ -50,7 +50,7 @@ export const ROUTES: RouteSEO[] = [
     distDir: "",
     title: "Come Get It – Találd meg, hova menj ma Budapesten",
     description:
-      "A Come Get It megmutatja Budapest azon partnerhelyeit, ahol napi ingyen italt, pontokat és jutalmakat kapsz — így könnyebb eldönteni, hova menj reggelizni, ebédelni, inni vagy bulizni.",
+      "Mutatjuk Budapest partnerhelyeit, ahol napi ingyen italt, pontokat és jutalmakat kapsz — válassz könnyebben, hova menj enni, inni vagy bulizni.",
     h1: "Nem tudod, hova menj ma?",
     lastmod: "2026-05-06",
     priority: 1.0,
@@ -138,9 +138,9 @@ export const ROUTES: RouteSEO[] = [
   {
     path: "/vendeglatohelyek",
     distDir: "vendeglatohelyek",
-    title: "Vendéglátóhelyeknek – Több vendég, egyszerűbben | Come Get It",
+    title: "Vendéglátóhelyeknek – Több vendég | Come Get It",
     description:
-      "A Come Get It segít, hogy azok találjanak rád, akik épp azt keresik, hova menjenek enni, inni vagy bulizni Budapesten — az ingyen ital pedig segít, hogy téged válasszanak.",
+      "A Come Get It segít, hogy azok találjanak rád, akik épp helyet keresnek Budapesten — az ingyen ital pedig segít, hogy téged válasszanak.",
     h1: "Több vendég. Egyszerűbben.",
     lastmod: "2026-05-06",
     priority: 0.8,
@@ -199,9 +199,9 @@ export const ROUTES: RouteSEO[] = [
   {
     path: "/italmarkak",
     distDir: "italmarkak",
-    title: "Italmárkáknak – Légy ott, amikor inni készülnek | Come Get It",
+    title: "Italmárkáknak – Légy ott a fogyasztásnál | Come Get It",
     description:
-      "Juttasd el az italodat azokhoz, akik épp helyet választanak Budapesten, rendelnek és új márkákat próbálnának ki — kóstolás valódi helyzetben, mérhető eredmények.",
+      "Juttasd el az italodat azokhoz, akik épp helyet választanak Budapesten — kóstolás valódi helyzetben, mérhető eredményekkel.",
     h1: "Légy ott, amikor inni készülnek.",
     lastmod: "2026-05-06",
     priority: 0.8,
@@ -258,9 +258,9 @@ export const ROUTES: RouteSEO[] = [
   {
     path: "/rewards-partners",
     distDir: "rewards-partners",
-    title: "Rewards Partnerek – Legyél a következő program, amit választanak | Come Get It",
+    title: "Rewards Partnerek – Új közönség | Come Get It",
     description:
-      "Ajánlj jutalmat azoknak, akik Budapesten keresnek helyet, programot vagy új élményt — érj el új közönséget a Come Get It-en keresztül.",
+      "Ajánlj jutalmat azoknak, akik Budapesten keresnek programot vagy új élményt — érj el új közönséget a Come Get It-en keresztül.",
     h1: "Legyél a következő program, amit választanak.",
     lastmod: "2026-05-06",
     priority: 0.8,
