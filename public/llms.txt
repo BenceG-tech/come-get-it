@@ -1,0 +1,19 @@
+# Come Get It
+
+> Magyar loyalty app: gyűjts pontokat italokért budapesti partnerhelyeken, válts be jutalmakat, és minden beváltott italért 1 napi tiszta ivóvizet adunk egy rászorulónak. Hibrid modell: ingyenes pontgyűjtés vagy előfizetés (990 Ft/hét, 2 990 Ft/hó) napi 1 ingyen italért.
+
+## Pages
+
+- [Főoldal](/): Mi a Come Get It, hogyan működik, várólista regisztráció.
+- [Vendéglátóhelyeknek](/vendeglatohelyek): Partneri program bárok, kávézók és éttermek számára.
+- [Italmárkáknak](/italmarkak): Brand aktivációk és kampánymérés italmárkáknak.
+- [Rewards Partnerek](/rewards-partners): Jutalom-katalógus partnerprogram márkáknak.
+- [Partnerek](/partnerek): Partnertípusok áttekintése.
+- [Come Get It Accelerator](/come-get-it-accelerator): Gyorsítóprogram induló partnereknek.
+- [Adatvédelmi szabályzat](/adatvedelmi-szabalyzat): GDPR és adatkezelés.
+- [LLM összefoglaló](/llm.html): Részletes tényalapú leírás AI rendszereknek.
+
+## Kapcsolat
+
+- E-mail: hello@come-get-it.app
+- Domain: https://come-get-it.app
