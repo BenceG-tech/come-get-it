@@ -1,40 +1,34 @@
-# Új doksi-csomag — v3 + extra anyagok
+## Javítások a befektetői doksikban
 
-A korábbi `nf_gen.py` Neon Fidelity engine-t kibővítem **logó-támogatással** és **screenshot-támogatással** (a honlapról + meglévő app mockup-okból). Mindent egy menetben legyártok, vizuális QA-val.
+### 1) Plus subscription árazás javítása
+Jelenleg: **„990 Ft/hó"** — ez hibás (a 990 Ft a heti ár).
+Helyes: **2 990 Ft/hó** (és opcionálisan: 990 Ft/hét).
 
-## Mit gyártok le (egy körben, párhuzamosan)
+Érintett helyek (minden v2 + új doksiban átfésülve):
+- `build_v3.py:69` revenue-streams tábla → `"2 990 Ft/hó (vagy 990 Ft/hét) premium user"`
+- `build_v3.py:678` founder Q&A → `"A 2 990 Ft/hó Plus subscription (vagy 990 Ft/hét)…"`
+- Minden további doksiban (1pager, barát-bemutató, milestone-tábla, sajtóközlemény, FAQ, term-sheet, media-kit) grep-pel végigmegyek a `990` számon és kontextus szerint javítom.
 
-### A) Frissített befektetői csomag (v2)
-1. **11-befekteto-overview_v2.pdf** — frissítve a részletes számokkal, status %-okkal, screenshotokkal a hero/app képekből, logóval a borítón
-2. **12-befekteto-1pager_v2.pdf** — barát-verzió (3-5M Ft scenárió kiemelve)
-3. **13-letter-of-intent-sablon_v2.pdf** — három struktúra (equity / convertible / profit-share)
+### 2) Magyar piaci méret újraszámolása
+Jelenlegi (túl konzervatív / pontatlan) számok:
+`12k+ vendéglátóhely HU · 2.5k Budapest aktív · 450k céltarget user BP · 8 Mrd Ft F&B loyalty TAM`
 
-### B) Barát-specifikus csomag (új)
-4. **14-barat-bemutato.pdf** — személyes hangvételű 6-8 oldal: "miért most, miért én, miért te" + konkrét milestone & return tábla (3M / 5M / 8M Ft scenáriók)
-5. **15-milestone-return-tabla.pdf** — 1-2 oldalas vizuális: 24 hónapos timeline, pesszimista/reális/optimista return
-6. **16-barat-loi-sablon.pdf** — egyszerű, baráti hangvételű LOI (equity vagy kamatos kölcsön opció)
+Frissített, KSH/HoReCa-források alapján reális számok:
+- **~38 000 vendéglátóegység Magyarországon** (KSH 2023, működő F&B helyek)
+- **~5 500 Budapesten** (ebből ~2 000-2 500 a céltarget: bár, kávézó, étterem belvárosi/jó forgalmú)
+- **SAM (Budapest, célzott venue):** ~2 000 hely × átlag 25-40k Ft/hó commission ≈ **600-960 M Ft/év addressable venue-revenue**
+- **User TAM Budapest:** ~1.7 M lakos, 18-45 közötti aktív vendéglátó-fogyasztó kb. **600-700k fő**, ebből reálisan elérhető első körben **~150-200k** (urban, mobile-first, social-driven)
+- **F&B loyalty/discovery TAM HU:** F&B teljes piac ~1 500 Mrd Ft/év; loyalty + discovery layer (Dusk-benchmark szerint a venue-revenue 1-2%-a) ≈ **15-30 Mrd Ft TAM**, ebből Budapest reálisan **~5-8 Mrd Ft SAM**
 
-### C) Sales & Onboarding csomag (új)
-7. **17-cold-email-pack.pdf** — 9 email: 3 célcsoport (venue / brand / reward partner) × 3 variáció (cold / follow-up / breakup)
-8. **18-linkedin-dm-scripts.pdf** — DM scriptek + connection request szövegek
-9. **19-venue-onboarding-playbook.pdf** — 30 napos venue onboarding (week 1-4 task lista, KPI-k)
-10. **20-in-venue-print-kit-brief.pdf** — tent-card / QR poszter / ablakmatrica design brief és QR-flow
+Ezzel a sztori erősebb és a 3M / 5M / 8M Ft-os ask reálisabban néz ki.
 
-### D) PR & Launch csomag (új)
-11. **21-sajtokozlemeny-launch.pdf** — szeptemberi launch press release sablon
-12. **22-founder-bio-qa.pdf** — Bence bio + 15 várható kérdés-válasz interjúkhoz
+### 3) Mit csinálok pontosan
+1. `build_v3.py`-t frissítem a fenti két ponton
+2. A 12 doksit (11-22 + szükség esetén 01-10 v2) újragenerálom — `_v3` suffixszel az érintetteket, hogy meglegyen az összevethetőség
+3. Vizuális QA pdftoppm-mel oldalanként: pricing tábla, market size stat-row, 1pager hero számok
+4. Listázom a ténylegesen érintett és újragenerált fájlokat, és `<lov-artifact>` tagekkel átadom
 
-## Vizuális frissítések az engine-ben
-- **Logo a borítón**: `src/assets/come-get-it-logo.webp` betöltése reportlab-bal (PIL-en keresztül), centrálva a kicker felett
-- **Screenshot blokk**: új `screenshot_card()` helper — phone-frame szerű cyan border-card képpel és caption-nel. Forrás: `public/lovable-uploads/*.webp` (DRINK / LINK / EARN képek) + browser--screenshot a `/` és `/vendeglatohelyek` hero-kból
-- **Footer**: minden lapon `come-get-it.app · hello@come-get-it.app · Bence Gátai` egységesen
-- **Stílus változatlan**: #050505 bg, cyan #00bcd4 border-cards, NEM tömör kék panelek, Liberation Sans
+### 4) Megjegyzés
+Ez tisztán artifact-generálás, az app forráskódját nem érinti.
 
-## QA folyamat
-Minden PDF-et `pdftoppm`-mel képpé renderelek, és minden oldalt átnézek (overflow, overlap, kontraszt, logó-pozíció, screenshot minőség). Hibákat javítom, újra renderelem, amíg tiszta.
-
-## Output
-Minden a `/mnt/documents/` alá kerül, és minden fájlhoz `<lov-artifact>` taggel adom át.
-
-## Megjegyzés
-Mivel ez **artifact-generálás** (nem app-fejlesztés), nem módosítok forrásfájlt — csak a `/tmp/` engine-t és a `/mnt/documents/` outputokat. Az app működésére semmilyen hatás.
+Ha jónak látod, jóváhagyás után indítom.
