@@ -346,7 +346,8 @@ export const ROUTES: RouteSEO[] = [
     jsonLd: [breadcrumb("Partnerek", "partnerek")],
   },
 
-
+  {
+    path: "/come-get-it-accelerator",
     distDir: "come-get-it-accelerator",
     title: "Come Get It Accelerator – Nőj a hálózatunkkal",
     description:
