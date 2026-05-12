@@ -1,47 +1,63 @@
-# Partner & Pitch Dokumentumok — Magyar nyelvű PDF csomag
+# Dokumentumok újragyártása — egységes stílusban
 
-Készítek 8 db professzionális PDF dokumentumot magyarul, a weboldalon már fent lévő adatokkal és vizuális elemekkel (screenshotok a comegetitapp.com-ról + app mockupok a `public/lovable-uploads/` mappából). Mind a `/mnt/documents/` mappába kerül, letölthető formában.
+## Mi a változás
 
-## A 8 dokumentum
+A `come-get-it-founding-partner-pitch.pdf` lett a referencia stílus. A többi PDF-en zavaróak a tömör kék kockák — azokat lecserélem erre a letisztultabb, magazin-szerű layout-ra.
 
-1. **`01-master-overview.pdf`** (~15-20 oldal)
-   Komplett cég- és termékbemutató: vízió, problémamegoldás, app képernyők, üzleti modell (alapító ajánlat), GIVE küldetés, roadmap, csapat, kapcsolat. Befektetőknek és komoly partnereknek.
+## Stílus-elvek (a referenciából)
 
-2. **`02-pitch-vendeglatohelyek.pdf`** (~8-10 oldal)
-   "Miért fáj most?" → 100+ vendég/hó ígéret → 6 hónap díjmentes alapító ajánlat → 3 lépéses folyamat → ROI példa → CTA.
+- Háttér: mély fekete (#050505), nem kék panelek
+- Headline: óriási bold display betű, kulcsszó cyan színnel kiemelve (pl. „TÖBB VENDÉG. **KEVESEBB ÜRES ASZTAL.**")
+- Top fejléc: bal felül „COME GET IT" cyan aláhúzással, jobb felül cyan pill-tag (pl. „FOUNDING PARTNER PROGRAM 2026")
+- Tartalmi blokkok: vékony cyan keretes kártyák sötét háttéren, NEM tömör kék téglák
+- Számozott kártyák: nagy cyan szám (01, 02, 03) + cím + body
+- Lista-itemek: cyan pipa-ikon + bold cím + body
+- Folyamat: körök (1→2→3→4→5) cyan vonallal összekötve
+- Kiemelt érték-blokk: vékony cyan keret, belül bold szám + label, EGY cyan kártyával a fő szám kiemelésére
+- Footer: minden oldalon `come-get-it.app` bal, cím középen, `hello@come-get-it.app` jobb
 
-3. **`03-pitch-italmarkak.pdf`** (~8-10 oldal)
-   Z/Y generációs márkafelfedezés, célzott sampling, közös kampányok, márkavédelem, csomagajánlatok.
+## Domain javítás
 
-4. **`04-pitch-rewards-partnerek.pdf`** (~8-10 oldal)
-   Alacsony CAC, exkluzivitás, közönség-illeszkedés, partneri csomagok, rewards integráció.
+Mindenhol `come-get-it.app` (a memóriában is ez van, korábbi PDF-ek `comegetitapp.com`-ot tartalmaznak — cserélem). Email: `hello@come-get-it.app`.
 
-5. **`05-onepager-helyek.pdf`** / **`06-onepager-markak.pdf`** / **`07-onepager-rewards.pdf`** (1-1 A4)
-   Hideg megkereséshez, email mellékletnek. Lényegre törő, 1 oldalas változatok mindhárom célcsoportra.
+## Újragyártandó PDF-ek (`_v2` verzióban, az eredetik megmaradnak)
 
-6. **`08-media-kit.pdf`** (~6-8 oldal)
-   Logók, színpaletta (#00bcd4 stb.), tipográfia, boilerplate, alapító idézet, sajtókapcsolat.
+1. `01-master-overview_v2.pdf` — cég/termék overview, új layout
+2. `02-pitch-vendeglatohelyek_v2.pdf` — helyek deck
+3. `03-pitch-italmarkak_v2.pdf` — márkák deck
+4. `04-pitch-rewards-partnerek_v2.pdf` — rewards deck
+5. `05-onepager-helyek_v2.pdf` / `06-onepager-markak_v2.pdf` / `07-onepager-rewards_v2.pdf` — egyoldalasok
+6. `08-media-kit_v2.pdf` — media kit
+7. `09-faq-partnereknek_v2.pdf` — FAQ
+8. `10-founding-partner-term-sheet_v2.pdf` — term sheet
 
-7. **`09-faq-partnereknek.pdf`** (~4-6 oldal)
-   Gyakori kérdések helyeknek/márkáknak/rewards partnereknek — értékesítési ciklus rövidítésére.
+Egységes Python generátor: közös `nf_style.py` modul (header, footer, számozott kártya, pipa-lista, folyamat-lánc, érték-blokk komponensek) — minden doksi ezt használja, így garantáltan konzisztens.
 
-8. **`10-founding-partner-term-sheet.pdf`** (1-2 oldal)
-   Konkrét feltételek az alapító partner programhoz: kedvezmények, érvényesség, kötelezettségek — aláírható formátum.
+## Új doksi-ötletek (amit készíthetek még)
 
-## Készítési folyamat
+**Értékesítés / partner megnyerés:**
+- **Cold outreach email-csomag** (3-5 előre megírt HU email helyekre/márkákra/rewards partnerekre — copy-paste használható)
+- **LinkedIn DM script-ek** (alapító outreach-hez)
+- **Sales call script + objection handling** (gyakori kifogások + válaszok telefon/meeting-hez)
 
-1. **Adatgyűjtés**: végigolvasom az `src/i18n/hu.json` fájlt + minden releváns oldal komponenst (Index, Vendeglatohelyek, Italmarkak, RewardsPartners, Partnerek, ComeGetItAccelerator) — ez minden szükséges szöveget, számot, ajánlatot tartalmaz.
-2. **Vizuális anyagok**: screenshotok a live oldalról (`browser--screenshot` minden főoldalról különböző viewportokon) + meglévő app mockupok a `public/lovable-uploads/`-ból.
-3. **PDF generálás**: ReportLab-bel (Python), Neon Fidelity dizájnnal — sötét háttér (#050505), cyan accent (#00bcd4), Anton-szerű display + tiszta body font. Markdown nélkül, natív tipográfia.
-4. **QA**: minden PDF-et oldal-képekké renderelek (`pdftoppm`), átnézem (overlapping text, levágott szöveg, kontrasztproblémák), javítom, újra renderelem amíg tiszta.
-5. **Átadás**: minden fájl `<lov-artifact>` tag-ekkel megjelenik a chatben, letölthető.
+**Onboarding / partner kiszolgálás:**
+- **Venue onboarding playbook** (lépésről-lépésre első 30 nap a partner helynek)
+- **In-venue marketing kit** (asztali tent-card, QR poszter, ablakmatrica design — nyomdakész PDF)
+- **Brand activation playbook** (italmárkáknak — hogyan futtatunk együtt kampányt)
 
-## Technikai részletek
+**Befektető / növekedés:**
+- **Investor teaser (2 oldal)** — rövid, friss befektetők előszűrésére
+- **Pénzügyi modell összefoglaló (1 oldal)** — unit economics, CAC, LTV vázlat
+- **Roadmap & milestone doc** — 6/12/24 hónapos terv
 
-- **Eszközök**: Python + ReportLab (PDF), `browser--screenshot` (live oldal képek), `pdftoppm` (QA renderelés).
-- **Stílus**: konzisztens "Neon Fidelity" branding minden dokumentumon — cover lap cyan glow-val, fejléc/lábléc, oldalszám.
-- **Nyelv**: 100% magyar. Angol verziókat csak külön kérésre csinálok később.
-- **Adatok**: kizárólag a weboldalon szereplő számok és ígéretek (100+ vendég/hó, 6 hónap díjmentes alapító ajánlat, GIVE küldetés stb.) — semmit nem találok ki.
-- **Iteráció**: ha bármelyik dokumentumon változtatni szeretnél, `_v2`, `_v3` verziókat csinálok az eredeti megtartásával.
+**Sajtó / PR:**
+- **Sajtóközlemény sablon** (launch announcement HU)
+- **Founder bio + Q&A doc** (interjúkhoz, podcast-okhoz)
 
-Várhatóan 15-25 perc a teljes csomag legyártása + QA. Kezdhetem?
+**Jogi / operatív:**
+- **Founding Partner megállapodás MVP** (egyszerű, aláírható partner agreement vázlat)
+- **Adatvédelmi 1-pager partnereknek** (mit gyűjtünk, mit látnak ők)
+
+## Kérdés mielőtt elindulok
+
+Két kérdést teszek fel külön (nyelv + új doksik prioritása), aztán neki is állok.
