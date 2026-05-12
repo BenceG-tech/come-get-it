@@ -44,13 +44,13 @@ export const MibenSegitSection: React.FC = () => {
             >
               {/* Image */}
               <div
-                className="relative aspect-[3/4] bg-cover bg-center transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                className="relative aspect-[3/4] bg-cover bg-center transform-gpu transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] [will-change:transform]"
                 style={{ backgroundImage: `url(${bg})` }}
               >
                 {/* Bottom-only fade for title legibility */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none transition-opacity duration-700 group-hover:opacity-70"
+                  className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none transition-opacity duration-500 group-hover:opacity-70"
                   style={{
                     background:
                       'linear-gradient(180deg, transparent 0%, rgba(5,5,5,0.75) 80%, rgba(5,5,5,0.9) 100%)',
@@ -65,20 +65,23 @@ export const MibenSegitSection: React.FC = () => {
                 </div>
 
                 {/* Title — fades out on hover when description appears */}
-                <h3 className="absolute left-4 right-4 bottom-4 sm:left-5 sm:right-5 sm:bottom-5 z-10 font-anton uppercase tracking-tight text-white text-base sm:text-lg md:text-xl leading-none transition-opacity duration-500 group-hover:opacity-0">
+                <h3 className="absolute left-4 right-4 bottom-4 sm:left-5 sm:right-5 sm:bottom-5 z-10 font-anton uppercase tracking-tight text-white text-base sm:text-lg md:text-xl leading-none transition-opacity duration-300 group-hover:opacity-0">
                   {t(titleKey)}
                 </h3>
 
-                {/* Description — fades + slides up on hover with translucent blur */}
-                <div className="absolute inset-x-0 bottom-0 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out">
+                {/* Description — fast fade-in, GPU composited */}
+                <div className="absolute inset-x-0 bottom-0 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out transform-gpu [will-change:opacity]">
                   <div
-                    className="px-5 pt-5 pb-5 border-t border-nf-primary/30 backdrop-blur-md"
+                    className="px-5 pt-5 pb-5 border-t border-nf-primary/30"
                     style={{
                       background:
-                        'linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.55) 35%, rgba(5,5,5,0.7) 100%)',
+                        'linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.7) 30%, rgba(5,5,5,0.88) 100%)',
                     }}
                   >
-                    <p className="text-sm text-white/90 leading-relaxed">
+                    <p
+                      className="text-sm text-white/95 leading-relaxed"
+                      style={{ textShadow: '0 1px 8px rgba(0,0,0,0.7)' }}
+                    >
                       {t(descKey)}
                     </p>
                   </div>
