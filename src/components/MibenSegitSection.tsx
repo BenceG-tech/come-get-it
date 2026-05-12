@@ -44,7 +44,7 @@ export const MibenSegitSection: React.FC = () => {
             >
               {/* Image */}
               <div
-                className="relative aspect-[3/4] bg-cover bg-center transform-gpu transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] [will-change:transform]"
+                className="relative aspect-[3/4] bg-cover bg-center"
                 style={{ backgroundImage: `url(${bg})` }}
               >
                 {/* Bottom-only fade for title legibility */}
