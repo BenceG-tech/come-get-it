@@ -314,7 +314,39 @@ export const ROUTES: RouteSEO[] = [
   },
 
   {
-    path: "/come-get-it-accelerator",
+    path: "/partnerek",
+    distDir: "partnerek",
+    title: "Partnerek – Csatlakozz a Come Get It hálózathoz",
+    description:
+      "Vendéglátóhelyek, italmárkák és rewards-partnerek hub: nézd meg, hogyan dolgozhatsz együtt a Come Get It-tel és kik a már csatlakozott partnerek.",
+    h1: "Partnerek",
+    lastmod: "2026-05-06",
+    priority: 0.7,
+    changefreq: "monthly",
+    bodyHtml: `
+<main data-prerender="true">
+  <header>
+    <h1>Partnerek – Dolgozz együtt a Come Get It-tel</h1>
+    <p>A Come Get It három partnertípussal dolgozik: vendéglátóhelyek, italmárkák és rewards-partnerek. Ezen az oldalon megtalálod, melyik program neked való.</p>
+  </header>
+  <section>
+    <h2>Partnertípusok</h2>
+    <ul>
+      <li><a href="/vendeglatohelyek">Vendéglátóhelyeknek</a> – bárok, kávézók, éttermek számára.</li>
+      <li><a href="/italmarkak">Italmárkáknak</a> – aktivációk és kampánymérés.</li>
+      <li><a href="/rewards-partners">Rewards Partnerek</a> – jutalmak és élmények kínálata.</li>
+      <li><a href="/come-get-it-accelerator">Accelerator</a> – induló partnerek gyorsítóprogramja.</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Kapcsolat</h2>
+    <p>Írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a></p>
+  </section>
+</main>`.trim(),
+    jsonLd: [breadcrumb("Partnerek", "partnerek")],
+  },
+
+
     distDir: "come-get-it-accelerator",
     title: "Come Get It Accelerator – Nőj a hálózatunkkal",
     description:
