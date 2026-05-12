@@ -70,7 +70,7 @@ export const MibenSegitSection: React.FC = () => {
                 </h3>
 
                 {/* Description — fades + slides up on hover with translucent blur */}
-                <div className="absolute inset-x-0 bottom-0 z-20 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                <div className="absolute inset-x-0 bottom-0 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out">
                   <div
                     className="px-5 pt-5 pb-5 border-t border-nf-primary/30 backdrop-blur-md"
                     style={{
