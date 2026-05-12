@@ -44,7 +44,7 @@ export const MibenSegitSection: React.FC = () => {
             >
               {/* Image */}
               <div
-                className="relative aspect-[3/4] bg-cover bg-center transform-gpu transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] [will-change:transform]"
+                className="relative aspect-[3/4] bg-cover bg-center"
                 style={{ backgroundImage: `url(${bg})` }}
               >
                 {/* Bottom-only fade for title legibility */}
@@ -72,10 +72,10 @@ export const MibenSegitSection: React.FC = () => {
                 {/* Description — fast fade-in, GPU composited */}
                 <div className="absolute inset-x-0 bottom-0 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out transform-gpu [will-change:opacity]">
                   <div
-                    className="px-5 pt-5 pb-5 border-t border-nf-primary/30"
+                    className="px-5 pt-5 pb-5 border-t border-nf-primary/30 backdrop-blur-md bg-nf-background/40"
                     style={{
                       background:
-                        'linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.7) 30%, rgba(5,5,5,0.88) 100%)',
+                        'linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.45) 30%, rgba(5,5,5,0.65) 100%)',
                     }}
                   >
                     <p
