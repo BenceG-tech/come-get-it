@@ -11,7 +11,7 @@ interface SEOProps {
 }
 
 const SITE = 'https://come-get-it.app';
-const DEFAULT_IMAGE = 'https://come-get-it.app/og/og-main-v2.jpg?v=20260513';
+const DEFAULT_IMAGE = 'https://come-get-it.app/og/og-main-v3.jpg?v=20260513b';
 
 const upsertMeta = (selector: string, attrs: Record<string, string>) => {
   let el = document.head.querySelector(selector) as HTMLMetaElement | null;

@@ -8,7 +8,7 @@
 
 export const SITE_ORIGIN = "https://come-get-it.app";
 export const DEFAULT_OG_IMAGE =
-  "https://come-get-it.app/og/og-main-v2.jpg?v=20260513";
+  "https://come-get-it.app/og/og-main-v3.jpg?v=20260513b";
 
 export type JsonLd = Record<string, unknown>;
 
