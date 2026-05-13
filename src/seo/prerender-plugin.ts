@@ -69,14 +69,24 @@ function buildJsonLdScripts(route: RouteSEO): string {
 function applyRouteToHtml(template: string, route: RouteSEO): string {
   let html = template;
 
-  // 1. Replace the <!-- PRERENDER:HEAD --> sentinel (or the existing <title>+meta block)
-  //    with route-specific head meta.
+  // 1. Replace the entire block between <!-- PRERENDER:HEAD --> and
+  //    <!-- /PRERENDER:HEAD --> markers (so static title/desc/canonical/OG
+  //    tags inside it are removed before injecting route-specific meta).
   const headMeta = buildHeadMeta(route);
-  if (html.includes("<!-- PRERENDER:HEAD -->")) {
+  const blockRe = /<!--\s*PRERENDER:HEAD\s*-->[\s\S]*?<!--\s*\/PRERENDER:HEAD\s*-->/i;
+  if (blockRe.test(html)) {
+    html = html.replace(blockRe, headMeta);
+  } else if (html.includes("<!-- PRERENDER:HEAD -->")) {
     html = html.replace("<!-- PRERENDER:HEAD -->", headMeta);
   } else {
-    // Fallback: replace the first <title>...</title>
-    html = html.replace(/<title>[\s\S]*?<\/title>/i, headMeta);
+    // Fallback: strip any existing title/description/canonical/og:*/twitter:*
+    // tags from <head> and inject our headMeta before </head>.
+    html = html
+      .replace(/<title>[\s\S]*?<\/title>/gi, "")
+      .replace(/<meta\s+name=["'](?:description|robots|twitter:[^"']+)["'][^>]*>/gi, "")
+      .replace(/<meta\s+property=["']og:[^"']+["'][^>]*>/gi, "")
+      .replace(/<link\s+rel=["']canonical["'][^>]*>/gi, "");
+    html = html.replace("</head>", `${headMeta}\n  </head>`);
   }
 
   // 2. Inject route JSON-LD before </head>
