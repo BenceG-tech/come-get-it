@@ -42,51 +42,43 @@ export const MibenSegitSection: React.FC = () => {
               key={idx}
               className="group relative overflow-hidden rounded-2xl border border-nf-primary/15 transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_24px_70px_-12px_rgba(0,188,212,0.45)]"
             >
-              {/* Image */}
+              {/* Image area */}
               <div
-                className="relative aspect-[3/4] bg-cover bg-center"
+                className="relative aspect-[3/4] bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 style={{ backgroundImage: `url(${bg})` }}
               >
-                {/* Bottom-only fade for title legibility */}
+                {/* Constant darkening overlay */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none transition-opacity duration-500 group-hover:opacity-70"
-                  style={{
-                    background:
-                      'linear-gradient(180deg, transparent 0%, rgba(5,5,5,0.75) 80%, rgba(5,5,5,0.9) 100%)',
-                  }}
+                  className="absolute inset-0 bg-black/55 group-hover:bg-black/40 transition-colors duration-500"
                 />
 
-                {/* Top-left small icon chip */}
-                <div className="absolute top-4 left-4 z-10">
-                  <div className="w-8 h-8 rounded-full border border-white/25 bg-nf-background/40 backdrop-blur-md flex items-center justify-center group-hover:border-nf-primary/80 group-hover:bg-nf-primary/15 transition-all duration-500">
-                    <Icon className="w-4 h-4 text-white group-hover:text-nf-primary transition-colors" strokeWidth={1.5} />
+                {/* Top-left larger icon chip */}
+                <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-10">
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-nf-primary/50 bg-nf-background/50 backdrop-blur-md flex items-center justify-center group-hover:border-nf-primary group-hover:bg-nf-primary/15 group-hover:shadow-[0_0_24px_rgba(0,188,212,0.55)] transition-all duration-500">
+                    <Icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
                   </div>
                 </div>
+              </div>
 
-                {/* Title — fades out on hover when description appears */}
-                <h3 className="absolute left-4 right-4 bottom-4 sm:left-5 sm:right-5 sm:bottom-5 z-10 font-anton uppercase tracking-tight text-white text-base sm:text-lg md:text-xl leading-none transition-opacity duration-300 group-hover:opacity-0">
+              {/* Always-visible info panel (title + description) */}
+              <div
+                className="absolute inset-x-0 bottom-0 z-20 px-4 sm:px-5 pt-4 pb-4 sm:pt-5 sm:pb-5 border-t border-nf-primary/30"
+                style={{
+                  backgroundColor: 'rgba(5,5,5,0.6)',
+                  backdropFilter: 'blur(14px) saturate(140%)',
+                  WebkitBackdropFilter: 'blur(14px) saturate(140%)',
+                }}
+              >
+                <h3 className="font-sans font-bold uppercase tracking-wider text-white text-sm sm:text-base mb-1.5 group-hover:text-nf-primary transition-colors">
                   {t(titleKey)}
                 </h3>
-
-                {/* Description — fast fade-in, GPU composited */}
-                <div className="absolute inset-x-0 bottom-0 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out [will-change:opacity]">
-                  <div
-                    className="px-5 pt-5 pb-5 border-t border-nf-primary/30"
-                    style={{
-                      backgroundColor: 'rgba(5,5,5,0.45)',
-                      backdropFilter: 'blur(14px) saturate(140%)',
-                      WebkitBackdropFilter: 'blur(14px) saturate(140%)',
-                    }}
-                  >
-                    <p
-                      className="text-sm text-white/95 leading-relaxed"
-                      style={{ textShadow: '0 1px 8px rgba(0,0,0,0.7)' }}
-                    >
-                      {t(descKey)}
-                    </p>
-                  </div>
-                </div>
+                <p
+                  className="text-xs sm:text-sm text-white/85 leading-snug"
+                  style={{ textShadow: '0 1px 8px rgba(0,0,0,0.7)' }}
+                >
+                  {t(descKey)}
+                </p>
               </div>
             </article>
           ))}
