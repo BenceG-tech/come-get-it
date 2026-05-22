@@ -15,8 +15,7 @@ export const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [lang, setLangState] = useState<Lang>(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as Lang | null;
     if (stored === 'hu' || stored === 'en') return stored;
-    const nav = (navigator.language || 'hu').toLowerCase();
-    return nav.startsWith('hu') ? 'hu' : 'en';
+    return 'hu';
   });
 
   const setLang = (l: Lang) => {
