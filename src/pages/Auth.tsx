@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { Mail, Lock, User, Chrome } from 'lucide-react';
+import { Mail, Lock, User, Chrome, ArrowLeft } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
 import { SEO } from '@/components/SEO';
 
@@ -75,6 +75,14 @@ const Auth = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
       <SEO title="Bejelentkezés – Come Get It" description="Bejelentkezés a Come Get It fiókodba." canonical="/auth" noindex />
+      <button
+        onClick={() => navigate('/')}
+        className="fixed top-4 left-4 z-50 inline-flex items-center gap-2 rounded-full border border-nf-border bg-nf-surface/80 px-4 py-2 text-sm text-white backdrop-blur hover:bg-nf-surface hover:border-nf-primary transition-colors"
+        aria-label="Vissza a főoldalra"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Vissza
+      </button>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">{t('auth.title')}</CardTitle>
