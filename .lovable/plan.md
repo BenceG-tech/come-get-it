@@ -1,50 +1,83 @@
-## Mit találtam a súgóban (CustomerSupport widget)
 
-A jobb alsó sarokban lévő ⚪️ chat-buborék mögötti panel három problémát rejt:
+# LLM-láthatóság javítása
 
-### 1. Tartalmi hiba — Pontok & Jutalmak szekció tört
-A `getFaqData` mind a `free_drinks`, mind a `points_rewards` esetén ugyanazokat a section-kulcsokat használja (`miert_adunk`, `hogyan_juthatsz`, `miert_nem_latok`…). De a `hu.json` `support.faq.points_rewards.sections` alatt egészen más kulcsok vannak (`mi_az_a_rewards`, `hogyan_szerezhetek_pontokat`, `mire_kolthetem`, `biztonsag`, `kartya_frissitese`, `lejarnak_pontok`, `miert_nem_kaptam_pontot`, stb.). Eredmény: a "Pontok és Jutalmak" kártyára kattintva a kulcs-stringek vagy üres tartalom jelenik meg a megírt 10 cikk helyett. Ezt javítani kell.
+## Jelenlegi helyzet (jó hír)
 
-### 2. Duplikációk a kódban és UI-on
-- A footer navigáció (Home / Üzenetek / Súgó) **4-szer** ki van írva inline (renderFooterNav létezik, de a 3 fő view mégis saját másolatot rendel — ezért inkonzisztens az aktív állapot stílusa is).
-- A header (cím + CG/IT körök + bezár gomb) **3-szor** van duplikálva.
-- A 4 kategória-kártya kétszer jelenik meg: a Kezdőoldalon és a Súgó tabon, eltérő stílussal — felesleges és kicsit zavaró.
+A projektben **már fut egy build-időben működő prerender plugin** (`src/seo/prerender-plugin.ts`, `vite.config.ts`-ben aktiválva). Minden publikus route-ra (`/`, `/vendeglatohelyek`, `/italmarkak`, `/rewards-partners`, `/partnerek`, `/come-get-it-accelerator`, `/adatvedelmi-szabalyzat`) statikus HTML generálódik a `dist/`-ben, amelyben szemantikus `<main>`, `<h1>`, `<h2>`, listák és JSON-LD is van. Tehát az LLM-ek **már most látnak alaptartalmat** JS futtatása nélkül.
 
-### 3. Nem márkahű design (Come Get It / Neon Fidelity)
-- Saját színek (`bg-electric-300`, `bg-ocean-400/600/700`, `bg-green-600`, `bg-red-600`) használata a globális `nf-primary` / design token helyett.
-- "CG" és "IT" mini-körök hack-szerűek; ezek helyett a meglévő `Logo` komponens illik.
-- Gombok nem pill-shape-ek (Core memo: pill-shaped buttons), és nem használják a `Button variant="neon"` változatot.
-- Up/down feedback gombok piros/zöld — kilóg a sötét cyan paletta hangulatából.
+A `public/llms.txt` és `public/llm.html` is létezik.
 
----
+## Mi hiányzik
 
-## Terv
+1. A prerendelt `bodyHtml`-ek **rövidek és általánosak** — nincs benne az aktuális GIVE számláló-narratíva, Founding Partner Program, az élő FAQ szekció szövegei, árazási részletek, social proof, „miben segít" 4 lépéses folyamat részletei. Az LLM-ek így csak a vázat látják, nem a teljes pitch-t.
+2. A `llms.txt` csak route-linkeket sorol fel, **nem ad át tartalmat** — pedig a spec engedi a tényalapú leírást.
+3. A `llm.html` jó, de hiányoznak belőle: Founding Partner Program, várólista bónuszok, partner-onboarding lépések, kapcsolat (Bence Gátai, +36 70 585 2053).
+4. Nincs **route-onkénti dedikált AI-narratíva** — pl. `/llm-vendeglatohelyek.html` jellegű strukturált összefoglaló.
 
-### A) Tartalmi javítás (`src/components/CustomerSupport.tsx`)
-- `getFaqData` paraméterezett legyen — kapja meg a section-id-k listáját. A `points_rewards`-hoz a tényleges 10 kulcsot adjuk át, a `free_drinks`-hez a meglévő 7-et.
-- Eredmény: a Pontok és Jutalmak alatt megjelenik mind a 10 cikk a már megírt hu/en tartalommal.
+## Mit építünk
 
-### B) Duplikációk megszüntetése
-- Egyetlen `renderHeader({ title, compact })` használata mindenhol (home / messages / help / detail) — a "CG/IT" mini-körök helyett a `Logo` komponens kicsiben.
-- Egyetlen `renderFooterNav()` minden viewn, az aktív tab prop-ból jön.
-- A Kezdőoldalon a 4 kategória-kártya rövidített chip-listára cserélve ("Gyakori témák"), a részletes 4 kártya csak a Súgó tabon marad — így nincs duplikált blokk.
+### A) Prerender `bodyHtml` blokkok bővítése — `src/seo/routes.ts`
 
-### C) Márkahű design (Neon Fidelity)
-- Színek: `bg-electric-300` → `bg-nf-primary`, `hover:bg-nf-primary-hover`. Sötét felületek: `bg-nf-surface`, `bg-nf-surface-alt`, határ: `border-nf-border`, kiemelés: `text-nf-primary`. Semmilyen `green-600`/`red-600` nincs többé.
-- Gombok: `Button variant="neon"` használata (pill, glow), CTA-knál a meglévő `shadow-neon` / hover-glow.
-- Lebegő trigger gomb (chat-buborék): cyan glow ring, halvány pulzálás (CSS-only, opcionális `animate-pulse`-szal), pill-érzet — méret változatlan.
-- Feedback ("Megválaszolta a kérdésed?"): két pill chip, neutrál sötét háttér, cyan kiemelés a kiválasztotton — pipa / X ikonnal.
-- Tartalomjegyzék dropdown: jelenlegi stílus marad, de cyan focus-ring.
-- Header logó: a "CG / IT" mini-körök helyett `<Logo className="h-6 w-auto" />` és "Come Get It Súgó" felirat.
+Minden route `bodyHtml` mezőjét bővítem a tényleges oldali tartalom **szöveges, szemantikus** lenyomatával. Példa a `/` route-ra:
 
-### D) Apró szöveg-finomítások
-- "support.home.greeting_title": `Szia! 👋` → marad, de subtitle: `Miben segíthetünk ma?`
-- "support.help.collections_count": `4 gyűjtemény` mellé → `Válassz témát`
-- CTA gomb a detail nézet alján: `További kérdés esetén írj nekünk` → marad, de pill + neon variant.
+- Hero: a teljes „Nem tudod, hova menj ma?" + alszöveg
+- „Miben segít" 4 kártya: cím + leírás mindegyikről
+- GIVE szekció: a teljes narratíva (1 ital = 1 napi tiszta víz, kumulatív számláló)
+- Pricing: ingyenes vs. előfizetés (990 Ft/hét, 2 990 Ft/hó) konkrét különbségekkel
+- Founding Partner Program rövid leírás + link
+- FAQ (legalább 8 Q&A)
+- Social proof: hány előregisztráció / célváros
+- Footer linkek
 
-### Érintett fájlok
-- `src/components/CustomerSupport.tsx` — refaktor + design token-ek + tartalom-kulcs javítás.
-- `src/i18n/hu.json` és `src/i18n/en.json` — csak ha kell mikro szöveg-frissítés (greeting_subtitle).
-- Nincs új csomag, nincs új komponens — minden meglévő primitívekre épül.
+Hasonló bővítés:
+- `/vendeglatohelyek`: VenueROI számai, VenueWhyWorth pontok, HowItWorksForVenues lépések, VenueKeyFeatures lista, jelentkezési űrlap mezőinek leírása
+- `/italmarkak`: brand aktivációs csomagok részletesen, kampánymérés metrikák
+- `/rewards-partners`: jutalom-típusok, beváltási flow példák
+- `/partnerek`: mindhárom partnertípus 2-3 mondatos összefoglalója + link
+- `/come-get-it-accelerator`: programstruktúra, kohort méret, időtartam
 
-Nincs üzleti logika módosítás, csak frontend / UI / i18n.
+Ez tisztán **adatfájl-szerkesztés**, semmilyen React kódot nem érint, az élő weboldal kinézete nem változik. Csak a `dist/<route>/index.html`-ek `#root` belseje lesz dúsabb az LLM-eknek/crawlereknek.
+
+### B) `public/llms.txt` bővítése
+
+A `## Pages` lista alá két új szekciót teszek:
+
+- `## Mi a Come Get It` — 2-3 bekezdés tényalapú leírás (üzleti modell, GIVE, indulási piac, célközönség)
+- `## Kulcsadatok` — bullet pontok: árazás, indulási város, kapcsolat, alapító, státusz (waitlist)
+
+A spec szerint a `>` blockquote alá szabad markdown bekezdés mehet.
+
+### C) `public/llm.html` frissítése
+
+- Hozzáadom: Founding Partner Program szekció (mi ez, kik jelentkezhetnek, mit kapnak)
+- Frissítem a Kapcsolat blokkot: Bence Gátai, +36 70 585 2053, hello@come-get-it.app
+- Bővítem a GYIK-et 5-6 új kérdéssel (Founding Partner, várólistán mi a sorrend, mikor indul élesben, hogyan működik a QR fizetés összekapcsolás, mi van ha nincs partnerhely a közelemben)
+
+### D) `index.html` apró kiegészítés
+
+A `<head>` JSON-LD blokkokba adok egy `FAQPage` schema-t a fő GYIK-kel — Google és LLM crawlerek így strukturáltan megkapják a kérdés-választ.
+
+## Mit NEM csinálunk most
+
+- **Nem váltunk SSR-re** (Next.js/Remix) — túl nagy refaktor, és a prerender ugyanazt nyújtja statikus oldalakra.
+- **Nem írunk LLM-eknek screenshot-szolgáltatót** — a screenshot képesség a crawler kliensén múlik (ChatGPT Atlas, Perplexity Comet, Claude tool use tud, sima ChatGPT nem). A jobb prerendert látva ezek az eszközök is pontosabb screenshotot készítenek.
+- **Nem módosítjuk a React komponenseket** — a felhasználói élmény és UI változatlan marad.
+
+## Technikai részletek
+
+- Érintett fájlok: `src/seo/routes.ts` (legnagyobb diff), `public/llms.txt`, `public/llm.html`, `index.html` (1 új JSON-LD blokk)
+- Build-időben automatikusan érvényesül — Publish után az új `dist/` HTML-ek élesednek
+- A pluginban semmit nem kell módosítani, már most pontosan ezt csinálja
+- Tesztelhető lokálisan: `npm run build` után `dist/index.html`-t megnézve a `#root` belsejében ott kell lennie a teljes bővített HTML-nek
+- Cache: a `og:updated_time`-ot is bumpolom, hogy a social/LLM cache frissüljön
+
+## Várt eredmény
+
+Amikor ChatGPT-nek beilleszted `come-get-it.app`-ot:
+- Fetcheli a HTML-t → most már **teljes szöveges tartalmat** kap a kezdőlapról (hero, miben segít, GIVE, pricing, FAQ)
+- Ha követi a `<a>` linkeket → minden aloldalon szintén teljes tartalom van
+- A `/llms.txt`-ből explicit struktúra
+- A `/llm.html`-ből AI-orientált tényösszefoglaló
+- JSON-LD-ből gépi olvasható schema (Organization, WebSite, MobileApplication, FAQPage, Service, BreadcrumbList)
+
+A screenshot-képes LLM kliensek (ChatGPT Atlas, Comet) ettől függetlenül tudnak screenshotot készíteni — ezt nem mi szolgáltatjuk, de a gyorsabb és teljesebb HTML miatt a screenshotjaik is hűebbek lesznek.
