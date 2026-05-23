@@ -32,10 +32,22 @@
     "title": "How does it help?",
     "subtitle": "Any time of day, any mood — one app that tells you where to go.",
     "cards": {
-      "1": { "title": "Where should I have breakfast?", "description": "Find a spot where starting the day comes with an extra reward." },
-      "2": { "title": "Where should I have lunch?", "description": "Choose faster from nearby partner venues." },
-      "3": { "title": "Where should we hang out?", "description": "Find a great place for coffee, a date or afterwork." },
-      "4": { "title": "Where should we party?", "description": "Go where the night out comes with a daily free drink." }
+      "1": {
+        "title": "Where should I have breakfast?",
+        "description": "Find a spot where starting the day comes with an extra reward."
+      },
+      "2": {
+        "title": "Where should I have lunch?",
+        "description": "Choose faster from nearby partner venues."
+      },
+      "3": {
+        "title": "Where should we hang out?",
+        "description": "Find a great place for coffee, a date or afterwork."
+      },
+      "4": {
+        "title": "Where should we party?",
+        "description": "Go where the night out comes with a daily free drink."
+      }
     }
   },
   "drink": {
@@ -93,16 +105,40 @@
     "headline": "Choose. Go. Drink. Give back.",
     "subheadline": "A few steps and you know where to go today.",
     "cards": {
-      "1": { "title": "Choose", "description": "See which partner venue gives you a perk today." },
-      "2": { "title": "Go", "description": "Head to a place where it's actually worth dropping in." },
-      "3": { "title": "Drink", "description": "Enjoy your daily free drink and earn points." },
-      "4": { "title": "Give back", "description": "Every redeemed drink provides a day of clean drinking water for someone in need." }
+      "1": {
+        "title": "Choose",
+        "description": "See which partner venue gives you a perk today."
+      },
+      "2": {
+        "title": "Go",
+        "description": "Head to a place where it's actually worth dropping in."
+      },
+      "3": {
+        "title": "Drink",
+        "description": "Enjoy your daily free drink and earn points."
+      },
+      "4": {
+        "title": "Give back",
+        "description": "Every redeemed drink provides a day of clean drinking water for someone in need."
+      }
     },
     "steps": {
-      "1": { "title": "DOWNLOAD", "description": "Download the app" },
-      "2": { "title": "SIGN UP", "description": "Sign up and link your card" },
-      "3": { "title": "DRINK", "description": "Enjoy your daily welcome drink" },
-      "4": { "title": "EARN POINTS", "description": "Earn points and redeem for free drinks and discounts" }
+      "1": {
+        "title": "DOWNLOAD",
+        "description": "Download the app"
+      },
+      "2": {
+        "title": "SIGN UP",
+        "description": "Sign up and link your card"
+      },
+      "3": {
+        "title": "DRINK",
+        "description": "Enjoy your daily welcome drink"
+      },
+      "4": {
+        "title": "EARN POINTS",
+        "description": "Earn points and redeem for free drinks and discounts"
+      }
     }
   },
   "home_features": {
@@ -128,11 +164,26 @@
   },
   "benefits": {
     "title": "Why does it work for everyone?",
-    "user": {"title": "USERS", "desc": "More experiences, more perks, more great places — all in one app."},
-    "venue": {"title": "VENUES", "desc": "Higher traffic, more loyal guests, a stronger brand."},
-    "brand": {"title": "DRINK BRANDS", "desc": "Greater visibility, real consumer connections, measurable results."},
-    "rewards": {"title": "REWARDS PARTNERS", "desc": "Exclusive partnership, shared growth and long-term collaborations."},
-    "community": {"title": "COMMUNITY", "desc": "A stronger, more connected venue and consumer community."}
+    "user": {
+      "title": "USERS",
+      "desc": "More experiences, more perks, more great places — all in one app."
+    },
+    "venue": {
+      "title": "VENUES",
+      "desc": "Higher traffic, more loyal guests, a stronger brand."
+    },
+    "brand": {
+      "title": "DRINK BRANDS",
+      "desc": "Greater visibility, real consumer connections, measurable results."
+    },
+    "rewards": {
+      "title": "REWARDS PARTNERS",
+      "desc": "Exclusive partnership, shared growth and long-term collaborations."
+    },
+    "community": {
+      "title": "COMMUNITY",
+      "desc": "A stronger, more connected venue and consumer community."
+    }
   },
   "venues": {
     "hero": {
@@ -146,28 +197,67 @@
     "how_it_works": {
       "title": "HOW IT WORKS?",
       "steps": {
-        "1": {"title": "SIGN UP", "description": "Join in a few taps."},
-        "2": {"title": "SET UP", "description": "Add your offer and schedule."},
-        "3": {"title": "WELCOME GUESTS", "description": "Grow traffic as new guests arrive."},
-        "4": {"title": "TRACK RESULTS", "description": "Live reports and stats."}
+        "1": {
+          "title": "SIGN UP",
+          "description": "Join in a few taps."
+        },
+        "2": {
+          "title": "SET UP",
+          "description": "Add your offer and schedule."
+        },
+        "3": {
+          "title": "WELCOME GUESTS",
+          "description": "Grow traffic as new guests arrive."
+        },
+        "4": {
+          "title": "TRACK RESULTS",
+          "description": "Live reports and stats."
+        }
       }
     },
     "key_features": {
       "title": "KEY FEATURES",
       "items": {
-        "1": {"title": "QUALITY FOOTFALL", "description": "Bring new, relevant guests even on weekdays."},
-        "2": {"title": "PROVABLE ATTRIBUTION", "description": "Card-linked, real traffic feedback — no guesswork."},
-        "3": {"title": "NO DISCOUNTING", "description": "Not freebie seekers: experience-driven audience who spend."},
-        "4": {"title": "REDEMPTIONS / TRAFFIC REPORTS", "description": "Transparent reports on redemptions and traffic."},
-        "5": {"title": "BE THERE WHEN PEOPLE PICK A PLACE", "description": "When someone doesn't know where to go, the app can recommend your venue — and the free drink helps them choose you."}
+        "1": {
+          "title": "QUALITY FOOTFALL",
+          "description": "Bring new, relevant guests even on weekdays."
+        },
+        "2": {
+          "title": "PROVABLE ATTRIBUTION",
+          "description": "Card-linked, real traffic feedback — no guesswork."
+        },
+        "3": {
+          "title": "NO DISCOUNTING",
+          "description": "Not freebie seekers: experience-driven audience who spend."
+        },
+        "4": {
+          "title": "REDEMPTIONS / TRAFFIC REPORTS",
+          "description": "Transparent reports on redemptions and traffic."
+        },
+        "5": {
+          "title": "BE THERE WHEN PEOPLE PICK A PLACE",
+          "description": "When someone doesn't know where to go, the app can recommend your venue — and the free drink helps them choose you."
+        }
       }
     },
     "stats": {
       "items": {
-        "1": {"label": "AVG AGE", "description": "Young, active audience"},
-        "2": {"label": "MILLENNIAL & GEN Z DATABASE", "description": "Targeted demographics"},
-        "3": {"label": "FEMALE AUDIENCE", "description": "Balanced ratio"},
-        "4": {"label": "ACTIVE EVENINGS/WEEKENDS", "description": "Regular visitors"}
+        "1": {
+          "label": "AVG AGE",
+          "description": "Young, active audience"
+        },
+        "2": {
+          "label": "MILLENNIAL & GEN Z DATABASE",
+          "description": "Targeted demographics"
+        },
+        "3": {
+          "label": "FEMALE AUDIENCE",
+          "description": "Balanced ratio"
+        },
+        "4": {
+          "label": "ACTIVE EVENINGS/WEEKENDS",
+          "description": "Regular visitors"
+        }
       }
     }
   },
@@ -182,32 +272,73 @@
     "how_it_works": {
       "title": "HOW IT WORKS?",
       "steps": {
-        "1": { "title": "SHOWCASE", "description": "Upload your drink to Come Get It and show it to Budapest's crowd!" },
-        "2": { "title": "TEST", "description": "The community tries it, rates it, and gives instant feedback." },
-        "3": { "title": "COLLECT FEEDBACK", "description": "Optimize based on real opinions and data." },
-        "4": { "title": "SCALE UP", "description": "Get your drink to more venues, grow awareness and sales!" }
+        "1": {
+          "title": "SHOWCASE",
+          "description": "Upload your drink to Come Get It and show it to Budapest's crowd!"
+        },
+        "2": {
+          "title": "TEST",
+          "description": "The community tries it, rates it, and gives instant feedback."
+        },
+        "3": {
+          "title": "COLLECT FEEDBACK",
+          "description": "Optimize based on real opinions and data."
+        },
+        "4": {
+          "title": "SCALE UP",
+          "description": "Get your drink to more venues, grow awareness and sales!"
+        }
       }
     },
     "features": {
       "title": "WHAT DO WE OFFER?",
       "items": {
-        "1": { "title": "BUILT-IN DISCOVERY & TASTING", "description": "People naturally meet your brand and taste it." },
-        "2": { "title": "TARGETED REACH", "description": "91% Gen Z & Millennial — precise, valuable audience." },
-        "3": { "title": "CREATIVE EXPERIENCE PACKS", "description": "Takeover weeks, limited editions, AR filters — memorable activations." },
-        "4": { "title": "PERFORMANCE MEASUREMENT", "description": "Card-linked attribution and real-time stats." },
-        "5": { "title": "TASTING IN A REAL SITUATION", "description": "Users don't just see your brand — they can actually taste it at a partner venue." }
+        "1": {
+          "title": "BUILT-IN DISCOVERY & TASTING",
+          "description": "People naturally meet your brand and taste it."
+        },
+        "2": {
+          "title": "TARGETED REACH",
+          "description": "91% Gen Z & Millennial — precise, valuable audience."
+        },
+        "3": {
+          "title": "CREATIVE EXPERIENCE PACKS",
+          "description": "Takeover weeks, limited editions, AR filters — memorable activations."
+        },
+        "4": {
+          "title": "PERFORMANCE MEASUREMENT",
+          "description": "Card-linked attribution and real-time stats."
+        },
+        "5": {
+          "title": "TASTING IN A REAL SITUATION",
+          "description": "Users don't just see your brand — they can actually taste it at a partner venue."
+        }
       }
     },
     "target": {
       "title": "WHO IS IT FOR?",
       "items": {
-        "1": { "title": "NEW BRANDS", "description": "Boutique, craft brands" },
-        "2": { "title": "BIG BRANDS", "description": "Looking for new audiences" },
-        "3": { "title": "ALCOHOL-FREE", "description": "Innovative healthy options" }
+        "1": {
+          "title": "NEW BRANDS",
+          "description": "Boutique, craft brands"
+        },
+        "2": {
+          "title": "BIG BRANDS",
+          "description": "Looking for new audiences"
+        },
+        "3": {
+          "title": "ALCOHOL-FREE",
+          "description": "Innovative healthy options"
+        }
       }
     },
     "stats": {
-      "labels": { "1": "USERS", "2": "WOMEN", "3": "PARTNERS", "4": "APP RATING" }
+      "labels": {
+        "1": "USERS",
+        "2": "WOMEN",
+        "3": "PARTNERS",
+        "4": "APP RATING"
+      }
     },
     "final_cta": {
       "title_line1": "LAUNCH YOUR",
@@ -227,27 +358,60 @@
     "how_it_works": {
       "title": "HOW IT WORKS?",
       "steps": {
-        "1": { "title": "SIGN UP", "description": "Join the program!" },
-        "2": { "title": "CREATE AN OFFER", "description": "Give an exclusive discount or reward." },
-        "3": { "title": "ACTIVATE", "description": "Your promo goes live instantly!" },
-        "4": { "title": "TRACK RESULTS", "description": "See live stats." }
+        "1": {
+          "title": "SIGN UP",
+          "description": "Join the program!"
+        },
+        "2": {
+          "title": "CREATE AN OFFER",
+          "description": "Give an exclusive discount or reward."
+        },
+        "3": {
+          "title": "ACTIVATE",
+          "description": "Your promo goes live instantly!"
+        },
+        "4": {
+          "title": "TRACK RESULTS",
+          "description": "See live stats."
+        }
       }
     },
     "features": {
       "title": "Rewards program benefits",
       "items": {
-        "1": { "title": "Direct redemption drive", "description": "Instant point redemption brings traffic and conversions." },
-        "2": { "title": "Young, evening-active base", "description": "91% Gen Z & Millennial — engaged audience." },
-        "3": { "title": "Collaboration packages", "description": "From tasting to VIP: flexible integrations for your goals." }
+        "1": {
+          "title": "Direct redemption drive",
+          "description": "Instant point redemption brings traffic and conversions."
+        },
+        "2": {
+          "title": "Young, evening-active base",
+          "description": "91% Gen Z & Millennial — engaged audience."
+        },
+        "3": {
+          "title": "Collaboration packages",
+          "description": "From tasting to VIP: flexible integrations for your goals."
+        }
       }
     },
     "stats": {
       "title": "Our rewards partners' results",
       "items": {
-        "1": { "value": "85%", "label": "Coupon redemption rate" },
-        "2": { "value": "+120%", "label": "New customers growth" },
-        "3": { "value": "50+", "label": "Active rewards partners" },
-        "4": { "value": "95%", "label": "Partner satisfaction" }
+        "1": {
+          "value": "85%",
+          "label": "Coupon redemption rate"
+        },
+        "2": {
+          "value": "+120%",
+          "label": "New customers growth"
+        },
+        "3": {
+          "value": "50+",
+          "label": "Active rewards partners"
+        },
+        "4": {
+          "value": "95%",
+          "label": "Partner satisfaction"
+        }
       }
     }
   },
@@ -261,10 +425,22 @@
     "how_it_works": {
       "title": "HOW IT WORKS?",
       "steps": {
-        "1": { "title": "APPLY", "description": "Fill out the pilot application" },
-        "2": { "title": "TEST", "description": "Our community tries your drink" },
-        "3": { "title": "COLLECT FEEDBACK", "description": "Real, measurable consumer opinions" },
-        "4": { "title": "SCALE UP", "description": "Launch in more places — grow sales!" }
+        "1": {
+          "title": "APPLY",
+          "description": "Fill out the pilot application"
+        },
+        "2": {
+          "title": "TEST",
+          "description": "Our community tries your drink"
+        },
+        "3": {
+          "title": "COLLECT FEEDBACK",
+          "description": "Real, measurable consumer opinions"
+        },
+        "4": {
+          "title": "SCALE UP",
+          "description": "Launch in more places — grow sales!"
+        }
       }
     },
     "packages": {
@@ -295,19 +471,39 @@
     "why_us": {
       "title": "WHY CHOOSE US?",
       "items": {
-        "1": { "title": "FAST GO-TO-MARKET", "description": "With minimal time investment" },
-        "2": { "title": "TARGETED AUDIENCE", "description": "Active 18–34 audience" },
-        "3": { "title": "REAL CONSUMER DATA", "description": "Measurable feedback" },
-        "4": { "title": "EASY ONBOARDING", "description": "Simple start process" }
+        "1": {
+          "title": "FAST GO-TO-MARKET",
+          "description": "With minimal time investment"
+        },
+        "2": {
+          "title": "TARGETED AUDIENCE",
+          "description": "Active 18–34 audience"
+        },
+        "3": {
+          "title": "REAL CONSUMER DATA",
+          "description": "Measurable feedback"
+        },
+        "4": {
+          "title": "EASY ONBOARDING",
+          "description": "Simple start process"
+        }
       }
     },
     "demo_stats": {
       "title": "USER DEMO DATA",
       "items": {
-        "1": { "label": "AVERAGE AGE" },
-        "2": { "label": "GEN Z/MILLENNIAL" },
-        "3": { "label": "FEMALE AUDIENCE" },
-        "4": { "label": "ACTIVE APP USERS" }
+        "1": {
+          "label": "AVERAGE AGE"
+        },
+        "2": {
+          "label": "GEN Z/MILLENNIAL"
+        },
+        "3": {
+          "label": "FEMALE AUDIENCE"
+        },
+        "4": {
+          "label": "ACTIVE APP USERS"
+        }
       }
     },
     "final_cta": {
@@ -369,8 +565,15 @@
   "auth": {
     "title": "Welcome to Come Get It",
     "subtitle": "Sign in to your account or create a new one",
-    "tabs": { "signin": "Sign In", "signup": "Sign Up" },
-    "fields": { "email": "Email", "password": "Password", "full_name": "Full Name" },
+    "tabs": {
+      "signin": "Sign In",
+      "signup": "Sign Up"
+    },
+    "fields": {
+      "email": "Email",
+      "password": "Password",
+      "full_name": "Full Name"
+    },
     "placeholders": {
       "email": "Enter your email",
       "password_signin": "Enter your password",
@@ -400,16 +603,23 @@
     "submit": "Sign me up for updates",
     "submitting": "⏳ Sending...",
     "footer": "Exclusive bonus for the first 1000 signups",
-    "toasts": { "error_title": "Error", "error_desc": "Please try again later." }
+    "toasts": {
+      "error_title": "Error",
+      "error_desc": "Please try again later."
+    }
   },
   "quick_access": {
     "aria": "Quick access"
   },
   "support": {
-    "tabs": { "home": "Home", "messages": "Messages", "help": "Help" },
+    "tabs": {
+      "home": "Home",
+      "messages": "Messages",
+      "help": "Help"
+    },
     "home": {
       "greeting_title": "Hi! 👋",
-      "greeting_subtitle": "How can we help?",
+      "greeting_subtitle": "How can we help today?",
       "write_message": "Message us",
       "search_help": "Search the help"
     },
@@ -436,7 +646,11 @@
       "referrals_desc": "Invite friends and the referral system.",
       "referrals_count": "2 articles"
     },
-    "feedback": { "question": "Did this answer your question?", "yes": "Yes", "no": "No" },
+    "feedback": {
+      "question": "Did this answer your question?",
+      "yes": "Yes",
+      "no": "No"
+    },
     "toc": "Table of contents",
     "faq_label": "Frequently asked questions",
     "contact_button": "Message us if you have more questions",
@@ -522,15 +736,27 @@
       "account": {
         "title": "Registration and account",
         "items": {
-          "1": { "q": "How can I sign up?", "a": "Download the app and follow the registration steps. You’ll need an email address and phone number." },
-          "2": { "q": "How can I change my details?", "a": "Go to Profile to edit your personal data, password, and notification settings." }
+          "1": {
+            "q": "How can I sign up?",
+            "a": "Download the app and follow the registration steps. You’ll need an email address and phone number."
+          },
+          "2": {
+            "q": "How can I change my details?",
+            "a": "Go to Profile to edit your personal data, password, and notification settings."
+          }
         }
       },
       "referrals": {
         "title": "Referrals and sharing",
         "items": {
-          "1": { "q": "How can I invite friends?", "a": "Find your referral link in the Share menu and send it to friends." },
-          "2": { "q": "What do I get for inviting someone?", "a": "You earn points for every successful invite — redeem them for rewards." }
+          "1": {
+            "q": "How can I invite friends?",
+            "a": "Find your referral link in the Share menu and send it to friends."
+          },
+          "2": {
+            "q": "What do I get for inviting someone?",
+            "a": "You earn points for every successful invite — redeem them for rewards."
+          }
         }
       }
     }
