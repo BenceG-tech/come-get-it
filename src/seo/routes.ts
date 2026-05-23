@@ -59,40 +59,86 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Nem tudod, hova menj ma?</h1>
-    <p>A <strong>Come Get It</strong> segít eldönteni, hova menj Budapesten. Megmutatja azokat a partnerhelyeket, ahol <strong>napi ingyen italt</strong>, pontokat és jutalmakat kapsz — így könnyebb választani, hol reggelizz, ebédelj, igyál vagy bulizz.</p>
+    <p>A <strong>Come Get It</strong> segít eldönteni, hova menj Budapesten. Megmutatja azokat a partner vendéglátóhelyeket, ahol <strong>napi ingyen italt</strong>, pontokat és jutalmakat kapsz — így könnyebb választani, hol reggelizz, ebédelj, igyál vagy bulizz. Minden beváltott italért egy napi tiszta ivóvizet biztosítunk egy rászorulónak.</p>
+    <p>Státusz: várólista nyitva. Indulás Budapesten, később országos terjeszkedés Magyarországon. Magyar nyelvű app, célközönség 18–45 éves városi vendéglátó-aktív közönség.</p>
   </header>
+
   <section>
-    <h2>Miben segít?</h2>
+    <h2>Miben segít a Come Get It?</h2>
     <ul>
-      <li><strong>Hol reggelizzek?</strong> – Találj helyet, ahol a napindításhoz extra jutalom is jár.</li>
-      <li><strong>Hol ebédeljek?</strong> – Válassz gyorsabban a közeli partnerhelyek közül.</li>
-      <li><strong>Hova üljünk be?</strong> – Találj jó helyet kávéra, randira vagy afterworkre.</li>
-      <li><strong>Hol bulizzunk?</strong> – Menj oda, ahol az esti program mellé napi ingyen ital is jár.</li>
+      <li><strong>Hol reggelizzek?</strong> – Találj helyet, ahol a napindításhoz extra jutalom is jár (kávé + croissant pontokért, napi kedvezmények).</li>
+      <li><strong>Hol ebédeljek?</strong> – Válassz gyorsabban a közeli partnerhelyek közül; lásd, hol érdemes ma beülni.</li>
+      <li><strong>Hova üljünk be?</strong> – Találj jó helyet kávéra, randira vagy afterworkre, ahol az élmény mellé jutalom is jár.</li>
+      <li><strong>Hol bulizzunk?</strong> – Menj oda, ahol az esti program mellé napi ingyen ital is jár előfizetőknek.</li>
     </ul>
   </section>
+
   <section>
-    <h2>Hogyan működik</h2>
+    <h2>Hogyan működik – 4 lépés</h2>
     <ol>
-      <li><strong>Válassz</strong> – Nézd meg, melyik partnerhely ad ma pluszt.</li>
-      <li><strong>Menj el</strong> – Indulj el oda, ahol tényleg megéri beülni.</li>
-      <li><strong>Igyál</strong> – Használd ki a napi ingyen italod és gyűjts pontokat.</li>
-      <li><strong>Adj vissza</strong> – Minden beváltott ital egy nap tiszta ivóvizet biztosít egy rászorulónak.</li>
+      <li><strong>Drink</strong> – Igyál a partner vendéglátóhelyeken Budapesten.</li>
+      <li><strong>Link</strong> – Kapcsold össze a fizetést az appal QR-kóddal a kasszánál.</li>
+      <li><strong>Earn</strong> – Pontokat és jutalmakat gyűjtesz, vagy előfizetőként napi 1 ingyen italt kapsz.</li>
+      <li><strong>Give</strong> – Minden beváltott italért 1 napi tiszta ivóvizet biztosítunk egy rászorulónak. Az appban visszamenőleg látod a saját hozzájárulásodat (pl. „Te már 25 napi tiszta vizet biztosítottál").</li>
     </ol>
   </section>
+
   <section>
-    <h2>Két használati mód</h2>
+    <h2>Hibrid modell – két használati mód</h2>
     <ul>
-      <li><strong>Ingyenes verzió:</strong> regisztrálj, gyűjts pontokat és válts be jutalmakat.</li>
-      <li><strong>Előfizetés:</strong> 990 HUF / hét vagy 2990 HUF / hó – napi 1 ingyen ital partnerhelyeken.</li>
+      <li><strong>Ingyenes verzió:</strong> regisztrálj, gyűjts pontokat minden vásárlással és válts be jutalmakat partner márkáktól.</li>
+      <li><strong>Heti előfizetés:</strong> 990 HUF / hét – napi 1 ingyen ital partnerhelyeken.</li>
+      <li><strong>Havi előfizetés:</strong> 2 990 HUF / hó – napi 1 ingyen ital partnerhelyeken, kedvezőbb áron.</li>
     </ul>
+    <p>Az előfizetés bármikor lemondható. Az ingyen italok partnerhelyenként és napszakonként eltérőek lehetnek.</p>
   </section>
+
+  <section>
+    <h2>GIVE – Tiszta víz egy rászorulónak</h2>
+    <p>A Come Get It minden beváltott italért egy napi tiszta ivóvizet biztosít egy rászorulónak. A számláló kumulatív és visszamenőleges: az app megmutatja, hány napi tiszta vizet adományoztál összesen. Ez a felelős fogyasztás közösségi pillanata: úgy iszol, hogy közben másnak is segítesz.</p>
+  </section>
+
+  <section>
+    <h2>Founding Partner Program</h2>
+    <p>Az első partner vendéglátóhelyeknek külön Founding Partner Program: kedvezőbb feltételek, kiemelt megjelenés, közös PR és hosszú távú elköteleződés. A program nyitva áll bárok, kávézók és éttermek számára Budapesten. Részletek: <a href="/partnerek">/partnerek</a>.</p>
+  </section>
+
+  <section>
+    <h2>Gyakori kérdések</h2>
+    <dl>
+      <dt>Mennyibe kerül a Come Get It?</dt>
+      <dd>A pontgyűjtős alapverzió ingyenes. Az opcionális előfizetés 990 HUF/hét vagy 2 990 HUF/hó, ami napi 1 ingyen italt tartalmaz partnerhelyeken.</dd>
+      <dt>Hol indul először?</dt>
+      <dd>Budapesten, később országos terjeszkedés Magyarországon.</dd>
+      <dt>Mikor indul élesben?</dt>
+      <dd>A pontos indulási dátumot a várólistán értesítjük. Iratkozz fel, és elsők között próbálhatod ki.</dd>
+      <dt>Mit jelent a GIVE?</dt>
+      <dd>Minden beváltott italért 1 napi tiszta ivóvíz egy rászorulónak; a felhasználó visszamenőleg látja a saját hozzájárulását.</dd>
+      <dt>Hogyan működik a fizetés összekapcsolása?</dt>
+      <dd>A kasszánál egyedi QR-kódot olvasol be vagy mutatsz fel — ezzel rögzítjük a beváltást és írjuk jóvá a pontokat.</dd>
+      <dt>Lemondható az előfizetés?</dt>
+      <dd>Igen, bármikor, kötbér nélkül.</dd>
+      <dt>Mi van, ha nincs partnerhely a közelemben?</dt>
+      <dd>Az app egy térképen megmutatja a legközelebbi partnereket. Az indulás Budapesten történik, ahol már több helyszín lesz elérhető. Új városokba a kereslet alapján terjeszkedünk.</dd>
+      <dt>Hogyan csatlakozhat egy vendéglátóhely vagy márka?</dt>
+      <dd>Vendéglátóhelyként a <a href="/vendeglatohelyek">/vendeglatohelyek</a>, italmárkaként a <a href="/italmarkak">/italmarkak</a>, jutalompartnerként a <a href="/rewards-partners">/rewards-partners</a> oldalon jelentkezhetsz.</dd>
+    </dl>
+  </section>
+
   <section>
     <h2>Csatlakozz a várólistához</h2>
-    <p>Az indulás Budapesten kezdődik. <a href="/#signup">Iratkozz fel a várólistára</a>, és elsők között próbálhatod ki.</p>
+    <p>Az indulás Budapesten kezdődik. <a href="/#signup">Iratkozz fel a várólistára</a>, és elsők között próbálhatod ki. A várólistás regisztráció ingyenes, e-mailben értesítünk az induláskor és a Founding Partner kedvezményekről.</p>
   </section>
+
+  <section>
+    <h2>Kapcsolat</h2>
+    <p>E-mail: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a><br/>Alapító: Bence Gátai, +36 70 585 2053<br/>Közösségi média: @comegetit_app (Instagram, TikTok)</p>
+  </section>
+
   <nav aria-label="További oldalak">
     <ul>
       <li><a href="/vendeglatohelyek">Vendéglátóhelyeknek</a></li>
+      <li><a href="/partnerek">Partnerek (hub)</a></li>
       <li><a href="/italmarkak">Italmárkáknak</a></li>
       <li><a href="/rewards-partners">Rewards Partnerek</a></li>
       <li><a href="/come-get-it-accelerator">Come Get It Accelerator</a></li>
@@ -149,37 +195,58 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Vendéglátóhelyeknek – Csatlakozz a Come Get It hálózathoz</h1>
-    <p>A Come Get It egy hűségrendszer és forgalomgenerátor magyarországi vendéglátóhelyek számára. Bárok, kávézók és éttermek új vendégeket szereznek, miközben mérhető visszatérést és kampányhatást kapnak.</p>
+    <p>A Come Get It egy hűségrendszer és forgalomgenerátor magyarországi vendéglátóhelyek számára. Bárok, kávézók és éttermek új vendégeket szereznek, miközben mérhető visszatérést és kampányhatást kapnak. Az app előfizetői naponta visszatérnek a napi italért — ez stabil, kiszámítható forgalom.</p>
   </header>
+
   <section>
     <h2>Kinek szól</h2>
     <ul>
       <li>Bárok, pubok és koktélbárok Budapesten és környékén.</li>
       <li>Kávézók és bisztrók, akik visszatérő vendégekre építenek.</li>
       <li>Éttermek, akik italforgalmat és élményt is kínálnak.</li>
+      <li>Új koncepciók (zero-proof, craft, helyi termelők), akik gyors közönségépítést akarnak.</li>
     </ul>
   </section>
+
   <section>
     <h2>Miért éri meg csatlakozni</h2>
     <ul>
-      <li><strong>Új vendégek:</strong> a Come Get It közössége aktívan keres partnerhelyeket.</li>
-      <li><strong>Hűségrendszer dobozból:</strong> nincs külön kártya, az app intézi.</li>
-      <li><strong>Mérhető forgalom:</strong> valós idejű analitika a beváltásokról.</li>
-      <li><strong>Subscription forgalom:</strong> az előfizetők naponta visszatérnek a napi italért.</li>
+      <li><strong>Új vendégek lábforgalma:</strong> a Come Get It közössége aktívan keres partnerhelyeket az appban.</li>
+      <li><strong>Hűségrendszer dobozból:</strong> nincs külön kártya vagy bélyegző, az app intézi a pontgyűjtést.</li>
+      <li><strong>Mérhető forgalom:</strong> valós idejű analitika a beváltásokról, csúcsidőről, vendégtípusról.</li>
+      <li><strong>Subscription forgalom:</strong> az előfizetők naponta visszatérnek a napi italért — kiszámítható ismétlődő bevétel.</li>
+      <li><strong>Felfedezhetőség:</strong> kiemelt megjelenés az in-app térképen és „mit egyek/igyak ma" felfedezőben.</li>
     </ul>
   </section>
+
   <section>
-    <h2>Hogyan zajlik az onboarding</h2>
+    <h2>Hogyan működik a beváltás</h2>
     <ol>
-      <li>Jelentkezel a partneri űrlapon.</li>
-      <li>Egyeztetünk az ajánlatról és a beváltási mechanizmusról.</li>
-      <li>QR-kódot és partnerprofilt kapsz – élesedsz az appban.</li>
-      <li>Mérjük az első kampányt és optimalizálunk.</li>
+      <li>A vendég megrendel a kasszánál.</li>
+      <li>Beolvas vagy felmutat egy QR-kódot az appból.</li>
+      <li>Te visszaigazolod a beváltást a partner-felületen (mobil vagy tablet).</li>
+      <li>A tranzakció azonnal rögzül a riportingban; a vendég pontot kap vagy levonja a napi ingyen italát.</li>
     </ol>
   </section>
+
+  <section>
+    <h2>Onboarding lépések</h2>
+    <ol>
+      <li>Jelentkezés a partneri űrlapon.</li>
+      <li>20 perces egyeztetés az ajánlatról és a beváltási mechanizmusról.</li>
+      <li>QR-kód, partnerprofil és kasszás kisokos.</li>
+      <li>Élesedés az appban + első kampány mérése.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Founding Partner Program</h2>
+    <p>Az első csatlakozó vendéglátóhelyek Founding Partner státuszt kapnak: kedvezőbb hosszú távú feltételek, kiemelt megjelenés a launchnél, közös PR és személyes account manager. Korlátozott helyek Budapesten.</p>
+  </section>
+
   <section>
     <h2>Jelentkezés</h2>
-    <p>Tölts ki a <a href="/vendeglatohelyek#apply">partneri jelentkezési űrlapot</a>, vagy írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a>.</p>
+    <p>Tölts ki a <a href="/vendeglatohelyek#apply">partneri jelentkezési űrlapot</a>, vagy írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a>. Telefon: Bence Gátai, +36 70 585 2053.</p>
   </section>
 </main>`.trim(),
     jsonLd: [

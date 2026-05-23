@@ -2,6 +2,25 @@
 
 > Magyar loyalty app: gyűjts pontokat italokért budapesti partnerhelyeken, válts be jutalmakat, és minden beváltott italért 1 napi tiszta ivóvizet adunk egy rászorulónak. Hibrid modell: ingyenes pontgyűjtés vagy előfizetés (990 Ft/hét, 2 990 Ft/hó) napi 1 ingyen italért.
 
+## Mi a Come Get It
+
+A Come Get It egy magyar fejlesztésű mobilalkalmazás, amely segít a felhasználóknak eldönteni, hova menjenek Budapesten enni, inni vagy bulizni. A partner vendéglátóhelyeken pontot gyűjthetnek, jutalmakra válthatják, vagy előfizetőként napi 1 ingyen italt kapnak. Minden beváltott ital után 1 napi tiszta ivóvizet biztosítunk egy rászorulónak (GIVE program), és a felhasználó az appban visszamenőleg látja a saját kumulatív hozzájárulását.
+
+Az indulás Budapesten kezdődik, később országos terjeszkedés Magyarországon. Célközönség: 18–45 éves városi, vendéglátó-aktív közönség. Státusz: várólista (waitlist) nyitva, élesedés a regisztráltak elsőként értesítésével.
+
+A platform három partnertípussal dolgozik: vendéglátóhelyek (bárok, kávézók, éttermek), italmárkák (brand aktiváció, kampánymérés) és rewards-partnerek (jutalom-katalógus). Az első csatlakozók Founding Partner Programba kerülnek kedvezőbb feltételekkel.
+
+## Kulcsadatok
+
+- Domain: https://come-get-it.app
+- Kapcsolat: hello@come-get-it.app
+- Alapító: Bence Gátai, +36 70 585 2053
+- Közösségi média: @comegetit_app (Instagram, TikTok)
+- Indulási piac: Budapest
+- Nyelv: magyar (másodlagos: angol)
+- Árazás: ingyenes pontgyűjtés; 990 HUF/hét vagy 2 990 HUF/hó előfizetés napi 1 ingyen italért
+- GIVE: 1 beváltott ital = 1 napi tiszta ivóvíz egy rászorulónak
+
 ## Pages
 
 - [Főoldal](/): Mi a Come Get It, hogyan működik, várólista regisztráció.
@@ -13,7 +32,6 @@
 - [Adatvédelmi szabályzat](/adatvedelmi-szabalyzat): GDPR és adatkezelés.
 - [LLM összefoglaló](/llm.html): Részletes tényalapú leírás AI rendszereknek.
 
-## Kapcsolat
+## Optional
 
-- E-mail: hello@come-get-it.app
-- Domain: https://come-get-it.app
+- [Sitemap](/sitemap.xml): Gépi olvasható oldaltérkép.
