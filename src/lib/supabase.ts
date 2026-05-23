@@ -1,26 +1,22 @@
-
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 let supabaseClient: SupabaseClient | null = null;
 
 export const getSupabaseClient = (): SupabaseClient | null => {
   try {
-    const supabaseUrl = 'https://siefyekwetkywwgaqqhv.supabase.co';
-    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpZWZ5ZWt3ZXRreXd3Z2FxcWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4ODc3NDgsImV4cCI6MjA2NjQ2Mzc0OH0.ZK7J7DrMW_RD5tpJbvr3zmVYpPWyPQpxOBc7Aoa0s2A';
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
 
-    console.log('Supabase client configuration:', {
-      url: supabaseUrl,
-      hasKey: !!supabaseAnonKey
-    });
+    if (!supabaseUrl || !supabaseAnonKey) {
+      return null;
+    }
 
     if (!supabaseClient) {
       supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
-      console.log('Supabase client created successfully');
     }
 
     return supabaseClient;
-  } catch (error) {
-    console.error('Failed to create Supabase client:', error);
+  } catch {
     return null;
   }
 };
