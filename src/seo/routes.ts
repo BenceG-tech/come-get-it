@@ -195,37 +195,58 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Vendéglátóhelyeknek – Csatlakozz a Come Get It hálózathoz</h1>
-    <p>A Come Get It egy hűségrendszer és forgalomgenerátor magyarországi vendéglátóhelyek számára. Bárok, kávézók és éttermek új vendégeket szereznek, miközben mérhető visszatérést és kampányhatást kapnak.</p>
+    <p>A Come Get It egy hűségrendszer és forgalomgenerátor magyarországi vendéglátóhelyek számára. Bárok, kávézók és éttermek új vendégeket szereznek, miközben mérhető visszatérést és kampányhatást kapnak. Az app előfizetői naponta visszatérnek a napi italért — ez stabil, kiszámítható forgalom.</p>
   </header>
+
   <section>
     <h2>Kinek szól</h2>
     <ul>
       <li>Bárok, pubok és koktélbárok Budapesten és környékén.</li>
       <li>Kávézók és bisztrók, akik visszatérő vendégekre építenek.</li>
       <li>Éttermek, akik italforgalmat és élményt is kínálnak.</li>
+      <li>Új koncepciók (zero-proof, craft, helyi termelők), akik gyors közönségépítést akarnak.</li>
     </ul>
   </section>
+
   <section>
     <h2>Miért éri meg csatlakozni</h2>
     <ul>
-      <li><strong>Új vendégek:</strong> a Come Get It közössége aktívan keres partnerhelyeket.</li>
-      <li><strong>Hűségrendszer dobozból:</strong> nincs külön kártya, az app intézi.</li>
-      <li><strong>Mérhető forgalom:</strong> valós idejű analitika a beváltásokról.</li>
-      <li><strong>Subscription forgalom:</strong> az előfizetők naponta visszatérnek a napi italért.</li>
+      <li><strong>Új vendégek lábforgalma:</strong> a Come Get It közössége aktívan keres partnerhelyeket az appban.</li>
+      <li><strong>Hűségrendszer dobozból:</strong> nincs külön kártya vagy bélyegző, az app intézi a pontgyűjtést.</li>
+      <li><strong>Mérhető forgalom:</strong> valós idejű analitika a beváltásokról, csúcsidőről, vendégtípusról.</li>
+      <li><strong>Subscription forgalom:</strong> az előfizetők naponta visszatérnek a napi italért — kiszámítható ismétlődő bevétel.</li>
+      <li><strong>Felfedezhetőség:</strong> kiemelt megjelenés az in-app térképen és „mit egyek/igyak ma" felfedezőben.</li>
     </ul>
   </section>
+
   <section>
-    <h2>Hogyan zajlik az onboarding</h2>
+    <h2>Hogyan működik a beváltás</h2>
     <ol>
-      <li>Jelentkezel a partneri űrlapon.</li>
-      <li>Egyeztetünk az ajánlatról és a beváltási mechanizmusról.</li>
-      <li>QR-kódot és partnerprofilt kapsz – élesedsz az appban.</li>
-      <li>Mérjük az első kampányt és optimalizálunk.</li>
+      <li>A vendég megrendel a kasszánál.</li>
+      <li>Beolvas vagy felmutat egy QR-kódot az appból.</li>
+      <li>Te visszaigazolod a beváltást a partner-felületen (mobil vagy tablet).</li>
+      <li>A tranzakció azonnal rögzül a riportingban; a vendég pontot kap vagy levonja a napi ingyen italát.</li>
     </ol>
   </section>
+
+  <section>
+    <h2>Onboarding lépések</h2>
+    <ol>
+      <li>Jelentkezés a partneri űrlapon.</li>
+      <li>20 perces egyeztetés az ajánlatról és a beváltási mechanizmusról.</li>
+      <li>QR-kód, partnerprofil és kasszás kisokos.</li>
+      <li>Élesedés az appban + első kampány mérése.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Founding Partner Program</h2>
+    <p>Az első csatlakozó vendéglátóhelyek Founding Partner státuszt kapnak: kedvezőbb hosszú távú feltételek, kiemelt megjelenés a launchnél, közös PR és személyes account manager. Korlátozott helyek Budapesten.</p>
+  </section>
+
   <section>
     <h2>Jelentkezés</h2>
-    <p>Tölts ki a <a href="/vendeglatohelyek#apply">partneri jelentkezési űrlapot</a>, vagy írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a>.</p>
+    <p>Tölts ki a <a href="/vendeglatohelyek#apply">partneri jelentkezési űrlapot</a>, vagy írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a>. Telefon: Bence Gátai, +36 70 585 2053.</p>
   </section>
 </main>`.trim(),
     jsonLd: [
