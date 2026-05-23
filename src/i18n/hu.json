@@ -32,10 +32,22 @@
     "title": "Miben segít?",
     "subtitle": "Bármilyen napszak, bármilyen hangulat — egy app, ami megmondja, hova érdemes menni.",
     "cards": {
-      "1": { "title": "Hol reggelizzek?", "description": "Találj helyet, ahol a napindításhoz pont vagy jutalom is jár." },
-      "2": { "title": "Hol ebédeljek?", "description": "Válassz gyorsabban a közeli partnerhelyek közül." },
-      "3": { "title": "Hova üljünk be?", "description": "Találj jó helyet kávéra, randira vagy afterworkre." },
-      "4": { "title": "Hol bulizzunk?", "description": "Menj oda, ahol az esti program mellé extra előny is jár." }
+      "1": {
+        "title": "Hol reggelizzek?",
+        "description": "Találj helyet, ahol a napindításhoz pont vagy jutalom is jár."
+      },
+      "2": {
+        "title": "Hol ebédeljek?",
+        "description": "Válassz gyorsabban a közeli partnerhelyek közül."
+      },
+      "3": {
+        "title": "Hova üljünk be?",
+        "description": "Találj jó helyet kávéra, randira vagy afterworkre."
+      },
+      "4": {
+        "title": "Hol bulizzunk?",
+        "description": "Menj oda, ahol az esti program mellé extra előny is jár."
+      }
     }
   },
   "drink": {
@@ -95,9 +107,18 @@
     "title": "Vendéglátóhely vagy?",
     "subtitle": "A Come Get It Founding Partner Programmal az első 15 budapesti partner csatlakozása teljesen jutalékmentes az első 6 hónapban. Mi hozzuk a vendégeket — te megtartod őket.",
     "cards": {
-      "1": { "title": "ÚJ VENDÉGEK", "description": "Garantált forgalmat hozunk a holtidőkben — mérhetően és kockázatmentesen." },
-      "2": { "title": "NULLA RIZIKÓ", "description": "Nincs fix díj, nincs hosszú szerződés. Ha 2 hét után nem éred el a célt, egy mondat és kilépsz." },
-      "3": { "title": "VALÓDI INSIGHT", "description": "Adatokat kapsz arról, ki mikor jön, melyik italra reagálnak — A/B tesztelheted az ajánlataidat." }
+      "1": {
+        "title": "ÚJ VENDÉGEK",
+        "description": "Garantált forgalmat hozunk a holtidőkben — mérhetően és kockázatmentesen."
+      },
+      "2": {
+        "title": "NULLA RIZIKÓ",
+        "description": "Nincs fix díj, nincs hosszú szerződés. Ha 2 hét után nem éred el a célt, egy mondat és kilépsz."
+      },
+      "3": {
+        "title": "VALÓDI INSIGHT",
+        "description": "Adatokat kapsz arról, ki mikor jön, melyik italra reagálnak — A/B tesztelheted az ajánlataidat."
+      }
     },
     "cta": "Vendéglátóhelyként csatlakozom →"
   },
@@ -134,16 +155,40 @@
     "headline": "Válassz. Menj el. Igyál. Adj vissza.",
     "subheadline": "Pár lépés, és tudod, hova menj ma.",
     "cards": {
-      "1": { "title": "Válassz", "description": "Nézd meg, melyik partnerhely ad ma pluszt." },
-      "2": { "title": "Menj el", "description": "Indulj el oda, ahol tényleg megéri beülni." },
-      "3": { "title": "Igyál", "description": "Használd ki a napi ingyen italod és gyűjts pontokat." },
-      "4": { "title": "Adj vissza", "description": "Minden beváltott ital egy nap tiszta ivóvizet biztosít egy rászorulónak." }
+      "1": {
+        "title": "Válassz",
+        "description": "Nézd meg, melyik partnerhely ad ma pluszt."
+      },
+      "2": {
+        "title": "Menj el",
+        "description": "Indulj el oda, ahol tényleg megéri beülni."
+      },
+      "3": {
+        "title": "Igyál",
+        "description": "Használd ki a napi ingyen italod és gyűjts pontokat."
+      },
+      "4": {
+        "title": "Adj vissza",
+        "description": "Minden beváltott ital egy nap tiszta ivóvizet biztosít egy rászorulónak."
+      }
     },
     "steps": {
-      "1": { "title": "TÖLTSD LE", "description": "Töltsd le az appot" },
-      "2": { "title": "REGISZTRÁLJ", "description": "Regisztrálj és linkeld a kártyádat" },
-      "3": { "title": "IGYÁL", "description": "Élvezd napi welcome drink-ed" },
-      "4": { "title": "GYŰJTS PONTOKAT", "description": "Gyűjtsd a pontokat és váltsd be további ingyen italokra, kedvezményekre" }
+      "1": {
+        "title": "TÖLTSD LE",
+        "description": "Töltsd le az appot"
+      },
+      "2": {
+        "title": "REGISZTRÁLJ",
+        "description": "Regisztrálj és linkeld a kártyádat"
+      },
+      "3": {
+        "title": "IGYÁL",
+        "description": "Élvezd napi welcome drink-ed"
+      },
+      "4": {
+        "title": "GYŰJTS PONTOKAT",
+        "description": "Gyűjtsd a pontokat és váltsd be további ingyen italokra, kedvezményekre"
+      }
     }
   },
   "home_features": {
@@ -169,11 +214,26 @@
   },
   "benefits": {
     "title": "Miért éri meg mindenkinek?",
-    "user": {"title": "FELHASZNÁLÓK", "desc": "Több élmény, több kedvezmény, több jó hely – egy appban."},
-    "venue": {"title": "VENDÉGLÁTÓHELYEK", "desc": "Nagyobb forgalom, hűségesebb vendégek, erősebb márka."},
-    "brand": {"title": "ITALMÁRKÁK", "desc": "Nagyobb láthatóság, valós fogyasztói kapcsolódás, mérhető eredmények."},
-    "rewards": {"title": "REWARDS PARTNEREK", "desc": "Exkluzív partnerség, közös növekedés és hosszú távú együttműködések."},
-    "community": {"title": "KÖZÖSSÉG", "desc": "Egy erősebb, összetartóbb vendéglátó és fogyasztói közösség."}
+    "user": {
+      "title": "FELHASZNÁLÓK",
+      "desc": "Több élmény, több kedvezmény, több jó hely – egy appban."
+    },
+    "venue": {
+      "title": "VENDÉGLÁTÓHELYEK",
+      "desc": "Nagyobb forgalom, hűségesebb vendégek, erősebb márka."
+    },
+    "brand": {
+      "title": "ITALMÁRKÁK",
+      "desc": "Nagyobb láthatóság, valós fogyasztói kapcsolódás, mérhető eredmények."
+    },
+    "rewards": {
+      "title": "REWARDS PARTNEREK",
+      "desc": "Exkluzív partnerség, közös növekedés és hosszú távú együttműködések."
+    },
+    "community": {
+      "title": "KÖZÖSSÉG",
+      "desc": "Egy erősebb, összetartóbb vendéglátó és fogyasztói közösség."
+    }
   },
   "venues": {
     "hero": {
@@ -187,28 +247,67 @@
     "how_it_works": {
       "title": "HOGYAN MŰKÖDIK?",
       "steps": {
-        "1": {"title": "REGISZTRÁLJ", "description": "Csatlakozz pár kattintással."},
-        "2": {"title": "ÁLLÍTSD BE", "description": "Add meg ajánlatod és időpontjaid."},
-        "3": {"title": "FOGADJ VENDÉGEKET", "description": "Növeld a forgalmat, érkeznek az új vendégek."},
-        "4": {"title": "KÖVESD AZ EREDMÉNYEKET", "description": "Riportok és statisztikák élőben."}
+        "1": {
+          "title": "REGISZTRÁLJ",
+          "description": "Csatlakozz pár kattintással."
+        },
+        "2": {
+          "title": "ÁLLÍTSD BE",
+          "description": "Add meg ajánlatod és időpontjaid."
+        },
+        "3": {
+          "title": "FOGADJ VENDÉGEKET",
+          "description": "Növeld a forgalmat, érkeznek az új vendégek."
+        },
+        "4": {
+          "title": "KÖVESD AZ EREDMÉNYEKET",
+          "description": "Riportok és statisztikák élőben."
+        }
       }
     },
     "key_features": {
       "title": "KULCS FUNKCIÓK",
       "items": {
-        "1": {"title": "MINŐSÉGI FOOTFALL", "description": "Hétköznapokon is hozunk új, releváns vendégeket."},
-        "2": {"title": "BIZONYÍTHATÓ ATTRIBUTION", "description": "Kártyalinkelt, valós forgalmi visszajelzés – nincsenek találgatások."},
-        "3": {"title": "NEM NYOMOTT ÁR", "description": "Nem freebie-seekerek: élménykereső közönség, aki költ is."},
-        "4": {"title": "BEVÁLTÁS/ FORGALOM RIPORTOK", "description": "Átlátható jelentések a beváltásról és a forgalomról."},
-        "5": {"title": "LEGYÉL OTT, AMIKOR HELYET KERESNEK", "description": "Ha valaki nem tudja, hova menjen, az app ajánlhatja a helyedet — az ingyen ital pedig segít, hogy téged válasszon."}
+        "1": {
+          "title": "MINŐSÉGI FOOTFALL",
+          "description": "Hétköznapokon is hozunk új, releváns vendégeket."
+        },
+        "2": {
+          "title": "BIZONYÍTHATÓ ATTRIBUTION",
+          "description": "Kártyalinkelt, valós forgalmi visszajelzés – nincsenek találgatások."
+        },
+        "3": {
+          "title": "NEM NYOMOTT ÁR",
+          "description": "Nem freebie-seekerek: élménykereső közönség, aki költ is."
+        },
+        "4": {
+          "title": "BEVÁLTÁS/ FORGALOM RIPORTOK",
+          "description": "Átlátható jelentések a beváltásról és a forgalomról."
+        },
+        "5": {
+          "title": "LEGYÉL OTT, AMIKOR HELYET KERESNEK",
+          "description": "Ha valaki nem tudja, hova menjen, az app ajánlhatja a helyedet — az ingyen ital pedig segít, hogy téged válasszon."
+        }
       }
     },
     "stats": {
       "items": {
-        "1": {"label": "ÁTLAG ÉLETKOR", "description": "Fiatal, aktív korosztály"},
-        "2": {"label": "MILLENNIÁL & GEN Z ADATBÁZIS", "description": "Célzott demográfia"},
-        "3": {"label": "NŐI KÖZÖNSÉG", "description": "Kiegyensúlyozott arány"},
-        "4": {"label": "ESTE/HÉTVÉGÉN AKTÍV", "description": "Rendszeres látogatók"}
+        "1": {
+          "label": "ÁTLAG ÉLETKOR",
+          "description": "Fiatal, aktív korosztály"
+        },
+        "2": {
+          "label": "MILLENNIÁL & GEN Z ADATBÁZIS",
+          "description": "Célzott demográfia"
+        },
+        "3": {
+          "label": "NŐI KÖZÖNSÉG",
+          "description": "Kiegyensúlyozott arány"
+        },
+        "4": {
+          "label": "ESTE/HÉTVÉGÉN AKTÍV",
+          "description": "Rendszeres látogatók"
+        }
       }
     }
   },
@@ -223,32 +322,73 @@
     "how_it_works": {
       "title": "HOGYAN MŰKÖDIK?",
       "steps": {
-        "1": { "title": "MUTASD BE", "description": "Töltsd fel italodat a Come Get It platformra, és mutasd meg a budapesti közönségnek!" },
-        "2": { "title": "TESZTELD", "description": "A közösség kipróbálja, értékeli, és azonnal visszajelzést ad." },
-        "3": { "title": "GYŰJTS VISSZAJELZÉST", "description": "Valódi, őszinte vélemények és adatok alapján optimalizálhatsz." },
-        "4": { "title": "SKÁLÁZD FEL", "description": "Jusson el italod több helyre, növeld a márkaismertséget és az eladásokat!" }
+        "1": {
+          "title": "MUTASD BE",
+          "description": "Töltsd fel italodat a Come Get It platformra, és mutasd meg a budapesti közönségnek!"
+        },
+        "2": {
+          "title": "TESZTELD",
+          "description": "A közösség kipróbálja, értékeli, és azonnal visszajelzést ad."
+        },
+        "3": {
+          "title": "GYŰJTS VISSZAJELZÉST",
+          "description": "Valódi, őszinte vélemények és adatok alapján optimalizálhatsz."
+        },
+        "4": {
+          "title": "SKÁLÁZD FEL",
+          "description": "Jusson el italod több helyre, növeld a márkaismertséget és az eladásokat!"
+        }
       }
     },
     "features": {
       "title": "MIT KÍNÁLUNK?",
       "items": {
-        "1": { "title": "BEÉPÍTETT FELFEDEZÉS ÉS KÓSTOLÁS", "description": "A közönség természetesen találkozik a márkáddal és kóstolja meg." },
-        "2": { "title": "CÉLZOTT ELÉRÉS", "description": "91% Gen Z & Millennial – pontos, értékes közönség." },
-        "3": { "title": "KREATÍV ÉLMÉNYCSOMAGOK", "description": "Takeover hetek, limited kiadások, AR filter – emlékezetes aktivációk." },
-        "4": { "title": "TELJESÍTMÉNYMÉRÉS", "description": "Kártyaalapú attribúció és valós idejű statisztikák." },
-        "5": { "title": "KÓSTOLÁS VALÓDI HELYZETBEN", "description": "A felhasználó nem csak látja a márkád, hanem egy partnerhelyen meg is kóstolhatja." }
+        "1": {
+          "title": "BEÉPÍTETT FELFEDEZÉS ÉS KÓSTOLÁS",
+          "description": "A közönség természetesen találkozik a márkáddal és kóstolja meg."
+        },
+        "2": {
+          "title": "CÉLZOTT ELÉRÉS",
+          "description": "91% Gen Z & Millennial – pontos, értékes közönség."
+        },
+        "3": {
+          "title": "KREATÍV ÉLMÉNYCSOMAGOK",
+          "description": "Takeover hetek, limited kiadások, AR filter – emlékezetes aktivációk."
+        },
+        "4": {
+          "title": "TELJESÍTMÉNYMÉRÉS",
+          "description": "Kártyaalapú attribúció és valós idejű statisztikák."
+        },
+        "5": {
+          "title": "KÓSTOLÁS VALÓDI HELYZETBEN",
+          "description": "A felhasználó nem csak látja a márkád, hanem egy partnerhelyen meg is kóstolhatja."
+        }
       }
     },
     "target": {
       "title": "KINEK AJÁNLJUK?",
       "items": {
-        "1": { "title": "ÚJ MÁRKÁK", "description": "Boutique, craft brandek" },
-        "2": { "title": "NAGY BRANDEK", "description": "Új célcsoportot keresők" },
-        "3": { "title": "ALKOHOLMENTES", "description": "Innovatív healthy opciók" }
+        "1": {
+          "title": "ÚJ MÁRKÁK",
+          "description": "Boutique, craft brandek"
+        },
+        "2": {
+          "title": "NAGY BRANDEK",
+          "description": "Új célcsoportot keresők"
+        },
+        "3": {
+          "title": "ALKOHOLMENTES",
+          "description": "Innovatív healthy opciók"
+        }
       }
     },
     "stats": {
-      "labels": { "1": "FELHASZNÁLÓ", "2": "NŐK", "3": "PARTNER", "4": "APP ÉRTÉKELÉS" }
+      "labels": {
+        "1": "FELHASZNÁLÓ",
+        "2": "NŐK",
+        "3": "PARTNER",
+        "4": "APP ÉRTÉKELÉS"
+      }
     },
     "final_cta": {
       "title_line1": "INDÍTSD EL AZ",
@@ -268,27 +408,60 @@
     "how_it_works": {
       "title": "HOGYAN MŰKÖDIK?",
       "steps": {
-        "1": { "title": "REGISZTRÁLJ", "description": "Lépj be a programba!" },
-        "2": { "title": "HOZZ LÉTRE AJÁNLATOT", "description": "Adj exkluzív kedvezményt vagy jutalmat." },
-        "3": { "title": "AKTIVÁLD", "description": "Promód azonnal él!" },
-        "4": { "title": "KÖVESD EREDMÉNYEKET", "description": "Láss élő statisztikákat." }
+        "1": {
+          "title": "REGISZTRÁLJ",
+          "description": "Lépj be a programba!"
+        },
+        "2": {
+          "title": "HOZZ LÉTRE AJÁNLATOT",
+          "description": "Adj exkluzív kedvezményt vagy jutalmat."
+        },
+        "3": {
+          "title": "AKTIVÁLD",
+          "description": "Promód azonnal él!"
+        },
+        "4": {
+          "title": "KÖVESD EREDMÉNYEKET",
+          "description": "Láss élő statisztikákat."
+        }
       }
     },
     "features": {
       "title": "Jutalom rendszer előnyei",
       "items": {
-        "1": { "title": "Közvetlen beváltás-meghajtás", "description": "A pontok azonnali beváltásával hozunk trafficet és konverziót." },
-        "2": { "title": "Fiatal, esti-aktív bázis", "description": "91% Gen Z & Millennial – elkötelezett közönség." },
-        "3": { "title": "Együttműködési csomagok", "description": "Kóstolótól a VIP-ig: rugalmas integrációk a céljaidhoz." }
+        "1": {
+          "title": "Közvetlen beváltás-meghajtás",
+          "description": "A pontok azonnali beváltásával hozunk trafficet és konverziót."
+        },
+        "2": {
+          "title": "Fiatal, esti-aktív bázis",
+          "description": "91% Gen Z & Millennial – elkötelezett közönség."
+        },
+        "3": {
+          "title": "Együttműködési csomagok",
+          "description": "Kóstolótól a VIP-ig: rugalmas integrációk a céljaidhoz."
+        }
       }
     },
     "stats": {
       "title": "Jutalom partnereink eredményei",
       "items": {
-        "1": { "value": "85%", "label": "Kupon beváltási arány" },
-        "2": { "value": "+120%", "label": "Új vásárlók növekedése" },
-        "3": { "value": "50+", "label": "Aktív jutalom partner" },
-        "4": { "value": "95%", "label": "Partner elégedettség" }
+        "1": {
+          "value": "85%",
+          "label": "Kupon beváltási arány"
+        },
+        "2": {
+          "value": "+120%",
+          "label": "Új vásárlók növekedése"
+        },
+        "3": {
+          "value": "50+",
+          "label": "Aktív jutalom partner"
+        },
+        "4": {
+          "value": "95%",
+          "label": "Partner elégedettség"
+        }
       }
     }
   },
@@ -302,10 +475,22 @@
     "how_it_works": {
       "title": "HOGYAN MŰKÖDIK?",
       "steps": {
-        "1": { "title": "JELENTKEZZ", "description": "Töltsd ki a pilot jelentkezést" },
-        "2": { "title": "TESZTELD", "description": "Közösségünk kipróbálja az italodat" },
-        "3": { "title": "GYŰJTS VISSZAJELZÉST", "description": "Valódi, mérhető fogyasztói vélemények" },
-        "4": { "title": "SKÁLÁZD FEL", "description": "Indítsd el több helyen – növeld az eladásokat!" }
+        "1": {
+          "title": "JELENTKEZZ",
+          "description": "Töltsd ki a pilot jelentkezést"
+        },
+        "2": {
+          "title": "TESZTELD",
+          "description": "Közösségünk kipróbálja az italodat"
+        },
+        "3": {
+          "title": "GYŰJTS VISSZAJELZÉST",
+          "description": "Valódi, mérhető fogyasztói vélemények"
+        },
+        "4": {
+          "title": "SKÁLÁZD FEL",
+          "description": "Indítsd el több helyen – növeld az eladásokat!"
+        }
       }
     },
     "packages": {
@@ -336,19 +521,39 @@
     "why_us": {
       "title": "MIÉRT VÁLASSZ MINKET?",
       "items": {
-        "1": { "title": "GYORS PIACRA LÉPÉS", "description": "Minimális időráfordítással" },
-        "2": { "title": "CÉLZOTT KÖZÖNSÉG", "description": "18-34 éves aktív fiatalok" },
-        "3": { "title": "VALÓDI FOGYASZTÓI ADATOK", "description": "Mérhető visszajelzések" },
-        "4": { "title": "KÖNNYŰ BEVEZETÉS", "description": "Egyszerű indulási folyamat" }
+        "1": {
+          "title": "GYORS PIACRA LÉPÉS",
+          "description": "Minimális időráfordítással"
+        },
+        "2": {
+          "title": "CÉLZOTT KÖZÖNSÉG",
+          "description": "18-34 éves aktív fiatalok"
+        },
+        "3": {
+          "title": "VALÓDI FOGYASZTÓI ADATOK",
+          "description": "Mérhető visszajelzések"
+        },
+        "4": {
+          "title": "KÖNNYŰ BEVEZETÉS",
+          "description": "Egyszerű indulási folyamat"
+        }
       }
     },
     "demo_stats": {
       "title": "FELHASZNÁLÓI DEMÓ ADATOK",
       "items": {
-        "1": { "label": "ÁTLAGÉLETKOR" },
-        "2": { "label": "GEN Z/MILLENNIAL" },
-        "3": { "label": "NŐI KÖZÖNSÉG" },
-        "4": { "label": "AKTÍV APPHASZNÁLÓ" }
+        "1": {
+          "label": "ÁTLAGÉLETKOR"
+        },
+        "2": {
+          "label": "GEN Z/MILLENNIAL"
+        },
+        "3": {
+          "label": "NŐI KÖZÖNSÉG"
+        },
+        "4": {
+          "label": "AKTÍV APPHASZNÁLÓ"
+        }
       }
     },
     "final_cta": {
@@ -410,8 +615,15 @@
   "auth": {
     "title": "Üdv a Come Get It-ben",
     "subtitle": "Jelentkezz be vagy hozz létre új fiókot",
-    "tabs": { "signin": "Bejelentkezés", "signup": "Regisztráció" },
-    "fields": { "email": "Email", "password": "Jelszó", "full_name": "Teljes név" },
+    "tabs": {
+      "signin": "Bejelentkezés",
+      "signup": "Regisztráció"
+    },
+    "fields": {
+      "email": "Email",
+      "password": "Jelszó",
+      "full_name": "Teljes név"
+    },
     "placeholders": {
       "email": "Add meg az emailed",
       "password_signin": "Add meg a jelszavad",
@@ -441,16 +653,23 @@
     "submit": "Regisztrálok az értesítésre",
     "submitting": "⏳ Küldés...",
     "footer": "Exkluzív bónusz az első 1000 regisztrálónak",
-    "toasts": { "error_title": "Hiba történt", "error_desc": "Kérjük, próbálja újra később." }
+    "toasts": {
+      "error_title": "Hiba történt",
+      "error_desc": "Kérjük, próbálja újra később."
+    }
   },
   "quick_access": {
     "aria": "Gyors elérés"
   },
   "support": {
-    "tabs": { "home": "Kezdőoldal", "messages": "Üzenetek", "help": "Súgó" },
+    "tabs": {
+      "home": "Kezdőoldal",
+      "messages": "Üzenetek",
+      "help": "Súgó"
+    },
     "home": {
       "greeting_title": "Szia! 👋",
-      "greeting_subtitle": "Miben segíthetünk?",
+      "greeting_subtitle": "Miben segíthetünk ma?",
       "write_message": "Írj nekünk üzenetet",
       "search_help": "Keresés a súgóban"
     },
@@ -477,7 +696,11 @@
       "referrals_desc": "Barátok meghívása és ajánlási rendszer.",
       "referrals_count": "2 cikk"
     },
-    "feedback": { "question": "Megválaszolta a kérdésed?", "yes": "Igen", "no": "Nem" },
+    "feedback": {
+      "question": "Megválaszolta a kérdésed?",
+      "yes": "Igen",
+      "no": "Nem"
+    },
     "toc": "Tartalomjegyzék",
     "faq_label": "Gyakori kérdések és válaszok",
     "contact_button": "További kérdés esetén írj nekünk",
@@ -563,15 +786,27 @@
       "account": {
         "title": "Regisztráció és fiókkezelés",
         "items": {
-          "1": { "q": "Hogyan regisztrálhatok?", "a": "Töltsd le az appot és kövesd a lépéseket. Email címre és telefonszámra lesz szükséged." },
-          "2": { "q": "Hogyan változtathatom meg az adataimat?", "a": "A Profil menüben szerkesztheted a személyes adataidat, jelszavadat és értesítéseidet." }
+          "1": {
+            "q": "Hogyan regisztrálhatok?",
+            "a": "Töltsd le az appot és kövesd a lépéseket. Email címre és telefonszámra lesz szükséged."
+          },
+          "2": {
+            "q": "Hogyan változtathatom meg az adataimat?",
+            "a": "A Profil menüben szerkesztheted a személyes adataidat, jelszavadat és értesítéseidet."
+          }
         }
       },
       "referrals": {
         "title": "Ajánlások és megosztás",
         "items": {
-          "1": { "q": "Hogyan hívhatom meg a barátaimat?", "a": "A Megosztás menüben találod a referral linked, amit elküldhetsz barátaidnak." },
-          "2": { "q": "Mit kapok, ha meghívok valakit?", "a": "Minden sikeres meghívásért pont jár, amelyet jutalmakra válthatsz be." }
+          "1": {
+            "q": "Hogyan hívhatom meg a barátaimat?",
+            "a": "A Megosztás menüben találod a referral linked, amit elküldhetsz barátaidnak."
+          },
+          "2": {
+            "q": "Mit kapok, ha meghívok valakit?",
+            "a": "Minden sikeres meghívásért pont jár, amelyet jutalmakra válthatsz be."
+          }
         }
       }
     }
