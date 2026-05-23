@@ -73,7 +73,6 @@ export const CustomerSupport: React.FC = () => {
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      console.log('Üzenet elküldve:', message);
       setMessage('');
     }
   };

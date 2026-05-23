@@ -96,7 +96,7 @@ export const SignupForm: React.FC = () => {
         .filter(Boolean)
         .join(' | ');
 
-      console.log('Starting email registration for:', email);
+      
       
       // If Supabase is configured, use the secure endpoint
       if (supabase) {
@@ -144,7 +144,8 @@ export const SignupForm: React.FC = () => {
           setEmail('');
           setGdprAccepted(false);
 
-          console.log('Registration completed successfully for:', email);
+
+
 
           toast({
             title: t('signup.toasts.success_title'),
