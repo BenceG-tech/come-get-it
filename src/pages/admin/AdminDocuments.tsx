@@ -63,7 +63,7 @@ export default function AdminDocuments() {
             {CATEGORIES.map((c) => <option key={c.v} value={c.v}>{c.l}</option>)}
           </select>
           <Input placeholder="Rövid leírás" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
-          <Input placeholder="Mikor használd? (pl. „első kontakt kávézóknál")" value={form.when_to_use} onChange={(e) => setForm({ ...form, when_to_use: e.target.value })} />
+          <Input placeholder={'Mikor használd? (pl. „első kontakt kávézóknál")'} value={form.when_to_use} onChange={(e) => setForm({ ...form, when_to_use: e.target.value })} />
           <Input placeholder="Külső link a fájlhoz (pl. Google Drive)" value={form.storage_path} onChange={(e) => setForm({ ...form, storage_path: e.target.value })} />
           <Textarea rows={6} placeholder="Szöveges tartalom (email/poszt sablon, vagy a doksi szövege)" value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} />
           <div className="flex gap-2 justify-end">
