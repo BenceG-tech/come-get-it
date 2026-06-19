@@ -16,6 +16,14 @@ import Partnerek from "./pages/Partnerek";
 import ComeGetItAccelerator from "./pages/ComeGetItAccelerator";
 import NotFound from "./pages/NotFound";
 import AdatvedelmiSzabalyzat from "./pages/AdatvedelmiSzabalyzat";
+import { AdminRoute } from "./components/admin/AdminRoute";
+import { AdminLayout } from "./components/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminPartners from "./pages/admin/AdminPartners";
+import AdminPartnerDetail from "./pages/admin/AdminPartnerDetail";
+import AdminDocuments from "./pages/admin/AdminDocuments";
+import AdminAI from "./pages/admin/AdminAI";
+import AdminCalendar from "./pages/admin/AdminCalendar";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +45,12 @@ const App = () => (
               <Route path="/partnerek" element={<Partnerek />} />
               <Route path="/come-get-it-accelerator" element={<ComeGetItAccelerator />} />
               <Route path="/adatvedelmi-szabalyzat" element={<AdatvedelmiSzabalyzat />} />
+              <Route path="/admin" element={<AdminRoute><AdminLayout><AdminDashboard /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/partners" element={<AdminRoute><AdminLayout><AdminPartners /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/partners/:id" element={<AdminRoute><AdminLayout><AdminPartnerDetail /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/documents" element={<AdminRoute><AdminLayout><AdminDocuments /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/ai" element={<AdminRoute><AdminLayout><AdminAI /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/calendar" element={<AdminRoute><AdminLayout><AdminCalendar /></AdminLayout></AdminRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

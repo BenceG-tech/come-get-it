@@ -14,6 +14,118 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_conversations: {
+        Row: {
+          created_at: string
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      ai_messages: {
+        Row: {
+          conversation_id: string
+          created_at: string
+          id: string
+          message: Json
+          role: string
+        }
+        Insert: {
+          conversation_id: string
+          created_at?: string
+          id?: string
+          message: Json
+          role: string
+        }
+        Update: {
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          message?: Json
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documents: {
+        Row: {
+          category: Database["public"]["Enums"]["document_category"]
+          content: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_ai_generated: boolean
+          partner_type: Database["public"]["Enums"]["partner_type"] | null
+          related_partner_id: string | null
+          storage_path: string | null
+          title: string
+          updated_at: string
+          when_to_use: string | null
+        }
+        Insert: {
+          category?: Database["public"]["Enums"]["document_category"]
+          content?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_ai_generated?: boolean
+          partner_type?: Database["public"]["Enums"]["partner_type"] | null
+          related_partner_id?: string | null
+          storage_path?: string | null
+          title: string
+          updated_at?: string
+          when_to_use?: string | null
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["document_category"]
+          content?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_ai_generated?: boolean
+          partner_type?: Database["public"]["Enums"]["partner_type"] | null
+          related_partner_id?: string | null
+          storage_path?: string | null
+          title?: string
+          updated_at?: string
+          when_to_use?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_related_partner_id_fkey"
+            columns: ["related_partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lead_requests: {
         Row: {
           created_at: string
@@ -35,6 +147,205 @@ export type Database = {
           id?: string
           ip_address?: string | null
           request_type?: string
+        }
+        Relationships: []
+      }
+      marketing_calendar: {
+        Row: {
+          channel: string
+          content_draft: string | null
+          created_at: string
+          created_by: string | null
+          hashtags: string | null
+          id: string
+          related_document_id: string | null
+          scheduled_date: string
+          status: Database["public"]["Enums"]["calendar_status"]
+          title: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          channel?: string
+          content_draft?: string | null
+          created_at?: string
+          created_by?: string | null
+          hashtags?: string | null
+          id?: string
+          related_document_id?: string | null
+          scheduled_date: string
+          status?: Database["public"]["Enums"]["calendar_status"]
+          title: string
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          channel?: string
+          content_draft?: string | null
+          created_at?: string
+          created_by?: string | null
+          hashtags?: string | null
+          id?: string
+          related_document_id?: string | null
+          scheduled_date?: string
+          status?: Database["public"]["Enums"]["calendar_status"]
+          title?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketing_calendar_related_document_id_fkey"
+            columns: ["related_document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_documents_sent: {
+        Row: {
+          channel: Database["public"]["Enums"]["interaction_channel"] | null
+          created_by: string | null
+          document_id: string
+          id: string
+          notes: string | null
+          partner_id: string
+          sent_at: string
+        }
+        Insert: {
+          channel?: Database["public"]["Enums"]["interaction_channel"] | null
+          created_by?: string | null
+          document_id: string
+          id?: string
+          notes?: string | null
+          partner_id: string
+          sent_at?: string
+        }
+        Update: {
+          channel?: Database["public"]["Enums"]["interaction_channel"] | null
+          created_by?: string | null
+          document_id?: string
+          id?: string
+          notes?: string | null
+          partner_id?: string
+          sent_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_documents_sent_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_documents_sent_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_interactions: {
+        Row: {
+          channel: Database["public"]["Enums"]["interaction_channel"]
+          created_at: string
+          created_by: string | null
+          direction: Database["public"]["Enums"]["interaction_direction"]
+          full_content: string | null
+          id: string
+          occurred_at: string
+          partner_id: string
+          summary: string
+        }
+        Insert: {
+          channel: Database["public"]["Enums"]["interaction_channel"]
+          created_at?: string
+          created_by?: string | null
+          direction?: Database["public"]["Enums"]["interaction_direction"]
+          full_content?: string | null
+          id?: string
+          occurred_at?: string
+          partner_id: string
+          summary: string
+        }
+        Update: {
+          channel?: Database["public"]["Enums"]["interaction_channel"]
+          created_at?: string
+          created_by?: string | null
+          direction?: Database["public"]["Enums"]["interaction_direction"]
+          full_content?: string | null
+          id?: string
+          occurred_at?: string
+          partner_id?: string
+          summary?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_interactions_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partners: {
+        Row: {
+          city: string | null
+          company_name: string
+          contact_name: string | null
+          created_at: string
+          created_by: string | null
+          email: string | null
+          id: string
+          instagram: string | null
+          next_followup_at: string | null
+          notes: string | null
+          phone: string | null
+          source: string | null
+          status: Database["public"]["Enums"]["partner_status"]
+          type: Database["public"]["Enums"]["partner_type"]
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          city?: string | null
+          company_name: string
+          contact_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          email?: string | null
+          id?: string
+          instagram?: string | null
+          next_followup_at?: string | null
+          notes?: string | null
+          phone?: string | null
+          source?: string | null
+          status?: Database["public"]["Enums"]["partner_status"]
+          type?: Database["public"]["Enums"]["partner_type"]
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          city?: string | null
+          company_name?: string
+          contact_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          email?: string | null
+          id?: string
+          instagram?: string | null
+          next_followup_at?: string | null
+          notes?: string | null
+          phone?: string | null
+          source?: string | null
+          status?: Database["public"]["Enums"]["partner_status"]
+          type?: Database["public"]["Enums"]["partner_type"]
+          updated_at?: string
+          website?: string | null
         }
         Relationships: []
       }
@@ -170,6 +481,33 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      calendar_status: "idea" | "draft" | "ready" | "posted" | "cancelled"
+      document_category:
+        | "one_pager_venue"
+        | "long_pitch_venue"
+        | "drink_brand_deck"
+        | "rewards_onboarding"
+        | "email_template"
+        | "social_post"
+        | "ai_generated"
+        | "other"
+      interaction_channel:
+        | "email"
+        | "instagram_dm"
+        | "phone"
+        | "in_person"
+        | "whatsapp"
+        | "other"
+      interaction_direction: "outbound" | "inbound"
+      partner_status:
+        | "lead"
+        | "contacted"
+        | "negotiating"
+        | "proposal_sent"
+        | "signed"
+        | "rejected"
+        | "paused"
+      partner_type: "venue" | "drink_brand" | "rewards_partner" | "other"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -298,6 +636,36 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
+      calendar_status: ["idea", "draft", "ready", "posted", "cancelled"],
+      document_category: [
+        "one_pager_venue",
+        "long_pitch_venue",
+        "drink_brand_deck",
+        "rewards_onboarding",
+        "email_template",
+        "social_post",
+        "ai_generated",
+        "other",
+      ],
+      interaction_channel: [
+        "email",
+        "instagram_dm",
+        "phone",
+        "in_person",
+        "whatsapp",
+        "other",
+      ],
+      interaction_direction: ["outbound", "inbound"],
+      partner_status: [
+        "lead",
+        "contacted",
+        "negotiating",
+        "proposal_sent",
+        "signed",
+        "rejected",
+        "paused",
+      ],
+      partner_type: ["venue", "drink_brand", "rewards_partner", "other"],
     },
   },
 } as const
