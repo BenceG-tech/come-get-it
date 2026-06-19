@@ -23,13 +23,13 @@ export default function AdminCalendar() {
 
   const create = async () => {
     if (!form.title.trim()) return;
-    const { error } = await supabase.from("marketing_calendar").insert([form]);
+    const { error } = await supabase.from("marketing_calendar").insert([form as any]);
     if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
     else { setShow(false); setForm({ scheduled_date: new Date().toISOString().slice(0, 10), channel: "instagram", type: "post", title: "", content_draft: "", hashtags: "", status: "idea" }); load(); }
   };
 
   const updateStatus = async (id: string, status: string) => {
-    await supabase.from("marketing_calendar").update({ status }).eq("id", id);
+    await supabase.from("marketing_calendar").update({ status: status as any }).eq("id", id);
     load();
   };
 

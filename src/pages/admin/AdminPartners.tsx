@@ -36,7 +36,7 @@ export default function AdminPartners() {
 
   const create = async () => {
     if (!form.company_name.trim()) return;
-    const { error } = await supabase.from("partners").insert([form]);
+    const { error } = await supabase.from("partners").insert([form as any]);
     if (error) { toast({ title: "Hiba", description: error.message, variant: "destructive" }); return; }
     toast({ title: "Partner hozzáadva" });
     setShowNew(false);

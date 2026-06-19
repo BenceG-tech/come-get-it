@@ -46,7 +46,7 @@ export default function AdminPartnerDetail() {
 
   const addInteraction = async () => {
     if (!newInter.summary.trim()) return;
-    const { error } = await supabase.from("partner_interactions").insert([{ ...newInter, partner_id: id }]);
+    const { error } = await supabase.from("partner_interactions").insert([{ ...newInter, partner_id: id } as any]);
     if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
     else { setNewInter({ channel: "email", direction: "outbound", summary: "", full_content: "" }); load(); }
   };

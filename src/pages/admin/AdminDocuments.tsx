@@ -35,7 +35,7 @@ export default function AdminDocuments() {
 
   const create = async () => {
     if (!form.title.trim()) return;
-    const { error } = await supabase.from("documents").insert([form]);
+    const { error } = await supabase.from("documents").insert([form as any]);
     if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
     else { setShowNew(false); setForm({ title: "", category: "one_pager_venue", description: "", when_to_use: "", content: "", storage_path: "" }); load(); toast({ title: "Mentve" }); }
   };
