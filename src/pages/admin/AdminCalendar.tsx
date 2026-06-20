@@ -201,21 +201,61 @@ export default function AdminCalendar() {
         </Card>
       )}
 
+      {items.length > 0 && (
+        <div className="flex items-center gap-3 flex-wrap px-1">
+          <label className="flex items-center gap-2 text-xs text-nf-text-muted cursor-pointer">
+            <input
+              type="checkbox"
+              checked={selectedIds.length === items.length && items.length > 0}
+              onChange={toggleAll}
+              className="accent-electric-300 h-4 w-4"
+            />
+            Mindet kijelöl ({items.length})
+          </label>
+          {selectedIds.length > 0 && (
+            <div className="flex items-center gap-2 flex-wrap ml-auto bg-electric-300/10 border border-electric-300/40 rounded-lg px-3 py-1.5">
+              <span className="text-xs text-electric-300 font-semibold">{selectedIds.length} kijelölve</span>
+              <select
+                className="rounded bg-nf-surface-alt border border-nf-border px-2 h-8 text-xs"
+                defaultValue=""
+                onChange={(e) => { if (e.target.value) { bulkStatus(e.target.value); e.target.value = ""; } }}
+              >
+                <option value="">Státusz váltás…</option>
+                {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
+              <Button size="sm" variant="outline" onClick={() => setSelected({})}>Mégse</Button>
+              <Button size="sm" variant="destructive" onClick={bulkDelete}>
+                <Trash2 className="h-3 w-3 mr-1" /> Törlés
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="space-y-3">
         {items.map((it) => (
-          <Card key={it.id}>
+          <Card key={it.id} className={selected[it.id] ? "border-electric-300/60" : undefined}>
             <CardHeader className="flex flex-row justify-between items-start pb-2 gap-2">
-              <div className="min-w-0">
-                <div className="flex items-center gap-2 flex-wrap text-xs">
-                  <span className="text-electric-300">
-                    <CalendarDays className="h-3 w-3 inline mr-1" />
-                    {new Date(it.scheduled_date).toLocaleDateString("hu-HU", { weekday: "short", month: "short", day: "numeric" })}
-                    {it.scheduled_time && <> · {String(it.scheduled_time).slice(0, 5)}</>}
-                  </span>
-                  <span className={`px-2 py-0.5 rounded-full border text-[10px] uppercase tracking-wide ${CHANNEL_COLORS[it.channel] ?? CHANNEL_COLORS.other}`}>{it.channel}</span>
-                  <span className="text-nf-text-muted">{it.type}</span>
+              <div className="flex items-start gap-3 min-w-0">
+                <input
+                  type="checkbox"
+                  checked={!!selected[it.id]}
+                  onChange={() => toggleSelect(it.id)}
+                  className="accent-electric-300 h-4 w-4 mt-1.5 shrink-0"
+                  aria-label="Kijelölés"
+                />
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap text-xs">
+                    <span className="text-electric-300">
+                      <CalendarDays className="h-3 w-3 inline mr-1" />
+                      {new Date(it.scheduled_date).toLocaleDateString("hu-HU", { weekday: "short", month: "short", day: "numeric" })}
+                      {it.scheduled_time && <> · {String(it.scheduled_time).slice(0, 5)}</>}
+                    </span>
+                    <span className={`px-2 py-0.5 rounded-full border text-[10px] uppercase tracking-wide ${CHANNEL_COLORS[it.channel] ?? CHANNEL_COLORS.other}`}>{it.channel}</span>
+                    <span className="text-nf-text-muted">{it.type}</span>
+                  </div>
+                  <CardTitle className="text-lg mt-1">{it.title}</CardTitle>
                 </div>
-                <CardTitle className="text-lg mt-1">{it.title}</CardTitle>
               </div>
               <div className="flex gap-2 items-center shrink-0">
                 <select className="rounded bg-nf-surface-alt border border-nf-border px-2 h-8 text-xs" value={it.status} onChange={(e) => updateStatus(it.id, e.target.value)}>
