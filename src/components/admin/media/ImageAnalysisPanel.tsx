@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, Loader2, Copy, RotateCw } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import AnalysisActionsBar from "./AnalysisActionsBar";
+import AnalysisVersionPicker from "./AnalysisVersionPicker";
 
 interface Props {
   open: boolean;
