@@ -48,7 +48,7 @@ export default function AdminDashboard() {
         supabase.from("documents").select("id", { count: "exact", head: true }),
         supabase.from("partners").select("id, company_name, status, next_followup_at").lte("next_followup_at", today).not("next_followup_at", "is", null).order("next_followup_at").limit(8),
         supabase.from("checklist_items").select("id, title, status, priority").neq("status", "done").order("priority", { ascending: false }).limit(6),
-        supabase.from("documents").select("id, title, updated_at").eq("status", "pending_review" as any).order("updated_at", { ascending: false }).limit(5),
+        supabase.from("documents").select("id, title, updated_at").is("ai_review", null).order("updated_at", { ascending: false }).limit(5),
         supabase.from("image_analysis_versions").select("id, document_id, created_at, result").order("created_at", { ascending: false }).limit(5),
         supabase.from("activity_log").select("id, action, entity_type, entity_id, entity_label, created_at").order("created_at", { ascending: false }).limit(12),
         supabase.from("content_generations").select("id, brief, brand_fit_score, created_at").order("created_at", { ascending: false }).limit(4),
