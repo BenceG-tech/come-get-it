@@ -53,6 +53,59 @@ export default function AdminContentStudio() {
   const [imageBusy, setImageBusy] = useState<string | null>(null); // key:idx
   const [variantImage, setVariantImage] = useState<Record<string, { url: string; id: string }>>({});
 
+  // AI brief suggester
+  const [suggestGoal, setSuggestGoal] = useState("általános brand-építés + waitlist növelés");
+  const [suggestLoading, setSuggestLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+
+  const suggestBriefs = async () => {
+    setSuggestLoading(true); setSuggestions([]);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch(`${FUNCTIONS_URL}/suggest-content-briefs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
+        body: JSON.stringify({ goal: suggestGoal, count: 5 }),
+      });
+      const j = await res.json();
+      if (!res.ok) throw new Error(j?.error || "Hiba");
+      setSuggestions(j.briefs ?? []);
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message, variant: "destructive" });
+    } finally { setSuggestLoading(false); }
+  };
+
+  const useBrief = (b: any) => {
+    setBrief(b.brief || "");
+    if (b.audience) setPersona(b.audience);
+    setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
+    toast({ title: "Brief betöltve", description: "Kattints a generálás gombra." });
+  };
+
+  const scheduleSnippet = async (fmt: FormatBlock, idx: number) => {
+    const v = fmt.variants[idx];
+    const key = `${fmt.key}:${idx}`;
+    const img = variantImage[key];
+    const channel = fmt.key.startsWith("ig_") ? "instagram"
+      : fmt.key === "fb_post" ? "facebook"
+      : fmt.key === "linkedin" ? "linkedin"
+      : fmt.key.startsWith("email_") ? "email"
+      : "other";
+    const type = fmt.key === "ig_story" ? "story" : "post";
+    const today = new Date(); today.setDate(today.getDate() + 1);
+    const { error } = await supabase.from("marketing_calendar").insert([{
+      scheduled_date: today.toISOString().slice(0, 10),
+      scheduled_time: "18:00",
+      channel, type,
+      title: v.text.slice(0, 60),
+      content_draft: v.text,
+      status: "draft",
+      image_doc_id: img?.id ?? null,
+    } as any]);
+    if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
+    else toast({ title: "Naptárba mentve", description: "A Marketing naptár oldalon megtalálod." });
+  };
+
   const loadHistory = async () => {
     const { data } = await supabase.from("content_generations").select("id, brief, persona, brand_fit_score, created_at").order("created_at", { ascending: false }).limit(10);
     setHistory(data ?? []);
