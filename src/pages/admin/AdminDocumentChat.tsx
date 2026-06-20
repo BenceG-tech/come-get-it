@@ -24,8 +24,16 @@ export default function AdminDocumentChat() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await supabase.from("documents").select("id, title, folder, category, mime_type, tldr, suggested_questions").order("title");
+      const { data } = await supabase.from("documents").select("id, title, folder, category, mime_type, tldr, suggested_questions, ai_description").order("title");
       setDocs(data ?? []);
+      // If we arrived with ?attachAnalysis=1 and a single id, prefill a starter prompt
+      const attach = params.get("attachAnalysis");
+      if (attach === "1" && initialIds.length === 1) {
+        const d = (data ?? []).find((x: any) => x.id === initialIds[0]);
+        if (d?.ai_description) {
+          setInput(`Ehhez a képhez (${d.title}) van AI elemzés. Kérlek írj belőle 3 alternatív Instagram posztot.`);
+        }
+      }
     })();
   }, []);
 

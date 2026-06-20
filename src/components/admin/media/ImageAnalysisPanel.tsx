@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, Loader2, Copy, RotateCw } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import AnalysisActionsBar from "./AnalysisActionsBar";
+import AnalysisVersionPicker from "./AnalysisVersionPicker";
 
 interface Props {
   open: boolean;
@@ -18,15 +20,18 @@ export default function ImageAnalysisPanel({ open, onClose, doc, thumbUrl, onUpd
   const [loading, setLoading] = useState(false);
   const [stream, setStream] = useState("");
   const [fresh, setFresh] = useState<any | null>(null);
+  const [versionOverride, setVersionOverride] = useState<any | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     if (open && doc) {
       setStream("");
       setFresh(null);
+      setVersionOverride(null);
     }
   }, [open, doc?.id]);
 
-  const view = fresh ?? doc;
+  const view = versionOverride ?? fresh ?? doc;
 
   const copy = async (txt: string) => {
     await navigator.clipboard.writeText(txt);
@@ -60,6 +65,8 @@ export default function ImageAnalysisPanel({ open, onClose, doc, thumbUrl, onUpd
       // Fetch fresh row
       const { data: d2 } = await supabase.from("documents").select("*").eq("id", doc.id).maybeSingle();
       setFresh(d2);
+      setVersionOverride(null);
+      setRefreshKey((k) => k + 1);
       onUpdated();
       toast({ title: "Elemzés kész" });
     } catch (e: any) {
@@ -88,6 +95,14 @@ export default function ImageAnalysisPanel({ open, onClose, doc, thumbUrl, onUpd
             </div>
           )}
           <div className="text-sm font-medium truncate">{doc?.title}</div>
+
+          {hasAnalysis && doc && (
+            <AnalysisVersionPicker
+              docId={doc.id}
+              refreshKey={refreshKey}
+              onSelect={(r) => setVersionOverride(r)}
+            />
+          )}
 
           {!hasAnalysis && !loading && !stream && (
             <Button variant="neon" onClick={analyze} className="w-full">
@@ -170,6 +185,8 @@ export default function ImageAnalysisPanel({ open, onClose, doc, thumbUrl, onUpd
               {view.ai_suggested_copy?.landing_headline && (
                 <CopySection label="Landing headline" value={view.ai_suggested_copy.landing_headline} onCopy={copy} />
               )}
+
+              <AnalysisActionsBar doc={doc} analysis={view} imageUrl={thumbUrl} />
 
               <Button variant="outline" onClick={analyze} className="w-full">
                 <RotateCw className="h-4 w-4" /> Újragenerálás
