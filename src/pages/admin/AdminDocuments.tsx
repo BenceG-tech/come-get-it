@@ -68,6 +68,7 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
   const [selected, setSelected] = useState<Record<string, boolean>>({});
   const [ratingFilter, setRatingFilter] = useState<"all" | "high" | "mid" | "low" | "none">("all");
   const [auditing, setAuditing] = useState(false);
+  const [tagging, setTagging] = useState(false);
   const [editing, setEditing] = useState<any>(null);
   const [lightbox, setLightbox] = useState<{ url: string; title: string; isVideo: boolean } | null>(null);
   const [signedCache, setSignedCache] = useState<Record<string, string>>({});
@@ -303,6 +304,9 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
           </Button>
           <Button variant="outline" size="sm" onClick={runAudit} disabled={auditing}>
             <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">{auditing ? "Auditálás…" : "AI audit"}</span>
+          </Button>
+          <Button variant="outline" size="sm" onClick={runAiTagEmbed} disabled={tagging}>
+            <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">{tagging ? "Cimkézés…" : "AI cimkék + embed"}</span>
           </Button>
           <Button variant="outline" size="sm" asChild>
             <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> <span className="hidden sm:inline">Audit lista</span></Link>
