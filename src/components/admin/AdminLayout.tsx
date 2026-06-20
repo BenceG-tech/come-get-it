@@ -10,6 +10,8 @@ import { VoiceCaptureFAB } from "@/components/admin/VoiceCaptureFAB";
 
 const items = [
   { to: "/admin", label: "Áttekintés", icon: LayoutDashboard, end: true },
+  { to: "/admin/inbox", label: "Inbox", icon: Inbox },
+  { to: "/admin/simulator", label: "Pipeline simulator", icon: TrendingUp },
   { to: "/admin/content", label: "Content Studio", icon: Wand2 },
   { to: "/admin/brand", label: "Brand Memory", icon: Palette },
   { to: "/admin/leads", label: "Leadek (vendéglátó)", icon: Target },
