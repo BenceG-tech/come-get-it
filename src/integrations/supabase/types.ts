@@ -180,10 +180,71 @@ export type Database = {
           },
         ]
       }
+      content_briefs: {
+        Row: {
+          angle: string | null
+          brand_score: number | null
+          channel_mix: Json
+          created_at: string
+          created_by: string | null
+          cta: string | null
+          id: string
+          key_points: Json
+          notes: string | null
+          scheduled_for: string | null
+          source_id: string | null
+          source_type: string
+          status: string
+          target_audience: string | null
+          title: string
+          tone: string | null
+          updated_at: string
+        }
+        Insert: {
+          angle?: string | null
+          brand_score?: number | null
+          channel_mix?: Json
+          created_at?: string
+          created_by?: string | null
+          cta?: string | null
+          id?: string
+          key_points?: Json
+          notes?: string | null
+          scheduled_for?: string | null
+          source_id?: string | null
+          source_type?: string
+          status?: string
+          target_audience?: string | null
+          title: string
+          tone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          angle?: string | null
+          brand_score?: number | null
+          channel_mix?: Json
+          created_at?: string
+          created_by?: string | null
+          cta?: string | null
+          id?: string
+          key_points?: Json
+          notes?: string | null
+          scheduled_for?: string | null
+          source_id?: string | null
+          source_type?: string
+          status?: string
+          target_audience?: string | null
+          title?: string
+          tone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       content_generations: {
         Row: {
           brand_fit_score: number | null
           brief: string | null
+          brief_id: string | null
           created_at: string
           created_by: string | null
           formats: Json
@@ -196,6 +257,7 @@ export type Database = {
         Insert: {
           brand_fit_score?: number | null
           brief?: string | null
+          brief_id?: string | null
           created_at?: string
           created_by?: string | null
           formats?: Json
@@ -208,6 +270,7 @@ export type Database = {
         Update: {
           brand_fit_score?: number | null
           brief?: string | null
+          brief_id?: string | null
           created_at?: string
           created_by?: string | null
           formats?: Json
@@ -217,7 +280,15 @@ export type Database = {
           selected_variants?: Json
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "content_generations_brief_id_fkey"
+            columns: ["brief_id"]
+            isOneToOne: false
+            referencedRelation: "content_briefs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       daily_briefings: {
         Row: {
@@ -755,6 +826,8 @@ export type Database = {
       marketing_calendar: {
         Row: {
           assistant_rationale: string | null
+          brand_score: number | null
+          brief_id: string | null
           channel: string
           content_draft: string | null
           created_at: string
@@ -774,6 +847,8 @@ export type Database = {
         }
         Insert: {
           assistant_rationale?: string | null
+          brand_score?: number | null
+          brief_id?: string | null
           channel?: string
           content_draft?: string | null
           created_at?: string
@@ -793,6 +868,8 @@ export type Database = {
         }
         Update: {
           assistant_rationale?: string | null
+          brand_score?: number | null
+          brief_id?: string | null
           channel?: string
           content_draft?: string | null
           created_at?: string
@@ -811,6 +888,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "marketing_calendar_brief_id_fkey"
+            columns: ["brief_id"]
+            isOneToOne: false
+            referencedRelation: "content_briefs"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "marketing_calendar_image_doc_id_fkey"
             columns: ["image_doc_id"]
@@ -1210,6 +1294,72 @@ export type Database = {
             columns: ["linked_image_doc_id"]
             isOneToOne: false
             referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      snippet_performance: {
+        Row: {
+          calendar_id: string | null
+          channel: string
+          clicks: number | null
+          comments: number | null
+          created_at: string
+          created_by: string | null
+          id: string
+          impressions: number | null
+          notes: string | null
+          reactions: number | null
+          recorded_at: string
+          shares: number | null
+          snippet_id: string | null
+          source: string
+        }
+        Insert: {
+          calendar_id?: string | null
+          channel: string
+          clicks?: number | null
+          comments?: number | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          impressions?: number | null
+          notes?: string | null
+          reactions?: number | null
+          recorded_at?: string
+          shares?: number | null
+          snippet_id?: string | null
+          source?: string
+        }
+        Update: {
+          calendar_id?: string | null
+          channel?: string
+          clicks?: number | null
+          comments?: number | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          impressions?: number | null
+          notes?: string | null
+          reactions?: number | null
+          recorded_at?: string
+          shares?: number | null
+          snippet_id?: string | null
+          source?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "snippet_performance_calendar_id_fkey"
+            columns: ["calendar_id"]
+            isOneToOne: false
+            referencedRelation: "marketing_calendar"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "snippet_performance_snippet_id_fkey"
+            columns: ["snippet_id"]
+            isOneToOne: false
+            referencedRelation: "saved_content_snippets"
             referencedColumns: ["id"]
           },
         ]
