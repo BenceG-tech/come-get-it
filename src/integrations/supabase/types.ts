@@ -719,6 +719,39 @@ export type Database = {
         }
         Relationships: []
       }
+      entity_scores: {
+        Row: {
+          computed_at: string
+          entity_id: string
+          entity_type: string
+          id: string
+          model: string | null
+          next_action: string | null
+          reasons: Json
+          score: number
+        }
+        Insert: {
+          computed_at?: string
+          entity_id: string
+          entity_type: string
+          id?: string
+          model?: string | null
+          next_action?: string | null
+          reasons?: Json
+          score: number
+        }
+        Update: {
+          computed_at?: string
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          model?: string | null
+          next_action?: string | null
+          reasons?: Json
+          score?: number
+        }
+        Relationships: []
+      }
       image_analysis_versions: {
         Row: {
           created_at: string
@@ -951,6 +984,157 @@ export type Database = {
         }
         Relationships: []
       }
+      outreach_enrollments: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          current_step: number
+          entity_id: string
+          entity_type: string
+          finished_at: string | null
+          id: string
+          metadata: Json
+          next_run_at: string | null
+          sequence_id: string
+          started_at: string
+          status: string
+          stop_reason: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          current_step?: number
+          entity_id: string
+          entity_type: string
+          finished_at?: string | null
+          id?: string
+          metadata?: Json
+          next_run_at?: string | null
+          sequence_id: string
+          started_at?: string
+          status?: string
+          stop_reason?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          current_step?: number
+          entity_id?: string
+          entity_type?: string
+          finished_at?: string | null
+          id?: string
+          metadata?: Json
+          next_run_at?: string | null
+          sequence_id?: string
+          started_at?: string
+          status?: string
+          stop_reason?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "outreach_enrollments_sequence_id_fkey"
+            columns: ["sequence_id"]
+            isOneToOne: false
+            referencedRelation: "outreach_sequences"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      outreach_events: {
+        Row: {
+          body_preview: string | null
+          channel: string
+          clicked_at: string | null
+          enrollment_id: string
+          external_id: string | null
+          id: string
+          metadata: Json
+          opened_at: string | null
+          replied_at: string | null
+          sent_at: string
+          status: string
+          step_index: number
+          subject: string | null
+        }
+        Insert: {
+          body_preview?: string | null
+          channel: string
+          clicked_at?: string | null
+          enrollment_id: string
+          external_id?: string | null
+          id?: string
+          metadata?: Json
+          opened_at?: string | null
+          replied_at?: string | null
+          sent_at?: string
+          status?: string
+          step_index: number
+          subject?: string | null
+        }
+        Update: {
+          body_preview?: string | null
+          channel?: string
+          clicked_at?: string | null
+          enrollment_id?: string
+          external_id?: string | null
+          id?: string
+          metadata?: Json
+          opened_at?: string | null
+          replied_at?: string | null
+          sent_at?: string
+          status?: string
+          step_index?: number
+          subject?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "outreach_events_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "outreach_enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      outreach_sequences: {
+        Row: {
+          active: boolean
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          kind: string
+          name: string
+          steps: Json
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          kind?: string
+          name: string
+          steps?: Json
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          kind?: string
+          name?: string
+          steps?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       partner_documents_sent: {
         Row: {
           channel: Database["public"]["Enums"]["interaction_channel"] | null
@@ -1126,6 +1310,7 @@ export type Database = {
           score_reasons: Json | null
           score_updated_at: string | null
           source: string | null
+          stage_id: string | null
           status: Database["public"]["Enums"]["partner_status"]
           tags: string[] | null
           type: Database["public"]["Enums"]["partner_type"]
@@ -1160,6 +1345,7 @@ export type Database = {
           score_reasons?: Json | null
           score_updated_at?: string | null
           source?: string | null
+          stage_id?: string | null
           status?: Database["public"]["Enums"]["partner_status"]
           tags?: string[] | null
           type?: Database["public"]["Enums"]["partner_type"]
@@ -1194,13 +1380,166 @@ export type Database = {
           score_reasons?: Json | null
           score_updated_at?: string | null
           source?: string | null
+          stage_id?: string | null
           status?: Database["public"]["Enums"]["partner_status"]
           tags?: string[] | null
           type?: Database["public"]["Enums"]["partner_type"]
           updated_at?: string
           website?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "partners_stage_id_fkey"
+            columns: ["stage_id"]
+            isOneToOne: false
+            referencedRelation: "pipeline_stages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pipeline_stages: {
+        Row: {
+          color: string | null
+          created_at: string
+          id: string
+          is_terminal: boolean
+          key: string
+          kind: string
+          label: string
+          order: number
+          sla_days: number | null
+          updated_at: string
+          win_probability: number | null
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          id?: string
+          is_terminal?: boolean
+          key: string
+          kind: string
+          label: string
+          order?: number
+          sla_days?: number | null
+          updated_at?: string
+          win_probability?: number | null
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          id?: string
+          is_terminal?: boolean
+          key?: string
+          kind?: string
+          label?: string
+          order?: number
+          sla_days?: number | null
+          updated_at?: string
+          win_probability?: number | null
+        }
         Relationships: []
+      }
+      pipeline_tasks: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          due_at: string | null
+          entity_id: string
+          entity_type: string
+          id: string
+          metadata: Json
+          owner: string | null
+          source: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_at?: string | null
+          entity_id: string
+          entity_type: string
+          id?: string
+          metadata?: Json
+          owner?: string | null
+          source?: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_at?: string | null
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          metadata?: Json
+          owner?: string | null
+          source?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pipeline_transitions: {
+        Row: {
+          ai_suggested: boolean
+          by_user: string | null
+          created_at: string
+          entity_id: string
+          entity_type: string
+          from_stage_id: string | null
+          id: string
+          reason: string | null
+          to_stage_id: string | null
+        }
+        Insert: {
+          ai_suggested?: boolean
+          by_user?: string | null
+          created_at?: string
+          entity_id: string
+          entity_type: string
+          from_stage_id?: string | null
+          id?: string
+          reason?: string | null
+          to_stage_id?: string | null
+        }
+        Update: {
+          ai_suggested?: boolean
+          by_user?: string | null
+          created_at?: string
+          entity_id?: string
+          entity_type?: string
+          from_stage_id?: string | null
+          id?: string
+          reason?: string | null
+          to_stage_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pipeline_transitions_from_stage_id_fkey"
+            columns: ["from_stage_id"]
+            isOneToOne: false
+            referencedRelation: "pipeline_stages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pipeline_transitions_to_stage_id_fkey"
+            columns: ["to_stage_id"]
+            isOneToOne: false
+            referencedRelation: "pipeline_stages"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
