@@ -87,6 +87,15 @@ export default function AdminDashboard() {
         <p className="text-sm text-nf-text-muted">{new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
       </div>
 
+      {/* Cockpit row: focus + waitlist + pipeline + time */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        <DailyFocusCard />
+        <WaitlistGrowth />
+        <PipelineFunnel />
+        <TimeTracker />
+      </div>
+
+
       {/* Quick action row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Link to="/admin/content">
