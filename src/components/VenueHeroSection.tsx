@@ -111,11 +111,11 @@ export const VenueHeroSection: React.FC = () => {
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  'radial-gradient(ellipse 55% 55% at 50% 50%, rgba(0,188,212,0.55) 0%, rgba(0,188,212,0.22) 45%, transparent 75%)',
-                filter: 'blur(28px)',
+                  'radial-gradient(ellipse 42% 42% at 50% 50%, rgba(0,188,212,0.7) 0%, rgba(0,188,212,0.3) 40%, transparent 65%)',
+                filter: 'blur(18px)',
               }}
             />
-            <div className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
+            <div className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_28px_rgba(0,188,212,0.6))]">
               <PhoneMockup imageUrl={venueDetailImage} />
             </div>
           </div>
