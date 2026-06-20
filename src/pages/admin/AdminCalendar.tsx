@@ -37,6 +37,7 @@ export default function AdminCalendar() {
   const [items, setItems] = useState<any[]>([]);
   const [form, setForm] = useState({ ...EMPTY_FORM });
   const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState<Record<string, boolean>>({});
   const { toast } = useToast();
 
   // Plan generator
@@ -75,7 +76,33 @@ export default function AdminCalendar() {
   const remove = async (id: string) => {
     if (!confirm("Törlöd?")) return;
     await supabase.from("marketing_calendar").delete().eq("id", id);
+    setSelected((p) => { const n = { ...p }; delete n[id]; return n; });
     load();
+  };
+
+  const selectedIds = Object.keys(selected).filter((k) => selected[k]);
+
+  const toggleSelect = (id: string) =>
+    setSelected((p) => ({ ...p, [id]: !p[id] }));
+
+  const toggleAll = () => {
+    if (selectedIds.length === items.length) setSelected({});
+    else setSelected(Object.fromEntries(items.map((it) => [it.id, true])));
+  };
+
+  const bulkDelete = async () => {
+    if (selectedIds.length === 0) return;
+    if (!confirm(`Biztosan törlöd a ${selectedIds.length} kijelölt bejegyzést?`)) return;
+    const { error } = await supabase.from("marketing_calendar").delete().in("id", selectedIds);
+    if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} bejegyzés törölve` }); setSelected({}); load(); }
+  };
+
+  const bulkStatus = async (status: string) => {
+    if (selectedIds.length === 0) return;
+    const { error } = await supabase.from("marketing_calendar").update({ status: status as any }).in("id", selectedIds);
+    if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} bejegyzés frissítve` }); setSelected({}); load(); }
   };
 
   const runPlan = async () => {
