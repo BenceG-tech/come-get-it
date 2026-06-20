@@ -22,6 +22,9 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminPartners from "./pages/admin/AdminPartners";
 import AdminPartnerDetail from "./pages/admin/AdminPartnerDetail";
 import AdminDocuments from "./pages/admin/AdminDocuments";
+import AdminDocumentViewer from "./pages/admin/AdminDocumentViewer";
+import AdminDocumentsAudit from "./pages/admin/AdminDocumentsAudit";
+import AdminChecklist from "./pages/admin/AdminChecklist";
 import AdminAI from "./pages/admin/AdminAI";
 import AdminCalendar from "./pages/admin/AdminCalendar";
 
