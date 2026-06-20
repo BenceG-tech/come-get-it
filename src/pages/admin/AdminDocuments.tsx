@@ -73,6 +73,8 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
   const [signedCache, setSignedCache] = useState<Record<string, string>>({});
   const [batchOpen, setBatchOpen] = useState(false);
   const [aiImage, setAiImage] = useState<any | null>(null);
+  const [bulkOpen, setBulkOpen] = useState(false);
+  const [orgOpen, setOrgOpen] = useState(false);
   const [form, setForm] = useState({
     title: "", folder: "", category: "other", description: "", when_to_use: "", content: "", file: null as File | null,
   });
