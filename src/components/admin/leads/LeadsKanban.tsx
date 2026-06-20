@@ -45,14 +45,15 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
     const from = e.dataTransfer.getData("from-status");
     if (!id || from === status) return;
     onStatusChange(id, status);
-    // Record transition
+    const fromStage = stages.find((s) => s.key === from);
+    const toStage = stages.find((s) => s.key === status);
     const { data: auth } = await supabase.auth.getUser();
     await supabase.from("pipeline_transitions").insert({
-      entity_kind: "partner",
+      entity_type: "partner",
       entity_id: id,
-      from_stage: from || null,
-      to_stage: status,
-      created_by: auth.user?.id ?? null,
+      from_stage_id: fromStage?.id ?? null,
+      to_stage_id: toStage?.id ?? null,
+      by_user: auth.user?.id ?? null,
     });
     trackEvent("stage_transition", { entity_type: "partner", entity_id: id, metadata: { from, to: status } });
   };
