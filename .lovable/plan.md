@@ -1,64 +1,79 @@
-# Bugfix + Content Studio 2.0 + Marketing AI Kalendárium
+## Cél
+Egyszerre javítjuk a legégetőbb hibát: a dokumentumok ne fehér/üres nézetet mutassanak, hanem azonnal legyen látható preview vagy biztos fallback. Emellett a Content Studio kapjon AI brief-ajánlót, stratégiai content javaslatokat, médiatár-kép ajánlást/generálást, a naptár pedig tömeges törlést.
 
-## 1. Bugfix — "uploaded_by" oszlop nem létezik
+## 1. Dokumentum preview végleges javítása
+- Az `/admin/documents/:id` oldalon megszüntetem a PDF iframe-re épülő fő megjelenítést, mert ez böngészőben és új lapon is gyakran fehér képernyőt ad privát signed URL-nél.
+- Beépítek egy biztos preview fallbacket:
+  - ha van `content`, `summary`, `ai_summary`, `description` vagy elemzett szöveg: az jelenjen meg elsődlegesen olvasható panelben;
+  - PDF esetén legyen nagy, egyértelmű „Megnyitás új lapon” és „Letöltés” blokk, plusz metaadatok;
+  - képnél saját image preview marad;
+  - nem támogatott fájlnál sem üres felület lesz, hanem fájl-információ + letöltés.
+- Az új lapos megnyitásnál signed URL helyett lehetőség szerint kontrollált app-route nyíljon meg, ami ugyanazt a fallback preview-t mutatja, így nem fehér storage/PDF nézetre visz.
+- A dokumentum listából a „Megnyitás” minden dokumentumnál az app preview route-ra vigyen, ne közvetlen signed URL-re.
 
-A `image-analysis-to-doc` edge function `uploaded_by`-t ír be a `documents` táblába, de a tényleges oszlop a `created_by`. **1-soros fix**: `uploaded_by` → `created_by`. Egyúttal `is_ai_generated: true` jelzéssel mentjük.
+## 2. Content Studio egyszerűbb, de okosabb workflow
+- A Content Studio tetejére kerül egy „AI brief-ajánló” blokk:
+  - cél kiválasztása: vendéglátó partner toborzás, founding partner, waitlist, brand edukáció, heti social;
+  - AI gomb: a Brand Memory, dokumentumok, mentett snippetek és marketing naptár alapján javasol 3-5 stratégiai briefet;
+  - egy kattintással bármelyik brief betölthető és generálható.
+- A generált tartalom nem csak „szövegvariáns” lesz, hanem javaslatcsomag:
+  - miért ez a szög;
+  - kinek szól;
+  - melyik csatornára való;
+  - javasolt posztidő;
+  - képirány / kreatív brief;
+  - CTA.
+- Megmarad a multi-favorite és a mentett könyvtár, de a felületet tisztábbra rendezem: elsődleges gombok: „Mentés”, „Kép ajánlás”, „Kép generálás”, „Naptárba”.
 
-## 2. Content Studio 2.0
+## 3. A második képen lévő chat-kérés megoldása
+A kérésed lényege: „tudsz ehhez illő Insta poszt képet csinálni, el tudjuk menteni későbbre, egybe rakod a képet a szöveggel, és az admin felületen legyen később felhasználható”.
 
-### A. Mentés későbbre + multi-favorite
-- **Adatmodell változás**: `content_generations.selected_variants` jelentését bővítjük — `Record<formatKey, number[]>` (több index egy formátum alatt). UI a `Heart` gombbal több variánst is be tud jelölni egy kategórián belül (kék pötty számláló a Card fejlécén).
-- **Új tábla: `saved_content_snippets`** — egy-egy konkrét variáns "lementve későbbre" funkció.
-  - Oszlopok: `format_key`, `format_label`, `text`, `notes`, `brief`, `persona`, `generation_id`, `tags TEXT[]`, `linked_image_doc_id`, `scheduled_calendar_id` (FK ha be lett ütemezve), `created_by`, timestamps.
-  - UI: minden variáns mellett "📌 Mentés" + "🗂 Könyvtár" tab az oldalon, ahol az összes saved snippet listázva, szűrhető formátum / tag szerint.
+Megoldás:
+- Az AI asszisztens válaszai mellé kerül egy „Tartalommá alakítás” workflow:
+  - a chatben kiválasztott posztszöveget el lehet menteni snippetként;
+  - automatikusan kérhet hozzá médiatár-ajánlást;
+  - lehet hozzá új képet generálni;
+  - a kép + szöveg együtt menthető a Content Studio könyvtárba;
+  - innen naptárba ütemezhető.
+- Ha egyszerűbb első kör kell: a Content Studio-ban lesz egy „Szöveg beillesztése AI chatből” mező, amelyre ugyanaz a képajánló/generáló/mentő pipeline fut.
 
-### B. Képek a posztokhoz
-Két új gomb minden variáns mellett:
-- **🖼 Médiatárból ajánlj** — új edge fn `match-media-for-post`:
-  - Bemenet: `text` (variáns), `format_key`.
-  - Lekérdezi a `documents` táblát ahol `mime_type LIKE 'image/%'`, kompakt listát (id, title, ai_description, ai_tags, ai_mood, storage_path) → AI rangsorol (Gemini Flash), visszaad top 5-öt `score`+`reason`-nel.
-  - UI: oldalpanel/dialóg mutatja a thumbnails-eket; egy kattintással csatolható a snippethez (`linked_image_doc_id`).
-- **✨ Generálj képet** — új edge fn `generate-post-image`:
-  - Bemenet: `text`, `format_key`, `style` (auto: insta=4:5, story=9:16, fb=1.91:1, linkedin=1.91:1).
-  - AI Gateway `/v1/images/generations`, `openai/gpt-image-2`, `quality: low`, `stream: true`. SSE stream visszamegy a frontend felé (progressive preview).
-  - **Brand-aware system prompt**: `brand_knowledge` betöltve → "Come Get It cinematic dark, electric cyan #00bcd4, neon glow, Budapest nightlife, leave clear top-left padding for logo overlay, no text in the image". Tiltott szavak / IP-szabályok érvényesülnek.
-  - Mentés a `admin-docs` bucketba `post-images/<user>/<ts>.png`, és `documents` rekord (`is_ai_generated: true`, `ai_description` = az eredeti poszt-text), automatikus csatolás a snippethez.
+## 4. Marketing naptár tömeges kezelés
+- A naptár listában checkboxok lesznek a bejegyzések mellett.
+- Fejlécben megjelenik egy bulk action bar:
+  - kijelöltek törlése;
+  - státusz módosítása;
+  - kijelölés törlése.
+- A törlés előtt egyetlen megerősítés lesz: hány bejegyzést törlünk.
 
-### C. Logo auto-overlay
-- Frontend canvas-helper (`src/lib/compose-with-logo.ts`): bemenet `imageUrl` + `position` (`top-left` default, `bottom-right` opt) + `opacity` → kimenet data URL. A `come-get-it-logo.png` projektben már megvan (`src/assets/come-get-it-logo.png`).
-- "Letöltés logoval" gomb minden képnél (eredeti + logózott verzió). Az AI-generált képnél default rákerül a logo a thumbnailre is, hogy realisztikus legyen a preview.
+## 5. Instagram összekapcsolás: mit lehet most és mit később
+Első körben az appon belül megcsinálom az „Instagram-ready” workflow-t:
+- poszt szöveg + kép + hashtagek + időpont mentése;
+- logózott kép letöltése;
+- naptárból másolható caption.
 
-## 3. Marketing Kalendárium + AI asszisztens
+Valódi Instagram automatikus publikáláshoz később Meta/Instagram Graph API kell:
+- Instagram Business vagy Creator account;
+- Facebook Page-hez kapcsolva;
+- Meta app jogosultságokkal (`instagram_content_publish`, pages permissions);
+- review/engedélyezés szükséges lehet.
+Ezt külön integrációs hullámban érdemes megcsinálni, mert OAuth + token tárolás + publikálási szabályok kellenek hozzá.
 
-### A. Schema bővítés (`marketing_calendar`)
-- Új oszlopok: `scheduled_time TIME`, `image_doc_id UUID` (FK documents), `saved_snippet_id UUID` (FK saved_content_snippets), `assistant_rationale TEXT` (miért épp ekkor / itt).
+## 6. Technikai részletek
+- Frontend módosítások:
+  - `AdminDocumentViewer.tsx`: iframe helyett robust preview/fallback layout.
+  - `AdminDocuments.tsx`: dokumentumok megnyitása mindig app preview route-ra.
+  - `AdminContentStudio.tsx`: AI brief-ajánló, stratégiai kártyák, chatből/importált szöveg kezelés, mentés/kép/naptár flow tisztítás.
+  - `AdminCalendar.tsx`: bulk select + bulk delete/status.
+- Edge function módosítások/újak:
+  - `generate-multi-format`: stratégiai mezők bővítése.
+  - új `suggest-content-briefs`: Brand Memory + doksik + naptár alapján brief ajánlások.
+  - opcionálisan új `save-chat-content-snippet`, ha az AI chatből közvetlen mentést is bekötjük.
+- Adatbázis:
+  - ha szükséges, a `saved_content_snippets` kaphat plusz mezőket: `strategy`, `recommended_channel`, `recommended_time`, `creative_brief`.
+  - minden új/alter migration RLS-kompatibilis, admin-only hozzáféréssel.
 
-### B. AdminCalendar oldal újragondolva
-- **Heti / havi nézet** (CSS grid), kártyák csatornánként színkódolva (IG/FB/LinkedIn/Email).
-- Drag & drop nem szükséges — kattintás → "Új poszt" dialóg: dátum/idő/csatorna/típus, snippet választó (saved snippets listából), kép választó (linked media), opcionálisan brief mező → "Generálj most" gomb (Content Studio infrastruktúra).
-- Lista nézet: közelgő 14 nap, "Mára" highlight.
-
-### C. AI Marketing Asszisztens (új edge fn `marketing-plan-suggest`)
-- Bemenet: `range` (`next_week` / `next_month`), `goal` (opt., pl. "Founding Partner toborzás 5. ker"), `channels` (opt.).
-- System prompt: brand_knowledge + Budapest nightlife best practices (IG csü+pé 19-21h, LinkedIn ke-csü 9-11h, stb.) + meglévő scheduled posts (hogy ne ütközzön).
-- Kimenet: tervezett poszt-lista — minden elem: `scheduled_date`, `scheduled_time`, `channel`, `type`, `theme`, `brief` (a Content Studio-nak átadható), `rationale`.
-- UI panel a kalendárium fölött: "🪄 Generálj tervet a hét/hónap végéig" gomb → eredmény-lista → "Mindet beütemezem" / egyenként szerkeszthető → mentés `marketing_calendar`-ba `status='draft'`-tal.
-
-### D. Floating "Marketing AI" (külön az admin chat-től)
-- Kis chat-bubble a kalendárium oldalon → kérdez-felel a tervről ("Mit posztoljak ma este?", "Mit szólnál egy heti retrospektív poszthoz?"). Ugyanaz a Lovable AI Gateway + `marketing_calendar` kontextus.
-
-## 4. Sorrend & megerősítés
-
-**Sorrend** (külön commit-okban):
-1. Bugfix (uploaded_by) — perceken belül.
-2. Saved snippets tábla + multi-favorite + Saved Library tab.
-3. Match-media + generate-post-image edge fn-ek + UI a Content Studioban.
-4. Logo overlay helper + letöltés-logoval.
-5. Marketing calendar schema bővítés + új naptár UI + marketing-plan-suggest + Marketing AI bubble.
-
-**Megerősítendő**:
-- **Logo overlay default pozíció**: top-left, 80px padding, 24% width? (Vagy bottom-right?)
-- **AI képgenerátor modell**: `openai/gpt-image-2` (drágább, jobb tipo) vagy `google/gemini-3.1-flash-image-preview` (Nano Banana, gyors & olcsó)? Default: **gpt-image-2** posztokhoz mert kép-minőség kritikus.
-- **Marketing-plan időzítések alapja**: helyi Budapest-best-practice heuristika beépítve (nem külső analytics). Ok?
-
-Ha rábólintasz, indulok 1-től lefelé sorban.
+## 7. Validálás
+- Megnézem egy konkrét PDF doksinál, hogy többé ne legyen fehér preview.
+- Megnézem egy képnél és egy nem-PDF fájlnál is a megnyitást.
+- Kipróbálom a Content Studio-ban: AI brief ajánlás → generálás → kép ajánlás/generálás → mentés.
+- Kipróbálom a marketing naptárban a több kijelöléses törlést.
