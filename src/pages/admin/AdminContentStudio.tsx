@@ -10,9 +10,10 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import {
   Wand2, Loader2, Copy, Heart, Sparkles, RotateCcw, Bookmark, Image as ImageIcon,
-  ImagePlus, Download, Search, Trash2, Calendar, Lightbulb, ChevronRight
+  ImagePlus, Download, Search, Trash2, Calendar, Lightbulb, ChevronRight, FileText
 } from "lucide-react";
 import { composeWithLogo, downloadDataUrl } from "@/lib/compose-with-logo";
+import BriefsManager from "@/components/admin/content/BriefsManager";
 
 const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`;
 
