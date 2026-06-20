@@ -221,7 +221,7 @@ export default function AdminDrive() {
 
   const openDecisions = decisions.filter((d) => d.status === "open");
   const visibleInventory = inventory.filter((i) => showArchived ? i.archived : !i.archived);
-  const byTheme = visibleInventory.reduce((acc: Record<string, any[]>, item) => { (acc[item.theme || "Egyéb"] ||= []).push(item); return acc; }, {});
+  const byTheme = visibleInventory.reduce((acc: Record<string, any[]>, item) => { (acc[item.theme || "Egyéb"] ||= []).push(item); return acc; }, {} as Record<string, any[]>);
   const suggestedArchiveCount = inventory.filter((i) => !i.archived && i.suggested_action === "archive").length;
 
   return (
