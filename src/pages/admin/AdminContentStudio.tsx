@@ -249,12 +249,16 @@ export default function AdminContentStudio() {
         </p>
       </div>
 
-      <Tabs defaultValue="suggest">
+      <Tabs defaultValue="briefs">
         <TabsList>
+          <TabsTrigger value="briefs"><FileText className="h-4 w-4 mr-1" /> Briefek</TabsTrigger>
           <TabsTrigger value="suggest"><Lightbulb className="h-4 w-4 mr-1" /> AI brief-ajánló</TabsTrigger>
           <TabsTrigger value="generate"><Wand2 className="h-4 w-4 mr-1" /> Generálás</TabsTrigger>
           <TabsTrigger value="library"><Bookmark className="h-4 w-4 mr-1" /> Mentett könyvtár ({saved.length})</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="briefs"><BriefsManager /></TabsContent>
+
 
         <TabsContent value="suggest" className="space-y-4">
           <Card>
