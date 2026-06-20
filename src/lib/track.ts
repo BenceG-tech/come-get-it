@@ -28,7 +28,13 @@ export type MetricEventType =
   | "stage_transition"
   | "sla_breach"
   | "pipeline_task_created"
-  | "pipeline_task_completed";
+  | "pipeline_task_completed"
+  | "doc_tagged"
+  | "doc_embedded"
+  | "doc_semantic_search"
+  | "doc_entity_linked"
+  | "doc_archived_suggested"
+  | "doc_opened";
 
 export async function trackEvent(
   event_type: MetricEventType | string,
