@@ -82,8 +82,8 @@ Deno.serve(async (req) => {
         resend_id: data.id, sent_by: userId,
       });
       await admin.from("partner_interactions").insert({
-        partner_id: p.id, type: "email_sent", summary: personalizedSubject, created_by: userId,
-      } as any);
+        partner_id: p.id, channel: "email", direction: "outbound", summary: personalizedSubject, created_by: userId,
+      });
       sent.push({ id: p.id, resend_id: data.id });
     }
 
