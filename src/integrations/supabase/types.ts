@@ -77,8 +77,11 @@ export type Database = {
           created_at: string
           created_by: string | null
           description: string | null
+          file_size_bytes: number | null
+          folder: string | null
           id: string
           is_ai_generated: boolean
+          mime_type: string | null
           partner_type: Database["public"]["Enums"]["partner_type"] | null
           related_partner_id: string | null
           storage_path: string | null
@@ -92,8 +95,11 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           description?: string | null
+          file_size_bytes?: number | null
+          folder?: string | null
           id?: string
           is_ai_generated?: boolean
+          mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
           related_partner_id?: string | null
           storage_path?: string | null
@@ -107,8 +113,11 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           description?: string | null
+          file_size_bytes?: number | null
+          folder?: string | null
           id?: string
           is_ai_generated?: boolean
+          mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
           related_partner_id?: string | null
           storage_path?: string | null
