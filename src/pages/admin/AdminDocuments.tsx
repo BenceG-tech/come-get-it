@@ -399,6 +399,11 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
                       <div className="flex items-center justify-between gap-1">
                         <span className="text-[10px] text-nf-text-muted truncate">{d.folder ?? "—"}</span>
                         <div className="flex gap-0.5">
+                          {!isVid && (
+                            <button onClick={() => setAiImage(d)} className={cn("p-1 rounded hover:bg-white/10", d.ai_description ? "text-electric-300" : "text-nf-text-muted hover:text-electric-300")} aria-label="AI elemzés" title={d.ai_description ? "AI elemzés megnézése" : "AI javaslatok"}>
+                              <Sparkles className="h-3 w-3" />
+                            </button>
+                          )}
                           <button onClick={() => toggleSelect(d.id)} className={cn("p-1 rounded hover:bg-white/10", isSel && "text-electric-300")} aria-label="Kijelölés">
                             <input type="checkbox" checked={isSel} readOnly className="h-3 w-3 accent-electric-300 pointer-events-none" />
                           </button>
@@ -523,8 +528,11 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
           <Button variant="neon" size="sm" onClick={chatWithSelected}>
             <MessageSquare className="h-3.5 w-3.5" /> Chat
           </Button>
+          <Button variant="outline" size="sm" onClick={() => setBatchOpen(true)}>
+            <Sparkles className="h-3.5 w-3.5" /> Batch AI
+          </Button>
           <Button variant="outline" size="sm" onClick={sendSelectedToAI}>
-            <Sparkles className="h-3.5 w-3.5" /> AI
+            <Sparkles className="h-3.5 w-3.5" /> AI panel
           </Button>
           <Button variant="outline" size="sm" onClick={bulkMove}>Áthelyez</Button>
           <Button variant="outline" size="sm" onClick={bulkDelete} className="text-red-400 hover:text-red-300">
@@ -538,6 +546,21 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
 
       {editing && <DocumentEditDialog doc={editing} open={!!editing} onClose={() => setEditing(null)} onSaved={load} />}
       <MediaLightbox open={!!lightbox} onClose={() => setLightbox(null)} url={lightbox?.url ?? null} title={lightbox?.title ?? ""} isVideo={!!lightbox?.isVideo} />
+      {batchOpen && (
+        <BatchProcessDialog
+          open={batchOpen}
+          onClose={() => setBatchOpen(false)}
+          docs={selectedDocs}
+          onDone={load}
+        />
+      )}
+      <ImageAnalysisPanel
+        open={!!aiImage}
+        onClose={() => setAiImage(null)}
+        doc={aiImage}
+        thumbUrl={aiImage ? (signedCache[aiImage.id] || (aiImage.storage_path?.startsWith("http") ? aiImage.storage_path : null)) : null}
+        onUpdated={load}
+      />
     </div>
   );
 }
