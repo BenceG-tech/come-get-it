@@ -53,7 +53,9 @@ export default function AdminAI() {
       });
       if (!res.ok) {
         const t = await res.text();
-        throw new Error(`AI hiba: ${res.status} ${t.slice(0, 200)}`);
+        let pretty = t;
+        try { const j = JSON.parse(t); pretty = j?.body ? (JSON.parse(j.body)?.message ?? j.body) : (j?.error ?? t); } catch {}
+        throw new Error(`AI hiba (${res.status}): ${String(pretty).slice(0, 240)}`);
       }
       if (!res.body) throw new Error("Nincs stream válasz");
 

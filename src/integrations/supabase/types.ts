@@ -70,6 +70,56 @@ export type Database = {
           },
         ]
       }
+      checklist_items: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          notes: string | null
+          priority: string
+          related_document_id: string | null
+          sort_order: number
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          notes?: string | null
+          priority?: string
+          related_document_id?: string | null
+          sort_order?: number
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          notes?: string | null
+          priority?: string
+          related_document_id?: string | null
+          sort_order?: number
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "checklist_items_related_document_id_fkey"
+            columns: ["related_document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       documents: {
         Row: {
           category: Database["public"]["Enums"]["document_category"]
@@ -77,12 +127,17 @@ export type Database = {
           created_at: string
           created_by: string | null
           description: string | null
+          duplicate_group: string | null
+          duplicate_recommendation: string | null
           file_size_bytes: number | null
           folder: string | null
           id: string
           is_ai_generated: boolean
+          keep_status: string | null
           mime_type: string | null
           partner_type: Database["public"]["Enums"]["partner_type"] | null
+          quality_notes: string | null
+          quality_score: number | null
           related_partner_id: string | null
           storage_path: string | null
           title: string
@@ -95,12 +150,17 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           description?: string | null
+          duplicate_group?: string | null
+          duplicate_recommendation?: string | null
           file_size_bytes?: number | null
           folder?: string | null
           id?: string
           is_ai_generated?: boolean
+          keep_status?: string | null
           mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
+          quality_notes?: string | null
+          quality_score?: number | null
           related_partner_id?: string | null
           storage_path?: string | null
           title: string
@@ -113,12 +173,17 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           description?: string | null
+          duplicate_group?: string | null
+          duplicate_recommendation?: string | null
           file_size_bytes?: number | null
           folder?: string | null
           id?: string
           is_ai_generated?: boolean
+          keep_status?: string | null
           mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
+          quality_notes?: string | null
+          quality_score?: number | null
           related_partner_id?: string | null
           storage_path?: string | null
           title?: string

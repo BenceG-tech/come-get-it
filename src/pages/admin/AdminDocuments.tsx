@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { Plus, Trash2, ExternalLink, Copy, ChevronDown, ChevronRight, Upload, FileText, Image as ImageIcon } from "lucide-react";
+import { Plus, Trash2, ExternalLink, Copy, ChevronDown, ChevronRight, Upload, FileText, Image as ImageIcon, Star, ClipboardList } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const CATEGORIES = [
@@ -69,29 +70,9 @@ export default function AdminDocuments() {
   // Auto-open all folders when searching
   const isFolderOpen = (k: string) => (search ? true : openFolders[k] ?? folderKeys.length <= 3);
 
-  const openFile = async (storage_path: string | null) => {
-    if (!storage_path) return;
-    // External link?
-    if (storage_path.startsWith("http")) {
-      window.open(storage_path, "_blank", "noopener");
-      return;
-    }
-    // CRITICAL: open the tab SYNCHRONOUSLY (in the click handler) so mobile/desktop
-    // popup blockers don't kill it. Then redirect it once the signed URL is ready.
-    const win = window.open("about:blank", "_blank");
-    const { data, error } = await supabase.storage.from("admin-docs").createSignedUrl(storage_path, 3600);
-    if (error || !data) {
-      if (win) win.close();
-      toast({ title: "Hiba", description: error?.message ?? "Nem sikerült linket generálni", variant: "destructive" });
-      return;
-    }
-    if (win) {
-      win.location.href = data.signedUrl;
-    } else {
-      // Popup blocked → fallback: navigate current tab
-      window.location.assign(data.signedUrl);
-    }
-  };
+  // External links open in new tab; uploaded files go to the internal viewer page (no popup blocker, no blank screens)
+  const openExternal = (storage_path: string) => window.open(storage_path, "_blank", "noopener");
+
 
   const copyLink = async (storage_path: string | null) => {
     if (!storage_path) return;
@@ -168,9 +149,14 @@ export default function AdminDocuments() {
           <h1 className="text-2xl md:text-3xl font-bold">Dokumentumok</h1>
           <p className="text-sm text-nf-text-muted">{docs.length} doksi · {folderKeys.length} mappa</p>
         </div>
-        <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)} className="shrink-0">
-          <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Új doksi</span>
-        </Button>
+        <div className="flex gap-2 shrink-0">
+          <Button variant="outline" size="sm" asChild>
+            <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> <span className="hidden sm:inline">Audit</span></Link>
+          </Button>
+          <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)}>
+            <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Új doksi</span>
+          </Button>
+        </div>
       </div>
 
       {showNew && (
@@ -245,14 +231,33 @@ export default function AdminDocuments() {
                         {d.when_to_use && <p className="text-xs"><span className="text-electric-300">Mikor:</span> <span className="text-nf-text-muted">{d.when_to_use}</span></p>}
                         {d.storage_path && (
                           <div className="flex flex-wrap gap-2 pt-1">
-                            <Button size="sm" variant="neon" onClick={() => openFile(d.storage_path)}>
-                              <ExternalLink className="h-3.5 w-3.5" /> Megnyitás
-                            </Button>
+                            {d.storage_path.startsWith("http") ? (
+                              <Button size="sm" variant="neon" onClick={() => openExternal(d.storage_path)}>
+                                <ExternalLink className="h-3.5 w-3.5" /> Megnyitás
+                              </Button>
+                            ) : (
+                              <Button size="sm" variant="neon" asChild>
+                                <Link to={`/admin/documents/${d.id}`}>
+                                  <ExternalLink className="h-3.5 w-3.5" /> Megnyitás
+                                </Link>
+                              </Button>
+                            )}
                             <Button size="sm" variant="outline" onClick={() => copyLink(d.storage_path)}>
                               <Copy className="h-3.5 w-3.5" /> Link másol
                             </Button>
+                            {d.quality_score != null && (
+                              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs bg-electric-300/10 text-electric-300 border border-electric-300/30">
+                                <Star className="h-3 w-3" /> {d.quality_score}/10
+                              </span>
+                            )}
+                            {d.duplicate_group && (
+                              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                                Dup: {d.duplicate_group}
+                              </span>
+                            )}
                           </div>
                         )}
+
                         {d.content && (
                           <details className="text-sm text-nf-text-muted">
                             <summary className="cursor-pointer text-electric-300 text-xs">Szöveges tartalom</summary>

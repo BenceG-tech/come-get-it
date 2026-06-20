@@ -75,7 +75,8 @@ ${JSON.stringify(ctx.calendar, null, 0)}
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Lovable-API-Key": LOVABLE_API_KEY,
+        "X-Lovable-AIG-SDK": "raw-fetch",
       },
       body: JSON.stringify({
         model: "google/gemini-3-flash-preview",
