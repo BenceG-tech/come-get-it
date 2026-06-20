@@ -20,15 +20,18 @@ export default function ImageAnalysisPanel({ open, onClose, doc, thumbUrl, onUpd
   const [loading, setLoading] = useState(false);
   const [stream, setStream] = useState("");
   const [fresh, setFresh] = useState<any | null>(null);
+  const [versionOverride, setVersionOverride] = useState<any | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     if (open && doc) {
       setStream("");
       setFresh(null);
+      setVersionOverride(null);
     }
   }, [open, doc?.id]);
 
-  const view = fresh ?? doc;
+  const view = versionOverride ?? fresh ?? doc;
 
   const copy = async (txt: string) => {
     await navigator.clipboard.writeText(txt);
