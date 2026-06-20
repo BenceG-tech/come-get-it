@@ -628,42 +628,57 @@ export type Database = {
       }
       marketing_calendar: {
         Row: {
+          assistant_rationale: string | null
           channel: string
           content_draft: string | null
           created_at: string
           created_by: string | null
+          goal: string | null
           hashtags: string | null
           id: string
+          image_doc_id: string | null
           related_document_id: string | null
+          saved_snippet_id: string | null
           scheduled_date: string
+          scheduled_time: string | null
           status: Database["public"]["Enums"]["calendar_status"]
           title: string
           type: string
           updated_at: string
         }
         Insert: {
+          assistant_rationale?: string | null
           channel?: string
           content_draft?: string | null
           created_at?: string
           created_by?: string | null
+          goal?: string | null
           hashtags?: string | null
           id?: string
+          image_doc_id?: string | null
           related_document_id?: string | null
+          saved_snippet_id?: string | null
           scheduled_date: string
+          scheduled_time?: string | null
           status?: Database["public"]["Enums"]["calendar_status"]
           title: string
           type?: string
           updated_at?: string
         }
         Update: {
+          assistant_rationale?: string | null
           channel?: string
           content_draft?: string | null
           created_at?: string
           created_by?: string | null
+          goal?: string | null
           hashtags?: string | null
           id?: string
+          image_doc_id?: string | null
           related_document_id?: string | null
+          saved_snippet_id?: string | null
           scheduled_date?: string
+          scheduled_time?: string | null
           status?: Database["public"]["Enums"]["calendar_status"]
           title?: string
           type?: string
@@ -671,10 +686,24 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "marketing_calendar_image_doc_id_fkey"
+            columns: ["image_doc_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "marketing_calendar_related_document_id_fkey"
             columns: ["related_document_id"]
             isOneToOne: false
             referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "marketing_calendar_saved_snippet_id_fkey"
+            columns: ["saved_snippet_id"]
+            isOneToOne: false
+            referencedRelation: "saved_content_snippets"
             referencedColumns: ["id"]
           },
         ]
@@ -959,6 +988,72 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      saved_content_snippets: {
+        Row: {
+          brief: string | null
+          created_at: string
+          created_by: string | null
+          format_key: string
+          format_label: string
+          generation_id: string | null
+          id: string
+          linked_image_doc_id: string | null
+          notes: string | null
+          persona: string | null
+          scheduled_calendar_id: string | null
+          tags: string[]
+          text: string
+          updated_at: string
+        }
+        Insert: {
+          brief?: string | null
+          created_at?: string
+          created_by?: string | null
+          format_key: string
+          format_label: string
+          generation_id?: string | null
+          id?: string
+          linked_image_doc_id?: string | null
+          notes?: string | null
+          persona?: string | null
+          scheduled_calendar_id?: string | null
+          tags?: string[]
+          text: string
+          updated_at?: string
+        }
+        Update: {
+          brief?: string | null
+          created_at?: string
+          created_by?: string | null
+          format_key?: string
+          format_label?: string
+          generation_id?: string | null
+          id?: string
+          linked_image_doc_id?: string | null
+          notes?: string | null
+          persona?: string | null
+          scheduled_calendar_id?: string | null
+          tags?: string[]
+          text?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_content_snippets_generation_id_fkey"
+            columns: ["generation_id"]
+            isOneToOne: false
+            referencedRelation: "content_generations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "saved_content_snippets_linked_image_doc_id_fkey"
+            columns: ["linked_image_doc_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
