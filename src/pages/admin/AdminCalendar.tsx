@@ -328,6 +328,40 @@ export default function AdminCalendar() {
         {items.length === 0 && <div className="text-center text-nf-text-muted py-12">Nincs bejegyzés. Kattints az „AI tervez” gombra egy heti tervhez.</div>}
       </div>
 
+      {/* Autofill from approved briefs */}
+      <Dialog open={autofillOpen} onOpenChange={setAutofillOpen}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader><DialogTitle className="flex items-center gap-2"><CalendarDays className="h-5 w-5 text-electric-300" /> Brief autofill (2 hét)</DialogTitle></DialogHeader>
+          <div className="space-y-4">
+            <p className="text-xs text-nf-text-muted">Az approved briefeket szétosztja a következő 14 napra IG/FB/LI csatornákon, üres napokra. Konfliktust elkerül.</p>
+            <Button variant="neon" onClick={runAutofill} disabled={autofillLoading} className="w-full">
+              {autofillLoading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Számolás…</> : <><CalendarDays className="h-4 w-4 mr-2" /> Generálj javaslatot</>}
+            </Button>
+            {autofillResult && (
+              <div className="space-y-2">
+                {autofillResult.summary && <div className="text-sm p-2 bg-electric-300/10 border border-electric-300/30 rounded">{autofillResult.summary}</div>}
+                {autofillResult.suggestions?.length > 0 && (
+                  <>
+                    <div className="flex justify-end">
+                      <Button size="sm" variant="neon" onClick={acceptAllAutofill}>Mindet beütemezem ({autofillResult.suggestions.length})</Button>
+                    </div>
+                    <div className="space-y-1.5 max-h-[40vh] overflow-y-auto">
+                      {autofillResult.suggestions.map((s: any, i: number) => (
+                        <div key={i} className="p-2 rounded bg-nf-surface-alt text-xs flex items-center gap-2 flex-wrap">
+                          <span className="text-electric-300">{s.scheduled_date} {s.scheduled_time}</span>
+                          <span className={`px-2 py-0.5 rounded border text-[10px] uppercase ${CHANNEL_COLORS[s.channel] ?? CHANNEL_COLORS.other}`}>{s.channel}</span>
+                          <span className="truncate flex-1">{s.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* AI Plan Dialog */}
       <Dialog open={planOpen} onOpenChange={setPlanOpen}>
         <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
