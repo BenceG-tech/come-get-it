@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import {
   Wand2, Loader2, Copy, Heart, Sparkles, RotateCcw, Bookmark, Image as ImageIcon,
-  ImagePlus, Download, Search, Trash2, Calendar
+  ImagePlus, Download, Search, Trash2, Calendar, Lightbulb, ChevronRight
 } from "lucide-react";
 import { composeWithLogo, downloadDataUrl } from "@/lib/compose-with-logo";
 
