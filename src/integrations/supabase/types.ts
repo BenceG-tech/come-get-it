@@ -122,6 +122,15 @@ export type Database = {
       }
       documents: {
         Row: {
+          ai_analyzed_at: string | null
+          ai_description: string | null
+          ai_dominant_colors: string[] | null
+          ai_mood: string | null
+          ai_suggested_alt: string | null
+          ai_suggested_caption: string | null
+          ai_suggested_copy: Json | null
+          ai_tags: string[] | null
+          ai_use_cases: Json | null
           category: Database["public"]["Enums"]["document_category"]
           content: string | null
           created_at: string
@@ -150,6 +159,15 @@ export type Database = {
           when_to_use: string | null
         }
         Insert: {
+          ai_analyzed_at?: string | null
+          ai_description?: string | null
+          ai_dominant_colors?: string[] | null
+          ai_mood?: string | null
+          ai_suggested_alt?: string | null
+          ai_suggested_caption?: string | null
+          ai_suggested_copy?: Json | null
+          ai_tags?: string[] | null
+          ai_use_cases?: Json | null
           category?: Database["public"]["Enums"]["document_category"]
           content?: string | null
           created_at?: string
@@ -178,6 +196,15 @@ export type Database = {
           when_to_use?: string | null
         }
         Update: {
+          ai_analyzed_at?: string | null
+          ai_description?: string | null
+          ai_dominant_colors?: string[] | null
+          ai_mood?: string | null
+          ai_suggested_alt?: string | null
+          ai_suggested_caption?: string | null
+          ai_suggested_copy?: Json | null
+          ai_tags?: string[] | null
+          ai_use_cases?: Json | null
           category?: Database["public"]["Enums"]["document_category"]
           content?: string | null
           created_at?: string
