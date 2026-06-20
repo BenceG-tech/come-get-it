@@ -56,6 +56,7 @@ const App = () => (
               <Route path="/admin/documents/:id" element={<AdminRoute><AdminLayout><AdminDocumentViewer /></AdminLayout></AdminRoute>} />
               <Route path="/admin/checklist" element={<AdminRoute><AdminLayout><AdminChecklist /></AdminLayout></AdminRoute>} />
               <Route path="/admin/ai" element={<AdminRoute><AdminLayout><AdminAI /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/ai/:threadId" element={<AdminRoute><AdminLayout><AdminAI /></AdminLayout></AdminRoute>} />
               <Route path="/admin/calendar" element={<AdminRoute><AdminLayout><AdminCalendar /></AdminLayout></AdminRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
