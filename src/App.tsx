@@ -50,6 +50,7 @@ const App = () => (
               <Route path="/come-get-it-accelerator" element={<ComeGetItAccelerator />} />
               <Route path="/adatvedelmi-szabalyzat" element={<AdatvedelmiSzabalyzat />} />
               <Route path="/admin" element={<AdminRoute><AdminLayout><AdminDashboard /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/leads" element={<AdminRoute><AdminLayout><AdminLeads /></AdminLayout></AdminRoute>} />
               <Route path="/admin/partners" element={<AdminRoute><AdminLayout><AdminPartners /></AdminLayout></AdminRoute>} />
               <Route path="/admin/partners/:id" element={<AdminRoute><AdminLayout><AdminPartnerDetail /></AdminLayout></AdminRoute>} />
               <Route path="/admin/documents" element={<AdminRoute><AdminLayout><AdminDocuments /></AdminLayout></AdminRoute>} />
