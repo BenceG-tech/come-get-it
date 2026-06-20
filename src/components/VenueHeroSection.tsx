@@ -77,7 +77,7 @@ export const VenueHeroSection: React.FC = () => {
                 }}
               >
                 {t('venues.hero.cta')}
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-1.5 h-4 w-4" />
               </Button>
               <Button
                 variant="outline"
