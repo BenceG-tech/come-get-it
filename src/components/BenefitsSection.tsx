@@ -58,7 +58,7 @@ export const BenefitsSection: React.FC = () => {
 
               {/* Bottom-aligned text */}
               <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 z-10">
-                <h3 className="font-anton uppercase tracking-tight text-white text-base md:text-lg leading-tight mb-2 group-hover:text-nf-primary transition-colors">
+                <h3 className="font-sans font-bold uppercase tracking-wider text-white text-sm sm:text-base leading-tight mb-2 group-hover:text-nf-primary transition-colors">
                   {t(titleKey)}
                 </h3>
                 <p className="text-xs md:text-sm text-white/70 leading-relaxed">
