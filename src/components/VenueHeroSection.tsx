@@ -82,7 +82,7 @@ export const VenueHeroSection: React.FC = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="py-4 px-8 text-lg w-full sm:w-auto rounded-full border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
+                className="w-full sm:w-auto border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
                 onClick={() => {
                   analytics.ctaClick('venue_hero_secondary', t('venues.hero.cta_secondary'));
                   document.querySelector('#how-it-works-venues')?.scrollIntoView({ behavior: 'smooth' });
