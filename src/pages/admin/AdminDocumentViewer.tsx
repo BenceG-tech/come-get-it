@@ -15,6 +15,8 @@ export default function AdminDocumentViewer() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+
   useEffect(() => {
     (async () => {
       if (!id) return;
@@ -22,11 +24,17 @@ export default function AdminDocumentViewer() {
       if (dErr || !data) { setError(dErr?.message ?? "Doksi nem található"); setLoading(false); return; }
       setDoc(data);
       if (data.storage_path) {
-        if (data.storage_path.startsWith("http")) {
-          setSignedUrl(data.storage_path);
-        } else {
+        let url = data.storage_path;
+        if (!data.storage_path.startsWith("http")) {
           const { data: s, error: sErr } = await supabase.storage.from("admin-docs").createSignedUrl(data.storage_path, 3600);
-          if (sErr || !s) setError(sErr?.message ?? "Nem sikerült link"); else setSignedUrl(s.signedUrl);
+          if (sErr || !s) { setError(sErr?.message ?? "Nem sikerült link"); setLoading(false); return; }
+          url = s.signedUrl;
+        }
+        setSignedUrl(url);
+        // On mobile, iframe-embedded PDFs render as blank white. Auto-open in a new tab.
+        const isPdf = data.mime_type === "application/pdf" || data.storage_path?.toLowerCase().endsWith(".pdf");
+        if (isMobile && isPdf) {
+          window.open(url, "_blank", "noopener,noreferrer");
         }
       }
       setLoading(false);
