@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Users, FileText, Sparkles, Calendar, ListChecks, Target, Image as ImageIcon, MessageSquare, Upload, ScanSearch, Cloud } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Sparkles, Calendar, ListChecks, Target, Image as ImageIcon, MessageSquare, Upload, ScanSearch, Cloud, Wand2, Palette } from "lucide-react";
 
 type Hit = { id: string; title: string; kind: "doc" | "partner" };
 
 const NAV = [
   { to: "/admin", label: "Áttekintés", icon: LayoutDashboard },
+  { to: "/admin/content", label: "Content Studio (multi-format)", icon: Wand2 },
+  { to: "/admin/brand", label: "Brand Memory", icon: Palette },
   { to: "/admin/leads", label: "Leadek", icon: Target },
   { to: "/admin/partners", label: "Partnerek", icon: Users },
   { to: "/admin/documents", label: "Dokumentumok", icon: FileText },

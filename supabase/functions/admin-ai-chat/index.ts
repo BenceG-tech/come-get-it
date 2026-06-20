@@ -1,5 +1,7 @@
 // @ts-nocheck
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+import { loadBrandContext } from "../_shared/brand-context.ts";
+
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -128,7 +130,8 @@ NAPTÁR (${ctx.calendar.length}): ${JSON.stringify(ctx.calendar)}
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) return new Response(JSON.stringify({ error: "LOVABLE_API_KEY missing" }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
-    const systemContent = SYSTEM_PROMPT + (critique ? CRITIQUE_INSTRUCTION : "");
+    const brandCtx = await loadBrandContext(supabase);
+    const systemContent = SYSTEM_PROMPT + (brandCtx ? `\n\n${brandCtx}` : "") + (critique ? CRITIQUE_INSTRUCTION : "");
 
     const upstream = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
