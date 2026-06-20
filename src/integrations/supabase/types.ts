@@ -129,18 +129,23 @@ export type Database = {
           description: string | null
           duplicate_group: string | null
           duplicate_recommendation: string | null
+          faq: Json | null
           file_size_bytes: number | null
           folder: string | null
           id: string
           is_ai_generated: boolean
           keep_status: string | null
+          key_points: Json | null
+          last_summarized_at: string | null
           mime_type: string | null
           partner_type: Database["public"]["Enums"]["partner_type"] | null
           quality_notes: string | null
           quality_score: number | null
           related_partner_id: string | null
           storage_path: string | null
+          suggested_questions: Json | null
           title: string
+          tldr: string | null
           updated_at: string
           when_to_use: string | null
         }
@@ -152,18 +157,23 @@ export type Database = {
           description?: string | null
           duplicate_group?: string | null
           duplicate_recommendation?: string | null
+          faq?: Json | null
           file_size_bytes?: number | null
           folder?: string | null
           id?: string
           is_ai_generated?: boolean
           keep_status?: string | null
+          key_points?: Json | null
+          last_summarized_at?: string | null
           mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
           quality_notes?: string | null
           quality_score?: number | null
           related_partner_id?: string | null
           storage_path?: string | null
+          suggested_questions?: Json | null
           title: string
+          tldr?: string | null
           updated_at?: string
           when_to_use?: string | null
         }
@@ -175,18 +185,23 @@ export type Database = {
           description?: string | null
           duplicate_group?: string | null
           duplicate_recommendation?: string | null
+          faq?: Json | null
           file_size_bytes?: number | null
           folder?: string | null
           id?: string
           is_ai_generated?: boolean
           keep_status?: string | null
+          key_points?: Json | null
+          last_summarized_at?: string | null
           mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
           quality_notes?: string | null
           quality_score?: number | null
           related_partner_id?: string | null
           storage_path?: string | null
+          suggested_questions?: Json | null
           title?: string
+          tldr?: string | null
           updated_at?: string
           when_to_use?: string | null
         }
