@@ -30,6 +30,7 @@ import AdminCalendar from "./pages/admin/AdminCalendar";
 import AdminLeads from "./pages/admin/AdminLeads";
 import AdminMedia from "./pages/admin/AdminMedia";
 import AdminDocumentChat from "./pages/admin/AdminDocumentChat";
+import AdminDrive from "./pages/admin/AdminDrive";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +61,7 @@ const App = () => (
               <Route path="/admin/documents/audit" element={<AdminRoute><AdminLayout><AdminDocumentsAudit /></AdminLayout></AdminRoute>} />
               <Route path="/admin/documents/:id" element={<AdminRoute><AdminLayout><AdminDocumentViewer /></AdminLayout></AdminRoute>} />
               <Route path="/admin/media" element={<AdminRoute><AdminLayout><AdminMedia /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/drive" element={<AdminRoute><AdminLayout><AdminDrive /></AdminLayout></AdminRoute>} />
               <Route path="/admin/checklist" element={<AdminRoute><AdminLayout><AdminChecklist /></AdminLayout></AdminRoute>} />
               <Route path="/admin/ai" element={<AdminRoute><AdminLayout><AdminAI /></AdminLayout></AdminRoute>} />
               <Route path="/admin/ai/:threadId" element={<AdminRoute><AdminLayout><AdminAI /></AdminLayout></AdminRoute>} />
