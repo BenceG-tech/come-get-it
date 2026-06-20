@@ -180,6 +180,32 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
     }
   };
 
+  const runAiTagEmbed = async () => {
+    if (tagging) return;
+    const targetIds = selectedIds.length > 0
+      ? selectedIds
+      : docs.filter((d) => !d.ai_hook).slice(0, 30).map((d) => d.id);
+    if (!targetIds.length) {
+      toast({ title: "Nincs cimkézendő doksi", description: "Jelölj ki vagy adj hozzá újat." });
+      return;
+    }
+    if (!confirm(`${targetIds.length} doksi AI cimkézése és embeddingje. Folytatod?`)) return;
+    setTagging(true);
+    try {
+      const tagP = supabase.functions.invoke("doc-auto-tag", { body: { document_ids: targetIds } });
+      const embP = supabase.functions.invoke("doc-embed", { body: { document_ids: targetIds } });
+      const [tagR, embR] = await Promise.all([tagP, embP]);
+      if (tagR.error) throw tagR.error;
+      if (embR.error) throw embR.error;
+      toast({ title: "AI cimkézés kész", description: `${targetIds.length} doksi feldolgozva.` });
+      load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setTagging(false);
+    }
+  };
+
   const getSignedUrl = async (storage_path: string): Promise<string | null> => {
     if (storage_path.startsWith("http")) return storage_path;
     const { data, error } = await supabase.storage.from("admin-docs").createSignedUrl(storage_path, 3600);
