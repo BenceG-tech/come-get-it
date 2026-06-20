@@ -248,11 +248,66 @@ export default function AdminContentStudio() {
         </p>
       </div>
 
-      <Tabs defaultValue="generate">
+      <Tabs defaultValue="suggest">
         <TabsList>
+          <TabsTrigger value="suggest"><Lightbulb className="h-4 w-4 mr-1" /> AI brief-ajánló</TabsTrigger>
           <TabsTrigger value="generate"><Wand2 className="h-4 w-4 mr-1" /> Generálás</TabsTrigger>
           <TabsTrigger value="library"><Bookmark className="h-4 w-4 mr-1" /> Mentett könyvtár ({saved.length})</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="suggest" className="space-y-4">
+          <Card>
+            <CardHeader><CardTitle className="text-base">Mi a célod most?</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Founding Partner toborzás",
+                  "Vendéglátóhely partnerek toborzása",
+                  "Waitlist növelés",
+                  "Brand edukáció",
+                  "Heti social rekap",
+                  "Italmárka B2B megkeresés",
+                ].map((g) => (
+                  <button key={g} onClick={() => setSuggestGoal(g)}
+                    className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
+                      suggestGoal === g ? "bg-electric-300/15 border-electric-300/50 text-electric-300" : "border-nf-border text-nf-text-muted hover:text-white"
+                    }`}>{g}</button>
+                ))}
+              </div>
+              <Input value={suggestGoal} onChange={(e) => setSuggestGoal(e.target.value)} placeholder="vagy írj saját kampánycélt…" className="bg-nf-surface-alt border-nf-border" />
+              <Button variant="neon" onClick={suggestBriefs} disabled={suggestLoading} className="w-full">
+                {suggestLoading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> AI gondolkodik…</> : <><Sparkles className="h-4 w-4 mr-2" /> Ajánlj 5 stratégiai briefet</>}
+              </Button>
+              <p className="text-xs text-nf-text-muted">Az AI figyelembe veszi a Brand Memory-t, a mentett snippeteket, az utóbbi briefeket és a naptárt, hogy ne ismételjen.</p>
+            </CardContent>
+          </Card>
+
+          {suggestions.length > 0 && (
+            <div className="grid md:grid-cols-2 gap-3">
+              {suggestions.map((b, i) => (
+                <Card key={i} className="hover:border-electric-300/50 transition-colors">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm">{b.title}</CardTitle>
+                    <div className="flex flex-wrap gap-1.5 mt-1.5 text-[10px]">
+                      {b.channel && <span className="px-2 py-0.5 rounded-full bg-electric-300/15 text-electric-300 border border-electric-300/30">{b.channel}</span>}
+                      {b.recommended_time && <span className="px-2 py-0.5 rounded-full bg-nf-surface-alt text-nf-text-muted border border-nf-border">{b.recommended_time}</span>}
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-xs">
+                    <p className="text-sm">{b.brief}</p>
+                    {b.audience && <p className="text-nf-text-muted"><span className="text-electric-300">Persona:</span> {b.audience}</p>}
+                    {b.strategy && <p className="text-nf-text-muted italic border-l-2 border-electric-300/40 pl-2">↳ {b.strategy}</p>}
+                    {b.creative_direction && <p className="text-nf-text-muted"><span className="text-electric-300">Vizuál:</span> {b.creative_direction}</p>}
+                    {b.cta && <p className="text-nf-text-muted"><span className="text-electric-300">CTA:</span> {b.cta}</p>}
+                    <Button size="sm" variant="neon" className="w-full mt-2" onClick={() => useBrief(b)}>
+                      Használom <ChevronRight className="h-3 w-3 ml-1" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </TabsContent>
 
         <TabsContent value="generate" className="space-y-6">
           <div className="grid md:grid-cols-[1fr_280px] gap-6">
