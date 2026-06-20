@@ -291,17 +291,39 @@ export default function AdminDocuments() {
                 <div className="divide-y divide-nf-border">
                   {grouped[k].map((d) => {
                     const isImg = d.mime_type?.startsWith("image/");
+                    const s = d.quality_score;
+                    const ratingColor =
+                      s == null ? "bg-nf-surface-alt text-nf-text-muted border-nf-border"
+                      : s >= 8 ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/40"
+                      : s >= 5 ? "bg-amber-500/15 text-amber-400 border-amber-500/40"
+                      : "bg-red-500/15 text-red-400 border-red-500/40";
+                    const isSel = !!selected[d.id];
                     return (
-                      <div key={d.id} className="p-4 space-y-2 bg-nf-surface-alt/30">
+                      <div key={d.id} className={cn("p-4 space-y-2 bg-nf-surface-alt/30 transition-colors", isSel && "bg-electric-300/5 ring-1 ring-electric-300/30 ring-inset")}>
                         <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-center gap-2">
-                              {d.storage_path && (isImg ? <ImageIcon className="h-4 w-4 text-electric-300 shrink-0" /> : <FileText className="h-4 w-4 text-electric-300 shrink-0" />)}
-                              <h3 className="font-medium truncate">{d.title}</h3>
-                            </div>
-                            <div className="text-xs text-nf-text-muted mt-0.5">
-                              {CATEGORIES.find((c) => c.v === d.category)?.l}
-                              {d.file_size_bytes ? ` · ${fmtBytes(d.file_size_bytes)}` : ""}
+                          <div className="flex items-start gap-3 min-w-0 flex-1">
+                            <input
+                              type="checkbox"
+                              checked={isSel}
+                              onChange={() => toggleSelect(d.id)}
+                              className="mt-1 h-4 w-4 rounded border-nf-border bg-nf-surface accent-electric-300 cursor-pointer shrink-0"
+                              aria-label="Kijelölés AI-hoz"
+                            />
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                {d.storage_path && (isImg ? <ImageIcon className="h-4 w-4 text-electric-300 shrink-0" /> : <FileText className="h-4 w-4 text-electric-300 shrink-0" />)}
+                                <h3 className="font-medium truncate">{d.title}</h3>
+                                <span
+                                  className={cn("inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] border shrink-0", ratingColor)}
+                                  title={d.quality_notes ?? (s == null ? "Még nincs AI értékelés" : "")}
+                                >
+                                  <Star className="h-3 w-3" /> {s != null ? `${s}/10` : "—"}
+                                </span>
+                              </div>
+                              <div className="text-xs text-nf-text-muted mt-0.5">
+                                {CATEGORIES.find((c) => c.v === d.category)?.l}
+                                {d.file_size_bytes ? ` · ${fmtBytes(d.file_size_bytes)}` : ""}
+                              </div>
                             </div>
                           </div>
                           <button onClick={() => remove(d)} className="text-nf-text-muted hover:text-red-400 p-1 shrink-0" aria-label="Törlés">
@@ -310,6 +332,11 @@ export default function AdminDocuments() {
                         </div>
                         {d.description && <p className="text-sm text-nf-text-muted">{d.description}</p>}
                         {d.when_to_use && <p className="text-xs"><span className="text-electric-300">Mikor:</span> <span className="text-nf-text-muted">{d.when_to_use}</span></p>}
+                        {d.quality_notes && (
+                          <p className="text-[11px] text-nf-text-muted italic border-l-2 border-electric-300/40 pl-2">
+                            <Sparkles className="h-3 w-3 inline mr-1 text-electric-300" />{d.quality_notes}
+                          </p>
+                        )}
                         {d.storage_path && (
                           <div className="flex flex-wrap gap-2 pt-1">
                             {d.storage_path.startsWith("http") ? (
@@ -326,11 +353,6 @@ export default function AdminDocuments() {
                             <Button size="sm" variant="outline" onClick={() => copyLink(d.storage_path)}>
                               <Copy className="h-3.5 w-3.5" /> Link másol
                             </Button>
-                            {d.quality_score != null && (
-                              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs bg-electric-300/10 text-electric-300 border border-electric-300/30">
-                                <Star className="h-3 w-3" /> {d.quality_score}/10
-                              </span>
-                            )}
                             {d.duplicate_group && (
                               <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30">
                                 Dup: {d.duplicate_group}
@@ -354,6 +376,20 @@ export default function AdminDocuments() {
           );
         })}
       </div>
+
+      {/* Selection action bar */}
+      {selectedIds.length > 0 && (
+        <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 bg-nf-surface border border-electric-300/40 rounded-full shadow-2xl px-3 py-2 flex items-center gap-2">
+          <span className="text-xs text-electric-300 font-medium px-2">{selectedIds.length} kijelölve</span>
+          <Button variant="neon" size="sm" onClick={sendSelectedToAI}>
+            <Sparkles className="h-4 w-4" /> AI-val dolgozz velük
+          </Button>
+          <button onClick={clearSelection} className="text-nf-text-muted hover:text-white p-1.5 rounded-full" aria-label="Kijelölés törlése">
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
+
