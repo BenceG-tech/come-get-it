@@ -47,6 +47,11 @@ export default function AdminCalendar() {
   const [planLoading, setPlanLoading] = useState(false);
   const [planResult, setPlanResult] = useState<{ plan: any[]; summary?: string } | null>(null);
 
+  // Autofill from approved briefs
+  const [autofillOpen, setAutofillOpen] = useState(false);
+  const [autofillLoading, setAutofillLoading] = useState(false);
+  const [autofillResult, setAutofillResult] = useState<any>(null);
+
   // Chat bubble
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([]);
