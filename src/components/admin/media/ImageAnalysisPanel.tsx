@@ -186,6 +186,8 @@ export default function ImageAnalysisPanel({ open, onClose, doc, thumbUrl, onUpd
                 <CopySection label="Landing headline" value={view.ai_suggested_copy.landing_headline} onCopy={copy} />
               )}
 
+              <AnalysisActionsBar doc={doc} analysis={view} imageUrl={thumbUrl} />
+
               <Button variant="outline" onClick={analyze} className="w-full">
                 <RotateCw className="h-4 w-4" /> Újragenerálás
               </Button>
