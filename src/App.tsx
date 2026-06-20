@@ -27,6 +27,7 @@ import AdminDocumentsAudit from "./pages/admin/AdminDocumentsAudit";
 import AdminChecklist from "./pages/admin/AdminChecklist";
 import AdminAI from "./pages/admin/AdminAI";
 import AdminCalendar from "./pages/admin/AdminCalendar";
+import AdminLeads from "./pages/admin/AdminLeads";
 
 const queryClient = new QueryClient();
 
