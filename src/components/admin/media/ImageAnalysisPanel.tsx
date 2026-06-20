@@ -65,6 +65,8 @@ export default function ImageAnalysisPanel({ open, onClose, doc, thumbUrl, onUpd
       // Fetch fresh row
       const { data: d2 } = await supabase.from("documents").select("*").eq("id", doc.id).maybeSingle();
       setFresh(d2);
+      setVersionOverride(null);
+      setRefreshKey((k) => k + 1);
       onUpdated();
       toast({ title: "Elemzés kész" });
     } catch (e: any) {
