@@ -1,18 +1,29 @@
-## Cél
-A hero CTA gombok mobilon ne legyenek teljes szélességűek (oldaltól oldalig). Desktopon maradjanak az eddigi elrendezésben.
+## 1. „Miért éri meg mindenkinek?" kártya-címek betűtípusa
 
-## Változtatások
+`src/components/BenefitsSection.tsx` (61. sor) — a kártyák `<h3>` címei jelenleg `font-anton uppercase` stílusúak, ami eltér a többi főoldali kártyától (pl. MibenSegitSection).
 
-### HeroSection.tsx
-- Az elsődleges és másodlagos hero CTA gombokról eltávolítani a `w-full sm:w-auto` osztályt.
-- Mobilon így a gombok a tartalmukhoz igazodó szélességet kapnak, és nem nyúlnak a képernyő széléig.
+Cserélem erre, hogy egyezzen a többi kártyával:
+```
+font-sans font-bold uppercase tracking-wider text-white text-sm sm:text-base
+```
+(a többi class — hover szín, margó — marad)
 
-### VenueHeroSection.tsx
-- Ugyanez a két gomb: `w-full sm:w-auto` eltávolítása.
+## 2. Telefon mögötti glow — erőteljesebb, élesebb, kevesebb szórás
 
-## Nem érintett elemek
-- StickyCallToAction: itt a gomb már csak középen, paddinggel jelenik meg, nem teljes szélességű.
-- Egyéb oldalakon lévő gombok: csak a hero szekciók gombjai változnak.
+**`src/components/HeroSection.tsx`** (főoldal hero, telefon mögötti glow div):
+- Jelenleg: `blur(30px)`, halvány cyan radial (0.32 → 0.12 → transparent 75%)
+- Új: `blur(18px)`, élénkebb és tömörebb cyan
+  - `radial-gradient(ellipse 42% 42% at 50% 50%, rgba(0,188,212,0.65) 0%, rgba(0,188,212,0.28) 40%, transparent 65%)`
 
-## Ellenőrzés
-- Mobil nézetben (390–430 px) a gomboknak középre igazítva, tartalomhoz igazított szélességgel kell megjelenniük, olvasható felirattal.
+**`src/components/VenueHeroSection.tsx`** (vendéglátóhelyek hero, két glow réteg):
+- A cyan glow réteget hasonlóan tömörítem: `blur(16-18px)`, 0.7 középső intenzitás, transparent ~65%-nál (jelenleg 75%).
+- A sötét shadow halo marad (a sötétítés OK).
+- A `drop-shadow(0_0_45px_rgba(0,188,212,0.35))` filtert élesítem: `drop-shadow(0_0_28px_rgba(0,188,212,0.6))`.
+
+## Érintett fájlok
+- `src/components/BenefitsSection.tsx`
+- `src/components/HeroSection.tsx`
+- `src/components/VenueHeroSection.tsx`
+
+## Verifikáció
+Playwright screenshot mobil (402px) + desktop nézetben a főoldalról és /vendeglatohelyek oldalról — ellenőrzöm hogy a glow tényleg élénkebb és koncentráltabb-e, és hogy a benefits kártyák címei a többivel egyező sans-bold stílusúak.
