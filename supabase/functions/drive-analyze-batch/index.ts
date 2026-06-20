@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { driveFetch, driveGetContent, corsHeaders, requireAdmin } from "../_shared/drive.ts";
+import { assertInScope } from "../_shared/drive-scope.ts";
 
 const SYSTEM = `Te a Come Get It belső "Drive-átvilágító" AI-ja vagy. Magyarul, direkt, lényegre törő.
 Több Google Drive doksi tartalmát kapod. A célod:

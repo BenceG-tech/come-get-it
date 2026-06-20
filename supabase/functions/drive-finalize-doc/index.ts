@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { driveFetch, driveGetContent, corsHeaders, requireAdmin } from "../_shared/drive.ts";
+import { assertInScope } from "../_shared/drive-scope.ts";
 
 const SYSTEM = `Te a Come Get It belső doksi-konszolidátor AI-ja vagy. Magyarul, profi üzleti hangon írsz.
 Több forrás-doksi tartalmát + a felhasználó által eldöntött kérdéseket-válaszokat kapod. Készítsd el a KONSZOLIDÁLT, VÉGLEGES verziót a megadott témában.
@@ -21,6 +22,7 @@ Deno.serve(async (req) => {
     if (!Array.isArray(fileIds) || fileIds.length === 0 || !topic) {
       return new Response(JSON.stringify({ error: "fileIds + topic required" }), { status: 400, headers: corsHeaders });
     }
+    await assertInScope(supabase, fileIds);
 
     const fetched = await Promise.all(fileIds.map(async (id: string) => {
       try {
