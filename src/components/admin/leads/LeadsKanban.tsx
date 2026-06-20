@@ -24,7 +24,7 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
     (async () => {
       const { data } = await supabase
         .from("pipeline_stages")
-        .select("key, label, sla_days, order_index")
+        .select("id, key, label, sla_days, order_index")
         .eq("kind", "lead")
         .order("order_index");
       if (data && data.length > 0) setStages(data as any);
