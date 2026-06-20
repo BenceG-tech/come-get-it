@@ -12,6 +12,8 @@ import { cn } from "@/lib/utils";
 import DocumentEditDialog from "@/components/admin/documents/DocumentEditDialog";
 import DocumentSummary from "@/components/admin/documents/DocumentSummary";
 import MediaLightbox from "@/components/admin/documents/MediaLightbox";
+import BatchProcessDialog from "@/components/admin/documents/BatchProcessDialog";
+import ImageAnalysisPanel from "@/components/admin/media/ImageAnalysisPanel";
 
 const CATEGORIES = [
   { v: "one_pager_venue", l: "1-pager vendéglátóhely" },
@@ -66,6 +68,8 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
   const [editing, setEditing] = useState<any>(null);
   const [lightbox, setLightbox] = useState<{ url: string; title: string; isVideo: boolean } | null>(null);
   const [signedCache, setSignedCache] = useState<Record<string, string>>({});
+  const [batchOpen, setBatchOpen] = useState(false);
+  const [aiImage, setAiImage] = useState<any | null>(null);
   const [form, setForm] = useState({
     title: "", folder: "", category: "other", description: "", when_to_use: "", content: "", file: null as File | null,
   });
