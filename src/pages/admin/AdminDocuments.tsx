@@ -14,6 +14,9 @@ import DocumentSummary from "@/components/admin/documents/DocumentSummary";
 import MediaLightbox from "@/components/admin/documents/MediaLightbox";
 import BatchProcessDialog from "@/components/admin/documents/BatchProcessDialog";
 import ImageAnalysisPanel from "@/components/admin/media/ImageAnalysisPanel";
+import BulkUploadDialog from "@/components/admin/documents/BulkUploadDialog";
+import OrganizationSuggestionsDialog from "@/components/admin/documents/OrganizationSuggestionsDialog";
+import OrganizationBanner from "@/components/admin/documents/OrganizationBanner";
 
 const CATEGORIES = [
   { v: "one_pager_venue", l: "1-pager vendéglátóhely" },
