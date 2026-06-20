@@ -33,6 +33,7 @@ import AdminDocumentChat from "./pages/admin/AdminDocumentChat";
 import AdminDrive from "./pages/admin/AdminDrive";
 import AdminBrand from "./pages/admin/AdminBrand";
 import AdminContentStudio from "./pages/admin/AdminContentStudio";
+import AdminRetro from "./pages/admin/AdminRetro";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +71,7 @@ const App = () => (
               <Route path="/admin/calendar" element={<AdminRoute><AdminLayout><AdminCalendar /></AdminLayout></AdminRoute>} />
               <Route path="/admin/brand" element={<AdminRoute><AdminLayout><AdminBrand /></AdminLayout></AdminRoute>} />
               <Route path="/admin/content" element={<AdminRoute><AdminLayout><AdminContentStudio /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/retro" element={<AdminRoute><AdminLayout><AdminRetro /></AdminLayout></AdminRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

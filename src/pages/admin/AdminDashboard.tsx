@@ -8,6 +8,8 @@ import { PipelineFunnel } from "@/components/admin/dashboard/PipelineFunnel";
 import { WaitlistGrowth } from "@/components/admin/dashboard/WaitlistGrowth";
 import { TimeTracker } from "@/components/admin/dashboard/TimeTracker";
 import { DailyFocusCard } from "@/components/admin/dashboard/DailyFocusCard";
+import { DailyBriefingCard } from "@/components/admin/dashboard/DailyBriefingCard";
+import { WeeklyGoalsCard } from "@/components/admin/dashboard/WeeklyGoalsCard";
 
 type ActivityRow = {
   id: string;
@@ -87,12 +89,16 @@ export default function AdminDashboard() {
         <p className="text-sm text-nf-text-muted">{new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
       </div>
 
-      {/* Cockpit row: focus + waitlist + pipeline + time */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+      {/* AI briefing — full width on top */}
+      <DailyBriefingCard />
+
+      {/* Cockpit row: focus + waitlist + pipeline + time + weekly goals */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-4">
         <DailyFocusCard />
         <WaitlistGrowth />
         <PipelineFunnel />
         <TimeTracker />
+        <WeeklyGoalsCard />
       </div>
 
 

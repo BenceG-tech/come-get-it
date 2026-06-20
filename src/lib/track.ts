@@ -12,7 +12,10 @@ export type MetricEventType =
   | "voice_note_created"
   | "doc_processed"
   | "ai_call"
-  | "content_generated";
+  | "content_generated"
+  | "briefing_generated"
+  | "retro_generated"
+  | "goal_progress";
 
 export async function trackEvent(
   event_type: MetricEventType | string,
