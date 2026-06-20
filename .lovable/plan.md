@@ -1,54 +1,64 @@
-# Drive: "Come Get it 2.0" scope + rendszerezés & archiválás
+# Bugfix + Content Studio 2.0 + Marketing AI Kalendárium
 
-## Cél
-1. A Google Drive integráció **csak a "Come Get it 2.0"** mappából (és almappáiból) szedjen le fájlokat — minden lista/keresés/elemzés erre szűkül.
-2. A mappában lévő **sok régi fájl** átláthatóvá tétele: AI csoportosítás témákba, "elavult" jelölés, és **egy kattintásos archiválás** egy `_Archív` almappába.
+## 1. Bugfix — "uploaded_by" oszlop nem létezik
 
-## Mit építünk
+A `image-analysis-to-doc` edge function `uploaded_by`-t ír be a `documents` táblába, de a tényleges oszlop a `created_by`. **1-soros fix**: `uploaded_by` → `created_by`. Egyúttal `is_ai_generated: true` jelzéssel mentjük.
 
-### 1. Mappa-scope beállítás (admin felület)
-- Új admin oldal **/admin/drive/settings** (vagy a `/admin/drive` tetején egy "Mappa beállítás" panel):
-  - "Forrás mappa kiválasztása" — egyszer Drive-tallózó: keresd ki a "Come Get it 2.0" mappát, mentés.
-  - Mentve a `brand_knowledge` táblába (`key='drive_root_folder'`, value = `{id, name}`) — nincs új tábla.
-  - "Auto-archív mappa" automatikusan a kiválasztott mappán belül `_Archív` néven jön létre (ha nem létezik), és eltárolva `drive_archive_folder` kulcs alatt.
+## 2. Content Studio 2.0
 
-### 2. Minden Drive edge function tiszteli a scope-ot
-Érintett függvények:
-- `drive-list` — minden listázás automatikusan kap egy `'<root>' in parents` (vagy rekurzív leszármazott) szűrőt; a felhasználó nem tud kilépni a scope-ból.
-- `drive-analyze-batch`, `drive-fetch-content`, `drive-checklist-fill`, `drive-finalize-doc` — minden `fileId` használat előtt **scope-ellenőrzés**: a fájl szülő-lánca tartalmazza-e a root mappát. Ha nem → 403.
-- Új közös helper: `_shared/drive.ts`-ben `getRootFolder(supabase)` + `assertInScope(fileId, rootId)` (parents traverzálás, cache-elve 5 percig memóriában).
+### A. Mentés későbbre + multi-favorite
+- **Adatmodell változás**: `content_generations.selected_variants` jelentését bővítjük — `Record<formatKey, number[]>` (több index egy formátum alatt). UI a `Heart` gombbal több variánst is be tud jelölni egy kategórián belül (kék pötty számláló a Card fejlécén).
+- **Új tábla: `saved_content_snippets`** — egy-egy konkrét variáns "lementve későbbre" funkció.
+  - Oszlopok: `format_key`, `format_label`, `text`, `notes`, `brief`, `persona`, `generation_id`, `tags TEXT[]`, `linked_image_doc_id`, `scheduled_calendar_id` (FK ha be lett ütemezve), `created_by`, timestamps.
+  - UI: minden variáns mellett "📌 Mentés" + "🗂 Könyvtár" tab az oldalon, ahol az összes saved snippet listázva, szűrhető formátum / tag szerint.
 
-### 3. "Rendszerezés" nézet — `/admin/drive` új tab: **Áttekintés**
-Egy gombnyomásra (`drive-organize-scan` új edge function):
-- Listázza az összes fájlt a root alatt (rekurzívan, max 500).
-- AI (Gemini Flash) kategorizál minden fájlt:
-  - **theme**: pl. "Pitch deck", "Partner szerződések", "Marketing kreatívok", "Pénzügy", "Termékterv", "Egyéb".
-  - **age_signal**: `current` / `stale` / `obsolete` (alapján: `modifiedTime`, név v1/v2/régi-dátum, ismétlődő nevek).
-  - **duplicate_group**: ha ugyanaz a téma + hasonló név → csoportazonosító, a legfrissebb a "keeper", a többi `obsolete`.
-  - **suggested_action**: `keep` / `archive` / `review`.
-- Eredmény mentés új táblába: `drive_inventory` (file_id, name, mime, modified_time, parent_id, theme, age_signal, action, duplicate_group, ai_reason, scanned_at).
+### B. Képek a posztokhoz
+Két új gomb minden variáns mellett:
+- **🖼 Médiatárból ajánlj** — új edge fn `match-media-for-post`:
+  - Bemenet: `text` (variáns), `format_key`.
+  - Lekérdezi a `documents` táblát ahol `mime_type LIKE 'image/%'`, kompakt listát (id, title, ai_description, ai_tags, ai_mood, storage_path) → AI rangsorol (Gemini Flash), visszaad top 5-öt `score`+`reason`-nel.
+  - UI: oldalpanel/dialóg mutatja a thumbnails-eket; egy kattintással csatolható a snippethez (`linked_image_doc_id`).
+- **✨ Generálj képet** — új edge fn `generate-post-image`:
+  - Bemenet: `text`, `format_key`, `style` (auto: insta=4:5, story=9:16, fb=1.91:1, linkedin=1.91:1).
+  - AI Gateway `/v1/images/generations`, `openai/gpt-image-2`, `quality: low`, `stream: true`. SSE stream visszamegy a frontend felé (progressive preview).
+  - **Brand-aware system prompt**: `brand_knowledge` betöltve → "Come Get It cinematic dark, electric cyan #00bcd4, neon glow, Budapest nightlife, leave clear top-left padding for logo overlay, no text in the image". Tiltott szavak / IP-szabályok érvényesülnek.
+  - Mentés a `admin-docs` bucketba `post-images/<user>/<ts>.png`, és `documents` rekord (`is_ai_generated: true`, `ai_description` = az eredeti poszt-text), automatikus csatolás a snippethez.
 
-UI:
-- Csoportosítás téma szerint (collapsible kártyák), minden fájlnál: badge (current/stale/obsolete), AI indok, "📦 Archív" gomb, "👁 Megnyitás", "🗑 Törlés Drive-on" (csak megerősítéssel).
-- Felső sorban: "📦 Összes javasolt archiválása" tömeges gomb (mind ami `suggested_action='archive'`).
+### C. Logo auto-overlay
+- Frontend canvas-helper (`src/lib/compose-with-logo.ts`): bemenet `imageUrl` + `position` (`top-left` default, `bottom-right` opt) + `opacity` → kimenet data URL. A `come-get-it-logo.png` projektben már megvan (`src/assets/come-get-it-logo.png`).
+- "Letöltés logoval" gomb minden képnél (eredeti + logózott verzió). Az AI-generált képnél default rákerül a logo a thumbnailre is, hogy realisztikus legyen a preview.
 
-### 4. Archiválás mechanika
-- Új edge function: `drive-archive-files` — input: `fileIds[]`.
-- Minden fájlt **átmozgat** a `_Archív/<év>/<téma>` mappába (al-mappákat létrehoz ha kell, pl. `_Archív/2024/Pitch deck`).
-- Drive API: `PATCH /files/{id}?addParents=<archiveFolder>&removeParents=<oldParent>`.
-- Egy archivált fájl a "Rendszerezés" nézetben halványan, "Visszaállítás" gombbal — ami visszaadja az eredeti szülőbe (eltároljuk az eredeti `parents`-et a `drive_inventory.previous_parent` mezőben).
+## 3. Marketing Kalendárium + AI asszisztens
 
-### 5. Védőkorlátok
-- A `_Archív` mappa **része a scope-nak**, de listázásnál külön szekcióba kerül ("Archív (rejtve)" — csak kattintásra látszik).
-- Sehol nincs hard delete — minden "törlés" valójában archiválás, kivéve az explicit "Drive-ról törlés" gomb (megerősítő dialóg).
+### A. Schema bővítés (`marketing_calendar`)
+- Új oszlopok: `scheduled_time TIME`, `image_doc_id UUID` (FK documents), `saved_snippet_id UUID` (FK saved_content_snippets), `assistant_rationale TEXT` (miért épp ekkor / itt).
 
-## Sorrend
-1. Mappa-scope beállító UI + `brand_knowledge` mentés.
-2. Drive edge function-ök scope-érvényesítése (helper + minden hívó).
-3. `drive-organize-scan` + `drive_inventory` tábla + UI tab.
-4. `drive-archive-files` + tömeges archiválás UI + visszaállítás.
+### B. AdminCalendar oldal újragondolva
+- **Heti / havi nézet** (CSS grid), kártyák csatornánként színkódolva (IG/FB/LinkedIn/Email).
+- Drag & drop nem szükséges — kattintás → "Új poszt" dialóg: dátum/idő/csatorna/típus, snippet választó (saved snippets listából), kép választó (linked media), opcionálisan brief mező → "Generálj most" gomb (Content Studio infrastruktúra).
+- Lista nézet: közelgő 14 nap, "Mára" highlight.
 
-## Megerősítést kérek
-- **A "Come Get it 2.0" mappát te választod ki** az új beállító dialógusban (mert csak te látod a saját Drive-ban) — jó így?
-- **Archív mappa neve `_Archív`** a kiválasztott mappán belül — jó, vagy más név (pl. `Régi`, `_Archive`)?
-- **"Elavult" detektálás**: a "8 hónapnál régebben módosított" + "v1/v2/régi-dátum a névben" + "AI duplikátum-detektálás" hármas elég, vagy szigorítsuk (pl. 12 hónap)?
+### C. AI Marketing Asszisztens (új edge fn `marketing-plan-suggest`)
+- Bemenet: `range` (`next_week` / `next_month`), `goal` (opt., pl. "Founding Partner toborzás 5. ker"), `channels` (opt.).
+- System prompt: brand_knowledge + Budapest nightlife best practices (IG csü+pé 19-21h, LinkedIn ke-csü 9-11h, stb.) + meglévő scheduled posts (hogy ne ütközzön).
+- Kimenet: tervezett poszt-lista — minden elem: `scheduled_date`, `scheduled_time`, `channel`, `type`, `theme`, `brief` (a Content Studio-nak átadható), `rationale`.
+- UI panel a kalendárium fölött: "🪄 Generálj tervet a hét/hónap végéig" gomb → eredmény-lista → "Mindet beütemezem" / egyenként szerkeszthető → mentés `marketing_calendar`-ba `status='draft'`-tal.
+
+### D. Floating "Marketing AI" (külön az admin chat-től)
+- Kis chat-bubble a kalendárium oldalon → kérdez-felel a tervről ("Mit posztoljak ma este?", "Mit szólnál egy heti retrospektív poszthoz?"). Ugyanaz a Lovable AI Gateway + `marketing_calendar` kontextus.
+
+## 4. Sorrend & megerősítés
+
+**Sorrend** (külön commit-okban):
+1. Bugfix (uploaded_by) — perceken belül.
+2. Saved snippets tábla + multi-favorite + Saved Library tab.
+3. Match-media + generate-post-image edge fn-ek + UI a Content Studioban.
+4. Logo overlay helper + letöltés-logoval.
+5. Marketing calendar schema bővítés + új naptár UI + marketing-plan-suggest + Marketing AI bubble.
+
+**Megerősítendő**:
+- **Logo overlay default pozíció**: top-left, 80px padding, 24% width? (Vagy bottom-right?)
+- **AI képgenerátor modell**: `openai/gpt-image-2` (drágább, jobb tipo) vagy `google/gemini-3.1-flash-image-preview` (Nano Banana, gyors & olcsó)? Default: **gpt-image-2** posztokhoz mert kép-minőség kritikus.
+- **Marketing-plan időzítések alapja**: helyi Budapest-best-practice heuristika beépítve (nem külső analytics). Ok?
+
+Ha rábólintasz, indulok 1-től lefelé sorban.

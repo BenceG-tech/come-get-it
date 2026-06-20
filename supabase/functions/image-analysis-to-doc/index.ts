@@ -77,7 +77,8 @@ Deno.serve(async (req) => {
       storage_path: path,
       content: markdown,
       linked_document_id: d.id,
-      uploaded_by: user.id,
+      is_ai_generated: true,
+      created_by: user.id,
     }).select("id").single();
     if (insErr) throw new Error(insErr.message);
 
