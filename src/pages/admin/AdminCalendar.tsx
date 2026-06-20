@@ -40,14 +40,17 @@ export default function AdminCalendar() {
   };
 
   return (
-    <div className="p-8 max-w-5xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Marketing naptár</h1>
-          <p className="text-nf-text-muted">{items.length} tervezett bejegyzés</p>
+    <div className="p-4 md:p-8 max-w-5xl mx-auto space-y-4 md:space-y-6">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h1 className="text-2xl md:text-3xl font-bold">Marketing naptár</h1>
+          <p className="text-sm text-nf-text-muted">{items.length} tervezett bejegyzés</p>
         </div>
-        <Button variant="neon" onClick={() => setShow(!show)}><Plus className="h-4 w-4" /> Új bejegyzés</Button>
+        <Button variant="neon" size="sm" onClick={() => setShow(!show)} className="shrink-0">
+          <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Új bejegyzés</span>
+        </Button>
       </div>
+
 
       {show && (
         <Card className="p-5 space-y-3 border-electric-300/40">

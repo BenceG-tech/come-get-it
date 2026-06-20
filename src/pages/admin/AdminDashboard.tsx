@@ -38,25 +38,26 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-8">
+    <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-6 md:space-y-8">
       <div>
-        <h1 className="text-3xl font-bold">Áttekintés</h1>
-        <p className="text-nf-text-muted">Üdv a parancsnoki hídon — itt látod, hol állsz.</p>
+        <h1 className="text-2xl md:text-3xl font-bold">Áttekintés</h1>
+        <p className="text-sm text-nf-text-muted">Üdv a parancsnoki hídon — itt látod, hol állsz.</p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {cards.map((c) => (
           <Link key={c.label} to={c.to}>
-            <Card className="hover:border-electric-300/50 transition-colors">
-              <CardContent className="p-5">
-                <c.icon className="h-5 w-5 text-electric-300 mb-3" />
-                <div className="text-3xl font-bold">{c.value}</div>
-                <div className="text-xs text-nf-text-muted uppercase tracking-wider">{c.label}</div>
+            <Card className="hover:border-electric-300/50 transition-colors h-full">
+              <CardContent className="p-4 md:p-5">
+                <c.icon className="h-5 w-5 text-electric-300 mb-2 md:mb-3" />
+                <div className="text-2xl md:text-3xl font-bold">{c.value}</div>
+                <div className="text-[10px] md:text-xs text-nf-text-muted uppercase tracking-wider leading-tight mt-1">{c.label}</div>
               </CardContent>
             </Card>
           </Link>
         ))}
       </div>
+
 
       <div className="grid md:grid-cols-2 gap-6">
         <Card>

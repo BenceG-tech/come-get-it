@@ -67,14 +67,15 @@ export default function AdminPartnerDetail() {
   if (!partner) return <div className="p-8 text-nf-text-muted">Betöltés…</div>;
 
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-4 md:space-y-6">
+      <div className="flex items-center justify-between gap-2">
         <Link to="/admin/partners" className="flex items-center gap-2 text-nf-text-muted hover:text-white text-sm"><ArrowLeft className="h-4 w-4" /> Vissza</Link>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={remove}><Trash2 className="h-4 w-4" /> Törlés</Button>
-          <Button variant="neon" onClick={save}><Save className="h-4 w-4" /> Mentés</Button>
+          <Button variant="outline" size="sm" onClick={remove}><Trash2 className="h-4 w-4" /> <span className="hidden sm:inline">Törlés</span></Button>
+          <Button variant="neon" size="sm" onClick={save}><Save className="h-4 w-4" /> Mentés</Button>
         </div>
       </div>
+
 
       <Card>
         <CardHeader><CardTitle>{partner.company_name}</CardTitle></CardHeader>
