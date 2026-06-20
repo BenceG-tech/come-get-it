@@ -23,6 +23,7 @@ Deno.serve(async (req) => {
     if (fileIds.length > 12) {
       return new Response(JSON.stringify({ error: "Max 12 fájl egyszerre." }), { status: 400, headers: corsHeaders });
     }
+    await assertInScope(supabase, fileIds);
 
     // Fetch all files in parallel
     const fetched = await Promise.all(fileIds.map(async (id: string) => {
