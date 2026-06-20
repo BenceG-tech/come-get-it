@@ -45,18 +45,20 @@ export default function AdminPartners() {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Partnerek</h1>
-          <p className="text-nf-text-muted">{filtered.length} / {partners.length} partner</p>
+    <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-4 md:space-y-6">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h1 className="text-2xl md:text-3xl font-bold">Partnerek</h1>
+          <p className="text-sm text-nf-text-muted">{filtered.length} / {partners.length} partner</p>
         </div>
-        <Button variant="neon" onClick={() => setShowNew(!showNew)}><Plus className="h-4 w-4" /> Új partner</Button>
+        <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)} className="shrink-0">
+          <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Új partner</span>
+        </Button>
       </div>
 
       {showNew && (
-        <Card className="p-5 space-y-3 border-electric-300/40">
-          <div className="grid md:grid-cols-2 gap-3">
+        <Card className="p-4 md:p-5 space-y-3 border-electric-300/40">
+          <div className="grid sm:grid-cols-2 gap-3">
             <Input placeholder="Cégnév *" value={form.company_name} onChange={(e) => setForm({ ...form, company_name: e.target.value })} />
             <select className="rounded-lg bg-nf-surface-alt border border-nf-border px-3 h-10 text-sm" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
               {Object.entries(TYPE_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
@@ -74,22 +76,53 @@ export default function AdminPartners() {
         </Card>
       )}
 
-      <div className="flex flex-wrap gap-3 items-center">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3">
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-nf-text-muted" />
           <Input placeholder="Keresés…" className="pl-9" value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
-        <select className="rounded-lg bg-nf-surface-alt border border-nf-border px-3 h-10 text-sm" value={filterType} onChange={(e) => setFilterType(e.target.value)}>
-          <option value="all">Minden típus</option>
-          {Object.entries(TYPE_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
-        </select>
-        <select className="rounded-lg bg-nf-surface-alt border border-nf-border px-3 h-10 text-sm" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
-          <option value="all">Minden státusz</option>
-          {Object.entries(STATUS_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
-        </select>
+        <div className="flex gap-2">
+          <select className="flex-1 sm:flex-none rounded-lg bg-nf-surface-alt border border-nf-border px-3 h-10 text-sm" value={filterType} onChange={(e) => setFilterType(e.target.value)}>
+            <option value="all">Minden típus</option>
+            {Object.entries(TYPE_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+          </select>
+          <select className="flex-1 sm:flex-none rounded-lg bg-nf-surface-alt border border-nf-border px-3 h-10 text-sm" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+            <option value="all">Minden státusz</option>
+            {Object.entries(STATUS_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+          </select>
+        </div>
       </div>
 
-      <Card>
+      {/* Mobile: card list */}
+      <div className="md:hidden space-y-2">
+        {filtered.map((p) => (
+          <Link key={p.id} to={`/admin/partners/${p.id}`} className="block">
+            <Card className="p-3 hover:border-electric-300/50">
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <div className="font-medium text-electric-300 truncate">{p.company_name}</div>
+                  <div className="text-xs text-nf-text-muted truncate">
+                    {TYPE_LABEL[p.type]}{p.city ? ` · ${p.city}` : ""}
+                  </div>
+                  {(p.contact_name || p.email) && (
+                    <div className="text-xs text-nf-text-muted truncate mt-1">{p.contact_name || p.email}</div>
+                  )}
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] bg-electric-300/10 text-electric-300 shrink-0">{STATUS_LABEL[p.status]}</span>
+              </div>
+              {p.next_followup_at && (
+                <div className="text-[10px] text-nf-text-muted mt-2">
+                  Follow-up: {new Date(p.next_followup_at).toLocaleDateString("hu-HU")}
+                </div>
+              )}
+            </Card>
+          </Link>
+        ))}
+        {filtered.length === 0 && <div className="p-8 text-center text-nf-text-muted text-sm">Nincs partner.</div>}
+      </div>
+
+      {/* Desktop: table */}
+      <Card className="hidden md:block">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="text-left text-xs uppercase text-nf-text-muted border-b border-nf-border">
@@ -114,3 +147,4 @@ export default function AdminPartners() {
     </div>
   );
 }
+
