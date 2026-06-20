@@ -93,7 +93,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             <Button
               variant="neon"
               size="lg"
-              className="w-full sm:w-auto"
+              className=""
               onClick={() => {
                 analytics.ctaClick('hero_primary', t('hero.cta'));
                 document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
@@ -104,7 +104,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             <Button
               variant="outline"
               size="lg"
-              className="w-full sm:w-auto border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
+              className="border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
               onClick={() => {
                 analytics.ctaClick('hero_secondary', t('hero.cta_secondary'));
                 document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
