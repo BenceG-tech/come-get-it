@@ -424,6 +424,9 @@ export default function AdminContentStudio() {
                               {imageBusy === key ? <Loader2 className="h-3 w-3 mr-1 animate-spin" /> : <ImagePlus className="h-3 w-3 mr-1" />}
                               Generálj képet
                             </Button>
+                            <Button size="sm" variant="outline" onClick={() => scheduleSnippet(fmt, idx)}>
+                              <Calendar className="h-3 w-3 mr-1" /> Naptárba
+                            </Button>
                             {img && (
                               <Button size="sm" variant="outline" onClick={() => downloadWithLogo(img.url, `cgi-${fmt.key}-v${idx + 1}.png`)}>
                                 <Download className="h-3 w-3 mr-1" /> Letöltés logoval
