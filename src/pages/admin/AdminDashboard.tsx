@@ -4,6 +4,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, FileText, Calendar, Sparkles, ArrowRight, Wand2, Palette, Activity, Image as ImageIcon, ListChecks, Clock } from "lucide-react";
+import { PipelineFunnel } from "@/components/admin/dashboard/PipelineFunnel";
+import { WaitlistGrowth } from "@/components/admin/dashboard/WaitlistGrowth";
+import { TimeTracker } from "@/components/admin/dashboard/TimeTracker";
+import { DailyFocusCard } from "@/components/admin/dashboard/DailyFocusCard";
 
 type ActivityRow = {
   id: string;
@@ -82,6 +86,15 @@ export default function AdminDashboard() {
         <h1 className="text-2xl md:text-3xl font-bold">Ma</h1>
         <p className="text-sm text-nf-text-muted">{new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
       </div>
+
+      {/* Cockpit row: focus + waitlist + pipeline + time */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        <DailyFocusCard />
+        <WaitlistGrowth />
+        <PipelineFunnel />
+        <TimeTracker />
+      </div>
+
 
       {/* Quick action row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
