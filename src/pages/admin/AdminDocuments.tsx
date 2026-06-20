@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { Plus, Trash2, ExternalLink, Copy, ChevronDown, ChevronRight, Upload, FileText, Image as ImageIcon, Star, ClipboardList } from "lucide-react";
+import { Plus, Trash2, ExternalLink, Copy, ChevronDown, ChevronRight, Upload, FileText, Image as ImageIcon, Star, ClipboardList, Sparkles, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAIAssistant } from "@/contexts/AIAssistantContext";
+import { cn } from "@/lib/utils";
 
 const CATEGORIES = [
   { v: "one_pager_venue", l: "1-pager vendéglátóhely" },
