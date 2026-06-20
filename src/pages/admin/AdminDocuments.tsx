@@ -202,15 +202,43 @@ export default function AdminDocuments() {
           <h1 className="text-2xl md:text-3xl font-bold">Dokumentumok</h1>
           <p className="text-sm text-nf-text-muted">{docs.length} doksi · {folderKeys.length} mappa</p>
         </div>
-        <div className="flex gap-2 shrink-0">
+        <div className="flex gap-2 shrink-0 flex-wrap">
+          <Button variant="outline" size="sm" onClick={runAudit} disabled={auditing}>
+            <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">{auditing ? "Auditálás…" : "AI audit"}</span>
+          </Button>
           <Button variant="outline" size="sm" asChild>
-            <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> <span className="hidden sm:inline">Audit</span></Link>
+            <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> <span className="hidden sm:inline">Audit lista</span></Link>
           </Button>
           <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)}>
             <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Új doksi</span>
           </Button>
         </div>
       </div>
+
+      {/* Rating filter */}
+      <div className="flex flex-wrap gap-1.5 text-xs">
+        {([
+          ["all", "Mind"],
+          ["high", "★ 8+"],
+          ["mid", "★ 5-7"],
+          ["low", "★ <5"],
+          ["none", "Nincs értékelve"],
+        ] as const).map(([k, l]) => (
+          <button
+            key={k}
+            onClick={() => setRatingFilter(k)}
+            className={cn(
+              "px-2.5 py-1 rounded-full border transition-colors",
+              ratingFilter === k
+                ? "bg-electric-300/15 border-electric-300/50 text-electric-300"
+                : "bg-nf-surface-alt border-nf-border text-nf-text-muted hover:text-white",
+            )}
+          >
+            {l}
+          </button>
+        ))}
+      </div>
+
 
       {showNew && (
         <Card className="p-4 md:p-5 space-y-3 border-electric-300/40">
