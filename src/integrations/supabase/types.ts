@@ -126,6 +126,7 @@ export type Database = {
           ai_description: string | null
           ai_dominant_colors: string[] | null
           ai_mood: string | null
+          ai_review: Json | null
           ai_suggested_alt: string | null
           ai_suggested_caption: string | null
           ai_suggested_copy: Json | null
@@ -146,6 +147,7 @@ export type Database = {
           is_ai_generated: boolean
           keep_status: string | null
           key_points: Json | null
+          last_reviewed_at: string | null
           last_summarized_at: string | null
           mime_type: string | null
           partner_type: Database["public"]["Enums"]["partner_type"] | null
@@ -164,6 +166,7 @@ export type Database = {
           ai_description?: string | null
           ai_dominant_colors?: string[] | null
           ai_mood?: string | null
+          ai_review?: Json | null
           ai_suggested_alt?: string | null
           ai_suggested_caption?: string | null
           ai_suggested_copy?: Json | null
@@ -184,6 +187,7 @@ export type Database = {
           is_ai_generated?: boolean
           keep_status?: string | null
           key_points?: Json | null
+          last_reviewed_at?: string | null
           last_summarized_at?: string | null
           mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
@@ -202,6 +206,7 @@ export type Database = {
           ai_description?: string | null
           ai_dominant_colors?: string[] | null
           ai_mood?: string | null
+          ai_review?: Json | null
           ai_suggested_alt?: string | null
           ai_suggested_caption?: string | null
           ai_suggested_copy?: Json | null
@@ -222,6 +227,7 @@ export type Database = {
           is_ai_generated?: boolean
           keep_status?: string | null
           key_points?: Json | null
+          last_reviewed_at?: string | null
           last_summarized_at?: string | null
           mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
@@ -244,6 +250,72 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      drive_analyses: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          kind: string
+          result: Json | null
+          source_file_ids: Json
+          source_file_names: Json
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind: string
+          result?: Json | null
+          source_file_ids?: Json
+          source_file_names?: Json
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind?: string
+          result?: Json | null
+          source_file_ids?: Json
+          source_file_names?: Json
+        }
+        Relationships: []
+      }
+      drive_decisions: {
+        Row: {
+          answer: string | null
+          created_at: string
+          decided_at: string | null
+          decided_by: string | null
+          id: string
+          question: string
+          source_file_ids: Json
+          status: string
+          topic: string | null
+        }
+        Insert: {
+          answer?: string | null
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          id?: string
+          question: string
+          source_file_ids?: Json
+          status?: string
+          topic?: string | null
+        }
+        Update: {
+          answer?: string | null
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          id?: string
+          question?: string
+          source_file_ids?: Json
+          status?: string
+          topic?: string | null
+        }
+        Relationships: []
       }
       email_templates: {
         Row: {
