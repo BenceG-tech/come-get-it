@@ -21,7 +21,14 @@ export type MetricEventType =
   | "brief_to_posts_generated"
   | "calendar_autofilled"
   | "snippet_reused"
-  | "brand_check_warning";
+  | "brand_check_warning"
+  | "sequence_enrolled"
+  | "sequence_step_sent"
+  | "sequence_reply"
+  | "stage_transition"
+  | "sla_breach"
+  | "pipeline_task_created"
+  | "pipeline_task_completed";
 
 export async function trackEvent(
   event_type: MetricEventType | string,
