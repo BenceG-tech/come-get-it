@@ -47,6 +47,11 @@ export default function AdminCalendar() {
   const [planLoading, setPlanLoading] = useState(false);
   const [planResult, setPlanResult] = useState<{ plan: any[]; summary?: string } | null>(null);
 
+  // Autofill from approved briefs
+  const [autofillOpen, setAutofillOpen] = useState(false);
+  const [autofillLoading, setAutofillLoading] = useState(false);
+  const [autofillResult, setAutofillResult] = useState<any>(null);
+
   // Chat bubble
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([]);
@@ -143,6 +148,46 @@ export default function AdminCalendar() {
     else { toast({ title: "Beütemezve" }); load(); }
   };
 
+  const runAutofill = async () => {
+    setAutofillLoading(true); setAutofillResult(null);
+    try {
+      const start = new Date(); start.setDate(start.getDate() + 1);
+      const end = new Date(start); end.setDate(start.getDate() + 13);
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch(`${FUNCTIONS_URL}/calendar-autofill`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
+        body: JSON.stringify({
+          start_date: start.toISOString().slice(0, 10),
+          end_date: end.toISOString().slice(0, 10),
+          channels: ["instagram", "facebook", "linkedin"],
+          target_per_week: 4,
+        }),
+      });
+      const j = await res.json();
+      if (!res.ok) throw new Error(j?.error || "Hiba");
+      setAutofillResult(j);
+    } catch (e: any) { toast({ title: "Hiba", description: e?.message, variant: "destructive" }); }
+    finally { setAutofillLoading(false); }
+  };
+
+  const acceptAllAutofill = async () => {
+    if (!autofillResult?.suggestions?.length) return;
+    const { error } = await supabase.from("marketing_calendar").insert(autofillResult.suggestions as any);
+    if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
+    else { toast({ title: `${autofillResult.suggestions.length} bejegyzés ütemezve` }); setAutofillOpen(false); setAutofillResult(null); load(); }
+  };
+
+  // Conflict detection: >2 posts per day per channel
+  const conflictKeys = (() => {
+    const cnt: Record<string, number> = {};
+    for (const it of items) {
+      const k = `${String(it.scheduled_date).slice(0, 10)}|${it.channel}`;
+      cnt[k] = (cnt[k] ?? 0) + 1;
+    }
+    return new Set(Object.entries(cnt).filter(([, n]) => n > 2).map(([k]) => k));
+  })();
+
   const sendChat = async () => {
     if (!chatInput.trim()) return;
     const next = [...chatMessages, { role: "user" as const, content: chatInput }];
@@ -169,7 +214,10 @@ export default function AdminCalendar() {
           <h1 className="text-2xl md:text-3xl font-bold">Marketing naptár</h1>
           <p className="text-sm text-nf-text-muted">{items.length} tervezett bejegyzés</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
+          <Button variant="outline" size="sm" onClick={() => setAutofillOpen(true)}>
+            <CalendarDays className="h-4 w-4 mr-1" /> Brief autofill
+          </Button>
           <Button variant="outline" size="sm" onClick={() => setPlanOpen(true)}>
             <Wand2 className="h-4 w-4 mr-1" /> AI tervez
           </Button>
@@ -253,6 +301,10 @@ export default function AdminCalendar() {
                     </span>
                     <span className={`px-2 py-0.5 rounded-full border text-[10px] uppercase tracking-wide ${CHANNEL_COLORS[it.channel] ?? CHANNEL_COLORS.other}`}>{it.channel}</span>
                     <span className="text-nf-text-muted">{it.type}</span>
+                    {conflictKeys.has(`${String(it.scheduled_date).slice(0, 10)}|${it.channel}`) && (
+                      <span className="px-2 py-0.5 rounded-full border text-[10px] uppercase bg-amber-500/15 text-amber-300 border-amber-500/40">⚠ ütközés</span>
+                    )}
+                    {it.brief_id && <span className="text-[10px] text-electric-300/70">↳ brief</span>}
                   </div>
                   <CardTitle className="text-lg mt-1">{it.title}</CardTitle>
                 </div>
@@ -275,6 +327,40 @@ export default function AdminCalendar() {
         ))}
         {items.length === 0 && <div className="text-center text-nf-text-muted py-12">Nincs bejegyzés. Kattints az „AI tervez” gombra egy heti tervhez.</div>}
       </div>
+
+      {/* Autofill from approved briefs */}
+      <Dialog open={autofillOpen} onOpenChange={setAutofillOpen}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader><DialogTitle className="flex items-center gap-2"><CalendarDays className="h-5 w-5 text-electric-300" /> Brief autofill (2 hét)</DialogTitle></DialogHeader>
+          <div className="space-y-4">
+            <p className="text-xs text-nf-text-muted">Az approved briefeket szétosztja a következő 14 napra IG/FB/LI csatornákon, üres napokra. Konfliktust elkerül.</p>
+            <Button variant="neon" onClick={runAutofill} disabled={autofillLoading} className="w-full">
+              {autofillLoading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Számolás…</> : <><CalendarDays className="h-4 w-4 mr-2" /> Generálj javaslatot</>}
+            </Button>
+            {autofillResult && (
+              <div className="space-y-2">
+                {autofillResult.summary && <div className="text-sm p-2 bg-electric-300/10 border border-electric-300/30 rounded">{autofillResult.summary}</div>}
+                {autofillResult.suggestions?.length > 0 && (
+                  <>
+                    <div className="flex justify-end">
+                      <Button size="sm" variant="neon" onClick={acceptAllAutofill}>Mindet beütemezem ({autofillResult.suggestions.length})</Button>
+                    </div>
+                    <div className="space-y-1.5 max-h-[40vh] overflow-y-auto">
+                      {autofillResult.suggestions.map((s: any, i: number) => (
+                        <div key={i} className="p-2 rounded bg-nf-surface-alt text-xs flex items-center gap-2 flex-wrap">
+                          <span className="text-electric-300">{s.scheduled_date} {s.scheduled_time}</span>
+                          <span className={`px-2 py-0.5 rounded border text-[10px] uppercase ${CHANNEL_COLORS[s.channel] ?? CHANNEL_COLORS.other}`}>{s.channel}</span>
+                          <span className="truncate flex-1">{s.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* AI Plan Dialog */}
       <Dialog open={planOpen} onOpenChange={setPlanOpen}>

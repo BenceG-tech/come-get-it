@@ -15,7 +15,13 @@ export type MetricEventType =
   | "content_generated"
   | "briefing_generated"
   | "retro_generated"
-  | "goal_progress";
+  | "goal_progress"
+  | "brief_created"
+  | "brief_approved"
+  | "brief_to_posts_generated"
+  | "calendar_autofilled"
+  | "snippet_reused"
+  | "brand_check_warning";
 
 export async function trackEvent(
   event_type: MetricEventType | string,

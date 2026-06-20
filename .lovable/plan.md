@@ -1,67 +1,94 @@
-# Fázis 2 — AI munkatársak
 
-Cél: a Cockpit adataira építve napi és heti AI-asszisztens funkciók, plusz hangalapú gyorsrögzítés.
+# Fázis 3 — Content & Marketing mélyítés
 
-## 1. Napi AI briefing
-**Új tábla**: `daily_briefings` (id, date unique, summary_md, highlights jsonb, suggested_focus jsonb, created_at) — RLS admin-only, service_role full.
+Cél: a Content Studio + Marketing naptár szorosabb összekötése, brief-alapú többcsatornás poszt-generálás, vizuális ütemezés és teljesítmény visszacsatolás. Az AI Workmates (Fázis 2) outputjait (briefing, voice notes, weekly goals) becsatornázzuk a tartalomgyártásba.
 
-**Edge function**: `daily-briefing`
-- Lekéri az utolsó 7 nap `daily_kpi_snapshots`, nyitott `partners` (stage != signed/lost), tegnapi `metric_events`, mai `marketing_calendar` bejegyzéseket.
-- Gemini Flash (`google/gemini-3-flash-preview`) prompttal strukturált markdown briefinget generál: "Tegnap történt", "Mai fókusz javaslat", "Figyelmeztetések", "Top 3 akció".
-- Mentés `daily_briefings`-be + opcionális Resend email küldés `hello@come-get-it.app`-ra.
-- pg_cron: minden reggel 07:00 (Budapest = 06:00 UTC télen / 05:00 nyáron — fix 05:00 UTC, megjegyzéssel).
+## 1. Brief → Post pipeline
 
-**UI**: `AdminDashboard` tetejére új `DailyBriefingCard` — mai briefing megjelenítése (react-markdown), "Újragenerálás" gomb, "Fókusz átemelése" gomb ami a 3 javaslatot beírja a `DailyFocusCard`-ba.
+**Új tábla**: `content_briefs`
+- `id, title, angle, target_audience, channel_mix jsonb, key_points jsonb, cta, tone, source_type (manual|ai|voice|document|briefing), source_id, status (draft|approved|in_production|published|archived), scheduled_for, created_by, created_at`
+- RLS admin-only, service_role full.
 
-## 2. Hangalapú jegyzet → feladat
-**Új tábla**: `voice_notes` (id, user_id, audio_path nullable, transcript, structured jsonb, action_type, target_table, target_id nullable, status: pending/applied/dismissed, created_at) — RLS admin-only.
+**Workflow**:
+1. Brief létrehozás: manuálisan, vagy `suggest-content-briefs` edge functionből (már létezik), vagy voice note `content_idea` intentből, vagy daily briefing `Top 3 akció` alapján.
+2. Brief jóváhagyás → `generate-multi-format` (létezik) hívása → `content_generations` rekordok minden csatornára (IG, FB, LinkedIn, blog, email).
+3. Minden generáció `saved_content_snippets`-be menthető vagy közvetlenül `marketing_calendar`-ba ütemezhető.
 
-**Edge function**: `voice-capture`
-- Input: base64 audio (webm/opus) vagy közvetlen szöveg.
-- STT: Gemini 2.5 Flash multimodal (audio input támogatott a gateway-en) — fallback szövegre ha hangrögzítés nem megy.
-- Strukturálás: prompt → JSON `{intent: "task"|"lead_note"|"content_idea"|"focus", title, body, fields}`.
-- Mentés `voice_notes`-ba `pending` státusszal, válasz a klienshez.
+**Új edge function**: `brief-to-posts`
+- Input: `brief_id`.
+- Lekéri brief + brand_knowledge + utolsó 5 hasonló snippet (context).
+- Gemini Flash prompt → csatornánként optimalizált poszt (hossz, hashtag, hook).
+- Eredmény minden csatornára `content_generations` + opcionális `marketing_calendar` entry `draft` státusszal.
 
-**UI komponens**: `VoiceRecorderButton.tsx` (új) — floating action button az admin layout jobb alsó sarkában (`/admin/*` route-okon). MediaRecorder API, max 60s, közben pulzáló piros pont. Felvétel után modal: transcript + strukturált javaslat + "Mentés ide:" választó (feladat / lead-jegyzet / content-ötlet / mai fókusz) → megfelelő táblába ír (pl. content-ötlet → `saved_content_snippets`, lead-jegyzet → `partner_interactions`).
+## 2. Marketing naptár mélyítés
 
-## 3. Heti retrospektíva + cél tracking
-**Új táblák**:
-- `weekly_goals` (id, user_id, week_start date, title, metric, target numeric, actual numeric default 0, status, created_at) — RLS admin-only.
-- `weekly_retros` (id, week_start date unique, summary_md, wins jsonb, blockers jsonb, next_week_focus jsonb, kpi_delta jsonb, created_at) — RLS admin-only.
+**Naptár fejlesztések** (`AdminCalendar.tsx`):
+- **Hét/hónap nézet kapcsoló** (jelenleg csak lista) — drag-and-drop reschedule.
+- **Csatorna-sávok**: minden naphoz csatorna-oszlopok (IG/FB/LI/blog/email) színkódolva.
+- **Konfliktus-warning**: ha 1 napon >2 poszt ugyanazon a csatornán.
+- **"Üres napok" jelzés**: piros pötty ahol nincs ütemezve semmi és nincs `weekly_goals` mentő ok.
 
-**Edge function**: `weekly-retro`
-- Lekéri elmúlt 7 nap `daily_kpi_snapshots`, `time_logs`, `daily_focus`, `metric_events`, `weekly_goals` aktuálisokat.
-- Gemini prompt → OKR-stílusú összegzés: mit értünk el, hol csúsztunk, miért, jövő heti javaslat 3 cél formájában.
-- Mentés `weekly_retros`-ba; auto-létrehozza a következő heti `weekly_goals` rekordokat `pending` jelleggel (user később jóváhagy/szerkeszt).
-- pg_cron: szombat 20:00 (helyi) = 18:00 UTC.
+**Új tábla mező**: `marketing_calendar.brief_id` (fk `content_briefs`, nullable) — visszakövethetőség.
 
-**Új oldal**: `/admin/retro`
-- Aktuális hét célok kártyái (progress bar metric vs actual — `actual` érték a `metric_events`-ből aggregálva: pl. waitlist_signup darabszám).
-- Cél hozzáadás/szerkesztés inline.
-- Heti retro lista (legutóbbi felül, markdown).
-- "Most generálj retrot" gomb.
-- Link a `AdminDashboard` Cockpit sorában új mini `WeeklyGoalsCard`-on keresztül.
+**Új edge function**: `calendar-autofill`
+- Input: `start_date, end_date, channels[], target_per_week`.
+- Lekéri nyitott `content_briefs` (status=approved) + ünnepnapok + meglévő calendar entries.
+- AI elosztja a briefeket az üres napokra balance szerint (csatorna mix + frekvencia).
+- Output: javasolt calendar entries `pending_review` státusszal, user 1 kattintással jóváhagy.
 
-## 4. Integrációk
-- `track.ts` kibővítve: `voice_note_created`, `briefing_generated`, `retro_generated`, `goal_progress` események `metric_events`-be.
-- `kpi-snapshot` kiegészítése: `weekly_goals.actual` mezők frissítése a hét eseményeiből.
-- AdminLayout: `VoiceRecorderButton` mount, csak ha `has_role(admin)`.
-- Nav: új menüpont "Heti retro" (`/admin/retro`).
+## 3. Snippet könyvtár (`saved_content_snippets`) felokosítás
+
+**UI**: új `/admin/content/library` szekció (Content Studio aloldal vagy tab):
+- Szűrés csatorna, tone, kampány, tag szerint.
+- "Reuse" gomb: snippet betöltése új generáció seedjeként.
+- "Performance" oszlop: ha publikált → ide kerülhet később CTR/like adat (kézi vagy integráció).
+
+**Új tábla**: `snippet_performance`
+- `snippet_id, channel, impressions, clicks, reactions, comments, shares, recorded_at, source (manual|meta_api|linkedin_api)`.
+- Egyelőre manuális input, később API integráció előkészítve.
+
+## 4. Heti content sprint nézet
+
+**Új komponens**: `WeeklyContentSprintCard` (a dashboard Cockpitba vagy `/admin/content` tetejére):
+- Ezen a héten: X poszt tervezve, Y publikálva, Z draft.
+- Cél: `weekly_goals` "content" típusú célok progress barja.
+- Hiányzó csatornák figyelmeztetés.
+
+## 5. AI tone/brand őr
+
+**Új edge function**: `content-brand-check`
+- Input: szöveg + csatorna.
+- Lekéri `brand_knowledge` (tone, do/don't, banned phrases).
+- Output: score (0-100), találatok (banned phrase, tone mismatch), átírási javaslat.
+- Integráció: minden `generate-multi-format` és `brief-to-posts` output automatikusan átfut → ha score < 70, figyelmeztetés a UI-on.
+
+## 6. Tracking + integráció
+
+- `track.ts` bővítés: `brief_created`, `brief_approved`, `brief_to_posts_generated`, `calendar_autofilled`, `snippet_reused`, `brand_check_warning`.
+- `kpi-snapshot` bővítés: `briefs_in_pipeline`, `posts_published_week`, `avg_brand_score`.
+- `daily-briefing` bővítés: "Mai naptár" + "Lejárt briefek" szekció.
+- `weekly-retro` bővítés: content KPI (publikált posztok / cél, top performing snippet).
+
+## 7. Szállítási sorrend
+
+1. Migráció: `content_briefs`, `snippet_performance`, `marketing_calendar.brief_id` mező, grants + RLS.
+2. Edge functions: `brief-to-posts`, `calendar-autofill`, `content-brand-check`.
+3. `AdminContentStudio` kiegészítés: Brief lista + Brief→Post workflow UI.
+4. `AdminCalendar` átírás: hét/hónap nézet, drag-drop, csatorna sávok, autofill gomb.
+5. Snippet library UI (új tab a Content Studioban).
+6. `WeeklyContentSprintCard` widget + Cockpit/Content Studio integráció.
+7. Brand check beépítés a generálási flow-kba (warning badge).
+8. `track.ts`, `kpi-snapshot`, `daily-briefing`, `weekly-retro` bővítések.
 
 ## Technikai részletek
-- **Edge functions**: `daily-briefing`, `voice-capture`, `weekly-retro` — mind `verify_jwt = false` + in-code admin ellenőrzés (`has_role`).
-- **Secrets**: `LOVABLE_API_KEY` (van), `RESEND_API_KEY` (van), `SUPABASE_SERVICE_ROLE_KEY` (van) — nem kell újat kérni.
-- **pg_cron**: 2 új job (`daily-briefing` 05:00 UTC, `weekly-retro` szombat 18:00 UTC). A meglévő 23:00 UTC `kpi-snapshot` mellé.
-- **Email**: Resend-en keresztül `daily-briefing` HTML body (markdown → HTML konverzió a function-ben), opt-in (env flag `BRIEFING_EMAIL_ENABLED`).
-- **react-markdown**: már elérhető a projektben.
-- **MediaRecorder fallback**: ha böngésző nem támogatja, csak szöveges input modal.
 
-## Szállítási sorrend (egy körben)
-1. Migráció (4 új tábla + 2 cron job).
-2. 3 edge function.
-3. `VoiceRecorderButton` + admin layout integráció.
-4. `DailyBriefingCard` a dashboardra.
-5. `/admin/retro` oldal + `WeeklyGoalsCard` widget.
-6. Nav frissítés.
+- Drag-drop: `@dnd-kit/core` (telepíteni kell), vagy meglévő minta a Kanbanból (`LeadsKanban` HTML5 drag).
+- Naptár UI: nem külső lib — saját CSS grid hét/hónap nézet, hogy a Neon Fidelity stílus megmaradjon.
+- `content-brand-check` LOVABLE_API_KEY-jel, Gemini Flash, JSON mód.
+- `calendar-autofill` determinisztikus elosztás + AI csak a sorrendre — gyors és olcsó.
+- Minden új edge function `verify_jwt = false` + in-code `has_role(admin)` ellenőrzés.
+- Nincs új secret szükséglet.
 
-Jóváhagyás után megyek és teljes Fázis 2-t egyben szállítom. Utána Fázis 3 (Content & Marketing mélyítés) következik.
+## Jóváhagyás után
+
+Egy körben szállítom a fenti 8 lépést. Utána Fázis 4 (Partner/Lead CRM pipeline + outreach automatizálás) következik.
