@@ -34,7 +34,10 @@ export type MetricEventType =
   | "doc_semantic_search"
   | "doc_entity_linked"
   | "doc_archived_suggested"
-  | "doc_opened";
+  | "doc_opened"
+  | "inbox_item_resolved"
+  | "inbox_item_snoozed"
+  | "simulator_run";
 
 export async function trackEvent(
   event_type: MetricEventType | string,

@@ -13,6 +13,7 @@ import { WeeklyGoalsCard } from "@/components/admin/dashboard/WeeklyGoalsCard";
 import { WeeklyContentSprintCard } from "@/components/admin/dashboard/WeeklyContentSprintCard";
 import OutreachHealthCard from "@/components/admin/dashboard/OutreachHealthCard";
 import DocumentDigestCard from "@/components/admin/dashboard/DocumentDigestCard";
+import InboxZeroCard from "@/components/admin/dashboard/InboxZeroCard";
 
 type ActivityRow = {
   id: string;
@@ -97,6 +98,7 @@ export default function AdminDashboard() {
 
       {/* Cockpit row: focus + waitlist + pipeline + time + weekly goals + content sprint + outreach */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+        <InboxZeroCard />
         <DailyFocusCard />
         <WaitlistGrowth />
         <PipelineFunnel />

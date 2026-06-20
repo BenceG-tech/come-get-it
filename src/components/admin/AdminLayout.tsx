@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks, Target, Image as ImageIcon, MessageSquare, Cloud, Wand2, Palette, Trophy, Send } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks, Target, Image as ImageIcon, MessageSquare, Cloud, Wand2, Palette, Trophy, Send, Inbox, TrendingUp } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
@@ -10,6 +10,8 @@ import { VoiceCaptureFAB } from "@/components/admin/VoiceCaptureFAB";
 
 const items = [
   { to: "/admin", label: "Áttekintés", icon: LayoutDashboard, end: true },
+  { to: "/admin/inbox", label: "Inbox", icon: Inbox },
+  { to: "/admin/simulator", label: "Pipeline simulator", icon: TrendingUp },
   { to: "/admin/content", label: "Content Studio", icon: Wand2 },
   { to: "/admin/brand", label: "Brand Memory", icon: Palette },
   { to: "/admin/leads", label: "Leadek (vendéglátó)", icon: Target },

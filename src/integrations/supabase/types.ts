@@ -904,6 +904,54 @@ export type Database = {
           },
         ]
       }
+      inbox_items: {
+        Row: {
+          body: string | null
+          created_at: string
+          dedupe_key: string | null
+          entity_id: string | null
+          entity_kind: string | null
+          id: string
+          kind: string
+          payload: Json | null
+          resolved_at: string | null
+          severity: string
+          snoozed_until: string | null
+          status: string
+          title: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          dedupe_key?: string | null
+          entity_id?: string | null
+          entity_kind?: string | null
+          id?: string
+          kind: string
+          payload?: Json | null
+          resolved_at?: string | null
+          severity?: string
+          snoozed_until?: string | null
+          status?: string
+          title: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          dedupe_key?: string | null
+          entity_id?: string | null
+          entity_kind?: string | null
+          id?: string
+          kind?: string
+          payload?: Json | null
+          resolved_at?: string | null
+          severity?: string
+          snoozed_until?: string | null
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
       lead_import_jobs: {
         Row: {
           completed_at: string | null
