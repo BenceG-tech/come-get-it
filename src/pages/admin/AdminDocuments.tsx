@@ -301,17 +301,28 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
           <Button variant="outline" size="sm" asChild>
             <Link to="/admin/documents/chat"><MessageSquare className="h-4 w-4" /> <span className="hidden sm:inline">Chat a doksikkal</span></Link>
           </Button>
+          <Button variant="outline" size="sm" onClick={() => setOrgOpen(true)}>
+            <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">AI rendezés</span>
+          </Button>
           <Button variant="outline" size="sm" onClick={runAudit} disabled={auditing}>
             <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">{auditing ? "Auditálás…" : "AI audit"}</span>
           </Button>
           <Button variant="outline" size="sm" asChild>
             <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> <span className="hidden sm:inline">Audit lista</span></Link>
           </Button>
+          <Button variant="outline" size="sm" onClick={() => setBulkOpen(true)}>
+            <Upload className="h-4 w-4" /> <span className="hidden sm:inline">Tömeges</span>
+          </Button>
           <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)}>
-            <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Új</span>
+            <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Egy fájl</span>
           </Button>
         </div>
       </div>
+
+      <OrganizationBanner
+        unfiledCount={docs.filter((d) => !d.folder).length}
+        onOpen={() => setOrgOpen(true)}
+      />
 
       {/* Tabs */}
       <div className="flex gap-1 p-1 rounded-full bg-nf-surface border border-nf-border w-fit">
