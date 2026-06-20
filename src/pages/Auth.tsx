@@ -109,6 +109,18 @@ const Auth = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {isPreview && (
+            <div className="mb-4 rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-200">
+              <div className="font-semibold mb-1">⚠️ Preview környezet</div>
+              <p className="mb-2">A Lovable preview-ban a bejelentkezés gyakran nem működik (proxy hiba). Használd az élő oldalt:</p>
+              <a
+                href={`https://come-get-it.app/auth${redirectTo !== '/' ? `?redirect=${encodeURIComponent(redirectTo)}` : ''}`}
+                className="inline-flex items-center gap-1 font-semibold text-amber-100 underline hover:text-white"
+              >
+                come-get-it.app/auth →
+              </a>
+            </div>
+          )}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="signin">{t('auth.tabs.signin')}</TabsTrigger>
