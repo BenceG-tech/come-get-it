@@ -19,24 +19,25 @@ export default function AdminSimulator() {
   useEffect(() => {
     (async () => {
       const since = new Date(Date.now() - 90 * 86400 * 1000).toISOString();
-      const [trans, parts] = await Promise.all([
-        supabase.from("pipeline_transitions").select("from_stage, to_stage, occurred_at").gte("occurred_at", since),
-        supabase.from("partners").select("id, status, created_at").gte("created_at", since).limit(2000),
-      ]);
-      const t = trans.data ?? [];
-      const p = parts.data ?? [];
+      const { data: parts } = await supabase
+        .from("partners")
+        .select("id, status, created_at")
+        .gte("created_at", since)
+        .limit(2000);
+      const p = parts ?? [];
 
-      // Conversion rates from observed transitions
-      const fromTo = (from: string, to: string[]) => {
-        const fromCount = t.filter((x) => x.from_stage === from).length || 1;
-        const toCount = t.filter((x) => x.from_stage === from && to.includes(x.to_stage)).length;
-        return Math.min(1, toCount / fromCount);
-      };
+      // Heuristic conversion rates based on current pipeline distribution
+      const count = (statuses: string[]) => p.filter((x) => statuses.includes(x.status)).length;
+      const leads = count(["lead", "contacted", "negotiating", "proposal_sent", "signed"]) || 1;
+      const contacted = count(["contacted", "negotiating", "proposal_sent", "signed"]);
+      const negotiating = count(["negotiating", "proposal_sent", "signed"]);
+      const signed = count(["signed"]);
+
       setBaseRates({
-        contactRate: Math.max(0.2, fromTo("lead", ["contacted", "negotiating", "proposal_sent", "signed"])),
-        negotiationRate: Math.max(0.2, fromTo("contacted", ["negotiating", "proposal_sent", "signed"])),
-        signedRate: Math.max(0.1, fromTo("proposal_sent", ["signed"]) || fromTo("negotiating", ["signed"])),
-        weeklyLeadVelocity: Math.max(2, Math.round((p.length / 13))), // weeks in 90d
+        contactRate: Math.max(0.2, contacted / leads),
+        negotiationRate: Math.max(0.2, contacted > 0 ? negotiating / contacted : 0.3),
+        signedRate: Math.max(0.1, negotiating > 0 ? signed / negotiating : 0.25),
+        weeklyLeadVelocity: Math.max(2, Math.round(p.length / 13)),
         avgRevenue: 50000,
       });
     })();
