@@ -124,6 +124,24 @@ Deno.serve(async (req) => {
               ai_analyzed_at: new Date().toISOString(),
             };
             await supabase.from("documents").update(update).eq("id", docId);
+
+            // Versioning: keep last 5
+            await supabase.from("image_analysis_versions").update({ is_current: false }).eq("document_id", docId);
+            await supabase.from("image_analysis_versions").insert({
+              document_id: docId,
+              result: update,
+              is_current: true,
+              created_by: user.id,
+            });
+            const { data: oldV } = await supabase
+              .from("image_analysis_versions")
+              .select("id")
+              .eq("document_id", docId)
+              .order("created_at", { ascending: false })
+              .range(5, 100);
+            if (oldV && oldV.length > 0) {
+              await supabase.from("image_analysis_versions").delete().in("id", oldV.map((v: any) => v.id));
+            }
           } catch (e) {
             console.error("Parse/persist failed", e);
           }
