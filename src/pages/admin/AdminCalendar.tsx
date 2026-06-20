@@ -174,7 +174,10 @@ export default function AdminCalendar() {
           <h1 className="text-2xl md:text-3xl font-bold">Marketing naptár</h1>
           <p className="text-sm text-nf-text-muted">{items.length} tervezett bejegyzés</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
+          <Button variant="outline" size="sm" onClick={() => setAutofillOpen(true)}>
+            <CalendarDays className="h-4 w-4 mr-1" /> Brief autofill
+          </Button>
           <Button variant="outline" size="sm" onClick={() => setPlanOpen(true)}>
             <Wand2 className="h-4 w-4 mr-1" /> AI tervez
           </Button>
