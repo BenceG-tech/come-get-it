@@ -82,7 +82,7 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
                 <div className="flex items-center gap-1 mt-1 flex-wrap">
                   {p.rating && <span className="text-[10px] text-nf-text-muted">⭐ {p.rating} ({p.rating_count})</span>}
                   {s.sla_days != null && p.status_changed_at && (
-                    <SlaWarningBadge stageChangedAt={p.status_changed_at} slaDays={s.sla_days} />
+                    <SlaWarningBadge updatedAt={p.status_changed_at} slaDays={s.sla_days} />
                   )}
                 </div>
               </Card>
