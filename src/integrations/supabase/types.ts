@@ -426,6 +426,66 @@ export type Database = {
         }
         Relationships: []
       }
+      drive_inventory: {
+        Row: {
+          age_signal: string | null
+          ai_reason: string | null
+          archived: boolean
+          archived_at: string | null
+          created_at: string
+          duplicate_group: string | null
+          file_id: string
+          id: string
+          mime_type: string | null
+          modified_time: string | null
+          name: string
+          parent_id: string | null
+          previous_parents: string[] | null
+          scanned_at: string
+          suggested_action: string | null
+          theme: string | null
+          updated_at: string
+        }
+        Insert: {
+          age_signal?: string | null
+          ai_reason?: string | null
+          archived?: boolean
+          archived_at?: string | null
+          created_at?: string
+          duplicate_group?: string | null
+          file_id: string
+          id?: string
+          mime_type?: string | null
+          modified_time?: string | null
+          name: string
+          parent_id?: string | null
+          previous_parents?: string[] | null
+          scanned_at?: string
+          suggested_action?: string | null
+          theme?: string | null
+          updated_at?: string
+        }
+        Update: {
+          age_signal?: string | null
+          ai_reason?: string | null
+          archived?: boolean
+          archived_at?: string | null
+          created_at?: string
+          duplicate_group?: string | null
+          file_id?: string
+          id?: string
+          mime_type?: string | null
+          modified_time?: string | null
+          name?: string
+          parent_id?: string | null
+          previous_parents?: string[] | null
+          scanned_at?: string
+          suggested_action?: string | null
+          theme?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       email_templates: {
         Row: {
           body_md: string
