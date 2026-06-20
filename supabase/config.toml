@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.admin-create-bucket]
 verify_jwt = false
+
+[functions.admin-seed-docs]
+verify_jwt = false
