@@ -219,6 +219,36 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_briefings: {
+        Row: {
+          created_at: string
+          date: string
+          email_sent: boolean
+          highlights: Json
+          id: string
+          suggested_focus: Json
+          summary_md: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          email_sent?: boolean
+          highlights?: Json
+          id?: string
+          suggested_focus?: Json
+          summary_md: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          email_sent?: boolean
+          highlights?: Json
+          id?: string
+          suggested_focus?: Json
+          summary_md?: string
+        }
+        Relationships: []
+      }
       daily_focus: {
         Row: {
           briefing_acknowledged_at: string | null
@@ -1280,6 +1310,42 @@ export type Database = {
         }
         Relationships: []
       }
+      voice_notes: {
+        Row: {
+          created_at: string
+          id: string
+          intent: string | null
+          status: string
+          structured: Json
+          target_id: string | null
+          target_table: string | null
+          transcript: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          intent?: string | null
+          status?: string
+          structured?: Json
+          target_id?: string | null
+          target_table?: string | null
+          transcript: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          intent?: string | null
+          status?: string
+          structured?: Json
+          target_id?: string | null
+          target_table?: string | null
+          transcript?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       waitlist_signups: {
         Row: {
           created_at: string
@@ -1301,6 +1367,78 @@ export type Database = {
           id?: string
           source?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      weekly_goals: {
+        Row: {
+          actual: number
+          created_at: string
+          id: string
+          metric: string | null
+          status: string
+          target: number
+          title: string
+          updated_at: string
+          user_id: string | null
+          week_start: string
+        }
+        Insert: {
+          actual?: number
+          created_at?: string
+          id?: string
+          metric?: string | null
+          status?: string
+          target?: number
+          title: string
+          updated_at?: string
+          user_id?: string | null
+          week_start: string
+        }
+        Update: {
+          actual?: number
+          created_at?: string
+          id?: string
+          metric?: string | null
+          status?: string
+          target?: number
+          title?: string
+          updated_at?: string
+          user_id?: string | null
+          week_start?: string
+        }
+        Relationships: []
+      }
+      weekly_retros: {
+        Row: {
+          blockers: Json
+          created_at: string
+          id: string
+          kpi_delta: Json
+          next_week_focus: Json
+          summary_md: string
+          week_start: string
+          wins: Json
+        }
+        Insert: {
+          blockers?: Json
+          created_at?: string
+          id?: string
+          kpi_delta?: Json
+          next_week_focus?: Json
+          summary_md: string
+          week_start: string
+          wins?: Json
+        }
+        Update: {
+          blockers?: Json
+          created_at?: string
+          id?: string
+          kpi_delta?: Json
+          next_week_focus?: Json
+          summary_md?: string
+          week_start?: string
+          wins?: Json
         }
         Relationships: []
       }

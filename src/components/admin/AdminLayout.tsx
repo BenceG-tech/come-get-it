@@ -1,11 +1,12 @@
 import { ReactNode, useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks, Target, Image as ImageIcon, MessageSquare, Cloud, Wand2, Palette } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks, Target, Image as ImageIcon, MessageSquare, Cloud, Wand2, Palette, Trophy } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
 import FloatingAIAssistant from "@/components/admin/FloatingAIAssistant";
 import CommandPalette from "@/components/admin/CommandPalette";
+import { VoiceCaptureFAB } from "@/components/admin/VoiceCaptureFAB";
 
 const items = [
   { to: "/admin", label: "Áttekintés", icon: LayoutDashboard, end: true },
@@ -20,6 +21,7 @@ const items = [
   { to: "/admin/checklist", label: "Master checklist", icon: ListChecks },
   { to: "/admin/ai", label: "AI asszisztens", icon: Sparkles },
   { to: "/admin/calendar", label: "Marketing naptár", icon: Calendar },
+  { to: "/admin/retro", label: "Heti retro & célok", icon: Trophy },
 ];
 
 export const AdminLayout = ({ children }: { children: ReactNode }) => {
@@ -111,6 +113,7 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
 
         <FloatingAIAssistant />
         <CommandPalette />
+        <VoiceCaptureFAB />
       </div>
     </AIAssistantProvider>
   );
