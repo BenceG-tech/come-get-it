@@ -86,8 +86,8 @@ Deno.serve(async (req) => {
       }),
     });
     if (!aiResp.ok) throw new Error(`AI ${aiResp.status}: ${await aiResp.text()}`);
-    const parsed = JSON.parse(aiResp.choices?.[0]?.message?.content ?? (await aiResp.json()).choices?.[0]?.message?.content ?? "{}");
-    // Note: above line has a logic bug if reused. Refetch properly:
+    const aiJson = await aiResp.json();
+    const parsed = JSON.parse(aiJson.choices?.[0]?.message?.content ?? "{}");
     const record = {
       week_start: wkStart,
       summary_md: parsed.summary_md ?? "",
