@@ -1,110 +1,155 @@
-# Admin mobil-optimalizálás + Doksi-archívum betöltése
 
-Két dolgot csinálunk: (1) az admin felület most már mobilon is használható, (2) az összes eddig generált PDF / screenshot felkerül a Dokumentumok közé, logikus mappákba rendezve.
+# Mit építünk
 
----
-
-## 1) Mobil-optimalizált admin felület
-
-A jelenlegi gond: a sidebar 256px fix szélességű, mobilon (402px) elviszi a fél képernyőt, és a fő tartalom is `p-8` paddinggel, fix `max-w` táblákkal van — emiatt minden ki van vágva.
-
-**Mit változtatunk:**
-
-- `AdminLayout.tsx` átírása shadcn `Sidebar` + `SidebarProvider` komponensekre:
-  - Asztali nézet: kinyitva marad, ugyanúgy mint most.
-  - Mobil: off-canvas drawer, alapból csukva; felül egy fix header van „CGI Admin" felirattal + hamburger (`SidebarTrigger`) gombbal.
-  - A „Vissza az oldalra / email / Kijelentkezés" blokk a sidebar aljára kerül (mobilon a drawerben).
-- Minden admin oldalon (`AdminDashboard`, `AdminPartners`, `AdminDocuments`, `AdminPartnerDetail`, `AdminAI`, `AdminCalendar`):
-  - `p-8` → `p-4 md:p-8`, címek `text-3xl` → `text-2xl md:text-3xl`.
-  - Dashboard kártyák: `grid-cols-2 md:grid-cols-4` marad, de a számok `text-2xl md:text-3xl`, label `text-[10px] md:text-xs`, hogy a „ÖSSZES PARTNER" ne legyen levágva.
-  - Partner-táblázat mobilon kártya-nézetre vált (`md:table` + `md:hidden` kártyalista) — minden sor egy kis kártya: cégnév + típus + státusz chip + város.
-  - Szűrő-sávok `flex-wrap` és teljes szélességű inputok mobilon.
-- Az „Új partner" / „Új doksi" gombok mobilon csak ikon + rövid felirat, nem törnek bele a címbe.
-
-Cél: 360–430px szélességen minden olvasható, kattintható, semmi nem lóg ki.
+Négy nagy blokk. Mindegyiket külön szakaszban fejezzük be, hogy lépésenként látható legyen az eredmény.
 
 ---
 
-## 2) Generált doksik feltöltése Storage-be + Dokumentumok mappákba rendezve
+## 0) AZONNALI FIXEK (még ma)
 
-A `/mnt/documents` mappában **47 PDF + 14 screenshot PNG + 1 markdown** van, amit korábban generáltunk. Ezek most felkerülnek a Supabase Storage-be és a `documents` táblába, hogy az admin felületen egy kattintással elérhetők legyenek.
+**A) Doksi „Megnyitás" nem reagál**
+- Ok: a `window.open(...)` a `createSignedUrl` await UTÁN fut → a böngésző popup-blokkoló elnyeli (nem user-gesture). Mobilon biztosan ez van.
+- Fix: a kattintáskor szinkron nyitunk egy `const win = window.open('', '_blank')` ablakot, majd `win.location.href = signedUrl` amint megjön. Ha `win` null (blokkolva), fallback: ugyanazon a tabon `location.assign(url)` + toast.
+- Mellé: PDF-eket `?download=` paraméter nélkül adjuk (inline view), képeket szintén; külön „Letöltés" gomb a kényszerített letöltéshez.
 
-**Mit csinálunk:**
+**B) AI asszisztens 403 `LOVABLE_API_KEY is not registered`**
+- A network log mutatja: az `admin-ai-chat` edge function hibára fut, mert az AI Gateway nincs aktiválva ehhez a projekthez. Ezt egyetlen lépéssel rendezem (`ai_gateway--enable`). Ettől az AI azonnal válaszol.
 
-### a) Storage bucket
-Új **privát** bucket: `admin-docs`. RLS: csak admin szerep tud listázni / olvasni / feltölteni. Letöltés signed URL-lel a frontendről.
+---
 
-### b) Adatbázis-migráció
-- A `documents` táblához új oszlop: `folder text` (mappa-csoport neve, pl. `pitch-decks`).
-- Új oszlop: `file_size_bytes int`, `mime_type text` (megjelenítéshez).
-- A `category` enumhoz hozzáadjuk: `pitch_deck`, `investor`, `sales_script`, `screenshot`, `knowledge_base`.
+## 1) AI ASSZISZTENS TUDÁSA (RAG — minden doksit lát)
 
-### c) Mappa-struktúra és betöltés
+Most az AI csak a doksik **metaadatát** kapja (cím, leírás, mikor használd). A tényleges PDF-tartalmat nem.
 
-A fájlokat egy backfill-szkript (egyszeri SQL + edge function, vagy direkt SQL `INSERT` a storage feltöltés után) tölti be ezekkel a mappákkal:
+- **PDF szöveg-kivonás**: új edge function `documents-index` ami a Storage-ban lévő PDF-eket szöveggé alakítja (pdfjs Deno-ban), és `documents.extracted_text` mezőbe menti.
+- **Embeddings**: minden doksi szövege ~1000 karakteres chunkokra vágva, `google/gemini-embedding-001` → pgvector tábla (`document_chunks`, dim 3072, HNSW index).
+- **Chat hívásnál**: user kérdés → embedding → top-8 leginkább releváns chunk → bekerül a system promptba „FORRÁSOK" szekcióként. Az AI így tud minden Come Get It-tel kapcsolatos kérdésre válaszolni (FAQ, Master overview, pitch decks, founder bio, sales script, stb. — mind ott van).
+- A chatben minden válasz alatt megjelenik melyik doksiból idézett (kattintható link).
+
+---
+
+## 2) BRAND MEDIA SZEKCIÓ (`/admin/media`)
+
+Új menüpont + új Storage bucket `brand-media` (private, admin-only RLS).
+
+- **Feltölthető**: JPG, PNG, WebP, MP4, MOV, GIF, SVG (logók). Max 100 MB / fájl.
+- **Mappák/tagek**: Logó, Mockup, Termékfotó, Social poszt referencia, Videó (b-roll), Animáció, Stock — szabadon bővíthető. Saját mező: `brand_tags[]` (pl. „cyan glow", „phone mockup", „bar setting").
+- **AI vízió analízis** (auto, feltöltéskor):
+  - Kép: GPT-vision/Gemini → leírás, felismert elemek, dominant színek, hangulat, „mire jó" javaslat (pl. „IG square poszt háttere", „pitch deck cover", „video starting frame").
+  - Videó: első frame + 3 köztes frame kivágás → vizuális leírás + hossz, formátum, hangulat.
+  - Minden eredmény mentve `media_assets.ai_description` + `ai_tags[]` + `ai_use_suggestions[]` mezőkbe.
+- **Doksihoz csatolás**: a Dokumentumok oldalon új „Csatolt média" szekció — egy doksi bármennyi media assethez köthető (`document_media` join tábla), így az AI ha pl. „Founding Partner pitch"-et említ, a hozzá tartozó képeket is figyelembe veszi/kínálja.
+- **Proaktív ajánló**: új admin dashboard widget („Új ötletek a médiádra"): ha lát egy frissen feltöltött képet ami pl. „eladásra kész IG poszt háttér", felajánlja: „Csináljak ebből IG posztot? Vagy videó starting frame-et?".
+
+---
+
+## 3) AI KÉPEK + VIDEÓK + ÖNELLENŐRZŐ + SPECIALIZÁLT GENERÁTOROK
+
+### 3a) Chat-asszisztens kibővítése
+A `/admin/ai` chat eddig csak szöveget tud. Hozzáadjuk:
+- **Kép-feltöltés a chatbe** (drag & drop) → Gemini vision elemzi → AI tud rá hivatkozni, módosítást javasolni, reprodukálni.
+- **Videó-feltöltés** → első/köz-frame kivágás → leírás → AI tud róla beszélni.
+- **Kép-generálás közvetlenül a chatben**: ha az AI úgy dönt vagy te kéred („csinálj egy IG posztot ehhez a kávézóhoz"), `openai/gpt-image-2` streaming generálás, a kép megjelenik a buborékban. Mentés gomb → `brand-media` bucketbe.
+- **Kép-szerkesztés**: meglévő brand media asseten alapuló edit (`google/gemini-3.1-flash-image-preview`) — „változtasd a hátteret estire", „tedd hozzá a Come Get It logót".
+- **Videó-generálás**: külön gomb („Készíts 5 mp-es videót"), `videogen--generate_video` (Seedance) — text-to-video vagy starting-frame-ből.
+- **Dokumentum-generálás**: külön gomb („Csinálj PDF-et ebből") — szerver oldali reportlab/weasyprint, a Pitch Deck stílusban, automatikusan `documents` táblába mentve.
+
+### 3b) Specializált generátor szekciók
+Új menüpont: `/admin/generators` — 4 kártya:
+
+1. **Pitch generátor** — partner kiválasztása (a CRM-ből) vagy szabad mezők (név, város, típus, vibe) → személyre szabott 1-oldalas pitch + hosszú pitch verzió. PDF exporttal.
+2. **Email generátor** — első kontakt / follow-up / re-engagement típusok, hangnem (formális/baráti), nyelv (HU/EN). Subject + body + 3 alternatív subject line.
+3. **Insta DM generátor** — rövid (max 3 mondat), csábító, CTA-val. Variációk: kávézó / bár / étterem / italmárka / rewards.
+4. **IG/FB poszt generátor** — caption + hashtag (HU+EN mix) + ajánlott vizuál a Brand Mediából (a vízió-tagek alapján a rendszer kiválasztja a top-3 illő képet/videót).
+
+### 3c) Önellenőrző (self-critique) rendszer — KÖRBEN MUTATJA
+Minden generátor és chat-szöveg ezzel a 3-lépéses folyamattal fut:
 
 ```text
-01 — Pitch decks (publikus pitch oldalankint)
-   01-fooldal.pdf, 02-vendeglatohelyek.pdf, 03-partnerek.pdf,
-   04-founding-partner-program.pdf, 05-italmarkak.pdf,
-   06-rewards-partnerek_v2.pdf, come-get-it-founding-partner-pitch.pdf
-
-02 — Master overview & hosszú pitch-ek (_v2)
-   01-master-overview_v2.pdf, 02-pitch-vendeglatohelyek_v2.pdf,
-   03-pitch-italmarkak_v2.pdf, 04-pitch-rewards-partnerek_v2.pdf
-
-03 — 1-pagerek (gyors első kontakt)
-   05-onepager-helyek_v2.pdf, 06-onepager-markak_v2.pdf,
-   07-onepager-rewards_v2.pdf
-
-04 — Média & FAQ
-   08-media-kit_v2.pdf, 09-faq-partnereknek_v2.pdf,
-   21-sajtokozlemeny-launch.pdf, 22-founder-bio-qa.pdf
-
-05 — Founding Partner jogi/üzleti
-   10-founding-partner-term-sheet_v2.pdf
-
-06 — Befektetői csomag
-   11-befekteto-overview_v2.pdf, 12-befekteto-1pager_v2.pdf,
-   13-letter-of-intent-sablon_v2.pdf, 14-barat-bemutato.pdf,
-   15-milestone-return-tabla.pdf, 16-barat-loi-sablon.pdf
-
-07 — Sales / outreach scriptek
-   17-cold-email-pack.pdf, 18-linkedin-dm-scripts.pdf,
-   19-venue-onboarding-playbook.pdf, 20-in-venue-print-kit-brief.pdf
-
-08 — Knowledge base
-   come-get-it-master-knowledge.pdf (+ .md)
-
-09 — App screenshotok (desktop)
-   screenshots/*.png + come-get-it-screenshots.pdf
-
-10 — App screenshotok (mobil)
-   mobile-screenshots/*.png + come-get-it-mobile-screenshots.pdf
+[ v1 generálás ]
+      ↓
+[ kritikus modell pontoz 1-10 skálán
+  + felsorolja a gyenge pontokat
+  + javasol konkrét javításokat ]
+      ↓
+[ v2 generálás a kritika alapján ]
 ```
 
-A régi `v1` PDF-eket nem töltjük fel (csak a `_v2` legutolsó verziókat), hogy ne legyen duplikáció. Minden bejegyzéshez megy `title` (magyar, ember-olvasható, pl. „Befektetői 1-pager"), `description`, `when_to_use` (pl. „Első kontakt befektetővel — küldd email mellékletként").
+UI-on mindhárom megjelenik egymás alatt, behajtható kártyákban:
+- **v1** (eredeti) — látható, másolható
+- **🎯 Pontszám: 7.5/10** + bullet point kritika
+- **v2** (javított) — kiemelten, „Használom ezt" gombbal
 
-### d) AdminDocuments oldal frissítése
-- Felül egy **mappa-választó** (10 csoport + „Mind"), a régi kategória-szűrő mellett.
-- Lista a mappákra csoportosítva, mappánkint kibontható szekcióval (collapsed alapból, csak az aktív mappa nyitva).
-- Minden kártyán: cím, leírás, „Mikor használd", **„Megnyitás"** gomb (signed URL, új tab) + **„Másol link"** gomb.
-- Új doksi feltöltése: file input → Storage-be `admin-docs/<folder>/<filename>` útra tölt, majd elmenti a táblába.
-- Mobil layout: kártyák egymás alatt, full-width, nagy tap-target gombok.
+Pontozási dimenziók (a kritikának kötelező mindre kitérnie):
+- Magyar nyelv minősége & tegezés
+- Brand hang (energikus, friendly, neon vibe)
+- CTA erőssége
+- Hossz & olvashatóság (mobilon is)
+- Konkrétság (van-e tényleges szám/ajánlat)
+- Personalizáció (partner-specifikus elemek)
 
----
-
-## Technikai részletek (fejlesztőknek)
-
-- **Migráció lépései egy commitban**: `ALTER TYPE document_category ADD VALUE` (5 új), `ALTER TABLE documents ADD COLUMN folder text, file_size_bytes int, mime_type text`, storage bucket `admin-docs` privát létrehozása, RLS policy `storage.objects` táblára (`has_role(auth.uid(),'admin')`).
-- **Backfill**: külön szkriptben (`scripts/upload-admin-docs.ts`) `service_role` kulccsal feltöltünk minden fájlt `/mnt/documents` alól és `INSERT`-elünk a `documents` táblába. A szkriptet egyszer kézzel futtatjuk a sandboxból, nem kerül CI-be.
-- **Frontend signed URL**: `supabase.storage.from('admin-docs').createSignedUrl(path, 3600)` egy kattintásra, nem előre.
-- **Shadcn sidebar**: a `src/components/ui/sidebar.tsx` már elérhető, csak fel kell kötni az `AdminLayout`-ra `collapsible="offcanvas"` módban.
-- A meglévő kézzel hozzáadott doksik (ha vannak már a DB-ben) érintetlenül maradnak, csak `folder = null` lesz náluk — ezek a „Mappázatlan" szekcióba kerülnek.
+Pontszám gombokkal: „🔄 Csinálj v3-at" (még egy kör), „✏️ Saját javítás", „📋 Másol".
 
 ---
 
-## Amit NEM csinálunk most
-- Nem nyúlunk a login/admin RBAC logikához (az most már működik).
-- Nem írunk PDF-előnézetet az admin felületre — csak megnyitás új tabban.
-- Nem migrálunk Lovable Cloud-ra.
+## 4) INSTAGRAM / FACEBOOK INTEGRÁCIÓ
+
+### 4a) Posztolás közvetlenül (Meta Graph API)
+- **Setup**: Meta for Developers app létrehozása (te csinálod, mi vezetünk lépésenként). Kell: Facebook Page + Instagram Business account a Page-hez kötve. Engedélyek: `pages_manage_posts`, `instagram_content_publish`, `instagram_basic`, `pages_read_engagement`.
+- **OAuth flow**: `/admin/settings/integrations` oldalon „Csatlakozás Meta-hoz" gomb → Meta login → token visszajön → secret-be mentjük (`META_ACCESS_TOKEN`, `META_PAGE_ID`, `META_IG_BUSINESS_ID`).
+- **Edge function `meta-publish`**: kap egy poszt objektumot (kép-URL + caption) → feltölti container endpoint-ra → publikálja IG-re és/vagy FB-re. Visszaadja a poszt URL-jét.
+- **Generátorból egy gomb**: „🚀 Posztold most" — előnézet, ütemezés (azonnal / dátum) → marketing_calendar-ba is bekerül a kiment állapot.
+
+### 4b) DM sablonok (Meta nem enged automata DM-küldést cold outreach-re — egyszerű másolás)
+- Insta DM generátor (lásd 3b) ad szöveget, „📋 Másol" gomb + „Megnyitás Instagramban" deeplink a célfiókhoz.
+
+### 4c) Brand & versenytárs insightok
+- **Saját poszt analitika**: edge function `meta-insights` lekéri az utolsó 30 nap posztjait + engagement-jét (likes, comments, reach, saves). Dashboard widget mutatja a top-3 legjobban teljesítő posztot.
+- **Versenytárs figyelés**: te megadsz pl. 5 IG handle-t (`@dusk_budapest`, stb.). Hetente egyszer egy cron edge function (`meta-competitor-scan`) lekéri az új posztjaikat (Graph API csak public business profile-okra megy, vagy 3rd party scraping mint Apify — ha cold flag, jelezz). Az AI heti összefoglalót ír: „Dusk most ezt csinálta, mi reagálhatnánk ezzel".
+
+---
+
+## TECHNIKAI RÉSZLETEK (nem-technikai olvasónak átugorható)
+
+**Új Supabase táblák**
+- `media_assets` (id, user_id, bucket_path, type, mime, width, height, duration_sec, ai_description, ai_tags[], ai_use_suggestions[], brand_tags[], created_at)
+- `document_media` (document_id, media_id) — join
+- `document_chunks` (id, document_id, chunk_index, content, embedding vector(3072))
+- `meta_accounts` (user_id, page_id, ig_business_id, access_token_encrypted, expires_at)
+- `meta_posts` (id, platform, external_id, caption, media_urls[], scheduled_for, published_at, insights jsonb)
+- `competitor_handles` (id, platform, handle, last_scanned_at)
+- `ai_generations` (id, type, prompt, v1, critique, score, v2, used_version, created_at) — audit log az önellenőrzőhöz
+- Új Storage bucket `brand-media` (private, admin RLS)
+- `documents` táblához új mező: `extracted_text text`
+
+**Új edge functions**
+- `documents-index` (PDF→szöveg→chunk→embedding)
+- `admin-ai-chat` bővítése: RAG + multimodal (vision)
+- `media-analyze` (vízió-analízis feltöltéskor)
+- `generate-pitch-pdf`, `generate-email`, `generate-dm`, `generate-social-post` — mind self-critique loopban
+- `meta-publish`, `meta-insights`, `meta-competitor-scan`
+
+**Új secretek szükségesek** (a megfelelő pillanatban kérem be):
+- `META_APP_ID`, `META_APP_SECRET` — Meta integrációhoz (4-es blokknál)
+
+A `LOVABLE_API_KEY` már létezik, csak aktiválni kell a Gateway-t a projekthez.
+
+---
+
+## ÜTEMTERV (ezt javaslom így sorrendben elfogadni)
+
+| # | Blokk | Becsült idő | Kockázat |
+|---|---|---|---|
+| 0 | Doksi-megnyitás fix + AI Gateway aktiválás | 5 perc | nulla — azonnal látható |
+| 1 | RAG: PDF index + embeddings + chat-be kötés | 30 perc | közepes (pdfjs Deno-ban néha cseles) |
+| 2 | Brand Media szekció + vízió-analízis + doksihoz csatolás | 45 perc | alacsony |
+| 3a | Chat multimodal + kép/videó gen a chatben | 30 perc | alacsony |
+| 3b | 4 specializált generátor (pitch / email / DM / poszt) | 60 perc | alacsony |
+| 3c | Önellenőrző v1+pontszám+v2 minden generátorban | 20 perc | alacsony |
+| 4a | Meta posztolás (oauth + publish) | 60 perc | magas (Meta app review-t igényelhet live használathoz) |
+| 4b | DM sablon (csak generálás+másolás) | benne van 3b-ben | nulla |
+| 4c | Insights + versenytárs cron | 45 perc | közepes (rate limit + Apify costs) |
+
+Ha rábólintasz az egészre, **0+1+2+3** együtt megy első körben (kb. 3 óra meló), aztán **4** külön körben mikor a Meta app készen áll.
+
+Mondj egy „mehet" jelet vagy jelöld ha valamit kihagynánk / előrébb hoznánk.

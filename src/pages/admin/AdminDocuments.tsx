@@ -76,12 +76,21 @@ export default function AdminDocuments() {
       window.open(storage_path, "_blank", "noopener");
       return;
     }
+    // CRITICAL: open the tab SYNCHRONOUSLY (in the click handler) so mobile/desktop
+    // popup blockers don't kill it. Then redirect it once the signed URL is ready.
+    const win = window.open("about:blank", "_blank");
     const { data, error } = await supabase.storage.from("admin-docs").createSignedUrl(storage_path, 3600);
     if (error || !data) {
+      if (win) win.close();
       toast({ title: "Hiba", description: error?.message ?? "Nem sikerült linket generálni", variant: "destructive" });
       return;
     }
-    window.open(data.signedUrl, "_blank", "noopener");
+    if (win) {
+      win.location.href = data.signedUrl;
+    } else {
+      // Popup blocked → fallback: navigate current tab
+      window.location.assign(data.signedUrl);
+    }
   };
 
   const copyLink = async (storage_path: string | null) => {
