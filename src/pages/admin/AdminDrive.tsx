@@ -346,7 +346,7 @@ export default function AdminDrive() {
             </Card>
           )}
 
-          {Object.entries(byTheme).sort(([a], [b]) => a.localeCompare(b, "hu")).map(([theme, items]) => (
+          {(Object.entries(byTheme) as [string, any[]][]).sort(([a], [b]) => a.localeCompare(b, "hu")).map(([theme, items]) => (
             <Card key={theme} className="p-3 space-y-2">
               <div className="flex items-center justify-between">
                 <div className="font-bold text-sm flex items-center gap-2">
