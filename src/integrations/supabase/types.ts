@@ -552,6 +552,10 @@ export type Database = {
       partners: {
         Row: {
           address: string | null
+          ai_next_action: string | null
+          ai_score: number | null
+          ai_score_reason: string | null
+          ai_scored_at: string | null
           assigned_to: string | null
           category: string | null
           city: string | null
@@ -582,6 +586,10 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          ai_next_action?: string | null
+          ai_score?: number | null
+          ai_score_reason?: string | null
+          ai_scored_at?: string | null
           assigned_to?: string | null
           category?: string | null
           city?: string | null
@@ -612,6 +620,10 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          ai_next_action?: string | null
+          ai_score?: number | null
+          ai_score_reason?: string | null
+          ai_scored_at?: string | null
           assigned_to?: string | null
           category?: string | null
           city?: string | null

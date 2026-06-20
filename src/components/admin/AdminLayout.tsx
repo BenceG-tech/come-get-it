@@ -5,6 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
 import FloatingAIAssistant from "@/components/admin/FloatingAIAssistant";
+import CommandPalette from "@/components/admin/CommandPalette";
 
 const items = [
   { to: "/admin", label: "Áttekintés", icon: LayoutDashboard, end: true },
@@ -106,6 +107,7 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
         <main className="flex-1 min-w-0 overflow-auto">{children}</main>
 
         <FloatingAIAssistant />
+        <CommandPalette />
       </div>
     </AIAssistantProvider>
   );
