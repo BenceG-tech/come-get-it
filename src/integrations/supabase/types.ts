@@ -149,6 +149,7 @@ export type Database = {
           key_points: Json | null
           last_reviewed_at: string | null
           last_summarized_at: string | null
+          linked_document_id: string | null
           mime_type: string | null
           partner_type: Database["public"]["Enums"]["partner_type"] | null
           quality_notes: string | null
@@ -189,6 +190,7 @@ export type Database = {
           key_points?: Json | null
           last_reviewed_at?: string | null
           last_summarized_at?: string | null
+          linked_document_id?: string | null
           mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
           quality_notes?: string | null
@@ -229,6 +231,7 @@ export type Database = {
           key_points?: Json | null
           last_reviewed_at?: string | null
           last_summarized_at?: string | null
+          linked_document_id?: string | null
           mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
           quality_notes?: string | null
@@ -242,6 +245,13 @@ export type Database = {
           when_to_use?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "documents_linked_document_id_fkey"
+            columns: ["linked_document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "documents_related_partner_id_fkey"
             columns: ["related_partner_id"]
@@ -352,6 +362,41 @@ export type Database = {
           variables?: Json | null
         }
         Relationships: []
+      }
+      image_analysis_versions: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          document_id: string
+          id: string
+          is_current: boolean
+          result: Json
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          document_id: string
+          id?: string
+          is_current?: boolean
+          result: Json
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          document_id?: string
+          id?: string
+          is_current?: boolean
+          result?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "image_analysis_versions_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       lead_import_jobs: {
         Row: {
