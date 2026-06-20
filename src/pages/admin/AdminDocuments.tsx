@@ -577,6 +577,21 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
         thumbUrl={aiImage ? (signedCache[aiImage.id] || (aiImage.storage_path?.startsWith("http") ? aiImage.storage_path : null)) : null}
         onUpdated={load}
       />
+      {bulkOpen && (
+        <BulkUploadDialog
+          open={bulkOpen}
+          onClose={() => setBulkOpen(false)}
+          onDone={() => load()}
+          existingFolders={folderKeys.filter((k) => k !== UNFILED)}
+        />
+      )}
+      {orgOpen && (
+        <OrganizationSuggestionsDialog
+          open={orgOpen}
+          onClose={() => setOrgOpen(false)}
+          onApplied={load}
+        />
+      )}
     </div>
   );
 }
