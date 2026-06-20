@@ -1,92 +1,49 @@
-# Admin Lead-CRM kibővítés — Vendéglátóhelyek fókusz
+# Gombok letisztítása — kisebb, lekerekített, halványabb glow
 
-## Mit építettünk eddig (admin/)
-- **Dashboard** — alap KPI-k
-- **Partners + PartnerDetail** — CRUD lista, státusz, jegyzetek
-- **Documents + Audit + Viewer** — feltöltés, AI értékelés, multi-select
-- **Calendar** — marketing naptár
-- **Checklist** — óriás dokumentum/teendő lista
-- **AI Assistant** — sticky chat, threadek, voice, self-critique, doksi-kontextus
+## Cél
+A főoldal hero CTA-i és az egész alkalmazás gombjai (`Button` komponens) legyenek vizuálisan letisztultabbak: kompaktabb méret, lágyan lekerekített sarkok (rounded-lg), visszafogottabb cyan glow. A neon-fidelity karakter megmarad, de prémium / profi érzet erősödik. Olvashatóság és tap-target méret mobilon is garantált (min. 40px érintőfelület).
 
-## Ami hiányzik (a kéréseid alapján)
-1. Tömeges lead-import (Excel/CSV + Apify Google Maps scraper)
-2. Pipeline-vizualizáció (Kanban): új → kontaktált → tárgyalás → szerződés → aktív / elutasítva
-3. Lead-scoring (AI: hely típusa, méret, IG-követők, rating, illeszkedés a brandhez)
-4. Tömeges műveletek (kijelölés → email, státusz, hozzárendelés, AI-elemzés)
-5. Térkép-nézet (Mapbox) — város/kerület szerint
-6. Email- és üzenetküldés a partner kártyájáról (Resend + sablonok), interakció-log
-7. Duplikátum-szűrés (név + cím + telefon hasonlóság)
-8. Lead-források analitikája (honnan jött a legjobb minőségű partner)
+## Változtatások
 
-## Új felépítés — `/admin/leads` (új hub, a Partners helyett/mellett)
+### 1. `src/components/ui/button.tsx` — globális variánsok
+- **Alap méretek kompaktabbra:**
+  - `default`: `h-10 px-4` → `h-9 px-3.5 text-[13px]`
+  - `sm`: `h-9 px-3` → `h-8 px-3 text-xs`
+  - `lg`: `h-11 px-8` → `h-10 px-6 text-sm` (hero/CTA-kra)
+  - `icon`: `h-10 w-10` → `h-9 w-9`
+- **Lekerekítés egységesen `rounded-lg`** (default/sm/lg/icon — most vegyes `rounded-md`).
+- **`neon` variáns letisztítva:**
+  - Megmarad: `bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-semibold`
+  - `rounded-full` → `rounded-lg` (lágyabb, modernebb)
+  - `font-bold` → `font-semibold` (kevésbé harsány)
+  - `shadow-neon-strong` → finomabb `shadow-[0_4px_20px_-4px_rgba(0,188,212,0.35)]`
+  - Hover: `hover:scale-105` → `hover:scale-[1.02]` (visszafogottabb), glow enyhén erősödik `hover:shadow-[0_6px_24px_-4px_rgba(0,188,212,0.5)]`
+  - `unified-neon-glow` osztály eltávolítva (ez okozza a túl erős világítást)
+- **`outline` változatlan**, csak a magasság kompaktabb.
 
-### 1) Nézetek egy oldalon, fülekkel
-- **Lista** — szűrhető táblázat (város, típus, státusz, score, forrás, utolsó kontakt)
-- **Kanban** — drag & drop a pipeline-on
-- **Térkép** — pinek színezve státusz szerint
-- **Naptár** — `next_followup_at` események
+### 2. Hero CTA-k a főoldalon
+A `HeroSection.tsx` (és ahol a `Button variant="neon"` szerepel hero-szerű kontextusban) — nincs külön kód, a fenti variáns-frissítés automatikusan érvényre jut. Ellenőrizzük:
+- `src/components/HeroSection.tsx`
+- `src/components/VenueHeroSection.tsx`
+- `src/components/StickyCallToAction.tsx`
 
-### 2) Tömeges import — 3 mód
-- **A) Excel/CSV feltöltés**: drag & drop → oszlop-mapping wizard → preview → duplikátum-jelzés → import
-- **B) Apify Google Maps Scraper**: form (keresőszó pl. "kávézó Budapest VII", limit, kategóriák) → háttér edge function indítja az Apify actort (`compass/crawler-google-places`) → poll státusz → automatikus betöltés `partners` táblába forrással `apify:google_maps`
-- **C) Kézi gyors-add**: 1 soros mező (név) + AI auto-kitöltés (Apify "lookup" vagy Google Places API egy helyre)
+Ha valahol hardcoded `rounded-full` / extra `shadow-neon-strong` van a `className`-ben (felülírja a variánst), azt eltávolítjuk.
 
-### 3) Lead-scoring (AI)
-Új oszlop a `partners` táblán: `lead_score` (0–100), `score_reasons` (jsonb), `score_updated_at`. Edge function `score-lead` minden új lead-re lefut (és kézzel is triggerelhető tömegesen):
-- típus illeszkedés (kávézó/bár/étterem > gyorsétterem)
-- méret-jel (Google rating count, IG-követők ha van)
-- aktivitás (van IG, van weboldal, válaszolt-e DM-re)
-- város prioritás (BP belváros > vidék első körben)
-A score-listán színes badge (zöld 80+, sárga 50–79, piros <50).
+### 3. Mobil olvashatóság biztosítása
+- Min. érintőfelület: a `lg` méret mobilon is 40px magas marad (`h-10`), így iOS/Android tap-target irányelv teljesül.
+- Hero gombok teljes szélességűek mobilon (`w-full sm:w-auto`) — ahol már így van, marad; ahol nem, hozzáadjuk a hero CTA-knál.
+- Text contrast ellenőrizve: cyan→ocean gradient + fehér text WCAG AA OK.
 
-### 4) Tömeges műveletek
-Checkbox a sorokon → floating bar: **AI elemezz · Email küldés (sablon) · Státusz · Hozzárendel felhasználóhoz · Címke · Export CSV · Töröl**
+## Érintett fájlok
+- `src/components/ui/button.tsx` (variáns- és méret-finomítás)
+- `src/components/HeroSection.tsx` (hardcoded className tisztítás, ha kell)
+- `src/components/VenueHeroSection.tsx` (ua.)
+- `src/components/StickyCallToAction.tsx` (ua.)
 
-### 5) Kommunikáció + interakció-log
-Partner kártyán új tabok: **Áttekintés / Időnvonal / Emailek / Doksik / Jegyzetek**. Email küldés Resend-en sablonból ("Első megkeresés", "Emlékeztető", "Founding Partner ajánlat"). Minden küldés és nyitás log-olva (`partner_interactions` már létezik).
+## Amit NEM csinálunk
+- Nem nyúlunk a színpalettához (electric/ocean marad).
+- Nem cseréljük le a teljes Neon Fidelity stílust — csak a gombok finomodnak.
+- Admin UI gombokat nem külön kezeljük: a globális `Button` frissítés automatikusan érvényesül ott is, de nem bontunk meg admin-specifikus layoutot.
 
-### 6) Duplikátum-kezelés
-Import előtt és cron-nal: Levenshtein név + város egyezésre figyelmeztet → "Egyesítés" gomb (jegyzetek és interakciók összeolvadnak).
-
-## Technikai részletek
-
-### Új edge functions
-- `apify-scrape-venues` — Apify actor indítása + webhook fogadása. Új secret: `APIFY_API_TOKEN`.
-- `import-leads-bulk` — CSV/Excel parsolás (xlsx npm), validáció, dedup, batch insert.
-- `score-lead` — Gemini-vel pontozás, eredmény mentése.
-- `send-partner-email` — Resend + sablon-render, log a `partner_interactions`-be.
-
-### DB migráció
-- `partners` + `lead_score int`, `score_reasons jsonb`, `score_updated_at`, `assigned_to uuid`, `tags text[]`, `lat numeric`, `lng numeric`, `google_place_id text`, `rating numeric`, `rating_count int`
-- új tábla `lead_import_jobs` (id, source, status, total, imported, duplicates, errors jsonb, created_by, created_at)
-- új tábla `email_templates` (id, name, subject, body_md, variables jsonb)
-- index `partners(status, lead_score desc)`, `partners(city)`, GIN `tags`
-
-### Új komponensek
-- `src/pages/admin/AdminLeads.tsx` (hub fülekkel)
-- `src/components/admin/leads/LeadsTable.tsx`, `LeadsKanban.tsx`, `LeadsMap.tsx`
-- `src/components/admin/leads/ImportWizard.tsx` (CSV/Excel + mapping)
-- `src/components/admin/leads/ApifyScrapeDialog.tsx`
-- `src/components/admin/leads/BulkActionBar.tsx`
-- `src/components/admin/leads/LeadScoreBadge.tsx`
-- `src/components/admin/leads/EmailComposer.tsx`
-
-### Integrációk
-- **Apify** — `APIFY_API_TOKEN` secret kell (kérni fogom build-fázisban)
-- **Mapbox** — public token, térképhez
-- **Resend** — már van
-- **Google Places (opcionális későbbre)** — 1-1 lookup-ra
-
-## Megvalósítási sorrend
-1. DB migráció + `AdminLeads` váz (lista + szűrők + score badge)
-2. CSV/Excel import wizard + duplikátum-szűrés
-3. Apify integráció (a leghasznosabb most)
-4. Kanban + Térkép nézet
-5. AI lead-scoring (bulk + auto új lead-re)
-6. Email composer + sablonok + interakció-log
-7. Tömeges műveletek + analitika dashboard widget
-
-## Kérdés mielőtt elindulok
-- **Apify token**: van már aktív Apify accountod? Ha igen, build-módban kérni fogom a tokent az `add_secret`-tel. Vagy inkább Google Places API-val menjünk?
-- **Térkép**: Mapbox jó (van free tier), vagy Leaflet+OpenStreetMap (teljesen ingyenes, token nélkül)?
-- **Partners menüpont** maradjon külön, vagy az új **Leads** váltsa fel teljesen (a Partners adatai automatikusan az új nézetben lesznek úgyis)?
+## Verifikáció
+Build után Playwright screenshot mobil (402px) + desktop (1280px) nézetben a `/` route-ról, hero CTA-k láthatóak, gombszöveg olvasható, glow visszafogott.

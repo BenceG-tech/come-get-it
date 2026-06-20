@@ -9,7 +9,7 @@ export const StickyCallToAction: React.FC = () => {
     <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center items-center px-4">
       <Button 
         variant="neon"
-        className="py-3 px-6 lg:px-8 text-base shadow-neon-strong"
+        className=""
         onClick={() => {
           analytics.ctaClick('sticky_cta', t('cta.sticky_join_round'));
           document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });

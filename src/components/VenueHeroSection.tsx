@@ -70,19 +70,19 @@ export const VenueHeroSection: React.FC = () => {
               <Button
                 variant="neon"
                 size="lg"
-                className="py-4 px-8 text-lg w-full sm:w-auto"
+                className="w-full sm:w-auto"
                 onClick={() => {
                   analytics.ctaClick('venue_hero_primary', t('venues.hero.cta'));
                   document.querySelector('#venue-application')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
                 {t('venues.hero.cta')}
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-1.5 h-4 w-4" />
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                className="py-4 px-8 text-lg w-full sm:w-auto rounded-full border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
+                className="w-full sm:w-auto border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
                 onClick={() => {
                   analytics.ctaClick('venue_hero_secondary', t('venues.hero.cta_secondary'));
                   document.querySelector('#how-it-works-venues')?.scrollIntoView({ behavior: 'smooth' });
