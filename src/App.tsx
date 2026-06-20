@@ -31,6 +31,8 @@ import AdminLeads from "./pages/admin/AdminLeads";
 import AdminMedia from "./pages/admin/AdminMedia";
 import AdminDocumentChat from "./pages/admin/AdminDocumentChat";
 import AdminDrive from "./pages/admin/AdminDrive";
+import AdminBrand from "./pages/admin/AdminBrand";
+import AdminContentStudio from "./pages/admin/AdminContentStudio";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +68,8 @@ const App = () => (
               <Route path="/admin/ai" element={<AdminRoute><AdminLayout><AdminAI /></AdminLayout></AdminRoute>} />
               <Route path="/admin/ai/:threadId" element={<AdminRoute><AdminLayout><AdminAI /></AdminLayout></AdminRoute>} />
               <Route path="/admin/calendar" element={<AdminRoute><AdminLayout><AdminCalendar /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/brand" element={<AdminRoute><AdminLayout><AdminBrand /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/content" element={<AdminRoute><AdminLayout><AdminContentStudio /></AdminLayout></AdminRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

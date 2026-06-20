@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_log: {
+        Row: {
+          action: string
+          created_at: string
+          entity_id: string | null
+          entity_label: string | null
+          entity_type: string
+          id: string
+          metadata: Json
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          entity_id?: string | null
+          entity_label?: string | null
+          entity_type: string
+          id?: string
+          metadata?: Json
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          entity_id?: string | null
+          entity_label?: string | null
+          entity_type?: string
+          id?: string
+          metadata?: Json
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       ai_conversations: {
         Row: {
           created_at: string
@@ -70,6 +103,33 @@ export type Database = {
           },
         ]
       }
+      brand_knowledge: {
+        Row: {
+          description: string | null
+          key: string
+          label: string | null
+          updated_at: string
+          updated_by: string | null
+          value: Json
+        }
+        Insert: {
+          description?: string | null
+          key: string
+          label?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Update: {
+          description?: string | null
+          key?: string
+          label?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Relationships: []
+      }
       checklist_items: {
         Row: {
           category: string
@@ -119,6 +179,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      content_generations: {
+        Row: {
+          brand_fit_score: number | null
+          brief: string | null
+          created_at: string
+          created_by: string | null
+          formats: Json
+          id: string
+          persona: string | null
+          prompt: string
+          selected_variants: Json
+          updated_at: string
+        }
+        Insert: {
+          brand_fit_score?: number | null
+          brief?: string | null
+          created_at?: string
+          created_by?: string | null
+          formats?: Json
+          id?: string
+          persona?: string | null
+          prompt: string
+          selected_variants?: Json
+          updated_at?: string
+        }
+        Update: {
+          brand_fit_score?: number | null
+          brief?: string | null
+          created_at?: string
+          created_by?: string | null
+          formats?: Json
+          id?: string
+          persona?: string | null
+          prompt?: string
+          selected_variants?: Json
+          updated_at?: string
+        }
+        Relationships: []
       }
       documents: {
         Row: {
