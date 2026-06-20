@@ -93,7 +93,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             <Button
               variant="neon"
               size="lg"
-              className="py-4 px-10 text-lg w-full sm:w-auto"
+              className="w-full sm:w-auto"
               onClick={() => {
                 analytics.ctaClick('hero_primary', t('hero.cta'));
                 document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
