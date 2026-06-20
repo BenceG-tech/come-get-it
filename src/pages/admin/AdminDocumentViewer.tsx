@@ -3,8 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Download, Copy, ExternalLink, FileText } from "lucide-react";
+import { ArrowLeft, Download, Copy, ExternalLink, FileText, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ContentConverterDialog from "@/components/admin/documents/ContentConverterDialog";
 
 export default function AdminDocumentViewer() {
   const { id } = useParams();
@@ -14,6 +15,7 @@ export default function AdminDocumentViewer() {
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [converterOpen, setConverterOpen] = useState(false);
 
   const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
 
@@ -82,7 +84,13 @@ export default function AdminDocumentViewer() {
             </Button>
           </>
         )}
+        {doc && (
+          <Button variant="outline" size="sm" onClick={() => setConverterOpen(true)} className="shrink-0">
+            <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">AI tartalom</span>
+          </Button>
+        )}
       </header>
+      {doc && <ContentConverterDialog open={converterOpen} onOpenChange={setConverterOpen} docId={doc.id} />}
 
       <div className="flex-1 overflow-auto p-3 md:p-6">
         {loading && <div className="text-center text-nf-text-muted py-12">Betöltés…</div>}
