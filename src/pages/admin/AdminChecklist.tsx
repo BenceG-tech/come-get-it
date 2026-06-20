@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ChevronDown, ChevronRight, Plus, Trash2, Save } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ChecklistDriveSearch from "@/components/admin/ChecklistDriveSearch";
 
 const STATUS = [
   { v: "todo", l: "Hátra van", c: "bg-nf-surface-alt text-nf-text-muted" },
@@ -135,6 +136,7 @@ export default function AdminChecklist() {
                           </select>
                         </div>
                         <Textarea rows={2} placeholder="Jegyzet (állapot, blokker, link…)" defaultValue={i.notes ?? ""} onChange={(ev) => setEdits((p) => ({ ...p, [i.id]: { ...p[i.id], notes: ev.target.value } }))} />
+                        <ChecklistDriveSearch title={i.title} />
                         {dirty && (
                           <div className="flex justify-end">
                             <Button size="sm" variant="neon" onClick={() => update(i.id, e)}><Save className="h-3.5 w-3.5" /> Mentés</Button>
