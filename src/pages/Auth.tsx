@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -23,11 +23,15 @@ const Auth = () => {
   const { toast } = useToast();
   const { t } = useI18n();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/';
+  const isPreview = typeof window !== 'undefined' && /lovable\.app$/.test(window.location.host);
+
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate(redirectTo);
     }
-  }, [user, navigate]);
+  }, [user, navigate, redirectTo]);
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,13 +40,27 @@ const Auth = () => {
     setLoading(true);
     let result;
 
-    if (activeTab === 'signin') {
-      result = await signIn(email, password);
-    } else {
-      result = await signUp(email, password, fullName);
+    try {
+      if (activeTab === 'signin') {
+        result = await signIn(email, password);
+      } else {
+        result = await signUp(email, password, fullName);
+      }
+    } catch (err: any) {
+      console.error('[Auth] network/fetch error:', err);
+      toast({
+        title: 'Hálózati hiba',
+        description: isPreview
+          ? 'A Lovable preview környezetben az auth POST kérések néha nem mennek át. Nyisd meg az élő oldalt: come-get-it.app/auth'
+          : (err?.message || 'Ismeretlen hiba történt.'),
+        variant: 'destructive',
+      });
+      setLoading(false);
+      return;
     }
 
     if (result.error) {
+      console.error('[Auth] signIn/signUp error:', result.error);
       toast({
         title: t('auth.toasts.error_title'),
         description: result.error.message || t('auth.toasts.error_generic'),
@@ -91,6 +109,18 @@ const Auth = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {isPreview && (
+            <div className="mb-4 rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-200">
+              <div className="font-semibold mb-1">⚠️ Preview környezet</div>
+              <p className="mb-2">A Lovable preview-ban a bejelentkezés gyakran nem működik (proxy hiba). Használd az élő oldalt:</p>
+              <a
+                href={`https://come-get-it.app/auth${redirectTo !== '/' ? `?redirect=${encodeURIComponent(redirectTo)}` : ''}`}
+                className="inline-flex items-center gap-1 font-semibold text-amber-100 underline hover:text-white"
+              >
+                come-get-it.app/auth →
+              </a>
+            </div>
+          )}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="signin">{t('auth.tabs.signin')}</TabsTrigger>

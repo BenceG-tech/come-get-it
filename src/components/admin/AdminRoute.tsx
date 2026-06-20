@@ -14,7 +14,7 @@ export const AdminRoute = ({ children }: { children: ReactNode }) => {
       </div>
     );
   }
-  if (!user) return <Navigate to="/auth" replace />;
+  if (!user) return <Navigate to="/auth?redirect=/admin" replace />;
   if (!isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-nf-bg text-white p-6">
