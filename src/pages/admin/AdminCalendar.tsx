@@ -148,6 +148,46 @@ export default function AdminCalendar() {
     else { toast({ title: "Beütemezve" }); load(); }
   };
 
+  const runAutofill = async () => {
+    setAutofillLoading(true); setAutofillResult(null);
+    try {
+      const start = new Date(); start.setDate(start.getDate() + 1);
+      const end = new Date(start); end.setDate(start.getDate() + 13);
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch(`${FUNCTIONS_URL}/calendar-autofill`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
+        body: JSON.stringify({
+          start_date: start.toISOString().slice(0, 10),
+          end_date: end.toISOString().slice(0, 10),
+          channels: ["instagram", "facebook", "linkedin"],
+          target_per_week: 4,
+        }),
+      });
+      const j = await res.json();
+      if (!res.ok) throw new Error(j?.error || "Hiba");
+      setAutofillResult(j);
+    } catch (e: any) { toast({ title: "Hiba", description: e?.message, variant: "destructive" }); }
+    finally { setAutofillLoading(false); }
+  };
+
+  const acceptAllAutofill = async () => {
+    if (!autofillResult?.suggestions?.length) return;
+    const { error } = await supabase.from("marketing_calendar").insert(autofillResult.suggestions as any);
+    if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
+    else { toast({ title: `${autofillResult.suggestions.length} bejegyzés ütemezve` }); setAutofillOpen(false); setAutofillResult(null); load(); }
+  };
+
+  // Conflict detection: >2 posts per day per channel
+  const conflictKeys = (() => {
+    const cnt: Record<string, number> = {};
+    for (const it of items) {
+      const k = `${String(it.scheduled_date).slice(0, 10)}|${it.channel}`;
+      cnt[k] = (cnt[k] ?? 0) + 1;
+    }
+    return new Set(Object.entries(cnt).filter(([, n]) => n > 2).map(([k]) => k));
+  })();
+
   const sendChat = async () => {
     if (!chatInput.trim()) return;
     const next = [...chatMessages, { role: "user" as const, content: chatInput }];
