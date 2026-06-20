@@ -4,6 +4,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, FileText, Calendar, Sparkles, ArrowRight, Wand2, Palette, Activity, Image as ImageIcon, ListChecks, Clock } from "lucide-react";
+import { PipelineFunnel } from "@/components/admin/dashboard/PipelineFunnel";
+import { WaitlistGrowth } from "@/components/admin/dashboard/WaitlistGrowth";
+import { TimeTracker } from "@/components/admin/dashboard/TimeTracker";
+import { DailyFocusCard } from "@/components/admin/dashboard/DailyFocusCard";
 
 type ActivityRow = {
   id: string;
