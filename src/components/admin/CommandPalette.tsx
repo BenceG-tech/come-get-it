@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Users, FileText, Sparkles, Calendar, ListChecks, Target, Image as ImageIcon, MessageSquare, Upload, ScanSearch } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Sparkles, Calendar, ListChecks, Target, Image as ImageIcon, MessageSquare, Upload, ScanSearch, Cloud } from "lucide-react";
 
 type Hit = { id: string; title: string; kind: "doc" | "partner" };
 
@@ -12,6 +12,7 @@ const NAV = [
   { to: "/admin/partners", label: "Partnerek", icon: Users },
   { to: "/admin/documents", label: "Dokumentumok", icon: FileText },
   { to: "/admin/media", label: "Média", icon: ImageIcon },
+  { to: "/admin/drive", label: "Google Drive", icon: Cloud },
   { to: "/admin/documents/chat", label: "Chat a doksikkal", icon: MessageSquare },
   { to: "/admin/checklist", label: "Master checklist", icon: ListChecks },
   { to: "/admin/ai", label: "AI asszisztens", icon: Sparkles },
