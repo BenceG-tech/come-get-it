@@ -28,6 +28,8 @@ import AdminChecklist from "./pages/admin/AdminChecklist";
 import AdminAI from "./pages/admin/AdminAI";
 import AdminCalendar from "./pages/admin/AdminCalendar";
 import AdminLeads from "./pages/admin/AdminLeads";
+import AdminMedia from "./pages/admin/AdminMedia";
+import AdminDocumentChat from "./pages/admin/AdminDocumentChat";
 
 const queryClient = new QueryClient();
 
