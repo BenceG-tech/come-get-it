@@ -23,11 +23,15 @@ const Auth = () => {
   const { toast } = useToast();
   const { t } = useI18n();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/';
+  const isPreview = typeof window !== 'undefined' && /lovable\.app$/.test(window.location.host);
+
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate(redirectTo);
     }
-  }, [user, navigate]);
+  }, [user, navigate, redirectTo]);
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,13 +40,27 @@ const Auth = () => {
     setLoading(true);
     let result;
 
-    if (activeTab === 'signin') {
-      result = await signIn(email, password);
-    } else {
-      result = await signUp(email, password, fullName);
+    try {
+      if (activeTab === 'signin') {
+        result = await signIn(email, password);
+      } else {
+        result = await signUp(email, password, fullName);
+      }
+    } catch (err: any) {
+      console.error('[Auth] network/fetch error:', err);
+      toast({
+        title: 'Hálózati hiba',
+        description: isPreview
+          ? 'A Lovable preview környezetben az auth POST kérések néha nem mennek át. Nyisd meg az élő oldalt: come-get-it.app/auth'
+          : (err?.message || 'Ismeretlen hiba történt.'),
+        variant: 'destructive',
+      });
+      setLoading(false);
+      return;
     }
 
     if (result.error) {
+      console.error('[Auth] signIn/signUp error:', result.error);
       toast({
         title: t('auth.toasts.error_title'),
         description: result.error.message || t('auth.toasts.error_generic'),
