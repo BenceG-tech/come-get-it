@@ -70,29 +70,9 @@ export default function AdminDocuments() {
   // Auto-open all folders when searching
   const isFolderOpen = (k: string) => (search ? true : openFolders[k] ?? folderKeys.length <= 3);
 
-  const openFile = async (storage_path: string | null) => {
-    if (!storage_path) return;
-    // External link?
-    if (storage_path.startsWith("http")) {
-      window.open(storage_path, "_blank", "noopener");
-      return;
-    }
-    // CRITICAL: open the tab SYNCHRONOUSLY (in the click handler) so mobile/desktop
-    // popup blockers don't kill it. Then redirect it once the signed URL is ready.
-    const win = window.open("about:blank", "_blank");
-    const { data, error } = await supabase.storage.from("admin-docs").createSignedUrl(storage_path, 3600);
-    if (error || !data) {
-      if (win) win.close();
-      toast({ title: "Hiba", description: error?.message ?? "Nem sikerült linket generálni", variant: "destructive" });
-      return;
-    }
-    if (win) {
-      win.location.href = data.signedUrl;
-    } else {
-      // Popup blocked → fallback: navigate current tab
-      window.location.assign(data.signedUrl);
-    }
-  };
+  // External links open in new tab; uploaded files go to the internal viewer page (no popup blocker, no blank screens)
+  const openExternal = (storage_path: string) => window.open(storage_path, "_blank", "noopener");
+
 
   const copyLink = async (storage_path: string | null) => {
     if (!storage_path) return;
