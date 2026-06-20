@@ -18,13 +18,13 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-nf-surface hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        neon: "bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-semibold rounded-lg shadow-[0_4px_20px_-4px_rgba(0,188,212,0.35)] hover:scale-[1.02] hover:shadow-[0_6px_24px_-4px_rgba(0,188,212,0.5)]",
+        neon: "bg-gradient-to-r from-electric-300 to-ocean-600 text-white font-semibold rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,188,212,0.35)] hover:scale-[1.02] hover:shadow-[0_6px_24px_-4px_rgba(0,188,212,0.5)]",
       },
       size: {
-        default: "h-9 px-3.5 py-2 rounded-lg text-[13px]",
-        sm: "h-8 rounded-lg px-3 text-xs",
-        lg: "h-10 rounded-lg px-6 text-sm",
-        icon: "h-9 w-9 rounded-lg",
+        default: "h-9 px-3.5 py-2 rounded-2xl text-[13px]",
+        sm: "h-8 rounded-2xl px-3 text-xs",
+        lg: "h-10 rounded-2xl px-6 text-sm",
+        icon: "h-9 w-9 rounded-2xl",
       },
     },
 
