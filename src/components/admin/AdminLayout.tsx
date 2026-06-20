@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks, Target } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks, Target, Image as ImageIcon, MessageSquare } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
@@ -11,6 +11,8 @@ const items = [
   { to: "/admin/leads", label: "Leadek (vendéglátó)", icon: Target },
   { to: "/admin/partners", label: "Partnerek", icon: Users },
   { to: "/admin/documents", label: "Dokumentumok", icon: FileText },
+  { to: "/admin/media", label: "Média (kép/videó)", icon: ImageIcon },
+  { to: "/admin/documents/chat", label: "Chat a doksikkal", icon: MessageSquare },
   { to: "/admin/checklist", label: "Master checklist", icon: ListChecks },
   { to: "/admin/ai", label: "AI asszisztens", icon: Sparkles },
   { to: "/admin/calendar", label: "Marketing naptár", icon: Calendar },
