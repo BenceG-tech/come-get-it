@@ -96,6 +96,14 @@ export default function ImageAnalysisPanel({ open, onClose, doc, thumbUrl, onUpd
           )}
           <div className="text-sm font-medium truncate">{doc?.title}</div>
 
+          {hasAnalysis && doc && (
+            <AnalysisVersionPicker
+              docId={doc.id}
+              refreshKey={refreshKey}
+              onSelect={(r) => setVersionOverride(r)}
+            />
+          )}
+
           {!hasAnalysis && !loading && !stream && (
             <Button variant="neon" onClick={analyze} className="w-full">
               <Sparkles className="h-4 w-4" /> Elemzés indítása
