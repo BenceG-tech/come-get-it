@@ -98,16 +98,21 @@ export default function AdminDocumentViewer() {
           </div>
         )}
         {signedUrl && isPdf && (
-          <div className="max-w-5xl mx-auto h-full">
-            <object data={signedUrl} type="application/pdf" className="w-full h-[80vh] rounded-lg border border-nf-border bg-white">
-              <div className="p-6 text-center space-y-3">
-                <FileText className="h-10 w-10 text-electric-300 mx-auto" />
-                <p className="text-sm text-nf-text-muted">A böngésződ nem tudja beágyazva megnyitni ezt a PDF-et.</p>
-                <Button variant="neon" onClick={download}>
-                  <ExternalLink className="h-4 w-4" /> Megnyitás új lapon
-                </Button>
-              </div>
-            </object>
+          <div className="max-w-5xl mx-auto h-full space-y-3">
+            <iframe
+              src={signedUrl}
+              title={doc?.title || "PDF"}
+              className="w-full h-[75vh] rounded-lg border border-nf-border bg-white"
+            />
+            <div className="flex flex-wrap gap-2 justify-center">
+              <Button variant="outline" size="sm" onClick={() => window.open(signedUrl, "_blank")}>
+                <ExternalLink className="h-4 w-4" /> Megnyitás új lapon
+              </Button>
+              <Button variant="neon" size="sm" onClick={download}>
+                <Download className="h-4 w-4" /> Letöltés
+              </Button>
+            </div>
+            <p className="text-xs text-nf-text-muted text-center">Ha a PDF nem jelenik meg (főleg mobilon), nyisd meg új lapon vagy töltsd le.</p>
           </div>
         )}
         {signedUrl && !isPdf && !isImage && (
