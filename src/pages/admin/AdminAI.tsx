@@ -98,19 +98,20 @@ export default function AdminAI() {
   const clear = () => { if (confirm("Törlöd a beszélgetést?")) { setMessages([]); localStorage.removeItem(STORAGE_KEY); } };
 
   return (
-    <div className="h-screen flex flex-col">
-      <header className="border-b border-nf-border px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-electric-300" />
-          <div>
-            <h1 className="font-bold">AI asszisztens</h1>
-            <p className="text-xs text-nf-text-muted">Lát mindent: partnereket, naplót, doksikat, naptárt.</p>
+    <div className="flex flex-col h-[calc(100vh-3.5rem)] md:h-screen">
+      <header className="border-b border-nf-border px-4 md:px-6 py-3 md:py-4 flex justify-between items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <Sparkles className="h-5 w-5 text-electric-300 shrink-0" />
+          <div className="min-w-0">
+            <h1 className="font-bold text-sm md:text-base">AI asszisztens</h1>
+            <p className="text-[10px] md:text-xs text-nf-text-muted truncate">Lát mindent: partnereket, naplót, doksikat, naptárt.</p>
           </div>
         </div>
-        {messages.length > 0 && <Button variant="outline" size="sm" onClick={clear}><Trash2 className="h-4 w-4" /> Új beszélgetés</Button>}
+        {messages.length > 0 && <Button variant="outline" size="sm" onClick={clear} className="shrink-0"><Trash2 className="h-4 w-4" /> <span className="hidden sm:inline">Új</span></Button>}
       </header>
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
+
         {messages.length === 0 && (
           <div className="max-w-2xl mx-auto space-y-4 pt-8">
             <div className="text-center text-nf-text-muted">Próbáld ezeket:</div>
@@ -134,8 +135,9 @@ export default function AdminAI() {
         ))}
       </div>
 
-      <div className="border-t border-nf-border p-4">
+      <div className="border-t border-nf-border p-3 md:p-4">
         <div className="max-w-4xl mx-auto flex gap-2">
+
           <Textarea
             ref={inputRef}
             value={input}
