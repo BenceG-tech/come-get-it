@@ -68,6 +68,7 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
   const [selected, setSelected] = useState<Record<string, boolean>>({});
   const [ratingFilter, setRatingFilter] = useState<"all" | "high" | "mid" | "low" | "none">("all");
   const [auditing, setAuditing] = useState(false);
+  const [tagging, setTagging] = useState(false);
   const [editing, setEditing] = useState<any>(null);
   const [lightbox, setLightbox] = useState<{ url: string; title: string; isVideo: boolean } | null>(null);
   const [signedCache, setSignedCache] = useState<Record<string, string>>({});
@@ -176,6 +177,32 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
       toast({ title: "Audit hiba", description: e?.message ?? String(e), variant: "destructive" });
     } finally {
       setAuditing(false);
+    }
+  };
+
+  const runAiTagEmbed = async () => {
+    if (tagging) return;
+    const targetIds = selectedIds.length > 0
+      ? selectedIds
+      : docs.filter((d) => !d.ai_hook).slice(0, 30).map((d) => d.id);
+    if (!targetIds.length) {
+      toast({ title: "Nincs cimkézendő doksi", description: "Jelölj ki vagy adj hozzá újat." });
+      return;
+    }
+    if (!confirm(`${targetIds.length} doksi AI cimkézése és embeddingje. Folytatod?`)) return;
+    setTagging(true);
+    try {
+      const tagP = supabase.functions.invoke("doc-auto-tag", { body: { document_ids: targetIds } });
+      const embP = supabase.functions.invoke("doc-embed", { body: { document_ids: targetIds } });
+      const [tagR, embR] = await Promise.all([tagP, embP]);
+      if (tagR.error) throw tagR.error;
+      if (embR.error) throw embR.error;
+      toast({ title: "AI cimkézés kész", description: `${targetIds.length} doksi feldolgozva.` });
+      load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setTagging(false);
     }
   };
 
@@ -303,6 +330,9 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
           </Button>
           <Button variant="outline" size="sm" onClick={runAudit} disabled={auditing}>
             <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">{auditing ? "Auditálás…" : "AI audit"}</span>
+          </Button>
+          <Button variant="outline" size="sm" onClick={runAiTagEmbed} disabled={tagging}>
+            <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">{tagging ? "Cimkézés…" : "AI cimkék + embed"}</span>
           </Button>
           <Button variant="outline" size="sm" asChild>
             <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> <span className="hidden sm:inline">Audit lista</span></Link>

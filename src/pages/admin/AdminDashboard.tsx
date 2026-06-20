@@ -12,6 +12,7 @@ import { DailyBriefingCard } from "@/components/admin/dashboard/DailyBriefingCar
 import { WeeklyGoalsCard } from "@/components/admin/dashboard/WeeklyGoalsCard";
 import { WeeklyContentSprintCard } from "@/components/admin/dashboard/WeeklyContentSprintCard";
 import OutreachHealthCard from "@/components/admin/dashboard/OutreachHealthCard";
+import DocumentDigestCard from "@/components/admin/dashboard/DocumentDigestCard";
 
 type ActivityRow = {
   id: string;
@@ -95,7 +96,7 @@ export default function AdminDashboard() {
       <DailyBriefingCard />
 
       {/* Cockpit row: focus + waitlist + pipeline + time + weekly goals + content sprint + outreach */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-4">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
         <DailyFocusCard />
         <WaitlistGrowth />
         <PipelineFunnel />
@@ -103,6 +104,7 @@ export default function AdminDashboard() {
         <WeeklyGoalsCard />
         <WeeklyContentSprintCard />
         <OutreachHealthCard />
+        <DocumentDigestCard />
       </div>
 
 
