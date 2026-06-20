@@ -8,6 +8,7 @@ import { Send, Sparkles, Plus, Trash2, MessageSquare, Menu, X, Copy, RefreshCw }
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import ReactMarkdown from "react-markdown";
+import VoiceRecorderButton from "@/components/admin/VoiceRecorderButton";
 import { cn } from "@/lib/utils";
 
 type Msg = { id?: string; role: "user" | "assistant"; content: string };
@@ -341,13 +342,17 @@ export default function AdminAI() {
         </div>
 
         <div className="border-t border-nf-border p-3 md:p-4">
-          <div className="max-w-4xl mx-auto flex gap-2">
+          <div className="max-w-4xl mx-auto flex gap-2 items-end">
+            <VoiceRecorderButton
+              onTranscript={(t) => setInput((prev) => (prev ? `${prev} ${t}` : t))}
+              onInterim={(t) => setInput(t)}
+            />
             <Textarea
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-              placeholder={critique ? "Kérj egy szöveget (pitch, DM, email, poszt)…" : "Kérdezz vagy adj feladatot…"}
+              placeholder={critique ? "Kérj egy szöveget (pitch, DM, email, poszt)…" : "Kérdezz, adj feladatot, vagy diktálj…"}
               rows={2}
               className="resize-none bg-nf-surface-alt border-nf-border"
               disabled={streaming}
