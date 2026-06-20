@@ -301,6 +301,10 @@ export default function AdminCalendar() {
                     </span>
                     <span className={`px-2 py-0.5 rounded-full border text-[10px] uppercase tracking-wide ${CHANNEL_COLORS[it.channel] ?? CHANNEL_COLORS.other}`}>{it.channel}</span>
                     <span className="text-nf-text-muted">{it.type}</span>
+                    {conflictKeys.has(`${String(it.scheduled_date).slice(0, 10)}|${it.channel}`) && (
+                      <span className="px-2 py-0.5 rounded-full border text-[10px] uppercase bg-amber-500/15 text-amber-300 border-amber-500/40">⚠ ütközés</span>
+                    )}
+                    {it.brief_id && <span className="text-[10px] text-electric-300/70">↳ brief</span>}
                   </div>
                   <CardTitle className="text-lg mt-1">{it.title}</CardTitle>
                 </div>
