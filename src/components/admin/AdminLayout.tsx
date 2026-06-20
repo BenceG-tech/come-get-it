@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +8,7 @@ const items = [
   { to: "/admin", label: "Áttekintés", icon: LayoutDashboard, end: true },
   { to: "/admin/partners", label: "Partnerek", icon: Users },
   { to: "/admin/documents", label: "Dokumentumok", icon: FileText },
+  { to: "/admin/checklist", label: "Master checklist", icon: ListChecks },
   { to: "/admin/ai", label: "AI asszisztens", icon: Sparkles },
   { to: "/admin/calendar", label: "Marketing naptár", icon: Calendar },
 ];
