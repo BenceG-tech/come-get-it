@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Download, Copy, ExternalLink, FileText, Sparkles, ClipboardCheck } from "lucide-react";
+import { ArrowLeft, Download, Copy, ExternalLink, FileText, Sparkles, ClipboardCheck, Image as ImageIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ContentConverterDialog from "@/components/admin/documents/ContentConverterDialog";
 import DocumentReviewDialog from "@/components/admin/documents/DocumentReviewDialog";
@@ -19,8 +19,6 @@ export default function AdminDocumentViewer() {
   const [converterOpen, setConverterOpen] = useState(false);
   const [reviewOpen, setReviewOpen] = useState(false);
 
-  const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
-
   useEffect(() => {
     (async () => {
       if (!id) return;
@@ -28,17 +26,12 @@ export default function AdminDocumentViewer() {
       if (dErr || !data) { setError(dErr?.message ?? "Doksi nem található"); setLoading(false); return; }
       setDoc(data);
       if (data.storage_path) {
-        let url = data.storage_path;
-        if (!data.storage_path.startsWith("http")) {
+        if (data.storage_path.startsWith("http")) {
+          setSignedUrl(data.storage_path);
+        } else {
           const { data: s, error: sErr } = await supabase.storage.from("admin-docs").createSignedUrl(data.storage_path, 3600);
-          if (sErr || !s) { setError(sErr?.message ?? "Nem sikerült link"); setLoading(false); return; }
-          url = s.signedUrl;
-        }
-        setSignedUrl(url);
-        // On mobile, iframe-embedded PDFs render as blank white. Auto-open in a new tab.
-        const isPdf = data.mime_type === "application/pdf" || data.storage_path?.toLowerCase().endsWith(".pdf");
-        if (isMobile && isPdf) {
-          window.open(url, "_blank", "noopener,noreferrer");
+          if (sErr || !s) { setError(sErr?.message ?? "Nem sikerült link"); }
+          else setSignedUrl(s.signedUrl);
         }
       }
       setLoading(false);
@@ -48,7 +41,7 @@ export default function AdminDocumentViewer() {
   const copyLink = async () => {
     if (!signedUrl) return;
     await navigator.clipboard.writeText(signedUrl);
-    toast({ title: "Link másolva" });
+    toast({ title: "Link másolva (1 óráig érvényes)" });
   };
 
   const download = () => {
@@ -62,13 +55,21 @@ export default function AdminDocumentViewer() {
     a.remove();
   };
 
-  const isPdf = doc?.mime_type === "application/pdf" || doc?.storage_path?.endsWith(".pdf");
+  const isPdf = doc?.mime_type === "application/pdf" || doc?.storage_path?.toLowerCase().endsWith(".pdf");
   const isImage = doc?.mime_type?.startsWith("image/");
-  const isText = doc?.mime_type?.startsWith("text/") || doc?.storage_path?.endsWith(".md");
+
+  const textPreview =
+    doc?.tldr ||
+    doc?.content ||
+    doc?.ai_description ||
+    doc?.description ||
+    null;
+
+  const keyPoints: string[] = Array.isArray(doc?.key_points) ? doc.key_points : [];
 
   return (
-    <div className="flex flex-col h-[calc(100vh-3.5rem)] md:h-screen">
-      <header className="border-b border-nf-border px-3 md:px-6 py-3 flex items-center gap-2">
+    <div className="flex flex-col min-h-[calc(100vh-3.5rem)] md:min-h-screen">
+      <header className="border-b border-nf-border px-3 md:px-6 py-3 flex items-center gap-2 sticky top-0 bg-nf-bg z-10">
         <Button variant="outline" size="sm" onClick={() => nav(-1)} className="shrink-0">
           <ArrowLeft className="h-4 w-4" /> <span className="hidden sm:inline">Vissza</span>
         </Button>
@@ -100,59 +101,96 @@ export default function AdminDocumentViewer() {
       {doc && <ContentConverterDialog open={converterOpen} onOpenChange={setConverterOpen} docId={doc.id} />}
       {doc && <DocumentReviewDialog open={reviewOpen} onOpenChange={setReviewOpen} docId={doc.id} existingReview={doc.ai_review} />}
 
-      <div className="flex-1 overflow-auto p-3 md:p-6">
+      <div className="flex-1 p-3 md:p-6 max-w-5xl mx-auto w-full space-y-4">
         {loading && <div className="text-center text-nf-text-muted py-12">Betöltés…</div>}
         {error && (
-          <Card className="p-6 max-w-xl mx-auto border-red-500/30">
+          <Card className="p-6 border-red-500/30">
             <h2 className="font-bold mb-2">Hiba</h2>
             <p className="text-sm text-nf-text-muted">{error}</p>
           </Card>
         )}
-        {doc && !signedUrl && doc.content && (
-          <Card className="p-4 md:p-6 max-w-3xl mx-auto">
-            <pre className="whitespace-pre-wrap text-sm">{doc.content}</pre>
+
+        {/* Always-visible text preview */}
+        {doc && (textPreview || keyPoints.length > 0) && (
+          <Card className="p-4 md:p-6 space-y-3">
+            <div className="flex items-center gap-2 text-electric-300 text-sm font-semibold">
+              <FileText className="h-4 w-4" /> Tartalom előnézet
+            </div>
+            {textPreview && (
+              <pre className="whitespace-pre-wrap text-sm leading-relaxed font-sans">{textPreview}</pre>
+            )}
+            {keyPoints.length > 0 && (
+              <ul className="list-disc pl-5 text-sm space-y-1 text-nf-text-muted">
+                {keyPoints.slice(0, 8).map((k, i) => <li key={i}>{k}</li>)}
+              </ul>
+            )}
           </Card>
         )}
-        {doc && !signedUrl && !doc.content && !error && (
-          <div className="text-center text-nf-text-muted py-12">Ehhez a doksihoz nincs csatolt fájl vagy szöveg.</div>
-        )}
+
+        {/* Image preview */}
         {signedUrl && isImage && (
-          <div className="max-w-4xl mx-auto">
-            <img src={signedUrl} alt={doc?.title} className="w-full h-auto rounded-lg border border-nf-border" />
-          </div>
+          <Card className="p-3 overflow-hidden">
+            <img src={signedUrl} alt={doc?.title} className="w-full h-auto rounded-lg" />
+          </Card>
         )}
+
+        {/* PDF preview — use <object> with a real fallback panel inside */}
         {signedUrl && isPdf && (
-          <div className="max-w-5xl mx-auto h-full space-y-3">
-            <iframe
-              src={signedUrl}
-              title={doc?.title || "PDF"}
-              className="w-full h-[75vh] rounded-lg border border-nf-border bg-white"
-            />
+          <Card className="p-3 space-y-3">
+            <div className="flex items-center gap-2 text-electric-300 text-sm font-semibold px-1">
+              <FileText className="h-4 w-4" /> PDF előnézet
+            </div>
+            <object
+              data={`${signedUrl}#toolbar=1&view=FitH`}
+              type="application/pdf"
+              className="w-full h-[70vh] rounded-lg bg-white border border-nf-border"
+            >
+              <div className="p-6 text-center text-sm text-nf-text-muted">
+                A böngésződ nem tudja itt megjeleníteni a PDF-et. Nyisd meg új lapon vagy töltsd le.
+              </div>
+            </object>
             <div className="flex flex-wrap gap-2 justify-center">
-              <Button variant="outline" size="sm" onClick={() => window.open(signedUrl, "_blank")}>
-                <ExternalLink className="h-4 w-4" /> Megnyitás új lapon
+              <Button variant="outline" size="sm" onClick={() => window.open(signedUrl, "_blank", "noopener,noreferrer")}>
+                <ExternalLink className="h-4 w-4 mr-1" /> Megnyitás új lapon
               </Button>
               <Button variant="neon" size="sm" onClick={download}>
-                <Download className="h-4 w-4" /> Letöltés
+                <Download className="h-4 w-4 mr-1" /> Letöltés
               </Button>
             </div>
-            <p className="text-xs text-nf-text-muted text-center">Ha a PDF nem jelenik meg (főleg mobilon), nyisd meg új lapon vagy töltsd le.</p>
-          </div>
-        )}
-        {signedUrl && !isPdf && !isImage && (
-          <Card className="p-6 max-w-xl mx-auto text-center space-y-3">
-            <FileText className="h-10 w-10 text-electric-300 mx-auto" />
-            <p className="text-sm text-nf-text-muted">Ezt a fájltípust nem lehet beágyazva megjeleníteni.</p>
-            <Button variant="neon" onClick={download}>
-              <Download className="h-4 w-4" /> Letöltés
-            </Button>
           </Card>
         )}
-        {doc?.content && signedUrl && (
-          <details className="mt-6 max-w-3xl mx-auto">
-            <summary className="cursor-pointer text-electric-300 text-sm">Szöveges tartalom</summary>
-            <pre className="whitespace-pre-wrap mt-2 text-xs bg-nf-surface p-3 rounded">{doc.content}</pre>
-          </details>
+
+        {/* Non-PDF, non-image, with file */}
+        {signedUrl && !isPdf && !isImage && (
+          <Card className="p-6 text-center space-y-3">
+            <FileText className="h-10 w-10 text-electric-300 mx-auto" />
+            <p className="text-sm text-nf-text-muted">Ezt a fájltípust nem lehet beágyazva megjeleníteni.</p>
+            <div className="flex gap-2 justify-center">
+              <Button variant="outline" size="sm" onClick={() => window.open(signedUrl, "_blank", "noopener,noreferrer")}>
+                <ExternalLink className="h-4 w-4 mr-1" /> Megnyitás új lapon
+              </Button>
+              <Button variant="neon" size="sm" onClick={download}>
+                <Download className="h-4 w-4 mr-1" /> Letöltés
+              </Button>
+            </div>
+          </Card>
+        )}
+
+        {/* No file at all */}
+        {doc && !signedUrl && !textPreview && keyPoints.length === 0 && !error && (
+          <Card className="p-6 text-center text-nf-text-muted">
+            Ehhez a doksihoz nincs csatolt fájl vagy szöveg.
+          </Card>
+        )}
+
+        {/* Meta footer */}
+        {doc && (
+          <div className="text-xs text-nf-text-muted flex flex-wrap gap-x-4 gap-y-1 px-1">
+            {doc.category && <span>kategória: {doc.category}</span>}
+            {doc.mime_type && <span>típus: {doc.mime_type}</span>}
+            {doc.file_size_bytes && <span>méret: {Math.round(doc.file_size_bytes / 1024)} KB</span>}
+            {doc.is_ai_generated && <span className="text-electric-300">AI generált</span>}
+          </div>
         )}
       </div>
     </div>

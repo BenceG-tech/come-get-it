@@ -190,21 +190,18 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
   };
 
   const handleOpen = async (d: any) => {
-    if (!d.storage_path) return;
-    const url = await getSignedUrl(d.storage_path);
-    if (!url) return;
     const kind = kindOf(d);
-    if (kind === "images" || kind === "videos") {
+    // Images/videos open in lightbox via signed URL (these render reliably)
+    if (d.storage_path && (kind === "images" || kind === "videos")) {
+      const url = await getSignedUrl(d.storage_path);
+      if (!url) return;
       setLightbox({ url, title: d.title, isVideo: kind === "videos" });
       return;
     }
-    // Doc/PDF: mobile → open new tab directly (iframe is unreliable on iOS).
-    // Desktop → viewer route which supports iframe + content tab.
-    if (isMobile()) {
-      window.open(url, "_blank", "noopener,noreferrer");
-    } else {
-      window.location.href = `/admin/documents/${d.id}`;
-    }
+    // All other docs (incl. PDFs, no-file text docs) open in the in-app viewer
+    // — guarantees a visible preview (tldr/content/key_points) plus PDF embed
+    // and a reliable "open in new tab / download" fallback.
+    window.location.href = `/admin/documents/${d.id}`;
   };
 
   const copyLink = async (storage_path: string | null) => {

@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import {
   Wand2, Loader2, Copy, Heart, Sparkles, RotateCcw, Bookmark, Image as ImageIcon,
-  ImagePlus, Download, Search, Trash2, Calendar
+  ImagePlus, Download, Search, Trash2, Calendar, Lightbulb, ChevronRight
 } from "lucide-react";
 import { composeWithLogo, downloadDataUrl } from "@/lib/compose-with-logo";
 
@@ -52,6 +52,59 @@ export default function AdminContentStudio() {
   const [mediaLoading, setMediaLoading] = useState(false);
   const [imageBusy, setImageBusy] = useState<string | null>(null); // key:idx
   const [variantImage, setVariantImage] = useState<Record<string, { url: string; id: string }>>({});
+
+  // AI brief suggester
+  const [suggestGoal, setSuggestGoal] = useState("általános brand-építés + waitlist növelés");
+  const [suggestLoading, setSuggestLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+
+  const suggestBriefs = async () => {
+    setSuggestLoading(true); setSuggestions([]);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch(`${FUNCTIONS_URL}/suggest-content-briefs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
+        body: JSON.stringify({ goal: suggestGoal, count: 5 }),
+      });
+      const j = await res.json();
+      if (!res.ok) throw new Error(j?.error || "Hiba");
+      setSuggestions(j.briefs ?? []);
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message, variant: "destructive" });
+    } finally { setSuggestLoading(false); }
+  };
+
+  const useBrief = (b: any) => {
+    setBrief(b.brief || "");
+    if (b.audience) setPersona(b.audience);
+    setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
+    toast({ title: "Brief betöltve", description: "Kattints a generálás gombra." });
+  };
+
+  const scheduleSnippet = async (fmt: FormatBlock, idx: number) => {
+    const v = fmt.variants[idx];
+    const key = `${fmt.key}:${idx}`;
+    const img = variantImage[key];
+    const channel = fmt.key.startsWith("ig_") ? "instagram"
+      : fmt.key === "fb_post" ? "facebook"
+      : fmt.key === "linkedin" ? "linkedin"
+      : fmt.key.startsWith("email_") ? "email"
+      : "other";
+    const type = fmt.key === "ig_story" ? "story" : "post";
+    const today = new Date(); today.setDate(today.getDate() + 1);
+    const { error } = await supabase.from("marketing_calendar").insert([{
+      scheduled_date: today.toISOString().slice(0, 10),
+      scheduled_time: "18:00",
+      channel, type,
+      title: v.text.slice(0, 60),
+      content_draft: v.text,
+      status: "draft",
+      image_doc_id: img?.id ?? null,
+    } as any]);
+    if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
+    else toast({ title: "Naptárba mentve", description: "A Marketing naptár oldalon megtalálod." });
+  };
 
   const loadHistory = async () => {
     const { data } = await supabase.from("content_generations").select("id, brief, persona, brand_fit_score, created_at").order("created_at", { ascending: false }).limit(10);
@@ -195,11 +248,66 @@ export default function AdminContentStudio() {
         </p>
       </div>
 
-      <Tabs defaultValue="generate">
+      <Tabs defaultValue="suggest">
         <TabsList>
+          <TabsTrigger value="suggest"><Lightbulb className="h-4 w-4 mr-1" /> AI brief-ajánló</TabsTrigger>
           <TabsTrigger value="generate"><Wand2 className="h-4 w-4 mr-1" /> Generálás</TabsTrigger>
           <TabsTrigger value="library"><Bookmark className="h-4 w-4 mr-1" /> Mentett könyvtár ({saved.length})</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="suggest" className="space-y-4">
+          <Card>
+            <CardHeader><CardTitle className="text-base">Mi a célod most?</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Founding Partner toborzás",
+                  "Vendéglátóhely partnerek toborzása",
+                  "Waitlist növelés",
+                  "Brand edukáció",
+                  "Heti social rekap",
+                  "Italmárka B2B megkeresés",
+                ].map((g) => (
+                  <button key={g} onClick={() => setSuggestGoal(g)}
+                    className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
+                      suggestGoal === g ? "bg-electric-300/15 border-electric-300/50 text-electric-300" : "border-nf-border text-nf-text-muted hover:text-white"
+                    }`}>{g}</button>
+                ))}
+              </div>
+              <Input value={suggestGoal} onChange={(e) => setSuggestGoal(e.target.value)} placeholder="vagy írj saját kampánycélt…" className="bg-nf-surface-alt border-nf-border" />
+              <Button variant="neon" onClick={suggestBriefs} disabled={suggestLoading} className="w-full">
+                {suggestLoading ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> AI gondolkodik…</> : <><Sparkles className="h-4 w-4 mr-2" /> Ajánlj 5 stratégiai briefet</>}
+              </Button>
+              <p className="text-xs text-nf-text-muted">Az AI figyelembe veszi a Brand Memory-t, a mentett snippeteket, az utóbbi briefeket és a naptárt, hogy ne ismételjen.</p>
+            </CardContent>
+          </Card>
+
+          {suggestions.length > 0 && (
+            <div className="grid md:grid-cols-2 gap-3">
+              {suggestions.map((b, i) => (
+                <Card key={i} className="hover:border-electric-300/50 transition-colors">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm">{b.title}</CardTitle>
+                    <div className="flex flex-wrap gap-1.5 mt-1.5 text-[10px]">
+                      {b.channel && <span className="px-2 py-0.5 rounded-full bg-electric-300/15 text-electric-300 border border-electric-300/30">{b.channel}</span>}
+                      {b.recommended_time && <span className="px-2 py-0.5 rounded-full bg-nf-surface-alt text-nf-text-muted border border-nf-border">{b.recommended_time}</span>}
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-xs">
+                    <p className="text-sm">{b.brief}</p>
+                    {b.audience && <p className="text-nf-text-muted"><span className="text-electric-300">Persona:</span> {b.audience}</p>}
+                    {b.strategy && <p className="text-nf-text-muted italic border-l-2 border-electric-300/40 pl-2">↳ {b.strategy}</p>}
+                    {b.creative_direction && <p className="text-nf-text-muted"><span className="text-electric-300">Vizuál:</span> {b.creative_direction}</p>}
+                    {b.cta && <p className="text-nf-text-muted"><span className="text-electric-300">CTA:</span> {b.cta}</p>}
+                    <Button size="sm" variant="neon" className="w-full mt-2" onClick={() => useBrief(b)}>
+                      Használom <ChevronRight className="h-3 w-3 ml-1" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </TabsContent>
 
         <TabsContent value="generate" className="space-y-6">
           <div className="grid md:grid-cols-[1fr_280px] gap-6">
@@ -315,6 +423,9 @@ export default function AdminContentStudio() {
                             <Button size="sm" variant="outline" onClick={() => generateImage(fmt.key, idx, v.text)} disabled={imageBusy === key}>
                               {imageBusy === key ? <Loader2 className="h-3 w-3 mr-1 animate-spin" /> : <ImagePlus className="h-3 w-3 mr-1" />}
                               Generálj képet
+                            </Button>
+                            <Button size="sm" variant="outline" onClick={() => scheduleSnippet(fmt, idx)}>
+                              <Calendar className="h-3 w-3 mr-1" /> Naptárba
                             </Button>
                             {img && (
                               <Button size="sm" variant="outline" onClick={() => downloadWithLogo(img.url, `cgi-${fmt.key}-v${idx + 1}.png`)}>
