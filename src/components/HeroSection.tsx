@@ -104,7 +104,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             <Button
               variant="outline"
               size="lg"
-              className="py-4 px-8 text-lg w-full sm:w-auto rounded-full border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
+              className="w-full sm:w-auto border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
               onClick={() => {
                 analytics.ctaClick('hero_secondary', t('hero.cta_secondary'));
                 document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
