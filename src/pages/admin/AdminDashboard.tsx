@@ -11,6 +11,7 @@ import { DailyFocusCard } from "@/components/admin/dashboard/DailyFocusCard";
 import { DailyBriefingCard } from "@/components/admin/dashboard/DailyBriefingCard";
 import { WeeklyGoalsCard } from "@/components/admin/dashboard/WeeklyGoalsCard";
 import { WeeklyContentSprintCard } from "@/components/admin/dashboard/WeeklyContentSprintCard";
+import OutreachHealthCard from "@/components/admin/dashboard/OutreachHealthCard";
 
 type ActivityRow = {
   id: string;
