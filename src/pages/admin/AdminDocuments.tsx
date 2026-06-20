@@ -226,14 +226,33 @@ export default function AdminDocuments() {
                         {d.when_to_use && <p className="text-xs"><span className="text-electric-300">Mikor:</span> <span className="text-nf-text-muted">{d.when_to_use}</span></p>}
                         {d.storage_path && (
                           <div className="flex flex-wrap gap-2 pt-1">
-                            <Button size="sm" variant="neon" onClick={() => openFile(d.storage_path)}>
-                              <ExternalLink className="h-3.5 w-3.5" /> Megnyitás
-                            </Button>
+                            {d.storage_path.startsWith("http") ? (
+                              <Button size="sm" variant="neon" onClick={() => openExternal(d.storage_path)}>
+                                <ExternalLink className="h-3.5 w-3.5" /> Megnyitás
+                              </Button>
+                            ) : (
+                              <Button size="sm" variant="neon" asChild>
+                                <Link to={`/admin/documents/${d.id}`}>
+                                  <ExternalLink className="h-3.5 w-3.5" /> Megnyitás
+                                </Link>
+                              </Button>
+                            )}
                             <Button size="sm" variant="outline" onClick={() => copyLink(d.storage_path)}>
                               <Copy className="h-3.5 w-3.5" /> Link másol
                             </Button>
+                            {d.quality_score != null && (
+                              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs bg-electric-300/10 text-electric-300 border border-electric-300/30">
+                                <Star className="h-3 w-3" /> {d.quality_score}/10
+                              </span>
+                            )}
+                            {d.duplicate_group && (
+                              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                                Dup: {d.duplicate_group}
+                              </span>
+                            )}
                           </div>
                         )}
+
                         {d.content && (
                           <details className="text-sm text-nf-text-muted">
                             <summary className="cursor-pointer text-electric-300 text-xs">Szöveges tartalom</summary>
