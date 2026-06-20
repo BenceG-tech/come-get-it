@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useCallback, useContext, useState } from "react";
 
-type Attachment = { id: string; title: string; kind: "doc" | "media" };
+type Attachment = { id: string; title: string; kind: "doc" | "media" | "image-analysis" };
 
 type Ctx = {
   isOpen: boolean;
@@ -14,6 +14,7 @@ type Ctx = {
   clearAttachments: () => void;
   pendingPrompt: string | null;
   setPendingPrompt: (s: string | null) => void;
+  attachAndOpen: (att: Attachment, prefill?: string) => void;
 };
 
 const AIAssistantCtx = createContext<Ctx | null>(null);
@@ -35,6 +36,16 @@ export function AIAssistantProvider({ children }: { children: ReactNode }) {
     setAttachments((prev) => prev.filter((x) => x.id !== id));
   }, []);
 
+  const attachAndOpen = useCallback((att: Attachment, prefill?: string) => {
+    setAttachments((prev) => {
+      const map = new Map(prev.map((x) => [x.id, x]));
+      map.set(att.id, att);
+      return Array.from(map.values());
+    });
+    if (prefill) setPendingPrompt(prefill);
+    setIsOpen(true);
+  }, []);
+
   return (
     <AIAssistantCtx.Provider
       value={{
@@ -49,6 +60,7 @@ export function AIAssistantProvider({ children }: { children: ReactNode }) {
         clearAttachments: () => setAttachments([]),
         pendingPrompt,
         setPendingPrompt,
+        attachAndOpen,
       }}
     >
       {children}
