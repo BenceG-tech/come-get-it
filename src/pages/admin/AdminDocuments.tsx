@@ -36,6 +36,9 @@ export default function AdminDocuments() {
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
   const [showNew, setShowNew] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [selected, setSelected] = useState<Record<string, boolean>>({});
+  const [ratingFilter, setRatingFilter] = useState<"all" | "high" | "mid" | "low" | "none">("all");
+  const [auditing, setAuditing] = useState(false);
   const [form, setForm] = useState({
     title: "",
     folder: "",
@@ -46,6 +49,7 @@ export default function AdminDocuments() {
     file: null as File | null,
   });
   const { toast } = useToast();
+  const { open: openAI, addAttachments, setPendingPrompt } = useAIAssistant();
 
   const load = async () => {
     const { data } = await supabase
@@ -57,10 +61,25 @@ export default function AdminDocuments() {
   };
   useEffect(() => { load(); }, []);
 
-  // Group by folder
-  const filtered = search
-    ? docs.filter((d) => `${d.title} ${d.description ?? ""} ${d.when_to_use ?? ""}`.toLowerCase().includes(search.toLowerCase()))
-    : docs;
+  const filtered = useMemo(() => {
+    let list = docs;
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter((d) => `${d.title} ${d.description ?? ""} ${d.when_to_use ?? ""}`.toLowerCase().includes(q));
+    }
+    if (ratingFilter !== "all") {
+      list = list.filter((d) => {
+        const s = d.quality_score;
+        if (ratingFilter === "none") return s == null;
+        if (s == null) return false;
+        if (ratingFilter === "high") return s >= 8;
+        if (ratingFilter === "mid") return s >= 5 && s < 8;
+        if (ratingFilter === "low") return s < 5;
+        return true;
+      });
+    }
+    return list;
+  }, [docs, search, ratingFilter]);
 
   const grouped: Record<string, any[]> = {};
   for (const d of filtered) {
@@ -69,10 +88,42 @@ export default function AdminDocuments() {
   }
   const folderKeys = Object.keys(grouped).sort();
 
-  // Auto-open all folders when searching
-  const isFolderOpen = (k: string) => (search ? true : openFolders[k] ?? folderKeys.length <= 3);
+  const isFolderOpen = (k: string) => (search || ratingFilter !== "all" ? true : openFolders[k] ?? folderKeys.length <= 3);
 
-  // External links open in new tab; uploaded files go to the internal viewer page (no popup blocker, no blank screens)
+  const selectedIds = Object.keys(selected).filter((k) => selected[k]);
+  const selectedDocs = useMemo(() => docs.filter((d) => selected[d.id]), [docs, selected]);
+
+  const toggleSelect = (id: string) => setSelected((p) => ({ ...p, [id]: !p[id] }));
+  const clearSelection = () => setSelected({});
+
+  const sendSelectedToAI = () => {
+    addAttachments(selectedDocs.map((d) => ({ id: d.id, title: d.title, kind: "doc" as const })));
+    setPendingPrompt(`Ezekkel a doksikkal dolgozz: ${selectedDocs.map((d) => `"${d.title}"`).join(", ")}. Mit szeretnél, hogy csináljak velük?`);
+    openAI();
+  };
+
+  const runAudit = async () => {
+    if (auditing) return;
+    if (!confirm("Az AI átnézi az összes még nem értékelt doksit (max 50). Folytatod?")) return;
+    setAuditing(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-audit-documents`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
+        body: JSON.stringify({ onlyMissing: true }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const j = await res.json();
+      toast({ title: "Audit kész", description: `${j.count} doksi értékelve` });
+      load();
+    } catch (e: any) {
+      toast({ title: "Audit hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setAuditing(false);
+    }
+  };
+
   const openExternal = (storage_path: string) => window.open(storage_path, "_blank", "noopener");
 
 
