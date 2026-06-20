@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { driveFetch, driveGetContent, corsHeaders, requireAdmin } from "../_shared/drive.ts";
+import { assertInScope } from "../_shared/drive-scope.ts";
 
 const SYSTEM = `Te a Come Get It belső "Drive-átvilágító" AI-ja vagy. Magyarul, direkt, lényegre törő.
 Több Google Drive doksi tartalmát kapod. A célod:
@@ -22,6 +23,7 @@ Deno.serve(async (req) => {
     if (fileIds.length > 12) {
       return new Response(JSON.stringify({ error: "Max 12 fájl egyszerre." }), { status: 400, headers: corsHeaders });
     }
+    await assertInScope(supabase, fileIds);
 
     // Fetch all files in parallel
     const fetched = await Promise.all(fileIds.map(async (id: string) => {

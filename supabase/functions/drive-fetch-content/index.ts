@@ -1,12 +1,16 @@
 // @ts-nocheck
 import { driveFetch, driveGetContent, corsHeaders, requireAdmin } from "../_shared/drive.ts";
+import { assertInScope } from "../_shared/drive-scope.ts";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
   try {
-    await requireAdmin(req);
+    const { supabase } = await requireAdmin(req);
     const { fileId } = await req.json();
     if (!fileId) return new Response(JSON.stringify({ error: "fileId required" }), { status: 400, headers: corsHeaders });
+    await assertInScope(supabase, [fileId]);
+
+
 
     const metaRes = await driveFetch(`/drive/v3/files/${fileId}?fields=id,name,mimeType,size,modifiedTime,webViewLink`);
     if (!metaRes.ok) throw new Error(`Drive meta ${metaRes.status}`);
