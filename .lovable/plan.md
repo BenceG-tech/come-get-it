@@ -1,128 +1,96 @@
 
-# AI láthatóság, képelemzés és admin roadmap
+# Tömeges feltöltés + AI mappa-rendezés + roadmap folytatás
 
-## 1. Doksi feldolgozás — élő AI progress
+## 1. Tömeges (mappa) feltöltés
 
-Most a `summarize-document` egy `generateText` hívás, nincs visszajelzés. Kétféle mód:
+A meglévő "Új" form egyetlen fájlt fogad. Cserélem dropzone-ra ami:
 
-**A) Egyesével — streamelt gondolkodás**
-- `summarize-document` átírása `streamText`-re, `toUIMessageStreamResponse()`-szal.
-- `DocumentSummary.tsx`: `useChat` helyett közvetlen `fetch` + ReadableStream olvasás, és élőben jelenítjük meg a TL;DR-t, kulcspontokat, FAQ-t ahogy generálódik (shimmer "Elemzés..." → token-by-token szöveg).
-- Végén `onFinish`-ben mentés a DB-be (`tldr`, `key_points`, `faq`, `suggested_questions`, `last_summarized_at`).
+- **Több fájl egyszerre** — `<input multiple>` + drag&drop az egész képernyőre amikor a Média/Doksik tab aktív.
+- **Mappa feltöltés** — `webkitdirectory` attribútum második inputon ("Mappa kiválasztása" gomb). A böngésző visszaadja a fájl relatív útját (`webkitRelativePath`, pl. `Nyari_Kampany/cocktail.jpg`), és ebből automatikusan **Come Get It mappa-név** lesz (felső szintű könyvtár). 
+- **Új komponens**: `BulkUploadDialog.tsx` — listázza a kiválasztott fájlokat (név, méret, miniatúra ha kép), mindegyik mellett szerkeszthető cím és mappa mező (alapból a fájlnévből / könyvtárnévből kitöltve).
+- **Párhuzamos upload progress** — soronkénti progress bar és összesített ("12 / 47 kész"), max 3 párhuzamos upload Storage-be hogy ne lőjük túl.
+- **Mime detection** automatikus (`file.type` vagy kiterjesztés alapján), így rögtön a megfelelő tabra kerül (kép/videó/doksi).
+- **Hibakezelés** soronként — egy fájl bukása nem állítja meg a többit, retry gomb.
+- Sikeres upload után **autom. AI elemzés ajánlás** opció checkbox: "AI elemezze a feltöltöttek után" → batch dialógusba dobja őket.
 
-**B) Batch mód — több doksi sorban**
-- Új gomb a Doksik fülön: **"AI elemzés a kijelöltekre"** (a meglévő selection bar mellé).
-- Új `AdminDocumentBatchProcess.tsx` panel / dialog:
-  - Lista a kijelölt doksikról, mindegyik mellett státusz: `Várakozik` → `Feldolgozás...` (spinner) → `Kész` (pipa) / `Hiba` (piros + retry).
-  - Progress bar összesítve (`3 / 12 kész`).
-  - Élő log-szerű feed: "📄 Founding Pitch.pdf — kulcspontok kinyerése..." aktuálisan futó doksinál streamelt szöveg-előnézet.
-  - Sorrendben fut (kliens oldalon `for await`), egyszerre 1 doksi, hogy ne lőjük túl a rate limitet. Opció: párhuzamosság 1/2/3.
-- Megszakítás gomb (`AbortController`).
+## 2. AI mappa-rendezés és javaslatok
 
-## 2. Képek — AI képelemzés és javaslatok
+Új edge function: **`suggest-organization`** — bemenetként megkapja a doksik listáját (id, cím, mime, jelenlegi mappa, ai_description / ai_tags / kulcspontok ha vannak), kimenet:
 
-Új edge function: **`analyze-image`** (`google/gemini-3-flash-preview`, multimodal `image_url` blokkal a signed URL-lel).
-
-Output struktúra (Zod-szal validálva):
-```
+```json
 {
-  description: string,           // mit lát a képen, magyarul
-  suggested_alt: string,         // SEO-barát alt text
-  suggested_caption: string,     // social/marketing caption (Hungarian, tegező)
-  use_cases: string[],           // pl. "Instagram story", "Landing hero", "Partner deck slide 3"
-  suggested_copy: {              // kész szövegjavaslatok
-    instagram: string,
-    facebook: string,
-    landing_headline: string,
-  },
-  tags: string[],                // pl. ["cocktail", "neon", "bar"]
-  mood: string,                  // "energikus, esti", stb.
-  dominant_colors: string[],     // hex értékek
+  "suggestions": [
+    {
+      "doc_id": "uuid",
+      "current_folder": "00 — Mappázatlan",
+      "suggested_folder": "03 — Nyári kampány",
+      "reason": "Cocktail fotók nyári hangulattal, illik a kampány anyagaihoz",
+      "confidence": 0.85
+    }
+  ],
+  "new_folders": [
+    { "name": "03 — Nyári kampány", "rationale": "5 doksi illene ide" }
+  ]
 }
 ```
 
-UI a Képek tabon és a `/admin/media` galérián:
-- Minden képkártyán **"AI javaslatok"** gomb (Sparkles ikon).
-- Kattintásra oldalsó Sheet / Drawer nyílik, streamelt elemzés (látszik, ahogy az AI ír).
-- Eredmény mentődik a `documents` táblába új mezőkbe: `ai_description`, `ai_suggested_alt`, `ai_use_cases jsonb`, `ai_suggested_copy jsonb`, `ai_tags text[]`, `ai_mood text`, `ai_dominant_colors text[]`, `ai_analyzed_at timestamptz`.
-- "Másolás" gomb minden szövegjavaslat mellett.
-- Lightbox-ban is megjelenik az elemzés panel oldalt.
+UI két helyen:
 
-Videókra: első frame snapshot (`ffmpeg`-et nem futtatunk böngészőben, ezért egyelőre csak a thumbnail-t küldjük az AI-nak, vagy később külön edge function-ben generálunk frame-et).
+**A) Aktív ajánlás banner** — `/admin/documents` és `/admin/media` oldal tetején, ha van legalább 5 mappázatlan vagy gyanúsan rosszul mappázott elem:
 
-## 3. További admin ötletek és roadmap
+> ✨ Az AI 12 doksinak jobb helyet talált. **[Megnézem]**
 
-Részletes lista, amiből választhatsz mit építsünk legközelebb:
+Kattintásra megnyílik az **`OrganizationSuggestionsDialog.tsx`**:
+- Lista soronként: doksi cím, miniatúra, jelenlegi mappa → javasolt mappa (nyíllal), AI indok, confidence sáv.
+- Checkbox-szal elfogadhat / elutasíthat egyenként vagy tömegesen.
+- "Áthelyez kijelölteket" gomb → `documents.folder` update.
+- "Új mappákat is létrehoz" toggle (új mappák auto-létrejönnek az áthelyezéskor — Supabase-ben nincs külön mappa tábla, csak a `folder` mező az új névvel).
 
-### 3.1 Doksi intelligencia
-- **Auto-tagging**: AI minden új feltöltésnél automatikusan címkéz + kategorizál (`documents.ai_tags`, `ai_category_suggestion`). Feltöltés után toast: "AI 5 címkét javasol — elfogadod?".
-- **Duplikátum-érzékelés**: embedding alapú hasonlóság (pgvector), figyelmeztetés ha 90%+ egyezés.
-- **Verzió-történet**: doksi szerkesztésnél diff nézet, korábbi verziók visszaállítása.
-- **Doksi → email sablon konverter**: jelöljünk ki egy doksit, AI generál belőle `email_templates` bejegyzést (a meglévő tábla használatával).
-- **Doksi → social poszt**: pitch deck-ből Instagram carousel szöveg, LinkedIn poszt, X thread.
-- **PDF OCR**: szkennelt PDF-eknél szöveg kinyerés (Gemini multimodal natívan tudja).
+**B) Egyetlen feltöltésnél** — `BulkUploadDialog` végén, mielőtt mentesz: "AI javasol mappákat ehhez a 23 fájlhoz" gomb, ami a fájlnevek + képtartalom alapján csoportosít és kitölti a mappa mezőket előre.
 
-### 3.2 Partner CRM bővítés (`partners`, `partner_interactions`, `partner_emails`)
-- **AI partner-briefing**: gombnyomásra összegzi az adott partnerről eddig tudottakat (interakciók, küldött doksik, válaszok) — "Bence, ezt mondd a következő hívásnál".
-- **Email-generátor**: a partner státusza + utolsó interakció + kiválasztott doksi alapján személyre szabott email draft, küldés előtt szerkeszthető.
-- **Hot-lead score**: AI 0–100 pontot ad minden partnernek, magyarázattal (mennyire valószínű hogy aláír).
-- **Follow-up emlékeztetők**: "X partnerrel 14 napja nem volt interakció — küldjek emlékeztetőt?" napi digest emailben.
-- **Kanban nézet**: lead → kontaktálva → tárgyalás → szerződés → élő, drag&drop státuszváltás.
+**C) Periodikus emlékeztető** — `AdminLayout` topbarban kis pulzáló pötty a "Doksik" menüpont mellett, ha 7+ napja nem futott rendezés és van >10 mappázatlan elem. (LocalStorage flag `last_org_check_at` hogy ne legyen tolakodó.)
 
-### 3.3 Marketing naptár (`marketing_calendar`)
-- **AI tartalom-tervező**: adott hétre/hónapra AI javasol poszt-ötleteket (téma, csatorna, copy draft, képjavaslat a /admin/media tárból).
-- **Hashtag + best-time-to-post javaslatok**.
-- **Naptár export**: ICS fájl letöltés, Google Calendar sync.
+## 3. Az eddigi roadmap-ből most beépítjük
 
-### 3.4 Waitlist + Venue applications
-- **Heti AI riport**: hány új feliratkozó, honnan, melyik város a legaktívabb, sentiment.
-- **Vendéglátóhely-pontszámozás**: `venue_applications`-ből AI rangsorol, kinek érdemes először felhívni (méret, lokáció, kitöltött mezők minősége alapján).
-- **Auto-válasz**: új jelentkezésnél AI személyre szabott "köszi" email a Resend-en keresztül.
+A user "johet sorba ahogy irtad" → a 3. szekció sorrend szerint az első blokk a **Doksi intelligencia** (3.1). Ebből most ebbe az iterációba kerül:
 
-### 3.5 Admin UX
-- **Globális command palette** (Cmd+K): bárhonnan kereshető doksi, partner, oldal, gyors akció.
-- **Dashboard widget-ek**: KPI kártyák — feliratkozók ma/hét/hónap, partner pipeline érték, doksi feldolgozás státusz.
-- **Aktivitás-feed**: ki mit csinált utoljára (több admin esetén).
-- **Mobil-optimalizált admin**: jelenleg több hely nem mobil-barát.
-- **Sötét/világos téma** admin felületre (jelenleg fix sötét).
+- **Auto-tagging feltöltéskor** — minden új image upload után automatikusan triggereli az `analyze-image`-ot háttérben (toast: "AI elemzi a hátérben…", nem blokkol). Doksiknál az `admin-audit-documents` + `summarize-document` szintén triggerelhető auto-módban (opcionális checkbox a feltöltésnél: "Auto-elemzés bekapcsolva").
+- **Duplikátum-figyelmeztetés feltöltéskor** — fájl SHA-256 hash kliens oldalon (Web Crypto API), a `BulkUploadDialog` checkolja a `documents` táblát a hash-re. Új oszlop kell: `file_hash text` + index. Ha találat van, piros badge "Már létezik: X", lehet skip-elni.
 
-### 3.6 AI infrastruktúra
-- **Embeddings + pgvector**: doksi chunkolás, valódi RAG a chat-ben (most kontextusként az egész tartalom megy be — nagy doksinál drága).
-- **Cost tracking**: hány Lovable AI credit ment el / nap / funkció szerinti bontásban admin dashboardon.
-- **Audit log**: minden AI hívás (kérés, válasz, költség) `ai_call_log` táblában.
-
-## 4. Most mit építsünk ebben az iterációban
-
-Javaslat (jóváhagyásra):
-1. ✅ **Streamelt summarize** (1A) — láthatod ahogy ír
-2. ✅ **Batch processing UI** (1B) — több doksi sorban progress bar-ral
-3. ✅ **Képelemzés** (2) — `analyze-image` edge function + UI + DB migráció
-
-A 3-as szekció további pontjait külön körökben építjük — jelezd melyik 2-3 érdekel legjobban a következő iterációhoz (CRM AI? Command palette? Marketing AI? RAG embeddings?).
+A többi pont (verzió-történet, doksi→email konverter, doksi→social poszt, PDF OCR, partner CRM AI, marketing AI, command palette, RAG embeddings stb.) **következő körökben** jön — nem ebben az iterációban, hogy ez ne legyen átfogó.
 
 ## Technikai részletek
 
-**Migráció** (új oszlopok a `documents` táblához):
+**Migráció**:
 ```sql
 ALTER TABLE public.documents
-  ADD COLUMN ai_description text,
-  ADD COLUMN ai_suggested_alt text,
-  ADD COLUMN ai_suggested_caption text,
-  ADD COLUMN ai_use_cases jsonb,
-  ADD COLUMN ai_suggested_copy jsonb,
-  ADD COLUMN ai_tags text[],
-  ADD COLUMN ai_mood text,
-  ADD COLUMN ai_dominant_colors text[],
-  ADD COLUMN ai_analyzed_at timestamptz;
+  ADD COLUMN IF NOT EXISTS file_hash text;
+CREATE INDEX IF NOT EXISTS documents_file_hash_idx ON public.documents(file_hash) WHERE file_hash IS NOT NULL;
 ```
 
-**Edge functions**:
-- `summarize-document` átírás `streamText` + `toUIMessageStreamResponse` mintára (CORS megtartva)
-- `analyze-image` új — multimodal `image_url` content block, signed URL-lel a Storage-ból
+**Új edge function**: `suggest-organization` (nem streamel, JSON output egyszerre — gyorsabb, és a UI úgyis táblázatként renderel).
 
 **Új komponensek**:
-- `src/components/admin/documents/BatchProcessDialog.tsx` — sor-státusz lista, progress, abort
-- `src/components/admin/media/ImageAnalysisPanel.tsx` — Sheet, streamelt elemzés, copy gombok
-- `DocumentSummary.tsx` refaktor: stream fogadás `fetch` + reader.read() loop, részleges parse
+- `src/components/admin/documents/BulkUploadDialog.tsx`
+- `src/components/admin/documents/OrganizationSuggestionsDialog.tsx`
+- `src/components/admin/documents/OrganizationBanner.tsx`
+- `src/lib/file-hash.ts` (Web Crypto SHA-256 helper)
 
-**Verifikáció**: Playwright headless 1280×1800-on, batch dialog megnyit, lefuttat 2 doksit, screenshot a progress bar-ról és a kész állapotról; majd egy képnél megnyitja az AI panelt és ellenőrzi a streaming-et.
+**Módosított fájlok**:
+- `src/pages/admin/AdminDocuments.tsx` — "Új" gomb átirányítása a BulkUploadDialog-ra (single fájlhoz továbbra is ott a régi inline mód, de default a bulk), OrganizationBanner beillesztése.
+- `supabase/functions/analyze-image/index.ts` — már megvan, csak akkor hívódik auto-módban.
+
+**Konkurencia és rate limit**:
+- Upload: max 3 párhuzamos `supabase.storage.upload`.
+- Auto AI elemzés: nem azonnal mind, hanem 1-1 másodperc delay-jel kerül a háttér queue-ba (ne kapjunk 429-et).
+
+**Verifikáció**:
+- Playwright: nyit `/admin/media`, megnyit BulkUploadDialog, screenshot az üres és kiválasztott állapotról; ellenőrzi hogy a folder banner és Sheet renderel.
+
+## Mit kérdeznél meg utólag?
+
+(Nem blokkoló, csak ha most jelzed építkezünk be:)
+- Az auto-AI elemzés legyen alapból **bekapcsolva** vagy **kikapcsolva** új feltöltésnél? *(Javaslat: bekapcsolva képeknél, kikapcsolva nagy doksiknál — kreditkímélés)*
+- A duplikátum-egyezésnél **blokkold** az újratöltést vagy csak **figyelmeztess**? *(Javaslat: figyelmeztess, de engedj át — néha szándékos újrafeltöltés)*
+
+Ezekre default választ adok ha nem jelzed, és építünk tovább.

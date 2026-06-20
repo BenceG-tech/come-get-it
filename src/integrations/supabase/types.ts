@@ -139,6 +139,7 @@ export type Database = {
           duplicate_group: string | null
           duplicate_recommendation: string | null
           faq: Json | null
+          file_hash: string | null
           file_size_bytes: number | null
           folder: string | null
           id: string
@@ -176,6 +177,7 @@ export type Database = {
           duplicate_group?: string | null
           duplicate_recommendation?: string | null
           faq?: Json | null
+          file_hash?: string | null
           file_size_bytes?: number | null
           folder?: string | null
           id?: string
@@ -213,6 +215,7 @@ export type Database = {
           duplicate_group?: string | null
           duplicate_recommendation?: string | null
           faq?: Json | null
+          file_hash?: string | null
           file_size_bytes?: number | null
           folder?: string | null
           id?: string
