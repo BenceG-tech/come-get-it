@@ -1,7 +1,8 @@
-import { ReactNode } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink } from "lucide-react";
+import { ReactNode, useState, useEffect } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { cn } from "@/lib/utils";
 
 const items = [
   { to: "/admin", label: "Áttekintés", icon: LayoutDashboard, end: true },
@@ -14,50 +15,99 @@ const items = [
 export const AdminLayout = ({ children }: { children: ReactNode }) => {
   const { signOut, user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [open, setOpen] = useState(false);
 
-  return (
-    <div className="min-h-screen flex bg-nf-bg text-white">
-      <aside className="w-64 border-r border-nf-border bg-nf-surface flex flex-col">
-        <div className="p-5 border-b border-nf-border">
+  // Close drawer on route change (mobile)
+  useEffect(() => { setOpen(false); }, [location.pathname]);
+
+  const Sidebar = (
+    <aside className="w-64 shrink-0 border-r border-nf-border bg-nf-surface flex flex-col h-full">
+      <div className="p-5 border-b border-nf-border flex items-center justify-between">
+        <div>
           <div className="text-xs uppercase tracking-widest text-nf-text-muted">Come Get It</div>
           <div className="text-lg font-bold text-electric-300">Admin</div>
         </div>
-        <nav className="flex-1 p-3 space-y-1">
-          {items.map((it) => (
-            <NavLink
-              key={it.to}
-              to={it.to}
-              end={it.end}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                  isActive
-                    ? "bg-electric-300/15 text-electric-300"
-                    : "text-nf-text-muted hover:bg-nf-surface-alt hover:text-white"
-                }`
-              }
-            >
-              <it.icon className="h-4 w-4" />
-              {it.label}
-            </NavLink>
-          ))}
-        </nav>
-        <div className="p-3 border-t border-nf-border space-y-2">
-          <button
-            onClick={() => navigate("/")}
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-nf-text-muted hover:bg-nf-surface-alt hover:text-white"
+        <button
+          onClick={() => setOpen(false)}
+          className="md:hidden text-nf-text-muted hover:text-white p-1"
+          aria-label="Bezárás"
+        >
+          <X className="h-5 w-5" />
+        </button>
+      </div>
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        {items.map((it) => (
+          <NavLink
+            key={it.to}
+            to={it.to}
+            end={it.end}
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-3 rounded-lg text-sm transition-colors ${
+                isActive
+                  ? "bg-electric-300/15 text-electric-300"
+                  : "text-nf-text-muted hover:bg-nf-surface-alt hover:text-white"
+              }`
+            }
           >
-            <ExternalLink className="h-4 w-4" /> Vissza az oldalra
-          </button>
-          <div className="px-3 text-xs text-nf-text-muted truncate">{user?.email}</div>
-          <button
-            onClick={async () => { await signOut(); navigate("/"); }}
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-nf-text-muted hover:bg-nf-surface-alt hover:text-white"
-          >
-            <LogOut className="h-4 w-4" /> Kijelentkezés
-          </button>
+            <it.icon className="h-4 w-4 shrink-0" />
+            {it.label}
+          </NavLink>
+        ))}
+      </nav>
+      <div className="p-3 border-t border-nf-border space-y-1">
+        <button
+          onClick={() => navigate("/")}
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-nf-text-muted hover:bg-nf-surface-alt hover:text-white"
+        >
+          <ExternalLink className="h-4 w-4" /> Vissza az oldalra
+        </button>
+        <div className="px-3 py-1 text-xs text-nf-text-muted truncate">{user?.email}</div>
+        <button
+          onClick={async () => { await signOut(); navigate("/"); }}
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-nf-text-muted hover:bg-nf-surface-alt hover:text-white"
+        >
+          <LogOut className="h-4 w-4" /> Kijelentkezés
+        </button>
+      </div>
+    </aside>
+  );
+
+  return (
+    <div className="min-h-screen flex flex-col md:flex-row bg-nf-bg text-white">
+      {/* Mobile top bar */}
+      <header className="md:hidden sticky top-0 z-30 flex items-center justify-between border-b border-nf-border bg-nf-surface px-4 h-14">
+        <button
+          onClick={() => setOpen(true)}
+          className="p-2 -ml-2 text-white"
+          aria-label="Menü"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+        <div className="flex items-baseline gap-2">
+          <span className="text-[10px] uppercase tracking-widest text-nf-text-muted">CGI</span>
+          <span className="text-sm font-bold text-electric-300">Admin</span>
         </div>
-      </aside>
-      <main className="flex-1 overflow-auto">{children}</main>
+        <div className="w-8" />
+      </header>
+
+      {/* Desktop sidebar */}
+      <div className="hidden md:flex">{Sidebar}</div>
+
+      {/* Mobile drawer */}
+      {open && (
+        <>
+          <div
+            className="md:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
+          />
+          <div className={cn("md:hidden fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] shadow-2xl", "animate-in slide-in-from-left duration-200")}>
+            {Sidebar}
+          </div>
+        </>
+      )}
+
+      <main className="flex-1 min-w-0 overflow-auto">{children}</main>
     </div>
   );
 };
