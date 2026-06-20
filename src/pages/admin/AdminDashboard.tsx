@@ -10,6 +10,7 @@ import { TimeTracker } from "@/components/admin/dashboard/TimeTracker";
 import { DailyFocusCard } from "@/components/admin/dashboard/DailyFocusCard";
 import { DailyBriefingCard } from "@/components/admin/dashboard/DailyBriefingCard";
 import { WeeklyGoalsCard } from "@/components/admin/dashboard/WeeklyGoalsCard";
+import { WeeklyContentSprintCard } from "@/components/admin/dashboard/WeeklyContentSprintCard";
 
 type ActivityRow = {
   id: string;
