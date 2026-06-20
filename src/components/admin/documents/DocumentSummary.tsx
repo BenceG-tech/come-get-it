@@ -13,11 +13,14 @@ export default function DocumentSummary({ doc, onUpdated }: Props) {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [streamText, setStreamText] = useState("");
 
   const hasSummary = !!doc.tldr || (Array.isArray(doc.key_points) && doc.key_points.length > 0);
 
   const generate = async () => {
     setLoading(true);
+    setStreamText("");
+    setExpanded(true);
     try {
       const { data: { session } } = await supabase.auth.getSession();
       const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/summarize-document`, {
@@ -25,13 +28,21 @@ export default function DocumentSummary({ doc, onUpdated }: Props) {
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
         body: JSON.stringify({ docId: doc.id }),
       });
-      if (!res.ok) {
+      if (!res.ok || !res.body) {
         const j = await res.json().catch(() => ({}));
         throw new Error(j.error || `HTTP ${res.status}`);
       }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let acc = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        acc += decoder.decode(value, { stream: true });
+        setStreamText(acc);
+      }
       toast({ title: "Összefoglaló kész" });
       onUpdated();
-      setExpanded(true);
     } catch (e: any) {
       toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
     } finally {
@@ -39,10 +50,10 @@ export default function DocumentSummary({ doc, onUpdated }: Props) {
     }
   };
 
-  if (!hasSummary) {
+  if (!hasSummary && !loading && !streamText) {
     return (
       <Button size="sm" variant="outline" onClick={generate} disabled={loading}>
-        {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Sparkles className="h-3.5 w-3.5" />}
+        <Sparkles className="h-3.5 w-3.5" />
         AI összefoglaló
       </Button>
     );
@@ -52,20 +63,28 @@ export default function DocumentSummary({ doc, onUpdated }: Props) {
     <div className="border border-electric-300/30 rounded-lg bg-electric-300/5 overflow-hidden">
       <button onClick={() => setExpanded(!expanded)} className="w-full flex items-center justify-between p-3 text-left hover:bg-electric-300/10 transition-colors">
         <div className="flex items-center gap-2 min-w-0">
-          <Sparkles className="h-4 w-4 text-electric-300 shrink-0" />
-          <span className="text-sm font-medium text-electric-300">AI összefoglaló</span>
+          {loading ? <Loader2 className="h-4 w-4 text-electric-300 animate-spin shrink-0" /> : <Sparkles className="h-4 w-4 text-electric-300 shrink-0" />}
+          <span className="text-sm font-medium text-electric-300">
+            {loading ? "AI gondolkodik…" : "AI összefoglaló"}
+          </span>
         </div>
         {expanded ? <ChevronUp className="h-4 w-4 text-electric-300" /> : <ChevronDown className="h-4 w-4 text-electric-300" />}
       </button>
       {expanded && (
         <div className="p-3 pt-0 space-y-3 text-sm">
-          {doc.tldr && (
+          {loading && streamText && (
+            <div>
+              <div className="text-[11px] uppercase tracking-wider text-electric-300/70 font-semibold mb-1">Élő stream</div>
+              <pre className="whitespace-pre-wrap text-[11px] text-white/60 bg-black/30 rounded p-2 max-h-48 overflow-auto font-mono">{streamText}<span className="animate-pulse">▍</span></pre>
+            </div>
+          )}
+          {!loading && doc.tldr && (
             <div>
               <div className="text-[11px] uppercase tracking-wider text-electric-300 font-semibold mb-1">TL;DR</div>
               <p className="text-white/85 leading-relaxed">{doc.tldr}</p>
             </div>
           )}
-          {Array.isArray(doc.key_points) && doc.key_points.length > 0 && (
+          {!loading && Array.isArray(doc.key_points) && doc.key_points.length > 0 && (
             <div>
               <div className="text-[11px] uppercase tracking-wider text-electric-300 font-semibold mb-1">Kulcspontok</div>
               <ul className="space-y-1 text-white/85">
@@ -75,7 +94,7 @@ export default function DocumentSummary({ doc, onUpdated }: Props) {
               </ul>
             </div>
           )}
-          {Array.isArray(doc.faq) && doc.faq.length > 0 && (
+          {!loading && Array.isArray(doc.faq) && doc.faq.length > 0 && (
             <div>
               <div className="text-[11px] uppercase tracking-wider text-electric-300 font-semibold mb-1">GYIK</div>
               <div className="space-y-2">
@@ -88,7 +107,7 @@ export default function DocumentSummary({ doc, onUpdated }: Props) {
               </div>
             </div>
           )}
-          {Array.isArray(doc.suggested_questions) && doc.suggested_questions.length > 0 && (
+          {!loading && Array.isArray(doc.suggested_questions) && doc.suggested_questions.length > 0 && (
             <div>
               <div className="text-[11px] uppercase tracking-wider text-electric-300 font-semibold mb-1">Próbáld megkérdezni</div>
               <div className="flex flex-wrap gap-1.5">
@@ -98,12 +117,14 @@ export default function DocumentSummary({ doc, onUpdated }: Props) {
               </div>
             </div>
           )}
-          <div className="flex gap-2 pt-1">
-            <Button size="sm" variant="outline" onClick={generate} disabled={loading}>
-              {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Sparkles className="h-3.5 w-3.5" />}
-              Újragenerálás
-            </Button>
-          </div>
+          {!loading && (
+            <div className="flex gap-2 pt-1">
+              <Button size="sm" variant="outline" onClick={generate} disabled={loading}>
+                <Sparkles className="h-3.5 w-3.5" />
+                Újragenerálás
+              </Button>
+            </div>
+          )}
         </div>
       )}
     </div>

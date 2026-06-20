@@ -6,15 +6,24 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const SYSTEM = `Te a Come Get It belső dokumentum-összefoglalója vagy. Magyarul, tömören, üzletfókuszúan dolgozol.
-Egy doksi metaadatát + tartalmát kapod. Készítsd el:
-- tldr: 2-3 mondatos összefoglaló
-- key_points: 3-6 db rövid bullet (max 12 szó/db), a legfontosabb állítások
-- faq: 3-5 db {q, a} pár — gyakori kérdések és tömör válaszok
-- suggested_questions: 3-5 db rövid kérdés, amit egy olvasó feltehet a doksiról AI-nak
+const SYSTEM = `Te a Come Get It marketing AI-ja vagy. Magyarul, tegezve, energikus de tömör hangnemben dolgozol.
+Egy képet kapsz. Elemezd vizuálisan és adj kreatív, használható javaslatokat a Come Get It márka kontextusában (vendéglátóhelyek, italmárkák, fogyasztói rewards app, fiatal urban közönség).
 
 VÁLASZ KIZÁRÓLAG JSON, ez a séma:
-{"tldr": string, "key_points": string[], "faq": [{"q": string, "a": string}], "suggested_questions": string[]}`;
+{
+  "description": string,                // 1-2 mondat: mit látsz, magyarul
+  "suggested_alt": string,              // SEO-barát alt szöveg, max 120 karakter
+  "suggested_caption": string,          // rövid social caption magyarul
+  "use_cases": string[],                // 3-6 db konkrét felhasználási ötlet (pl. "Instagram story background", "Landing hero fölé", "Partner deck 3. slide")
+  "suggested_copy": {
+    "instagram": string,                // Instagram poszt szöveg emoji-val, 1-2 mondat + 3-5 hashtag
+    "facebook": string,                 // Facebook poszt 2-3 mondat
+    "landing_headline": string          // Landing hero headline javaslat, max 8 szó
+  },
+  "tags": string[],                     // 4-8 db rövid címke
+  "mood": string,                       // 2-4 szavas hangulat (pl. "energikus, esti, neon")
+  "dominant_colors": string[]           // 3-5 hex szín (pl. ["#0a0a0a", "#00d4ff"])
+}`;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
@@ -35,23 +44,18 @@ Deno.serve(async (req) => {
 
     const { data: d, error } = await supabase.from("documents").select("*").eq("id", docId).maybeSingle();
     if (error || !d) throw new Error(error?.message ?? "Document not found");
+    if (!d.storage_path) throw new Error("Nincs fájl a doksihoz.");
+
+    // Resolve image URL
+    let imageUrl = d.storage_path;
+    if (!imageUrl.startsWith("http")) {
+      const { data: signed } = await supabase.storage.from("admin-docs").createSignedUrl(d.storage_path, 3600);
+      if (!signed?.signedUrl) throw new Error("Nem sikerült signed URL-t generálni.");
+      imageUrl = signed.signedUrl;
+    }
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY missing");
-
-    const payload = {
-      title: d.title,
-      category: d.category,
-      folder: d.folder,
-      description: d.description,
-      when_to_use: d.when_to_use,
-      mime_type: d.mime_type,
-      content: d.content ? String(d.content).slice(0, 12000) : null,
-    };
-
-    if (!payload.content && !payload.description) {
-      return new Response(JSON.stringify({ error: "Nincs szöveges tartalom amit össze lehetne foglalni." }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-    }
 
     const up = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -60,7 +64,13 @@ Deno.serve(async (req) => {
         model: "google/gemini-3-flash-preview",
         messages: [
           { role: "system", content: SYSTEM },
-          { role: "user", content: `Doksi:\n${JSON.stringify(payload)}` },
+          {
+            role: "user",
+            content: [
+              { type: "text", text: `Elemezd ezt a képet. Kontextus: cím="${d.title}", mappa="${d.folder ?? ""}"` },
+              { type: "image_url", image_url: { url: imageUrl } },
+            ],
+          },
         ],
         response_format: { type: "json_object" },
         stream: true,
@@ -68,10 +78,9 @@ Deno.serve(async (req) => {
     });
 
     if (up.status === 429) return new Response(JSON.stringify({ error: "Túl sok kérés, próbáld újra később." }), { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-    if (up.status === 402) return new Response(JSON.stringify({ error: "AI kredit elfogyott, tölts fel a Lovable workspace beállításokban." }), { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    if (up.status === 402) return new Response(JSON.stringify({ error: "AI kredit elfogyott." }), { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     if (!up.ok || !up.body) throw new Error(`AI error ${up.status}: ${(await up.text()).slice(0, 300)}`);
 
-    // Stream content deltas back as plain text; persist final JSON when done.
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
     let full = "";
@@ -101,15 +110,18 @@ Deno.serve(async (req) => {
               } catch { /* ignore */ }
             }
           }
-          // Parse + persist
           try {
-            const parsed = JSON.parse(full);
+            const p = JSON.parse(full);
             const update = {
-              tldr: typeof parsed.tldr === "string" ? parsed.tldr.slice(0, 1000) : null,
-              key_points: Array.isArray(parsed.key_points) ? parsed.key_points.slice(0, 10) : null,
-              faq: Array.isArray(parsed.faq) ? parsed.faq.slice(0, 8) : null,
-              suggested_questions: Array.isArray(parsed.suggested_questions) ? parsed.suggested_questions.slice(0, 8) : null,
-              last_summarized_at: new Date().toISOString(),
+              ai_description: typeof p.description === "string" ? p.description.slice(0, 1000) : null,
+              ai_suggested_alt: typeof p.suggested_alt === "string" ? p.suggested_alt.slice(0, 300) : null,
+              ai_suggested_caption: typeof p.suggested_caption === "string" ? p.suggested_caption.slice(0, 500) : null,
+              ai_use_cases: Array.isArray(p.use_cases) ? p.use_cases.slice(0, 10) : null,
+              ai_suggested_copy: p.suggested_copy && typeof p.suggested_copy === "object" ? p.suggested_copy : null,
+              ai_tags: Array.isArray(p.tags) ? p.tags.slice(0, 12).map(String) : null,
+              ai_mood: typeof p.mood === "string" ? p.mood.slice(0, 100) : null,
+              ai_dominant_colors: Array.isArray(p.dominant_colors) ? p.dominant_colors.slice(0, 6).map(String) : null,
+              ai_analyzed_at: new Date().toISOString(),
             };
             await supabase.from("documents").update(update).eq("id", docId);
           } catch (e) {
