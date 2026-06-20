@@ -35,6 +35,8 @@ import AdminBrand from "./pages/admin/AdminBrand";
 import AdminContentStudio from "./pages/admin/AdminContentStudio";
 import AdminRetro from "./pages/admin/AdminRetro";
 import AdminOutreach from "./pages/admin/AdminOutreach";
+import AdminInbox from "./pages/admin/AdminInbox";
+import AdminSimulator from "./pages/admin/AdminSimulator";
 
 const queryClient = new QueryClient();
 
