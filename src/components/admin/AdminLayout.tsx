@@ -14,6 +14,7 @@ const items = [
   { to: "/admin/brand", label: "Brand Memory", icon: Palette },
   { to: "/admin/leads", label: "Leadek (vendéglátó)", icon: Target },
   { to: "/admin/partners", label: "Partnerek", icon: Users },
+  { to: "/admin/outreach", label: "Outreach", icon: Send },
   { to: "/admin/documents", label: "Dokumentumok", icon: FileText },
   { to: "/admin/media", label: "Média (kép/videó)", icon: ImageIcon },
   { to: "/admin/documents/chat", label: "Chat a doksikkal", icon: MessageSquare },
