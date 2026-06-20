@@ -416,11 +416,117 @@ export type Database = {
         }
         Relationships: []
       }
+      document_chunks: {
+        Row: {
+          chunk_index: number
+          created_at: string
+          document_id: string
+          embedding: string | null
+          id: string
+          text: string
+          token_count: number | null
+        }
+        Insert: {
+          chunk_index: number
+          created_at?: string
+          document_id: string
+          embedding?: string | null
+          id?: string
+          text: string
+          token_count?: number | null
+        }
+        Update: {
+          chunk_index?: number
+          created_at?: string
+          document_id?: string
+          embedding?: string | null
+          id?: string
+          text?: string
+          token_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_chunks_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_entity_links: {
+        Row: {
+          confidence: number | null
+          created_at: string
+          document_id: string
+          entity_id: string
+          entity_type: string
+          id: string
+          source: string
+        }
+        Insert: {
+          confidence?: number | null
+          created_at?: string
+          document_id: string
+          entity_id: string
+          entity_type: string
+          id?: string
+          source?: string
+        }
+        Update: {
+          confidence?: number | null
+          created_at?: string
+          document_id?: string
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          source?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_entity_links_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_opens: {
+        Row: {
+          document_id: string
+          id: string
+          opened_at: string
+          user_id: string | null
+        }
+        Insert: {
+          document_id: string
+          id?: string
+          opened_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          document_id?: string
+          id?: string
+          opened_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_opens_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       documents: {
         Row: {
           ai_analyzed_at: string | null
           ai_description: string | null
           ai_dominant_colors: string[] | null
+          ai_hook: string | null
           ai_mood: string | null
           ai_review: Json | null
           ai_suggested_alt: string | null
@@ -443,14 +549,17 @@ export type Database = {
           is_ai_generated: boolean
           keep_status: string | null
           key_points: Json | null
+          last_opened_at: string | null
           last_reviewed_at: string | null
           last_summarized_at: string | null
+          lifecycle_status: string | null
           linked_document_id: string | null
           mime_type: string | null
           partner_type: Database["public"]["Enums"]["partner_type"] | null
           quality_notes: string | null
           quality_score: number | null
           related_partner_id: string | null
+          relevance_score: number | null
           storage_path: string | null
           suggested_questions: Json | null
           title: string
@@ -462,6 +571,7 @@ export type Database = {
           ai_analyzed_at?: string | null
           ai_description?: string | null
           ai_dominant_colors?: string[] | null
+          ai_hook?: string | null
           ai_mood?: string | null
           ai_review?: Json | null
           ai_suggested_alt?: string | null
@@ -484,14 +594,17 @@ export type Database = {
           is_ai_generated?: boolean
           keep_status?: string | null
           key_points?: Json | null
+          last_opened_at?: string | null
           last_reviewed_at?: string | null
           last_summarized_at?: string | null
+          lifecycle_status?: string | null
           linked_document_id?: string | null
           mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
           quality_notes?: string | null
           quality_score?: number | null
           related_partner_id?: string | null
+          relevance_score?: number | null
           storage_path?: string | null
           suggested_questions?: Json | null
           title: string
@@ -503,6 +616,7 @@ export type Database = {
           ai_analyzed_at?: string | null
           ai_description?: string | null
           ai_dominant_colors?: string[] | null
+          ai_hook?: string | null
           ai_mood?: string | null
           ai_review?: Json | null
           ai_suggested_alt?: string | null
@@ -525,14 +639,17 @@ export type Database = {
           is_ai_generated?: boolean
           keep_status?: string | null
           key_points?: Json | null
+          last_opened_at?: string | null
           last_reviewed_at?: string | null
           last_summarized_at?: string | null
+          lifecycle_status?: string | null
           linked_document_id?: string | null
           mime_type?: string | null
           partner_type?: Database["public"]["Enums"]["partner_type"] | null
           quality_notes?: string | null
           quality_score?: number | null
           related_partner_id?: string | null
+          relevance_score?: number | null
           storage_path?: string | null
           suggested_questions?: Json | null
           title?: string
@@ -1942,6 +2059,16 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      match_document_chunks: {
+        Args: { match_count?: number; query_embedding: string }
+        Returns: {
+          chunk_id: string
+          chunk_index: number
+          document_id: string
+          similarity: number
+          text: string
+        }[]
       }
     }
     Enums: {
