@@ -70,7 +70,7 @@ export const VenueHeroSection: React.FC = () => {
               <Button
                 variant="neon"
                 size="lg"
-                className="py-4 px-8 text-lg w-full sm:w-auto"
+                className="w-full sm:w-auto"
                 onClick={() => {
                   analytics.ctaClick('venue_hero_primary', t('venues.hero.cta'));
                   document.querySelector('#venue-application')?.scrollIntoView({ behavior: 'smooth' });
