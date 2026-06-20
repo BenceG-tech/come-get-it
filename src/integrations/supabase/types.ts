@@ -200,6 +200,87 @@ export type Database = {
           },
         ]
       }
+      email_templates: {
+        Row: {
+          body_md: string
+          category: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          name: string
+          subject: string
+          updated_at: string
+          variables: Json | null
+        }
+        Insert: {
+          body_md: string
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name: string
+          subject: string
+          updated_at?: string
+          variables?: Json | null
+        }
+        Update: {
+          body_md?: string
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name?: string
+          subject?: string
+          updated_at?: string
+          variables?: Json | null
+        }
+        Relationships: []
+      }
+      lead_import_jobs: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          duplicate_rows: number | null
+          error_rows: number | null
+          errors: Json | null
+          filename: string | null
+          id: string
+          imported_rows: number | null
+          source: string
+          status: string
+          total_rows: number | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          duplicate_rows?: number | null
+          error_rows?: number | null
+          errors?: Json | null
+          filename?: string | null
+          id?: string
+          imported_rows?: number | null
+          source: string
+          status?: string
+          total_rows?: number | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          duplicate_rows?: number | null
+          error_rows?: number | null
+          errors?: Json | null
+          filename?: string | null
+          id?: string
+          imported_rows?: number | null
+          source?: string
+          status?: string
+          total_rows?: number | null
+        }
+        Relationships: []
+      }
       lead_requests: {
         Row: {
           created_at: string
@@ -322,6 +403,63 @@ export type Database = {
           },
         ]
       }
+      partner_emails: {
+        Row: {
+          body_html: string | null
+          id: string
+          opened_at: string | null
+          partner_id: string
+          resend_id: string | null
+          sent_at: string
+          sent_by: string | null
+          status: string
+          subject: string
+          template_id: string | null
+          to_email: string
+        }
+        Insert: {
+          body_html?: string | null
+          id?: string
+          opened_at?: string | null
+          partner_id: string
+          resend_id?: string | null
+          sent_at?: string
+          sent_by?: string | null
+          status?: string
+          subject: string
+          template_id?: string | null
+          to_email: string
+        }
+        Update: {
+          body_html?: string | null
+          id?: string
+          opened_at?: string | null
+          partner_id?: string
+          resend_id?: string | null
+          sent_at?: string
+          sent_by?: string | null
+          status?: string
+          subject?: string
+          template_id?: string | null
+          to_email?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_emails_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_emails_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "email_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_interactions: {
         Row: {
           channel: Database["public"]["Enums"]["interaction_channel"]
@@ -368,55 +506,91 @@ export type Database = {
       }
       partners: {
         Row: {
+          address: string | null
+          assigned_to: string | null
+          category: string | null
           city: string | null
           company_name: string
           contact_name: string | null
           created_at: string
           created_by: string | null
           email: string | null
+          google_place_id: string | null
           id: string
           instagram: string | null
+          lat: number | null
+          lead_score: number | null
+          lng: number | null
           next_followup_at: string | null
           notes: string | null
           phone: string | null
+          rating: number | null
+          rating_count: number | null
+          score_reasons: Json | null
+          score_updated_at: string | null
           source: string | null
           status: Database["public"]["Enums"]["partner_status"]
+          tags: string[] | null
           type: Database["public"]["Enums"]["partner_type"]
           updated_at: string
           website: string | null
         }
         Insert: {
+          address?: string | null
+          assigned_to?: string | null
+          category?: string | null
           city?: string | null
           company_name: string
           contact_name?: string | null
           created_at?: string
           created_by?: string | null
           email?: string | null
+          google_place_id?: string | null
           id?: string
           instagram?: string | null
+          lat?: number | null
+          lead_score?: number | null
+          lng?: number | null
           next_followup_at?: string | null
           notes?: string | null
           phone?: string | null
+          rating?: number | null
+          rating_count?: number | null
+          score_reasons?: Json | null
+          score_updated_at?: string | null
           source?: string | null
           status?: Database["public"]["Enums"]["partner_status"]
+          tags?: string[] | null
           type?: Database["public"]["Enums"]["partner_type"]
           updated_at?: string
           website?: string | null
         }
         Update: {
+          address?: string | null
+          assigned_to?: string | null
+          category?: string | null
           city?: string | null
           company_name?: string
           contact_name?: string | null
           created_at?: string
           created_by?: string | null
           email?: string | null
+          google_place_id?: string | null
           id?: string
           instagram?: string | null
+          lat?: number | null
+          lead_score?: number | null
+          lng?: number | null
           next_followup_at?: string | null
           notes?: string | null
           phone?: string | null
+          rating?: number | null
+          rating_count?: number | null
+          score_reasons?: Json | null
+          score_updated_at?: string | null
           source?: string | null
           status?: Database["public"]["Enums"]["partner_status"]
+          tags?: string[] | null
           type?: Database["public"]["Enums"]["partner_type"]
           updated_at?: string
           website?: string | null
