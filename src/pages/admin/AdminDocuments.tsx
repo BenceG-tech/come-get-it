@@ -149,9 +149,14 @@ export default function AdminDocuments() {
           <h1 className="text-2xl md:text-3xl font-bold">Dokumentumok</h1>
           <p className="text-sm text-nf-text-muted">{docs.length} doksi · {folderKeys.length} mappa</p>
         </div>
-        <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)} className="shrink-0">
-          <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Új doksi</span>
-        </Button>
+        <div className="flex gap-2 shrink-0">
+          <Button variant="outline" size="sm" asChild>
+            <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> <span className="hidden sm:inline">Audit</span></Link>
+          </Button>
+          <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)}>
+            <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Új doksi</span>
+          </Button>
+        </div>
       </div>
 
       {showNew && (
