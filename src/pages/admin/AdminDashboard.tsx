@@ -13,6 +13,7 @@ import { WeeklyGoalsCard } from "@/components/admin/dashboard/WeeklyGoalsCard";
 import { WeeklyContentSprintCard } from "@/components/admin/dashboard/WeeklyContentSprintCard";
 import OutreachHealthCard from "@/components/admin/dashboard/OutreachHealthCard";
 import DocumentDigestCard from "@/components/admin/dashboard/DocumentDigestCard";
+import InboxZeroCard from "@/components/admin/dashboard/InboxZeroCard";
 
 type ActivityRow = {
   id: string;
