@@ -6,10 +6,11 @@ import { TrendingUp } from "lucide-react";
 
 const STAGES = [
   { key: "lead", label: "Lead" },
-  { key: "qualified", label: "Qualified" },
-  { key: "meeting", label: "Meeting" },
-  { key: "signed", label: "Signed" },
-];
+  { key: "contacted", label: "Megkeresve" },
+  { key: "proposal_sent", label: "Ajánlat" },
+  { key: "negotiating", label: "Tárgyalás" },
+  { key: "signed", label: "Aláírt" },
+] as const;
 
 export function PipelineFunnel() {
   const [counts, setCounts] = useState<Record<string, number>>({});
