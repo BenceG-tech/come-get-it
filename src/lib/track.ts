@@ -30,7 +30,7 @@ export async function trackEvent(
       entity_type: opts?.entity_type ?? null,
       entity_id: opts?.entity_id ?? null,
       value: opts?.value ?? null,
-      metadata: opts?.metadata ?? {},
+      metadata: (opts?.metadata ?? {}) as any,
       created_by: auth.user?.id ?? null,
     });
   } catch (e) {
