@@ -3,6 +3,8 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
+import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
+import FloatingAIAssistant from "@/components/admin/FloatingAIAssistant";
 
 const items = [
   { to: "/admin", label: "Áttekintés", icon: LayoutDashboard, end: true },
@@ -19,7 +21,6 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
 
-  // Close drawer on route change (mobile)
   useEffect(() => { setOpen(false); }, [location.pathname]);
 
   const Sidebar = (
@@ -75,40 +76,34 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-nf-bg text-white">
-      {/* Mobile top bar */}
-      <header className="md:hidden sticky top-0 z-30 flex items-center justify-between border-b border-nf-border bg-nf-surface px-4 h-14">
-        <button
-          onClick={() => setOpen(true)}
-          className="p-2 -ml-2 text-white"
-          aria-label="Menü"
-        >
-          <Menu className="h-5 w-5" />
-        </button>
-        <div className="flex items-baseline gap-2">
-          <span className="text-[10px] uppercase tracking-widest text-nf-text-muted">CGI</span>
-          <span className="text-sm font-bold text-electric-300">Admin</span>
-        </div>
-        <div className="w-8" />
-      </header>
-
-      {/* Desktop sidebar */}
-      <div className="hidden md:flex">{Sidebar}</div>
-
-      {/* Mobile drawer */}
-      {open && (
-        <>
-          <div
-            className="md:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
-            onClick={() => setOpen(false)}
-          />
-          <div className={cn("md:hidden fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] shadow-2xl", "animate-in slide-in-from-left duration-200")}>
-            {Sidebar}
+    <AIAssistantProvider>
+      <div className="min-h-screen flex flex-col md:flex-row bg-nf-bg text-white">
+        <header className="md:hidden sticky top-0 z-30 flex items-center justify-between border-b border-nf-border bg-nf-surface px-4 h-14">
+          <button onClick={() => setOpen(true)} className="p-2 -ml-2 text-white" aria-label="Menü">
+            <Menu className="h-5 w-5" />
+          </button>
+          <div className="flex items-baseline gap-2">
+            <span className="text-[10px] uppercase tracking-widest text-nf-text-muted">CGI</span>
+            <span className="text-sm font-bold text-electric-300">Admin</span>
           </div>
-        </>
-      )}
+          <div className="w-8" />
+        </header>
 
-      <main className="flex-1 min-w-0 overflow-auto">{children}</main>
-    </div>
+        <div className="hidden md:flex">{Sidebar}</div>
+
+        {open && (
+          <>
+            <div className="md:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
+            <div className={cn("md:hidden fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] shadow-2xl", "animate-in slide-in-from-left duration-200")}>
+              {Sidebar}
+            </div>
+          </>
+        )}
+
+        <main className="flex-1 min-w-0 overflow-auto">{children}</main>
+
+        <FloatingAIAssistant />
+      </div>
+    </AIAssistantProvider>
   );
 };

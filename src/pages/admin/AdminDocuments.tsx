@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { Plus, Trash2, ExternalLink, Copy, ChevronDown, ChevronRight, Upload, FileText, Image as ImageIcon, Star, ClipboardList } from "lucide-react";
+import { Plus, Trash2, ExternalLink, Copy, ChevronDown, ChevronRight, Upload, FileText, Image as ImageIcon, Star, ClipboardList, Sparkles, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAIAssistant } from "@/contexts/AIAssistantContext";
+import { cn } from "@/lib/utils";
 
 const CATEGORIES = [
   { v: "one_pager_venue", l: "1-pager vendéglátóhely" },
@@ -34,6 +36,9 @@ export default function AdminDocuments() {
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
   const [showNew, setShowNew] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [selected, setSelected] = useState<Record<string, boolean>>({});
+  const [ratingFilter, setRatingFilter] = useState<"all" | "high" | "mid" | "low" | "none">("all");
+  const [auditing, setAuditing] = useState(false);
   const [form, setForm] = useState({
     title: "",
     folder: "",
@@ -44,6 +49,7 @@ export default function AdminDocuments() {
     file: null as File | null,
   });
   const { toast } = useToast();
+  const { open: openAI, addAttachments, setPendingPrompt } = useAIAssistant();
 
   const load = async () => {
     const { data } = await supabase
@@ -55,10 +61,25 @@ export default function AdminDocuments() {
   };
   useEffect(() => { load(); }, []);
 
-  // Group by folder
-  const filtered = search
-    ? docs.filter((d) => `${d.title} ${d.description ?? ""} ${d.when_to_use ?? ""}`.toLowerCase().includes(search.toLowerCase()))
-    : docs;
+  const filtered = useMemo(() => {
+    let list = docs;
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter((d) => `${d.title} ${d.description ?? ""} ${d.when_to_use ?? ""}`.toLowerCase().includes(q));
+    }
+    if (ratingFilter !== "all") {
+      list = list.filter((d) => {
+        const s = d.quality_score;
+        if (ratingFilter === "none") return s == null;
+        if (s == null) return false;
+        if (ratingFilter === "high") return s >= 8;
+        if (ratingFilter === "mid") return s >= 5 && s < 8;
+        if (ratingFilter === "low") return s < 5;
+        return true;
+      });
+    }
+    return list;
+  }, [docs, search, ratingFilter]);
 
   const grouped: Record<string, any[]> = {};
   for (const d of filtered) {
@@ -67,10 +88,42 @@ export default function AdminDocuments() {
   }
   const folderKeys = Object.keys(grouped).sort();
 
-  // Auto-open all folders when searching
-  const isFolderOpen = (k: string) => (search ? true : openFolders[k] ?? folderKeys.length <= 3);
+  const isFolderOpen = (k: string) => (search || ratingFilter !== "all" ? true : openFolders[k] ?? folderKeys.length <= 3);
 
-  // External links open in new tab; uploaded files go to the internal viewer page (no popup blocker, no blank screens)
+  const selectedIds = Object.keys(selected).filter((k) => selected[k]);
+  const selectedDocs = useMemo(() => docs.filter((d) => selected[d.id]), [docs, selected]);
+
+  const toggleSelect = (id: string) => setSelected((p) => ({ ...p, [id]: !p[id] }));
+  const clearSelection = () => setSelected({});
+
+  const sendSelectedToAI = () => {
+    addAttachments(selectedDocs.map((d) => ({ id: d.id, title: d.title, kind: "doc" as const })));
+    setPendingPrompt(`Ezekkel a doksikkal dolgozz: ${selectedDocs.map((d) => `"${d.title}"`).join(", ")}. Mit szeretnél, hogy csináljak velük?`);
+    openAI();
+  };
+
+  const runAudit = async () => {
+    if (auditing) return;
+    if (!confirm("Az AI átnézi az összes még nem értékelt doksit (max 50). Folytatod?")) return;
+    setAuditing(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-audit-documents`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
+        body: JSON.stringify({ onlyMissing: true }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const j = await res.json();
+      toast({ title: "Audit kész", description: `${j.count} doksi értékelve` });
+      load();
+    } catch (e: any) {
+      toast({ title: "Audit hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setAuditing(false);
+    }
+  };
+
   const openExternal = (storage_path: string) => window.open(storage_path, "_blank", "noopener");
 
 
@@ -149,15 +202,43 @@ export default function AdminDocuments() {
           <h1 className="text-2xl md:text-3xl font-bold">Dokumentumok</h1>
           <p className="text-sm text-nf-text-muted">{docs.length} doksi · {folderKeys.length} mappa</p>
         </div>
-        <div className="flex gap-2 shrink-0">
+        <div className="flex gap-2 shrink-0 flex-wrap">
+          <Button variant="outline" size="sm" onClick={runAudit} disabled={auditing}>
+            <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">{auditing ? "Auditálás…" : "AI audit"}</span>
+          </Button>
           <Button variant="outline" size="sm" asChild>
-            <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> <span className="hidden sm:inline">Audit</span></Link>
+            <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> <span className="hidden sm:inline">Audit lista</span></Link>
           </Button>
           <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)}>
             <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Új doksi</span>
           </Button>
         </div>
       </div>
+
+      {/* Rating filter */}
+      <div className="flex flex-wrap gap-1.5 text-xs">
+        {([
+          ["all", "Mind"],
+          ["high", "★ 8+"],
+          ["mid", "★ 5-7"],
+          ["low", "★ <5"],
+          ["none", "Nincs értékelve"],
+        ] as const).map(([k, l]) => (
+          <button
+            key={k}
+            onClick={() => setRatingFilter(k)}
+            className={cn(
+              "px-2.5 py-1 rounded-full border transition-colors",
+              ratingFilter === k
+                ? "bg-electric-300/15 border-electric-300/50 text-electric-300"
+                : "bg-nf-surface-alt border-nf-border text-nf-text-muted hover:text-white",
+            )}
+          >
+            {l}
+          </button>
+        ))}
+      </div>
+
 
       {showNew && (
         <Card className="p-4 md:p-5 space-y-3 border-electric-300/40">
@@ -210,17 +291,39 @@ export default function AdminDocuments() {
                 <div className="divide-y divide-nf-border">
                   {grouped[k].map((d) => {
                     const isImg = d.mime_type?.startsWith("image/");
+                    const s = d.quality_score;
+                    const ratingColor =
+                      s == null ? "bg-nf-surface-alt text-nf-text-muted border-nf-border"
+                      : s >= 8 ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/40"
+                      : s >= 5 ? "bg-amber-500/15 text-amber-400 border-amber-500/40"
+                      : "bg-red-500/15 text-red-400 border-red-500/40";
+                    const isSel = !!selected[d.id];
                     return (
-                      <div key={d.id} className="p-4 space-y-2 bg-nf-surface-alt/30">
+                      <div key={d.id} className={cn("p-4 space-y-2 bg-nf-surface-alt/30 transition-colors", isSel && "bg-electric-300/5 ring-1 ring-electric-300/30 ring-inset")}>
                         <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-center gap-2">
-                              {d.storage_path && (isImg ? <ImageIcon className="h-4 w-4 text-electric-300 shrink-0" /> : <FileText className="h-4 w-4 text-electric-300 shrink-0" />)}
-                              <h3 className="font-medium truncate">{d.title}</h3>
-                            </div>
-                            <div className="text-xs text-nf-text-muted mt-0.5">
-                              {CATEGORIES.find((c) => c.v === d.category)?.l}
-                              {d.file_size_bytes ? ` · ${fmtBytes(d.file_size_bytes)}` : ""}
+                          <div className="flex items-start gap-3 min-w-0 flex-1">
+                            <input
+                              type="checkbox"
+                              checked={isSel}
+                              onChange={() => toggleSelect(d.id)}
+                              className="mt-1 h-4 w-4 rounded border-nf-border bg-nf-surface accent-electric-300 cursor-pointer shrink-0"
+                              aria-label="Kijelölés AI-hoz"
+                            />
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                {d.storage_path && (isImg ? <ImageIcon className="h-4 w-4 text-electric-300 shrink-0" /> : <FileText className="h-4 w-4 text-electric-300 shrink-0" />)}
+                                <h3 className="font-medium truncate">{d.title}</h3>
+                                <span
+                                  className={cn("inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] border shrink-0", ratingColor)}
+                                  title={d.quality_notes ?? (s == null ? "Még nincs AI értékelés" : "")}
+                                >
+                                  <Star className="h-3 w-3" /> {s != null ? `${s}/10` : "—"}
+                                </span>
+                              </div>
+                              <div className="text-xs text-nf-text-muted mt-0.5">
+                                {CATEGORIES.find((c) => c.v === d.category)?.l}
+                                {d.file_size_bytes ? ` · ${fmtBytes(d.file_size_bytes)}` : ""}
+                              </div>
                             </div>
                           </div>
                           <button onClick={() => remove(d)} className="text-nf-text-muted hover:text-red-400 p-1 shrink-0" aria-label="Törlés">
@@ -229,6 +332,11 @@ export default function AdminDocuments() {
                         </div>
                         {d.description && <p className="text-sm text-nf-text-muted">{d.description}</p>}
                         {d.when_to_use && <p className="text-xs"><span className="text-electric-300">Mikor:</span> <span className="text-nf-text-muted">{d.when_to_use}</span></p>}
+                        {d.quality_notes && (
+                          <p className="text-[11px] text-nf-text-muted italic border-l-2 border-electric-300/40 pl-2">
+                            <Sparkles className="h-3 w-3 inline mr-1 text-electric-300" />{d.quality_notes}
+                          </p>
+                        )}
                         {d.storage_path && (
                           <div className="flex flex-wrap gap-2 pt-1">
                             {d.storage_path.startsWith("http") ? (
@@ -245,11 +353,6 @@ export default function AdminDocuments() {
                             <Button size="sm" variant="outline" onClick={() => copyLink(d.storage_path)}>
                               <Copy className="h-3.5 w-3.5" /> Link másol
                             </Button>
-                            {d.quality_score != null && (
-                              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs bg-electric-300/10 text-electric-300 border border-electric-300/30">
-                                <Star className="h-3 w-3" /> {d.quality_score}/10
-                              </span>
-                            )}
                             {d.duplicate_group && (
                               <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30">
                                 Dup: {d.duplicate_group}
@@ -273,6 +376,20 @@ export default function AdminDocuments() {
           );
         })}
       </div>
+
+      {/* Selection action bar */}
+      {selectedIds.length > 0 && (
+        <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 bg-nf-surface border border-electric-300/40 rounded-full shadow-2xl px-3 py-2 flex items-center gap-2">
+          <span className="text-xs text-electric-300 font-medium px-2">{selectedIds.length} kijelölve</span>
+          <Button variant="neon" size="sm" onClick={sendSelectedToAI}>
+            <Sparkles className="h-4 w-4" /> AI-val dolgozz velük
+          </Button>
+          <button onClick={clearSelection} className="text-nf-text-muted hover:text-white p-1.5 rounded-full" aria-label="Kijelölés törlése">
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
+

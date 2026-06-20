@@ -1,84 +1,80 @@
-# Mi hiányzik még + hogy lesz tényleg hasznos az admin
+# Sticky AI + multi-context + voice + Instagram
 
-A korábbi terv (AI Gateway fix, doksi-néző, audit mezők, master checklist) megvan. Most az alábbi rétegek hiányoznak ahhoz, hogy az admin felület **tényleg napi munkaeszköz** legyen, ne csak lista.
+## 1. Sticky AI chatbot az egész adminon
 
-## 1. AI chat: több beszélgetés, mentett szálak (most hiányzik!)
+- Új `FloatingAIAssistant` komponens, beágyazva az `AdminLayout`-ba — minden admin oldalon megjelenik jobb alsó sarokban (cyan körgomb, neon-glow).
+- Kattintásra panel nyílik (desktop: 420×620 dock jobb oldalt, mobil: full-screen sheet).
+- Tartalmaz: thread-választó (kis dropdown a fejlécben), Önellenőrző toggle, mikrofon, +Kontextus gomb, üzenetek, input.
+- Ugyanazt a `ai_conversations` / `ai_messages` táblát + `admin-ai-chat` edge function-t használja, mint a `/admin/ai` oldal — ez a "kis ablak" verziója, a full oldal megmarad nagyobb munkához.
+- A jelenlegi route-on dolgozik: a context bar mutatja "Most látott: Főoldal pitch (doksi)" és automatikusan átadja a doksi ID-t az AI-nak.
 
-Most: egy ablak, csak törölni tudsz, elveszik minden.
+## 2. Multi-context: doksik + képek kijelölése az AI-nak
 
-Új:
-- `ai_threads` és `ai_messages` táblák (admin-only RLS).
-- Bal oldali szál-lista: új beszélgetés, átnevezés, törlés, kedvenc/pin, keresés címben+tartalomban.
-- Minden szál saját URL: `/admin/ai/:threadId` — reload visszahozza.
-- Automatikus szál-cím generálás az első üzenetből.
-- "Címkék" szálakon (pl. `pitch`, `IG DM`, `pénzügy`) hogy később vissza tudd keresni.
-- Üzenetenként: másolás, „regeneráld jobb verzióban", „használd doksiként" (egyből új dokumentumot készít belőle).
+- A `/admin/documents` oldalon minden doksi-kártyán **checkbox** (bal felső sarok).
+- Több kijelölés után megjelenik egy lebegő action bar: `3 kijelölve · AI-val dolgozz velük · Letöltés · Tagek`.
+- "AI-val dolgozz velük" → megnyitja a sticky asszisztenst, automatikusan beírja a kontextusba: `📎 3 doksi csatolva: Főoldal pitch, ÁSZF v2, Marketing terv`.
+- Ugyanez kép-oldalon (Brand Media — most készítjük el): kép-grid, checkbox, kijelölés → AI látja (multimodal, Gemini vision).
+- **Vegyes:** doksi + kép egyszerre csatolható (pl. "ezekből a képekből és ebből a pitchből csinálj IG karusszelt").
+- Edge function bővítés: `messages` mellé `context: { docIds: [], mediaIds: [] }` mező → szerver letölti és a promptba injektálja (PDF szöveg + képek base64 image_url-ként Gemini-nek).
+- Inline szerkesztés: az AI válaszán "Mentsd új doksinak" gomb → automatikusan létrehoz egy markdown doksit az `admin-docs` bucketbe, megnyitható szerkesztésre.
 
-## 2. AI tényleg ismerje a Come Get It-et (RAG)
+## 3. Doksik értékelésének láthatósága + AI-pontozás
 
-Most: csak metaadatokat lát, PDF tartalmat nem.
+- A `/admin/documents` lista minden kártyán mutassa: **csillag-ikon + szám** (`★ 8.5/10`), színkód (zöld 8+, sárga 5-7, piros <5, szürke még nem értékelt).
+- Hover/tooltip: rövid AI-indoklás (`quality_notes` mező — már van DB-ben).
+- Új "Audit" gomb a doksi-listán: AI végigfut az összes még nem értékelt doksin (PDF szöveg-kinyerés → Gemini-nek pontozza 6 dimenzió szerint: tartalmi mélység, struktúra, magyar nyelv, brand-konzisztencia, célzottság, frissesség). Eredmény: `quality_score`, `quality_notes`, duplikátum-javaslat.
+- Szűrő-sáv: `Mind / Magas (8+) / Közepes / Alacsony / Nincs értékelve / Duplikátumok`.
+- Doksi-megnyitásnál (viewer): jobb oldali panel az értékeléssel + "Újraértékelés" gomb + "Javasolj jobb verziót" gomb.
 
-Új:
-- PDF/DOCX/TXT szöveg-kinyerés feltöltéskor (edge function).
-- Chunkolás + `documents_chunks` tábla + embeddings (Lovable AI Gateway).
-- Chat válaszadáskor szemantikus keresés a kérdés alapján → top releváns chunk-ok bekerülnek a promptba.
-- Minden válasz alatt: **Források** (melyik doksiból, melyik szakaszból).
-- Manuálisan is hozzáadható "tudás-snippet" (rövid tények: árazás, kontaktok, stat-ok).
+## 4. Diktálás (hangbevitel) a chat-be
 
-## 3. Önellenőrző rendszer (v1 → pontszám → v2) — UI is
+- Mikrofon-gomb a chat input mellett (sticky és `/admin/ai` oldalon is).
+- Lenyomva → `MediaRecorder` (webm/mp4 auto-detect böngésző szerint) felvesz, elengedéskor felmegy egy új `admin-transcribe` edge function-re.
+- Edge function: Lovable AI `openai/gpt-4o-mini-transcribe` (magyar nyelv), streaming → részleges szöveg élőben jelenik meg az inputban.
+- Záróesemény után a szöveg ott marad az inputban, a user még szerkesztheti küldés előtt (vagy `Auto-küldés` toggle bekapcsolva azonnal küldi).
+- Vizuális visszajelzés: pulzáló piros pötty + élő hangszint-bar felvétel közben.
 
-A korábbi tervben szerepelt logika, de UI-ban így jelenik meg:
-- Bizonyos kérésekre (pitch, email, DM, poszt) automatikusan 3 blokk:
-  1. **v1 draft**
-  2. **Pontozás 1-10** dimenziók szerint (magyar nyelv, brand hang, CTA, konkrétság, személyre szabás, rövidség, meggyőzőerő) + rövid kritika
-  3. **v2 javított verzió**
-- Gombok minden generált szövegen: `Még jobb verzió`, `Rövidebbre`, `Formálisabbra`, `Lazább hangra`, `Másik nyelvre`.
+## 5. Instagram összekötés (lépcsőzetesen)
 
-## 4. Brand Media + multimodális AI
+**Most (1. lépés — kódolható, API nélkül):**
+- Új admin oldal: `/admin/instagram`.
+- "Saját IG handle" + "Versenytárs handle-ek" beviteli mezők (mentve egy új `instagram_accounts` táblába, admin-only RLS).
+- Heti screenshot-feltöltés: feltöltöd a követőid / követéseid / posztjaid screenshotjait → AI (Gemini vision) kiolvassa: kit követsz, ki követ, posztolási ritmus, témák, hashtag stratégia.
+- Eredmény mentve `instagram_insights` táblába (handle + AI elemzés + dátum).
+- Sticky AI látja ezt: ha kérdezed "kik közül kéne először a founding partner ajánlatot megküldenem?", az IG insights alapján javaslatot ad.
 
-- `Brand Media` admin oldal, `admin-docs` bucket alatt új `media/` mappa.
-- `media_assets` tábla: leírás, brand tagek, AI által generált tagek + használati javaslatok.
-- Feltöltéskor AI auto-elemzi a képet (Gemini vision): mi van rajta, milyen hangulat, mire jó (IG poszt / story / pitch deck / videó start frame / email header).
-- Doksihoz csatolható (`document_media` join).
-- Chatben: ha relevánsan illik egy kép a kérdéshez, az AI felajánlja: *„Erre jó lenne a `barista_morning_03.jpg` — Insta sztoriba a founding partner ajánlathoz."*
+**Később (2. lépés — külön blokk, csak ha jóváhagyod):**
+- Meta Graph API + Instagram Business Login: valódi automatikus szinkron (követők, követések, DM-ek olvasása). Ehhez 2-4 hét Meta app review kell — most nem indítjuk el, csak előkészítjük az adatmodellt.
 
-## 5. IG / FB integráció (lépcsőzetesen)
+## Technikai részletek
 
-Mindhárom kértél — sorrend:
-- **1. lépés (most):** Üzenet/DM/poszt sablon generálás + 1-klikk másolás + „Megnyitás Instagramban" deep link (`instagram://` mobilon, web fallback). Nem kell hozzá API.
-- **2. lépés:** Brand & versenytárs insightok — megadsz IG handle-eket (saját + versenytársak), heti fetch (publikus oldalak scrape-je vagy manuális screenshot feltöltés → AI elemzi: posztolási ritmus, témák, hashtag-stratégia, mit csinálj máshogy).
-- **3. lépés (külön blokk, Meta Graph API + business app review kell):** közvetlen posztolás IG-re/FB-re az adminból. Ez 2-4 hét review, ezért később.
+**Új fájlok:**
+- `src/components/admin/FloatingAIAssistant.tsx` — sticky panel
+- `src/components/admin/AIContextBar.tsx` — csatolt doksik/képek chipek
+- `src/components/admin/VoiceRecorderButton.tsx` — diktálás
+- `src/components/admin/DocumentRatingBadge.tsx` — csillag-ikon kártyán
+- `src/pages/admin/AdminInstagram.tsx` — IG insights oldal
+- `supabase/functions/admin-transcribe/index.ts` — STT proxy
+- `supabase/functions/admin-audit-documents/index.ts` — batch doksi-pontozás
+- `supabase/functions/admin-analyze-image/index.ts` — IG screenshot + brand kép elemzés
+- 1 migration: `instagram_accounts`, `instagram_insights` táblák (admin-only RLS + GRANT)
 
-## 6. Doksi-audit befejezése (most félkész)
+**Módosított fájlok:**
+- `src/components/admin/AdminLayout.tsx` — sticky asszisztens beágyazás + IG menüpont
+- `src/pages/admin/AdminDocuments.tsx` — checkboxok, rating badge, multi-select action bar, "Audit" gomb
+- `src/pages/admin/AdminAI.tsx` — diktálás gomb, +Kontextus gomb (közös logika a sticky-vel egy `useAIChat` hookban)
+- `supabase/functions/admin-ai-chat/index.ts` — `context.docIds` + `context.mediaIds` támogatás, PDF szöveg kinyerés, multimodal (image_url) Gemini-nek
 
-- A korábbi auditban van rating-mező és duplikáció-csoport, de a **valódi AI-elemzés még nem fut le** rajtuk. Egy „Audit futtatása" gomb: AI végigmegy minden doksin, kitölti `quality_score`, `quality_notes`, megjelöli a duplikátumokat, javasol fúziót vagy törlést, és **megírja a fúzionált új verziót** is, amit te jóváhagysz/elvetsz.
-- Lista nézet: szűrés rating szerint, „mit kellene fixen átírni" sort.
+**Modell:** `google/gemini-3-flash-preview` (multimodal: szöveg + kép), STT `openai/gpt-4o-mini-transcribe`.
 
-## 7. „Use this image / doc here" proaktív javaslatok
+## Sorrend
 
-Amikor a chatben kérsz pl. „IG posztot kávézóknak", az AI nemcsak ír, hanem:
-- kiválaszt **1-2 illő képet** a Brand Mediából,
-- javasol egy **doksit** amit linkelj (1-pager),
-- javasolja melyik **partnernek** menjen először,
-- felajánlja: *„Hozzáadjam a marketing naptárhoz holnap 10:00-ra?"*
+1. Sticky AI panel + közös `useAIChat` hook (gyorsan érezhető).
+2. Doksi-rating badge a listán + "Audit futtatása" gomb (batch AI pontozás).
+3. Multi-select checkbox + "AI-val dolgozz velük" csatolás (doksi).
+4. Diktálás (STT edge function + mikrofon gomb).
+5. Brand Media oldal + képek csatolása az AI-hoz (multimodal).
+6. Instagram screenshot-elemzés oldal + IG insights tábla.
+7. (Később, külön projekt) Meta Graph API valódi szinkron.
 
-## 8. Apró admin QoL hiányok
-
-- Globális keresés (Cmd/Ctrl-K): partnerek + doksik + szálak + checklist.
-- Doksi viewer: most még blank lehet — fallback: ha az `<object>` nem rendereli, automatikusan `Letöltés` + új tab natív böngészőnézet, és PDF.js viewer mint biztos backup.
-- Mobil nézet az AI chaten: szál-lista bottom sheet-ben.
-- „Mai feladatok" widget az admin dashboardon: kit hívj/írj ma (followup), milyen checklist item esedékes, milyen naptár-poszt jön.
-
-## Sorrend (implementálási blokkok)
-
-1. **AI chat thread-ek** (`ai_threads`, `ai_messages`, sidebar, URL routing) + doksi-viewer fallback fix.
-2. **Önellenőrző UI** (v1/pontszám/v2 blokkok, gyors-újrafogalmazó gombok).
-3. **RAG**: PDF-kinyerés, chunkolás, embeddings, semantic search a chatben, források megjelenítése.
-4. **Brand Media** oldal + AI auto-tagging képekre + doksi-csatolás.
-5. **Doksi audit AI futtatás** (automata pontozás, duplikáció-fúzió javaslat).
-6. **Proaktív javaslatok** chatben (kép/doksi/partner/naptár).
-7. **IG/FB 1-2. lépés** (sablonok + deep linkek + insight elemzés).
-8. **Globális Cmd-K kereső + Mai feladatok widget.**
-9. **Később (külön projekt):** Meta Graph API közvetlen posztolás.
-
-Szólj melyik blokkal kezdjem — javaslom az **1+2-t együtt** (azonnal érezhető lesz, hogy nem veszik el semmi, és minden output jobb minőségű lesz), aztán **3 (RAG)** mert ettől lesz az AI tényleg „mindentudó" a Come Get It-ről.
+Jó így? Ha igen, váltsd Build módba és kezdem az 1+2 blokkal együtt.

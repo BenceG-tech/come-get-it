@@ -84,9 +84,9 @@ Deno.serve(async (req) => {
     const messages = Array.isArray(body.messages) ? body.messages : [];
     const conversationId: string | null = body.conversationId ?? null;
     const critique: boolean = !!body.critique;
+    const attachedDocIds: string[] = Array.isArray(body.attachedDocIds) ? body.attachedDocIds : [];
     if (messages.length === 0) return new Response(JSON.stringify({ error: "messages required" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
-    // Persist user message immediately (only the last one)
     if (conversationId) {
       const lastUser = [...messages].reverse().find((m: any) => m.role === "user");
       if (lastUser) {
@@ -100,12 +100,30 @@ Deno.serve(async (req) => {
     }
 
     const ctx = await loadContext(supabase);
+
+    // Load attached documents in full (when user explicitly attaches them)
+    let attachedDetail = "";
+    if (attachedDocIds.length > 0) {
+      const { data: attDocs } = await supabase
+        .from("documents")
+        .select("id, title, category, folder, description, when_to_use, content, storage_path, mime_type, quality_score, quality_notes")
+        .in("id", attachedDocIds);
+      if (attDocs && attDocs.length > 0) {
+        attachedDetail = `\n\n--- A FELHASZNÁLÓ EZEKET A DOKSIKAT CSATOLTA (PRIORITÁS — EZEKKEL DOLGOZZ!) ---\n${JSON.stringify(
+          attDocs.map((d: any) => ({
+            ...d,
+            content: d.content ? String(d.content).slice(0, 8000) : null,
+          })),
+        )}\n--- CSATOLT DOKSIK VÉGE ---`;
+      }
+    }
+
     const contextMsg = `--- AKTUÁLIS KONTEXTUS (${new Date().toLocaleString("hu-HU")}) ---
 PARTNEREK (${ctx.partners.length}): ${JSON.stringify(ctx.partners)}
 INTERAKCIÓK (${ctx.interactions.length}): ${JSON.stringify(ctx.interactions)}
 DOKUMENTUMOK (${ctx.documents.length}): ${JSON.stringify(ctx.documents)}
 NAPTÁR (${ctx.calendar.length}): ${JSON.stringify(ctx.calendar)}
---- KONTEXTUS VÉGE ---`;
+--- KONTEXTUS VÉGE ---${attachedDetail}`;
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) return new Response(JSON.stringify({ error: "LOVABLE_API_KEY missing" }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
