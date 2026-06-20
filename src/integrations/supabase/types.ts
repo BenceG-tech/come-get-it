@@ -219,6 +219,102 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_focus: {
+        Row: {
+          briefing_acknowledged_at: string | null
+          briefing_payload: Json | null
+          created_at: string
+          energy_level: number | null
+          focus_date: string
+          id: string
+          reflection: string | null
+          top_priorities: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          briefing_acknowledged_at?: string | null
+          briefing_payload?: Json | null
+          created_at?: string
+          energy_level?: number | null
+          focus_date: string
+          id?: string
+          reflection?: string | null
+          top_priorities?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          briefing_acknowledged_at?: string | null
+          briefing_payload?: Json | null
+          created_at?: string
+          energy_level?: number | null
+          focus_date?: string
+          id?: string
+          reflection?: string | null
+          top_priorities?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      daily_kpi_snapshots: {
+        Row: {
+          ai_cost_estimate: number
+          avg_brand_fit: number | null
+          created_at: string
+          docs_processed: number
+          extra: Json
+          id: string
+          leads_new: number
+          leads_total: number
+          posts_published: number
+          posts_scheduled: number
+          qualified_total: number
+          signed_new: number
+          signed_total: number
+          snapshot_date: string
+          waitlist_delta: number
+          waitlist_total: number
+        }
+        Insert: {
+          ai_cost_estimate?: number
+          avg_brand_fit?: number | null
+          created_at?: string
+          docs_processed?: number
+          extra?: Json
+          id?: string
+          leads_new?: number
+          leads_total?: number
+          posts_published?: number
+          posts_scheduled?: number
+          qualified_total?: number
+          signed_new?: number
+          signed_total?: number
+          snapshot_date: string
+          waitlist_delta?: number
+          waitlist_total?: number
+        }
+        Update: {
+          ai_cost_estimate?: number
+          avg_brand_fit?: number | null
+          created_at?: string
+          docs_processed?: number
+          extra?: Json
+          id?: string
+          leads_new?: number
+          leads_total?: number
+          posts_published?: number
+          posts_scheduled?: number
+          qualified_total?: number
+          signed_new?: number
+          signed_total?: number
+          snapshot_date?: string
+          waitlist_delta?: number
+          waitlist_total?: number
+        }
+        Relationships: []
+      }
       documents: {
         Row: {
           ai_analyzed_at: string | null
@@ -708,6 +804,39 @@ export type Database = {
           },
         ]
       }
+      metric_events: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          entity_id: string | null
+          entity_type: string | null
+          event_type: string
+          id: string
+          metadata: Json
+          value: number | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          entity_id?: string | null
+          entity_type?: string | null
+          event_type: string
+          id?: string
+          metadata?: Json
+          value?: number | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          entity_id?: string | null
+          entity_type?: string | null
+          event_type?: string
+          id?: string
+          metadata?: Json
+          value?: number | null
+        }
+        Relationships: []
+      }
       partner_documents_sent: {
         Row: {
           channel: Database["public"]["Enums"]["interaction_channel"] | null
@@ -1054,6 +1183,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      time_logs: {
+        Row: {
+          created_at: string
+          id: string
+          log_date: string
+          minutes: number
+          module: string
+          note: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          log_date: string
+          minutes: number
+          module: string
+          note?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          log_date?: string
+          minutes?: number
+          module?: string
+          note?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
