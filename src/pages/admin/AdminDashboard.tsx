@@ -93,14 +93,17 @@ export default function AdminDashboard() {
       {/* AI briefing — full width on top */}
       <DailyBriefingCard />
 
-      {/* Cockpit row: focus + waitlist + pipeline + time + weekly goals */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-4">
+      {/* Cockpit row: focus + waitlist + pipeline + time + weekly goals + content sprint */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-4">
         <DailyFocusCard />
         <WaitlistGrowth />
         <PipelineFunnel />
         <TimeTracker />
         <WeeklyGoalsCard />
+        <WeeklyContentSprintCard />
       </div>
+
+
 
 
       {/* Quick action row */}
