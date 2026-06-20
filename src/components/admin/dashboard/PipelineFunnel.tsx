@@ -19,7 +19,7 @@ export function PipelineFunnel() {
     (async () => {
       const results = await Promise.all(
         STAGES.map((s) =>
-          supabase.from("partners").select("id", { count: "exact", head: true }).eq("status", s.key),
+          supabase.from("partners").select("id", { count: "exact", head: true }).eq("status", s.key as any),
         ),
       );
       const c: Record<string, number> = {};
