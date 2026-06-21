@@ -114,7 +114,7 @@ export const CommandPalette = () => {
         {hits.length > 0 && (
           <CommandGroup heading="Találatok">
             {hits.map((h) => (
-              <CommandItem key={`${h.kind}-${h.id}`} onSelect={() => go(linkFor(h))}>
+              <CommandItem key={`${h.kind}-${h.id}`} onSelect={() => go(linkFor(h), h.title)}>
                 {h.kind === "doc" && <FileText className="h-4 w-4 mr-2" />}
                 {(h.kind === "partner" || h.kind === "lead") && <Users className="h-4 w-4 mr-2" />}
                 {h.kind === "decision" && <Brain className="h-4 w-4 mr-2" />}
@@ -125,21 +125,33 @@ export const CommandPalette = () => {
             ))}
           </CommandGroup>
         )}
+        {!q && recent.length > 0 && (
+          <>
+            <CommandSeparator />
+            <CommandGroup heading="Legutóbb">
+              {recent.map((r) => (
+                <CommandItem key={r.path} onSelect={() => go(r.path, r.label)}>
+                  <RefreshCw className="h-4 w-4 mr-2" /> <span className="truncate">{r.label}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </>
+        )}
         <CommandSeparator />
         <CommandGroup heading="Gyors műveletek">
-          <CommandItem onSelect={() => go("/admin/leads?new=1")}>
+          <CommandItem onSelect={() => go("/admin/leads?new=1", "Új lead")}>
             <Plus className="h-4 w-4 mr-2" /> Új lead
           </CommandItem>
-          <CommandItem onSelect={() => go("/admin/decisions?new=1")}>
+          <CommandItem onSelect={() => go("/admin/decisions?new=1", "Új döntés")}>
             <Brain className="h-4 w-4 mr-2" /> Új döntés rögzítése
           </CommandItem>
-          <CommandItem onSelect={() => go("/admin/trends")}>
+          <CommandItem onSelect={() => go("/admin/trends", "Trend Radar")}>
             <Telescope className="h-4 w-4 mr-2" /> Trend kutatás indítása
           </CommandItem>
-          <CommandItem onSelect={() => go("/admin/documents?upload=1")}>
+          <CommandItem onSelect={() => go("/admin/documents?upload=1", "Tömeges feltöltés")}>
             <Upload className="h-4 w-4 mr-2" /> Tömeges feltöltés
           </CommandItem>
-          <CommandItem onSelect={() => go("/admin/documents?organize=1")}>
+          <CommandItem onSelect={() => go("/admin/documents?organize=1", "AI rendezés")}>
             <ScanSearch className="h-4 w-4 mr-2" /> AI rendezés
           </CommandItem>
           <CommandItem onSelect={() => go("/admin/retro")}>
