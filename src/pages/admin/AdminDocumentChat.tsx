@@ -127,7 +127,7 @@ export default function AdminDocumentChat() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-3.5rem)] md:h-screen">
+    <div className="flex flex-col admin-fullh-safe">
       <header className="border-b border-nf-border px-3 md:px-6 py-3 flex items-center gap-2 bg-nf-surface">
         <Button variant="outline" size="sm" asChild className="shrink-0">
           <Link to="/admin/documents"><ArrowLeft className="h-4 w-4" /> <span className="hidden sm:inline">Vissza</span></Link>

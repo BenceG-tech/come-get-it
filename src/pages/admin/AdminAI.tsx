@@ -261,7 +261,7 @@ export default function AdminAI() {
   );
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] md:h-screen bg-nf-bg text-white">
+    <div className="flex admin-fullh-safe bg-nf-bg text-white">
       {/* Desktop sidebar */}
       <div className="hidden md:flex">{Sidebar}</div>
 

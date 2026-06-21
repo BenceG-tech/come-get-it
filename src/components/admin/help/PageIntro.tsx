@@ -16,12 +16,15 @@ interface Props {
 export default function PageIntro({ slug, className }: Props) {
   const content = ADMIN_PAGE_HELP[slug];
   const storageKey = `admin-page-intro-hidden:${slug}`;
-  const [hidden, setHidden] = useState(false);
+  // Alapból REJTVE — kevesebb zaj az admin oldalakon. A "?" chip újranyitja.
+  const [hidden, setHidden] = useState(true);
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    setHidden(window.localStorage.getItem(storageKey) === "1");
+    // Csak akkor nyitjuk meg automatikusan, ha a user explicit megnyitotta korábban (storageKey == "0").
+    const v = window.localStorage.getItem(storageKey);
+    setHidden(v !== "0");
   }, [storageKey]);
 
   if (!content) return null;
@@ -30,11 +33,11 @@ export default function PageIntro({ slug, className }: Props) {
     return (
       <button
         onClick={() => {
-          window.localStorage.removeItem(storageKey);
+          window.localStorage.setItem(storageKey, "0");
           setHidden(false);
           setOpen(true);
         }}
-        className="inline-flex items-center gap-1 text-[11px] text-nf-text-muted hover:text-electric-300 transition-colors"
+        className={cn("inline-flex items-center gap-1 text-[11px] text-nf-text-muted hover:text-electric-300 transition-colors", className)}
       >
         <Lightbulb className="h-3 w-3" /> Mire való ez az oldal?
       </button>
@@ -67,8 +70,8 @@ export default function PageIntro({ slug, className }: Props) {
             setHidden(true);
           }}
           className="p-1 text-nf-text-muted hover:text-white"
-          aria-label="Ne mutasd újra"
-          title="Ne mutasd újra"
+          aria-label="Bezárás"
+          title="Bezárás"
         >
           <X className="h-4 w-4" />
         </button>
