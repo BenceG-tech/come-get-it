@@ -250,8 +250,18 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
                     </div>
                   )}
                   {research.next_action && <div className="pt-1 border-t border-nf-border"><b className="text-electric-300">Next:</b> {research.next_action}</div>}
+                  {(research.sources || research._live_search) && (
+                    <div className="pt-2 border-t border-nf-border">
+                      <SourceTimeline
+                        sources={Array.isArray(research.sources) ? research.sources : [
+                          { url: entity.website, title: "Website scrape", scraped_at: research._researched_at },
+                        ]}
+                      />
+                    </div>
+                  )}
                 </Card>
               )}
+
 
               {decisions.length > 0 && (
                 <Card className="p-3 text-xs bg-nf-surface border-nf-border">
