@@ -416,6 +416,60 @@ export type Database = {
         }
         Relationships: []
       }
+      decisions: {
+        Row: {
+          context: string | null
+          created_at: string
+          created_by: string | null
+          decided_at: string
+          decision_text: string
+          entity_id: string | null
+          entity_type: string | null
+          expected_outcome: string | null
+          id: string
+          outcome: Json | null
+          outcome_note: string | null
+          outcome_rating: number | null
+          review_at: string
+          reviewed_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          context?: string | null
+          created_at?: string
+          created_by?: string | null
+          decided_at?: string
+          decision_text: string
+          entity_id?: string | null
+          entity_type?: string | null
+          expected_outcome?: string | null
+          id?: string
+          outcome?: Json | null
+          outcome_note?: string | null
+          outcome_rating?: number | null
+          review_at?: string
+          reviewed_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          context?: string | null
+          created_at?: string
+          created_by?: string | null
+          decided_at?: string
+          decision_text?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          expected_outcome?: string | null
+          id?: string
+          outcome?: Json | null
+          outcome_note?: string | null
+          outcome_rating?: number | null
+          review_at?: string
+          reviewed_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       document_chunks: {
         Row: {
           chunk_index: number
