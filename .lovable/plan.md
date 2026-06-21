@@ -1,70 +1,111 @@
-# Fázis 8 — Élesítés és összekötés
 
-A Fázis 7 leszállította a Trend Radart, Command Palette-et és Northstar dashboardot, de **AI-only módban** fut (nincs élő web), és pár auto-loop még hiányzik. Ez a kör élesít és összeköt.
+# Phase 9 — Élő adat, átláthatóság, mobil polish
 
-## Mit szállítunk
+Három párhuzamos sáv. A Firecrawl bekötése (külön user action) blokkolja az A sáv 1–2 lépését; B és C ettől függetlenül megy.
 
-### 1. Firecrawl élesítés (élő web kutatás)
-- **Firecrawl connector** csatlakoztatása (`standard_connectors--connect`)
-- `trend-radar` edge function: `firecrawl search` + `tbs: qdr:w` heti queryk magyar HORECA, Gen Z, Wolt/Foodora témákban → AI összefoglal → `trend_signals`
-- `lead-auto-research`: `firecrawl scrape` étterem honlapra + Google review search → `partners.research_notes`
-- Heti pg_cron (`trend-radar-tick`) — vasárnap 08:00 automatikus futás
+## A) Élő Firecrawl + heti cron
 
-### 2. Decision ↔ Outcome auto-loop
-- `decision-review-tick` bővítés: `outreach_events` reply event-re auto-prompt ("Volt erre döntés?")
-- Lead → partner konverzió trigger: ha volt kapcsolódó decision, auto-review prompt az inboxba
-- EntityDrawer "Áttekintés" tabra: entity-specifikus döntések lista
+**A0. Connector bekötés** (user action)
+- `standard_connectors--connect` hívás `firecrawl` connector ID-val.
+- Eredmény: `FIRECRAWL_API_KEY` automatikusan elérhető edge function-ökben.
 
-### 3. Mobil cockpit (jelenleg 402px-en a sidebar elveszi a fél képernyőt)
-- Bottom nav (5 ikon: Áttekintés, Pipeline, Tudás, Intel, ⌘K)
-- Swipe-able dashboard kártyák
-- `EntityDrawer` mobile-friendly: full-screen sheet, nem oldalsó drawer
-- Command Palette mobile: nagy érintőfelület, voice input gomb
+**A1. Megosztott helper:** `supabase/functions/_shared/firecrawl.ts`
+- `firecrawlSearch(query, { limit, tbs, lang, country, scrapeOptions })` — REST v2 hívás `https://api.firecrawl.dev/v2/search`.
+- `firecrawlScrape(url, { formats })` — REST v2 hívás.
+- Hibakezelés: 402 → strukturált hiba "insufficient_credits", 401 → "auth_failed".
 
-### 4. Portfolio Health (cég-szintű)
-- Új `CompanyHealthCard` a dashboardra: 5 dimenzió radar (Pipeline, Content, Outreach, Knowledge, Cash runway placeholder)
-- Forrás: `partner-health-radar` agregálva + `daily_kpi_snapshots`
-- Heti delta jelzés (▲/▼ az előző héthez képest)
+**A2. `trend-radar` átírása**
+- Eddig: csak LLM szintézis témakörökre.
+- Új flow: Firecrawl search (`qdr:w` heti szűrő) 4-6 előre definiált queryre (HORECA HU, Gen Z fogyasztói trendek, Wolt/Foodora hírek, italmárka kampányok, fenntarthatóság HORECA, élmény-gasztro).
+- Eredmények → LLM (gateway, gemini-2.5-flash) összegzés → `trend_signals` insert `source_url`, `scraped_at`, `query` mezőkkel.
+- Per-signal `ai_cost_estimate` mező.
 
-### 5. Transzparencia + AI Usage részletek
-- `AiUsageCard` jelenleg csak hívásszám — bővítés: per-function breakdown, becsült cost (token × ár)
-- Új "Honnan tudjuk?" popover EntityDrawer-en: forrás-időszalag (mikor, mi, ki/mi módosította)
-- Trend signal kártyára: source URL + scrape timestamp
+**A3. `lead-auto-research` átírása**
+- Inputra (partner_id vagy website_url) `firecrawlScrape(format: ['markdown', 'summary'])` + `firecrawlSearch("<név> vélemények site:google.com OR site:tripadvisor.com")`.
+- LLM szintézis → `partners.research_notes` JSONB: `{ summary, strengths, gaps, sources: [{url, scraped_at}] }`.
 
-### 6. Quick Wins (kevesebb kattintás)
-- ⌘K-ba: utolsó 5 megnyitott entity (Recent)
-- Dashboard kártyákra **inline action**: "Új lead" gomb a Pipeline funnel mellett, "Új trend query" a TrendDigest mellett
-- Keyboard shortcut hint a sidebar gombokon (G+L = Leads, G+P = Partners stb.)
+**A4. Heti pg_cron** (supabase insert tool, nem migration — projekt-specifikus URL/key)
+- `trend-radar-weekly`: vasárnap 08:00 CET.
+- Inbox-itembe írás futás után ("Új trend digest érkezett").
 
-## Technikai
+**A5. UI — forrás transzparencia**
+- Új komponens: `src/components/admin/SourceTimeline.tsx` — chronological forrás-URL lista + scraped_at timestamp + favicon.
+- Beépítve: `TrendDigestCard`, `AdminTrends` lista, `EntityDrawer` (partners → research_notes).
+
+## B) Quick wins + átláthatóság
+
+**B1. Dashboard inline akciók**
+- `NorthstarCard`, `TrendDigestCard` és `CompanyHealthCard` jobb-felső sarkába `Plus` icon-button.
+- Northstar → `/admin/leads/new`; Trend → új trend query modal (inline AdminTrends dialógus); Health → `/admin/dashboard?view=actions`.
+
+**B2. Decision review enhancement**
+- `inbox_items` → decision_review típushoz "Snooze 3 nap / 7 nap" gomb (új `snoozed_until` mező az `inbox_items`-ben — migration).
+- Drawer-ben Decision history-hoz "Új outcome rögzítése" inline form (eddig külön oldal).
+
+**B3. Trend → Content brief konverzió**
+- `AdminTrends` minden signal kártyára "→ Brief" gomb.
+- Új edge function: `trend-to-brief` — LLM prompt a signal alapján, `content_briefs` insert, navigálás a brief oldalra.
+
+**B4. Valós AI cost az AiUsageCard-ban**
+- `metric_events` tábla már loggol AI hívásokat; bővítés: `input_tokens`, `output_tokens`, `model` mezők (migration).
+- Edge function helper: `track-ai-usage` (gateway response usage objectből).
+- `AiUsageCard` aggregálja Ft-ban (pricing táblázat const-ban: gemini-flash, gpt-5-mini stb.).
+
+**B5. Sidebar shortcut hint-ek**
+- `AdminLayout.tsx` sidebar item-ekhez `<kbd>G L</kbd>` jelölés tooltipben.
+- Új hook: `useKeyboardShortcuts` — `G+L → /admin/leads`, `G+P → /admin/partners`, `G+T → /admin/trends`, `G+D → /admin/dashboard`, `G+K → /admin/knowledge`.
+
+**B6. Toast → inbox híd**
+- `src/lib/track.ts` bővítése: minden `severity: 'warning' | 'error'` toast egyúttal `inbox_items` insertet kap (dedupe_key-vel).
+
+## C) Mobil polish + UX
+
+**C1. EntityDrawer mobilon full-screen**
+- Sheet `side="bottom"` mobilon, `h-[95vh]` magasság, drag handle felül.
+- Desktop marad `side="right"`.
+
+**C2. Dashboard swipe-elhető kártyák mobilon**
+- `embla-carousel-react` (már installálva) használata `<768px` képernyőn — egy kártya/oldal, dots indikátor.
+
+**C3. Pipeline drag-and-drop stage váltás**
+- `@dnd-kit/core` (telepítés szükséges: `bun add @dnd-kit/core @dnd-kit/sortable`).
+- `AdminPipeline.tsx`: kanban oszlopok között drag.
+- Optimistic UI + `pipeline_transitions` insert.
+
+**C4. Bulk akciók a Leads listán**
+- Checkbox oszlop + sticky bottom bar: "Outreach indítás", "Címke hozzáadás", "Export CSV".
+
+## Technikai részletek
 
 **Új fájlok:**
-- `src/components/admin/MobileBottomNav.tsx`
-- `src/components/admin/dashboard/CompanyHealthCard.tsx`
+- `supabase/functions/_shared/firecrawl.ts`
+- `supabase/functions/trend-to-brief/index.ts`
 - `src/components/admin/SourceTimeline.tsx`
-- `supabase/functions/_shared/firecrawl.ts` (közös helper)
+- `src/hooks/useKeyboardShortcuts.ts`
 
-**Módosított:**
-- `supabase/functions/trend-radar/index.ts` — Firecrawl integráció
-- `supabase/functions/lead-auto-research/index.ts` — Firecrawl integráció
-- `supabase/functions/decision-review-tick/index.ts` — outreach reply trigger
-- `src/components/admin/AdminLayout.tsx` — mobile bottom nav + keyboard shortcuts
-- `src/components/admin/crm/EntityDrawer.tsx` — mobile full-screen + decisions tab + source timeline
-- `src/components/admin/dashboard/AiUsageCard.tsx` — per-function breakdown
-- `src/components/admin/CommandPalette.tsx` — Recent items
+**Módosított fájlok:**
+- `supabase/functions/trend-radar/index.ts`
+- `supabase/functions/lead-auto-research/index.ts`
+- `src/components/admin/dashboard/{NorthstarCard,TrendDigestCard,CompanyHealthCard,AiUsageCard}.tsx`
+- `src/components/admin/crm/EntityDrawer.tsx`
+- `src/components/admin/AdminLayout.tsx`
+- `src/pages/admin/{AdminTrends,AdminPipeline,AdminLeads}.tsx`
+- `src/lib/track.ts`
 
-**Migration:**
-- `pg_cron` schedule: `trend-radar-tick` weekly
-- Trigger: `outreach_events INSERT WHERE event_type='reply'` → inbox_item insert decision review-hoz
+**Migration (1 db):**
+- `inbox_items.snoozed_until timestamptz`
+- `metric_events.input_tokens int, output_tokens int, model text, cost_huf numeric`
+- `trend_signals.source_url text, scraped_at timestamptz, query text, ai_cost_estimate numeric`
+- `partners.research_notes jsonb` (ha nincs)
 
-## Mit NEM csinálunk most
-- Voice morning ritual (külön kör)
-- Email-to-CRM (Resend inbound)
-- Drive Watcher auto-sync
-- Content Remix Engine
+**pg_cron (supabase insert):**
+- weekly `trend-radar` vasárnap 08:00
 
-## Kérdések
+**Költségbecslés futásonként:**
+- Firecrawl: ~6 search × 1 credit = 6 credit/hét
+- LLM szintézis: ~5k tokens gemini-flash = ~0.5 Ft/hét
 
-1. **Firecrawl connector csatlakoztatás**: ok, hogy most élesítsük? (Lovable Cloud-on át, te választod a workspace connection-t)
-2. **Mobil bottom nav**: oké az 5 ikonos megoldás, vagy maradjon a hamburger menü?
-3. **pg_cron időzítés** a trend-radar futtatására: heti egy futás (vasárnap 08:00) jó, vagy gyakrabban kéred?
+## Mi NEM van benne (későbbi fázisok)
+- Forecast widget (30/60/90 napos pipeline regression)
+- Risk radar auto-flagging
+- Voice ritual, Email-to-CRM, Drive Watcher, Content Remix Engine
