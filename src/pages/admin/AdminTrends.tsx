@@ -89,6 +89,21 @@ export default function AdminTrends() {
     trackEvent("trend_signal_saved" as any, { entity_type: "trend_signal", entity_id: s.id });
     toast({ title: "Mentve a döntésnaplóba" });
   };
+  const convertToBrief = async (s: Signal) => {
+    setConverting(s.id);
+    try {
+      const { data, error } = await supabase.functions.invoke("trend-to-brief", { body: { signal_id: s.id } });
+      if (error) throw error;
+      trackEvent("brief_created" as any, { entity_type: "trend_signal", entity_id: s.id });
+      toast({ title: "Brief létrehozva", description: "Megnyitás a Content Studio-ban…" });
+      navigate(`/admin/content?brief=${data?.brief_id ?? ""}`);
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setConverting(null);
+    }
+  };
+
 
   return (
     <div className="container mx-auto p-4 md:p-6 max-w-6xl space-y-6">
