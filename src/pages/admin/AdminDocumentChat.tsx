@@ -52,6 +52,8 @@ export default function AdminDocumentChat() {
 
   const toggle = (id: string) => setSelectedIds((p) => p.includes(id) ? p.filter((x) => x !== id) : [...p, id]);
 
+  const [sources, setSources] = useState<any[]>([]);
+
   const send = async (text?: string) => {
     const msg = (text ?? input).trim();
     if (!msg || streaming) return;
@@ -64,7 +66,19 @@ export default function AdminDocumentChat() {
     const history = [...messages];
     setMessages([...history, { role: "user", content: msg }, { role: "assistant", content: "" }]);
     setStreaming(true);
+    setSources([]);
     try {
+      // V2: prepend semantic search context
+      let semanticHints = "";
+      try {
+        const { data: sem } = await supabase.functions.invoke("doc-semantic-search", { body: { query: msg, top_k: 5 } });
+        if (sem?.results?.length) {
+          setSources(sem.results);
+          semanticHints = "\n\nReleváns snippet-ek (idézhető források):\n" + sem.results.map((r: any, i: number) => `[${i + 1}] ${r.document?.title ?? ""}: ${(r.snippet ?? "").slice(0, 300)}`).join("\n");
+        }
+      } catch (e) { console.warn("semantic search skip", e); }
+
+      const augmentedMsg = msg + semanticHints;
       const { data: { session } } = await supabase.auth.getSession();
       const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-with-documents`, {
         method: "POST",
