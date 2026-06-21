@@ -425,7 +425,7 @@ export default function AdminDrive() {
 
       {/* Analyze dialog */}
       <Dialog open={analyzeOpen} onOpenChange={setAnalyzeOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
+        <DialogContent className="max-w-4xl max-h-[90dvh] overflow-auto">
           <DialogHeader><DialogTitle className="flex items-center gap-2"><Sparkles className="h-4 w-4 text-electric-300" /> AI Drive elemzés</DialogTitle></DialogHeader>
           {analyzing && !analyzeResult && (
             <div className="text-xs text-nf-text-muted bg-nf-surface p-3 rounded border border-nf-border max-h-40 overflow-auto">
@@ -491,7 +491,7 @@ export default function AdminDrive() {
 
       {/* Finalize dialog */}
       <Dialog open={finalizeOpen} onOpenChange={setFinalizeOpen}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-auto">
+        <DialogContent className="max-w-3xl max-h-[90dvh] overflow-auto">
           <DialogHeader><DialogTitle className="flex items-center gap-2"><Wand2 className="h-4 w-4 text-electric-300" /> Konszolidált végleges verzió</DialogTitle></DialogHeader>
           <div className="space-y-3">
             <div>

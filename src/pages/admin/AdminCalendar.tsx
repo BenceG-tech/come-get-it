@@ -330,7 +330,7 @@ export default function AdminCalendar() {
 
       {/* Autofill from approved briefs */}
       <Dialog open={autofillOpen} onOpenChange={setAutofillOpen}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[90dvh] overflow-y-auto">
           <DialogHeader><DialogTitle className="flex items-center gap-2"><CalendarDays className="h-5 w-5 text-electric-300" /> Brief autofill (2 hét)</DialogTitle></DialogHeader>
           <div className="space-y-4">
             <p className="text-xs text-nf-text-muted">Az approved briefeket szétosztja a következő 14 napra IG/FB/LI csatornákon, üres napokra. Konfliktust elkerül.</p>
@@ -364,7 +364,7 @@ export default function AdminCalendar() {
 
       {/* AI Plan Dialog */}
       <Dialog open={planOpen} onOpenChange={setPlanOpen}>
-        <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90dvh] overflow-y-auto">
           <DialogHeader><DialogTitle className="flex items-center gap-2"><Wand2 className="h-5 w-5 text-electric-300" /> Marketing terv generálás</DialogTitle></DialogHeader>
           <div className="space-y-4">
             <div className="grid md:grid-cols-2 gap-3">
