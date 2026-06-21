@@ -70,7 +70,9 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
 
+  useKeyboardShortcuts();
   useEffect(() => { setOpen(false); }, [location.pathname]);
+
 
   // Auto-expand the group containing the current route
   const activeGroup = GROUPS.find(g => g.items.some(i => i.end ? location.pathname === i.to : location.pathname.startsWith(i.to)));
