@@ -4,7 +4,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Sparkles, ExternalLink, FileText, MessageSquare, Clock, ListChecks, Send } from "lucide-react";
+import { Loader2, Sparkles, ExternalLink, FileText, Clock, ListChecks, Send, Plus, Brain, Telescope, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -26,43 +26,51 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   const [enrollments, setEnrollments] = useState<any[]>([]);
   const [docs, setDocs] = useState<any[]>([]);
   const [aiSuggestion, setAiSuggestion] = useState<string | null>(null);
+  const [aiBrief, setAiBrief] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
+  const [briefLoading, setBriefLoading] = useState(false);
+  const [researchLoading, setResearchLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+
+  const reload = async () => {
+    if (!entityId) return;
+    setLoading(true);
+    try {
+      const [ent, trans, ints, oev, tk, enr, links] = await Promise.all([
+        supabase.from("partners").select("*").eq("id", entityId).maybeSingle(),
+        supabase.from("pipeline_transitions").select("*").eq("entity_id", entityId).order("created_at", { ascending: false }).limit(50),
+        supabase.from("partner_interactions").select("*").eq("partner_id", entityId).order("created_at", { ascending: false }).limit(50),
+        supabase.from("outreach_events").select("*, outreach_enrollments!inner(entity_id)").eq("outreach_enrollments.entity_id", entityId).order("created_at", { ascending: false }).limit(50),
+        supabase.from("pipeline_tasks").select("*").eq("entity_id", entityId).order("due_at", { ascending: true }).limit(20),
+        supabase.from("outreach_enrollments").select("*, outreach_sequences(name)").eq("entity_id", entityId).order("started_at", { ascending: false }).limit(20),
+        supabase.from("document_entity_links").select("*, documents(id, title, category, ai_hook, lifecycle_status)").eq("entity_id", entityId).limit(20),
+      ]);
+      setEntity(ent.data);
+      const merged = [
+        ...(trans.data ?? []).map((t: any) => ({ type: "transition", at: t.created_at, label: `Stage váltás`, note: t.reason })),
+        ...(ints.data ?? []).map((i: any) => ({ type: "interaction", at: i.created_at, label: `${i.channel} (${i.direction})`, note: i.summary })),
+        ...(oev.data ?? []).map((e: any) => ({ type: "outreach", at: e.created_at, label: e.event_type, note: e.metadata ? JSON.stringify(e.metadata).slice(0, 120) : null })),
+      ].sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime());
+      setTimeline(merged);
+      setTasks(tk.data ?? []);
+      setEnrollments(enr.data ?? []);
+      setDocs(links.data ?? []);
+    } catch (e: any) {
+      toast({ title: "Betöltés hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!open || !entityId) return;
     trackEvent("entity_drawer_opened", { entity_type: entityType, entity_id: entityId });
-    (async () => {
-      setLoading(true);
-      try {
-        const [ent, trans, ints, oev, tk, enr, links] = await Promise.all([
-          supabase.from("partners").select("*").eq("id", entityId).maybeSingle(),
-          supabase.from("pipeline_transitions").select("*").eq("entity_id", entityId).order("created_at", { ascending: false }).limit(50),
-          supabase.from("partner_interactions").select("*").eq("partner_id", entityId).order("created_at", { ascending: false }).limit(50),
-          supabase.from("outreach_events").select("*, outreach_enrollments!inner(entity_id)").eq("outreach_enrollments.entity_id", entityId).order("created_at", { ascending: false }).limit(50),
-          supabase.from("pipeline_tasks").select("*").eq("entity_id", entityId).order("due_at", { ascending: true }).limit(20),
-          supabase.from("outreach_enrollments").select("*, outreach_sequences(name)").eq("entity_id", entityId).order("started_at", { ascending: false }).limit(20),
-          supabase.from("document_entity_links").select("*, documents(id, title, category, ai_hook, lifecycle_status)").eq("entity_id", entityId).limit(20),
-        ]);
-        setEntity(ent.data);
-        const merged = [
-          ...(trans.data ?? []).map((t: any) => ({ type: "transition", at: t.created_at, label: `Stage váltás`, note: t.reason })),
-          ...(ints.data ?? []).map((i: any) => ({ type: "interaction", at: i.created_at, label: `${i.channel} (${i.direction})`, note: i.summary })),
-          ...(oev.data ?? []).map((e: any) => ({ type: "outreach", at: e.created_at, label: e.event_type, note: e.metadata ? JSON.stringify(e.metadata).slice(0, 120) : null })),
-        ].sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime());
-        setTimeline(merged);
-        setTasks(tk.data ?? []);
-        setEnrollments(enr.data ?? []);
-        setDocs(links.data ?? []);
-        setAiSuggestion(null);
-      } catch (e: any) {
-        toast({ title: "Betöltés hiba", description: e?.message ?? String(e), variant: "destructive" });
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [open, entityId, entityType, toast]);
+    setAiSuggestion(null);
+    setAiBrief(null);
+    reload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, entityId, entityType]);
 
   const requestAi = async () => {
     if (!entityId) return;
@@ -78,6 +86,80 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
     }
   };
 
+  const generateBrief = async () => {
+    if (!entity) return;
+    setBriefLoading(true);
+    try {
+      const ctx = {
+        company: entity.company_name, city: entity.city, category: entity.category,
+        status: entity.status, score: entity.lead_score, last_contact: entity.last_contact_at,
+        recent_events: timeline.slice(0, 5),
+        notes: entity.notes,
+      };
+      const { data, error } = await supabase.functions.invoke("admin-ai-chat", {
+        body: {
+          messages: [
+            { role: "system", content: "Adj 3 mondatos magyar brief-et a partner/lead jelenlegi helyzetéről és egy konkrét javasolt következő lépést. Tömör, akcióközpontú." },
+            { role: "user", content: JSON.stringify(ctx) },
+          ],
+        },
+      });
+      if (error) throw error;
+      const text = data?.text ?? data?.message ?? data?.response ?? (typeof data === "string" ? data : JSON.stringify(data));
+      setAiBrief(text);
+      trackEvent("ai_brief_generated", { entity_type: entityType, entity_id: entityId! });
+    } catch (e: any) {
+      toast({ title: "AI brief hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setBriefLoading(false);
+    }
+  };
+
+  const runResearch = async () => {
+    if (!entityId) return;
+    setResearchLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("lead-auto-research", { body: { partner_id: entityId } });
+      if (error) throw error;
+      trackEvent("lead_auto_research", { entity_type: entityType, entity_id: entityId, metadata: { hasLive: !!data?.hasLive } });
+      toast({ title: "Kutatás kész", description: data?.hasLive ? "Élő web adattal" : "AI-only (nincs Firecrawl)" });
+      await reload();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setResearchLoading(false);
+    }
+  };
+
+  const quickTask = async () => {
+    if (!entityId) return;
+    const title = window.prompt("Új task címe:");
+    if (!title) return;
+    const due = new Date(Date.now() + 2 * 86400 * 1000).toISOString();
+    const { error } = await supabase.from("pipeline_tasks").insert({ entity_id: entityId, entity_type: entityType, title, due_at: due, status: "pending" });
+    if (error) { toast({ title: "Hiba", description: error.message, variant: "destructive" }); return; }
+    trackEvent("quick_action_used", { entity_type: entityType, entity_id: entityId, metadata: { action: "task" } });
+    await reload();
+  };
+
+  const quickDecision = async () => {
+    if (!entityId) return;
+    const text = window.prompt("Mi a döntés? (1 mondat)");
+    if (!text) return;
+    const expected = window.prompt("Mit vársz tőle?") ?? "";
+    const { data: auth } = await supabase.auth.getUser();
+    const { error } = await supabase.from("decisions").insert({
+      decision_text: text, expected_outcome: expected,
+      entity_type: entityType, entity_id: entityId,
+      created_by: auth.user?.id,
+    });
+    if (error) { toast({ title: "Hiba", description: error.message, variant: "destructive" }); return; }
+    trackEvent("decision_created", { entity_type: entityType, entity_id: entityId });
+    toast({ title: "Döntés mentve" });
+  };
+
+  const research = entity?.research_notes as any;
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="right" className="w-full sm:max-w-2xl overflow-y-auto bg-nf-bg border-nf-border">
@@ -89,6 +171,27 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
           </SheetTitle>
           <div className="text-xs text-nf-text-muted">{entity?.city} · {entity?.category} · {entity?.status}</div>
         </SheetHeader>
+
+        {/* Quick Action Bar */}
+        {entity && (
+          <div className="flex flex-wrap gap-2 mt-3 pb-3 border-b border-nf-border">
+            <Button size="sm" variant="neon" onClick={generateBrief} disabled={briefLoading}>
+              {briefLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Zap className="w-3 h-3 mr-1" />} AI brief
+            </Button>
+            <Button size="sm" variant="outline" onClick={runResearch} disabled={researchLoading}>
+              {researchLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Telescope className="w-3 h-3 mr-1" />} Kutass utána
+            </Button>
+            <Button size="sm" variant="outline" onClick={quickTask}><Plus className="w-3 h-3 mr-1" /> Task</Button>
+            <Button size="sm" variant="outline" onClick={quickDecision}><Brain className="w-3 h-3 mr-1" /> Döntés</Button>
+          </div>
+        )}
+
+        {aiBrief && (
+          <Card className="p-3 mt-3 text-xs whitespace-pre-wrap bg-electric-300/5 border-electric-300/40">
+            <div className="text-[10px] uppercase tracking-wider text-electric-300 mb-1">AI brief</div>
+            {aiBrief}
+          </Card>
+        )}
 
         {loading && <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-electric-300" /></div>}
         {!loading && entity && (
@@ -109,6 +212,35 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
                 <div><b>Kapcsolattartó:</b> {entity.contact_name ?? "—"}</div>
                 <div><b>Notes:</b> {entity.notes ?? "—"}</div>
               </Card>
+
+              {research && (
+                <Card className="p-3 text-xs space-y-2 bg-nf-surface border-electric-300/30">
+                  <div className="flex items-center justify-between">
+                    <div className="text-[10px] uppercase tracking-wider text-electric-300 flex items-center gap-1">
+                      <Telescope className="w-3 h-3" /> Auto-kutatás
+                      {research._live_search === false && <Badge variant="outline" className="text-[9px]">AI-only</Badge>}
+                    </div>
+                    {research.opportunity_score != null && (
+                      <Badge className="bg-electric-300/20 text-electric-300">Opportunity {research.opportunity_score}/100</Badge>
+                    )}
+                  </div>
+                  {research.snapshot && <div className="text-nf-text-muted">{research.snapshot}</div>}
+                  {Array.isArray(research.fit_reasons) && research.fit_reasons.length > 0 && (
+                    <div><b className="text-electric-300">Fit:</b> {research.fit_reasons.join(" · ")}</div>
+                  )}
+                  {Array.isArray(research.risks) && research.risks.length > 0 && (
+                    <div><b className="text-yellow-400">Risk:</b> {research.risks.join(" · ")}</div>
+                  )}
+                  {Array.isArray(research.talking_points) && research.talking_points.length > 0 && (
+                    <div className="space-y-0.5 pt-1 border-t border-nf-border">
+                      <b>Talking points:</b>
+                      <ul className="list-disc list-inside text-nf-text-muted">{research.talking_points.map((t: string, i: number) => <li key={i}>{t}</li>)}</ul>
+                    </div>
+                  )}
+                  {research.next_action && <div className="pt-1 border-t border-nf-border"><b className="text-electric-300">Next:</b> {research.next_action}</div>}
+                </Card>
+              )}
+
               {entityType === "partner" && entity && <PartnerHealthRadar partnerId={entityId!} />}
               <Link to={`/admin/partners/${entityId}`} className="inline-flex items-center gap-1 text-xs text-electric-300 hover:underline">
                 <ExternalLink className="h-3 w-3" /> Teljes profil
@@ -171,7 +303,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
 
             <TabsContent value="ai" className="mt-3 space-y-2">
               <Button variant="neon" size="sm" onClick={requestAi} disabled={aiLoading}>
-                {aiLoading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3" />} AI javaslat kérése
+                {aiLoading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3" />} Outreach javaslat
               </Button>
               {aiSuggestion && (
                 <Card className="p-3 text-xs whitespace-pre-wrap bg-nf-surface border-nf-border">{aiSuggestion}</Card>

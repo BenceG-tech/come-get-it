@@ -1518,6 +1518,7 @@ export type Database = {
           google_place_id: string | null
           id: string
           instagram: string | null
+          last_researched_at: string | null
           lat: number | null
           lead_score: number | null
           lng: number | null
@@ -1526,6 +1527,7 @@ export type Database = {
           phone: string | null
           rating: number | null
           rating_count: number | null
+          research_notes: Json | null
           score_reasons: Json | null
           score_updated_at: string | null
           source: string | null
@@ -1553,6 +1555,7 @@ export type Database = {
           google_place_id?: string | null
           id?: string
           instagram?: string | null
+          last_researched_at?: string | null
           lat?: number | null
           lead_score?: number | null
           lng?: number | null
@@ -1561,6 +1564,7 @@ export type Database = {
           phone?: string | null
           rating?: number | null
           rating_count?: number | null
+          research_notes?: Json | null
           score_reasons?: Json | null
           score_updated_at?: string | null
           source?: string | null
@@ -1588,6 +1592,7 @@ export type Database = {
           google_place_id?: string | null
           id?: string
           instagram?: string | null
+          last_researched_at?: string | null
           lat?: number | null
           lead_score?: number | null
           lng?: number | null
@@ -1596,6 +1601,7 @@ export type Database = {
           phone?: string | null
           rating?: number | null
           rating_count?: number | null
+          research_notes?: Json | null
           score_reasons?: Json | null
           score_updated_at?: string | null
           source?: string | null
@@ -1954,6 +1960,65 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      trend_signals: {
+        Row: {
+          category: string | null
+          created_at: string
+          id: string
+          ingested_at: string
+          metadata: Json | null
+          published_at: string | null
+          query: string | null
+          relevance_score: number | null
+          saved_to_decision_id: string | null
+          source_title: string | null
+          source_url: string | null
+          summary: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          id?: string
+          ingested_at?: string
+          metadata?: Json | null
+          published_at?: string | null
+          query?: string | null
+          relevance_score?: number | null
+          saved_to_decision_id?: string | null
+          source_title?: string | null
+          source_url?: string | null
+          summary?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          id?: string
+          ingested_at?: string
+          metadata?: Json | null
+          published_at?: string | null
+          query?: string | null
+          relevance_score?: number | null
+          saved_to_decision_id?: string | null
+          source_title?: string | null
+          source_url?: string | null
+          summary?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trend_signals_saved_to_decision_id_fkey"
+            columns: ["saved_to_decision_id"]
+            isOneToOne: false
+            referencedRelation: "decisions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {

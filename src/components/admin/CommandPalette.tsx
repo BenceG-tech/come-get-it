@@ -2,16 +2,31 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Users, FileText, Sparkles, Calendar, ListChecks, Target, Image as ImageIcon, MessageSquare, Upload, ScanSearch, Cloud, Wand2, Palette } from "lucide-react";
+import { trackEvent } from "@/lib/track";
+import {
+  LayoutDashboard, Users, FileText, Sparkles, Calendar, ListChecks, Target, Image as ImageIcon,
+  MessageSquare, Upload, ScanSearch, Cloud, Wand2, Palette, Inbox, TrendingUp, Brain, Telescope,
+  Send, Trophy, Plus, RefreshCw,
+} from "lucide-react";
 
-type Hit = { id: string; title: string; kind: "doc" | "partner" };
+type Hit =
+  | { kind: "partner"; id: string; title: string }
+  | { kind: "lead"; id: string; title: string }
+  | { kind: "doc"; id: string; title: string }
+  | { kind: "decision"; id: string; title: string }
+  | { kind: "inbox"; id: string; title: string };
 
 const NAV = [
   { to: "/admin", label: "Áttekintés", icon: LayoutDashboard },
-  { to: "/admin/content", label: "Content Studio (multi-format)", icon: Wand2 },
-  { to: "/admin/brand", label: "Brand Memory", icon: Palette },
+  { to: "/admin/inbox", label: "Inbox", icon: Inbox },
+  { to: "/admin/decisions", label: "Döntésnapló", icon: Brain },
+  { to: "/admin/trends", label: "Trend Radar", icon: Telescope },
+  { to: "/admin/simulator", label: "Pipeline simulator", icon: TrendingUp },
   { to: "/admin/leads", label: "Leadek", icon: Target },
   { to: "/admin/partners", label: "Partnerek", icon: Users },
+  { to: "/admin/outreach", label: "Outreach", icon: Send },
+  { to: "/admin/content", label: "Content Studio", icon: Wand2 },
+  { to: "/admin/brand", label: "Brand Memory", icon: Palette },
   { to: "/admin/documents", label: "Dokumentumok", icon: FileText },
   { to: "/admin/media", label: "Média", icon: ImageIcon },
   { to: "/admin/drive", label: "Google Drive", icon: Cloud },
@@ -19,6 +34,7 @@ const NAV = [
   { to: "/admin/checklist", label: "Master checklist", icon: ListChecks },
   { to: "/admin/ai", label: "AI asszisztens", icon: Sparkles },
   { to: "/admin/calendar", label: "Marketing naptár", icon: Calendar },
+  { to: "/admin/retro", label: "Heti retro", icon: Trophy },
 ];
 
 export const CommandPalette = () => {
@@ -38,20 +54,26 @@ export const CommandPalette = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  useEffect(() => { if (open) trackEvent("command_palette_used"); }, [open]);
+
   useEffect(() => {
     if (!open) return;
     const term = q.trim();
     if (!term) { setHits([]); return; }
     let cancel = false;
     (async () => {
-      const [docs, partners] = await Promise.all([
-        supabase.from("documents").select("id,title").ilike("title", `%${term}%`).limit(6),
-        supabase.from("partners").select("id,name").ilike("name", `%${term}%`).limit(6),
+      const [docs, partners, decisions, inbox] = await Promise.all([
+        supabase.from("documents").select("id,title").ilike("title", `%${term}%`).limit(5),
+        supabase.from("partners").select("id,company_name,status").ilike("company_name", `%${term}%`).limit(8),
+        supabase.from("decisions").select("id,decision_text").ilike("decision_text", `%${term}%`).limit(4),
+        supabase.from("inbox_items").select("id,title").ilike("title", `%${term}%`).limit(4),
       ]);
       if (cancel) return;
       const out: Hit[] = [
-        ...(docs.data ?? []).map((d: any) => ({ id: d.id, title: d.title, kind: "doc" as const })),
-        ...(partners.data ?? []).map((p: any) => ({ id: p.id, title: p.name, kind: "partner" as const })),
+        ...(partners.data ?? []).map((p: any) => ({ kind: (p.status === "lead" ? "lead" : "partner") as "partner" | "lead", id: p.id, title: p.company_name })),
+        ...(docs.data ?? []).map((d: any) => ({ kind: "doc" as const, id: d.id, title: d.title })),
+        ...(decisions.data ?? []).map((d: any) => ({ kind: "decision" as const, id: d.id, title: d.decision_text })),
+        ...(inbox.data ?? []).map((i: any) => ({ kind: "inbox" as const, id: i.id, title: i.title })),
       ];
       setHits(out);
     })();
@@ -60,22 +82,56 @@ export const CommandPalette = () => {
 
   const go = (path: string) => { setOpen(false); navigate(path); };
 
+  const linkFor = (h: Hit) => {
+    switch (h.kind) {
+      case "doc": return `/admin/documents/${h.id}`;
+      case "partner":
+      case "lead": return `/admin/partners/${h.id}`;
+      case "decision": return `/admin/decisions`;
+      case "inbox": return `/admin/inbox`;
+    }
+  };
+
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Keresés vagy parancs… (⌘K)" value={q} onValueChange={setQ} />
+      <CommandInput placeholder="Keresés mindenben vagy parancs… (⌘K)" value={q} onValueChange={setQ} />
       <CommandList>
         <CommandEmpty>Nincs találat.</CommandEmpty>
         {hits.length > 0 && (
           <CommandGroup heading="Találatok">
             {hits.map((h) => (
-              <CommandItem key={`${h.kind}-${h.id}`} onSelect={() => go(h.kind === "doc" ? `/admin/documents/${h.id}` : `/admin/partners/${h.id}`)}>
-                {h.kind === "doc" ? <FileText className="h-4 w-4 mr-2" /> : <Users className="h-4 w-4 mr-2" />}
-                <span>{h.title}</span>
-                <span className="ml-auto text-xs text-nf-text-muted">{h.kind === "doc" ? "doksi" : "partner"}</span>
+              <CommandItem key={`${h.kind}-${h.id}`} onSelect={() => go(linkFor(h))}>
+                {h.kind === "doc" && <FileText className="h-4 w-4 mr-2" />}
+                {(h.kind === "partner" || h.kind === "lead") && <Users className="h-4 w-4 mr-2" />}
+                {h.kind === "decision" && <Brain className="h-4 w-4 mr-2" />}
+                {h.kind === "inbox" && <Inbox className="h-4 w-4 mr-2" />}
+                <span className="truncate">{h.title}</span>
+                <span className="ml-auto text-xs text-nf-text-muted">{h.kind}</span>
               </CommandItem>
             ))}
           </CommandGroup>
         )}
+        <CommandSeparator />
+        <CommandGroup heading="Gyors műveletek">
+          <CommandItem onSelect={() => go("/admin/leads?new=1")}>
+            <Plus className="h-4 w-4 mr-2" /> Új lead
+          </CommandItem>
+          <CommandItem onSelect={() => go("/admin/decisions?new=1")}>
+            <Brain className="h-4 w-4 mr-2" /> Új döntés rögzítése
+          </CommandItem>
+          <CommandItem onSelect={() => go("/admin/trends")}>
+            <Telescope className="h-4 w-4 mr-2" /> Trend kutatás indítása
+          </CommandItem>
+          <CommandItem onSelect={() => go("/admin/documents?upload=1")}>
+            <Upload className="h-4 w-4 mr-2" /> Tömeges feltöltés
+          </CommandItem>
+          <CommandItem onSelect={() => go("/admin/documents?organize=1")}>
+            <ScanSearch className="h-4 w-4 mr-2" /> AI rendezés
+          </CommandItem>
+          <CommandItem onSelect={() => go("/admin/retro")}>
+            <RefreshCw className="h-4 w-4 mr-2" /> Heti retro
+          </CommandItem>
+        </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Navigáció">
           {NAV.map((n) => (
@@ -83,15 +139,6 @@ export const CommandPalette = () => {
               <n.icon className="h-4 w-4 mr-2" /> {n.label}
             </CommandItem>
           ))}
-        </CommandGroup>
-        <CommandSeparator />
-        <CommandGroup heading="Gyors műveletek">
-          <CommandItem onSelect={() => go("/admin/documents?upload=1")}>
-            <Upload className="h-4 w-4 mr-2" /> Tömeges feltöltés
-          </CommandItem>
-          <CommandItem onSelect={() => go("/admin/documents?organize=1")}>
-            <ScanSearch className="h-4 w-4 mr-2" /> AI rendezés javaslat
-          </CommandItem>
         </CommandGroup>
       </CommandList>
     </CommandDialog>

@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Upload, Search, LayoutGrid, List, MapIcon, Sparkles } from "lucide-react";
+import { Upload, Search, LayoutGrid, List, MapIcon, Sparkles, Telescope, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import LeadScoreBadge from "@/components/admin/leads/LeadScoreBadge";
 import BulkActionBar from "@/components/admin/leads/BulkActionBar";
@@ -12,6 +12,8 @@ import ImportWizard from "@/components/admin/leads/ImportWizard";
 import EmailComposer from "@/components/admin/leads/EmailComposer";
 import LeadsKanban from "@/components/admin/leads/LeadsKanban";
 import LeadsMap from "@/components/admin/leads/LeadsMap";
+import EntityDrawer from "@/components/admin/crm/EntityDrawer";
+import { trackEvent } from "@/lib/track";
 
 const STATUS_LABEL: Record<string, string> = {
   lead: "Új lead", contacted: "Megkeresve", negotiating: "Tárgyalás", proposal_sent: "Ajánlat", signed: "Aláírt", rejected: "Elutasítva", paused: "Szünetel",
@@ -31,7 +33,24 @@ export default function AdminLeads() {
   const [showImport, setShowImport] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
   const [scoring, setScoring] = useState(false);
+  const [drawerId, setDrawerId] = useState<string | null>(null);
+  const [researchingId, setResearchingId] = useState<string | null>(null);
   const { toast } = useToast();
+
+  const runResearch = async (id: string) => {
+    setResearchingId(id);
+    try {
+      const { data, error } = await supabase.functions.invoke("lead-auto-research", { body: { partner_id: id } });
+      if (error) throw error;
+      trackEvent("lead_auto_research", { entity_type: "lead", entity_id: id, metadata: { hasLive: !!data?.hasLive } });
+      toast({ title: "Kutatás kész", description: data?.hasLive ? "Élő web adattal" : "AI-only" });
+      load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setResearchingId(null);
+    }
+  };
 
   const load = async () => {
     setLoading(true);
@@ -178,6 +197,7 @@ export default function AdminLeads() {
                   <th className="p-3">Score</th>
                   <th className="p-3 hidden sm:table-cell">Rating</th>
                   <th className="p-3">Státusz</th>
+                  <th className="p-3 w-20">Művelet</th>
                 </tr>
               </thead>
               <tbody>
@@ -185,18 +205,24 @@ export default function AdminLeads() {
                   <tr key={p.id} className={`border-b border-nf-border hover:bg-nf-surface-alt/50 ${selected.has(p.id) ? "bg-electric-300/5" : ""}`}>
                     <td className="p-3"><input type="checkbox" checked={selected.has(p.id)} onChange={() => toggle(p.id)} /></td>
                     <td className="p-3">
-                      <Link to={`/admin/partners/${p.id}`} className="text-electric-300 hover:underline font-medium">{p.company_name}</Link>
+                      <button onClick={() => setDrawerId(p.id)} className="text-electric-300 hover:underline font-medium text-left">{p.company_name}</button>
                       {p.contact_name && <div className="text-[11px] text-nf-text-muted">{p.contact_name}</div>}
+                      {p.last_researched_at && <div className="text-[10px] text-emerald-400">✓ kutatva</div>}
                     </td>
                     <td className="p-3 text-nf-text-muted hidden md:table-cell">{p.city || "—"}</td>
                     <td className="p-3 text-nf-text-muted hidden md:table-cell text-xs">{p.category || "—"}</td>
                     <td className="p-3"><LeadScoreBadge score={p.lead_score} /></td>
                     <td className="p-3 text-nf-text-muted hidden sm:table-cell text-xs">{p.rating ? `⭐ ${p.rating} (${p.rating_count ?? 0})` : "—"}</td>
                     <td className="p-3"><span className="px-2 py-0.5 rounded text-[10px] bg-electric-300/10 text-electric-300">{STATUS_LABEL[p.status]}</span></td>
+                    <td className="p-3">
+                      <Button size="sm" variant="ghost" disabled={researchingId === p.id} onClick={() => runResearch(p.id)} title="Auto-kutatás">
+                        {researchingId === p.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Telescope className="w-3 h-3" />}
+                      </Button>
+                    </td>
                   </tr>
                 ))}
                 {filtered.length === 0 && (
-                  <tr><td colSpan={7} className="p-8 text-center text-nf-text-muted">
+                  <tr><td colSpan={8} className="p-8 text-center text-nf-text-muted">
                     {loading ? "Töltés…" : "Nincs lead. Importálj egyet, vagy adj hozzá manuálisan a Partnerek oldalon."}
                   </td></tr>
                 )}
@@ -221,6 +247,7 @@ export default function AdminLeads() {
 
       {showImport && <ImportWizard onClose={() => setShowImport(false)} onDone={load} />}
       {showEmail && <EmailComposer partnerIds={[...selected]} onClose={() => setShowEmail(false)} onDone={() => { setShowEmail(false); setSelected(new Set()); load(); }} />}
+      <EntityDrawer entityType="lead" entityId={drawerId} open={!!drawerId} onOpenChange={(o) => !o && setDrawerId(null)} />
     </div>
   );
 }

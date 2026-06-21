@@ -42,7 +42,14 @@ export type MetricEventType =
   | "decision_reviewed"
   | "entity_drawer_opened"
   | "doc_chat_v2_used"
-  | "health_radar_viewed";
+  | "health_radar_viewed"
+  | "command_palette_used"
+  | "trend_radar_run"
+  | "trend_signal_saved"
+  | "lead_auto_research"
+  | "premortem_run"
+  | "ai_brief_generated"
+  | "quick_action_used";
 
 export async function trackEvent(
   event_type: MetricEventType | string,
