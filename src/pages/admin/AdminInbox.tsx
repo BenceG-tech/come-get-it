@@ -91,7 +91,8 @@ export default function AdminInbox() {
   }), [items]);
 
   return (
-    <div className="container mx-auto p-4 md:p-6 max-w-5xl">
+    <div className="container mx-auto p-4 md:p-6 max-w-5xl space-y-4">
+      <PageIntro slug="inbox" />
       <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-2"><InboxIcon className="w-6 h-6 text-electric-300" /> Founder Inbox</h1>
