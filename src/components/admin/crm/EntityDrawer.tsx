@@ -48,7 +48,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
         setEntity(ent.data);
         const merged = [
           ...(trans.data ?? []).map((t: any) => ({ type: "transition", at: t.created_at, label: `Stage váltás`, note: t.reason })),
-          ...(ints.data ?? []).map((i: any) => ({ type: "interaction", at: i.created_at, label: i.interaction_type, note: i.notes })),
+          ...(ints.data ?? []).map((i: any) => ({ type: "interaction", at: i.created_at, label: `${i.channel} (${i.direction})`, note: i.summary })),
           ...(oev.data ?? []).map((e: any) => ({ type: "outreach", at: e.created_at, label: e.event_type, note: e.metadata ? JSON.stringify(e.metadata).slice(0, 120) : null })),
         ].sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime());
         setTimeline(merged);
