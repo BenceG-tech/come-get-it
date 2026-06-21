@@ -37,10 +37,20 @@ const NAV = [
   { to: "/admin/retro", label: "Heti retro", icon: Trophy },
 ];
 
+const RECENT_KEY = "cgi.cmdk.recent";
+type Recent = { path: string; label: string; at: number };
+const loadRecent = (): Recent[] => { try { return JSON.parse(localStorage.getItem(RECENT_KEY) ?? "[]"); } catch { return []; } };
+const pushRecent = (r: Recent) => {
+  const list = loadRecent().filter((x) => x.path !== r.path);
+  list.unshift(r);
+  localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 5)));
+};
+
 export const CommandPalette = () => {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [hits, setHits] = useState<Hit[]>([]);
+  const [recent, setRecent] = useState<Recent[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +64,7 @@ export const CommandPalette = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  useEffect(() => { if (open) trackEvent("command_palette_used"); }, [open]);
+  useEffect(() => { if (open) { trackEvent("command_palette_used"); setRecent(loadRecent()); } }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -80,7 +90,11 @@ export const CommandPalette = () => {
     return () => { cancel = true; };
   }, [q, open]);
 
-  const go = (path: string) => { setOpen(false); navigate(path); };
+  const go = (path: string, label?: string) => {
+    if (label) pushRecent({ path, label, at: Date.now() });
+    setOpen(false);
+    navigate(path);
+  };
 
   const linkFor = (h: Hit) => {
     switch (h.kind) {
