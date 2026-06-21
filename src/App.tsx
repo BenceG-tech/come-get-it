@@ -38,6 +38,7 @@ import AdminOutreach from "./pages/admin/AdminOutreach";
 import AdminInbox from "./pages/admin/AdminInbox";
 import AdminSimulator from "./pages/admin/AdminSimulator";
 import AdminDecisions from "./pages/admin/AdminDecisions";
+import AdminTrends from "./pages/admin/AdminTrends";
 
 const queryClient = new QueryClient();
 
