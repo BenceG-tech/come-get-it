@@ -2,16 +2,21 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
-import { TrendingUp, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { TrendingUp, Sparkles, AlertTriangle, Loader2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { trackEvent } from "@/lib/track";
 
 /**
- * Pipeline Simulator (what-if): uses historical pipeline_transitions to estimate
- * conversion rates per stage, then Monte Carlo simulates next 30/60/90 days.
+ * Pipeline Simulator (what-if) + Pre-mortem (AI risks)
  */
 export default function AdminSimulator() {
   const [extraLeadsPerWeek, setExtraLeads] = useState(10);
   const [conversionBoost, setConversionBoost] = useState(0); // % boost
   const [horizon, setHorizon] = useState(60);
+  const [premortem, setPremortem] = useState<string | null>(null);
+  const [premortemLoading, setPremortemLoading] = useState(false);
+  const { toast } = useToast();
   const [baseRates, setBaseRates] = useState<{ contactRate: number; negotiationRate: number; signedRate: number; weeklyLeadVelocity: number; avgRevenue: number }>({
     contactRate: 0.4, negotiationRate: 0.3, signedRate: 0.25, weeklyLeadVelocity: 5, avgRevenue: 50000,
   });
