@@ -35,7 +35,10 @@ export default function AdminTrends() {
   const [customQuery, setCustomQuery] = useState("");
   const [filter, setFilter] = useState("all");
   const [hasLiveSearch, setHasLiveSearch] = useState<boolean | null>(null);
+  const [converting, setConverting] = useState<string | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
+
 
   const load = async () => {
     setLoading(true);
