@@ -122,8 +122,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
               className="absolute inset-0 -z-0 pointer-events-none"
               style={{
                 background:
-                  'radial-gradient(ellipse 55% 55% at 50% 50%, rgba(0,229,255,0.95) 0%, rgba(0,212,255,0.6) 30%, rgba(0,188,212,0.3) 55%, transparent 75%)',
-                filter: 'blur(28px)',
+                  'radial-gradient(ellipse 42% 42% at 50% 50%, rgba(0,188,212,0.65) 0%, rgba(0,188,212,0.28) 40%, transparent 65%)',
+                filter: 'blur(18px)',
               }}
             />
             <div className="relative z-20">

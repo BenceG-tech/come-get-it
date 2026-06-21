@@ -58,8 +58,8 @@ export const PhoneGlowWrapper: React.FC<PhoneGlowWrapperProps> = ({ children }) 
         className="absolute inset-0 -z-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 70% 70% at 50% 50%, rgba(0,229,255,0.7) 0%, rgba(0,188,212,0.4) 35%, rgba(0,151,167,0.18) 65%, transparent 80%)',
-          filter: 'blur(40px)',
+            'radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,188,212,0.32) 0%, rgba(0,188,212,0.12) 45%, transparent 75%)',
+          filter: 'blur(30px)',
         }}
       />
       <div className="relative z-10">{children}</div>
