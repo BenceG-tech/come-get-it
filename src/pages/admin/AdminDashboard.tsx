@@ -95,12 +95,18 @@ export default function AdminDashboard() {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-6 md:space-y-8">
-      <div>
-        <h1 className="text-2xl md:text-3xl font-bold">Ma</h1>
-        <p className="text-sm text-nf-text-muted">{new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold">Ma</h1>
+          <p className="text-sm text-nf-text-muted">{new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
+        </div>
+        <div className="pt-1"><PageIntro slug="dashboard" /></div>
       </div>
 
-      {/* Northstar — single most important number */}
+      {/* Szeptemberi misszió — 3 számláló (Partner LOI · Waitlist · Italszponzor) */}
+      <MissionTracker />
+
+      {/* Havi northstar (aláírt partner) */}
       <NorthstarCard />
 
       {/* Company portfolio health */}
@@ -108,6 +114,7 @@ export default function AdminDashboard() {
 
       {/* AI briefing — full width on top */}
       <DailyBriefingCard />
+
 
       {/* Cockpit row */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
