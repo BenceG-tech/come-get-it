@@ -14,6 +14,7 @@ import { WeeklyContentSprintCard } from "@/components/admin/dashboard/WeeklyCont
 import OutreachHealthCard from "@/components/admin/dashboard/OutreachHealthCard";
 import DocumentDigestCard from "@/components/admin/dashboard/DocumentDigestCard";
 import InboxZeroCard from "@/components/admin/dashboard/InboxZeroCard";
+import DecisionsDueCard from "@/components/admin/dashboard/DecisionsDueCard";
 
 type ActivityRow = {
   id: string;
@@ -107,6 +108,7 @@ export default function AdminDashboard() {
         <WeeklyContentSprintCard />
         <OutreachHealthCard />
         <DocumentDigestCard />
+        <DecisionsDueCard />
       </div>
 
 
