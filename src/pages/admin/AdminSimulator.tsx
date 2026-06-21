@@ -129,6 +129,52 @@ export default function AdminSimulator() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Pre-mortem */}
+      <Card className="mt-6 border-yellow-500/40">
+        <CardHeader>
+          <CardTitle className="text-base flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-yellow-400" /> Pre-mortem — mi mehet rosszul?
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-xs text-nf-text-muted">
+            AI 5 kockázatot azonosít a jelenlegi szcenárióhoz (+{extraLeadsPerWeek} lead/hét, +{conversionBoost}% konverzió, {horizon} nap), és mitigation javaslatot ad.
+          </p>
+          <Button
+            variant="outline"
+            disabled={premortemLoading}
+            onClick={async () => {
+              setPremortemLoading(true);
+              try {
+                const ctx = `Pipeline szimuláció: +${extraLeadsPerWeek} lead/hét, +${conversionBoost}% konverzió boost, ${horizon} napos horizont. Base: heti ${baseRates.weeklyLeadVelocity} új lead, konverzió ${Math.round(baseRates.contactRate*100)}/${Math.round(baseRates.negotiationRate*100)}/${Math.round(baseRates.signedRate*100)}%. Várt aláírt partnerek: ${sim.p50} (p10-p90: ${sim.p10}-${sim.p90}).`;
+                const { data, error } = await supabase.functions.invoke("admin-ai-chat", {
+                  body: {
+                    messages: [
+                      { role: "system", content: "Magyar startup founder pre-mortem partner. Sorolj fel 5 konkrét kockázatot, miért bukhat el ez a terv, és mindegyikhez 1 mondat mitigation. Tömör markdown lista." },
+                      { role: "user", content: ctx },
+                    ],
+                  },
+                });
+                if (error) throw error;
+                const text = data?.text ?? data?.message ?? data?.response ?? (typeof data === "string" ? data : JSON.stringify(data));
+                setPremortem(text);
+                trackEvent("premortem_run", { metadata: { horizon, extraLeadsPerWeek, conversionBoost } });
+              } catch (e: any) {
+                toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+              } finally {
+                setPremortemLoading(false);
+              }
+            }}
+          >
+            {premortemLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <AlertTriangle className="w-4 h-4 mr-2" />}
+            Pre-mortem futtatása
+          </Button>
+          {premortem && (
+            <div className="text-sm whitespace-pre-wrap p-3 bg-nf-surface-alt rounded-lg border border-nf-border">{premortem}</div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
