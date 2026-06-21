@@ -15,6 +15,9 @@ import OutreachHealthCard from "@/components/admin/dashboard/OutreachHealthCard"
 import DocumentDigestCard from "@/components/admin/dashboard/DocumentDigestCard";
 import InboxZeroCard from "@/components/admin/dashboard/InboxZeroCard";
 import DecisionsDueCard from "@/components/admin/dashboard/DecisionsDueCard";
+import NorthstarCard from "@/components/admin/dashboard/NorthstarCard";
+import AiUsageCard from "@/components/admin/dashboard/AiUsageCard";
+import TrendDigestCard from "@/components/admin/dashboard/TrendDigestCard";
 
 type ActivityRow = {
   id: string;
@@ -94,10 +97,13 @@ export default function AdminDashboard() {
         <p className="text-sm text-nf-text-muted">{new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
       </div>
 
+      {/* Northstar — single most important number */}
+      <NorthstarCard />
+
       {/* AI briefing — full width on top */}
       <DailyBriefingCard />
 
-      {/* Cockpit row: focus + waitlist + pipeline + time + weekly goals + content sprint + outreach */}
+      {/* Cockpit row */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
         <InboxZeroCard />
         <DailyFocusCard />
@@ -109,6 +115,8 @@ export default function AdminDashboard() {
         <OutreachHealthCard />
         <DocumentDigestCard />
         <DecisionsDueCard />
+        <TrendDigestCard />
+        <AiUsageCard />
       </div>
 
 
