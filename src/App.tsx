@@ -39,6 +39,7 @@ import AdminInbox from "./pages/admin/AdminInbox";
 import AdminSimulator from "./pages/admin/AdminSimulator";
 import AdminDecisions from "./pages/admin/AdminDecisions";
 import AdminTrends from "./pages/admin/AdminTrends";
+import AdminMission from "./pages/admin/AdminMission";
 
 const queryClient = new QueryClient();
 
@@ -82,6 +83,7 @@ const App = () => (
               <Route path="/admin/simulator" element={<AdminRoute><AdminLayout><AdminSimulator /></AdminLayout></AdminRoute>} />
               <Route path="/admin/decisions" element={<AdminRoute><AdminLayout><AdminDecisions /></AdminLayout></AdminRoute>} />
               <Route path="/admin/trends" element={<AdminRoute><AdminLayout><AdminTrends /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/mission" element={<AdminRoute><AdminLayout><AdminMission /></AdminLayout></AdminRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

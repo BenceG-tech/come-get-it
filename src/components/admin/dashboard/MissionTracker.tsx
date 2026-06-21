@@ -12,7 +12,13 @@ import HelpTip from "@/components/admin/help/HelpTip";
  * 3. Italszponzor pitch fázis
  */
 
-const SEPTEMBER_DEADLINE = new Date(new Date().getFullYear(), 8, 1); // szept 1
+function getSeptemberDeadline() {
+  const now = new Date();
+  const d = new Date(now.getFullYear(), 8, 1);
+  if (d.getTime() < now.getTime()) d.setFullYear(d.getFullYear() + 1);
+  return d;
+}
+const SEPTEMBER_DEADLINE = getSeptemberDeadline();
 const PARTNER_TARGET = 20;
 const WAITLIST_TARGET = 500;
 
@@ -58,11 +64,16 @@ export default function MissionTracker() {
             <div className="text-[10px] uppercase tracking-widest text-electric-300">🎯 Szeptemberi misszió</div>
             <div className="text-sm text-nf-text-muted">{daysLeft} nap van hátra szept. 1-ig</div>
           </div>
-          <HelpTip
-            what="Három cél, amit szeptemberig elérünk: partner-előmegállapodások, előregisztrációk, italszponzor pitch."
-            why="Ez a 3 szám dönti el, hogy van-e érdemben miről tárgyalni a befektetőkkel és italmárkákkal ősszel."
-            how="Minden nap nézd meg, hogy halad-e — ha valamelyik elakad, az legyen ma a fókusz."
-          />
+          <div className="flex items-center gap-2">
+            <Link to="/admin/mission" className="text-[11px] text-electric-300 hover:underline whitespace-nowrap">
+              Részletek →
+            </Link>
+            <HelpTip
+              what="Három cél, amit szeptemberig elérünk: partner-előmegállapodások, előregisztrációk, italszponzor pitch."
+              why="Ez a 3 szám dönti el, hogy van-e érdemben miről tárgyalni a befektetőkkel és italmárkákkal ősszel."
+              how="Kattints a 'Részletek' linkre a forecast + blockerek nézethez, vagy egyenként a kártyákra a deep-linkért."
+            />
+          </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-3">
