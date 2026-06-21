@@ -102,7 +102,7 @@ export default function AdminDocumentViewer() {
       {doc && <ContentConverterDialog open={converterOpen} onOpenChange={setConverterOpen} docId={doc.id} />}
       {doc && <DocumentReviewDialog open={reviewOpen} onOpenChange={setReviewOpen} docId={doc.id} existingReview={doc.ai_review} />}
 
-      <div className="flex-1 p-3 md:p-6 max-w-5xl mx-auto w-full space-y-4">
+      <div className="flex-1 p-3 md:p-6 pb-40 md:pb-12 max-w-5xl mx-auto w-full space-y-4 overflow-y-auto">
         {loading && <div className="text-center text-nf-text-muted py-12">Betöltés…</div>}
         {error && (
           <Card className="p-6 border-red-500/30">
