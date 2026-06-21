@@ -12,6 +12,13 @@ import { trackEvent } from "@/lib/track";
 
 const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`;
 const CHANNELS = ["instagram", "facebook", "linkedin", "email", "blog", "tiktok"];
+
+function toChannelArray(v: any): string[] {
+  if (Array.isArray(v)) return v.filter((x) => typeof x === "string");
+  if (typeof v === "string") return v ? [v] : [];
+  if (v && typeof v === "object") return Object.values(v).filter((x): x is string => typeof x === "string");
+  return [];
+}
 const STATUSES = [
   { key: "draft", label: "Vázlat", color: "bg-nf-surface-alt text-nf-text-muted border-nf-border" },
   { key: "approved", label: "Jóváhagyva", color: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40" },
