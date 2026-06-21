@@ -32,12 +32,11 @@ JSON output:
 {
   "title": "Rövid magyar brief cím (max 80 char)",
   "angle": "1 mondat — milyen szögből reagáljon a Come Get It erre",
-  "hook": "1 erős nyitó mondat magyarul",
-  "key_points": ["max 4 pont, magyarul"],
+  "key_points": ["max 4 pont magyarul (első a hook)"],
   "cta": "Konkrét CTA javaslat magyarul",
-  "format": "instagram_post|story|reel|linkedin|newsletter",
   "tone": "playful|insightful|urgent|inspiring",
-  "estimated_impact": 0-100
+  "target_audience": "kihez szól (1 mondat)",
+  "channels": ["instagram", "linkedin", "newsletter"]
 }
 
 CSAK JSON.`;
@@ -57,16 +56,17 @@ CSAK JSON.`;
 
     const { data: auth } = await sb.auth.getUser();
     const { data: inserted, error: insErr } = await sb.from("content_briefs").insert({
-      title: brief.title ?? `Trend reakció: ${signal.title}`.slice(0, 200),
+      title: (brief.title ?? `Trend reakció: ${signal.title}`).slice(0, 200),
       angle: brief.angle ?? null,
-      hook: brief.hook ?? null,
-      key_points: brief.key_points ?? null,
+      key_points: brief.key_points ?? [],
       cta: brief.cta ?? null,
-      format: brief.format ?? "instagram_post",
       tone: brief.tone ?? "insightful",
+      target_audience: brief.target_audience ?? null,
+      channel_mix: { channels: brief.channels ?? ["instagram"] },
       status: "draft",
-      source: "trend_radar",
-      source_metadata: { signal_id, signal_title: signal.title, source_url: signal.source_url },
+      source_type: "trend_signal",
+      source_id: signal_id,
+      notes: `Forrás: ${signal.source_url ?? signal.title}`,
       created_by: auth?.user?.id ?? null,
     }).select().single();
 
@@ -87,3 +87,4 @@ CSAK JSON.`;
     });
   }
 });
+
