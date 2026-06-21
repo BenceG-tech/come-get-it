@@ -8,9 +8,12 @@ import { Loader2, Sparkles, ExternalLink, FileText, Clock, ListChecks, Send, Plu
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { trackEvent } from "@/lib/track";
 import SlaWarningBadge from "./SlaWarningBadge";
 import PartnerHealthRadar from "./PartnerHealthRadar";
+import SourceTimeline from "@/components/admin/SourceTimeline";
+
 
 interface Props {
   entityType: "partner" | "lead";
