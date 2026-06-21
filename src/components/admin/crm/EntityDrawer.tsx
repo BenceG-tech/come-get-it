@@ -42,7 +42,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
           supabase.from("partner_interactions").select("*").eq("partner_id", entityId).order("created_at", { ascending: false }).limit(50),
           supabase.from("outreach_events").select("*, outreach_enrollments!inner(partner_id)").eq("outreach_enrollments.partner_id", entityId).order("created_at", { ascending: false }).limit(50),
           supabase.from("pipeline_tasks").select("*").eq("entity_id", entityId).order("due_at", { ascending: true }).limit(20),
-          supabase.from("outreach_enrollments").select("*, outreach_sequences(name)").eq("partner_id", entityId).order("started_at", { ascending: false }).limit(20),
+          supabase.from("outreach_enrollments").select("*, outreach_sequences(name)").eq("entity_id", entityId).order("started_at", { ascending: false }).limit(20),
           supabase.from("document_entity_links").select("*, documents(id, title, category, ai_hook, lifecycle_status)").eq("entity_id", entityId).limit(20),
         ]);
         setEntity(ent.data);
@@ -85,9 +85,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
           <SheetTitle className="text-electric-300 flex items-center gap-2 flex-wrap">
             {entity?.company_name ?? "Betöltés…"}
             {entity?.lead_score != null && <Badge variant="outline">Score: {entity.lead_score}</Badge>}
-            {entity?.status_changed_at && entity?.status && (
-              <SlaWarningBadge stageKey={entity.status} kind={entityType === "lead" ? "lead" : "partner"} statusChangedAt={entity.status_changed_at} />
-            )}
+            {entity?.status_changed_at && <SlaWarningBadge updatedAt={entity.status_changed_at} slaDays={7} />}
           </SheetTitle>
           <div className="text-xs text-nf-text-muted">{entity?.city} · {entity?.category} · {entity?.status}</div>
         </SheetHeader>
