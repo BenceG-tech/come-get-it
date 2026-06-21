@@ -189,6 +189,17 @@ export default function AdminDocumentChat() {
         )}
       </div>
 
+      {/* Sources from semantic search */}
+      {sources.length > 0 && (
+        <div className="border-t border-nf-border px-3 md:px-6 py-2 bg-nf-surface-alt/30 flex gap-1.5 overflow-x-auto">
+          <span className="text-[10px] uppercase text-nf-text-muted shrink-0 self-center">Források:</span>
+          {sources.map((s, i) => (
+            <Link key={i} to={`/admin/documents/${s.document_id}`} className="shrink-0 px-2 py-1 rounded bg-electric-300/10 border border-electric-300/30 text-[10px] text-electric-300 hover:bg-electric-300/20" title={s.snippet}>
+              [{i + 1}] {s.document?.title ?? "?"}
+            </Link>
+          ))}
+        </div>
+      )}
       {/* Input */}
       <div className="border-t border-nf-border p-3 bg-nf-surface">
         <div className="flex gap-2 max-w-4xl mx-auto">
