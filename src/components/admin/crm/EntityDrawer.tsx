@@ -40,7 +40,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
           supabase.from("partners").select("*").eq("id", entityId).maybeSingle(),
           supabase.from("pipeline_transitions").select("*").eq("entity_id", entityId).order("created_at", { ascending: false }).limit(50),
           supabase.from("partner_interactions").select("*").eq("partner_id", entityId).order("created_at", { ascending: false }).limit(50),
-          supabase.from("outreach_events").select("*, outreach_enrollments!inner(partner_id)").eq("outreach_enrollments.partner_id", entityId).order("created_at", { ascending: false }).limit(50),
+          supabase.from("outreach_events").select("*, outreach_enrollments!inner(entity_id)").eq("outreach_enrollments.entity_id", entityId).order("created_at", { ascending: false }).limit(50),
           supabase.from("pipeline_tasks").select("*").eq("entity_id", entityId).order("due_at", { ascending: true }).limit(20),
           supabase.from("outreach_enrollments").select("*, outreach_sequences(name)").eq("entity_id", entityId).order("started_at", { ascending: false }).limit(20),
           supabase.from("document_entity_links").select("*, documents(id, title, category, ai_hook, lifecycle_status)").eq("entity_id", entityId).limit(20),

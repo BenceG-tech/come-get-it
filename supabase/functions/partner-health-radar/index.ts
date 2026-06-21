@@ -20,7 +20,7 @@ Deno.serve(async (req) => {
     const [partnerR, intsR, oevR, opensR, linksR, scoresR] = await Promise.all([
       supabase.from("partners").select("status, status_changed_at, lead_score").eq("id", partner_id).maybeSingle(),
       supabase.from("partner_interactions").select("id, created_at").eq("partner_id", partner_id).gte("created_at", thirtyAgo),
-      supabase.from("outreach_events").select("event_type, created_at, outreach_enrollments!inner(partner_id)").eq("outreach_enrollments.partner_id", partner_id).gte("created_at", thirtyAgo),
+      supabase.from("outreach_events").select("event_type, created_at, outreach_enrollments!inner(entity_id)").eq("outreach_enrollments.entity_id", partner_id).gte("created_at", thirtyAgo),
       supabase.from("document_opens").select("id, opened_at, document_id, document_entity_links!inner(entity_id)").eq("document_entity_links.entity_id", partner_id).gte("opened_at", thirtyAgo),
       supabase.from("document_entity_links").select("id").eq("entity_id", partner_id),
       supabase.from("entity_scores").select("score, computed_at").eq("entity_id", partner_id).gte("computed_at", thirtyAgo).order("computed_at"),
