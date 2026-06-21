@@ -48,18 +48,28 @@ Deno.serve(async (req) => {
       }
     }
 
-    const [kpis, events, focus, goals, times] = await Promise.all([
+    const [kpis, events, focus, goals, times, newDocs, transitions, replies] = await Promise.all([
       supabase.from("daily_kpi_snapshots").select("*").gte("snapshot_date", new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10)).order("snapshot_date"),
       supabase.from("metric_events").select("event_type, value").gte("created_at", sevenAgo),
       supabase.from("daily_focus").select("focus_date, top_priorities, reflection").gte("focus_date", new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10)),
       supabase.from("weekly_goals").select("*").eq("week_start", wkStart),
       supabase.from("time_logs").select("module, minutes").gte("logged_at", sevenAgo),
+      supabase.from("documents").select("id, title, category, ai_hook, updated_at, created_at").gte("updated_at", sevenAgo).order("updated_at", { ascending: false }).limit(30),
+      supabase.from("pipeline_transitions").select("entity_type, from_stage_id, to_stage_id").gte("created_at", sevenAgo),
+      supabase.from("outreach_events").select("event_type, outreach_enrollments(sequence_id, outreach_sequences(name))").eq("event_type", "reply").gte("created_at", sevenAgo),
     ]);
 
     const eventCounts: Record<string, number> = {};
     (events.data ?? []).forEach((e: any) => { eventCounts[e.event_type] = (eventCounts[e.event_type] ?? 0) + 1; });
     const timeByModule: Record<string, number> = {};
     (times.data ?? []).forEach((t: any) => { timeByModule[t.module] = (timeByModule[t.module] ?? 0) + Number(t.minutes || 0); });
+
+    const sequenceReplies: Record<string, number> = {};
+    (replies.data ?? []).forEach((r: any) => {
+      const name = r.outreach_enrollments?.outreach_sequences?.name ?? "ismeretlen";
+      sequenceReplies[name] = (sequenceReplies[name] ?? 0) + 1;
+    });
+    const topSequence = Object.entries(sequenceReplies).sort((a, b) => b[1] - a[1])[0] ?? null;
 
     const promptInput = {
       week_start: wkStart,
@@ -68,6 +78,10 @@ Deno.serve(async (req) => {
       daily_focus: focus.data ?? [],
       current_goals: goals.data ?? [],
       time_by_module: timeByModule,
+      docs_updated_count: newDocs.data?.length ?? 0,
+      recent_docs: (newDocs.data ?? []).slice(0, 8).map((d: any) => ({ title: d.title, category: d.category, hook: d.ai_hook })),
+      pipeline_transitions_count: transitions.data?.length ?? 0,
+      top_replying_sequence: topSequence ? { name: topSequence[0], replies: topSequence[1] } : null,
     };
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
