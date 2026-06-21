@@ -13,6 +13,7 @@ import EmailComposer from "@/components/admin/leads/EmailComposer";
 import LeadsKanban from "@/components/admin/leads/LeadsKanban";
 import LeadsMap from "@/components/admin/leads/LeadsMap";
 import EntityDrawer from "@/components/admin/crm/EntityDrawer";
+import PageIntro from "@/components/admin/help/PageIntro";
 import { trackEvent } from "@/lib/track";
 
 const STATUS_LABEL: Record<string, string> = {
