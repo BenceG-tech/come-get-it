@@ -124,6 +124,7 @@ export default function AdminLeads() {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-4 md:space-y-6">
+      <PageIntro slug="leads" />
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="min-w-0">
           <h1 className="text-2xl md:text-3xl font-bold">Vendéglátóhely-leadek</h1>
@@ -136,6 +137,7 @@ export default function AdminLeads() {
           <Link to="/admin/partners"><Button variant="ghost" size="sm">Klasszikus nézet</Button></Link>
         </div>
       </div>
+
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3">
