@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { ArrowLeft, Send, Sparkles, X, Loader2, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ReactMarkdown from "react-markdown";
+import { trackEvent } from "@/lib/track";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
