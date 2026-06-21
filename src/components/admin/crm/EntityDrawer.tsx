@@ -172,8 +172,9 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side={isMobile ? "bottom" : "right"}
-        className={isMobile ? "h-[92vh] overflow-y-auto bg-nf-bg border-nf-border" : "w-full sm:max-w-2xl overflow-y-auto bg-nf-bg border-nf-border"}
+        className={isMobile ? "h-[100dvh] max-h-[100dvh] overflow-y-auto bg-nf-bg border-nf-border pb-32" : "w-full sm:max-w-2xl overflow-y-auto bg-nf-bg border-nf-border"}
       >
+
         <SheetHeader>
 
           <SheetTitle className="text-electric-300 flex items-center gap-2 flex-wrap">

@@ -17,6 +17,7 @@ import ImageAnalysisPanel from "@/components/admin/media/ImageAnalysisPanel";
 import BulkUploadDialog from "@/components/admin/documents/BulkUploadDialog";
 import OrganizationSuggestionsDialog from "@/components/admin/documents/OrganizationSuggestionsDialog";
 import OrganizationBanner from "@/components/admin/documents/OrganizationBanner";
+import PageIntro from "@/components/admin/help/PageIntro";
 
 const CATEGORIES = [
   { v: "one_pager_venue", l: "1-pager vendéglátóhely" },
@@ -321,7 +322,8 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
   ];
 
   return (
-    <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-4 md:space-y-6">
+    <div className="p-4 md:p-8 pb-40 md:pb-12 max-w-6xl mx-auto space-y-4 md:space-y-6">
+      <PageIntro slug={tab === "images" ? "media" : "documents"} />
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h1 className="text-2xl md:text-3xl font-bold">{tab === "images" ? "Képek" : tab === "videos" ? "Videók" : "Dokumentumok"}</h1>

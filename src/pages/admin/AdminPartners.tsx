@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Plus, Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import PageIntro from "@/components/admin/help/PageIntro";
 
 const STATUS_LABEL: Record<string, string> = {
   lead: "Lead", contacted: "Megkeresve", negotiating: "Tárgyalás", proposal_sent: "Ajánlat küldve", signed: "Aláírt", rejected: "Elutasítva", paused: "Szünetel",
@@ -46,6 +47,7 @@ export default function AdminPartners() {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-4 md:space-y-6">
+      <PageIntro slug="partners" />
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h1 className="text-2xl md:text-3xl font-bold">Partnerek</h1>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, RefreshCw, Check, Clock, X, Inbox as InboxIcon, AlertTriangle, MessageSquare, FileText, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import PageIntro from "@/components/admin/help/PageIntro";
 
 type Item = {
   id: string;
@@ -90,7 +91,8 @@ export default function AdminInbox() {
   }), [items]);
 
   return (
-    <div className="container mx-auto p-4 md:p-6 max-w-5xl">
+    <div className="container mx-auto p-4 md:p-6 max-w-5xl space-y-4">
+      <PageIntro slug="inbox" />
       <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-2"><InboxIcon className="w-6 h-6 text-electric-300" /> Founder Inbox</h1>

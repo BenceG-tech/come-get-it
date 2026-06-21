@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, ExternalLink, RefreshCw, Search, Brain, Telescope, Trash2, PenTool } from "lucide-react";
 import { trackEvent } from "@/lib/track";
 import SourceTimeline from "@/components/admin/SourceTimeline";
+import PageIntro from "@/components/admin/help/PageIntro";
 import { useNavigate } from "react-router-dom";
 
 
@@ -107,6 +108,7 @@ export default function AdminTrends() {
 
   return (
     <div className="container mx-auto p-4 md:p-6 max-w-6xl space-y-6">
+      <PageIntro slug="trends" />
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-2"><Telescope className="w-6 h-6 text-electric-300" /> Trend Radar</h1>

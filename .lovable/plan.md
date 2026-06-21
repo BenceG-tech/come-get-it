@@ -1,111 +1,142 @@
 
-# Phase 9 — Élő adat, átláthatóság, mobil polish
+# Admin felület átszervezése — Fókusz, átláthatóság, mobil
 
-Három párhuzamos sáv. A Firecrawl bekötése (külön user action) blokkolja az A sáv 1–2 lépését; B és C ettől függetlenül megy.
+Cél: az admin ne egy "200 menüpontos rengeteg" legyen, hanem egy **napi fókuszt vezérlő munkafelület**, ami a szeptemberi célhoz (partner-előmegállapodások + előregisztráció + italszponzor pitch) terel. Minden helyen súgó, mobilon működjön normálisan, a "Something went wrong" hiba elhárítva.
 
-## A) Élő Firecrawl + heti cron
+---
 
-**A0. Connector bekötés** (user action)
-- `standard_connectors--connect` hívás `firecrawl` connector ID-val.
-- Eredmény: `FIRECRAWL_API_KEY` automatikusan elérhető edge function-ökben.
+## 1) Új menü-struktúra: 4 "fázis" + Beállítások
 
-**A1. Megosztott helper:** `supabase/functions/_shared/firecrawl.ts`
-- `firecrawlSearch(query, { limit, tbs, lang, country, scrapeOptions })` — REST v2 hívás `https://api.firecrawl.dev/v2/search`.
-- `firecrawlScrape(url, { formats })` — REST v2 hívás.
-- Hibakezelés: 402 → strukturált hiba "insufficient_credits", 401 → "auth_failed".
+A jelenlegi ~15 lapos lista helyett **fázisokba** csoportosítjuk (sidebar accordion + mobil bottom nav top-5):
 
-**A2. `trend-radar` átírása**
-- Eddig: csak LLM szintézis témakörökre.
-- Új flow: Firecrawl search (`qdr:w` heti szűrő) 4-6 előre definiált queryre (HORECA HU, Gen Z fogyasztói trendek, Wolt/Foodora hírek, italmárka kampányok, fenntarthatóság HORECA, élmény-gasztro).
-- Eredmények → LLM (gateway, gemini-2.5-flash) összegzés → `trend_signals` insert `source_url`, `scraped_at`, `query` mezőkkel.
-- Per-signal `ai_cost_estimate` mező.
+```text
+SZEPTEMBERI MISSZIÓ
+├─ 🎯 Ma (Dashboard)          — napi 3 fókusz, számláló a célokig
+├─ 📥 Inbox                   — minden, ami rád vár
 
-**A3. `lead-auto-research` átírása**
-- Inputra (partner_id vagy website_url) `firecrawlScrape(format: ['markdown', 'summary'])` + `firecrawlSearch("<név> vélemények site:google.com OR site:tripadvisor.com")`.
-- LLM szintézis → `partners.research_notes` JSONB: `{ summary, strengths, gaps, sources: [{url, scraped_at}] }`.
+1. PARTNER-ELŐMEGÁLLAPODÁS (fókusz most)
+├─ 🔍 Leadek                  — kutatás + új helyek
+├─ 🤝 Pipeline                — előmegállapodás kanban
+├─ ✉️  Outreach                — sequence-ek, email
 
-**A4. Heti pg_cron** (supabase insert tool, nem migration — projekt-specifikus URL/key)
-- `trend-radar-weekly`: vasárnap 08:00 CET.
-- Inbox-itembe írás futás után ("Új trend digest érkezett").
+2. ELŐREGISZTRÁCIÓ
+├─ 📈 Waitlist                — növekedés, források
+├─ 📣 Tartalom                — posztok, briefek, naptár
 
-**A5. UI — forrás transzparencia**
-- Új komponens: `src/components/admin/SourceTimeline.tsx` — chronological forrás-URL lista + scraped_at timestamp + favicon.
-- Beépítve: `TrendDigestCard`, `AdminTrends` lista, `EntityDrawer` (partners → research_notes).
+3. ITALSZPONZOR
+├─ 🥃 Italmárkák              — célpartnerek, pitch státusz
+├─ 📊 Pitch deck adatok       — KPI-k a deck-hez
 
-## B) Quick wins + átláthatóság
+4. TUDÁS & KUTATÁS
+├─ 📚 Dokumentumok            — Drive, AI elemzés
+├─ 🔭 Trend Radar             — Firecrawl heti
+├─ 🧠 Döntések / Retro
 
-**B1. Dashboard inline akciók**
-- `NorthstarCard`, `TrendDigestCard` és `CompanyHealthCard` jobb-felső sarkába `Plus` icon-button.
-- Northstar → `/admin/leads/new`; Trend → új trend query modal (inline AdminTrends dialógus); Health → `/admin/dashboard?view=actions`.
+BEÁLLÍTÁSOK
+└─ Brand · AI · Csapat
+```
 
-**B2. Decision review enhancement**
-- `inbox_items` → decision_review típushoz "Snooze 3 nap / 7 nap" gomb (új `snoozed_until` mező az `inbox_items`-ben — migration).
-- Drawer-ben Decision history-hoz "Új outcome rögzítése" inline form (eddig külön oldal).
+Sidebarban minden szekciónak van **1 mondatos magyarázata** (mire való + miért most). Mobil bottom navon csak az 5 leggyakoribb: Ma · Inbox · Pipeline · Tartalom · Tudás.
 
-**B3. Trend → Content brief konverzió**
-- `AdminTrends` minden signal kártyára "→ Brief" gomb.
-- Új edge function: `trend-to-brief` — LLM prompt a signal alapján, `content_briefs` insert, navigálás a brief oldalra.
+---
 
-**B4. Valós AI cost az AiUsageCard-ban**
-- `metric_events` tábla már loggol AI hívásokat; bővítés: `input_tokens`, `output_tokens`, `model` mezők (migration).
-- Edge function helper: `track-ai-usage` (gateway response usage objectből).
-- `AiUsageCard` aggregálja Ft-ban (pricing táblázat const-ban: gemini-flash, gpt-5-mini stb.).
+## 2) Súgó-rendszer mindenhol
 
-**B5. Sidebar shortcut hint-ek**
-- `AdminLayout.tsx` sidebar item-ekhez `<kbd>G L</kbd>` jelölés tooltipben.
-- Új hook: `useKeyboardShortcuts` — `G+L → /admin/leads`, `G+P → /admin/partners`, `G+T → /admin/trends`, `G+D → /admin/dashboard`, `G+K → /admin/knowledge`.
+**a) `<HelpTip>` komponens** — kis `?` ikon minden szekció-cím / mező mellett. Hover (desktop) és tap (mobil) esetén Popover nyílik:
+- **Mi ez?** — 1 mondat
+- **Mire jó?** — 1 mondat
+- **Mit csinálj most?** — 1 konkrét akció
 
-**B6. Toast → inbox híd**
-- `src/lib/track.ts` bővítése: minden `severity: 'warning' | 'error'` toast egyúttal `inbox_items` insertet kap (dedupe_key-vel).
+**b) `<PageIntro>` komponens** — minden admin oldal tetején összecsukható panel:
+- Az oldal célja, kinek szól, mik a teendők, hogyan kapcsolódik a szeptemberi misszióhoz. "Ne mutasd újra" toggle (localStorage).
 
-## C) Mobil polish + UX
+**c) Üres állapotok (`<EmptyState>`)** — minden lista üres állapotában magyarázat + "Első lépés" CTA gomb (pl. Leadek üres → "Importálj 10 helyet a környékedről" gomb).
 
-**C1. EntityDrawer mobilon full-screen**
-- Sheet `side="bottom"` mobilon, `h-[95vh]` magasság, drag handle felül.
-- Desktop marad `side="right"`.
+**d) Mezők alá `helperText`** — minden form input alatt 1 sor súgó + amit lehet, **Select/Combobox dropdown** szabad szöveg helyett (kategória, státusz, város, tag, csatorna stb. — előre definiált opciókkal, "Egyéb…" fallback).
 
-**C2. Dashboard swipe-elhető kártyák mobilon**
-- `embla-carousel-react` (már installálva) használata `<768px` képernyőn — egy kártya/oldal, dots indikátor.
+---
 
-**C3. Pipeline drag-and-drop stage váltás**
-- `@dnd-kit/core` (telepítés szükséges: `bun add @dnd-kit/core @dnd-kit/sortable`).
-- `AdminPipeline.tsx`: kanban oszlopok között drag.
-- Optimistic UI + `pipeline_transitions` insert.
+## 3) Mobil optimalizáció (kritikus)
 
-**C4. Bulk akciók a Leads listán**
-- Checkbox oszlop + sticky bottom bar: "Outreach indítás", "Címke hozzáadás", "Export CSV".
+- **Dokumentum nézet scroll bug**: `AdminDocuments` és `AdminDocumentViewer` overflow + bottom-padding (`pb-32`) fix, hogy a bottom nav + FAB ne takarja az alját. Sticky toolbar `position: sticky` helyett `top-0` + safe-area inset.
+- **EntityDrawer**: mobilon `h-[92vh]` helyett `h-[100dvh]` + belső scroll konténer + drag handle.
+- **Floating gombok átfedés**: a Voice/AI FAB + bottom nav együtt takarják a tartalmat. Megoldás: FAB-ot a bottom navba integráljuk (közepén kiemelt cyan gomb), vagy bottom nav fölé pozicionáljuk `bottom: calc(nav-height + 16px)`-szel.
+- **Hosszú szövegek**: `break-words` + `min-w-0` minden Card / SheetTitle-ön, hogy ne lógjon ki (a token URL most kifolyik).
+- **Tab-listák**: `grid-cols-6` mobilon `overflow-x-auto` + `flex` lesz.
+- **Viewport meta** + 100dvh használata `100vh` helyett.
 
-## Technikai részletek
+---
+
+## 4) "Something went wrong" hiba
+
+Az IMG_9181 szerint ErrorBoundary trigger. Élesben kinyomozni:
+- Console / network log olvasás, megnézni melyik route okozza (valószínű a frissen módosított `AdminTrends` vagy `EntityDrawer`, ahol új mezőket olvasunk a Supabase típusokból).
+- Defenzív guardok: `research?.sources?.map(...)` mindenhol, `Array.isArray` ellenőrzés, missing types regen.
+- Az ErrorBoundary fallbackot is **magyarra + Hibajelentés** gombbal frissítjük.
+
+---
+
+## 5) "Ma" dashboard átfókuszálva
+
+A felső "Northstar" kártyát átírjuk **3 számlálóra** (a misszió szerint):
+1. **Partner-előmegállapodás**: X / cél (szeptember 1-ig). Progress bar.
+2. **Előregisztráció**: X / cél. 7 napos trend.
+3. **Italszponzor pitch**: státusz (kutatás → első találkozó → ajánlat).
+
+Alatta **"Ma tedd meg"** — 3 konkrét feladat AI által priorizálva (a meglévő `DailyFocusCard` átdrótozása ezekre a célokra).
+
+---
+
+## 6) Inputok → dropdownok
+
+Audit + cserék (szabad szöveg helyett `Select` / `Combobox` előre definiált listával):
+
+| Hely | Mező | Új opciók (példa) |
+|---|---|---|
+| Lead/Partner form | Kategória | bár, kávézó, étterem, klub, koktél, kézműves sör… |
+| Lead/Partner form | Város | top 20 HU város + "Egyéb" |
+| Pipeline | Stage váltás `reason` | előre definiált okok + "Egyéb" |
+| Outreach | Csatorna | email, telefon, IG DM, személyes |
+| Decision | Outcome | sikeres / részben / sikertelen / elhalasztva |
+| Trend | Query preset | 6 előre definiált HORECA query |
+| Quick task prompt | — | inline form `window.prompt` helyett, due date dropdown (ma+1, ma+3, jövő hét) |
+
+---
+
+## 7) Technikai változások (PM nem-kritikus szakasz)
 
 **Új fájlok:**
-- `supabase/functions/_shared/firecrawl.ts`
-- `supabase/functions/trend-to-brief/index.ts`
-- `src/components/admin/SourceTimeline.tsx`
-- `src/hooks/useKeyboardShortcuts.ts`
+- `src/components/admin/help/HelpTip.tsx` — Popover-alapú `?` ikon
+- `src/components/admin/help/PageIntro.tsx` — összecsukható oldal-bevezető
+- `src/components/admin/help/EmptyState.tsx`
+- `src/lib/admin-help-content.ts` — minden súgó-szöveg egy helyen (i18n-ready)
+- `src/lib/admin-nav-config.ts` — új fázis-csoportosítás, ikonok, magyarázatok
+- `src/components/admin/forms/CategorySelect.tsx`, `CitySelect.tsx`, `ChannelSelect.tsx`
+- `src/components/admin/dashboard/MissionTracker.tsx` — 3-célú számláló
 
-**Módosított fájlok:**
-- `supabase/functions/trend-radar/index.ts`
-- `supabase/functions/lead-auto-research/index.ts`
-- `src/components/admin/dashboard/{NorthstarCard,TrendDigestCard,CompanyHealthCard,AiUsageCard}.tsx`
-- `src/components/admin/crm/EntityDrawer.tsx`
-- `src/components/admin/AdminLayout.tsx`
-- `src/pages/admin/{AdminTrends,AdminPipeline,AdminLeads}.tsx`
-- `src/lib/track.ts`
+**Módosítva:**
+- `AdminLayout.tsx` — új csoportosított sidebar, fázis-fejlécek, mobil nav top-5
+- `MobileBottomNav.tsx` — 5 ikon + középen kiemelt AI/Voice
+- `AdminDashboard.tsx` — Northstar helyett MissionTracker fent
+- `AdminDocuments.tsx`, `AdminDocumentViewer.tsx` — scroll/padding fix
+- `EntityDrawer.tsx` — 100dvh, drag handle, break-words, quick task inline form
+- `ErrorBoundary.tsx` — magyar fallback + reset
+- Minden admin oldal teteje: `<PageIntro slug="..."/>`
 
-**Migration (1 db):**
-- `inbox_items.snoozed_until timestamptz`
-- `metric_events.input_tokens int, output_tokens int, model text, cost_huf numeric`
-- `trend_signals.source_url text, scraped_at timestamptz, query text, ai_cost_estimate numeric`
-- `partners.research_notes jsonb` (ha nincs)
+**Migráció:** nincs (csak UI). Adatszerkezet érintetlen.
 
-**pg_cron (supabase insert):**
-- weekly `trend-radar` vasárnap 08:00
+**Mit NEM csinálunk most:** drag-and-drop pipeline, bulk lead actions, swipeable cards (külön fázis); új edge function nincs.
 
-**Költségbecslés futásonként:**
-- Firecrawl: ~6 search × 1 credit = 6 credit/hét
-- LLM szintézis: ~5k tokens gemini-flash = ~0.5 Ft/hét
+---
 
-## Mi NEM van benne (későbbi fázisok)
-- Forecast widget (30/60/90 napos pipeline regression)
-- Risk radar auto-flagging
-- Voice ritual, Email-to-CRM, Drive Watcher, Content Remix Engine
+## Sorrend (1 építési menet)
+
+1. Hibajavítás (`Something went wrong` route + ErrorBoundary magyar)
+2. Súgó-infrastruktúra (`HelpTip`, `PageIntro`, `EmptyState`, content fájl)
+3. Új sidebar + mobil bottom nav (fázis-csoportok, magyarázatok)
+4. MissionTracker a dashboardon
+5. Mobil scroll/padding/100dvh javítások (Documents, Viewer, Drawer)
+6. Dropdown cserék (Category/City/Channel/Reason)
+7. Súgók kihelyezése minden admin lapra (PageIntro + HelpTip-ek)
+
+Egy build-menetben végigmegyek mindenen, a végén Playwright-tal mobilnézetben ellenőrzöm a 3 fő útvonalat (Dashboard, Documents scroll, EntityDrawer).

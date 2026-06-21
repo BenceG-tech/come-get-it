@@ -1,26 +1,9 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+// DEPRECATED: használd a `@/integrations/supabase/client`-et közvetlenül.
+// Ez a wrapper most már ugyanazt a singletont adja vissza, hogy ne legyen
+// két GoTrueClient instance (ami "Something went wrong" hibát okozott mobilon).
+import { supabase } from '@/integrations/supabase/client';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
-let supabaseClient: SupabaseClient | null = null;
+export const getSupabaseClient = (): SupabaseClient | null => supabase as unknown as SupabaseClient;
 
-export const getSupabaseClient = (): SupabaseClient | null => {
-  try {
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
-
-    if (!supabaseUrl || !supabaseAnonKey) {
-      return null;
-    }
-
-    if (!supabaseClient) {
-      supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
-    }
-
-    return supabaseClient;
-  } catch {
-    return null;
-  }
-};
-
-export const isSupabaseConfigured = (): boolean => {
-  return getSupabaseClient() !== null;
-};
+export const isSupabaseConfigured = (): boolean => true;
