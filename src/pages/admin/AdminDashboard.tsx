@@ -19,6 +19,8 @@ import NorthstarCard from "@/components/admin/dashboard/NorthstarCard";
 import AiUsageCard from "@/components/admin/dashboard/AiUsageCard";
 import TrendDigestCard from "@/components/admin/dashboard/TrendDigestCard";
 import CompanyHealthCard from "@/components/admin/dashboard/CompanyHealthCard";
+import MissionTracker from "@/components/admin/dashboard/MissionTracker";
+import PageIntro from "@/components/admin/help/PageIntro";
 
 type ActivityRow = {
   id: string;
