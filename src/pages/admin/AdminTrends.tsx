@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, ExternalLink, RefreshCw, Search, Brain, Telescope, Trash2, PenTool } from "lucide-react";
 import { trackEvent } from "@/lib/track";
 import SourceTimeline from "@/components/admin/SourceTimeline";
+import PageIntro from "@/components/admin/help/PageIntro";
 import { useNavigate } from "react-router-dom";
 
 
