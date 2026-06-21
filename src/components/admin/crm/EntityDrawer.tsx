@@ -36,6 +36,8 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   const [researchLoading, setResearchLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const isMobile = useIsMobile();
+
 
   const reload = async () => {
     if (!entityId) return;
