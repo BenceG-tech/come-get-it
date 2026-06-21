@@ -12,6 +12,8 @@ import FloatingAIAssistant from "@/components/admin/FloatingAIAssistant";
 import CommandPalette from "@/components/admin/CommandPalette";
 import { VoiceCaptureFAB } from "@/components/admin/VoiceCaptureFAB";
 import MobileBottomNav from "@/components/admin/MobileBottomNav";
+import { useKeyboardShortcuts, SHORTCUT_LABELS } from "@/hooks/useKeyboardShortcuts";
+
 
 type NavItem = { to: string; label: string; icon: any; end?: boolean };
 type NavGroup = { key: string; label: string; icon: any; items: NavItem[] };
