@@ -83,7 +83,7 @@ export default function AdminDocumentChat() {
       const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-with-documents`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
-        body: JSON.stringify({ documentIds: selectedIds, message: msg, history }),
+        body: JSON.stringify({ documentIds: selectedIds, message: augmentedMsg, history }),
       });
       if (!res.ok || !res.body) {
         const j = await res.json().catch(() => ({}));
