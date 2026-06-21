@@ -17,6 +17,7 @@ import ImageAnalysisPanel from "@/components/admin/media/ImageAnalysisPanel";
 import BulkUploadDialog from "@/components/admin/documents/BulkUploadDialog";
 import OrganizationSuggestionsDialog from "@/components/admin/documents/OrganizationSuggestionsDialog";
 import OrganizationBanner from "@/components/admin/documents/OrganizationBanner";
+import PageIntro from "@/components/admin/help/PageIntro";
 
 const CATEGORIES = [
   { v: "one_pager_venue", l: "1-pager vendéglátóhely" },
