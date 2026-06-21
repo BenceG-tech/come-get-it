@@ -38,7 +38,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
     if (!entityId) return;
     setLoading(true);
     try {
-      const [ent, trans, ints, oev, tk, enr, links] = await Promise.all([
+      const [ent, trans, ints, oev, tk, enr, links, dec] = await Promise.all([
         supabase.from("partners").select("*").eq("id", entityId).maybeSingle(),
         supabase.from("pipeline_transitions").select("*").eq("entity_id", entityId).order("created_at", { ascending: false }).limit(50),
         supabase.from("partner_interactions").select("*").eq("partner_id", entityId).order("created_at", { ascending: false }).limit(50),
@@ -46,6 +46,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
         supabase.from("pipeline_tasks").select("*").eq("entity_id", entityId).order("due_at", { ascending: true }).limit(20),
         supabase.from("outreach_enrollments").select("*, outreach_sequences(name)").eq("entity_id", entityId).order("started_at", { ascending: false }).limit(20),
         supabase.from("document_entity_links").select("*, documents(id, title, category, ai_hook, lifecycle_status)").eq("entity_id", entityId).limit(20),
+        supabase.from("decisions").select("id, decision_text, decided_at, review_at, outcome").eq("entity_id", entityId).order("decided_at", { ascending: false }).limit(10),
       ]);
       setEntity(ent.data);
       const merged = [
@@ -57,6 +58,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
       setTasks(tk.data ?? []);
       setEnrollments(enr.data ?? []);
       setDocs(links.data ?? []);
+      setDecisions(dec.data ?? []);
     } catch (e: any) {
       toast({ title: "Betöltés hiba", description: e?.message ?? String(e), variant: "destructive" });
     } finally {
