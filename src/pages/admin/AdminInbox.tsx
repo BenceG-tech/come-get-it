@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, RefreshCw, Check, Clock, X, Inbox as InboxIcon, AlertTriangle, MessageSquare, FileText, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import PageIntro from "@/components/admin/help/PageIntro";
 
 type Item = {
   id: string;
