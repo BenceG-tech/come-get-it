@@ -12,6 +12,13 @@ import { trackEvent } from "@/lib/track";
 
 const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`;
 const CHANNELS = ["instagram", "facebook", "linkedin", "email", "blog", "tiktok"];
+
+function toChannelArray(v: any): string[] {
+  if (Array.isArray(v)) return v.filter((x) => typeof x === "string");
+  if (typeof v === "string") return v ? [v] : [];
+  if (v && typeof v === "object") return Object.values(v).filter((x): x is string => typeof x === "string");
+  return [];
+}
 const STATUSES = [
   { key: "draft", label: "Vázlat", color: "bg-nf-surface-alt text-nf-text-muted border-nf-border" },
   { key: "approved", label: "Jóváhagyva", color: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40" },
@@ -53,7 +60,7 @@ export default function BriefsManager() {
       target_audience: b.target_audience ?? "",
       cta: b.cta ?? "",
       tone: b.tone ?? "",
-      channel_mix: b.channel_mix ?? [],
+      channel_mix: toChannelArray(b.channel_mix),
       key_points: b.key_points ?? [""],
       status: b.status ?? "draft",
       scheduled_for: b.scheduled_for ?? null,
@@ -160,7 +167,7 @@ export default function BriefsManager() {
                   <span className={`px-2 py-0.5 rounded-full border text-[10px] uppercase tracking-wide ${statusDef.color}`}>{statusDef.label}</span>
                 </div>
                 <div className="flex flex-wrap gap-1 mt-1">
-                  {(b.channel_mix ?? []).map((c: string) => (
+                  {toChannelArray(b.channel_mix).map((c: string) => (
                     <span key={c} className="text-[10px] px-1.5 py-0.5 rounded bg-nf-surface-alt text-nf-text-muted border border-nf-border">{c}</span>
                   ))}
                 </div>
