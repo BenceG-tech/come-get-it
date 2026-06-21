@@ -34,10 +34,20 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = 
         transition: 'transform 0.3s ease-out'
       }}
     >
-      {/* Enhanced glow - tighter around phone edges */}
-      <div 
-        className="absolute -inset-6 blur-[25px] rounded-[3.5rem] transform-gpu will-change-transform"
-        style={{ background: 'radial-gradient(ellipse 100% 100%, rgba(0, 212, 255, 0.45) 0%, rgba(0, 191, 230, 0.3) 40%, rgba(0, 169, 204, 0.15) 70%, transparent 100%)' }}
+      {/* Outer wide aura */}
+      <div
+        className="absolute -inset-24 blur-[60px] rounded-[5rem] transform-gpu will-change-transform pointer-events-none animate-pulse-glow"
+        style={{ background: 'radial-gradient(ellipse 90% 90%, rgba(0, 212, 255, 0.75) 0%, rgba(0, 188, 212, 0.45) 35%, rgba(0, 151, 167, 0.2) 65%, transparent 100%)' }}
+      />
+      {/* Mid glow ring */}
+      <div
+        className="absolute -inset-12 blur-[35px] rounded-[4rem] transform-gpu will-change-transform pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 100% 100%, rgba(0, 212, 255, 0.9) 0%, rgba(0, 191, 230, 0.55) 40%, rgba(0, 169, 204, 0.25) 70%, transparent 100%)' }}
+      />
+      {/* Tight edge halo */}
+      <div
+        className="absolute -inset-4 blur-[15px] rounded-[3.2rem] transform-gpu will-change-transform pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 100% 100%, rgba(0, 229, 255, 0.95) 0%, rgba(0, 212, 255, 0.6) 50%, transparent 100%)' }}
       />
       
       {/* Phone frame with enhanced styling */}
