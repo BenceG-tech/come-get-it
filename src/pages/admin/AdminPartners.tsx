@@ -47,6 +47,7 @@ export default function AdminPartners() {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-4 md:space-y-6">
+      <PageIntro slug="partners" />
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h1 className="text-2xl md:text-3xl font-bold">Partnerek</h1>
