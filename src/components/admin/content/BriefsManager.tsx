@@ -167,7 +167,7 @@ export default function BriefsManager() {
                   <span className={`px-2 py-0.5 rounded-full border text-[10px] uppercase tracking-wide ${statusDef.color}`}>{statusDef.label}</span>
                 </div>
                 <div className="flex flex-wrap gap-1 mt-1">
-                  {(b.channel_mix ?? []).map((c: string) => (
+                  {toChannelArray(b.channel_mix).map((c: string) => (
                     <span key={c} className="text-[10px] px-1.5 py-0.5 rounded bg-nf-surface-alt text-nf-text-muted border border-nf-border">{c}</span>
                   ))}
                 </div>
