@@ -161,7 +161,7 @@ export const CommandPalette = () => {
         <CommandSeparator />
         <CommandGroup heading="Navigáció">
           {NAV.map((n) => (
-            <CommandItem key={n.to} onSelect={() => go(n.to)}>
+            <CommandItem key={n.to} onSelect={() => go(n.to, n.label)}>
               <n.icon className="h-4 w-4 mr-2" /> {n.label}
             </CommandItem>
           ))}
