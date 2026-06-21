@@ -37,6 +37,7 @@ import AdminRetro from "./pages/admin/AdminRetro";
 import AdminOutreach from "./pages/admin/AdminOutreach";
 import AdminInbox from "./pages/admin/AdminInbox";
 import AdminSimulator from "./pages/admin/AdminSimulator";
+import AdminDecisions from "./pages/admin/AdminDecisions";
 
 const queryClient = new QueryClient();
 
