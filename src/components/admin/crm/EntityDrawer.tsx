@@ -25,6 +25,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   const [tasks, setTasks] = useState<any[]>([]);
   const [enrollments, setEnrollments] = useState<any[]>([]);
   const [docs, setDocs] = useState<any[]>([]);
+  const [decisions, setDecisions] = useState<any[]>([]);
   const [aiSuggestion, setAiSuggestion] = useState<string | null>(null);
   const [aiBrief, setAiBrief] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
@@ -37,7 +38,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
     if (!entityId) return;
     setLoading(true);
     try {
-      const [ent, trans, ints, oev, tk, enr, links] = await Promise.all([
+      const [ent, trans, ints, oev, tk, enr, links, dec] = await Promise.all([
         supabase.from("partners").select("*").eq("id", entityId).maybeSingle(),
         supabase.from("pipeline_transitions").select("*").eq("entity_id", entityId).order("created_at", { ascending: false }).limit(50),
         supabase.from("partner_interactions").select("*").eq("partner_id", entityId).order("created_at", { ascending: false }).limit(50),
@@ -45,6 +46,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
         supabase.from("pipeline_tasks").select("*").eq("entity_id", entityId).order("due_at", { ascending: true }).limit(20),
         supabase.from("outreach_enrollments").select("*, outreach_sequences(name)").eq("entity_id", entityId).order("started_at", { ascending: false }).limit(20),
         supabase.from("document_entity_links").select("*, documents(id, title, category, ai_hook, lifecycle_status)").eq("entity_id", entityId).limit(20),
+        supabase.from("decisions").select("id, decision_text, decided_at, review_at, outcome").eq("entity_id", entityId).order("decided_at", { ascending: false }).limit(10),
       ]);
       setEntity(ent.data);
       const merged = [
@@ -56,6 +58,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
       setTasks(tk.data ?? []);
       setEnrollments(enr.data ?? []);
       setDocs(links.data ?? []);
+      setDecisions(dec.data ?? []);
     } catch (e: any) {
       toast({ title: "Betöltés hiba", description: e?.message ?? String(e), variant: "destructive" });
     } finally {
@@ -238,6 +241,31 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
                     </div>
                   )}
                   {research.next_action && <div className="pt-1 border-t border-nf-border"><b className="text-electric-300">Next:</b> {research.next_action}</div>}
+                </Card>
+              )}
+
+              {decisions.length > 0 && (
+                <Card className="p-3 text-xs bg-nf-surface border-nf-border">
+                  <div className="text-[10px] uppercase tracking-wider text-electric-300 flex items-center gap-1 mb-2">
+                    <Brain className="w-3 h-3" /> Döntések ({decisions.length})
+                  </div>
+                  <div className="space-y-1.5">
+                    {decisions.slice(0, 4).map((d: any) => {
+                      const due = d.review_at && !d.outcome && new Date(d.review_at) <= new Date();
+                      return (
+                        <div key={d.id} className="flex items-start gap-2">
+                          <span className={`mt-1 w-1.5 h-1.5 rounded-full shrink-0 ${d.outcome ? "bg-emerald-400" : due ? "bg-yellow-400" : "bg-electric-300"}`} />
+                          <div className="flex-1 min-w-0">
+                            <div className="truncate">{d.decision_text}</div>
+                            <div className="text-[10px] text-nf-text-muted">
+                              {new Date(d.decided_at).toLocaleDateString("hu-HU")}
+                              {d.outcome ? " · értékelve" : due ? " · esedékes" : ""}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </Card>
               )}
 

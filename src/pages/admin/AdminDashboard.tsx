@@ -18,6 +18,7 @@ import DecisionsDueCard from "@/components/admin/dashboard/DecisionsDueCard";
 import NorthstarCard from "@/components/admin/dashboard/NorthstarCard";
 import AiUsageCard from "@/components/admin/dashboard/AiUsageCard";
 import TrendDigestCard from "@/components/admin/dashboard/TrendDigestCard";
+import CompanyHealthCard from "@/components/admin/dashboard/CompanyHealthCard";
 
 type ActivityRow = {
   id: string;
@@ -99,6 +100,9 @@ export default function AdminDashboard() {
 
       {/* Northstar — single most important number */}
       <NorthstarCard />
+
+      {/* Company portfolio health */}
+      <CompanyHealthCard />
 
       {/* AI briefing — full width on top */}
       <DailyBriefingCard />

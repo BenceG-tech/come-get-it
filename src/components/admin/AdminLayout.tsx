@@ -11,6 +11,7 @@ import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
 import FloatingAIAssistant from "@/components/admin/FloatingAIAssistant";
 import CommandPalette from "@/components/admin/CommandPalette";
 import { VoiceCaptureFAB } from "@/components/admin/VoiceCaptureFAB";
+import MobileBottomNav from "@/components/admin/MobileBottomNav";
 
 type NavItem = { to: string; label: string; icon: any; end?: boolean };
 type NavGroup = { key: string; label: string; icon: any; items: NavItem[] };
@@ -168,8 +169,9 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
           </>
         )}
 
-        <main className="flex-1 min-w-0 overflow-auto">{children}</main>
+        <main className="flex-1 min-w-0 overflow-auto pb-16 md:pb-0">{children}</main>
 
+        <MobileBottomNav />
         <FloatingAIAssistant />
         <CommandPalette />
         <VoiceCaptureFAB />

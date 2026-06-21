@@ -37,10 +37,20 @@ const NAV = [
   { to: "/admin/retro", label: "Heti retro", icon: Trophy },
 ];
 
+const RECENT_KEY = "cgi.cmdk.recent";
+type Recent = { path: string; label: string; at: number };
+const loadRecent = (): Recent[] => { try { return JSON.parse(localStorage.getItem(RECENT_KEY) ?? "[]"); } catch { return []; } };
+const pushRecent = (r: Recent) => {
+  const list = loadRecent().filter((x) => x.path !== r.path);
+  list.unshift(r);
+  localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 5)));
+};
+
 export const CommandPalette = () => {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [hits, setHits] = useState<Hit[]>([]);
+  const [recent, setRecent] = useState<Recent[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +64,7 @@ export const CommandPalette = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  useEffect(() => { if (open) trackEvent("command_palette_used"); }, [open]);
+  useEffect(() => { if (open) { trackEvent("command_palette_used"); setRecent(loadRecent()); } }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -80,7 +90,11 @@ export const CommandPalette = () => {
     return () => { cancel = true; };
   }, [q, open]);
 
-  const go = (path: string) => { setOpen(false); navigate(path); };
+  const go = (path: string, label?: string) => {
+    if (label) pushRecent({ path, label, at: Date.now() });
+    setOpen(false);
+    navigate(path);
+  };
 
   const linkFor = (h: Hit) => {
     switch (h.kind) {
@@ -100,7 +114,7 @@ export const CommandPalette = () => {
         {hits.length > 0 && (
           <CommandGroup heading="Találatok">
             {hits.map((h) => (
-              <CommandItem key={`${h.kind}-${h.id}`} onSelect={() => go(linkFor(h))}>
+              <CommandItem key={`${h.kind}-${h.id}`} onSelect={() => go(linkFor(h), h.title)}>
                 {h.kind === "doc" && <FileText className="h-4 w-4 mr-2" />}
                 {(h.kind === "partner" || h.kind === "lead") && <Users className="h-4 w-4 mr-2" />}
                 {h.kind === "decision" && <Brain className="h-4 w-4 mr-2" />}
@@ -111,21 +125,33 @@ export const CommandPalette = () => {
             ))}
           </CommandGroup>
         )}
+        {!q && recent.length > 0 && (
+          <>
+            <CommandSeparator />
+            <CommandGroup heading="Legutóbb">
+              {recent.map((r) => (
+                <CommandItem key={r.path} onSelect={() => go(r.path, r.label)}>
+                  <RefreshCw className="h-4 w-4 mr-2" /> <span className="truncate">{r.label}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </>
+        )}
         <CommandSeparator />
         <CommandGroup heading="Gyors műveletek">
-          <CommandItem onSelect={() => go("/admin/leads?new=1")}>
+          <CommandItem onSelect={() => go("/admin/leads?new=1", "Új lead")}>
             <Plus className="h-4 w-4 mr-2" /> Új lead
           </CommandItem>
-          <CommandItem onSelect={() => go("/admin/decisions?new=1")}>
+          <CommandItem onSelect={() => go("/admin/decisions?new=1", "Új döntés")}>
             <Brain className="h-4 w-4 mr-2" /> Új döntés rögzítése
           </CommandItem>
-          <CommandItem onSelect={() => go("/admin/trends")}>
+          <CommandItem onSelect={() => go("/admin/trends", "Trend Radar")}>
             <Telescope className="h-4 w-4 mr-2" /> Trend kutatás indítása
           </CommandItem>
-          <CommandItem onSelect={() => go("/admin/documents?upload=1")}>
+          <CommandItem onSelect={() => go("/admin/documents?upload=1", "Tömeges feltöltés")}>
             <Upload className="h-4 w-4 mr-2" /> Tömeges feltöltés
           </CommandItem>
-          <CommandItem onSelect={() => go("/admin/documents?organize=1")}>
+          <CommandItem onSelect={() => go("/admin/documents?organize=1", "AI rendezés")}>
             <ScanSearch className="h-4 w-4 mr-2" /> AI rendezés
           </CommandItem>
           <CommandItem onSelect={() => go("/admin/retro")}>
@@ -135,7 +161,7 @@ export const CommandPalette = () => {
         <CommandSeparator />
         <CommandGroup heading="Navigáció">
           {NAV.map((n) => (
-            <CommandItem key={n.to} onSelect={() => go(n.to)}>
+            <CommandItem key={n.to} onSelect={() => go(n.to, n.label)}>
               <n.icon className="h-4 w-4 mr-2" /> {n.label}
             </CommandItem>
           ))}
