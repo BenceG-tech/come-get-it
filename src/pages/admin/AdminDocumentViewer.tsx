@@ -68,8 +68,9 @@ export default function AdminDocumentViewer() {
   const keyPoints: string[] = Array.isArray(doc?.key_points) ? doc.key_points : [];
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-3.5rem)] md:min-h-screen">
-      <header className="border-b border-nf-border px-3 md:px-6 py-3 flex items-center gap-2 sticky top-0 bg-nf-bg z-10">
+    <div className="flex flex-col min-h-[100dvh]">
+      <header className="border-b border-nf-border px-3 md:px-6 py-3 flex items-center gap-2 sticky top-0 bg-nf-bg z-10" style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))" }}>
+
         <Button variant="outline" size="sm" onClick={() => nav(-1)} className="shrink-0">
           <ArrowLeft className="h-4 w-4" /> <span className="hidden sm:inline">Vissza</span>
         </Button>
