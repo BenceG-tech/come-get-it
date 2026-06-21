@@ -20,6 +20,7 @@ import AiUsageCard from "@/components/admin/dashboard/AiUsageCard";
 import TrendDigestCard from "@/components/admin/dashboard/TrendDigestCard";
 import CompanyHealthCard from "@/components/admin/dashboard/CompanyHealthCard";
 import MissionTracker from "@/components/admin/dashboard/MissionTracker";
+import TodayTasksCard from "@/components/admin/dashboard/TodayTasksCard";
 import PageIntro from "@/components/admin/help/PageIntro";
 
 type ActivityRow = {
@@ -118,6 +119,7 @@ export default function AdminDashboard() {
 
       {/* Cockpit row */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+        <TodayTasksCard />
         <InboxZeroCard />
         <DailyFocusCard />
         <WaitlistGrowth />

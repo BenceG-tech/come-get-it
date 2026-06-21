@@ -36,6 +36,7 @@ export const NAV_GROUPS: NavGroup[] = [
     icon: LayoutDashboard,
     items: [
       { to: "/admin", label: "Ma", icon: LayoutDashboard, end: true, description: "Napi fókusz + misszió-számláló." },
+      { to: "/admin/mission", label: "Misszió központ", icon: Target, description: "Forecast, trend, blockerek + heti PDF review." },
       { to: "/admin/inbox", label: "Inbox", icon: Inbox, description: "Minden, ami rád vár." },
       { to: "/admin/decisions", label: "Döntésnapló", icon: Brain, description: "Döntések + review." },
     ],
