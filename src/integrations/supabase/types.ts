@@ -1172,33 +1172,45 @@ export type Database = {
       }
       metric_events: {
         Row: {
+          cost_huf: number | null
           created_at: string
           created_by: string | null
           entity_id: string | null
           entity_type: string | null
           event_type: string
           id: string
+          input_tokens: number | null
           metadata: Json
+          model: string | null
+          output_tokens: number | null
           value: number | null
         }
         Insert: {
+          cost_huf?: number | null
           created_at?: string
           created_by?: string | null
           entity_id?: string | null
           entity_type?: string | null
           event_type: string
           id?: string
+          input_tokens?: number | null
           metadata?: Json
+          model?: string | null
+          output_tokens?: number | null
           value?: number | null
         }
         Update: {
+          cost_huf?: number | null
           created_at?: string
           created_by?: string | null
           entity_id?: string | null
           entity_type?: string | null
           event_type?: string
           id?: string
+          input_tokens?: number | null
           metadata?: Json
+          model?: string | null
+          output_tokens?: number | null
           value?: number | null
         }
         Relationships: []
@@ -1963,6 +1975,7 @@ export type Database = {
       }
       trend_signals: {
         Row: {
+          ai_cost_estimate: number | null
           category: string | null
           created_at: string
           id: string
@@ -1972,6 +1985,7 @@ export type Database = {
           query: string | null
           relevance_score: number | null
           saved_to_decision_id: string | null
+          scraped_at: string | null
           source_title: string | null
           source_url: string | null
           summary: string | null
@@ -1979,6 +1993,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          ai_cost_estimate?: number | null
           category?: string | null
           created_at?: string
           id?: string
@@ -1988,6 +2003,7 @@ export type Database = {
           query?: string | null
           relevance_score?: number | null
           saved_to_decision_id?: string | null
+          scraped_at?: string | null
           source_title?: string | null
           source_url?: string | null
           summary?: string | null
@@ -1995,6 +2011,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          ai_cost_estimate?: number | null
           category?: string | null
           created_at?: string
           id?: string
@@ -2004,6 +2021,7 @@ export type Database = {
           query?: string | null
           relevance_score?: number | null
           saved_to_decision_id?: string | null
+          scraped_at?: string | null
           source_title?: string | null
           source_url?: string | null
           summary?: string | null

@@ -6,8 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, ExternalLink, RefreshCw, Search, Brain, Telescope, Trash2 } from "lucide-react";
+import { Loader2, ExternalLink, RefreshCw, Search, Brain, Telescope, Trash2, PenTool } from "lucide-react";
 import { trackEvent } from "@/lib/track";
+import SourceTimeline from "@/components/admin/SourceTimeline";
+import { useNavigate } from "react-router-dom";
+
 
 interface Signal {
   id: string;
@@ -32,7 +35,10 @@ export default function AdminTrends() {
   const [customQuery, setCustomQuery] = useState("");
   const [filter, setFilter] = useState("all");
   const [hasLiveSearch, setHasLiveSearch] = useState<boolean | null>(null);
+  const [converting, setConverting] = useState<string | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
+
 
   const load = async () => {
     setLoading(true);
@@ -83,6 +89,21 @@ export default function AdminTrends() {
     trackEvent("trend_signal_saved" as any, { entity_type: "trend_signal", entity_id: s.id });
     toast({ title: "Mentve a döntésnaplóba" });
   };
+  const convertToBrief = async (s: Signal) => {
+    setConverting(s.id);
+    try {
+      const { data, error } = await supabase.functions.invoke("trend-to-brief", { body: { signal_id: s.id } });
+      if (error) throw error;
+      trackEvent("brief_created" as any, { entity_type: "trend_signal", entity_id: s.id });
+      toast({ title: "Brief létrehozva", description: "Megnyitás a Content Studio-ban…" });
+      navigate(`/admin/content?brief=${data?.brief_id ?? ""}`);
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setConverting(null);
+    }
+  };
+
 
   return (
     <div className="container mx-auto p-4 md:p-6 max-w-6xl space-y-6">
@@ -145,21 +166,37 @@ export default function AdminTrends() {
                 </div>
               </div>
               {s.summary && <div className="text-sm text-nf-text-muted">{s.summary}</div>}
-              <div className="flex items-center justify-between gap-2 pt-1">
-                {s.source_url ? (
-                  <a href={s.source_url} target="_blank" rel="noreferrer" className="text-xs text-electric-300 inline-flex items-center gap-1 hover:underline truncate max-w-[60%]">
-                    <ExternalLink className="w-3 h-3" /> {s.source_title ?? s.source_url}
-                  </a>
-                ) : <span className="text-[10px] text-nf-text-muted">AI-only</span>}
-                <span className="text-[10px] text-nf-text-muted">{new Date(s.ingested_at).toLocaleDateString("hu-HU")}</span>
+
+              {/* Source timeline */}
+              {(s.source_url || (s.metadata as any)?.sources?.length) && (
+                <div className="pt-1">
+                  <SourceTimeline
+                    sources={
+                      (s.metadata as any)?.sources?.length
+                        ? (s.metadata as any).sources.map((x: any) => ({ ...x, scraped_at: (s as any).scraped_at }))
+                        : [{ url: s.source_url, title: s.source_title, scraped_at: (s as any).scraped_at }]
+                    }
+                  />
+                </div>
+              )}
+
+              <div className="flex items-center justify-between gap-2 pt-1 text-[10px] text-nf-text-muted">
+                <span>{s.query && <>Query: <span className="text-electric-300/70">{s.query}</span></>}</span>
+                <span>{new Date(s.ingested_at).toLocaleDateString("hu-HU")}</span>
               </div>
-              <div className="flex gap-2 pt-2 border-t border-nf-border">
+
+              <div className="flex gap-2 pt-2 border-t border-nf-border flex-wrap">
+                <Button size="sm" variant="neon" onClick={() => convertToBrief(s)} disabled={converting === s.id}>
+                  {converting === s.id ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <PenTool className="w-3 h-3 mr-1" />}
+                  → Brief
+                </Button>
                 <Button size="sm" variant="outline" onClick={() => saveAsDecision(s)}>Döntésnaplóba</Button>
-                <Button size="sm" variant="ghost" onClick={() => remove(s.id)}><Trash2 className="w-3 h-3" /></Button>
+                <Button size="sm" variant="ghost" className="ml-auto" onClick={() => remove(s.id)}><Trash2 className="w-3 h-3" /></Button>
               </div>
             </CardContent>
           </Card>
         ))}
+
         {!loading && signals.length === 0 && (
           <div className="col-span-full text-center py-12 text-nf-text-muted text-sm">
             Még nincs jel. Nyomj a "Friss keresés"-re.

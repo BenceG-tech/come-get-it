@@ -12,6 +12,8 @@ import FloatingAIAssistant from "@/components/admin/FloatingAIAssistant";
 import CommandPalette from "@/components/admin/CommandPalette";
 import { VoiceCaptureFAB } from "@/components/admin/VoiceCaptureFAB";
 import MobileBottomNav from "@/components/admin/MobileBottomNav";
+import { useKeyboardShortcuts, SHORTCUT_LABELS } from "@/hooks/useKeyboardShortcuts";
+
 
 type NavItem = { to: string; label: string; icon: any; end?: boolean };
 type NavGroup = { key: string; label: string; icon: any; items: NavItem[] };
@@ -68,7 +70,9 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
 
+  useKeyboardShortcuts();
   useEffect(() => { setOpen(false); }, [location.pathname]);
+
 
   // Auto-expand the group containing the current route
   const activeGroup = GROUPS.find(g => g.items.some(i => i.end ? location.pathname === i.to : location.pathname.startsWith(i.to)));
@@ -110,21 +114,27 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
               </button>
               {!isCollapsed && (
                 <div className="space-y-0.5 mt-0.5">
-                  {g.items.map(it => (
-                    <NavLink
-                      key={it.to} to={it.to} end={it.end}
-                      className={({ isActive }) =>
-                        `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                          isActive ? "bg-electric-300/15 text-electric-300" : "text-nf-text-muted hover:bg-nf-surface-alt hover:text-white"
-                        }`
-                      }
-                    >
-                      <it.icon className="h-4 w-4 shrink-0" />
-                      <span className="truncate">{it.label}</span>
-                    </NavLink>
-                  ))}
+                  {g.items.map(it => {
+                    const sc = SHORTCUT_LABELS[it.to];
+                    return (
+                      <NavLink
+                        key={it.to} to={it.to} end={it.end}
+                        title={sc ? `Shortcut: ${sc}` : undefined}
+                        className={({ isActive }) =>
+                          `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors group ${
+                            isActive ? "bg-electric-300/15 text-electric-300" : "text-nf-text-muted hover:bg-nf-surface-alt hover:text-white"
+                          }`
+                        }
+                      >
+                        <it.icon className="h-4 w-4 shrink-0" />
+                        <span className="truncate flex-1">{it.label}</span>
+                        {sc && <kbd className="text-[9px] px-1 py-0.5 rounded bg-nf-bg/60 border border-nf-border text-nf-text-muted opacity-0 group-hover:opacity-100 transition-opacity">{sc}</kbd>}
+                      </NavLink>
+                    );
+                  })}
                 </div>
               )}
+
             </div>
           );
         })}

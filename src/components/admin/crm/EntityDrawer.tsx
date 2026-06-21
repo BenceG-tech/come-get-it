@@ -8,9 +8,12 @@ import { Loader2, Sparkles, ExternalLink, FileText, Clock, ListChecks, Send, Plu
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { trackEvent } from "@/lib/track";
 import SlaWarningBadge from "./SlaWarningBadge";
 import PartnerHealthRadar from "./PartnerHealthRadar";
+import SourceTimeline from "@/components/admin/SourceTimeline";
+
 
 interface Props {
   entityType: "partner" | "lead";
@@ -33,6 +36,8 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   const [researchLoading, setResearchLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const isMobile = useIsMobile();
+
 
   const reload = async () => {
     if (!entityId) return;
@@ -165,8 +170,12 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-2xl overflow-y-auto bg-nf-bg border-nf-border">
+      <SheetContent
+        side={isMobile ? "bottom" : "right"}
+        className={isMobile ? "h-[92vh] overflow-y-auto bg-nf-bg border-nf-border" : "w-full sm:max-w-2xl overflow-y-auto bg-nf-bg border-nf-border"}
+      >
         <SheetHeader>
+
           <SheetTitle className="text-electric-300 flex items-center gap-2 flex-wrap">
             {entity?.company_name ?? "Betöltés…"}
             {entity?.lead_score != null && <Badge variant="outline">Score: {entity.lead_score}</Badge>}
@@ -241,8 +250,18 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
                     </div>
                   )}
                   {research.next_action && <div className="pt-1 border-t border-nf-border"><b className="text-electric-300">Next:</b> {research.next_action}</div>}
+                  {(research.sources || research._live_search) && (
+                    <div className="pt-2 border-t border-nf-border">
+                      <SourceTimeline
+                        sources={Array.isArray(research.sources) ? research.sources : [
+                          { url: entity.website, title: "Website scrape", scraped_at: research._researched_at },
+                        ]}
+                      />
+                    </div>
+                  )}
                 </Card>
               )}
+
 
               {decisions.length > 0 && (
                 <Card className="p-3 text-xs bg-nf-surface border-nf-border">

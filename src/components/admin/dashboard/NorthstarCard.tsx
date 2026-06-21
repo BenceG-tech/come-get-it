@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent } from "@/components/ui/card";
-import { TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Plus } from "lucide-react";
 
 export default function NorthstarCard() {
   const [thisMonth, setThisMonth] = useState(0);
   const [lastMonth, setLastMonth] = useState(0);
-  const [target] = useState(10); // havi cél: 10 aláírt partner — később configurable
+  const [target] = useState(10);
 
   useEffect(() => {
     (async () => {
@@ -30,7 +31,14 @@ export default function NorthstarCard() {
   const trendColor = delta > 0 ? "text-emerald-400" : delta < 0 ? "text-red-400" : "text-nf-text-muted";
 
   return (
-    <Card className="border-electric-300/40 bg-gradient-to-br from-electric-300/10 to-transparent">
+    <Card className="border-electric-300/40 bg-gradient-to-br from-electric-300/10 to-transparent relative group">
+      <Link
+        to="/admin/leads"
+        title="Új lead rögzítése"
+        className="absolute top-2 right-2 p-1.5 rounded-md bg-nf-bg/40 hover:bg-electric-300/20 text-nf-text-muted hover:text-electric-300 opacity-0 group-hover:opacity-100 transition-all"
+      >
+        <Plus className="w-3.5 h-3.5" />
+      </Link>
       <CardContent className="p-5">
         <div className="text-[10px] uppercase tracking-widest text-nf-text-muted mb-1">⭐ Northstar — havi aláírt partner</div>
         <div className="flex items-baseline gap-3 mt-2">

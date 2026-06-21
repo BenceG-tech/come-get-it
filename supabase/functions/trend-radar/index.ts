@@ -110,12 +110,28 @@ Deno.serve(async (req) => {
           relevance_score: Math.min(100, Math.max(0, Number(s.relevance_score ?? 50))),
           query: q,
           published_at: s.published_at ?? null,
-          metadata: { live_search: hasLiveSearch },
+          scraped_at: hasLiveSearch ? new Date().toISOString() : null,
+          ai_cost_estimate: 0.5, // Ft becslés per signal (gemini-flash ~5k token)
+          metadata: { live_search: hasLiveSearch, sources: sources.slice(0, 3).map((x: any) => ({ url: x.url, title: x.title })) },
         }).select().single();
         if (data) inserted.push(data);
       }
       if (!signals.length) skipped.push(q);
     }
+
+    // Inbox notification
+    if (inserted.length > 0) {
+      await sb.from("inbox_items").insert({
+        kind: "trend_digest",
+        severity: "info",
+        title: `Új trend digest: ${inserted.length} jel`,
+        body: `${queries.length} query lefuttatva${hasLiveSearch ? " élő web search-csel" : " (AI-only)"}`,
+        payload: { count: inserted.length, hasLiveSearch },
+        status: "open",
+        dedupe_key: `trend_digest_${new Date().toISOString().slice(0, 10)}`,
+      }).select();
+    }
+
 
     return new Response(JSON.stringify({ ok: true, inserted: inserted.length, skipped, hasLiveSearch }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
