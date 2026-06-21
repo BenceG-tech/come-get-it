@@ -262,16 +262,22 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
         mime_type = form.file.type || null;
         file_size_bytes = form.file.size;
       }
-      const { error: insErr } = await supabase.from("documents").insert([{
+      const { data: inserted, error: insErr } = await supabase.from("documents").insert([{
         title: form.title, folder: form.folder || null, category: form.category as any,
         description: form.description || null, when_to_use: form.when_to_use || null,
         content: form.content || null, storage_path, mime_type, file_size_bytes,
-      }]);
+      }]).select("id").maybeSingle();
       if (insErr) throw insErr;
+      // Fire-and-forget AI auto-trigger
+      if (inserted?.id) {
+        supabase.functions.invoke("doc-auto-tag", { body: { document_id: inserted.id } }).catch(() => {});
+        supabase.functions.invoke("doc-embed", { body: { document_id: inserted.id } }).catch(() => {});
+        supabase.functions.invoke("doc-entity-bridge", { body: { document_id: inserted.id } }).catch(() => {});
+      }
       setShowNew(false);
       setForm({ title: "", folder: "", category: "other", description: "", when_to_use: "", content: "", file: null });
       load();
-      toast({ title: "Mentve" });
+      toast({ title: "Mentve · AI cimkézés indul" });
     } catch (e: any) {
       toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
     } finally {
