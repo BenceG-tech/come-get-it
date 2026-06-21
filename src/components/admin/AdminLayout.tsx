@@ -1,10 +1,6 @@
 import { ReactNode, useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import {
-  LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks,
-  Target, Image as ImageIcon, MessageSquare, Cloud, Wand2, Palette, Trophy, Send, Inbox, TrendingUp,
-  Brain, Telescope, Home, Database, PenTool, BarChart3, ChevronDown, Command,
-} from "lucide-react";
+import { LogOut, ExternalLink, Menu, X, ChevronDown, Command } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
@@ -13,55 +9,8 @@ import CommandPalette from "@/components/admin/CommandPalette";
 import { VoiceCaptureFAB } from "@/components/admin/VoiceCaptureFAB";
 import MobileBottomNav from "@/components/admin/MobileBottomNav";
 import { useKeyboardShortcuts, SHORTCUT_LABELS } from "@/hooks/useKeyboardShortcuts";
-
-
-type NavItem = { to: string; label: string; icon: any; end?: boolean };
-type NavGroup = { key: string; label: string; icon: any; items: NavItem[] };
-
-const GROUPS: NavGroup[] = [
-  {
-    key: "overview", label: "Áttekintés", icon: Home, items: [
-      { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
-      { to: "/admin/inbox", label: "Inbox", icon: Inbox },
-      { to: "/admin/decisions", label: "Döntésnapló", icon: Brain },
-    ],
-  },
-  {
-    key: "pipeline", label: "Pipeline", icon: Target, items: [
-      { to: "/admin/leads", label: "Leadek", icon: Target },
-      { to: "/admin/partners", label: "Partnerek", icon: Users },
-      { to: "/admin/outreach", label: "Outreach", icon: Send },
-      { to: "/admin/simulator", label: "Szimulátor", icon: TrendingUp },
-    ],
-  },
-  {
-    key: "knowledge", label: "Tudás", icon: Database, items: [
-      { to: "/admin/documents", label: "Dokumentumok", icon: FileText },
-      { to: "/admin/documents/chat", label: "Chat doksikkal", icon: MessageSquare },
-      { to: "/admin/drive", label: "Google Drive", icon: Cloud },
-      { to: "/admin/media", label: "Média", icon: ImageIcon },
-      { to: "/admin/brand", label: "Brand Memory", icon: Palette },
-    ],
-  },
-  {
-    key: "content", label: "Content", icon: PenTool, items: [
-      { to: "/admin/content", label: "Content Studio", icon: Wand2 },
-      { to: "/admin/calendar", label: "Marketing naptár", icon: Calendar },
-      { to: "/admin/checklist", label: "Checklist", icon: ListChecks },
-    ],
-  },
-  {
-    key: "intel", label: "Intelligencia", icon: Telescope, items: [
-      { to: "/admin/trends", label: "Trend Radar", icon: Telescope },
-      { to: "/admin/ai", label: "AI asszisztens", icon: Sparkles },
-    ],
-  },
-  {
-    key: "reflex", label: "Reflexió", icon: BarChart3, items: [
-      { to: "/admin/retro", label: "Heti retro", icon: Trophy },
-    ],
-  },
-];
+import { NAV_GROUPS } from "@/lib/admin-nav-config";
+import HelpTip from "@/components/admin/help/HelpTip";
 
 export const AdminLayout = ({ children }: { children: ReactNode }) => {
   const { signOut, user } = useAuth();
@@ -73,9 +22,9 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
   useKeyboardShortcuts();
   useEffect(() => { setOpen(false); }, [location.pathname]);
 
-
-  // Auto-expand the group containing the current route
-  const activeGroup = GROUPS.find(g => g.items.some(i => i.end ? location.pathname === i.to : location.pathname.startsWith(i.to)));
+  const activeGroup = NAV_GROUPS.find(g =>
+    g.items.some(i => i.end ? location.pathname === i.to : location.pathname.startsWith(i.to))
+  );
 
   const toggle = (k: string) => setCollapsed(s => ({ ...s, [k]: !s[k] }));
 
@@ -101,25 +50,32 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
         </button>
       </div>
 
-      <nav className="flex-1 p-3 space-y-2 overflow-y-auto">
-        {GROUPS.map(g => {
+      <nav className="flex-1 p-3 space-y-3 overflow-y-auto">
+        {NAV_GROUPS.map(g => {
           const isCollapsed = collapsed[g.key] ?? (activeGroup?.key !== g.key);
           const GIcon = g.icon;
           return (
             <div key={g.key}>
-              <button onClick={() => toggle(g.key)} className="w-full flex items-center gap-2 px-3 py-1.5 text-[10px] uppercase tracking-widest text-nf-text-muted hover:text-white">
-                <GIcon className="h-3 w-3" />
-                <span className="flex-1 text-left">{g.label}</span>
-                <ChevronDown className={cn("h-3 w-3 transition-transform", isCollapsed && "-rotate-90")} />
-              </button>
+              <div className="flex items-start gap-1 px-2 mb-1">
+                <button onClick={() => toggle(g.key)} className="flex items-center gap-2 flex-1 min-w-0 text-left text-nf-text-muted hover:text-white">
+                  <GIcon className="h-3.5 w-3.5 shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[10px] uppercase tracking-widest font-semibold truncate">{g.label}</div>
+                    {g.hint && !isCollapsed && (
+                      <div className="text-[10px] text-nf-text-muted/70 mt-0.5 leading-tight">{g.hint}</div>
+                    )}
+                  </div>
+                  <ChevronDown className={cn("h-3 w-3 transition-transform shrink-0", isCollapsed && "-rotate-90")} />
+                </button>
+              </div>
               {!isCollapsed && (
-                <div className="space-y-0.5 mt-0.5">
+                <div className="space-y-0.5">
                   {g.items.map(it => {
                     const sc = SHORTCUT_LABELS[it.to];
                     return (
                       <NavLink
                         key={it.to} to={it.to} end={it.end}
-                        title={sc ? `Shortcut: ${sc}` : undefined}
+                        title={it.description ? `${it.label} — ${it.description}` : it.label}
                         className={({ isActive }) =>
                           `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors group ${
                             isActive ? "bg-electric-300/15 text-electric-300" : "text-nf-text-muted hover:bg-nf-surface-alt hover:text-white"
@@ -128,13 +84,19 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
                       >
                         <it.icon className="h-4 w-4 shrink-0" />
                         <span className="truncate flex-1">{it.label}</span>
+                        {it.description && (
+                          <HelpTip
+                            what={it.description}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity"
+                            side="right"
+                          />
+                        )}
                         {sc && <kbd className="text-[9px] px-1 py-0.5 rounded bg-nf-bg/60 border border-nf-border text-nf-text-muted opacity-0 group-hover:opacity-100 transition-opacity">{sc}</kbd>}
                       </NavLink>
                     );
                   })}
                 </div>
               )}
-
             </div>
           );
         })}
@@ -154,7 +116,7 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <AIAssistantProvider>
-      <div className="min-h-screen flex flex-col md:flex-row bg-nf-bg text-white">
+      <div className="min-h-[100dvh] flex flex-col md:flex-row bg-nf-bg text-white">
         <header className="md:hidden sticky top-0 z-30 flex items-center justify-between border-b border-nf-border bg-nf-surface px-4 h-14">
           <button onClick={() => setOpen(true)} className="p-2 -ml-2 text-white" aria-label="Menü">
             <Menu className="h-5 w-5" />
@@ -179,7 +141,8 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
           </>
         )}
 
-        <main className="flex-1 min-w-0 overflow-auto pb-16 md:pb-0">{children}</main>
+        {/* pb-32 mobilon hogy a bottom nav + FAB ne takarja az oldalalját */}
+        <main className="flex-1 min-w-0 overflow-auto pb-32 md:pb-0">{children}</main>
 
         <MobileBottomNav />
         <FloatingAIAssistant />
