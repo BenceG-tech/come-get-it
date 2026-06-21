@@ -29,10 +29,10 @@ export default function MissionTracker() {
     (async () => {
       const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString();
       const [loi, signed, wl, wl7] = await Promise.all([
-        supabase.from("partners").select("id", { count: "exact", head: true }).in("status", ["loi", "signed"]),
+        supabase.from("partners").select("id", { count: "exact", head: true }).in("status", ["proposal_sent", "negotiating", "signed"]),
         supabase.from("partners").select("id", { count: "exact", head: true }).eq("status", "signed"),
-        supabase.from("waitlist").select("id", { count: "exact", head: true }),
-        supabase.from("waitlist").select("id", { count: "exact", head: true }).gte("created_at", weekAgo),
+        supabase.from("waitlist_signups").select("id", { count: "exact", head: true }),
+        supabase.from("waitlist_signups").select("id", { count: "exact", head: true }).gte("created_at", weekAgo),
       ]);
       setLoiCount(loi.count ?? 0);
       setSignedCount(signed.count ?? 0);
