@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks, Target, Image as ImageIcon, MessageSquare, Cloud, Wand2, Palette, Trophy, Send, Inbox, TrendingUp } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Sparkles, Calendar, LogOut, ExternalLink, Menu, X, ListChecks, Target, Image as ImageIcon, MessageSquare, Cloud, Wand2, Palette, Trophy, Send, Inbox, TrendingUp, Brain } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
@@ -25,6 +25,7 @@ const items = [
   { to: "/admin/ai", label: "AI asszisztens", icon: Sparkles },
   { to: "/admin/calendar", label: "Marketing naptár", icon: Calendar },
   { to: "/admin/retro", label: "Heti retro & célok", icon: Trophy },
+  { to: "/admin/decisions", label: "Döntésnapló", icon: Brain },
 ];
 
 export const AdminLayout = ({ children }: { children: ReactNode }) => {

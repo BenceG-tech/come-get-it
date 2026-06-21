@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { ArrowLeft, Send, Sparkles, X, Loader2, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ReactMarkdown from "react-markdown";
+import { trackEvent } from "@/lib/track";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -52,6 +53,8 @@ export default function AdminDocumentChat() {
 
   const toggle = (id: string) => setSelectedIds((p) => p.includes(id) ? p.filter((x) => x !== id) : [...p, id]);
 
+  const [sources, setSources] = useState<any[]>([]);
+
   const send = async (text?: string) => {
     const msg = (text ?? input).trim();
     if (!msg || streaming) return;
@@ -64,12 +67,24 @@ export default function AdminDocumentChat() {
     const history = [...messages];
     setMessages([...history, { role: "user", content: msg }, { role: "assistant", content: "" }]);
     setStreaming(true);
+    setSources([]);
     try {
+      // V2: prepend semantic search context
+      let semanticHints = "";
+      try {
+        const { data: sem } = await supabase.functions.invoke("doc-semantic-search", { body: { query: msg, top_k: 5 } });
+        if (sem?.results?.length) {
+          setSources(sem.results);
+          semanticHints = "\n\nReleváns snippet-ek (idézhető források):\n" + sem.results.map((r: any, i: number) => `[${i + 1}] ${r.document?.title ?? ""}: ${(r.snippet ?? "").slice(0, 300)}`).join("\n");
+        }
+      } catch (e) { console.warn("semantic search skip", e); }
+
+      const augmentedMsg = msg + semanticHints;
       const { data: { session } } = await supabase.auth.getSession();
       const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-with-documents`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
-        body: JSON.stringify({ documentIds: selectedIds, message: msg, history }),
+        body: JSON.stringify({ documentIds: selectedIds, message: augmentedMsg, history }),
       });
       if (!res.ok || !res.body) {
         const j = await res.json().catch(() => ({}));
@@ -174,6 +189,17 @@ export default function AdminDocumentChat() {
         )}
       </div>
 
+      {/* Sources from semantic search */}
+      {sources.length > 0 && (
+        <div className="border-t border-nf-border px-3 md:px-6 py-2 bg-nf-surface-alt/30 flex gap-1.5 overflow-x-auto">
+          <span className="text-[10px] uppercase text-nf-text-muted shrink-0 self-center">Források:</span>
+          {sources.map((s, i) => (
+            <Link key={i} to={`/admin/documents/${s.document_id}`} className="shrink-0 px-2 py-1 rounded bg-electric-300/10 border border-electric-300/30 text-[10px] text-electric-300 hover:bg-electric-300/20" title={s.snippet}>
+              [{i + 1}] {s.document?.title ?? "?"}
+            </Link>
+          ))}
+        </div>
+      )}
       {/* Input */}
       <div className="border-t border-nf-border p-3 bg-nf-surface">
         <div className="flex gap-2 max-w-4xl mx-auto">
