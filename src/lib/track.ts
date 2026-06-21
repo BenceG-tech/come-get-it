@@ -37,7 +37,12 @@ export type MetricEventType =
   | "doc_opened"
   | "inbox_item_resolved"
   | "inbox_item_snoozed"
-  | "simulator_run";
+  | "simulator_run"
+  | "decision_created"
+  | "decision_reviewed"
+  | "entity_drawer_opened"
+  | "doc_chat_v2_used"
+  | "health_radar_viewed";
 
 export async function trackEvent(
   event_type: MetricEventType | string,
