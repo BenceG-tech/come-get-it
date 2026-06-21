@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Plus, Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import PageIntro from "@/components/admin/help/PageIntro";
 
 const STATUS_LABEL: Record<string, string> = {
   lead: "Lead", contacted: "Megkeresve", negotiating: "Tárgyalás", proposal_sent: "Ajánlat küldve", signed: "Aláírt", rejected: "Elutasítva", paused: "Szünetel",
