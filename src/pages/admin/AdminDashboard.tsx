@@ -101,6 +101,9 @@ export default function AdminDashboard() {
       {/* Northstar — single most important number */}
       <NorthstarCard />
 
+      {/* Company portfolio health */}
+      <CompanyHealthCard />
+
       {/* AI briefing — full width on top */}
       <DailyBriefingCard />
 
