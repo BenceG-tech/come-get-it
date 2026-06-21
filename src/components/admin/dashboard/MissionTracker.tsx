@@ -12,7 +12,13 @@ import HelpTip from "@/components/admin/help/HelpTip";
  * 3. Italszponzor pitch fázis
  */
 
-const SEPTEMBER_DEADLINE = new Date(new Date().getFullYear(), 8, 1); // szept 1
+function getSeptemberDeadline() {
+  const now = new Date();
+  const d = new Date(now.getFullYear(), 8, 1);
+  if (d.getTime() < now.getTime()) d.setFullYear(d.getFullYear() + 1);
+  return d;
+}
+const SEPTEMBER_DEADLINE = getSeptemberDeadline();
 const PARTNER_TARGET = 20;
 const WAITLIST_TARGET = 500;
 
