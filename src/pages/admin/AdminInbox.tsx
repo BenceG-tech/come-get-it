@@ -148,9 +148,12 @@ export default function AdminInbox() {
                   <div className="flex gap-1 shrink-0">
                     <Button size="icon" variant="ghost" title="Kész" onClick={() => resolve(it.id)}><Check className="w-4 h-4" /></Button>
                     <Button size="icon" variant="ghost" title="Szundi 1 óra" onClick={() => snooze(it.id, 1)}><Clock className="w-4 h-4" /></Button>
+                    <Button size="sm" variant="ghost" className="text-[10px] h-7 px-2" title="Szundi 1 nap" onClick={() => snooze(it.id, 24)}>1n</Button>
+                    <Button size="sm" variant="ghost" className="text-[10px] h-7 px-2" title="Szundi 7 nap" onClick={() => snooze(it.id, 168)}>7n</Button>
                     <Button size="icon" variant="ghost" title="Eltüntet" onClick={() => dismiss(it.id)}><X className="w-4 h-4" /></Button>
                   </div>
                 )}
+
               </Card>
             );
           })}
