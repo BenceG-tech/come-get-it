@@ -6,8 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, ExternalLink, RefreshCw, Search, Brain, Telescope, Trash2 } from "lucide-react";
+import { Loader2, ExternalLink, RefreshCw, Search, Brain, Telescope, Trash2, PenTool } from "lucide-react";
 import { trackEvent } from "@/lib/track";
+import SourceTimeline from "@/components/admin/SourceTimeline";
+import { useNavigate } from "react-router-dom";
+
 
 interface Signal {
   id: string;
