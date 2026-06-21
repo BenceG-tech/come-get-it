@@ -60,7 +60,7 @@ export default function BriefsManager() {
       target_audience: b.target_audience ?? "",
       cta: b.cta ?? "",
       tone: b.tone ?? "",
-      channel_mix: b.channel_mix ?? [],
+      channel_mix: toChannelArray(b.channel_mix),
       key_points: b.key_points ?? [""],
       status: b.status ?? "draft",
       scheduled_for: b.scheduled_for ?? null,
