@@ -166,21 +166,37 @@ export default function AdminTrends() {
                 </div>
               </div>
               {s.summary && <div className="text-sm text-nf-text-muted">{s.summary}</div>}
-              <div className="flex items-center justify-between gap-2 pt-1">
-                {s.source_url ? (
-                  <a href={s.source_url} target="_blank" rel="noreferrer" className="text-xs text-electric-300 inline-flex items-center gap-1 hover:underline truncate max-w-[60%]">
-                    <ExternalLink className="w-3 h-3" /> {s.source_title ?? s.source_url}
-                  </a>
-                ) : <span className="text-[10px] text-nf-text-muted">AI-only</span>}
-                <span className="text-[10px] text-nf-text-muted">{new Date(s.ingested_at).toLocaleDateString("hu-HU")}</span>
+
+              {/* Source timeline */}
+              {(s.source_url || (s.metadata as any)?.sources?.length) && (
+                <div className="pt-1">
+                  <SourceTimeline
+                    sources={
+                      (s.metadata as any)?.sources?.length
+                        ? (s.metadata as any).sources.map((x: any) => ({ ...x, scraped_at: (s as any).scraped_at }))
+                        : [{ url: s.source_url, title: s.source_title, scraped_at: (s as any).scraped_at }]
+                    }
+                  />
+                </div>
+              )}
+
+              <div className="flex items-center justify-between gap-2 pt-1 text-[10px] text-nf-text-muted">
+                <span>{s.query && <>Query: <span className="text-electric-300/70">{s.query}</span></>}</span>
+                <span>{new Date(s.ingested_at).toLocaleDateString("hu-HU")}</span>
               </div>
-              <div className="flex gap-2 pt-2 border-t border-nf-border">
+
+              <div className="flex gap-2 pt-2 border-t border-nf-border flex-wrap">
+                <Button size="sm" variant="neon" onClick={() => convertToBrief(s)} disabled={converting === s.id}>
+                  {converting === s.id ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <PenTool className="w-3 h-3 mr-1" />}
+                  → Brief
+                </Button>
                 <Button size="sm" variant="outline" onClick={() => saveAsDecision(s)}>Döntésnaplóba</Button>
-                <Button size="sm" variant="ghost" onClick={() => remove(s.id)}><Trash2 className="w-3 h-3" /></Button>
+                <Button size="sm" variant="ghost" className="ml-auto" onClick={() => remove(s.id)}><Trash2 className="w-3 h-3" /></Button>
               </div>
             </CardContent>
           </Card>
         ))}
+
         {!loading && signals.length === 0 && (
           <div className="col-span-full text-center py-12 text-nf-text-muted text-sm">
             Még nincs jel. Nyomj a "Friss keresés"-re.
