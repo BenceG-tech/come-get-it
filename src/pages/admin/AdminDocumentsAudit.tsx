@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Save, AlertTriangle, ChevronDown, ChevronRight } from "lucide-react";
+import { ArrowLeft, Save, AlertTriangle, ChevronDown, ChevronRight, Sparkles, FileDown, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const KEEP_OPTIONS = [
@@ -44,7 +44,8 @@ export default function AdminDocumentsAudit() {
   const [edits, setEdits] = useState<Record<string, any>>({});
   const [savingId, setSavingId] = useState<string | null>(null);
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
-  const [filter, setFilter] = useState<"all" | "unreviewed" | "dup" | "low">("all");
+  const [filter, setFilter] = useState<"all" | "unreviewed" | "dup" | "low" | "nocontent">("all");
+  const [running, setRunning] = useState<null | "backfill" | "audit">(null);
   const { toast } = useToast();
 
   const load = async () => {
@@ -60,6 +61,7 @@ export default function AdminDocumentsAudit() {
       if (filter === "unreviewed") return (d.keep_status ?? "unreviewed") === "unreviewed";
       if (filter === "dup") return d.duplicate_group || detected[d.id];
       if (filter === "low") return d.quality_score != null && d.quality_score < 6;
+      if (filter === "nocontent") return !d.content || String(d.content).trim().length < 20;
       return true;
     });
   }, [docs, filter, detected]);
@@ -94,15 +96,46 @@ export default function AdminDocumentsAudit() {
     reviewed: docs.filter((d) => (d.keep_status ?? "unreviewed") !== "unreviewed").length,
     rated: docs.filter((d) => d.quality_score != null).length,
     dups: Object.values(detected).length + docs.filter((d) => d.duplicate_group).length,
+    nocontent: docs.filter((d) => !d.content || String(d.content).trim().length < 20).length,
+  };
+
+  const runBackfill = async () => {
+    setRunning("backfill");
+    const { data, error } = await supabase.functions.invoke("doc-content-backfill", { body: { limit: 10 } });
+    setRunning(null);
+    if (error) { toast({ title: "Hiba", description: error.message, variant: "destructive" }); return; }
+    const ok = (data?.results ?? []).filter((r: any) => r.length).length;
+    const skipped = (data?.results ?? []).filter((r: any) => r.skipped || r.error).length;
+    toast({ title: "Backfill kész", description: `${ok} kinyert · ${skipped} kihagyva/hibás` });
+    load();
+  };
+
+  const runAudit = async () => {
+    setRunning("audit");
+    const { data, error } = await supabase.functions.invoke("admin-audit-documents", { body: { onlyMissing: true } });
+    setRunning(null);
+    if (error) { toast({ title: "Hiba", description: error.message, variant: "destructive" }); return; }
+    toast({ title: "Audit kész", description: `${data?.count ?? 0} doksi pontozva` });
+    load();
   };
 
   return (
     <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-4">
-      <div className="flex items-center gap-2">
+      <div className="flex items-start gap-2 flex-wrap">
         <Button variant="outline" size="sm" asChild><Link to="/admin/documents"><ArrowLeft className="h-4 w-4" /> Vissza</Link></Button>
         <div className="min-w-0 flex-1">
           <h1 className="text-xl md:text-2xl font-bold">Dokumentum audit</h1>
-          <p className="text-xs text-nf-text-muted">{stats.reviewed}/{stats.total} értékelve · {stats.rated} pontozva · {stats.dups} duplikáció jelölve</p>
+          <p className="text-xs text-nf-text-muted">{stats.reviewed}/{stats.total} értékelve · {stats.rated} pontozva · {stats.dups} duplikáció · {stats.nocontent} tartalom nélkül</p>
+        </div>
+        <div className="flex gap-2">
+          <Button size="sm" variant="outline" onClick={runBackfill} disabled={running !== null}>
+            {running === "backfill" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <FileDown className="h-3.5 w-3.5" />}
+            Tartalom backfill (10)
+          </Button>
+          <Button size="sm" variant="neon" onClick={runAudit} disabled={running !== null}>
+            {running === "audit" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Sparkles className="h-3.5 w-3.5" />}
+            AI audit (50)
+          </Button>
         </div>
       </div>
 
@@ -112,6 +145,7 @@ export default function AdminDocumentsAudit() {
           { v: "unreviewed", l: "Nem értékelt" },
           { v: "dup", l: "Duplikáció gyanú" },
           { v: "low", l: "Pontszám < 6" },
+          { v: "nocontent", l: "Tartalom nélkül" },
         ].map((f) => (
           <Button key={f.v} variant={filter === f.v ? "neon" : "outline"} size="sm" onClick={() => setFilter(f.v as any)}>{f.l}</Button>
         ))}
