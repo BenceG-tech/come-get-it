@@ -4,9 +4,8 @@ import { LogOut, ExternalLink, Menu, X, ChevronDown, Command } from "lucide-reac
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
-import FloatingAIAssistant from "@/components/admin/FloatingAIAssistant";
+import AdminFabCluster from "@/components/admin/AdminFabCluster";
 import CommandPalette from "@/components/admin/CommandPalette";
-import { VoiceCaptureFAB } from "@/components/admin/VoiceCaptureFAB";
 import MobileBottomNav from "@/components/admin/MobileBottomNav";
 import { useKeyboardShortcuts, SHORTCUT_LABELS } from "@/hooks/useKeyboardShortcuts";
 import { NAV_GROUPS } from "@/lib/admin-nav-config";
