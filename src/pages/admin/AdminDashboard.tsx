@@ -144,7 +144,7 @@ export default function AdminDashboard() {
   })();
 
   return (
-    <div className="admin-page space-y-5 px-4 md:px-6 py-4 md:py-6">
+    <div className="admin-page">
       <PageHeader
         title={greeting}
         subtitle={new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
