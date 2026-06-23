@@ -1,7 +1,7 @@
 import {
   LayoutDashboard, Users, FileText, Sparkles, Calendar, ListChecks, Target, Image as ImageIcon,
   MessageSquare, Cloud, Wand2, Palette, Trophy, Send, Inbox, TrendingUp, Brain, Telescope,
-  Database, Beer, MoreHorizontal,
+  Database, MoreHorizontal,
 } from "lucide-react";
 
 export type NavItem = {
@@ -18,49 +18,58 @@ export type NavGroup = {
   hint?: string;
   icon: any;
   items: NavItem[];
-  /** Ha true, alapból csukva van — másodlagos terület. */
   secondary?: boolean;
 };
 
 /**
- * Letisztított IA: 3 főcsoport (Ma · Munka · Tudás) + 1 másodlagos „Több" csoport.
- * Cél: napi 4-5 oldal egy kattintásra, a többi ⌘K-val vagy a "Több" alatt.
+ * Letisztított IA — 4 fő hub + 1 másodlagos "Több" csoport.
+ * MA · PARTNEREK · TARTALOM · TUDÁS — minden hub egy oldal, fülekkel.
  */
 export const NAV_GROUPS: NavGroup[] = [
   {
     key: "today",
     label: "Ma",
-    hint: "Napi fókusz.",
+    hint: "Napi fókusz, inbox, misszió.",
     icon: LayoutDashboard,
     items: [
-      { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true, description: "Napi fókusz + misszió-számláló." },
-      { to: "/admin/mission", label: "Misszió központ", icon: Target, description: "Forecast, trend, blockerek + heti PDF review." },
+      { to: "/admin", label: "Ma — Dashboard", icon: LayoutDashboard, end: true, description: "Napi fókusz + streak + gyors akciók." },
       { to: "/admin/inbox", label: "Inbox", icon: Inbox, description: "Minden, ami rád vár." },
+      { to: "/admin/mission", label: "Misszió központ", icon: Target, description: "Forecast, trend, blockerek." },
     ],
   },
   {
-    key: "work",
-    label: "Munka",
-    hint: "Pipeline, outreach, tartalom.",
-    icon: Target,
+    key: "partners",
+    label: "Partnerek",
+    hint: "Pipeline · outreach · leadek.",
+    icon: Users,
     items: [
       { to: "/admin/partners", label: "Pipeline", icon: Users, description: "Kanban: lead → aláírt." },
       { to: "/admin/outreach", label: "Outreach", icon: Send, description: "Email sequence-ek." },
+      { to: "/admin/leads", label: "Leadek (kutatás)", icon: Target, description: "Kutatás + új helyek." },
+    ],
+  },
+  {
+    key: "content",
+    label: "Tartalom",
+    hint: "Studio · naptár · brand · média.",
+    icon: Wand2,
+    items: [
       { to: "/admin/content", label: "Content Studio", icon: Wand2, description: "1 brief → minden formátum." },
       { to: "/admin/calendar", label: "Naptár", icon: Calendar, description: "Mikor mit posztolj." },
+      { to: "/admin/brand", label: "Brand Memory", icon: Palette, description: "Hangnem · personák · USP-k." },
+      { to: "/admin/media", label: "Média", icon: ImageIcon, description: "Képek + AI elemzés." },
     ],
   },
   {
     key: "knowledge",
     label: "Tudás",
-    hint: "Doksik, brand, AI-segítség.",
+    hint: "Doksik · chat · trendek · AI.",
     icon: Database,
     items: [
       { to: "/admin/documents", label: "Dokumentumok", icon: FileText, description: "Tudásbázis." },
       { to: "/admin/documents/chat", label: "Chat doksikkal", icon: MessageSquare, description: "Kérdezz a doksiktól." },
-      { to: "/admin/brand", label: "Brand Memory", icon: Palette, description: "Pitch-hez használt brand-tudás." },
-      { to: "/admin/ai", label: "AI asszisztens", icon: Sparkles, description: "Általános chat." },
       { to: "/admin/trends", label: "Trend Radar", icon: Telescope, description: "Heti HORECA-jelek." },
+      { to: "/admin/ai", label: "AI asszisztens", icon: Sparkles, description: "Általános chat." },
     ],
   },
   {
@@ -70,21 +79,19 @@ export const NAV_GROUPS: NavGroup[] = [
     icon: MoreHorizontal,
     secondary: true,
     items: [
-      { to: "/admin/leads", label: "Leadek (kutatás)", icon: Target, description: "Kutatás + új helyek." },
       { to: "/admin/simulator", label: "Pipeline szimulátor", icon: TrendingUp, description: "What-if pipeline." },
       { to: "/admin/checklist", label: "Checklist", icon: ListChecks, description: "Heti to-do." },
       { to: "/admin/decisions", label: "Döntésnapló", icon: Brain, description: "Döntések + review." },
       { to: "/admin/retro", label: "Heti retro", icon: Trophy, description: "Mi sikerült / mi nem." },
       { to: "/admin/drive", label: "Google Drive", icon: Cloud, description: "Drive böngésző." },
-      { to: "/admin/media", label: "Média", icon: ImageIcon, description: "Képek + AI elemzés." },
     ],
   },
 ];
 
-/** Mobil bottom nav: 4 legfontosabb + ⌘K (a komponens adja hozzá). */
+/** Mobil bottom nav: 4 hub + ⌘K. */
 export const MOBILE_BOTTOM_NAV = [
   { to: "/admin", label: "Ma", icon: LayoutDashboard, end: true },
-  { to: "/admin/inbox", label: "Inbox", icon: Inbox },
-  { to: "/admin/partners", label: "Pipeline", icon: Target },
+  { to: "/admin/partners", label: "Partnerek", icon: Users },
+  { to: "/admin/content", label: "Tartalom", icon: Wand2 },
   { to: "/admin/documents", label: "Tudás", icon: Database },
 ];

@@ -11,6 +11,7 @@ import { PipelineFunnel } from "@/components/admin/dashboard/PipelineFunnel";
 import { WaitlistGrowth } from "@/components/admin/dashboard/WaitlistGrowth";
 import { TimeTracker } from "@/components/admin/dashboard/TimeTracker";
 import { DailyBriefingCard } from "@/components/admin/dashboard/DailyBriefingCard";
+import { DailyFocusCard } from "@/components/admin/dashboard/DailyFocusCard";
 import { WeeklyGoalsCard } from "@/components/admin/dashboard/WeeklyGoalsCard";
 import { WeeklyContentSprintCard } from "@/components/admin/dashboard/WeeklyContentSprintCard";
 import OutreachHealthCard from "@/components/admin/dashboard/OutreachHealthCard";
@@ -23,6 +24,8 @@ import TrendDigestCard from "@/components/admin/dashboard/TrendDigestCard";
 import CompanyHealthCard from "@/components/admin/dashboard/CompanyHealthCard";
 import MissionTracker from "@/components/admin/dashboard/MissionTracker";
 import TodayTasksCard from "@/components/admin/dashboard/TodayTasksCard";
+import DailyStreakBar from "@/components/admin/dashboard/DailyStreakBar";
+import QuickActionsBar from "@/components/admin/dashboard/QuickActionsBar";
 import PageHeader from "@/components/admin/PageHeader";
 import { cn } from "@/lib/utils";
 
@@ -132,22 +135,34 @@ export default function AdminDashboard() {
     { label: "Dokumentumok", value: stats.docs, icon: FileText, to: "/admin/documents" },
   ];
 
+  const greeting = (() => {
+    const h = new Date().getHours();
+    if (h < 10) return "Jó reggelt, Bence!";
+    if (h < 14) return "Szia Bence!";
+    if (h < 18) return "Hajrá Bence!";
+    return "Jó estét, Bence!";
+  })();
+
   return (
     <div className="admin-page">
       <PageHeader
-        title="Ma"
+        title={greeting}
         subtitle={new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
         helpSlug="dashboard"
       />
 
-      {/* ===== 1. FÓKUSZ MA — mindig nyitva ===== */}
+      {/* ===== STREAK + GYORS AKCIÓK — motivál és gyorsít ===== */}
+      <DailyStreakBar />
+      <QuickActionsBar />
+
+      {/* ===== FÓKUSZ MA — top 3 dolog + mai feladatok + inbox ===== */}
       <section className="space-y-4">
-        <MissionTracker />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <DailyFocusCard />
           <TodayTasksCard />
           <InboxZeroCard />
-          <NorthstarCard />
         </div>
+        <MissionTracker />
       </section>
 
       {/* ===== 2. PIPELINE & WAITLIST — alapból csukva mobilon, nyitva desktopon nincs (mindenkinek csukva, hadd nyissa ki ha kell) ===== */}
@@ -172,6 +187,7 @@ export default function AdminDashboard() {
       {/* ===== 4. TUDÁS & RIPORTOK ===== */}
       <Section id="insights" title="Tudás & riportok" hint="Trendek, doksik, AI-használat, idő, company health">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <NorthstarCard />
           <TrendDigestCard />
           <DocumentDigestCard />
           <AiUsageCard />
