@@ -222,7 +222,8 @@ export default function AdminLeads() {
                   <th className="p-3 hidden md:table-cell">Város</th>
                   <th className="p-3 hidden md:table-cell">Kategória</th>
                   <th className="p-3">Score</th>
-                  <th className="p-3 hidden sm:table-cell">Rating</th>
+                  <th className="p-3">Grade</th>
+                  <th className="p-3 hidden sm:table-cell">Google</th>
                   <th className="p-3">Státusz</th>
                   <th className="p-3 w-20">Művelet</th>
                 </tr>
