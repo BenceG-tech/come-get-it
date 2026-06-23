@@ -1643,6 +1643,9 @@ export type Database = {
           last_researched_at: string | null
           lat: number | null
           latitude: number | null
+          lead_grade: string | null
+          lead_grade_computed_at: string | null
+          lead_grade_source: string | null
           lead_score: number | null
           lng: number | null
           longitude: number | null
@@ -1690,6 +1693,9 @@ export type Database = {
           last_researched_at?: string | null
           lat?: number | null
           latitude?: number | null
+          lead_grade?: string | null
+          lead_grade_computed_at?: string | null
+          lead_grade_source?: string | null
           lead_score?: number | null
           lng?: number | null
           longitude?: number | null
@@ -1737,6 +1743,9 @@ export type Database = {
           last_researched_at?: string | null
           lat?: number | null
           latitude?: number | null
+          lead_grade?: string | null
+          lead_grade_computed_at?: string | null
+          lead_grade_source?: string | null
           lead_score?: number | null
           lng?: number | null
           longitude?: number | null
@@ -2415,6 +2424,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      compute_lead_grade_from_score: {
+        Args: { score: number }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

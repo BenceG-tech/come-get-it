@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Upload, Search, LayoutGrid, List, MapIcon, Sparkles, Telescope, Loader2, Zap } from "lucide-react";
+import { Upload, Search, LayoutGrid, List, MapIcon, Sparkles, Telescope, Loader2, Zap, Bot } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import LeadScoreBadge from "@/components/admin/leads/LeadScoreBadge";
 import BulkActionBar from "@/components/admin/leads/BulkActionBar";
@@ -36,9 +36,24 @@ export default function AdminLeads() {
   const [showApify, setShowApify] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
   const [scoring, setScoring] = useState(false);
+  const [aiGrading, setAiGrading] = useState(false);
   const [drawerId, setDrawerId] = useState<string | null>(null);
   const [researchingId, setResearchingId] = useState<string | null>(null);
   const { toast } = useToast();
+
+  const runAiGradeTop = async () => {
+    setAiGrading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("lead-grade-ai-bulk", { body: { limit: 20 } });
+      if (error) throw error;
+      toast({ title: "AI értékelés kész", description: `${data?.updated ?? 0} lead értékelve` });
+      await load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setAiGrading(false);
+    }
+  };
 
   const runResearch = async (id: string) => {
     setResearchingId(id);
@@ -133,9 +148,13 @@ export default function AdminLeads() {
           <h1 className="text-2xl md:text-3xl font-bold">Vendéglátóhely-leadek</h1>
           <p className="text-sm text-nf-text-muted">{filtered.length} / {partners.length} hely</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Button size="sm" onClick={() => setShowApify(true)} className="bg-electric-300 text-black hover:bg-electric-300/90">
             <Zap className="h-4 w-4" /> <span className="hidden sm:inline">Apify scrape</span>
+          </Button>
+          <Button size="sm" variant="outline" onClick={runAiGradeTop} disabled={aiGrading} title="A top 20 leadet (legmagasabb score) AI-vel A/B/C/D-re értékeli">
+            {aiGrading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Bot className="h-4 w-4" />}
+            <span className="hidden sm:inline">{aiGrading ? "Értékel…" : "AI értékelés (top 20)"}</span>
           </Button>
           <Button variant="outline" size="sm" onClick={() => setShowImport(true)}>
             <Upload className="h-4 w-4" /> <span className="hidden sm:inline">Import</span>
@@ -203,7 +222,8 @@ export default function AdminLeads() {
                   <th className="p-3 hidden md:table-cell">Város</th>
                   <th className="p-3 hidden md:table-cell">Kategória</th>
                   <th className="p-3">Score</th>
-                  <th className="p-3 hidden sm:table-cell">Rating</th>
+                  <th className="p-3">Grade</th>
+                  <th className="p-3 hidden sm:table-cell">Google</th>
                   <th className="p-3">Státusz</th>
                   <th className="p-3 w-20">Művelet</th>
                 </tr>
@@ -220,7 +240,22 @@ export default function AdminLeads() {
                     <td className="p-3 text-nf-text-muted hidden md:table-cell">{p.city || "—"}</td>
                     <td className="p-3 text-nf-text-muted hidden md:table-cell text-xs">{p.category || "—"}</td>
                     <td className="p-3"><LeadScoreBadge score={p.lead_score} /></td>
-                    <td className="p-3 text-nf-text-muted hidden sm:table-cell text-xs">{p.rating ? `⭐ ${p.rating} (${p.rating_count ?? 0})` : "—"}</td>
+                    <td className="p-3">
+                      {p.lead_grade ? (
+                        <span
+                          title={p.lead_grade_source === 'ai' ? 'AI értékelés' : 'Auto (score alapján)'}
+                          className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
+                            p.lead_grade === 'A' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
+                            p.lead_grade === 'B' ? 'bg-electric-300/20 text-electric-300 border border-electric-300/40' :
+                            p.lead_grade === 'C' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' :
+                            'bg-nf-surface-alt text-nf-text-muted border border-nf-border'
+                          }`}
+                        >
+                          {p.lead_grade}{p.lead_grade_source === 'ai' && <sup className="ml-px text-[8px]">✦</sup>}
+                        </span>
+                      ) : <span className="text-nf-text-muted text-xs">—</span>}
+                    </td>
+                    <td className="p-3 text-nf-text-muted hidden sm:table-cell text-xs">{p.google_rating ? `⭐ ${p.google_rating} (${p.google_reviews_count ?? 0})` : "—"}</td>
                     <td className="p-3"><span className="px-2 py-0.5 rounded text-[10px] bg-electric-300/10 text-electric-300">{STATUS_LABEL[p.status]}</span></td>
                     <td className="p-3">
                       <Button size="sm" variant="ghost" disabled={researchingId === p.id} onClick={() => runResearch(p.id)} title="Auto-kutatás">
@@ -230,7 +265,7 @@ export default function AdminLeads() {
                   </tr>
                 ))}
                 {filtered.length === 0 && (
-                  <tr><td colSpan={8} className="p-8 text-center text-nf-text-muted">
+                  <tr><td colSpan={9} className="p-8 text-center text-nf-text-muted">
                     {loading ? "Töltés…" : "Nincs lead. Importálj egyet, vagy adj hozzá manuálisan a Partnerek oldalon."}
                   </td></tr>
                 )}

@@ -325,9 +325,9 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
   return (
     <div className="p-4 md:p-8 pb-40 md:pb-12 max-w-6xl mx-auto space-y-4 md:space-y-6">
       <PageIntro slug={tab === "images" ? "media" : "documents"} />
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0 flex-1">
-          <h1 className="text-2xl md:text-3xl font-bold leading-tight">{tab === "images" ? "Képek" : tab === "videos" ? "Videók" : "Dokumentumok"}</h1>
+      <div className="flex items-start justify-between gap-3 flex-wrap">
+        <div className="min-w-[180px] flex-1">
+          <h1 className="text-2xl md:text-3xl font-bold leading-tight tracking-tight whitespace-nowrap">{tab === "images" ? "Képek" : tab === "videos" ? "Videók" : "Dokumentumok"}</h1>
           <p className="text-sm text-nf-text-muted mt-1">{docs.length} elem · {folderKeys.length} mappa</p>
         </div>
         <div className="flex items-center gap-2 shrink-0">

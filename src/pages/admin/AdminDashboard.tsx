@@ -54,10 +54,10 @@ const ACTION_LABEL: Record<string, string> = {
   delete: "törölte",
 };
 
-/** Collapsible szekció — alapból zárva, állapot localStorage-ban. */
+/** Collapsible szekció — alapból zárva, állapot localStorage-ban. Badge mutatja a tartalmat csukva is. */
 function Section({
-  id, title, hint, defaultOpen = false, children,
-}: { id: string; title: string; hint?: string; defaultOpen?: boolean; children: React.ReactNode }) {
+  id, title, hint, badge, defaultOpen = false, children,
+}: { id: string; title: string; hint?: string; badge?: string | number | null; defaultOpen?: boolean; children: React.ReactNode }) {
   const key = `admin-dash-section:${id}`;
   const [open, setOpen] = useState<boolean>(defaultOpen);
   useEffect(() => {
@@ -71,6 +71,7 @@ function Section({
       return next;
     });
   };
+  const hasBadge = badge != null && badge !== 0 && badge !== "";
   return (
     <section className="space-y-3">
       <button
@@ -80,6 +81,11 @@ function Section({
       >
         <div className="flex items-center gap-2 min-w-0">
           <h2 className="text-sm uppercase tracking-widest font-semibold text-electric-300">{title}</h2>
+          {hasBadge && (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-electric-300/15 text-electric-300 border border-electric-300/30">
+              {badge}
+            </span>
+          )}
           {hint && <span className="text-[11px] text-nf-text-muted hidden sm:inline">— {hint}</span>}
         </div>
         <ChevronDown className={cn("h-4 w-4 text-nf-text-muted shrink-0 transition-transform", !open && "-rotate-90")} />
@@ -168,8 +174,13 @@ export default function AdminDashboard() {
         <MissionTracker />
       </section>
 
-      {/* ===== 2. PIPELINE & WAITLIST — alapból csukva mobilon, nyitva desktopon nincs (mindenkinek csukva, hadd nyissa ki ha kell) ===== */}
-      <Section id="pipeline" title="Pipeline & waitlist" hint="Funnel, növekedés, outreach egészsége">
+      {/* ===== 2. PIPELINE & WAITLIST ===== */}
+      <Section
+        id="pipeline"
+        title="Pipeline & waitlist"
+        hint="Funnel, növekedés, outreach egészsége"
+        badge={stats.leads > 0 ? `${stats.leads} új lead` : null}
+      >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <PipelineFunnel />
           <WaitlistGrowth />
@@ -179,7 +190,12 @@ export default function AdminDashboard() {
       </Section>
 
       {/* ===== 3. HETI MUNKA ===== */}
-      <Section id="weekly" title="Heti munka" hint="Célok, content sprint, döntések">
+      <Section
+        id="weekly"
+        title="Heti munka"
+        hint="Célok, content sprint, döntések"
+        badge={todayChecklist.length > 0 ? `${todayChecklist.length} feladat` : null}
+      >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <WeeklyGoalsCard />
           <WeeklyContentSprintCard />
@@ -188,7 +204,12 @@ export default function AdminDashboard() {
       </Section>
 
       {/* ===== 4. TUDÁS & RIPORTOK ===== */}
-      <Section id="insights" title="Tudás & riportok" hint="Trendek, doksik, AI-használat, idő, company health">
+      <Section
+        id="insights"
+        title="Tudás & riportok"
+        hint="Trendek, doksik, AI-használat, idő, company health"
+        badge={pendingReviews.length > 0 ? `${pendingReviews.length} review` : null}
+      >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <NorthstarCard />
           <TrendDigestCard />
@@ -255,7 +276,7 @@ export default function AdminDashboard() {
       </Section>
 
       {/* ===== 6. LISTÁK ===== */}
-      <Section id="lists" title="Mai listák" hint="Follow-up, checklist, review, képek">
+      <Section id="lists" title="Mai listák" hint="Follow-up, checklist, review, képek" badge={stats.followupsDue > 0 ? `${stats.followupsDue} esedékes` : null}>
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader>
