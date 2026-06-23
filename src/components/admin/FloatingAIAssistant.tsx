@@ -138,7 +138,7 @@ export default function FloatingAIAssistant({ hideLauncher = false }: { hideLaun
   return (
     <>
       {/* Floating launcher */}
-      {!isOpen && (
+      {!hideLauncher && !isOpen && (
         <button
           onClick={open}
           aria-label="AI asszisztens megnyitása"
