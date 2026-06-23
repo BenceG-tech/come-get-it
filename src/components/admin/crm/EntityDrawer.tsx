@@ -13,6 +13,8 @@ import { trackEvent } from "@/lib/track";
 import SlaWarningBadge from "./SlaWarningBadge";
 import PartnerHealthRadar from "./PartnerHealthRadar";
 import SourceTimeline from "@/components/admin/SourceTimeline";
+import LeadMockupGenerator from "@/components/admin/leads/LeadMockupGenerator";
+import { Image as ImageIcon } from "lucide-react";
 
 
 interface Props {
