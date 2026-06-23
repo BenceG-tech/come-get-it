@@ -276,7 +276,7 @@ export default function AdminDashboard() {
       </Section>
 
       {/* ===== 6. LISTÁK ===== */}
-      <Section id="lists" title="Mai listák" hint="Follow-up, checklist, review, képek">
+      <Section id="lists" title="Mai listák" hint="Follow-up, checklist, review, képek" badge={stats.followupsDue > 0 ? `${stats.followupsDue} esedékes` : null}>
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader>
