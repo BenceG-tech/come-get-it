@@ -179,31 +179,38 @@ export function VoiceCaptureFAB({ renderTrigger }: { renderTrigger?: (p: VoiceCa
   };
   const reset = () => { setNoteId(null); setTranscript(""); setStructured({}); setTitle(""); setBody(""); setIntent("task"); setTextMode(false); };
 
+  const toggleRecording = () => { if (recording) stopRecording(); else startRecording(); };
+  const openText = () => { setTextMode(true); setOpen(true); };
+
   return (
     <>
-      <div className="fixed bottom-20 right-4 z-40 flex flex-col gap-2 items-end">
-        <button
-          onClick={() => { setTextMode(true); setOpen(true); }}
-          className="bg-nf-surface border border-nf-border text-nf-text-muted hover:text-white h-10 w-10 rounded-full flex items-center justify-center shadow-lg"
-          title="Szöveges jegyzet"
-          aria-label="Szöveges jegyzet"
-        >
-          <Type className="h-4 w-4" />
-        </button>
-        <button
-          onClick={recording ? stopRecording : startRecording}
-          disabled={processing}
-          className={`h-14 w-14 rounded-full flex items-center justify-center shadow-xl transition-all ${
-            recording ? "bg-red-500 animate-pulse" : "bg-electric-300 hover:bg-electric-400 text-black"
-          }`}
-          title={recording ? "Felvétel leállítása" : "Hangjegyzet rögzítése"}
-          aria-label="Hangjegyzet"
-        >
-          {processing ? <Loader2 className="h-6 w-6 animate-spin text-black" /> :
-           recording ? <Square className="h-5 w-5 text-white" /> :
-           <Mic className="h-6 w-6" />}
-        </button>
-      </div>
+      {renderTrigger ? (
+        renderTrigger({ recording, processing, toggleRecording, openText })
+      ) : (
+        <div className="fixed bottom-20 right-4 z-40 flex flex-col gap-2 items-end">
+          <button
+            onClick={openText}
+            className="bg-nf-surface border border-nf-border text-nf-text-muted hover:text-white h-10 w-10 rounded-full flex items-center justify-center shadow-lg"
+            title="Szöveges jegyzet"
+            aria-label="Szöveges jegyzet"
+          >
+            <Type className="h-4 w-4" />
+          </button>
+          <button
+            onClick={toggleRecording}
+            disabled={processing}
+            className={`h-14 w-14 rounded-full flex items-center justify-center shadow-xl transition-all ${
+              recording ? "bg-red-500 animate-pulse" : "bg-electric-300 hover:bg-electric-400 text-black"
+            }`}
+            title={recording ? "Felvétel leállítása" : "Hangjegyzet rögzítése"}
+            aria-label="Hangjegyzet"
+          >
+            {processing ? <Loader2 className="h-6 w-6 animate-spin text-black" /> :
+             recording ? <Square className="h-5 w-5 text-white" /> :
+             <Mic className="h-6 w-6" />}
+          </button>
+        </div>
+      )}
 
       <Dialog open={open} onOpenChange={(o) => { if (!o) { setOpen(false); reset(); } }}>
         <DialogContent className="max-w-lg">
