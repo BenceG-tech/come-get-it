@@ -121,11 +121,21 @@ export default function AdminDocumentsAudit() {
 
   return (
     <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-4">
-      <div className="flex items-center gap-2">
+      <div className="flex items-start gap-2 flex-wrap">
         <Button variant="outline" size="sm" asChild><Link to="/admin/documents"><ArrowLeft className="h-4 w-4" /> Vissza</Link></Button>
         <div className="min-w-0 flex-1">
           <h1 className="text-xl md:text-2xl font-bold">Dokumentum audit</h1>
-          <p className="text-xs text-nf-text-muted">{stats.reviewed}/{stats.total} értékelve · {stats.rated} pontozva · {stats.dups} duplikáció jelölve</p>
+          <p className="text-xs text-nf-text-muted">{stats.reviewed}/{stats.total} értékelve · {stats.rated} pontozva · {stats.dups} duplikáció · {stats.nocontent} tartalom nélkül</p>
+        </div>
+        <div className="flex gap-2">
+          <Button size="sm" variant="outline" onClick={runBackfill} disabled={running !== null}>
+            {running === "backfill" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <FileDown className="h-3.5 w-3.5" />}
+            Tartalom backfill (10)
+          </Button>
+          <Button size="sm" variant="neon" onClick={runAudit} disabled={running !== null}>
+            {running === "audit" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Sparkles className="h-3.5 w-3.5" />}
+            AI audit (50)
+          </Button>
         </div>
       </div>
 
@@ -135,6 +145,7 @@ export default function AdminDocumentsAudit() {
           { v: "unreviewed", l: "Nem értékelt" },
           { v: "dup", l: "Duplikáció gyanú" },
           { v: "low", l: "Pontszám < 6" },
+          { v: "nocontent", l: "Tartalom nélkül" },
         ].map((f) => (
           <Button key={f.v} variant={filter === f.v ? "neon" : "outline"} size="sm" onClick={() => setFilter(f.v as any)}>{f.l}</Button>
         ))}
