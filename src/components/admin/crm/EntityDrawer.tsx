@@ -382,6 +382,13 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
           </Tabs>
         )}
       </SheetContent>
+      <LeadOutreachModal
+        partnerId={entityId}
+        partnerName={entity?.company_name}
+        open={outreachOpen}
+        onOpenChange={setOutreachOpen}
+        onDone={reload}
+      />
     </Sheet>
   );
 }
