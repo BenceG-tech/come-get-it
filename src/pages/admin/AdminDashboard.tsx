@@ -11,6 +11,7 @@ import { PipelineFunnel } from "@/components/admin/dashboard/PipelineFunnel";
 import { WaitlistGrowth } from "@/components/admin/dashboard/WaitlistGrowth";
 import { TimeTracker } from "@/components/admin/dashboard/TimeTracker";
 import { DailyBriefingCard } from "@/components/admin/dashboard/DailyBriefingCard";
+import { DailyFocusCard } from "@/components/admin/dashboard/DailyFocusCard";
 import { WeeklyGoalsCard } from "@/components/admin/dashboard/WeeklyGoalsCard";
 import { WeeklyContentSprintCard } from "@/components/admin/dashboard/WeeklyContentSprintCard";
 import OutreachHealthCard from "@/components/admin/dashboard/OutreachHealthCard";
@@ -23,6 +24,8 @@ import TrendDigestCard from "@/components/admin/dashboard/TrendDigestCard";
 import CompanyHealthCard from "@/components/admin/dashboard/CompanyHealthCard";
 import MissionTracker from "@/components/admin/dashboard/MissionTracker";
 import TodayTasksCard from "@/components/admin/dashboard/TodayTasksCard";
+import DailyStreakBar from "@/components/admin/dashboard/DailyStreakBar";
+import QuickActionsBar from "@/components/admin/dashboard/QuickActionsBar";
 import PageHeader from "@/components/admin/PageHeader";
 import { cn } from "@/lib/utils";
 
