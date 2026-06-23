@@ -144,9 +144,8 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
         <main className="flex-1 min-w-0 overflow-auto pb-32 md:pb-0">{children}</main>
 
         <MobileBottomNav />
-        <FloatingAIAssistant />
+        <AdminFabCluster />
         <CommandPalette />
-        <VoiceCaptureFAB />
       </div>
     </AIAssistantProvider>
   );
