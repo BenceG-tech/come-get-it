@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Upload, Search, LayoutGrid, List, MapIcon, Sparkles, Telescope, Loader2 } from "lucide-react";
+import { Upload, Search, LayoutGrid, List, MapIcon, Sparkles, Telescope, Loader2, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import LeadScoreBadge from "@/components/admin/leads/LeadScoreBadge";
 import BulkActionBar from "@/components/admin/leads/BulkActionBar";
@@ -14,6 +14,7 @@ import LeadsKanban from "@/components/admin/leads/LeadsKanban";
 import LeadsMap from "@/components/admin/leads/LeadsMap";
 import EntityDrawer from "@/components/admin/crm/EntityDrawer";
 import PageIntro from "@/components/admin/help/PageIntro";
+import ApifyScrapeModal from "@/components/admin/leads/ApifyScrapeModal";
 import { trackEvent } from "@/lib/track";
 
 const STATUS_LABEL: Record<string, string> = {
