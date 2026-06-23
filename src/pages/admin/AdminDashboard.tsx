@@ -26,6 +26,7 @@ import MissionTracker from "@/components/admin/dashboard/MissionTracker";
 import TodayTasksCard from "@/components/admin/dashboard/TodayTasksCard";
 import DailyStreakBar from "@/components/admin/dashboard/DailyStreakBar";
 import QuickActionsBar from "@/components/admin/dashboard/QuickActionsBar";
+import EveningSummaryCard from "@/components/admin/dashboard/EveningSummaryCard";
 import PageHeader from "@/components/admin/PageHeader";
 import { cn } from "@/lib/utils";
 
@@ -154,6 +155,8 @@ export default function AdminDashboard() {
       {/* ===== STREAK + GYORS AKCIÓK — motivál és gyorsít ===== */}
       <DailyStreakBar />
       <QuickActionsBar />
+      <EveningSummaryCard />
+
 
       {/* ===== FÓKUSZ MA — top 3 dolog + mai feladatok + inbox ===== */}
       <section className="space-y-4">

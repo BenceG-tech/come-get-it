@@ -5,51 +5,76 @@ import { cn } from "@/lib/utils";
 
 /**
  * Streak + heti cél sáv. Motiváló, mindig fent.
- * - Streak: hány egymás utáni napon volt legalább egy 'posted' bejegyzés a marketing_calendar-ban.
- * - Heti poszt: ezen a héten (hétfő-vasárnap) hány 'posted' bejegyzés van — cél: 7.
+ * Adatforrás: public.user_streaks (per-user). Fallback: marketing_calendar 'posted'.
+ * Ha még nincs user_streaks rekord, számol és insertel egyet.
  */
 export default function DailyStreakBar() {
   const [streak, setStreak] = useState(0);
   const [weekly, setWeekly] = useState({ done: 0, target: 7 });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      // Az utolsó 30 nap posztjai
-      const since = new Date();
-      since.setDate(since.getDate() - 30);
-      const { data } = await supabase
-        .from("marketing_calendar")
-        .select("scheduled_date, status")
-        .gte("scheduled_date", since.toISOString().slice(0, 10))
-        .eq("status", "posted");
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
 
-      const days = new Set((data ?? []).map((r: any) => r.scheduled_date));
+        // 1) próbáljuk user_streaks-ből
+        const { data: row } = await supabase
+          .from("user_streaks")
+          .select("current_streak, weekly_goal, weekly_progress, week_start, last_action_date")
+          .eq("user_id", user.id)
+          .maybeSingle();
 
-      // streak: visszafelé számolva a maitól
-      let s = 0;
-      const d = new Date();
-      d.setHours(0, 0, 0, 0);
-      for (let i = 0; i < 30; i++) {
-        const key = d.toISOString().slice(0, 10);
-        if (days.has(key)) s++;
-        else if (i > 0) break; // ma még lehet 0, ne törje meg
-        d.setDate(d.getDate() - 1);
+        // 2) ha nincs vagy elavult heti adat — számoljuk a marketing_calendar-ból
+        const today = new Date();
+        const dow = (today.getDay() + 6) % 7; // hétfő = 0
+        const monday = new Date(today);
+        monday.setDate(today.getDate() - dow);
+        monday.setHours(0, 0, 0, 0);
+        const mondayKey = monday.toISOString().slice(0, 10);
+
+        const since = new Date();
+        since.setDate(since.getDate() - 30);
+        const { data: cal } = await supabase
+          .from("marketing_calendar")
+          .select("scheduled_date, status")
+          .gte("scheduled_date", since.toISOString().slice(0, 10))
+          .eq("status", "posted");
+        const days = new Set((cal ?? []).map((r: any) => r.scheduled_date));
+
+        let s = 0;
+        const d = new Date();
+        d.setHours(0, 0, 0, 0);
+        for (let i = 0; i < 30; i++) {
+          const key = d.toISOString().slice(0, 10);
+          if (days.has(key)) s++;
+          else if (i > 0) break;
+          d.setDate(d.getDate() - 1);
+        }
+        const weekDone = Array.from(days).filter((k) => k >= mondayKey).length;
+
+        // upsert user_streaks
+        const goal = row?.weekly_goal ?? 7;
+        await supabase.from("user_streaks").upsert({
+          user_id: user.id,
+          current_streak: s,
+          longest_streak: Math.max(s, row?.current_streak ?? 0),
+          last_action_date: s > 0 ? new Date().toISOString().slice(0, 10) : row?.last_action_date ?? null,
+          weekly_goal: goal,
+          weekly_progress: weekDone,
+          week_start: mondayKey,
+        }, { onConflict: "user_id" });
+
+        setStreak(s);
+        setWeekly({ done: weekDone, target: goal });
+      } finally {
+        setLoading(false);
       }
-      setStreak(s);
-
-      // ezen a héten (hétfő-vasárnap)
-      const today = new Date();
-      const dow = (today.getDay() + 6) % 7; // hétfő = 0
-      const monday = new Date(today);
-      monday.setDate(today.getDate() - dow);
-      monday.setHours(0, 0, 0, 0);
-      const mondayKey = monday.toISOString().slice(0, 10);
-      const done = Array.from(days).filter((k) => k >= mondayKey).length;
-      setWeekly({ done, target: 7 });
     })();
   }, []);
 
-  const weekPct = Math.min(100, Math.round((weekly.done / weekly.target) * 100));
+  const weekPct = Math.min(100, Math.round((weekly.done / Math.max(weekly.target, 1)) * 100));
 
   return (
     <div className="rounded-xl border border-electric-300/30 bg-gradient-to-r from-electric-300/5 to-transparent p-4 flex flex-wrap items-center gap-4">
@@ -58,7 +83,7 @@ export default function DailyStreakBar() {
           <Flame className="h-5 w-5" />
         </div>
         <div>
-          <div className="text-lg font-bold leading-none">{streak} {streak === 1 ? "nap" : "nap"}</div>
+          <div className="text-lg font-bold leading-none">{streak} nap</div>
           <div className="text-[10px] text-nf-text-muted uppercase tracking-wider mt-0.5">Streak</div>
         </div>
       </div>
@@ -77,7 +102,7 @@ export default function DailyStreakBar() {
         </div>
       </div>
 
-      {streak === 0 && (
+      {!loading && streak === 0 && (
         <div className="text-xs text-nf-text-muted flex items-center gap-1.5">
           <TrendingUp className="h-3.5 w-3.5" />
           <span>Kezdj egy streaket — posztolj ma!</span>

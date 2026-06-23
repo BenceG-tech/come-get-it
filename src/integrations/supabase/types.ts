@@ -2062,6 +2062,42 @@ export type Database = {
         }
         Relationships: []
       }
+      user_streaks: {
+        Row: {
+          created_at: string
+          current_streak: number
+          last_action_date: string | null
+          longest_streak: number
+          updated_at: string
+          user_id: string
+          week_start: string | null
+          weekly_goal: number
+          weekly_progress: number
+        }
+        Insert: {
+          created_at?: string
+          current_streak?: number
+          last_action_date?: string | null
+          longest_streak?: number
+          updated_at?: string
+          user_id: string
+          week_start?: string | null
+          weekly_goal?: number
+          weekly_progress?: number
+        }
+        Update: {
+          created_at?: string
+          current_streak?: number
+          last_action_date?: string | null
+          longest_streak?: number
+          updated_at?: string
+          user_id?: string
+          week_start?: string | null
+          weekly_goal?: number
+          weekly_progress?: number
+        }
+        Relationships: []
+      }
       venue_applications: {
         Row: {
           address_city: string | null
