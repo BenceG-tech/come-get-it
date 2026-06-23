@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Play, Pause, Trash2, Sparkles, Mail, ListTodo, Clock } from "lucide-react";
+import OutreachAnalytics from "@/components/admin/outreach/OutreachAnalytics";
 import { toast } from "@/hooks/use-toast";
 import { trackEvent } from "@/lib/track";
 
@@ -61,20 +62,8 @@ export default function AdminOutreach() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <Card className="p-4 bg-nf-surface border-nf-border">
-          <div className="text-xs uppercase text-nf-text-muted">7 napos kiküldés</div>
-          <div className="text-3xl font-bold text-electric-300">{stats.sent}</div>
-        </Card>
-        <Card className="p-4 bg-nf-surface border-nf-border">
-          <div className="text-xs uppercase text-nf-text-muted">Megnyitás</div>
-          <div className="text-3xl font-bold text-blue-400">{stats.opened}</div>
-        </Card>
-        <Card className="p-4 bg-nf-surface border-nf-border">
-          <div className="text-xs uppercase text-nf-text-muted">Válasz</div>
-          <div className="text-3xl font-bold text-emerald-400">{stats.replied}</div>
-        </Card>
-      </div>
+      <OutreachAnalytics />
+
 
       <div>
         <h2 className="text-lg font-semibold text-white mb-3">Szekvenciák</h2>
