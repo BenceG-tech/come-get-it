@@ -33,6 +33,7 @@ export default function AdminLeads() {
   const [filterScore, setFilterScore] = useState("all");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [showImport, setShowImport] = useState(false);
+  const [showApify, setShowApify] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
   const [scoring, setScoring] = useState(false);
   const [drawerId, setDrawerId] = useState<string | null>(null);
