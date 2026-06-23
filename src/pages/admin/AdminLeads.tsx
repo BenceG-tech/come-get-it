@@ -254,6 +254,7 @@ export default function AdminLeads() {
       />
 
       {showImport && <ImportWizard onClose={() => setShowImport(false)} onDone={load} />}
+      {showApify && <ApifyScrapeModal onClose={() => setShowApify(false)} onDone={load} />}
       {showEmail && <EmailComposer partnerIds={[...selected]} onClose={() => setShowEmail(false)} onDone={() => { setShowEmail(false); setSelected(new Set()); load(); }} />}
       <EntityDrawer entityType="lead" entityId={drawerId} open={!!drawerId} onOpenChange={(o) => !o && setDrawerId(null)} />
     </div>
