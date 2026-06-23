@@ -61,6 +61,7 @@ export default function AdminDocumentsAudit() {
       if (filter === "unreviewed") return (d.keep_status ?? "unreviewed") === "unreviewed";
       if (filter === "dup") return d.duplicate_group || detected[d.id];
       if (filter === "low") return d.quality_score != null && d.quality_score < 6;
+      if (filter === "nocontent") return !d.content || String(d.content).trim().length < 20;
       return true;
     });
   }, [docs, filter, detected]);
