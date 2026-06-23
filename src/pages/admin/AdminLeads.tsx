@@ -265,7 +265,7 @@ export default function AdminLeads() {
                   </tr>
                 ))}
                 {filtered.length === 0 && (
-                  <tr><td colSpan={8} className="p-8 text-center text-nf-text-muted">
+                  <tr><td colSpan={9} className="p-8 text-center text-nf-text-muted">
                     {loading ? "Töltés…" : "Nincs lead. Importálj egyet, vagy adj hozzá manuálisan a Partnerek oldalon."}
                   </td></tr>
                 )}
