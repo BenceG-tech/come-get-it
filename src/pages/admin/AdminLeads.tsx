@@ -38,6 +38,8 @@ export default function AdminLeads() {
   const [showImport, setShowImport] = useState(false);
   const [showApify, setShowApify] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
+  const [showOutreach, setShowOutreach] = useState(false);
+  const [showTag, setShowTag] = useState(false);
   const [scoring, setScoring] = useState(false);
   const [aiGrading, setAiGrading] = useState(false);
   const [drawerId, setDrawerId] = useState<string | null>(null);
@@ -288,12 +290,32 @@ export default function AdminLeads() {
         onEmail={() => setShowEmail(true)}
         onStatus={bulkStatus}
         onDelete={bulkDelete}
+        onTag={() => setShowTag(true)}
+        onOutreach={() => setShowOutreach(true)}
+        onExportCsv={() => {
+          const rows = partners.filter((p) => selected.has(p.id));
+          exportRowsAsCsv(rows, [
+            { key: "company_name", label: "Cég" },
+            { key: "city", label: "Város" },
+            { key: "category", label: "Kategória" },
+            { key: "contact_name", label: "Kapcsolat" },
+            { key: "email", label: "Email" },
+            { key: "phone", label: "Telefon" },
+            { key: "instagram", label: "Instagram" },
+            { key: "status", label: "Státusz" },
+            { key: "lead_score", label: "Score" },
+            { key: "lead_grade", label: "Grade" },
+            { key: "google_rating", label: "Google rating" },
+          ], `leadek-${new Date().toISOString().slice(0,10)}.csv`);
+        }}
         loading={scoring}
       />
 
       {showImport && <ImportWizard onClose={() => setShowImport(false)} onDone={load} />}
       {showApify && <ApifyScrapeModal onClose={() => setShowApify(false)} onDone={load} />}
       {showEmail && <EmailComposer partnerIds={[...selected]} onClose={() => setShowEmail(false)} onDone={() => { setShowEmail(false); setSelected(new Set()); load(); }} />}
+      <BulkOutreachModal partnerIds={[...selected]} open={showOutreach} onOpenChange={setShowOutreach} onDone={() => { setSelected(new Set()); load(); }} />
+      <BulkTagModal partnerIds={[...selected]} open={showTag} onOpenChange={setShowTag} onDone={() => { setSelected(new Set()); load(); }} />
       <EntityDrawer entityType="lead" entityId={drawerId} open={!!drawerId} onOpenChange={(o) => !o && setDrawerId(null)} />
     </div>
   );
