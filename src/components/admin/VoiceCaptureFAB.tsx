@@ -12,7 +12,14 @@ import { trackEvent } from "@/lib/track";
 
 type Structured = { intent?: string; title?: string; body?: string; tags?: string[] };
 
-export function VoiceCaptureFAB() {
+export type VoiceCaptureTriggerProps = {
+  recording: boolean;
+  processing: boolean;
+  toggleRecording: () => void;
+  openText: () => void;
+};
+
+export function VoiceCaptureFAB({ renderTrigger }: { renderTrigger?: (p: VoiceCaptureTriggerProps) => React.ReactNode } = {}) {
   const { user } = useAuth();
   const [recording, setRecording] = useState(false);
   const [processing, setProcessing] = useState(false);
