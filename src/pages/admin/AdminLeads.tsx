@@ -240,7 +240,22 @@ export default function AdminLeads() {
                     <td className="p-3 text-nf-text-muted hidden md:table-cell">{p.city || "—"}</td>
                     <td className="p-3 text-nf-text-muted hidden md:table-cell text-xs">{p.category || "—"}</td>
                     <td className="p-3"><LeadScoreBadge score={p.lead_score} /></td>
-                    <td className="p-3 text-nf-text-muted hidden sm:table-cell text-xs">{p.rating ? `⭐ ${p.rating} (${p.rating_count ?? 0})` : "—"}</td>
+                    <td className="p-3">
+                      {p.lead_grade ? (
+                        <span
+                          title={p.lead_grade_source === 'ai' ? 'AI értékelés' : 'Auto (score alapján)'}
+                          className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
+                            p.lead_grade === 'A' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
+                            p.lead_grade === 'B' ? 'bg-electric-300/20 text-electric-300 border border-electric-300/40' :
+                            p.lead_grade === 'C' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' :
+                            'bg-nf-surface-alt text-nf-text-muted border border-nf-border'
+                          }`}
+                        >
+                          {p.lead_grade}{p.lead_grade_source === 'ai' && <sup className="ml-px text-[8px]">✦</sup>}
+                        </span>
+                      ) : <span className="text-nf-text-muted text-xs">—</span>}
+                    </td>
+                    <td className="p-3 text-nf-text-muted hidden sm:table-cell text-xs">{p.google_rating ? `⭐ ${p.google_rating} (${p.google_reviews_count ?? 0})` : "—"}</td>
                     <td className="p-3"><span className="px-2 py-0.5 rounded text-[10px] bg-electric-300/10 text-electric-300">{STATUS_LABEL[p.status]}</span></td>
                     <td className="p-3">
                       <Button size="sm" variant="ghost" disabled={researchingId === p.id} onClick={() => runResearch(p.id)} title="Auto-kutatás">
