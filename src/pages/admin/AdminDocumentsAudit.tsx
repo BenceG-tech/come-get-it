@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Save, AlertTriangle, ChevronDown, ChevronRight } from "lucide-react";
+import { ArrowLeft, Save, AlertTriangle, ChevronDown, ChevronRight, Sparkles, FileDown, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const KEEP_OPTIONS = [
