@@ -134,6 +134,9 @@ export default function AdminLeads() {
           <p className="text-sm text-nf-text-muted">{filtered.length} / {partners.length} hely</p>
         </div>
         <div className="flex gap-2">
+          <Button size="sm" onClick={() => setShowApify(true)} className="bg-electric-300 text-black hover:bg-electric-300/90">
+            <Zap className="h-4 w-4" /> <span className="hidden sm:inline">Apify scrape</span>
+          </Button>
           <Button variant="outline" size="sm" onClick={() => setShowImport(true)}>
             <Upload className="h-4 w-4" /> <span className="hidden sm:inline">Import</span>
           </Button>
