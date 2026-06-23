@@ -211,12 +211,13 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
         {loading && <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-electric-300" /></div>}
         {!loading && entity && (
           <Tabs defaultValue="overview" className="mt-4">
-            <TabsList className="grid grid-cols-6 w-full">
+            <TabsList className="grid grid-cols-7 w-full">
               <TabsTrigger value="overview">Áttekintés</TabsTrigger>
               <TabsTrigger value="timeline"><Clock className="h-3 w-3" /></TabsTrigger>
               <TabsTrigger value="tasks"><ListChecks className="h-3 w-3" /></TabsTrigger>
               <TabsTrigger value="seq"><Send className="h-3 w-3" /></TabsTrigger>
               <TabsTrigger value="docs"><FileText className="h-3 w-3" /></TabsTrigger>
+              <TabsTrigger value="mockup"><ImageIcon className="h-3 w-3" /></TabsTrigger>
               <TabsTrigger value="ai"><Sparkles className="h-3 w-3" /></TabsTrigger>
             </TabsList>
 
