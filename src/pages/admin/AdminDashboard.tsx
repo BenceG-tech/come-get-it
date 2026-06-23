@@ -54,10 +54,10 @@ const ACTION_LABEL: Record<string, string> = {
   delete: "törölte",
 };
 
-/** Collapsible szekció — alapból zárva, állapot localStorage-ban. */
+/** Collapsible szekció — alapból zárva, állapot localStorage-ban. Badge mutatja a tartalmat csukva is. */
 function Section({
-  id, title, hint, defaultOpen = false, children,
-}: { id: string; title: string; hint?: string; defaultOpen?: boolean; children: React.ReactNode }) {
+  id, title, hint, badge, defaultOpen = false, children,
+}: { id: string; title: string; hint?: string; badge?: string | number | null; defaultOpen?: boolean; children: React.ReactNode }) {
   const key = `admin-dash-section:${id}`;
   const [open, setOpen] = useState<boolean>(defaultOpen);
   useEffect(() => {
@@ -71,6 +71,7 @@ function Section({
       return next;
     });
   };
+  const hasBadge = badge != null && badge !== 0 && badge !== "";
   return (
     <section className="space-y-3">
       <button
@@ -80,6 +81,11 @@ function Section({
       >
         <div className="flex items-center gap-2 min-w-0">
           <h2 className="text-sm uppercase tracking-widest font-semibold text-electric-300">{title}</h2>
+          {hasBadge && (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-electric-300/15 text-electric-300 border border-electric-300/30">
+              {badge}
+            </span>
+          )}
           {hint && <span className="text-[11px] text-nf-text-muted hidden sm:inline">— {hint}</span>}
         </div>
         <ChevronDown className={cn("h-4 w-4 text-nf-text-muted shrink-0 transition-transform", !open && "-rotate-90")} />
