@@ -7,6 +7,15 @@ import { ArrowLeft, Download, Copy, ExternalLink, FileText, Sparkles, ClipboardC
 import { useToast } from "@/hooks/use-toast";
 import ContentConverterDialog from "@/components/admin/documents/ContentConverterDialog";
 import DocumentReviewDialog from "@/components/admin/documents/DocumentReviewDialog";
+import PdfCanvasPreview from "@/components/admin/documents/PdfCanvasPreview";
+
+const needsCanvasPdf = () => {
+  if (typeof window === "undefined") return false;
+  const ua = navigator.userAgent || "";
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (ua.includes("Mac") && "ontouchend" in document);
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  return isIOS || isMobile;
+};
 
 export default function AdminDocumentViewer() {
   const { id } = useParams();
@@ -135,21 +144,23 @@ export default function AdminDocumentViewer() {
           </Card>
         )}
 
-        {/* PDF preview — use <object> with a real fallback panel inside */}
+        {/* PDF preview — iOS/mobil: canvas-render; desktop: <object> */}
         {signedUrl && isPdf && (
           <Card className="p-3 space-y-3">
             <div className="flex items-center gap-2 text-electric-300 text-sm font-semibold px-1">
               <FileText className="h-4 w-4" /> PDF előnézet
             </div>
-            <object
-              data={`${signedUrl}#toolbar=1&view=FitH`}
-              type="application/pdf"
-              className="w-full h-[70vh] rounded-lg bg-white border border-nf-border"
-            >
-              <div className="p-6 text-center text-sm text-nf-text-muted">
-                A böngésződ nem tudja itt megjeleníteni a PDF-et. Nyisd meg új lapon vagy töltsd le.
-              </div>
-            </object>
+            {needsCanvasPdf() ? (
+              <PdfCanvasPreview url={signedUrl} maxPages={3} />
+            ) : (
+              <object
+                data={`${signedUrl}#toolbar=1&view=FitH`}
+                type="application/pdf"
+                className="w-full h-[70vh] rounded-lg bg-white border border-nf-border"
+              >
+                <PdfCanvasPreview url={signedUrl} maxPages={3} />
+              </object>
+            )}
             <div className="flex flex-wrap gap-2 justify-center">
               <Button variant="outline" size="sm" onClick={() => window.open(signedUrl, "_blank", "noopener,noreferrer")}>
                 <ExternalLink className="h-4 w-4 mr-1" /> Megnyitás új lapon

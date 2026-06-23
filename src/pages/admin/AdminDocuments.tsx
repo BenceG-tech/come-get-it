@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { Plus, Trash2, ExternalLink, Copy, ChevronDown, ChevronRight, Upload, FileText, Image as ImageIcon, Video as VideoIcon, Star, ClipboardList, Sparkles, X, Pencil, MessageSquare } from "lucide-react";
+import { Plus, Trash2, ExternalLink, Copy, ChevronDown, ChevronRight, Upload, FileText, Image as ImageIcon, Video as VideoIcon, Star, ClipboardList, Sparkles, X, Pencil, MessageSquare, MoreHorizontal } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import { useAIAssistant } from "@/contexts/AIAssistantContext";
 import { cn } from "@/lib/utils";
@@ -325,32 +326,71 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
     <div className="p-4 md:p-8 pb-40 md:pb-12 max-w-6xl mx-auto space-y-4 md:space-y-6">
       <PageIntro slug={tab === "images" ? "media" : "documents"} />
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h1 className="text-2xl md:text-3xl font-bold">{tab === "images" ? "Képek" : tab === "videos" ? "Videók" : "Dokumentumok"}</h1>
-          <p className="text-sm text-nf-text-muted">{docs.length} elem · {folderKeys.length} mappa ebben a nézetben</p>
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl md:text-3xl font-bold leading-tight">{tab === "images" ? "Képek" : tab === "videos" ? "Videók" : "Dokumentumok"}</h1>
+          <p className="text-sm text-nf-text-muted mt-1">{docs.length} elem · {folderKeys.length} mappa</p>
         </div>
-        <div className="flex gap-2 shrink-0 flex-wrap">
-          <Button variant="outline" size="sm" asChild>
-            <Link to="/admin/documents/chat"><MessageSquare className="h-4 w-4" /> <span className="hidden sm:inline">Chat a doksikkal</span></Link>
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => setOrgOpen(true)}>
-            <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">AI rendezés</span>
-          </Button>
-          <Button variant="outline" size="sm" onClick={runAudit} disabled={auditing}>
-            <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">{auditing ? "Auditálás…" : "AI audit"}</span>
-          </Button>
-          <Button variant="outline" size="sm" onClick={runAiTagEmbed} disabled={tagging}>
-            <Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">{tagging ? "Cimkézés…" : "AI cimkék + embed"}</span>
-          </Button>
-          <Button variant="outline" size="sm" asChild>
-            <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> <span className="hidden sm:inline">Audit lista</span></Link>
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => setBulkOpen(true)}>
-            <Upload className="h-4 w-4" /> <span className="hidden sm:inline">Tömeges</span>
-          </Button>
-          <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)}>
-            <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Egy fájl</span>
-          </Button>
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Desktop: minden gomb látszik */}
+          <div className="hidden md:flex items-center gap-2 flex-wrap justify-end">
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/admin/documents/chat"><MessageSquare className="h-4 w-4" /> Chat</Link>
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setOrgOpen(true)}>
+              <Sparkles className="h-4 w-4" /> AI rendezés
+            </Button>
+            <Button variant="outline" size="sm" onClick={runAudit} disabled={auditing}>
+              <Sparkles className="h-4 w-4" /> {auditing ? "Auditálás…" : "AI audit"}
+            </Button>
+            <Button variant="outline" size="sm" onClick={runAiTagEmbed} disabled={tagging}>
+              <Sparkles className="h-4 w-4" /> {tagging ? "Cimkézés…" : "AI cimkék"}
+            </Button>
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4" /> Audit lista</Link>
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setBulkOpen(true)}>
+              <Upload className="h-4 w-4" /> Tömeges
+            </Button>
+            <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)}>
+              <Plus className="h-4 w-4" /> Új
+            </Button>
+          </div>
+
+          {/* Mobile: csak Új + overflow menü */}
+          <div className="md:hidden flex items-center gap-2">
+            <Button variant="neon" size="sm" onClick={() => setShowNew(!showNew)} aria-label="Új doksi">
+              <Plus className="h-4 w-4" />
+            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" aria-label="További műveletek">
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 bg-nf-surface border-nf-border">
+                <DropdownMenuItem asChild>
+                  <Link to="/admin/documents/chat"><MessageSquare className="h-4 w-4 mr-2" /> Chat a doksikkal</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setBulkOpen(true)}>
+                  <Upload className="h-4 w-4 mr-2" /> Tömeges feltöltés
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => setOrgOpen(true)}>
+                  <Sparkles className="h-4 w-4 mr-2" /> AI rendezés
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={runAudit} disabled={auditing}>
+                  <Sparkles className="h-4 w-4 mr-2" /> {auditing ? "Auditálás…" : "AI audit"}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={runAiTagEmbed} disabled={tagging}>
+                  <Sparkles className="h-4 w-4 mr-2" /> {tagging ? "Cimkézés…" : "AI cimkék + embed"}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/admin/documents/audit"><ClipboardList className="h-4 w-4 mr-2" /> Audit lista</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
 
