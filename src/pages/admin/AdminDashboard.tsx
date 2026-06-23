@@ -135,22 +135,34 @@ export default function AdminDashboard() {
     { label: "Dokumentumok", value: stats.docs, icon: FileText, to: "/admin/documents" },
   ];
 
+  const greeting = (() => {
+    const h = new Date().getHours();
+    if (h < 10) return "Jó reggelt, Bence!";
+    if (h < 14) return "Szia Bence!";
+    if (h < 18) return "Hajrá Bence!";
+    return "Jó estét, Bence!";
+  })();
+
   return (
-    <div className="admin-page">
+    <div className="admin-page space-y-5 px-4 md:px-6 py-4 md:py-6">
       <PageHeader
-        title="Ma"
+        title={greeting}
         subtitle={new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
         helpSlug="dashboard"
       />
 
-      {/* ===== 1. FÓKUSZ MA — mindig nyitva ===== */}
+      {/* ===== STREAK + GYORS AKCIÓK — motivál és gyorsít ===== */}
+      <DailyStreakBar />
+      <QuickActionsBar />
+
+      {/* ===== FÓKUSZ MA — top 3 dolog + mai feladatok + inbox ===== */}
       <section className="space-y-4">
-        <MissionTracker />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <DailyFocusCard />
           <TodayTasksCard />
           <InboxZeroCard />
-          <NorthstarCard />
         </div>
+        <MissionTracker />
       </section>
 
       {/* ===== 2. PIPELINE & WAITLIST — alapból csukva mobilon, nyitva desktopon nincs (mindenkinek csukva, hadd nyissa ki ha kell) ===== */}
