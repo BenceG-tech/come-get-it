@@ -187,6 +187,7 @@ export default function AdminDashboard() {
       {/* ===== 4. TUDÁS & RIPORTOK ===== */}
       <Section id="insights" title="Tudás & riportok" hint="Trendek, doksik, AI-használat, idő, company health">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <NorthstarCard />
           <TrendDigestCard />
           <DocumentDigestCard />
           <AiUsageCard />
