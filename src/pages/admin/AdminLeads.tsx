@@ -148,9 +148,13 @@ export default function AdminLeads() {
           <h1 className="text-2xl md:text-3xl font-bold">Vendéglátóhely-leadek</h1>
           <p className="text-sm text-nf-text-muted">{filtered.length} / {partners.length} hely</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Button size="sm" onClick={() => setShowApify(true)} className="bg-electric-300 text-black hover:bg-electric-300/90">
             <Zap className="h-4 w-4" /> <span className="hidden sm:inline">Apify scrape</span>
+          </Button>
+          <Button size="sm" variant="outline" onClick={runAiGradeTop} disabled={aiGrading} title="A top 20 leadet (legmagasabb score) AI-vel A/B/C/D-re értékeli">
+            {aiGrading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Bot className="h-4 w-4" />}
+            <span className="hidden sm:inline">{aiGrading ? "Értékel…" : "AI értékelés (top 20)"}</span>
           </Button>
           <Button variant="outline" size="sm" onClick={() => setShowImport(true)}>
             <Upload className="h-4 w-4" /> <span className="hidden sm:inline">Import</span>
