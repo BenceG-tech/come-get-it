@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { celebrate } from "@/lib/confetti";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +24,7 @@ export default function AdminPartnerDetail() {
   const [documents, setDocuments] = useState<any[]>([]);
   const [newInter, setNewInter] = useState({ channel: "email", direction: "outbound", summary: "", full_content: "" });
   const [sendDocId, setSendDocId] = useState("");
+  const prevStatusRef = useRef<string | null>(null);
 
   const load = async () => {
     const [p, i, d, allDocs] = await Promise.all([
@@ -32,6 +34,7 @@ export default function AdminPartnerDetail() {
       supabase.from("documents").select("id, title, category"),
     ]);
     setPartner(p.data);
+    if (p.data && prevStatusRef.current === null) prevStatusRef.current = p.data.status ?? null;
     setInteractions(i.data ?? []);
     setDocsSent(d.data ?? []);
     setDocuments(allDocs.data ?? []);
@@ -41,8 +44,16 @@ export default function AdminPartnerDetail() {
   const save = async () => {
     const { id: _, created_at, updated_at, created_by, ...rest } = partner;
     const { error } = await supabase.from("partners").update(rest).eq("id", id);
-    if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
-    else toast({ title: "Mentve" });
+    if (error) {
+      toast({ title: "Hiba", description: error.message, variant: "destructive" });
+      return;
+    }
+    toast({ title: "Mentve" });
+    if (partner.status === "signed" && prevStatusRef.current !== "signed") {
+      celebrate("big");
+      toast({ title: "🎉 Új aláírt partner!", description: `${partner.company_name} — hajrá tovább!` });
+    }
+    prevStatusRef.current = partner.status ?? null;
   };
 
   const addInteraction = async () => {
