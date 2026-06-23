@@ -139,14 +139,23 @@ export const CommandPalette = () => {
         )}
         <CommandSeparator />
         <CommandGroup heading="Gyors műveletek">
+          <CommandItem onSelect={() => go("/admin/partners?new=1", "Új partner")}>
+            <Plus className="h-4 w-4 mr-2" /> Új partner
+          </CommandItem>
           <CommandItem onSelect={() => go("/admin/leads?new=1", "Új lead")}>
             <Plus className="h-4 w-4 mr-2" /> Új lead
           </CommandItem>
+          <CommandItem onSelect={() => go("/admin/content?brief=1", "Gyors brief")}>
+            <Wand2 className="h-4 w-4 mr-2" /> Gyors brief generálás
+          </CommandItem>
+          <CommandItem onSelect={() => go("/admin/outreach?compose=1", "Outreach küldés")}>
+            <Send className="h-4 w-4 mr-2" /> Outreach küldés
+          </CommandItem>
+          <CommandItem onSelect={() => go("/admin/trends?run=1", "Deep research")}>
+            <Telescope className="h-4 w-4 mr-2" /> Deep research futtatás
+          </CommandItem>
           <CommandItem onSelect={() => go("/admin/decisions?new=1", "Új döntés")}>
             <Brain className="h-4 w-4 mr-2" /> Új döntés rögzítése
-          </CommandItem>
-          <CommandItem onSelect={() => go("/admin/trends", "Trend Radar")}>
-            <Telescope className="h-4 w-4 mr-2" /> Trend kutatás indítása
           </CommandItem>
           <CommandItem onSelect={() => go("/admin/documents?upload=1", "Tömeges feltöltés")}>
             <Upload className="h-4 w-4 mr-2" /> Tömeges feltöltés
