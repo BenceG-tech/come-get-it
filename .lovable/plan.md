@@ -1,69 +1,153 @@
-# Fázis C + D — AI tool-ok, chat mentés, motivációs réteg
+# Apify Integráció + Leads Command Center
 
-## Fázis C — AI asszisztens mint központi munkafelület
+## TL;DR — Hogyan működik az Apify
 
-### C1. `admin-ai-chat` edge function bővítése AI SDK tool-okkal
-A jelenlegi `admin-ai-chat` átáll **AI SDK `streamText` + `tool()`** mintára (jelenleg sima chat completions). Új tool-ok:
+**Egy token az egész accountra.** Az Apify-nál egyetlen `APIFY_API_TOKEN` van az egész fiókodra, és **minden actor**-t azzal hívsz (Google Maps Extractor, Instagram Scraper, Website Contacts, stb.). Az actorokat ID alapján különbözteted meg (pl. `compass/crawler-google-places`). Tehát:
+- 1 secret → bármennyi actor → bármennyi run
+- Az AI tudja eldönteni futás közben, melyik actort használja
 
-| Tool | Mit csinál | Backend hatás |
-|---|---|---|
-| `createPartner` | Új partner rekord (név + opcionális város/típus/kapcsolat) | `partners` insert |
-| `createContentBrief` | Új poszt-brief (cím, csatorna, dátum) | `content_briefs` insert |
-| `scheduleCalendarEntry` | Naptár-bejegyzés (dátum/idő/csatorna/cím) | `marketing_calendar` insert |
-| `saveConversationAsDocument` | Az aktuális thread → új doksi a tudásbázisban (cím + AI-summary) | `documents` insert |
-| `searchDocuments` | Szemantikus keresés a meglévő doksikban | `doc-semantic-search` hívás |
-| `createInboxItem` | Saját feladat / emlékeztető berakása az inboxba | `inbox_items` insert |
+## Fázisok
 
-Minden tool **admin user-scope-ban** fut (a meglévő `has_role` check után). `stopWhen: stepCountIs(50)` az agent loop-ban.
+### Fázis 1 — Apify backend csatlakoztatás (alap)
+- Mentjük az `APIFY_API_TOKEN`-t Lovable Cloud secretbe.
+- Edge functions wrapper az Apify REST API köré:
+  - `apify-actors-list` — lekéri a saját actor + saved task listát
+  - `apify-run-start` — actor indítás (input JSON-nal)
+  - `apify-run-status` — run státusz poll-olás
+  - `apify-dataset-fetch` — kész dataset behúzása URL/ID alapján (az átküldött fájlokhoz is ez kell)
+  - `apify-webhook` — publikus endpoint, amit az Apify hív, ha végzett egy run → auto import
+- Új DB táblák: `apify_runs` (követjük melyik run, milyen actor, status, dataset_id, eredmény szám, AI summary) és bővítjük a `lead_import_jobs`-ot.
 
-### C2. Chat panel UI — thread-ek + akciók
-`FloatingAIAssistant.tsx` kibővítése:
-- **Thread lista** balra (mobil: drawer): localStorage-ban tárolt `{ id, title, updatedAt, messages: UIMessage[] }[]` kulcs `cgi.admin.ai.threads.v1`.
-- Új gombok a panel fejlécén: **„Új beszélgetés"**, **„Mentés doksiként"** (= `saveConversationAsDocument` tool meghívása).
-- Tool-call render: minden tool eredmény kap egy kis kártyát (pl. „✓ Partner létrehozva: Kőleves bisztró — [Megnyit]" link).
-- Üzenetek `message.parts` alapján renderelnek (text + tool-invocation + tool-result).
-- Composer textarea fókusz auto-restore (küldés után, thread-váltás után).
+### Fázis 2 — Leads Command Center UI (`/admin/leads` újragondolva)
+A jelenlegi lista helyett egy multi-pane "command center":
 
-### C3. Egységes AI elérés
-- A jelenlegi `marketing-assistant-chat` és `chat-with-documents` továbbra is megmaradnak (külön kontextus), de a **fő FAB chat** (`FloatingAIAssistant`) az új `admin-ai-chat`-et használja tool-okkal.
-
-## Fázis D — Motivációs réteg
-
-### D1. Streak DB tábla
-Új tábla `public.user_streaks`:
+```text
+┌─────────────────────────────────────────────────────────────┐
+│  Top bar: 🔍 Search │ Filter chips │ Bulk actions │ + Új    │
+├──────────────┬──────────────────────────────────┬───────────┤
+│  Bal sáv     │  Lista / Térkép / Kanban toggle  │  Jobb     │
+│  ───────     │  ──────────────────────────────  │  panel    │
+│  Pipeline:   │  [Card]  Hard Rock Cafe          │  ──────   │
+│   • Új (124) │   📍 V. kerület · ⭐4.6 · 2.3k   │  Lead     │
+│   • Kutatva  │   📧 contact@... · 📱 IG @...    │  preview  │
+│   • Kontakt  │   AI score: 87 🔥                │  + AI     │
+│   • Followup │   [⚡Deep research][📧][📱DM]    │  research │
+│   • Won/Lost │                                  │  + Mockup │
+│              │  [Card] ...                      │  preview  │
+│  Saved views │                                  │           │
+│  + Apify     │                                  │  Timeline │
+│  source-ok   │                                  │  történés │
+└──────────────┴──────────────────────────────────┴───────────┘
 ```
-user_id uuid PK, current_streak int, longest_streak int,
-last_action_date date, weekly_goal int default 7,
-weekly_progress int, week_start date, updated_at timestamptz
-```
-RLS: user csak a sajátját látja/írja. GRANT-ek a kontraktusnak megfelelően.
-A `DailyStreakBar` átáll erre (jelenleg `marketing_calendar`-ból számol).
 
-### D2. Confetti + esti összefoglaló
-- `canvas-confetti` (már nincs a stack-ben → `bun add canvas-confetti`) hozzáadása.
-- Trigger pontok: partner státusz → `signed`, új doksi mentés, naptár-bejegyzés posztolva.
-- `EveningSummaryCard.tsx` — 18:00 után jelenik meg a Ma oldalon: napi eredmények + holnap fókusza (a `daily_focus` táblából + `marketing_calendar`).
+Funkciók:
+- **3 nézet kapcsoló**: Lista (sűrű), Térkép (Mapbox/Leaflet — Budapest pin-ek), Kanban (pipeline drag-drop)
+- **AI score** minden leadre (rating × reviews × kategória illeszkedés × van-e IG/email)
+- **Bulk select + bulk action** (mass email kampány indítás, mass status change, tag-elés)
+- **Saved views** (pl. "Budapest rooftop bars, IG-vel, még nem kontaktált")
+- **Right panel lead preview** — kattintásra slide-in, nincs page navigation
 
-### D3. Pozitív üres állapotok
-Globális csere a fő hub-okon („Még nincs adat" → biztató CTA-s változatok, lásd a meglévő `EmptyState` komponensben). 4-5 string érintett.
+### Fázis 3 — AI-vezérelt Apify ("Adat scrape" gomb)
+Egy gomb a leads oldalon: **"➕ Új leadek scrapeléssel"**. Modal-ban:
+
+1. **Természetes nyelvű prompt**: pl. "minden budapesti rooftop bar, ami nyitva van vasárnap"
+2. AI (LLM tool call) eldönti:
+   - melyik actor (default: `compass/crawler-google-places`)
+   - milyen input JSON (search terms, location filter, max results, language=hu)
+3. Megmutatja a tervezett run-t → te jóváhagyod → indul
+4. **Háttérben fut** (webhook-kal vagy 10s pollinggal), toast értesít végeztével
+5. Eredmény: dedup-pal beimportálva → AI gyors score-olás + tag-elés → megjelenik a listában
+
+Saját Apify task-jaidat is listázzuk ("Saved tasks" dropdown).
+
+### Fázis 4 — Deep AI research per lead
+Lead kártyán **"🔬 Deep research"** gomb. Háttérben:
+- Apify Website Content Crawler a hely weboldalán → menü, árak, nyitvatartás, "about us"
+- Instagram scraper (ha van handle) → top posztok, követőszám, engagement
+- AI összegzi → "Research dossier" markdown a lead alá:
+  - Mit kínálnak (signature drinks, ételek)
+  - Célközönség (típusos vendég profil)
+  - Owner/manager név ha publikus
+  - **3 ajánlott personalized hook** az outreach-hez ("említsd meg a Negroni-jukat...")
+  - Best contact channel javaslat
+
+Cache-eli (`partners.research_dossier` jsonb mező), 30 napig nem futtatja újra.
+
+### Fázis 5 — Multi-channel outreach + tracking
+A lead preview panelen 4 tab:
+
+**📧 Email** — AI-generated, edithető, küldés Resend-en (van `send-partner-email`). Tracked: open/click via Resend webhook → outreach timeline.
+
+**📱 Instagram DM** — AI generál 3 verziót (rövid/közepes/casual). Gomb:
+- Másolja vágólapra
+- Megnyitja az IG profilt új tabban
+- Logolja `outreach_events`-be ("dm_sent_manual" típussal) → így mégis trackelve van
+
+**📞 WhatsApp / Telefon** — AI ad call script + WhatsApp template + click-to-call/`wa.me/` link.
+
+**🔄 Followup** — automatikus reminder 3/7/14 nap múlva ha nem válaszolt → inbox_items.
+
+Minden interakció: `partner_interactions` táblába, megjelenik a Timeline-on.
+
+### Fázis 6 — AI-generált personalized vizuál
+Lead kártya: **"🎨 Készíts mockup-ot"**:
+- AI image generation (Gemini image / nano-banana via Lovable AI Gateway)
+- Prompt: "Photorealistic iPhone screenshot of the 'Come Get It' app showing a deal card from **{hely neve}**, with their actual venue photo from Google Maps, neon cyan branding, dark theme, Hungarian text 'Ingyen koktél @ {hely neve}'"
+- 3 variáns egyszerre (feed poszt 1:1, story 9:16, DM preview)
+- Storage-ba menti (`admin-docs` bucket-be `/lead-mockups/{partner_id}/`)
+- Letöltés gomb + "Email-be csatol" / "Másolás DM-hez"
+
+A vizuál vita-érvként jó: a lead látja **saját helyét** az appban → erős hook.
+
+### Fázis 7 — Térkép nézet
+- `react-leaflet` (ingyen, OpenStreetMap tile-ok) — nem kell Mapbox token
+- Budapest középre, pin-ek státusz színekkel (új=cyan, kontakt=sárga, won=zöld, lost=szürke)
+- Pin click → ugyanaz a slide-in right panel
+- Cluster-ezés ha sok lead közel egymáshoz
+
+## Adatmodell-bővítés
+
+**Új táblák:**
+- `apify_runs` (id, user_id, actor_id, run_id, status, input jsonb, dataset_id, items_count, ai_summary, started_at, finished_at)
+- `lead_mockups` (id, partner_id, image_url, prompt, variant, created_at)
+- `outreach_dm_log` (mert IG DM nem küldés, csak "I sent this") — vagy bővítjük az `outreach_events`-et új `channel='instagram_manual'` értékkel
+
+**Bővítések a `partners` táblán:**
+- `ai_score` (int 0–100)
+- `research_dossier` (jsonb)
+- `research_updated_at` (timestamptz)
+- `apify_source_run_id` (uuid → apify_runs)
+- `instagram_handle` (text, ha még nincs)
 
 ## Technikai részletek
 
-- **Edge function változás**: `supabase/functions/admin-ai-chat/index.ts` — AI SDK `streamText` + `toUIMessageStreamResponse`. Tool execute függvények ugyanitt (service role kliens, user-scope a JWT-ből kinyert `user.id`-vel).
-- **Client**: `useChat` (`@ai-sdk/react`) — `DefaultChatTransport` a függvény URL-jére, `Authorization: Bearer <publishable key>`. Thread-id = AI SDK chat `id`.
-- **Új secrets**: nincs (LOVABLE_API_KEY már megvan).
-- **Új npm**: `canvas-confetti`, `@ai-sdk/react`, `ai`, `@ai-sdk/openai-compatible` (utóbbi 3 valószínűleg már fent — telepítéskor ellenőrzöm).
-- **Migráció**: 1 új tábla (`user_streaks`) + GRANT-ek + RLS policy.
+- **Apify REST API**: `https://api.apify.com/v2/acts/{actorId}/runs?token={token}` indításra, `https://api.apify.com/v2/actor-runs/{runId}` státuszra, `https://api.apify.com/v2/datasets/{datasetId}/items?token={token}` adatra. Egy account token mindenhol.
+- **Webhook URL** Apify-ban beállítva a publikus `apify-webhook` edge functionra (HMAC ellenőrzéssel) → automatikus dataset fetch + import.
+- **AI SDK** (`ai` + `@ai-sdk/react` + Lovable AI Gateway) tool calling-gel: `pickActor`, `buildActorInput`, `summarizeDataset`, `scoreLead`, `generateOutreachCopy`, `generateMockupPrompt` toolok. `stopWhen: stepCountIs(50)`.
+- **Image gen**: Lovable AI Gateway image endpoint (gemini-2.5-flash-image preview / nano-banana), 3 párhuzamos call variánsokra.
+- **Térkép**: `react-leaflet` + `leaflet` npm package-ek (kicsi, ingyen).
+- **Bulk actions**: react-query mutation array-jel, optimistic update.
+- **Kanban**: `@dnd-kit/core` (már lehet hogy van, ha nem akkor +1 dep).
+- **Realtime**: Apify run státusz változások → Supabase Realtime channel az `apify_runs` táblára → progress bar live frissül.
 
-## Amit NEM csinálunk most
-- Insta/FB API auto-poszt — csak emlékeztető marad.
-- Tool-okhoz user approval flow (egyszerű tool-ok, írásnál toast-ban visszajelzés elég; később `needsApproval` bővíthető).
-- Régi `admin-ai-chat` hívóhelyek (ha van) — kompat, de a tool-call választ csak az új panel renderel; szöveget mindenki kap.
+## Mit építsünk most (1. iteráció)
 
-## Sorrend (1 körben)
-1. Migráció: `user_streaks` tábla.
-2. Edge function átírás tool-okkal.
-3. `FloatingAIAssistant` thread-lista + tool-render + mentés gomb.
-4. `DailyStreakBar` átállítás új táblára.
-5. Confetti + `EveningSummaryCard` + üres állapot szövegek.
-6. Smoke teszt (build + 1-2 tool meghívás a preview-ban).
+Hogy ne legyen 3 hetes monstre commit, **most ezt** csináljuk és tesztelünk:
+
+1. `APIFY_API_TOKEN` secret beállítás
+2. `apify_runs` + partners bővítés migration
+3. 3 edge function: `apify-actors-list`, `apify-run-start`, `apify-dataset-fetch` (webhook később)
+4. Új `/admin/leads` Command Center UI (lista + jobb panel preview, kanban + map későbbi fázisokba)
+5. "➕ Új scrape" modal AI prompt → Google Maps Extractor indítás → import
+6. "🔬 Deep research" gomb (csak Website Crawler első körben, IG később)
+7. Lead preview panelen: AI email gen + IG DM copy-flow
+8. 1 mockup variáns gen (image gen) — később bővítjük 3-ra
+9. Smoke test budapesti rooftop bar query-vel
+
+A 2. iterációban: webhook, Kanban drag-drop, térkép, IG scraper, bulk kampány.
+
+## Mit NEM csinálunk most
+- Tényleges Instagram DM küldés API-val (Meta nem ad rá engedélyt SMB-knek) — csak "copy & open" workflow
+- Email reply parsing / automatikus AI-választ küldés (manual review marad)
+- Apify billing/usage dashboard (későbbi nice-to-have)
+- Multi-user lead assignment (egyedül használod az admint most)
