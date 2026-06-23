@@ -13,65 +13,85 @@ export default function DailyStreakBar() {
   const [weekly, setWeekly] = useState({ done: 0, target: 7 });
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return;
+  const computeAndUpsert = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
-        // 1) próbáljuk user_streaks-ből
-        const { data: row } = await supabase
-          .from("user_streaks")
-          .select("current_streak, weekly_goal, weekly_progress, week_start, last_action_date")
-          .eq("user_id", user.id)
-          .maybeSingle();
+      const { data: row } = await supabase
+        .from("user_streaks")
+        .select("current_streak, weekly_goal, weekly_progress, week_start, last_action_date")
+        .eq("user_id", user.id)
+        .maybeSingle();
 
-        // 2) ha nincs vagy elavult heti adat — számoljuk a marketing_calendar-ból
-        const today = new Date();
-        const dow = (today.getDay() + 6) % 7; // hétfő = 0
-        const monday = new Date(today);
-        monday.setDate(today.getDate() - dow);
-        monday.setHours(0, 0, 0, 0);
-        const mondayKey = monday.toISOString().slice(0, 10);
+      const today = new Date();
+      const dow = (today.getDay() + 6) % 7;
+      const monday = new Date(today);
+      monday.setDate(today.getDate() - dow);
+      monday.setHours(0, 0, 0, 0);
+      const mondayKey = monday.toISOString().slice(0, 10);
 
-        const since = new Date();
-        since.setDate(since.getDate() - 30);
-        const { data: cal } = await supabase
-          .from("marketing_calendar")
-          .select("scheduled_date, status")
-          .gte("scheduled_date", since.toISOString().slice(0, 10))
-          .eq("status", "posted");
-        const days = new Set((cal ?? []).map((r: any) => r.scheduled_date));
+      const goal = row?.weekly_goal ?? 7;
 
-        let s = 0;
-        const d = new Date();
-        d.setHours(0, 0, 0, 0);
-        for (let i = 0; i < 30; i++) {
-          const key = d.toISOString().slice(0, 10);
-          if (days.has(key)) s++;
-          else if (i > 0) break;
-          d.setDate(d.getDate() - 1);
-        }
-        const weekDone = Array.from(days).filter((k) => k >= mondayKey).length;
-
-        // upsert user_streaks
-        const goal = row?.weekly_goal ?? 7;
-        await supabase.from("user_streaks").upsert({
-          user_id: user.id,
-          current_streak: s,
-          longest_streak: Math.max(s, row?.current_streak ?? 0),
-          last_action_date: s > 0 ? new Date().toISOString().slice(0, 10) : row?.last_action_date ?? null,
-          weekly_goal: goal,
-          weekly_progress: weekDone,
-          week_start: mondayKey,
-        }, { onConflict: "user_id" });
-
-        setStreak(s);
-        setWeekly({ done: weekDone, target: goal });
-      } finally {
+      if (row?.current_streak != null) {
+        setStreak(row.current_streak);
+        setWeekly({ done: row.week_start === mondayKey ? (row.weekly_progress ?? 0) : 0, target: goal });
         setLoading(false);
+        return;
       }
+
+      // Bootstrap from marketing_calendar 'posted'
+      const since = new Date();
+      since.setDate(since.getDate() - 30);
+      const { data: cal } = await supabase
+        .from("marketing_calendar")
+        .select("scheduled_date, status")
+        .gte("scheduled_date", since.toISOString().slice(0, 10))
+        .eq("status", "posted");
+      const days = new Set((cal ?? []).map((r: any) => r.scheduled_date));
+
+      let s = 0;
+      const d = new Date(); d.setHours(0, 0, 0, 0);
+      for (let i = 0; i < 30; i++) {
+        const key = d.toISOString().slice(0, 10);
+        if (days.has(key)) s++;
+        else if (i > 0) break;
+        d.setDate(d.getDate() - 1);
+      }
+      const weekDone = Array.from(days).filter((k) => k >= mondayKey).length;
+
+      await supabase.from("user_streaks").upsert({
+        user_id: user.id,
+        current_streak: s,
+        longest_streak: Math.max(s, row?.current_streak ?? 0),
+        last_action_date: s > 0 ? new Date().toISOString().slice(0, 10) : row?.last_action_date ?? null,
+        weekly_goal: goal,
+        weekly_progress: weekDone,
+        week_start: mondayKey,
+      }, { onConflict: "user_id" });
+
+      setStreak(s);
+      setWeekly({ done: weekDone, target: goal });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    computeAndUpsert();
+    let channel: any;
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      channel = supabase
+        .channel(`user_streaks_${user.id}`)
+        .on("postgres_changes",
+          { event: "*", schema: "public", table: "user_streaks", filter: `user_id=eq.${user.id}` },
+          () => { computeAndUpsert(); })
+        .subscribe();
     })();
+    return () => { if (channel) supabase.removeChannel(channel); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const weekPct = Math.min(100, Math.round((weekly.done / Math.max(weekly.target, 1)) * 100));

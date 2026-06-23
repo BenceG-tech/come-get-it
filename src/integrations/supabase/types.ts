@@ -1192,6 +1192,7 @@ export type Database = {
           hashtags: string | null
           id: string
           image_doc_id: string | null
+          published_at: string | null
           related_document_id: string | null
           saved_snippet_id: string | null
           scheduled_date: string
@@ -1213,6 +1214,7 @@ export type Database = {
           hashtags?: string | null
           id?: string
           image_doc_id?: string | null
+          published_at?: string | null
           related_document_id?: string | null
           saved_snippet_id?: string | null
           scheduled_date: string
@@ -1234,6 +1236,7 @@ export type Database = {
           hashtags?: string | null
           id?: string
           image_doc_id?: string | null
+          published_at?: string | null
           related_document_id?: string | null
           saved_snippet_id?: string | null
           scheduled_date?: string
