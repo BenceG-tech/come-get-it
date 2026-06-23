@@ -352,6 +352,10 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
               ))}
             </TabsContent>
 
+            <TabsContent value="mockup" className="mt-3">
+              {entityId && <LeadMockupGenerator partnerId={entityId} />}
+            </TabsContent>
+
             <TabsContent value="ai" className="mt-3 space-y-2">
               <Button variant="neon" size="sm" onClick={requestAi} disabled={aiLoading}>
                 {aiLoading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3" />} Outreach javaslat
