@@ -174,8 +174,13 @@ export default function AdminDashboard() {
         <MissionTracker />
       </section>
 
-      {/* ===== 2. PIPELINE & WAITLIST — alapból csukva mobilon, nyitva desktopon nincs (mindenkinek csukva, hadd nyissa ki ha kell) ===== */}
-      <Section id="pipeline" title="Pipeline & waitlist" hint="Funnel, növekedés, outreach egészsége">
+      {/* ===== 2. PIPELINE & WAITLIST ===== */}
+      <Section
+        id="pipeline"
+        title="Pipeline & waitlist"
+        hint="Funnel, növekedés, outreach egészsége"
+        badge={stats.leads > 0 ? `${stats.leads} új lead` : null}
+      >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <PipelineFunnel />
           <WaitlistGrowth />
@@ -185,7 +190,12 @@ export default function AdminDashboard() {
       </Section>
 
       {/* ===== 3. HETI MUNKA ===== */}
-      <Section id="weekly" title="Heti munka" hint="Célok, content sprint, döntések">
+      <Section
+        id="weekly"
+        title="Heti munka"
+        hint="Célok, content sprint, döntések"
+        badge={todayChecklist.length > 0 ? `${todayChecklist.length} feladat` : null}
+      >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <WeeklyGoalsCard />
           <WeeklyContentSprintCard />
@@ -194,7 +204,12 @@ export default function AdminDashboard() {
       </Section>
 
       {/* ===== 4. TUDÁS & RIPORTOK ===== */}
-      <Section id="insights" title="Tudás & riportok" hint="Trendek, doksik, AI-használat, idő, company health">
+      <Section
+        id="insights"
+        title="Tudás & riportok"
+        hint="Trendek, doksik, AI-használat, idő, company health"
+        badge={pendingReviews.length > 0 ? `${pendingReviews.length} review` : null}
+      >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <NorthstarCard />
           <TrendDigestCard />
