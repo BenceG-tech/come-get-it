@@ -44,7 +44,8 @@ export default function AdminDocumentsAudit() {
   const [edits, setEdits] = useState<Record<string, any>>({});
   const [savingId, setSavingId] = useState<string | null>(null);
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
-  const [filter, setFilter] = useState<"all" | "unreviewed" | "dup" | "low">("all");
+  const [filter, setFilter] = useState<"all" | "unreviewed" | "dup" | "low" | "nocontent">("all");
+  const [running, setRunning] = useState<null | "backfill" | "audit">(null);
   const { toast } = useToast();
 
   const load = async () => {
