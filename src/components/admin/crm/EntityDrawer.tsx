@@ -14,7 +14,9 @@ import SlaWarningBadge from "./SlaWarningBadge";
 import PartnerHealthRadar from "./PartnerHealthRadar";
 import SourceTimeline from "@/components/admin/SourceTimeline";
 import LeadMockupGenerator from "@/components/admin/leads/LeadMockupGenerator";
-import { Image as ImageIcon } from "lucide-react";
+import LeadOutreachModal from "@/components/admin/leads/LeadOutreachModal";
+import InlineAIHelper from "@/components/admin/ai/InlineAIHelper";
+import { Image as ImageIcon, Send as SendIcon } from "lucide-react";
 
 
 interface Props {
@@ -37,6 +39,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   const [briefLoading, setBriefLoading] = useState(false);
   const [researchLoading, setResearchLoading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [outreachOpen, setOutreachOpen] = useState(false);
   const { toast } = useToast();
   const isMobile = useIsMobile();
 
@@ -193,11 +196,23 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
             <Button size="sm" variant="neon" onClick={generateBrief} disabled={briefLoading}>
               {briefLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Zap className="w-3 h-3 mr-1" />} AI brief
             </Button>
+            <Button size="sm" variant="outline" onClick={() => setOutreachOpen(true)}>
+              <SendIcon className="w-3 h-3 mr-1" /> Outreach indítása
+            </Button>
             <Button size="sm" variant="outline" onClick={runResearch} disabled={researchLoading}>
               {researchLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Telescope className="w-3 h-3 mr-1" />} Kutass utána
             </Button>
             <Button size="sm" variant="outline" onClick={quickTask}><Plus className="w-3 h-3 mr-1" /> Task</Button>
             <Button size="sm" variant="outline" onClick={quickDecision}><Brain className="w-3 h-3 mr-1" /> Döntés</Button>
+            <InlineAIHelper
+              context={{ partner: entity, recent_timeline: timeline.slice(0, 5), research: entity.research_dossier }}
+              surface="partner drawer"
+              suggestions={[
+                "Mit írjak első emailben?",
+                "Milyen kockázat van ezzel a leaddel?",
+                "Mi a legjobb következő lépés?",
+              ]}
+            />
           </div>
         )}
 
