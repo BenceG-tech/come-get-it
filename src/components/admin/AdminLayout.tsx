@@ -148,7 +148,17 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
         )}
 
         {/* pb-32 mobilon hogy a bottom nav + FAB ne takarja az oldalalját */}
-        <main className="flex-1 min-w-0 overflow-auto pb-32 md:pb-0">{children}</main>
+        <main className="flex-1 min-w-0 overflow-auto pb-32 md:pb-8">
+          {(() => {
+            const hub = HUB_FOR_PATH.find((h) => h.match(location.pathname))?.hub;
+            return hub ? (
+              <div className="px-4 md:px-6 pt-3 md:pt-4">
+                <HubTabs hub={hub} />
+              </div>
+            ) : null;
+          })()}
+          {children}
+        </main>
 
         <MobileBottomNav />
         <AdminFabCluster />
