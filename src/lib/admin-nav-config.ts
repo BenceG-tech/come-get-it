@@ -88,10 +88,29 @@ export const NAV_GROUPS: NavGroup[] = [
   },
 ];
 
-/** Mobil bottom nav: 4 hub + ⌘K. */
+/** Mobil bottom nav: 4 fő hub + Több sheet. Az Outreach most külön kerül. */
 export const MOBILE_BOTTOM_NAV = [
   { to: "/admin", label: "Ma", icon: LayoutDashboard, end: true },
-  { to: "/admin/partners", label: "Partnerek", icon: Users },
+  { to: "/admin/leads", label: "Leadek", icon: Target },
+  { to: "/admin/outreach", label: "Outreach", icon: Send },
   { to: "/admin/content", label: "Tartalom", icon: Wand2 },
-  { to: "/admin/documents", label: "Tudás", icon: Database },
+];
+
+/** A "Több" sheet menüpontjai mobilon. */
+export const MOBILE_MORE_ITEMS: NavItem[] = [
+  { to: "/admin/partners", label: "Pipeline", icon: Users },
+  { to: "/admin/documents", label: "Dokumentumok", icon: FileText },
+  { to: "/admin/documents/chat", label: "Chat doksikkal", icon: MessageSquare },
+  { to: "/admin/calendar", label: "Naptár", icon: Calendar },
+  { to: "/admin/brand", label: "Brand", icon: Palette },
+  { to: "/admin/media", label: "Média", icon: ImageIcon },
+  { to: "/admin/trends", label: "Trendek", icon: Telescope },
+  { to: "/admin/ai", label: "AI asszisztens", icon: Sparkles },
+  { to: "/admin/inbox", label: "Inbox", icon: Inbox },
+  { to: "/admin/mission", label: "Misszió", icon: Target },
+  { to: "/admin/decisions", label: "Döntésnapló", icon: Brain },
+  { to: "/admin/retro", label: "Heti retro", icon: Trophy },
+  { to: "/admin/checklist", label: "Checklist", icon: ListChecks },
+  { to: "/admin/simulator", label: "Szimulátor", icon: TrendingUp },
+  { to: "/admin/drive", label: "Google Drive", icon: Cloud },
 ];
