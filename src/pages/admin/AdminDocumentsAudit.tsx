@@ -96,6 +96,27 @@ export default function AdminDocumentsAudit() {
     reviewed: docs.filter((d) => (d.keep_status ?? "unreviewed") !== "unreviewed").length,
     rated: docs.filter((d) => d.quality_score != null).length,
     dups: Object.values(detected).length + docs.filter((d) => d.duplicate_group).length,
+    nocontent: docs.filter((d) => !d.content || String(d.content).trim().length < 20).length,
+  };
+
+  const runBackfill = async () => {
+    setRunning("backfill");
+    const { data, error } = await supabase.functions.invoke("doc-content-backfill", { body: { limit: 10 } });
+    setRunning(null);
+    if (error) { toast({ title: "Hiba", description: error.message, variant: "destructive" }); return; }
+    const ok = (data?.results ?? []).filter((r: any) => r.length).length;
+    const skipped = (data?.results ?? []).filter((r: any) => r.skipped || r.error).length;
+    toast({ title: "Backfill kész", description: `${ok} kinyert · ${skipped} kihagyva/hibás` });
+    load();
+  };
+
+  const runAudit = async () => {
+    setRunning("audit");
+    const { data, error } = await supabase.functions.invoke("admin-audit-documents", { body: { onlyMissing: true } });
+    setRunning(null);
+    if (error) { toast({ title: "Hiba", description: error.message, variant: "destructive" }); return; }
+    toast({ title: "Audit kész", description: `${data?.count ?? 0} doksi pontozva` });
+    load();
   };
 
   return (
