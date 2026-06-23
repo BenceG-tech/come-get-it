@@ -16,7 +16,7 @@ type Msg = { role: "user" | "assistant"; content: string };
 
 const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-ai-chat`;
 
-export default function FloatingAIAssistant() {
+export default function FloatingAIAssistant({ hideLauncher = false }: { hideLauncher?: boolean } = {}) {
   const { isAdmin } = useIsAdmin();
   const { isOpen, open, close, toggle, attachments, removeAttachment, clearAttachments, pendingPrompt, setPendingPrompt } = useAIAssistant();
   const [conversationId, setConversationId] = useState<string | null>(null);
@@ -138,7 +138,7 @@ export default function FloatingAIAssistant() {
   return (
     <>
       {/* Floating launcher */}
-      {!isOpen && (
+      {!hideLauncher && !isOpen && (
         <button
           onClick={open}
           aria-label="AI asszisztens megnyitása"

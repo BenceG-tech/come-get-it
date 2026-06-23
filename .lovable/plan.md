@@ -1,35 +1,50 @@
-## Mit javítok
+# Jobb alsó FAB-ok rendezése (admin)
 
-### 1) `AdminDocuments` mobil header elcsúszás
-A képen látható probléma: a „Dokumentumok" cím mellé 7 akciógomb van pakolva (`Chat`, `AI rendezés`, `AI audit`, `AI cimkék + embed`, `Audit lista`, `Tömeges`, `Egy fájl`). Mobilon ezek ikonra esnek vissza (`sm:inline` elrejti a szöveget), wrap-elnek, és a cím-oszlop annyira összemegy, hogy a felirat („51 elem · 11 mappa…") szóról szóra törik. A wrap-elt ikonok pedig a cím *mögé* csúsznak az `items-start` miatt.
+## Probléma
+A jobb alsó sarokban három független, fix pozíciós elem versenyzik:
+- `FloatingAIAssistant` AI gomb — `bottom-5 right-5` (z-50)
+- `VoiceCaptureFAB` mikrofon + szöveg gomb — `bottom-20 right-4` (z-40)
+- Mobilon a `MobileBottomNav` (~56px) **eltakarja az AI gombot**, mert a `bottom-5` a nav alá esik.
 
-Megoldás:
-- Áttérek az egységes `PageHeader` komponensre.
-- Mobilon (`<md`) csak **2 elsődleges gomb**: `+ Egy fájl` (neon) és egy `⋯` (MoreHorizontal) dropdown menü, amibe bekerül a többi 5 művelet (Chat, AI rendezés, AI audit, AI cimkék, Audit lista, Tömeges).
-- Desktopon (`md:`) marad az összes gomb külön, de szövegekkel (most ikonok és „hidden sm:inline" szöveg keveredik — letisztítom).
-- A cím-oszlopra `min-w-0 flex-1` kerül, hogy a subtitle ne törjön szavanként.
-- `PageIntro` chip a `PageHeader`-be megy (egyszer jelenik meg, nem duplán).
+Eredmény: mobilon az AI „marketing chat" gomb takarásban van, desktopon pedig három különálló kör verseng, nincs vizuális hierarchia.
 
-### 2) PDF előnézet iOS Chrome / Safari alatt
-Jelenleg `<object data="…pdf">` — iOS Safari / iOS Chrome **nem** renderel inline PDF-et `<object>` vagy `<iframe>` elemben (csak natív Safari viewerben, új lapon). Ezért látszik üresen.
+## Cél
+Egy összefogott, rendezett FAB-klaszter a jobb alsó sarokban, ami:
+- Mobilon **a bottom nav fölött** lebeg (nem takarja semmi).
+- Desktopon kompakt, nem zsúfolja a sarkot.
+- Az AI marad az elsődleges, a hang/szöveg jegyzet másodlagos akció.
 
-Megoldás:
-- **Mobil / iOS detektálás**: ha iOS vagy a viewport `<768px`, **nem** `<object>`-et használok, hanem a `pdfjs-dist` (már Lovable-friendly, ESM) segítségével az **első 2 oldalt képként** renderelem canvasből → `<img>`-ek egy `Card`-ban. Így minden mobil böngészőben látszik az előnézet. Mellé „Megnyitás új lapon" + „Letöltés" gomb.
-- Desktopon marad az `<object>` (Chrome/Edge/Firefox jól kezeli), de fallback ágként ott is van canvas-render gomb („Mégse jó? Renderelj képként").
-- `pdfjs-dist` worker: Vite-kompatibilis import (`pdfjs-dist/build/pdf.worker.min.mjs?url`).
-- Új komponens: `src/components/admin/documents/PdfCanvasPreview.tsx` — lazy-loadolja a `pdfjs-dist`-et, hogy a fő bundle ne hízzon.
+## Megoldás
 
-### 3) Általános mobil ellenőrzés ezen az oldalon
-- `pb-40` már megvan az alsó nav alatti scrollhoz, marad.
-- A fenti header-tisztítás után a teljes lap végig görgethető és minden látszik 375–402 px szélességen is.
+### 1) Egységes pozicionálás
+Új közös wrapper a sarokban. Minden FAB ehhez igazodik:
+- Desktop: `md:bottom-5 md:right-5`
+- Mobil: `bottom-[calc(env(safe-area-inset-bottom)+72px)] right-4` — a bottom nav (kb. 56px + safe area) **fölött**.
+- `MobileBottomNav` változatlan.
+
+### 2) Egy elsődleges + összecsukható másodlagos gombok
+- **Elsődleges (mindig látszik):** AI asszisztens (Sparkles) — neon kör, ~56px.
+- **Másodlagos (összecsukva alapból):** Mic (hangjegyzet) és Type (szöveges jegyzet) — kisebb (~40px) körök, az AI gomb fölött jelennek meg `+` / `⋯` toggle-re kattintva.
+- Felvétel közben a Mic gomb automatikusan kibontva marad piros pulse-szal.
+- A toggle gomb (kis chevron) az AI gomb mellett balra, fade-in-nel hozza fel a stacket.
+
+### 3) Z-index és átfedés
+- A teljes klaszter `z-50`.
+- Mobilon a nyitott AI panel továbbra is `inset-0` fullscreen (változatlan), tehát nincs ütközés.
+- A `pb-32` a `main`-en marad, hogy a sarokba görgetve se takarjon tartalmat.
 
 ## Érintett fájlok
-- `src/pages/admin/AdminDocuments.tsx` — header refaktor (PageHeader + overflow menü), `PageIntro` eltávolítása onnan (PageHeader adja).
-- `src/pages/admin/AdminDocumentViewer.tsx` — PDF rész kicserélése iOS-aware logikára.
-- **Új**: `src/components/admin/documents/PdfCanvasPreview.tsx` — pdfjs-canvas előnézet.
-- `package.json` — `pdfjs-dist` (ha még nincs).
+- `src/components/admin/FloatingAIAssistant.tsx` — a launcher gomb pozíciója közös wrapperre vált; a launcher API-ját kifelé exportáljuk vagy egy új közös komponensbe emeljük.
+- `src/components/admin/VoiceCaptureFAB.tsx` — a saját fix wrappert eltávolítjuk, a két gomb a közös FAB-klaszterbe kerül másodlagos akcióként, „nyitva" állapotban jelenik meg.
+- **Új:** `src/components/admin/AdminFabCluster.tsx` — összefogja az AI launcher + voice + text gombokat, kezeli a nyitva/csukva állapotot, a mobil/desktop pozíciót, és a felvétel-állapot kényszerített kibontását.
+- `src/components/admin/AdminLayout.tsx` — a `FloatingAIAssistant` és `VoiceCaptureFAB` külön renderelés helyett egyetlen `<AdminFabCluster />` kerül be (a panel + dialog logika megmarad a meglévő komponensekben, csak a launcher-eket közösítjük).
 
-## Amit NEM csinálok most
-- Nem nyúlok a doksi-listához, fülekhez, szűrőkhöz, feltöltéshez — csak a header és a PDF-preview.
-- Nem módosítok edge functiont vagy DB-t.
-- Más admin oldalakat nem érintek ebben a körben.
+## Nem érintett
+- AI chat panel tartalma, streaming logika, voice capture feldolgozás, dialog UI.
+- Mobil bottom nav, command palette, sidebar.
+- Bármilyen backend / edge function / DB.
+
+## Eredmény
+- Mobilon az AI gomb mindig látható a bottom nav fölött, semmi nem takarja.
+- Desktopon egy rendezett, hierarchikus FAB-stack a sarokban három versengő kör helyett.
+- Minden funkció (AI chat, hangjegyzet, szöveges jegyzet) egy érintéssel elérhető marad.
