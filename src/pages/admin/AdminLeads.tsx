@@ -36,9 +36,24 @@ export default function AdminLeads() {
   const [showApify, setShowApify] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
   const [scoring, setScoring] = useState(false);
+  const [aiGrading, setAiGrading] = useState(false);
   const [drawerId, setDrawerId] = useState<string | null>(null);
   const [researchingId, setResearchingId] = useState<string | null>(null);
   const { toast } = useToast();
+
+  const runAiGradeTop = async () => {
+    setAiGrading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("lead-grade-ai-bulk", { body: { limit: 20 } });
+      if (error) throw error;
+      toast({ title: "AI értékelés kész", description: `${data?.updated ?? 0} lead értékelve` });
+      await load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setAiGrading(false);
+    }
+  };
 
   const runResearch = async (id: string) => {
     setResearchingId(id);
