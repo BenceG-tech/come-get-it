@@ -7,6 +7,15 @@ import { ArrowLeft, Download, Copy, ExternalLink, FileText, Sparkles, ClipboardC
 import { useToast } from "@/hooks/use-toast";
 import ContentConverterDialog from "@/components/admin/documents/ContentConverterDialog";
 import DocumentReviewDialog from "@/components/admin/documents/DocumentReviewDialog";
+import PdfCanvasPreview from "@/components/admin/documents/PdfCanvasPreview";
+
+const needsCanvasPdf = () => {
+  if (typeof window === "undefined") return false;
+  const ua = navigator.userAgent || "";
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (ua.includes("Mac") && "ontouchend" in document);
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  return isIOS || isMobile;
+};
 
 export default function AdminDocumentViewer() {
   const { id } = useParams();
