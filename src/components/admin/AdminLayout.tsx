@@ -7,9 +7,16 @@ import { AIAssistantProvider } from "@/contexts/AIAssistantContext";
 import AdminFabCluster from "@/components/admin/AdminFabCluster";
 import CommandPalette from "@/components/admin/CommandPalette";
 import MobileBottomNav from "@/components/admin/MobileBottomNav";
+import HubTabs from "@/components/admin/HubTabs";
 import { useKeyboardShortcuts, SHORTCUT_LABELS } from "@/hooks/useKeyboardShortcuts";
 import { NAV_GROUPS } from "@/lib/admin-nav-config";
 import HelpTip from "@/components/admin/help/HelpTip";
+
+const HUB_FOR_PATH: Array<{ match: (p: string) => boolean; hub: "partners" | "content" | "knowledge" }> = [
+  { match: (p) => p === "/admin/partners" || p.startsWith("/admin/outreach") || p.startsWith("/admin/leads"), hub: "partners" },
+  { match: (p) => p.startsWith("/admin/content") || p.startsWith("/admin/calendar") || p.startsWith("/admin/brand") || p.startsWith("/admin/media"), hub: "content" },
+  { match: (p) => p === "/admin/documents" || p.startsWith("/admin/documents/chat") || p.startsWith("/admin/trends"), hub: "knowledge" },
+];
 
 export const AdminLayout = ({ children }: { children: ReactNode }) => {
   const { signOut, user } = useAuth();
