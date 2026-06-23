@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Upload, Search, LayoutGrid, List, MapIcon, Sparkles, Telescope, Loader2 } from "lucide-react";
+import { Upload, Search, LayoutGrid, List, MapIcon, Sparkles, Telescope, Loader2, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import LeadScoreBadge from "@/components/admin/leads/LeadScoreBadge";
 import BulkActionBar from "@/components/admin/leads/BulkActionBar";
@@ -14,6 +14,7 @@ import LeadsKanban from "@/components/admin/leads/LeadsKanban";
 import LeadsMap from "@/components/admin/leads/LeadsMap";
 import EntityDrawer from "@/components/admin/crm/EntityDrawer";
 import PageIntro from "@/components/admin/help/PageIntro";
+import ApifyScrapeModal from "@/components/admin/leads/ApifyScrapeModal";
 import { trackEvent } from "@/lib/track";
 
 const STATUS_LABEL: Record<string, string> = {
@@ -32,6 +33,7 @@ export default function AdminLeads() {
   const [filterScore, setFilterScore] = useState("all");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [showImport, setShowImport] = useState(false);
+  const [showApify, setShowApify] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
   const [scoring, setScoring] = useState(false);
   const [drawerId, setDrawerId] = useState<string | null>(null);
@@ -132,6 +134,9 @@ export default function AdminLeads() {
           <p className="text-sm text-nf-text-muted">{filtered.length} / {partners.length} hely</p>
         </div>
         <div className="flex gap-2">
+          <Button size="sm" onClick={() => setShowApify(true)} className="bg-electric-300 text-black hover:bg-electric-300/90">
+            <Zap className="h-4 w-4" /> <span className="hidden sm:inline">Apify scrape</span>
+          </Button>
           <Button variant="outline" size="sm" onClick={() => setShowImport(true)}>
             <Upload className="h-4 w-4" /> <span className="hidden sm:inline">Import</span>
           </Button>
@@ -249,6 +254,7 @@ export default function AdminLeads() {
       />
 
       {showImport && <ImportWizard onClose={() => setShowImport(false)} onDone={load} />}
+      {showApify && <ApifyScrapeModal onClose={() => setShowApify(false)} onDone={load} />}
       {showEmail && <EmailComposer partnerIds={[...selected]} onClose={() => setShowEmail(false)} onDone={() => { setShowEmail(false); setSelected(new Set()); load(); }} />}
       <EntityDrawer entityType="lead" entityId={drawerId} open={!!drawerId} onOpenChange={(o) => !o && setDrawerId(null)} />
     </div>

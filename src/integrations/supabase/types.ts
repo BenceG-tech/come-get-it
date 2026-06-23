@@ -103,6 +103,66 @@ export type Database = {
           },
         ]
       }
+      apify_runs: {
+        Row: {
+          actor_id: string
+          actor_name: string | null
+          ai_summary: string | null
+          apify_run_id: string | null
+          created_at: string
+          dataset_id: string | null
+          error_message: string | null
+          finished_at: string | null
+          id: string
+          imported_count: number | null
+          input: Json | null
+          items_count: number | null
+          source_query: string | null
+          started_at: string
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          actor_id: string
+          actor_name?: string | null
+          ai_summary?: string | null
+          apify_run_id?: string | null
+          created_at?: string
+          dataset_id?: string | null
+          error_message?: string | null
+          finished_at?: string | null
+          id?: string
+          imported_count?: number | null
+          input?: Json | null
+          items_count?: number | null
+          source_query?: string | null
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          actor_id?: string
+          actor_name?: string | null
+          ai_summary?: string | null
+          apify_run_id?: string | null
+          created_at?: string
+          dataset_id?: string | null
+          error_message?: string | null
+          finished_at?: string | null
+          id?: string
+          imported_count?: number | null
+          input?: Json | null
+          items_count?: number | null
+          source_query?: string | null
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       brand_knowledge: {
         Row: {
           description: string | null
@@ -1051,6 +1111,50 @@ export type Database = {
         }
         Relationships: []
       }
+      lead_mockups: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string
+          model: string | null
+          partner_id: string
+          prompt: string | null
+          storage_path: string | null
+          user_id: string | null
+          variant: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url: string
+          model?: string | null
+          partner_id: string
+          prompt?: string | null
+          storage_path?: string | null
+          user_id?: string | null
+          variant?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          model?: string | null
+          partner_id?: string
+          prompt?: string | null
+          storage_path?: string | null
+          user_id?: string | null
+          variant?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_mockups_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lead_requests: {
         Row: {
           created_at: string
@@ -1519,6 +1623,8 @@ export type Database = {
           ai_score: number | null
           ai_score_reason: string | null
           ai_scored_at: string | null
+          apify_place_id: string | null
+          apify_source_run_id: string | null
           assigned_to: string | null
           category: string | null
           city: string | null
@@ -1527,19 +1633,27 @@ export type Database = {
           created_at: string
           created_by: string | null
           email: string | null
+          google_maps_url: string | null
           google_place_id: string | null
+          google_rating: number | null
+          google_reviews_count: number | null
           id: string
           instagram: string | null
+          instagram_handle: string | null
           last_researched_at: string | null
           lat: number | null
+          latitude: number | null
           lead_score: number | null
           lng: number | null
+          longitude: number | null
           next_followup_at: string | null
           notes: string | null
           phone: string | null
           rating: number | null
           rating_count: number | null
+          research_dossier: Json | null
           research_notes: Json | null
+          research_updated_at: string | null
           score_reasons: Json | null
           score_updated_at: string | null
           source: string | null
@@ -1556,6 +1670,8 @@ export type Database = {
           ai_score?: number | null
           ai_score_reason?: string | null
           ai_scored_at?: string | null
+          apify_place_id?: string | null
+          apify_source_run_id?: string | null
           assigned_to?: string | null
           category?: string | null
           city?: string | null
@@ -1564,19 +1680,27 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           email?: string | null
+          google_maps_url?: string | null
           google_place_id?: string | null
+          google_rating?: number | null
+          google_reviews_count?: number | null
           id?: string
           instagram?: string | null
+          instagram_handle?: string | null
           last_researched_at?: string | null
           lat?: number | null
+          latitude?: number | null
           lead_score?: number | null
           lng?: number | null
+          longitude?: number | null
           next_followup_at?: string | null
           notes?: string | null
           phone?: string | null
           rating?: number | null
           rating_count?: number | null
+          research_dossier?: Json | null
           research_notes?: Json | null
+          research_updated_at?: string | null
           score_reasons?: Json | null
           score_updated_at?: string | null
           source?: string | null
@@ -1593,6 +1717,8 @@ export type Database = {
           ai_score?: number | null
           ai_score_reason?: string | null
           ai_scored_at?: string | null
+          apify_place_id?: string | null
+          apify_source_run_id?: string | null
           assigned_to?: string | null
           category?: string | null
           city?: string | null
@@ -1601,19 +1727,27 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           email?: string | null
+          google_maps_url?: string | null
           google_place_id?: string | null
+          google_rating?: number | null
+          google_reviews_count?: number | null
           id?: string
           instagram?: string | null
+          instagram_handle?: string | null
           last_researched_at?: string | null
           lat?: number | null
+          latitude?: number | null
           lead_score?: number | null
           lng?: number | null
+          longitude?: number | null
           next_followup_at?: string | null
           notes?: string | null
           phone?: string | null
           rating?: number | null
           rating_count?: number | null
+          research_dossier?: Json | null
           research_notes?: Json | null
+          research_updated_at?: string | null
           score_reasons?: Json | null
           score_updated_at?: string | null
           source?: string | null
@@ -1625,6 +1759,13 @@ export type Database = {
           website?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "partners_apify_source_run_id_fkey"
+            columns: ["apify_source_run_id"]
+            isOneToOne: false
+            referencedRelation: "apify_runs"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "partners_stage_id_fkey"
             columns: ["stage_id"]
