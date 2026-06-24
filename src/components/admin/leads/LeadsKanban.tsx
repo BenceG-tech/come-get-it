@@ -122,8 +122,13 @@ export default function LeadsKanban({ partners, onStatusChange, groupBy = "statu
 
   return (
     <div className="flex gap-3 overflow-x-auto pb-3">
-      {stages.map((s) => (
-        <div key={s.key} className="w-72 shrink-0" onDragOver={(e) => e.preventDefault()} onDrop={(e) => onDrop(e, s.key)}>
+      {activeStages.map((s) => (
+        <div
+          key={s.key}
+          className="w-72 shrink-0"
+          onDragOver={(e) => !byReadiness && e.preventDefault()}
+          onDrop={(e) => !byReadiness && onDrop(e, s.key)}
+        >
           <div className="flex items-center justify-between mb-2 px-1">
             <div className="text-xs uppercase tracking-wider text-nf-text-muted font-semibold">{s.label}</div>
             <div className="text-xs text-nf-text-muted">{byStatus[s.key]?.length ?? 0}</div>
@@ -136,12 +141,17 @@ export default function LeadsKanban({ partners, onStatusChange, groupBy = "statu
               return (
                 <Card
                   key={p.id}
-                  draggable
-                  onDragStart={(e) => onDragStart(e, p.id, s.key)}
-                  className="p-3 hover:border-electric-300/50 cursor-grab active:cursor-grabbing"
+                  draggable={!byReadiness}
+                  onDragStart={(e) => !byReadiness && onDragStart(e, p.id, s.key)}
+                  onClick={() => onCardClick?.(p.id)}
+                  className={`p-3 hover:border-electric-300/50 ${byReadiness ? "cursor-pointer" : "cursor-grab active:cursor-grabbing"}`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-1">
-                    <Link to={`/admin/partners/${p.id}`} className="font-medium text-electric-300 text-sm truncate">{p.company_name}</Link>
+                    {onCardClick ? (
+                      <button className="font-medium text-electric-300 text-sm truncate text-left">{p.company_name}</button>
+                    ) : (
+                      <Link to={`/admin/partners/${p.id}`} className="font-medium text-electric-300 text-sm truncate">{p.company_name}</Link>
+                    )}
                     <LeadScoreBadge score={p.lead_score} reasons={p.score_reasons} />
                   </div>
                   <div className="text-[11px] text-nf-text-muted truncate">{p.city || "—"}{p.category ? ` · ${p.category}` : ""}</div>
