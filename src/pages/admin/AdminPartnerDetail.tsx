@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Trash2, Save } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import PartnerAIScoreCard from "@/components/admin/PartnerAIScoreCard";
+import PartnerOutreachHealth from "@/components/admin/leads/PartnerOutreachHealth";
 
 const STATUSES = ["lead", "contacted", "negotiating", "proposal_sent", "signed", "rejected", "paused"];
 const CHANNELS = ["email", "instagram_dm", "phone", "in_person", "whatsapp", "other"];
@@ -90,6 +91,7 @@ export default function AdminPartnerDetail() {
 
 
       <PartnerAIScoreCard partner={partner} onUpdated={load} />
+      <PartnerOutreachHealth partnerId={partner.id} />
 
       <Card>
         <CardHeader><CardTitle>{partner.company_name}</CardTitle></CardHeader>

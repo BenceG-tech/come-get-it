@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import LeadScoreBadge from "./LeadScoreBadge";
 import SlaWarningBadge from "@/components/admin/crm/SlaWarningBadge";
 import { trackEvent } from "@/lib/track";
+import { Mail, MailOpen, MessageSquare, AlertTriangle } from "lucide-react";
 
 type Stage = { id?: string; key: string; label: string; sla_days: number | null; order_index: number };
 
@@ -17,8 +19,11 @@ const FALLBACK: Stage[] = [
   { key: "rejected", label: "Elutasítva", sla_days: null, order_index: 5 },
 ];
 
+type Engagement = { sent: number; opened: number; replied: number; failed: number };
+
 export default function LeadsKanban({ partners, onStatusChange }: { partners: any[]; onStatusChange: (id: string, status: string) => void }) {
   const [stages, setStages] = useState<Stage[]>(FALLBACK);
+  const [engagement, setEngagement] = useState<Record<string, Engagement>>({});
 
   useEffect(() => {
     (async () => {
@@ -30,6 +35,38 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
       if (data && data.length > 0) setStages(data as any);
     })();
   }, []);
+
+  // Load engagement aggregates for the visible partners
+  useEffect(() => {
+    if (!partners.length) return;
+    (async () => {
+      const ids = partners.map((p) => p.id);
+      const { data: en } = await supabase
+        .from("outreach_enrollments")
+        .select("id, entity_id")
+        .eq("entity_type", "partner")
+        .in("entity_id", ids);
+      const enrollmentToPartner = new Map<string, string>();
+      (en ?? []).forEach((e: any) => enrollmentToPartner.set(e.id, e.entity_id));
+      const enrollmentIds = Array.from(enrollmentToPartner.keys());
+      if (!enrollmentIds.length) return;
+      const { data: ev } = await supabase
+        .from("outreach_events")
+        .select("enrollment_id, status")
+        .in("enrollment_id", enrollmentIds);
+      const map: Record<string, Engagement> = {};
+      (ev ?? []).forEach((e: any) => {
+        const pid = enrollmentToPartner.get(e.enrollment_id);
+        if (!pid) return;
+        map[pid] ??= { sent: 0, opened: 0, replied: 0, failed: 0 };
+        if (e.status === "sent") map[pid].sent++;
+        else if (e.status === "opened") map[pid].opened++;
+        else if (e.status === "replied") map[pid].replied++;
+        else if (e.status === "failed" || e.status === "bounced") map[pid].failed++;
+      });
+      setEngagement(map);
+    })();
+  }, [partners]);
 
   const byStatus: Record<string, any[]> = {};
   stages.forEach((s) => (byStatus[s.key] = []));
@@ -67,26 +104,40 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
             <div className="text-xs text-nf-text-muted">{byStatus[s.key]?.length ?? 0}</div>
           </div>
           <div className="space-y-2 min-h-[200px] p-2 rounded-lg bg-nf-surface-alt/30">
-            {(byStatus[s.key] ?? []).map((p) => (
-              <Card
-                key={p.id}
-                draggable
-                onDragStart={(e) => onDragStart(e, p.id, s.key)}
-                className="p-3 hover:border-electric-300/50 cursor-grab active:cursor-grabbing"
-              >
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <Link to={`/admin/partners/${p.id}`} className="font-medium text-electric-300 text-sm truncate">{p.company_name}</Link>
-                  <LeadScoreBadge score={p.lead_score} />
-                </div>
-                <div className="text-[11px] text-nf-text-muted truncate">{p.city || "—"}{p.category ? ` · ${p.category}` : ""}</div>
-                <div className="flex items-center gap-1 mt-1 flex-wrap">
-                  {p.rating && <span className="text-[10px] text-nf-text-muted">⭐ {p.rating} ({p.rating_count})</span>}
-                  {s.sla_days != null && p.status_changed_at && (
-                    <SlaWarningBadge updatedAt={p.status_changed_at} slaDays={s.sla_days} />
+            {(byStatus[s.key] ?? []).map((p) => {
+              const eg = engagement[p.id];
+              const weakSubject = eg && eg.sent >= 2 && eg.opened === 0;
+              const badEmail = eg && eg.failed > 0;
+              return (
+                <Card
+                  key={p.id}
+                  draggable
+                  onDragStart={(e) => onDragStart(e, p.id, s.key)}
+                  className="p-3 hover:border-electric-300/50 cursor-grab active:cursor-grabbing"
+                >
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <Link to={`/admin/partners/${p.id}`} className="font-medium text-electric-300 text-sm truncate">{p.company_name}</Link>
+                    <LeadScoreBadge score={p.lead_score} />
+                  </div>
+                  <div className="text-[11px] text-nf-text-muted truncate">{p.city || "—"}{p.category ? ` · ${p.category}` : ""}</div>
+                  <div className="flex items-center gap-1 mt-1 flex-wrap">
+                    {p.rating && <span className="text-[10px] text-nf-text-muted">⭐ {p.rating} ({p.rating_count})</span>}
+                    {s.sla_days != null && p.status_changed_at && (
+                      <SlaWarningBadge updatedAt={p.status_changed_at} slaDays={s.sla_days} />
+                    )}
+                  </div>
+                  {eg && (eg.sent + eg.opened + eg.replied + eg.failed > 0) && (
+                    <div className="flex items-center gap-2 mt-2 pt-2 border-t border-nf-border/40 text-[10px] text-nf-text-muted" title="Outreach: küldve / megnyitva / válasz / hiba">
+                      <span className="flex items-center gap-0.5"><Mail className="w-3 h-3" />{eg.sent}</span>
+                      <span className="flex items-center gap-0.5 text-electric-300"><MailOpen className="w-3 h-3" />{eg.opened}</span>
+                      <span className="flex items-center gap-0.5 text-emerald-400"><MessageSquare className="w-3 h-3" />{eg.replied}</span>
+                      {weakSubject && <Badge variant="outline" className="border-amber-500/40 text-amber-300 text-[9px] px-1 py-0 h-4">gyenge subject</Badge>}
+                      {badEmail && <Badge variant="outline" className="border-red-500/40 text-red-300 text-[9px] px-1 py-0 h-4 flex items-center gap-0.5"><AlertTriangle className="w-2.5 h-2.5" />rossz email</Badge>}
+                    </div>
                   )}
-                </div>
-              </Card>
-            ))}
+                </Card>
+              );
+            })}
           </div>
         </div>
       ))}
