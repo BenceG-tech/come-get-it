@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import LeadScoreBadge from "./LeadScoreBadge";
 import SlaWarningBadge from "@/components/admin/crm/SlaWarningBadge";
 import { trackEvent } from "@/lib/track";
-import { Mail, MailOpen, MessageSquare, AlertTriangle } from "lucide-react";
+import { Mail, MailOpen, MessageSquare, AlertTriangle, Instagram } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 type Stage = { id?: string; key: string; label: string; sla_days: number | null; order_index: number };
 
