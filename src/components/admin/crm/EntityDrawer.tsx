@@ -148,6 +148,14 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
           <div className="text-xs text-nf-text-muted">{entity?.city} · {entity?.category} · {entity?.status}</div>
         </SheetHeader>
 
+        {/* AI Readiness */}
+        {entity && (
+          <div className="mt-3 flex items-center gap-2 text-xs text-nf-text-muted">
+            <span>AI állapot:</span>
+            <ReadinessBadge partner={entity} />
+          </div>
+        )}
+
         {/* Quick Action Bar */}
         {entity && (
           <div className="flex flex-wrap gap-2 mt-3 pb-3 border-b border-nf-border">
