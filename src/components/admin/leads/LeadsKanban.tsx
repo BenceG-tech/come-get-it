@@ -25,6 +25,16 @@ type Engagement = { sent: number; opened: number; replied: number; failed: numbe
 export default function LeadsKanban({ partners, onStatusChange }: { partners: any[]; onStatusChange: (id: string, status: string) => void }) {
   const [stages, setStages] = useState<Stage[]>(FALLBACK);
   const [engagement, setEngagement] = useState<Record<string, Engagement>>({});
+  const { toast } = useToast();
+
+  const openIgDm = async (p: any) => {
+    const handle = (p.instagram_handle || p.instagram || "").toString().replace(/^@/, "").trim();
+    if (!handle) { toast({ title: "Nincs Instagram handle", variant: "destructive" }); return; }
+    const msg = `Szia ${p.company_name}! Bence vagyok a Come Get It-ről 👋\n\nEgy ingyenes ital app-ot építünk magyar vendéglátóhelyeknek — minden user kap napi 1 üdvözlőitalt, ti meg új törzsvendégeket. Founding Partner program most még ingyen.\n\nÉrdekel egy 10 perces telefonos egyeztetés?\n\nhttps://come-get-it.app`;
+    try { await navigator.clipboard.writeText(msg); toast({ title: "Üzenet vágólapra másolva", description: "Most nyitjuk az Instagramot — Ctrl+V + Enter" }); } catch { /* ignore */ }
+    window.open(`https://ig.me/m/${handle}`, "_blank", "noopener");
+    trackEvent("ig_dm_opened", { entity_type: "partner", entity_id: p.id });
+  };
 
   useEffect(() => {
     (async () => {
