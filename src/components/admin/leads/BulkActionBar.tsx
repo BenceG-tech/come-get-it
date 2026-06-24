@@ -29,6 +29,17 @@ export default function BulkActionBar({
       <button onClick={onClear} className="text-nf-text-muted hover:text-white p-1"><X className="h-4 w-4" /></button>
       <div className="text-sm font-medium px-2 whitespace-nowrap">{count} kijelölve</div>
       <div className="h-5 w-px bg-nf-border" />
+      {onProcessAll && (
+        <Button
+          size="sm"
+          onClick={onProcessAll}
+          disabled={processingAll}
+          className="bg-electric-300 hover:bg-electric-400 text-black font-semibold rounded-full"
+          title="Teljes pipeline: Research + Score + Grade (háttérben, chunkokban)"
+        >
+          {processingAll ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4" />} Mindent
+        </Button>
+      )}
       {onResearch && (
         <Button size="sm" variant="ghost" onClick={onResearch} disabled={researching} title="AI mélykutatás mindegyikre (web scrape + elemzés)">
           {researching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Telescope className="h-4 w-4" />} Kutat
