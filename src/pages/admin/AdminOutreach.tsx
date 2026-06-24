@@ -148,6 +148,16 @@ export default function AdminOutreach() {
       {editing && (
         <SequenceEditor open={openNew} onOpenChange={(o) => { setOpenNew(o); if (!o) setEditing(null); }} sequence={editing} onSaved={load} />
       )}
+      {guardEditing && (
+        <SequenceGuardrailsEditor
+          sequenceId={guardEditing.id}
+          sequenceName={guardEditing.name}
+          initial={guardEditing.guardrails ?? null}
+          open={!!guardEditing}
+          onOpenChange={(o) => { if (!o) setGuardEditing(null); }}
+          onSaved={load}
+        />
+      )}
     </div>
   );
 }
