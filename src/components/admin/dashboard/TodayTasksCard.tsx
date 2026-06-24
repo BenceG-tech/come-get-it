@@ -118,12 +118,29 @@ export default function TodayTasksCard() {
                   {t.why && <div className="text-[11px] text-nf-text-muted mt-0.5">{t.why}</div>}
                   {t.suggested_action && <div className="text-[11px] text-electric-300/80 mt-1">→ {t.suggested_action}</div>}
                 </div>
+                <Button
+                  variant="neon"
+                  size="sm"
+                  className="shrink-0 h-7 px-2 text-[11px]"
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setAutopilot({ task: t, index: i }); }}
+                  title="AI végrehajtja: megkeresi a partnereket, kutat, draftol — te csak jóváhagyod."
+                >
+                  <Zap className="h-3 w-3 mr-1" /> AI csinálja
+                </Button>
               </div>
             </div>
           );
           return href ? <Link key={i} to={href}>{inner}</Link> : <div key={i}>{inner}</div>;
         })}
       </CardContent>
+      {autopilot && (
+        <TaskAutopilotDialog
+          open={!!autopilot}
+          onOpenChange={(v) => !v && setAutopilot(null)}
+          task={autopilot.task}
+          taskIndex={autopilot.index}
+        />
+      )}
     </Card>
   );
 }
