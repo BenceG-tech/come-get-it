@@ -1,124 +1,74 @@
-# Fázis 3 — Admin Design Refresh
 
-A választott irány: **Neon Fidelity Pro** paletta (#050505 / #0d1417 / #00bcd4 / #7df9ff) + **Sora + Manrope** tipográfia + **Bento Grid** dashboard layout. Ez összhangban marad a publikus oldal Neon Fidelity brand-jével (lásd Core memory), de az admin felület mélyebb surface-rétegeket, csendesebb glow-t és funkcionális density-t kap.
+# Lead Outreach egyszerűsítés
 
-> Megjegyzés: az `/admin` mögé nem tudtam belépni screenshotért (külső Supabase, nem injektált session), ezért a refresh a meglévő `AdminDashboard.tsx` + Fázis 2 komponensek (PageSectionNav, AdminBreadcrumb, Hero/Columns/Secondary refactor) struktúrájára épül, amit a korábbi fázisokban már ismerünk.
+Cél: egy lead drawer-ből 1 kattintás → 1 dialog → kész. Nincs tab, nincs sequence-select, nincs slider, nincs settings. Az AI ad **2–3 kész változatot** (subject + body), te kiválasztod, opcionálisan szerkeszted, és küldöd. A háttérben futó sequence/enrollment rendszer marad, csak nem látszik a lead-flow-ban.
 
----
+## Mit látsz majd
 
-## 1. Design token réteg (admin-scoped)
-
-Új **admin-only** token-blokk az `src/index.css`-ben, `.admin-scope` selector alatt — nem nyúl a publikus oldal `:root` változóihoz, így a brand-konzisztencia marad.
-
-Tokenek:
-- `--admin-bg: 0 0% 2%` (#050505)
-- `--admin-surface-1: 195 25% 7%` (#0d1417 — kártya alap)
-- `--admin-surface-2: 195 22% 10%` (kiemelt panel)
-- `--admin-surface-3: 195 18% 14%` (hover / aktív)
-- `--admin-border: 188 30% 18%` (finom cyan-tinted vonal)
-- `--admin-border-strong: 188 60% 30%`
-- `--admin-primary: 188 100% 41%` (#00bcd4)
-- `--admin-primary-glow: 184 100% 74%` (#7df9ff)
-- `--admin-text: 0 0% 96%`
-- `--admin-text-muted: 195 12% 65%`
-- `--admin-text-dim: 195 10% 45%`
-- `--admin-success / warning / danger` (hideg paletta-konform variánsok)
-- Gradients: `--admin-gradient-card`, `--admin-gradient-hero`, `--admin-gradient-accent`
-- Shadows: `--admin-shadow-card` (puha), `--admin-shadow-glow` (cyan, csak interaktív elemekre), `--admin-shadow-pop` (hover lift)
-- Radii: `--admin-radius-sm/md/lg/xl` (8 / 12 / 16 / 24 px)
-
-`AdminLayout.tsx` kap egy `className="admin-scope"`-ot a gyökér wrapperen, így a tokenek scope-oltak.
-
-## 2. Tipográfia
-
-- `bun add @fontsource/sora @fontsource/manrope`
-- `src/main.tsx`-ben: `import '@fontsource/sora/400.css'` … `700.css`, `import '@fontsource/manrope/300.css'` … `600.css`
-- `tailwind.config.ts`-ben új family: `admin-display: ['Sora', ...sans]`, `admin-body: ['Manrope', ...sans]`
-- `.admin-scope` body default: Manrope. Hero number / KPI / section title: Sora (medium 500–600, tight tracking).
-- Numeric tabular: `font-variant-numeric: tabular-nums` minden metrikán.
-
-## 3. Bento Grid dashboard refactor
-
-Átalakítjuk a Fázis 2-ben létrehozott `DashboardHero` + `DashboardColumns` + `DashboardSecondaryTabs` szerkezetet egy egységes **bento-grid**-re a `AdminDashboard.tsx`-ben. Cél: egy képernyős, scan-elhető vezérlőpult, ahol a méret = fontosság.
+A drawer-ben az "Outreach indítása" gomb új dialogot nyit:
 
 ```text
-+----------------------------------------------------------+
-| BREADCRUMB / TOPBAR (sticky)                             |
-+--------------------------+-------------------------------+
-| HERO BENTO (col-span 8)  | STREAK + STATUS (col-span 4) |
-| Daily briefing + 3 fő    | Streak ring, today's score,  |
-| akció (XL CTA)           | quick toggles                |
-+----------+---------------+-------------+----------------+
-| PIPELINE | INBOX         | AI ACTION   | KPI MINI       |
-| (col 4)  | (col 4)       | (col 4)     | (col 4 tall)   |
-| sparkline| top 5 unread  | "Mi a köv." | 3 KPI tile     |
-+----------+---------------+-------------+                +
-| RECIPE / TASK RESULTS (col-span 8)     |                |
-| Legutóbbi AI futtatások szalag         |                |
-+----------------------------------------+----------------+
-| SECONDARY TABS (col-span 12) — KPI / Snapshot / Retro  |
-+----------------------------------------------------------+
+┌─ Outreach: Cube Coffee Bar ──────────── ✕ ┐
+│  AI 3 sablon (chip-sor):  [Founding pitch ✓] [Warm intro] [Rövid nudge]    │
+│  ─────────────────────────────────────────────────────────────             │
+│  Tárgy:    [40-60 char input]                                              │
+│  Szöveg:   [textarea, 8 sor, inline szerkeszthető]                         │
+│  ─────────────────────────────────────────────────────────────             │
+│  Címzett: hello@cube.hu  ·  Küldés: most  ·  ⚠ 12 napja már ment           │
+│                              [Újra generál]  [Küldés most]                 │
+└────────────────────────────────────────────┘
 ```
 
-Implementáció:
-- Új `src/components/admin/dashboard/BentoGrid.tsx` — wrapper, `grid grid-cols-12 gap-4` + `auto-rows-[minmax(160px,auto)]`.
-- Új `src/components/admin/dashboard/BentoCard.tsx` — variants: `hero | metric | list | accent | ghost`, props: `colSpan`, `rowSpan`, `tone` (default | accent | dim). Token-alapú: `bg-[hsl(var(--admin-surface-1))]`, `border-[hsl(var(--admin-border))]`, hover-on `shadow-[var(--admin-shadow-pop)]` + `border-[hsl(var(--admin-border-strong))]`.
-- `DashboardHero.tsx`, `DashboardColumns.tsx` átírva, hogy `BentoCard`-okat render-eljenek. Tartalom változatlan; csak a chrome és a layout cserélődik.
-- A meglévő `Section` (collapsible) megmarad a hosszú szekciókhoz a lap alján; bento csak a "fold above".
+- Megnyitáskor azonnal AI-hívás → 3 változat (founding / warm / nudge), defaultban a **founding** kiválasztva, a mezők előre kitöltve.
+- Tone-váltás chip-re kattintva: a másik AI-változat tölti be (cached, nem új hívás).
+- "Újra generál": új 3 változat ugyanazzal a hangnem-szettel.
+- Recent-guard: ha 30 napon belül ment levél, csak egy halk figyelmeztető sor + "Küldés most" gomb pirosabb.
+- Egyetlen tab, nincs Preview/Settings. A preview egyben a szerkeszthető mező.
 
-## 4. Komponens-szintű refresh
+## Mit dobunk el a lead-flow-ból
 
-- **`AdminTopbar` / `AdminLayout`**: vékonyabb (52 px), `backdrop-blur`, alsó border `--admin-border`, breadcrumb beépítve. Logo monogram cyan glow-val.
-- **`AdminSidebar`** (ha van): 240 px → 220 px, ikonok 18 px, aktív item `bg-[hsl(var(--admin-surface-2))]` + bal oldali 2 px cyan rail, **glow nélkül** (csendes).
-- **`PageSectionNav`** (Fázis 2): dot-rail átszínezve `--admin-primary` aktív állapotra, inaktív `--admin-text-dim`. Mobile chip-bar: `--admin-surface-2` háttér.
-- **Buttons**: új `admin` variant a `button.tsx`-ben (vagy admin-scope-on belüli CSS): primary = filled cyan, secondary = ghost cyan border, destructive = piros-cyan mix. Pill marad (Core rule), de admin-on belül `rounded-md` opcióval ahol denser UI kell (pl. táblázat row action).
-- **Inputs / Select / Dialog**: `bg-[hsl(var(--admin-surface-2))]`, border tokenizált, focus ring `--admin-primary` 1 px + glow.
-- **Táblák** (`leads`, `documents`, `partners`): row hover `--admin-surface-2`, sticky header `--admin-surface-1/95 backdrop-blur`, zebra eltávolítva, helyette finom bottom-border.
-- **Badge / Pill**: szín-szemantika (open / done / blocked / waiting) cyan-konform palettán.
-- **Toast**: admin-scope-on belül sötét surface + cyan accent.
+- Sequence/Lépés select (a háttérben fix "Lead quick outreach" sequence megy).
+- Hossz-slider, kiegészítő instrukció input, Preheader, A/B variants Badge sor, Risks panel.
+- Tabs (Tartalom / Előnézet / Beállítások).
+- Mikor induljon (Most / Holnap 9 / Egyedi), Founding PDF csatolás switch — mind ki.
+- 30 napos guard `confirm()` blocker → halk inline warning.
 
-## 5. Motion & micro-interactions
+A `/admin/outreach` hub és a sequence-szerkesztés **érintetlen** — haladó user oda mehet.
 
-- `framer-motion` már jelen van. Bento kártyák: belépéskor `staggered fade + 8 px y` (max 300 ms, ease-out), egyszer, nem minden navigáción.
-- Hover: 120 ms `translateY(-2px)` + shadow-pop. Nincs scale.
-- Section-jump (`admin-section-open` event): smooth scroll + a célszekció 600 ms-ig finom cyan outline pulse.
-- Streak ring: SVG conic-gradient, lassú (8 s) rotáció a glow-rétegen.
-- Loader: cyan shimmer skeletonok (`--admin-surface-2` → `--admin-surface-3`).
+## Backend
 
-## 6. Érintett oldalak (token-csere + bento opcionális)
+Új fix sequence seed (egyszer, migration): `kind='lead_quick'`, `name='Lead quick outreach'`, 1 lépés (`channel='email'`, üres subject/body), `active=true`. A dialog mindig ezt használja, a personalized override-ban megy ki a tényleges tartalom — a meglévő `outreach_enrollments.metadata.personalized_steps[0]` mechanizmus marad.
 
-Token-csere kötelező (csak class-rename token-utilityvel, struktúra marad):
-- `AdminDashboard.tsx` — bento refactor + tokenek
-- `AdminLeads.tsx`, `AdminPartners.tsx`, `AdminPartnerDetail.tsx`, `AdminDocuments.tsx`, `AdminTasks.tsx`, `AdminDecisions.tsx`, `AdminInbox.tsx`
-- `AdminLayout.tsx`, `AdminBreadcrumb.tsx`, `PageSectionNav.tsx`
-- Admin-belüli dialog-ok: `DocumentReviewDialog`, `BulkReviewDialog`, `TaskResultDialog`
+Új edge function: `outreach-quick-drafts`
+- Input: `{ partner_id }`
+- Output: `{ drafts: [{ tone, subject, body }, ...] }` — 3 elem (founding_pitch, warm_intro, short_nudge).
+- Egyetlen AI-hívás Lovable Gateway-en (`google/gemini-2.5-flash`), JSON output. Brand context + partner adatok.
+- A/B subject-stats betöltése **megmarad** (a meglévő `loadSubjectStats` logika átemelve), hogy a top subjectek stílusát kövesse.
 
-Bento layout most csak a Dashboardon; a többi oldal a refreshelt tokent és komponens-stílust kapja, struktúra változatlan (külön kör lehet később).
+Bugfix: a drawer "Outreach javaslat" gomb jelenleg `{ partner_id }` payload-dal hívja `outreach-suggest`-et, ami `{ entity_type, entity_id }`-t vár → ez a non-2xx hiba a képen. Két opció:
+1. Eltávolítjuk az "Outreach javaslat" gombot a drawer-ből (az új quick dialog kiváltja).
+2. Marad, de javítjuk a payload-ot.
 
-## 7. Lépésrend (kis, ellenőrizhető commitek)
+Javaslat: **eltávolítjuk** — az új flow lefedi. Egy gomb, egy út.
 
-1. **3.1 Tokenek + fontok** — `index.css` admin-scope blokk, `tailwind.config.ts`, `main.tsx` font importok, `AdminLayout` scope class. Nincs vizuális regresszió a publikus oldalon.
-2. **3.2 Primitív refresh** — admin variants: button, input, card, badge, table, dialog (scope-on belül).
-3. **3.3 Topbar + Sidebar + Breadcrumb + PageSectionNav** átszínezés.
-4. **3.4 Dashboard bento** — `BentoGrid` + `BentoCard`, `DashboardHero` és `DashboardColumns` átkötve.
-5. **3.5 Többi admin oldal** — token-csere, hover/border/shadow összehangolás.
-6. **3.6 Motion pass** — stagger, hover, section-pulse, skeleton shimmer.
-7. **3.7 QA** — Playwright screenshot kör (publikus + admin route-ok, ahol elérhető) + console/network ellenőrzés.
+## Érintett fájlok
 
-## 8. Out of scope
+- `src/components/admin/leads/LeadOutreachModal.tsx` — teljes átírás: ~390 → ~150 sor, 1 panel.
+- `src/components/admin/crm/EntityDrawer.tsx` — "Outreach javaslat" gomb + handler törlése; az "Outreach indítása" megmarad, csak az új dialog nyílik.
+- `supabase/functions/outreach-quick-drafts/index.ts` — új.
+- Migration: `lead_quick` sequence beszúrása ha még nincs.
+- `src/components/admin/leads/BulkOutreachModal.tsx` — érintetlen (multi-select-re marad a sequence-választós flow).
 
-- Publikus oldal (homepage, /partnerek, /italmarkak, PDF doksik) **nem változik**.
-- Új funkció, új edge function, DB séma változás: nincs.
-- Mobil admin külön optimalizáció: külön kör (a bento `lg:` breakpoint felett él, alatta auto-stack).
+## Out of scope
 
-## 9. Technikai részletek
+- `/admin/outreach` oldal, sequence editor, batch wizard, analytics — változatlan.
+- Reply-handling, follow-up logika (`outreach-tick`, `outreach-reply-classify`) — változatlan.
+- Tényleges email-küldés infrastruktúrája (Resend / outreach-tick cron) — érintetlen.
 
-- Új fájlok: `src/components/admin/dashboard/BentoGrid.tsx`, `BentoCard.tsx`.
-- Módosított: `src/index.css`, `tailwind.config.ts`, `src/main.tsx`, `src/components/admin/AdminLayout.tsx`, `AdminBreadcrumb.tsx`, `PageSectionNav.tsx`, `src/pages/admin/*.tsx`, admin dialog-ok.
-- Csomagok: `@fontsource/sora`, `@fontsource/manrope`.
-- Semmi hardcoded szín — minden `hsl(var(--admin-*))`-en keresztül.
-- Backward-compat: ha valami komponenst nem szok-olunk `.admin-scope` alá, a régi tokenek érintetlenek.
+## Lépésrend
 
----
-
-**Mehet az implementáció így, vagy bármelyik ponton finomítsunk** (pl. bento elrendezés sorrendje, sidebar vs. nem-sidebar, density-szint)?
+1. Migration: `lead_quick` sequence seed.
+2. `outreach-quick-drafts` function (Lovable AI Gateway, JSON, 3 draft, brand+subject stats).
+3. Új `LeadOutreachModal` (chip-sor + 2 input + Küld gomb).
+4. Drawer cleanup: javaslat-gomb ki.
+5. Smoke: drawer → Outreach indítása → 3 sablon megjelenik → Küldés → enrollment létrejön → toast.
