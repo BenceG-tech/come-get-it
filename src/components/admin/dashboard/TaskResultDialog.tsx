@@ -32,6 +32,9 @@ const RECIPE_LABEL: Record<string, string> = {
   research: "Lead kutatás",
   followup: "Follow-up",
   inbox: "Inbox átnézés",
+  content: "Content írás",
+  doc_review: "Doksi review",
+  decision: "Döntés-elemzés",
   custom: "Egyedi feladat",
 };
 
