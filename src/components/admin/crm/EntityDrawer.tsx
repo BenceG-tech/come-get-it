@@ -78,7 +78,6 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
     if (!open || !entityId) return;
     trackEvent("entity_drawer_opened", { entity_type: entityType, entity_id: entityId });
     setAiSuggestion(null);
-    setAiBrief(null);
     reload();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, entityId, entityType]);
