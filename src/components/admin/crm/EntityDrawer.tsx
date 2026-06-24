@@ -193,19 +193,16 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
         {/* Quick Action Bar */}
         {entity && (
           <div className="flex flex-wrap gap-2 mt-3 pb-3 border-b border-nf-border">
-            <Button size="sm" variant="neon" onClick={generateBrief} disabled={briefLoading}>
-              {briefLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Zap className="w-3 h-3 mr-1" />} AI brief
+            <Button size="sm" variant="neon" onClick={runResearch} disabled={researchLoading} title="AI mélyelemzés: web scrape + Fit/Risk/Talking points">
+              {researchLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Sparkles className="w-3 h-3 mr-1" />} AI Insight
             </Button>
             <Button size="sm" variant="outline" onClick={() => setOutreachOpen(true)}>
               <SendIcon className="w-3 h-3 mr-1" /> Outreach indítása
             </Button>
-            <Button size="sm" variant="outline" onClick={runResearch} disabled={researchLoading}>
-              {researchLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Telescope className="w-3 h-3 mr-1" />} Kutass utána
-            </Button>
             <Button size="sm" variant="outline" onClick={quickTask}><Plus className="w-3 h-3 mr-1" /> Task</Button>
             <Button size="sm" variant="outline" onClick={quickDecision}><Brain className="w-3 h-3 mr-1" /> Döntés</Button>
             <InlineAIHelper
-              context={{ partner: entity, recent_timeline: timeline.slice(0, 5), research: entity.research_dossier }}
+              context={{ partner: entity, recent_timeline: timeline.slice(0, 5), research: entity.research_dossier ?? entity.research_notes }}
               surface="partner drawer"
               suggestions={[
                 "Mit írjak első emailben?",
@@ -214,13 +211,6 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
               ]}
             />
           </div>
-        )}
-
-        {aiBrief && (
-          <Card className="p-3 mt-3 text-xs whitespace-pre-wrap bg-electric-300/5 border-electric-300/40">
-            <div className="text-[10px] uppercase tracking-wider text-electric-300 mb-1">AI brief</div>
-            {aiBrief}
-          </Card>
         )}
 
         {loading && <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-electric-300" /></div>}
