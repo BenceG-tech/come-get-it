@@ -1,37 +1,29 @@
 ## Cél
-A `MibenSegitSection` kártyáin a kép nagy részét most eltakarja az alsó szöveges panel + a sötétítő overlay. A kép legyen a főszereplő, a szöveg pedig kompakt, alul, nem rátakarva.
+A `BenefitsSection` (Felhasználók / Vendéglátóhelyek / Italmárkák / Rewards Partnerek / Közösség) kártyáin ugyanaz a probléma, mint korábban a MibenSegit-nél: a kép szinte teljesen el van sötétítve és a szöveg ráül — a releváns vizuális (emberek, polc, üvegek, telefon, közösség) alig látszik.
 
-## Új kártya-felépítés (mobil-first, 2x2 grid marad)
+Ugyanazt a mintát alkalmazom, mint a MibenSegit kártyákon:
 
+### Új felépítés
 ```
-┌─────────────────────┐
-│  ◯ ikon (top-left)  │
-│                     │
-│      KÉP (4:3)      │  ← teljesen látszik, csak alul finom gradient a kontrasztért
-│                     │
-├─────────────────────┤
-│  HOL REGGELIZZEK?   │  ← külön szövegblokk a kép ALATT, nem rajta
-│  Találj helyet...   │     (kártya háttér: nf-background/elevated)
-└─────────────────────┘
+┌────────────────┐
+│ ◯ ikon         │
+│   KÉP (4:3)    │  ← teljes egészében látszik
+├────────────────┤
+│ FELHASZNÁLÓK   │  ← szöveg a kép ALATT
+│ Több élmény... │
+└────────────────┘
 ```
 
-### Konkrét változások a `src/components/MibenSegitSection.tsx`-ben
-
-1. **Kép arány**: `aspect-[3/4]` → `aspect-[4/3]` (alacsonyabb, szélesebb — több vizuális hangsúly a képnek, kevesebb függőleges hely).
-2. **Szöveg pozíció**: az `absolute inset-x-0 bottom-0` panel megszűnik. Helyette a szöveg a kép alatt, normál flow-ban, a kártyán belüli külön `<div className="p-4">` blokkban.
-3. **Kép sötétítés**: a teljes `bg-black/55` overlay törlődik. Helyette csak egy vékony alsó gradient (`from-black/60 via-black/0`) a kép alsó ~30%-án, hogy az ikon és a kép széle ne ütközzön a háttérrel, de a kép tartalma tisztán látszódjon.
-4. **Ikon chip**: marad bal felül, változatlan stílusban (a gradient alatta is olvashatóvá teszi).
-5. **Cím szín**: alap fehér, hover `text-nf-primary` (marad). Az aktív/kiemelt kártya logika (a képen a "HOL EBÉDELJEK?" cyan) most globális hover — nem nyúlunk hozzá.
-6. **Kártya háttér**: `bg-nf-surface/40` a szöveg-blokk mögé, hogy elváljon a section hátterétől, de illeszkedjen a Neon Fidelity stílushoz.
+### Konkrét változások — `src/components/BenefitsSection.tsx`
+1. A kártya `aspect-[3/4]` egészként megszűnik. A kártya `flex flex-col`, a kép `aspect-[4/3]`-ra vált és csak a felső blokkot foglalja el.
+2. Eltávolítom a teljes sötét gradient overlay-t. Csak egy keskeny felső gradient marad (`from-black/55 to-transparent`, top ~⅓), hogy az ikon-medál tisztán látszódjon.
+3. A szöveg kikerül a kép alá, normál flow-ban, külön panelba (`px-4 pt-3.5 pb-4 border-t border-nf-primary/20`), `bg-nf-surface/40` kártya háttéren.
+4. Az ikon-medál marad bal felül a képen.
+5. Hover effect (border glow, lift, kép finom zoom) megmarad / átvezetve.
 
 ### Mit NEM bántunk
-- Section cím, subtitle, háttér-gradient, glow.
-- Képek (`bgReggeli`, `bgEbed`, `bgBeulos`, `bgBulizas`) és i18n kulcsok.
-- Grid struktúra (`grid-cols-2 lg:grid-cols-4`).
-- Más szekciók/komponensek.
+- Section cím, képek, i18n kulcsok, grid (`grid-cols-2 sm:grid-cols-3 lg:grid-cols-5`).
+- Egyéb komponensek.
 
 ### Sikerkritérium
-- Mind a 4 képen tisztán látszik a fő motívum (kávé, étel, kanapé, parti).
-- A cím + leírás a kép ALATT van, nem rajta.
-- Mobil és desktop nézetben is kiegyensúlyozott a kártya magassága.
-- Megmarad a Neon Fidelity hangulat (cyan ikon-chip, border-glow hover).
+Mind az 5 kártyán azonosíthatóan látszik a fő kép (arcok, polc, üvegek, telefon, közösség), és a szöveg külön blokkban van alatta — nem takar.
