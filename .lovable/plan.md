@@ -1,46 +1,30 @@
-## Fázis A — 2. iteráció
+## Következő iteráció — válassz irányt
 
-Négy pont egyszerre, mind frontend (egy edge function kivételével).
+A D fázis (Outreach Analytics) kész. Innen három logikus irány nyílik:
 
-### A4 — Pipeline mező-emlékeztetők
-- `AdminPartners.tsx` Kanban + lista: `InlineEditCell` komponens a "—" cellákhoz (contact_name, next_followup_at).
-  - Kattintás → popover input (text / date) → mentés `partners.update`-tel + toast.
-- Kanban kártyán piros pötty badge, ha `contact_name` vagy `next_followup_at` üres.
-- Új komponens: `src/components/admin/crm/InlineEditCell.tsx`.
+### Opció 1 — D2: Outreach analytics mélyítés
+- **CSV export** a sequence teljesítmény táblából
+- **Időbeli A/B összehasonlítás**: két sequence egymás mellett (side-by-side funnel + reply rate trend)
+- **"Best step" kiemelés**: melyik lépésnél esik le legjobban a funnel → konkrét javaslat a lépés átírására (InlineAIHelper-rel)
+- **Heatmap**: melyik napszakban / hétköznapon nyitnak legtöbbet → optimal send time javaslat
+- Fájlok: `OutreachAnalytics.tsx` bővítés + új `OutreachABCompare.tsx` + `OutreachSendTimeHeatmap.tsx`
 
-### A9 — ⌘K parancspaletta bővítés
-- `CommandPalette.tsx`: új "Akciók" csoport context-aware itemekkel:
-  - "➕ Új partner" → `/admin/partners?new=1` (drawer auto-nyit)
-  - "✏️ Lead státusz" → két lépéses: lead keresés → státusz választó (inline a Command List-en belül)
-  - "📝 Gyors brief" → `/admin/content?brief=1`
-  - "📞 Outreach a kiválasztott leadnek" → ha aktuális route partner detail, közvetlen outreach modal
-  - "🔬 Deep research" → `/admin/trends?run=1`
-- Új hook: `useCommandAction({ id, label, icon, group, handler })` — context-aware regisztráció (globális store-on át, hogy a Partner detail oldal pl. "Outreach küldés ennek" item-et regisztrálhasson).
-- `src/components/admin/CommandPalette.tsx` + `src/lib/command-actions.ts` (registry).
+### Opció 2 — E fázis: Lead → Partner konverzió motorja
+- **Auto-promote**: ha egy lead `score >= 80` ÉS válaszolt outreach-re → automatikus partner létrehozás + drawer felugró javaslat
+- **Konverziós tölcsér widget** a dashboardon: lead → kontaktált → válaszolt → partner → aktív (számok + %)
+- **"Stalled leads"** lista: 14+ napja nem mozdult, AI-javaslat következő lépésre
+- Új edge function: `lead-promote-suggest` (cron, naponta)
+- Fájlok: új `ConversionFunnel.tsx`, `StalledLeadsCard.tsx`, edge function, dashboard integráció
 
-### A10 — Bulk akciók
-- `BulkActionBar.tsx` már létezik a Leads-en. Bővítés:
-  - "Outreach küldés" → modal: sequence választó → `outreach_enrollments` batch insert (B5 előkészítés, most csak enrollment, send a meglévő trigger végzi).
-  - "Címkézés" → tag input → `partners.tags` array append.
-  - "Export CSV" → kliens-oldal CSV download a kijelölt sorokból.
-  - Delete → új `bulk-leads-action` edge function (audit log + RLS-safe batch delete).
-- `AdminPartners.tsx`-re is bekötjük ugyanazt a `BulkActionBar`-t (eddig csak Leads-en volt).
-- Új edge function: `supabase/functions/bulk-leads-action/index.ts` (delete + tag bulk).
+### Opció 3 — F fázis: Content ↔ Outreach összekötés
+- Brief / saved snippet kiválasztható outreach step-ként (eddig csak email_template volt)
+- "Mit küldjek ennek?" gomb a partner drawer-en: AI a partner profilja + meglévő briefek alapján 3 snippet-javaslatot ad
+- Snippet performance → outreach reply rate visszacsatolás: melyik snippet hozott választ
+- Fájlok: `outreach_sequences.steps` schema bővítés (snippet_id), `EntityDrawer.tsx` SuggestSnippetButton, `outreach-tick` bővítés
 
-### A12 — Mobil bottom nav Outreach
-- `src/lib/admin-nav-config.ts` `MOBILE_BOTTOM_NAV`: átstruktúrálás
-  - Ma | Leadek | **Outreach** | Tartalom | Több (drawer)
-- "Több" Sheet drawer: Dokumentumok, Riportok, Beállítások, Naptár, Brand, AI.
-- `MobileBottomNav.tsx`: 5. cella az ⌘K helyett "Több" sheet trigger; ⌘K maradjon csak desktopon.
+### Opció 4 — Más
+Szabad szöveggel megmondom mit kérek.
 
 ---
 
-## Technikai részletek
-
-- **Új fájlok:** `InlineEditCell.tsx`, `command-actions.ts` (registry + `useCommandAction` hook), `bulk-leads-action/index.ts`, `MobileMoreDrawer.tsx`.
-- **Módosított:** `AdminPartners.tsx` (inline edit + bulk bar), `CommandPalette.tsx`, `MobileBottomNav.tsx`, `admin-nav-config.ts`, `BulkActionBar.tsx`.
-- **Nincs DB migration** ehhez az iterációhoz (tags column már létezik; outreach_enrollments is).
-- **1 edge function:** `bulk-leads-action` (audit log + service role delete).
-- **Nincs új npm package.**
-
-Mehetünk?
+**Melyik irány?** (Vagy mondj sajátot.)
