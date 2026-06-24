@@ -135,23 +135,10 @@ Deno.serve(async (req) => {
       });
     }
 
-    // 5. Pending AI document reviews
-    const { data: pending } = await admin
-      .from("documents")
-      .select("id, title")
-      .is("ai_review", null)
-      .order("updated_at", { ascending: false })
-      .limit(5);
-    for (const d of pending ?? []) {
-      items.push({
-        kind: "doc_review_needed",
-        severity: "info",
-        title: `Doksi review kell: ${d.title}`,
-        entity_kind: "document",
-        entity_id: d.id,
-        dedupe_key: `doc_review:${d.id}:${today}`,
-      });
-    }
+    // 5. Doksi review-t NEM teszünk inboxba — automatikusan megy a háttérben
+    //    (auto-review-documents edge function + manuális "AI review az összesre" gomb).
+
+
 
     let inserted = 0;
     for (const it of items) {
