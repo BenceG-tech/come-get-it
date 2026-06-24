@@ -1,30 +1,30 @@
-## Következő iteráció — válassz irányt
+## Hibajavítás + következő lépések
 
-A D fázis (Outreach Analytics) kész. Innen három logikus irány nyílik:
+### A tényleges error
+Csak egy React DOM warning a konzolon:
+```
+React does not recognize the `fetchPriority` prop on a DOM element.
+```
+Forrás: `src/components/HeroSection.tsx:44` — `<img fetchPriority="high" />`. React 18 a camelCase `fetchPriority`-t nem ismeri natívan a DOM-on; lowercase `fetchpriority` kell (mint a `HeroBackground.tsx`-ben már jól van).
 
-### Opció 1 — D2: Outreach analytics mélyítés
-- **CSV export** a sequence teljesítmény táblából
-- **Időbeli A/B összehasonlítás**: két sequence egymás mellett (side-by-side funnel + reply rate trend)
-- **"Best step" kiemelés**: melyik lépésnél esik le legjobban a funnel → konkrét javaslat a lépés átírására (InlineAIHelper-rel)
-- **Heatmap**: melyik napszakban / hétköznapon nyitnak legtöbbet → optimal send time javaslat
-- Fájlok: `OutreachAnalytics.tsx` bővítés + új `OutreachABCompare.tsx` + `OutreachSendTimeHeatmap.tsx`
+**Nem törésfunkció**, csak warning — az E fázis (ConversionFunnel, StalledLeadsCard, lead-promote-suggest) buildje rendben lefutott.
 
-### Opció 2 — E fázis: Lead → Partner konverzió motorja
-- **Auto-promote**: ha egy lead `score >= 80` ÉS válaszolt outreach-re → automatikus partner létrehozás + drawer felugró javaslat
-- **Konverziós tölcsér widget** a dashboardon: lead → kontaktált → válaszolt → partner → aktív (számok + %)
-- **"Stalled leads"** lista: 14+ napja nem mozdult, AI-javaslat következő lépésre
-- Új edge function: `lead-promote-suggest` (cron, naponta)
-- Fájlok: új `ConversionFunnel.tsx`, `StalledLeadsCard.tsx`, edge function, dashboard integráció
+### Javítás (1 sor)
+- `src/components/HeroSection.tsx` 44. sor: `fetchPriority="high"` → `fetchpriority={"high" as any}` (vagy ts-ignore + lowercase, ugyanúgy mint `HeroBackground.tsx`-ben).
 
-### Opció 3 — F fázis: Content ↔ Outreach összekötés
-- Brief / saved snippet kiválasztható outreach step-ként (eddig csak email_template volt)
-- "Mit küldjek ennek?" gomb a partner drawer-en: AI a partner profilja + meglévő briefek alapján 3 snippet-javaslatot ad
-- Snippet performance → outreach reply rate visszacsatolás: melyik snippet hozott választ
-- Fájlok: `outreach_sequences.steps` schema bővítés (snippet_id), `EntityDrawer.tsx` SuggestSnippetButton, `outreach-tick` bővítés
+### Következő lépések — válassz irányt
 
-### Opció 4 — Más
-Szabad szöveggel megmondom mit kérek.
+**E2 — Lead→Partner konverzió bővítés** (folytatás az E fázishoz)
+- "Promote to partner" gomb az Inbox `lead_promote` itemen → státusz `lead` → `contacted` egy kattintással, opcionálisan AI üzenetjavaslat.
+- `lead_promote-suggest` cron schedule (naponta reggel 8-kor) — `pg_cron`-nal.
+- Konverziós ráta time-series a `ConversionFunnel`-hez (heti összehasonlítás).
 
----
+**F fázis — Content ↔ Outreach összekötés**
+- Saved snippet mint outreach step (eddig csak email_template volt).
+- "Mit küldjek ennek?" AI gomb a partner drawer-en (3 snippet javaslat).
+- Snippet → reply-rate visszacsatolás.
 
-**Melyik irány?** (Vagy mondj sajátot.)
+**G fázis — Daily ops cockpit**
+- Reggeli "today screen": ma kihez kell visszanyúlni, mi a legforróbb lead, mi a legfontosabb 1 döntés. Egy oldal, 30 mp alatt átlátható.
+
+Melyik irányba menjünk a fix után?

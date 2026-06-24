@@ -41,7 +41,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             style={{ objectPosition: 'center 55%' }}
             width={1920}
             height={1080}
-            fetchPriority="high"
+            {...({ fetchpriority: "high" } as any)}
             decoding="async"
           />
         </div>
