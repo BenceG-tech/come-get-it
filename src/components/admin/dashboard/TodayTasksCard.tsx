@@ -27,6 +27,7 @@ export default function TodayTasksCard() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
+  const [autopilot, setAutopilot] = useState<{ task: Task; index: number } | null>(null);
   const today = new Date().toISOString().slice(0, 10);
 
   const load = async () => {
