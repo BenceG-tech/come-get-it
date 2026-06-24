@@ -88,9 +88,14 @@ export default function LeadsKanban({ partners, onStatusChange, groupBy = "statu
     })();
   }, [partners]);
 
+  const byReadiness = groupBy === "readiness";
+  const activeStages = byReadiness ? READINESS_STAGES : stages;
   const byStatus: Record<string, any[]> = {};
-  stages.forEach((s) => (byStatus[s.key] = []));
-  partners.forEach((p) => { (byStatus[p.status] ??= []).push(p); });
+  activeStages.forEach((s) => (byStatus[s.key] = []));
+  partners.forEach((p) => {
+    const key = byReadiness ? `r${getReadiness(p)}` : p.status;
+    (byStatus[key] ??= []).push(p);
+  });
 
   const onDragStart = (e: React.DragEvent, id: string, fromStatus: string) => {
     e.dataTransfer.setData("text/plain", id);
