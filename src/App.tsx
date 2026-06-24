@@ -35,6 +35,7 @@ import AdminBrand from "./pages/admin/AdminBrand";
 import AdminContentStudio from "./pages/admin/AdminContentStudio";
 import AdminRetro from "./pages/admin/AdminRetro";
 import AdminOutreach from "./pages/admin/AdminOutreach";
+import AdminInstagramQueue from "./pages/admin/AdminInstagramQueue";
 import AdminInbox from "./pages/admin/AdminInbox";
 import AdminSimulator from "./pages/admin/AdminSimulator";
 import AdminDecisions from "./pages/admin/AdminDecisions";
@@ -79,6 +80,7 @@ const App = () => (
               <Route path="/admin/content" element={<AdminRoute><AdminLayout><AdminContentStudio /></AdminLayout></AdminRoute>} />
               <Route path="/admin/retro" element={<AdminRoute><AdminLayout><AdminRetro /></AdminLayout></AdminRoute>} />
               <Route path="/admin/outreach" element={<AdminRoute><AdminLayout><AdminOutreach /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/outreach/instagram" element={<AdminRoute><AdminLayout><AdminInstagramQueue /></AdminLayout></AdminRoute>} />
               <Route path="/admin/inbox" element={<AdminRoute><AdminLayout><AdminInbox /></AdminLayout></AdminRoute>} />
               <Route path="/admin/simulator" element={<AdminRoute><AdminLayout><AdminSimulator /></AdminLayout></AdminRoute>} />
               <Route path="/admin/decisions" element={<AdminRoute><AdminLayout><AdminDecisions /></AdminLayout></AdminRoute>} />
