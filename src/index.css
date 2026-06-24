@@ -647,3 +647,77 @@
   .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }
+
+/* ===== ADMIN DESIGN REFRESH — Neon Fidelity Pro ===== */
+/* Scoped tokens; nem érintik a publikus oldalt. */
+.admin-scope {
+  --admin-bg: 0 0% 2%;                  /* #050505 */
+  --admin-surface-1: 195 25% 7%;        /* #0d1417 */
+  --admin-surface-2: 195 22% 10%;
+  --admin-surface-3: 195 18% 14%;
+  --admin-border: 188 30% 18%;
+  --admin-border-strong: 188 60% 30%;
+  --admin-primary: 188 100% 41%;        /* #00bcd4 */
+  --admin-primary-glow: 184 100% 74%;   /* #7df9ff */
+  --admin-text: 0 0% 96%;
+  --admin-text-muted: 195 12% 65%;
+  --admin-text-dim: 195 10% 45%;
+  --admin-success: 158 64% 52%;
+  --admin-warning: 38 92% 60%;
+  --admin-danger: 0 75% 60%;
+
+  font-family: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: hsl(var(--admin-bg));
+}
+
+.admin-scope h1,
+.admin-scope h2,
+.admin-scope h3,
+.admin-scope .admin-display,
+.admin-scope .admin-metric {
+  font-family: 'Sora', 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.admin-scope .admin-metric,
+.admin-scope [data-tabular] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Bento entry stagger — minden közvetlen gyermek kis késleltetést kap */
+.admin-scope .bento-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.admin-scope .bento-stagger > *:nth-child(2) { animation-delay: 40ms; }
+.admin-scope .bento-stagger > *:nth-child(3) { animation-delay: 80ms; }
+.admin-scope .bento-stagger > *:nth-child(4) { animation-delay: 120ms; }
+.admin-scope .bento-stagger > *:nth-child(5) { animation-delay: 160ms; }
+.admin-scope .bento-stagger > *:nth-child(6) { animation-delay: 200ms; }
+.admin-scope .bento-stagger > *:nth-child(7) { animation-delay: 240ms; }
+.admin-scope .bento-stagger > *:nth-child(8) { animation-delay: 280ms; }
+
+/* Section-jump cyan pulse — PageSectionNav ugrásnál */
+@keyframes admin-section-pulse {
+  0%   { box-shadow: 0 0 0 0 hsl(var(--admin-primary) / 0.0); }
+  30%  { box-shadow: 0 0 0 6px hsl(var(--admin-primary) / 0.25); }
+  100% { box-shadow: 0 0 0 0 hsl(var(--admin-primary) / 0.0); }
+}
+.admin-scope .admin-section-pulse {
+  animation: admin-section-pulse 700ms ease-out;
+  border-radius: 1rem;
+}
+
+/* Cyan shimmer skeleton */
+@keyframes admin-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.admin-scope .admin-skeleton {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--admin-surface-2)) 0%,
+    hsl(var(--admin-surface-3)) 50%,
+    hsl(var(--admin-surface-2)) 100%
+  );
+  background-size: 800px 100%;
+  animation: admin-shimmer 1.6s linear infinite;
+}
+
