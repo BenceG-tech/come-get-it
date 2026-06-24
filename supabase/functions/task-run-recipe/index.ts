@@ -109,7 +109,7 @@ Ha valami nem derül ki, hagyd ki a paramétert. Default count: 5.`;
 
 async function searchPartners(p: { city?: string; category?: string; min_grade?: string; has_email?: boolean; limit?: number; status?: string[] }) {
   let q = admin.from("partners")
-    .select("id, company_name, city, category, email, lead_score, lead_grade, status, contact_person")
+    .select("id, company_name, city, category, email, lead_score, lead_grade, status, contact_name")
     .eq("type", "venue");
   if (p.status?.length) q = q.in("status", p.status);
   else q = q.in("status", ["lead", "contacted"]);
