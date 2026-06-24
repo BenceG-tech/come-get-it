@@ -394,6 +394,10 @@ export default function AdminLeads() {
             { key: "google_rating", label: "Google rating" },
           ], `leadek-${new Date().toISOString().slice(0,10)}.csv`);
         }}
+        onResearch={bulkResearch}
+        onGrade={bulkGrade}
+        researching={bulkResearching}
+        grading={aiGrading}
         loading={scoring}
       />
 
