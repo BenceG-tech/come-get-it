@@ -50,16 +50,26 @@ async function failRun(runId: string, error: string) {
 
 // ─────────────── classifier ───────────────
 
-type RecipeType = "outreach" | "research" | "followup" | "inbox" | "custom";
+type RecipeType = "outreach" | "research" | "followup" | "inbox" | "content" | "doc_review" | "decision" | "custom";
 
 type Classification = {
   recipe_type: RecipeType;
   params: {
+    // outreach/research
     city?: string;
     category?: string;
     min_grade?: "A" | "B" | "C" | "D";
     count?: number;
     tone?: "founding_pitch" | "casual" | "formal";
+    // content
+    channel?: "instagram" | "linkedin" | "facebook" | "email" | "general";
+    topic?: string;
+    persona?: string;
+    // doc_review
+    doc_query?: string;
+    // decision
+    decision_query?: string;
+    options?: string[];
     notes?: string;
   };
   reasoning?: string;
@@ -73,10 +83,13 @@ RECEPT TÍPUSOK:
 - research: piackutatás, leadek átnézése, top X lista készítése (pl. "nézd át a budapesti helyeket", "kik a legjobb A grade leadek")
 - followup: már megkeresett, nem válaszolt partnereknek emlékeztető (pl. "follow up a múlt heti emailekre")
 - inbox: bejövő üzenetek / inbox itemek átnézése (pl. "mi van az inboxban", "válaszolj a leveleimre")
+- content: poszt / email / copy / hirdetés írás (pl. "írj egy IG posztot a Founding Partnerről", "csinálj egy LinkedIn copyt", "fogalmazz egy hírlevelet"). Töltsd ki: channel, topic, esetleg persona.
+- doc_review: egy konkrét dokumentum átnézése (pl. "nézd át a pitch deck-et", "review-old a Founding Partner pdf-et"). Töltsd ki: doc_query (a doksi neve vagy kulcsszó).
+- decision: döntéshozatal segítése (pl. "segíts dönteni X vagy Y", "melyik csatornát toljam"). Töltsd ki: decision_query, lehetőleg options[].
 - custom: bármi más amit a fenti receptek nem fednek le
 
 VÁLASZ FORMÁTUM (CSAK JSON, semmi más):
-{"recipe_type":"outreach","params":{"city":"Budapest","category":"koktélbár","min_grade":"B","count":5,"tone":"founding_pitch"},"reasoning":"rövid magyar magyarázat"}
+{"recipe_type":"content","params":{"channel":"instagram","topic":"Founding Partner Program","persona":"vendéglátós tulajdonos"},"reasoning":"rövid magyar magyarázat"}
 
 Ha valami nem derül ki, hagyd ki a paramétert. Default count: 5.`;
 
@@ -103,6 +116,24 @@ Ha valami nem derül ki, hagyd ki a paramétert. Default count: 5.`;
   } catch {
     return { recipe_type: "custom", params: {} };
   }
+}
+
+// ─────────────── AI helper ───────────────
+
+async function aiJson(systemPrompt: string, userPrompt: string, model = "google/gemini-2.5-flash"): Promise<any> {
+  const r = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model,
+      messages: [{ role: "system", content: systemPrompt }, { role: "user", content: userPrompt }],
+      response_format: { type: "json_object" },
+    }),
+  });
+  if (!r.ok) throw new Error(`AI ${r.status}: ${await r.text()}`);
+  const j = await r.json();
+  const text = j?.choices?.[0]?.message?.content ?? "{}";
+  try { return JSON.parse(text); } catch { return {}; }
 }
 
 // ─────────────── partner search ───────────────
@@ -270,6 +301,173 @@ async function recipeFollowup(runId: string, params: Classification["params"]) {
   await finishRun(runId, `${data.length} follow-up draft elkészült. Nézd át és küldd ki.`);
 }
 
+// ─────────────── recipe: CONTENT ───────────────
+
+async function recipeContent(runId: string, params: Classification["params"], goal: string) {
+  await setProgress(runId, 1, 2, "Brand voice + brief betöltése");
+  const { data: brand } = await admin.from("brand_knowledge").select("key, value").in("key", ["voice", "personas", "usps", "tagline"]);
+  const brandCtx = (brand ?? []).map((b: any) => `${b.key}: ${JSON.stringify(b.value)}`).join("\n").slice(0, 2000);
+
+  const channel = params.channel ?? "general";
+  const topic = params.topic ?? goal;
+  const persona = params.persona ?? "általános HORECA tulajdonos";
+
+  await setProgress(runId, 2, 2, `Draftok írása (${channel})`);
+
+  const sys = `Te a Come Get It magyar startup copywriter-e vagy. Tegező, energikus, konkrét.
+Brand kontextus:
+${brandCtx || "(nincs brand kontextus)"}
+
+Adj 3 draftot ugyanarra a témára különböző hosszal: "short" (1-2 mondat / IG caption), "medium" (3-5 mondat / posztolható), "long" (full email vagy LinkedIn long-form).
+
+Csatorna: ${channel}. Persona célközönség: ${persona}.
+
+VÁLASZ JSON:
+{"drafts":[{"length":"short","title":"opcionális tárgy/hook","body":"a teljes szöveg"},{"length":"medium",...},{"length":"long",...}]}`;
+
+  let resp: any = {};
+  try {
+    resp = await aiJson(sys, `Téma: ${topic}\n\nEredeti feladat: ${goal}`);
+  } catch (e: any) {
+    await failRun(runId, "AI hiba: " + (e?.message ?? e));
+    return;
+  }
+
+  const drafts = Array.isArray(resp?.drafts) ? resp.drafts : [];
+  if (drafts.length === 0) {
+    await finishRun(runId, "AI nem adott vissza draftot. Próbáld konkrétabb feladattal (mi a téma, kinek szól).");
+    return;
+  }
+
+  for (const d of drafts) {
+    await addResultItem(runId, {
+      kind: "content_draft",
+      channel,
+      topic,
+      persona,
+      length: d.length ?? "medium",
+      title: d.title ?? "",
+      body: d.body ?? "",
+      action: "pending",
+    });
+  }
+
+  await finishRun(runId, `${drafts.length} draft elkészült (${channel} · ${topic}). Szerkeszd és mentsd a Content Studio-ba, vagy másold ki.`);
+}
+
+// ─────────────── recipe: DOC REVIEW ───────────────
+
+async function recipeDocReview(runId: string, params: Classification["params"], goal: string) {
+  await setProgress(runId, 1, 2, "Dokumentum keresése");
+  const query = (params.doc_query ?? goal).slice(0, 200);
+
+  // Try title ilike first, then description
+  let { data: docs } = await admin.from("documents")
+    .select("id, title, category, description, tldr, content, key_points, faq, ai_review")
+    .ilike("title", `%${query}%`)
+    .limit(3);
+
+  if (!docs?.length) {
+    const tokens = query.split(/\s+/).filter(t => t.length > 3).slice(0, 3);
+    if (tokens.length) {
+      const orExpr = tokens.map(t => `title.ilike.%${t}%,description.ilike.%${t}%`).join(",");
+      const { data } = await admin.from("documents").select("id, title, category, description, tldr, content, key_points, faq, ai_review").or(orExpr).limit(3);
+      docs = data ?? [];
+    }
+  }
+
+  if (!docs?.length) {
+    await finishRun(runId, `Nem találtam doksit "${query}" keresésre. Próbáld pontosabb névvel, vagy nyisd meg a /admin/documents oldalt.`);
+    return;
+  }
+
+  await setProgress(runId, 2, 2, `Review (${docs.length} doksi)`);
+
+  for (const doc of docs) {
+    const body = (doc.content ?? "").slice(0, 6000) || doc.description || doc.tldr || "(üres)";
+    const sys = `Magyar startup founder asszisztens vagy. Egy dokumentumot vizsgálsz át a Come Get It kontextusban.
+Adj strukturált review-t magyarul, 4 részben.
+
+VÁLASZ JSON:
+{"strengths":["pont1","pont2"],"gaps":["mi hiányzik vagy gyenge"],"suggestions":["konkrét javaslatok"],"summary":"2-3 mondat összegzés"}`;
+    try {
+      const review = await aiJson(sys, `Cím: ${doc.title}\nKategória: ${doc.category}\n\nTartalom:\n${body}`);
+      await addResultItem(runId, {
+        kind: "doc_review",
+        doc: { id: doc.id, title: doc.title, category: doc.category },
+        review,
+        action: "pending",
+      });
+    } catch (e: any) {
+      await addResultItem(runId, { kind: "doc_review", doc: { id: doc.id, title: doc.title }, error: e?.message ?? String(e) });
+    }
+  }
+
+  await finishRun(runId, `${docs.length} doksi review elkészült. Nyisd meg ha mélyebb szerkesztés kell.`);
+}
+
+// ─────────────── recipe: DECISION ───────────────
+
+async function recipeDecision(runId: string, params: Classification["params"], goal: string) {
+  await setProgress(runId, 1, 2, "Döntés kontextus betöltése");
+
+  const query = params.decision_query ?? goal;
+  const options = Array.isArray(params.options) ? params.options.filter(Boolean) : [];
+
+  // If no inline decision: list open (unreviewed) ones from DB
+  let dbDecisions: any[] = [];
+  if (!options.length && query.length < 60) {
+    const { data } = await admin.from("decisions")
+      .select("id, decision_text, expected_outcome, context, decided_at")
+      .is("reviewed_at", null)
+      .order("decided_at", { ascending: false })
+      .limit(5);
+    dbDecisions = data ?? [];
+  }
+
+  await setProgress(runId, 2, 2, "AI elemzés");
+
+  const sys = `Magyar startup founder asszisztens vagy. Egy döntést elemzel a Come Get It (waitlist-only HORECA reward app, Magyarország) kontextusban.
+Adj strukturált pro/kontra elemzést és ajánlást.
+
+VÁLASZ JSON:
+{"options":[{"label":"opció A","pros":["..."],"cons":["..."]},{"label":"opció B",...}],"recommendation":"melyiket válaszd és miért, 2-3 mondat","confidence":"low|medium|high","next_step":"konkrét következő lépés"}`;
+
+  if (dbDecisions.length > 0) {
+    for (const dec of dbDecisions) {
+      try {
+        const ctx = `Döntés: ${dec.decision_text}\nVárt eredmény: ${dec.expected_outcome ?? "—"}\nKontextus: ${dec.context ?? "—"}`;
+        const analysis = await aiJson(sys, ctx + "\n\nEredeti feladat: " + goal);
+        await addResultItem(runId, {
+          kind: "decision_analysis",
+          decision_id: dec.id,
+          decision_text: dec.decision_text,
+          analysis,
+          action: "pending",
+        });
+      } catch (e: any) {
+        await addResultItem(runId, { kind: "decision_analysis", decision_id: dec.id, decision_text: dec.decision_text, error: e?.message ?? String(e) });
+      }
+    }
+    await finishRun(runId, `${dbDecisions.length} nyitott döntés elemezve. Nézd át a pro/kontra-t.`);
+    return;
+  }
+
+  // Inline decision from goal
+  try {
+    const analysis = await aiJson(sys, `Döntés: ${query}${options.length ? `\nOpciók: ${options.join(" | ")}` : ""}\n\nEredeti feladat: ${goal}`);
+    await addResultItem(runId, {
+      kind: "decision_analysis",
+      decision_text: query,
+      analysis,
+      action: "pending",
+    });
+    await finishRun(runId, `Döntés-elemzés kész. Ajánlás: ${analysis?.recommendation?.slice(0, 80) ?? "—"}`);
+  } catch (e: any) {
+    await failRun(runId, "AI hiba: " + (e?.message ?? e));
+  }
+}
+
 // ─────────────── runner ───────────────
 
 async function runRecipe(runId: string, goal: string) {
@@ -282,10 +480,13 @@ async function runRecipe(runId: string, goal: string) {
     }).eq("id", runId);
 
     switch (cls.recipe_type) {
-      case "outreach":  return await recipeOutreach(runId, cls.params);
-      case "research":  return await recipeResearch(runId, cls.params);
-      case "inbox":     return await recipeInbox(runId, cls.params);
-      case "followup":  return await recipeFollowup(runId, cls.params);
+      case "outreach":   return await recipeOutreach(runId, cls.params);
+      case "research":   return await recipeResearch(runId, cls.params);
+      case "inbox":      return await recipeInbox(runId, cls.params);
+      case "followup":   return await recipeFollowup(runId, cls.params);
+      case "content":    return await recipeContent(runId, cls.params, goal);
+      case "doc_review": return await recipeDocReview(runId, cls.params, goal);
+      case "decision":   return await recipeDecision(runId, cls.params, goal);
       case "custom":
       default:
         // Fallback: ne mondjuk azt hogy "nem tudom mit csinálj" — adjunk legalább egy lead-listát.
