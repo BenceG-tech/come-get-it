@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { X, Sparkles, Mail, Trash2, Tag, Download, Send, Telescope, Bot, Loader2 } from "lucide-react";
+import { X, Sparkles, Mail, Trash2, Tag, Download, Send, Telescope, Bot, Loader2, Zap } from "lucide-react";
 
 export default function BulkActionBar({
   count, onClear, onScore, onEmail, onStatus, onDelete, onTag, onExportCsv, onOutreach, onResearch, onGrade,
