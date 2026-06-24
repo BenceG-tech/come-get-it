@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, RefreshCw, Check, Clock, X, Inbox as InboxIcon, AlertTriangle, MessageSquare, FileText, Users } from "lucide-react";
+import { Loader2, RefreshCw, Check, Clock, X, Inbox as InboxIcon, AlertTriangle, MessageSquare, FileText, Users, Rocket, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import PageIntro from "@/components/admin/help/PageIntro";
 
@@ -29,6 +29,8 @@ const KIND_META: Record<string, { icon: any; color: string; label: string }> = {
   doc_stale: { icon: FileText, color: "text-nf-text-muted", label: "Elavuló doksi" },
   doc_review_needed: { icon: FileText, color: "text-yellow-400", label: "Doksi review" },
   lead_alert: { icon: Users, color: "text-electric-300", label: "Lead riasztás" },
+  lead_promote: { icon: TrendingUp, color: "text-emerald-400", label: "Promote javaslat" },
+  lead_stalled: { icon: Clock, color: "text-amber-400", label: "Elakadt lead" },
 };
 
 const linkFor = (it: Item) => {
@@ -83,6 +85,15 @@ export default function AdminInbox() {
   const dismiss = async (id: string) => {
     await supabase.from("inbox_items").update({ status: "dismissed", resolved_at: new Date().toISOString() }).eq("id", id);
     setItems((p) => p.filter((x) => x.id !== id));
+  };
+  const promoteLead = async (it: Item) => {
+    if (it.entity_kind !== "partner" || !it.entity_id) return;
+    const newStatus = it.kind === "lead_promote" ? "contacted" : "negotiating";
+    const { error } = await supabase.from("partners").update({ status: newStatus }).eq("id", it.entity_id);
+    if (error) { toast({ title: "Hiba", description: error.message, variant: "destructive" }); return; }
+    await supabase.from("inbox_items").update({ status: "done", resolved_at: new Date().toISOString() }).eq("id", it.id);
+    toast({ title: `Lead → ${newStatus}` });
+    setItems((p) => p.filter((x) => x.id !== it.id));
   };
 
   const counts = useMemo(() => ({
@@ -148,6 +159,11 @@ export default function AdminInbox() {
                 </div>
                 {filter === "open" && (
                   <div className="flex gap-1 shrink-0">
+                    {(it.kind === "lead_promote" || it.kind === "lead_stalled") && it.entity_kind === "partner" && (
+                      <Button size="sm" variant="default" className="h-7 bg-emerald-500 hover:bg-emerald-600 text-black" title="Promote 1 click" onClick={() => promoteLead(it)}>
+                        <Rocket className="w-3 h-3 mr-1" /> Promote
+                      </Button>
+                    )}
                     <Button size="icon" variant="ghost" title="Kész" onClick={() => resolve(it.id)}><Check className="w-4 h-4" /></Button>
                     <Button size="icon" variant="ghost" title="Szundi 1 óra" onClick={() => snooze(it.id, 1)}><Clock className="w-4 h-4" /></Button>
                     <Button size="sm" variant="ghost" className="text-[10px] h-7 px-2" title="Szundi 1 nap" onClick={() => snooze(it.id, 24)}>1n</Button>

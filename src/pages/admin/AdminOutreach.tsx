@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Play, Pause, Trash2, Sparkles, Mail, ListTodo, Clock } from "lucide-react";
 import OutreachAnalytics from "@/components/admin/outreach/OutreachAnalytics";
+import BatchEnrollWizard from "@/components/admin/outreach/BatchEnrollWizard";
 import { toast } from "@/hooks/use-toast";
 import { trackEvent } from "@/lib/track";
 
@@ -56,6 +57,7 @@ export default function AdminOutreach() {
             if (error) toast({ title: "Hiba", description: error.message, variant: "destructive" });
             else { toast({ title: "Lefutott", description: `${(data as any)?.processed ?? 0} esemény feldolgozva` }); load(); }
           }}><Play className="h-4 w-4 mr-1" /> Tick most</Button>
+          <BatchEnrollWizard sequences={sequences as any} onDone={load} />
           <Button onClick={() => { setEditing({ id: "", name: "", description: "", kind: "partner", steps: [], active: true, created_at: "" }); setOpenNew(true); }}>
             <Plus className="h-4 w-4 mr-1" /> Új szekvencia
           </Button>
