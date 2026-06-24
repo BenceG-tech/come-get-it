@@ -22,6 +22,8 @@ export default function ApifyScrapeModal({ onClose, onDone }: { onClose: () => v
   const [status, setStatus] = useState<string>("");
   const [result, setResult] = useState<any>(null);
   const [busy, setBusy] = useState(false);
+  const [dailySettings, setDailySettings] = useState<{ enabled: boolean; cap_usd: number }>({ enabled: false, cap_usd: 3 });
+  const [savingDaily, setSavingDaily] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -30,7 +32,22 @@ export default function ApifyScrapeModal({ onClose, onDone }: { onClose: () => v
       if (error) toast({ title: "Apify lista hiba", description: error.message, variant: "destructive" });
       else setActors(data);
     }).finally(() => setLoadingActors(false));
+    supabase.from("system_settings").select("value").eq("key", "apify_daily_autopilot").maybeSingle()
+      .then(({ data }) => {
+        if (data?.value) setDailySettings({ enabled: !!(data.value as any).enabled, cap_usd: Number((data.value as any).cap_usd ?? 3) });
+      });
   }, []);
+
+  const saveDailySettings = async (next: { enabled: boolean; cap_usd: number }) => {
+    setSavingDaily(true);
+    const { error } = await supabase.from("system_settings")
+      .upsert({ key: "apify_daily_autopilot", value: { ...next, hour_utc: 6 } as any }, { onConflict: "key" });
+    setSavingDaily(false);
+    if (error) { toast({ title: "Mentés hiba", description: error.message, variant: "destructive" }); return; }
+    setDailySettings(next);
+    toast({ title: next.enabled ? "Napi auto-scrape BE" : "Napi auto-scrape KI" });
+  };
+
 
   const planAutopilot = async () => {
     setBusy(true);
