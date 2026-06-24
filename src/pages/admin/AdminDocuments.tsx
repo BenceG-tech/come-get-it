@@ -341,6 +341,9 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
             <Button variant="outline" size="sm" onClick={() => setOrgOpen(true)}>
               <Sparkles className="h-4 w-4" /> AI rendezés
             </Button>
+            <Button variant="outline" size="sm" onClick={() => setBulkReviewOpen(true)}>
+              <Sparkles className="h-4 w-4" /> AI review az összesre
+            </Button>
             <Button variant="outline" size="sm" onClick={runAudit} disabled={auditing}>
               <Sparkles className="h-4 w-4" /> {auditing ? "Auditálás…" : "AI audit"}
             </Button>
