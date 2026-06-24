@@ -33,7 +33,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   const [enrollments, setEnrollments] = useState<any[]>([]);
   const [docs, setDocs] = useState<any[]>([]);
   const [decisions, setDecisions] = useState<any[]>([]);
-  const [researchLoading2, _unused] = useState(false);
+  
   const [researchLoading, setResearchLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [outreachOpen, setOutreachOpen] = useState(false);
