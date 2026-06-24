@@ -21,6 +21,9 @@ import { exportRowsAsCsv } from "@/lib/export-csv";
 import { trackEvent } from "@/lib/track";
 import { useDragSelect } from "@/hooks/useDragSelect";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import ReadinessPipelineBar from "@/components/admin/leads/ReadinessPipelineBar";
+import ReadinessBadge from "@/components/admin/leads/ReadinessBadge";
+import { getReadiness, getMissingStep, type ReadinessLevel } from "@/lib/lead-readiness";
 
 const STATUS_LABEL: Record<string, string> = {
   lead: "Új lead", contacted: "Megkeresve", negotiating: "Tárgyalás", proposal_sent: "Ajánlat", signed: "Aláírt", rejected: "Elutasítva", paused: "Szünetel",
