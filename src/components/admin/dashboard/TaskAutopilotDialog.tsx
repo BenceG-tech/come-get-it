@@ -57,8 +57,8 @@ export default function TaskAutopilotDialog({
       const { data } = await supabase.from("task_runs").select("status, steps, generated, error").eq("id", runId).maybeSingle();
       if (!data) return;
       setStatus(data.status);
-      setSteps(Array.isArray(data.steps) ? data.steps : []);
-      setGenerated(Array.isArray(data.generated) ? data.generated : []);
+      setSteps(Array.isArray(data.steps) ? (data.steps as unknown as Step[]) : []);
+      setGenerated(Array.isArray(data.generated) ? (data.generated as unknown as Generated[]) : []);
       if (data.error) setError(data.error);
     };
     load();
