@@ -8,6 +8,7 @@ import {
   ListChecks, Clock, ChevronDown, Target, TrendingUp, BookOpen, Zap, ClipboardList,
 } from "lucide-react";
 import PageSectionNav from "@/components/admin/PageSectionNav";
+import { BentoGrid } from "@/components/admin/dashboard/BentoGrid";
 import { PipelineFunnel } from "@/components/admin/dashboard/PipelineFunnel";
 import { ConversionFunnel } from "@/components/admin/dashboard/ConversionFunnel";
 import { StalledLeadsCard } from "@/components/admin/dashboard/StalledLeadsCard";
@@ -182,20 +183,18 @@ export default function AdminDashboard() {
         helpSlug="dashboard"
       />
 
-      {/* ===== STREAK + GYORS AKCIÓK — motivál és gyorsít ===== */}
-      <DailyStreakBar />
-      <QuickActionsBar />
-      <EveningSummaryCard />
-
-
-      {/* ===== FÓKUSZ MA — top 3 dolog + mai feladatok + inbox ===== */}
+      {/* ===== BENTO FOLD-ABOVE — streak, mai feladatok, inbox, gyors akciók, esti összegzés ===== */}
       <section id="focus" className="space-y-4 scroll-mt-20">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <TodayTasksCard />
-          <InboxZeroCard />
-        </div>
+        <BentoGrid className="bento-stagger">
+          <div className="lg:col-span-8 md:col-span-6"><TodayTasksCard /></div>
+          <div className="lg:col-span-4 md:col-span-6"><DailyStreakBar /></div>
+          <div className="lg:col-span-7 md:col-span-6"><InboxZeroCard /></div>
+          <div className="lg:col-span-5 md:col-span-6"><EveningSummaryCard /></div>
+          <div className="lg:col-span-12 md:col-span-6"><QuickActionsBar /></div>
+        </BentoGrid>
         <MissionTracker />
       </section>
+
 
 
 
