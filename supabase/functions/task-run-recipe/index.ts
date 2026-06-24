@@ -288,9 +288,8 @@ async function runRecipe(runId: string, goal: string) {
       case "followup":  return await recipeFollowup(runId, cls.params);
       case "custom":
       default:
-        await finishRun(runId,
-          `Ez a feladat nem illik egyetlen sablonra sem (${cls.reasoning ?? "nem egyértelmű"}). Próbáld konkrétabban megfogalmazni, pl. "Küldj 5 outreach emailt budapesti koktélbárba" vagy "Nézd át a top 10 A-grade leadet".`
-        );
+        // Fallback: ne mondjuk azt hogy "nem tudom mit csinálj" — adjunk legalább egy lead-listát.
+        return await recipeResearch(runId, cls.params);
     }
   } catch (e: any) {
     await failRun(runId, e?.message ?? String(e));
