@@ -2176,6 +2176,10 @@ export type Database = {
           iterations: Json
           loop_kind: string
           max_iterations: number
+          progress: Json | null
+          recipe_params: Json | null
+          recipe_type: string | null
+          result_items: Json | null
           status: string
           steps: Json
           task_payload: Json
@@ -2196,6 +2200,10 @@ export type Database = {
           iterations?: Json
           loop_kind?: string
           max_iterations?: number
+          progress?: Json | null
+          recipe_params?: Json | null
+          recipe_type?: string | null
+          result_items?: Json | null
           status?: string
           steps?: Json
           task_payload?: Json
@@ -2216,6 +2224,10 @@ export type Database = {
           iterations?: Json
           loop_kind?: string
           max_iterations?: number
+          progress?: Json | null
+          recipe_params?: Json | null
+          recipe_type?: string | null
+          result_items?: Json | null
           status?: string
           steps?: Json
           task_payload?: Json
