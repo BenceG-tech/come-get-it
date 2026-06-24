@@ -76,7 +76,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   useEffect(() => {
     if (!open || !entityId) return;
     trackEvent("entity_drawer_opened", { entity_type: entityType, entity_id: entityId });
-    setAiSuggestion(null);
+    // (no AI state to reset)
     reload();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, entityId, entityType]);
