@@ -47,3 +47,27 @@ export const LENGTH_TARGETS: Record<string, number> = {
   medium: 120,
   long: 200,
 };
+
+/**
+ * Loads brand context with optional overrides from brand_knowledge table.
+ * Safe fallback: if DB unreachable, returns just the static BRAND_CONTEXT.
+ */
+export async function loadBrandContext(supabase: any): Promise<string> {
+  let extra = "";
+  try {
+    const { data } = await supabase
+      .from("brand_knowledge")
+      .select("label, value")
+      .limit(50);
+    if (Array.isArray(data) && data.length) {
+      const lines = data
+        .map((r: any) => {
+          const v = typeof r.value === "string" ? r.value : JSON.stringify(r.value ?? "");
+          return v ? `- ${r.label}: ${v}` : null;
+        })
+        .filter(Boolean);
+      if (lines.length) extra = `\n\nBRAND KNOWLEDGE (user overrides):\n${lines.join("\n")}`;
+    }
+  } catch (_) { /* ignore — fall back to static context */ }
+  return BRAND_CONTEXT + extra;
+}
