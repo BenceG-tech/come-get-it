@@ -376,7 +376,7 @@ export default function AdminLeads() {
                   <th className="p-3 w-8"><input type="checkbox" checked={selected.size > 0 && selected.size === filtered.length} onChange={toggleAll} /></th>
                   <th className="p-3">Hely · Kapcsolat</th>
                   <th className="p-3 hidden md:table-cell">Lokáció · Kategória</th>
-                  <th className="p-3">Score / Grade</th>
+                  <th className="p-3">AI állapot</th>
                   <th className="p-3 hidden sm:table-cell">Google</th>
                   <th className="p-3">Elérhetőség</th>
                   <th className="p-3">Státusz</th>
