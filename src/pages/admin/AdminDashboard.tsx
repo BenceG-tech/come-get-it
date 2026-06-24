@@ -56,7 +56,8 @@ const ACTION_LABEL: Record<string, string> = {
   delete: "törölte",
 };
 
-/** Collapsible szekció — alapból zárva, állapot localStorage-ban. Badge mutatja a tartalmat csukva is. */
+/** Collapsible szekció — alapból zárva, állapot localStorage-ban. Badge mutatja a tartalmat csukva is.
+ *  Hallgat az `admin-section-open` event-re — ha PageSectionNav-ből oda navigálnak, kinyitja magát. */
 function Section({
   id, title, hint, badge, defaultOpen = false, children,
 }: { id: string; title: string; hint?: string; badge?: string | number | null; defaultOpen?: boolean; children: React.ReactNode }) {
@@ -66,6 +67,14 @@ function Section({
     const v = typeof window !== "undefined" ? window.localStorage.getItem(key) : null;
     if (v != null) setOpen(v === "1");
   }, [key]);
+  useEffect(() => {
+    const onJump = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail?.id === id) setOpen(true);
+    };
+    window.addEventListener("admin-section-open", onJump);
+    return () => window.removeEventListener("admin-section-open", onJump);
+  }, [id]);
   const toggle = () => {
     setOpen((o) => {
       const next = !o;
@@ -75,7 +84,7 @@ function Section({
   };
   const hasBadge = badge != null && badge !== 0 && badge !== "";
   return (
-    <section className="space-y-3">
+    <section id={id} className="space-y-3 scroll-mt-20">
       <button
         onClick={toggle}
         className="w-full flex items-center justify-between gap-3 px-1 group"
