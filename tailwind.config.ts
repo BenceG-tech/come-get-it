@@ -21,6 +21,8 @@ export default {
 			fontFamily: {
 				'sans': ['Inter', 'sans-serif'],
 				'anton': ['Anton', 'sans-serif'],
+				'admin-display': ['Sora', 'Inter', 'sans-serif'],
+				'admin-body': ['Manrope', 'Inter', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

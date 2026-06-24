@@ -124,7 +124,8 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <AIAssistantProvider>
-      <div className="min-h-[100dvh] flex flex-col md:flex-row bg-nf-bg text-white">
+      <div className="admin-scope min-h-[100dvh] flex flex-col md:flex-row bg-nf-bg text-white font-admin-body">
+
         <header className="md:hidden sticky top-0 z-30 flex items-center justify-between border-b border-nf-border bg-nf-surface px-4 h-14">
           <button onClick={() => setOpen(true)} className="p-2 -ml-2 text-white" aria-label="Menü">
             <Menu className="h-5 w-5" />
