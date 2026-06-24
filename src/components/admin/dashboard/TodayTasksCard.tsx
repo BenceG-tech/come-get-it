@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, RefreshCw, CheckCircle2, Target, Users, Beer, Zap } from "lucide-react";
 import { toast } from "sonner";
 import HelpTip from "@/components/admin/help/HelpTip";
-import TaskAutopilotDialog from "./TaskAutopilotDialog";
+import MissionLoopDialog from "./MissionLoopDialog";
 
 type Task = {
   title: string;
@@ -134,11 +134,10 @@ export default function TodayTasksCard() {
         })}
       </CardContent>
       {autopilot && (
-        <TaskAutopilotDialog
+        <MissionLoopDialog
           open={!!autopilot}
           onOpenChange={(v) => !v && setAutopilot(null)}
           task={autopilot.task}
-          taskIndex={autopilot.index}
         />
       )}
     </Card>
