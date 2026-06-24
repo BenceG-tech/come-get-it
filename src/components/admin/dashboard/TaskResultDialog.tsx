@@ -174,8 +174,8 @@ function OutreachDraftCard({ runId, item, index, onUpdate, isFollowup }: { runId
   const updateAction = async (action: string, patch: any = {}) => {
     onUpdate({ action, ...patch });
     const { data } = await supabase.from("task_runs").select("result_items").eq("id", runId).maybeSingle();
-    const arr = Array.isArray(data?.result_items) ? [...data.result_items] : [];
-    arr[index] = { ...arr[index], action, ...patch };
+    const arr: any[] = Array.isArray(data?.result_items) ? [...(data!.result_items as any[])] : [];
+    arr[index] = { ...(arr[index] ?? {}), action, ...patch };
     await supabase.from("task_runs").update({ result_items: arr }).eq("id", runId);
   };
 
