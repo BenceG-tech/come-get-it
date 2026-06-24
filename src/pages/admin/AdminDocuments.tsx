@@ -675,6 +675,7 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
           onApplied={load}
         />
       )}
+      <BulkReviewDialog open={bulkReviewOpen} onOpenChange={setBulkReviewOpen} />
     </div>
   );
 }
