@@ -99,34 +99,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
     }
   };
 
-  const generateBrief = async () => {
-    if (!entity) return;
-    setBriefLoading(true);
-    try {
-      const ctx = {
-        company: entity.company_name, city: entity.city, category: entity.category,
-        status: entity.status, score: entity.lead_score, last_contact: entity.last_contact_at,
-        recent_events: timeline.slice(0, 5),
-        notes: entity.notes,
-      };
-      const { data, error } = await supabase.functions.invoke("admin-ai-chat", {
-        body: {
-          messages: [
-            { role: "system", content: "Adj 3 mondatos magyar brief-et a partner/lead jelenlegi helyzetéről és egy konkrét javasolt következő lépést. Tömör, akcióközpontú." },
-            { role: "user", content: JSON.stringify(ctx) },
-          ],
-        },
-      });
-      if (error) throw error;
-      const text = data?.text ?? data?.message ?? data?.response ?? (typeof data === "string" ? data : JSON.stringify(data));
-      setAiBrief(text);
-      trackEvent("ai_brief_generated", { entity_type: entityType, entity_id: entityId! });
-    } catch (e: any) {
-      toast({ title: "AI brief hiba", description: e?.message ?? String(e), variant: "destructive" });
-    } finally {
-      setBriefLoading(false);
-    }
-  };
+  // Legacy AI brief (admin-ai-chat) eltávolítva — AI Insight egyesítve a kutatással.
 
   const runResearch = async () => {
     if (!entityId) return;
