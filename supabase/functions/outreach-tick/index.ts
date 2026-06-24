@@ -29,11 +29,22 @@ Deno.serve(async (req) => {
         continue;
       }
       const steps = Array.isArray(seq.steps) ? seq.steps : [];
-      const step = steps[en.current_step];
-      if (!step) {
+      const baseStep = steps[en.current_step];
+      if (!baseStep) {
         await admin.from("outreach_enrollments").update({ status: "done", finished_at: new Date().toISOString(), next_run_at: null }).eq("id", en.id);
         continue;
       }
+
+      // Per-enrollment overrides: metadata.personalized_steps[idx] = { subject, body, preheader }
+      const overrides = (en.metadata as any)?.personalized_steps ?? [];
+      const override = Array.isArray(overrides) ? overrides[en.current_step] : null;
+      // Legacy: metadata.personalized for first step only
+      const legacy = en.current_step === 0 ? (en.metadata as any)?.personalized : null;
+      const step = {
+        ...baseStep,
+        subject: override?.subject || legacy?.subject || baseStep.subject,
+        body: override?.body || legacy?.body || baseStep.body,
+      };
 
       // Load entity (only partners supported for now; leads share table when implemented)
       const { data: entity } = en.entity_type === "partner"
