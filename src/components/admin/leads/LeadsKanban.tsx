@@ -128,7 +128,7 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
                 >
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <Link to={`/admin/partners/${p.id}`} className="font-medium text-electric-300 text-sm truncate">{p.company_name}</Link>
-                    <LeadScoreBadge score={p.lead_score} />
+                    <LeadScoreBadge score={p.lead_score} reasons={p.score_reasons} />
                   </div>
                   <div className="text-[11px] text-nf-text-muted truncate">{p.city || "—"}{p.category ? ` · ${p.category}` : ""}</div>
                   <div className="flex items-center gap-1 mt-1 flex-wrap">
