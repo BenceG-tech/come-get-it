@@ -273,10 +273,40 @@ export default function AdminLeads() {
     await load();
   };
 
-  const onKanbanChange = async (id: string, status: string) => {
-    await supabase.from("partners").update({ status: status as any }).eq("id", id);
-    setPartners(prev => prev.map(p => p.id === id ? { ...p, status } : p));
+  // Csoportosított nézet: kulcs + label + ids
+  const STATUS_ORDER = ["lead", "contacted", "negotiating", "proposal_sent", "signed", "rejected", "paused"];
+  const READINESS_GROUP_LABEL: Record<string, string> = {
+    r0: "○ Nyers", r1: "● Kutatva", r2: "●● Pontozva", r3: "✓ Értékelve",
   };
+
+  const groups = useMemo(() => {
+    if (groupMode === "none") return null;
+    const map = new Map<string, any[]>();
+    filtered.forEach((p) => {
+      const key = groupMode === "status" ? (p.status || "lead") : `r${getReadiness(p)}`;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(p);
+    });
+    const order = groupMode === "status"
+      ? STATUS_ORDER.filter((k) => map.has(k))
+      : ["r0", "r1", "r2", "r3"].filter((k) => map.has(k));
+    return order.map((key) => ({
+      key,
+      label: groupMode === "status" ? STATUS_LABEL[key] : READINESS_GROUP_LABEL[key],
+      items: map.get(key)!,
+      readinessLevel: groupMode === "readiness" ? (Number(key.slice(1)) as ReadinessLevel) : null,
+    }));
+  }, [filtered, groupMode]);
+
+  const toggleGroup = (k: string) => {
+    setCollapsedGroups((prev) => {
+      const n = new Set(prev);
+      n.has(k) ? n.delete(k) : n.add(k);
+      return n;
+    });
+  };
+
+
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-4 md:space-y-6">
