@@ -66,8 +66,8 @@ export default function TaskAutopilotDialog({
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "task_runs", filter: `id=eq.${runId}` }, (p) => {
         const row = p.new as any;
         setStatus(row.status);
-        setSteps(Array.isArray(row.steps) ? row.steps : []);
-        setGenerated(Array.isArray(row.generated) ? row.generated : []);
+        setSteps(Array.isArray(row.steps) ? (row.steps as Step[]) : []);
+        setGenerated(Array.isArray(row.generated) ? (row.generated as Generated[]) : []);
         if (row.error) setError(row.error);
       })
       .subscribe();
