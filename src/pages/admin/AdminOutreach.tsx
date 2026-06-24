@@ -7,9 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Play, Pause, Trash2, Sparkles, Mail, ListTodo, Clock } from "lucide-react";
+import { Plus, Play, Pause, Trash2, Sparkles, Mail, ListTodo, Clock, Shield } from "lucide-react";
 import OutreachAnalytics from "@/components/admin/outreach/OutreachAnalytics";
 import BatchEnrollWizard from "@/components/admin/outreach/BatchEnrollWizard";
+import SequenceGuardrailsEditor, { guardrailsBadges, type Guardrails } from "@/components/admin/outreach/SequenceGuardrailsEditor";
 import { toast } from "@/hooks/use-toast";
 import { trackEvent } from "@/lib/track";
 
