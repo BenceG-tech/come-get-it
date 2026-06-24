@@ -82,19 +82,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, entityId, entityType]);
 
-  const requestAi = async () => {
-    if (!entityId) return;
-    setAiLoading(true);
-    try {
-      const { data, error } = await supabase.functions.invoke("outreach-suggest", { body: { partner_id: entityId } });
-      if (error) throw error;
-      setAiSuggestion(typeof data === "string" ? data : (data?.suggestion ?? data?.message ?? JSON.stringify(data, null, 2)));
-    } catch (e: any) {
-      toast({ title: "AI hiba", description: e?.message ?? String(e), variant: "destructive" });
-    } finally {
-      setAiLoading(false);
-    }
-  };
+  // Outreach javaslat törölve — egységes flow a LeadOutreachModal-on keresztül (AI 3 sablon + küldés).
 
   // Legacy AI brief (admin-ai-chat) eltávolítva — AI Insight egyesítve a kutatással.
 
