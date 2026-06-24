@@ -17,6 +17,7 @@ import LeadMockupGenerator from "@/components/admin/leads/LeadMockupGenerator";
 import LeadOutreachModal from "@/components/admin/leads/LeadOutreachModal";
 import InlineAIHelper from "@/components/admin/ai/InlineAIHelper";
 import { Image as ImageIcon, Send as SendIcon } from "lucide-react";
+import ReadinessBadge from "@/components/admin/leads/ReadinessBadge";
 
 
 interface Props {
