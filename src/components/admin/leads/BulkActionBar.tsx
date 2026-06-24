@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { X, Sparkles, Mail, Trash2, Tag, Download, Send } from "lucide-react";
+import { X, Sparkles, Mail, Trash2, Tag, Download, Send, Telescope, Bot, Loader2 } from "lucide-react";
 
 export default function BulkActionBar({
-  count, onClear, onScore, onEmail, onStatus, onDelete, onTag, onExportCsv, onOutreach, loading, showScore = true,
+  count, onClear, onScore, onEmail, onStatus, onDelete, onTag, onExportCsv, onOutreach, onResearch, onGrade,
+  loading, researching, grading, showScore = true,
 }: {
   count: number;
   onClear: () => void;
@@ -13,7 +14,11 @@ export default function BulkActionBar({
   onTag?: () => void;
   onExportCsv?: () => void;
   onOutreach?: () => void;
+  onResearch?: () => void;
+  onGrade?: () => void;
   loading?: boolean;
+  researching?: boolean;
+  grading?: boolean;
   showScore?: boolean;
 }) {
   if (count === 0) return null;
@@ -22,8 +27,20 @@ export default function BulkActionBar({
       <button onClick={onClear} className="text-nf-text-muted hover:text-white p-1"><X className="h-4 w-4" /></button>
       <div className="text-sm font-medium px-2 whitespace-nowrap">{count} kijelölve</div>
       <div className="h-5 w-px bg-nf-border" />
+      {onResearch && (
+        <Button size="sm" variant="ghost" onClick={onResearch} disabled={researching} title="AI mélykutatás mindegyikre (web scrape + elemzés)">
+          {researching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Telescope className="h-4 w-4" />} Kutat
+        </Button>
+      )}
+      {onGrade && (
+        <Button size="sm" variant="ghost" onClick={onGrade} disabled={grading} title="AI A/B/C/D értékelés mindegyikre">
+          {grading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Bot className="h-4 w-4" />} Grade
+        </Button>
+      )}
       {showScore && onScore && (
-        <Button size="sm" variant="ghost" onClick={onScore} disabled={loading}><Sparkles className="h-4 w-4" /> AI pontoz</Button>
+        <Button size="sm" variant="ghost" onClick={onScore} disabled={loading} title="Score újraszámítása">
+          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />} Score
+        </Button>
       )}
       {onOutreach && (
         <Button size="sm" variant="ghost" onClick={onOutreach}><Send className="h-4 w-4" /> Outreach</Button>
@@ -52,3 +69,4 @@ export default function BulkActionBar({
     </div>
   );
 }
+

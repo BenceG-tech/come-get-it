@@ -1,80 +1,105 @@
-# Következő fázis — Autopilot end-to-end + IG integráció
 
-A scrape + scoring + lead-discovery már megy. Most a **napi munka tényleges automatizálását** zárjuk be: a "AI csinálja" gombnyomásból ténylegesen kimenjen az üzenet (vagy 1-kattintásra menjen), és az IG csatorna se legyen manuális copy-paste.
+# Leadek oldal újragondolása — v2
 
-## 1) Autopilot → kiküldés zárása (email)
+## 1) Azonnali takarítás (egyszeri, most)
+- Törlöm a **103 db non-apify** leadet (`partners` ahol `type='venue' AND source <> 'apify_google_maps'`), kivéve azokat amelyeknek már van `status IN ('contacted','negotiating','proposal_sent','signed')` — ezeket megőrzöm, hogy ne veszítsünk élő dealt.
+- Megerősítést kérek a UI-ban ("103 lead törlése — biztos?") — ha nem akarod a guardot, szólj.
 
-Most a task-autopilot **draft** enrollment-eket csinál — neked még külön jóvá kell hagyni egyenként. Ezt zárjuk be:
-- **Auto-send küszöb a sequence guardrails-ben**: ha lead grade ≥ B és AI confidence ≥ 0.75 → automatikus `active` státusz, `outreach-tick` küldi.
-- **Review queue**: ami alatta van, az marad `draft`, és a TaskAutopilotDialog tetején egy **"Mind jóváhagy A/B grade"** gomb (most csak "Approve All" van, ami mindent).
-- **Daily cap**: max 30 új outreach/nap/csatornán, hogy ne küldjünk spamet és ne égessünk Resend kreditet feleslegesen.
+## 2) Új Leads UI — egy oldal, három réteg
 
-## 2) Instagram — saját accountból küldés
+```text
+┌────────────────────────────────────────────────────────────┐
+│  Header: stats + AI Autopilot CTA + Apify scrape           │
+├────────────────────────────────────────────────────────────┤
+│  Toolbar:  [keresés] [városi chip] [grade chip] [score]    │
+│            [drag-select toggle] [oszlop-választó]          │
+├──────────────────┬─────────────────────────────────────────┤
+│  Lista (bal)     │  Insight panel (jobb, sticky)           │
+│  - sűrű sor      │  ┌─ Áttekintés ─ Kutatás ─ Outreach ─┐  │
+│  - inline check  │  │  EGYESÍTETT "AI Insight"          │  │
+│  - drag-select   │  │  (brief + auto-kutatás összevonva)│  │
+│  - hover-quick   │  │  + Fit/Risk/Talking points        │  │
+│    actions       │  │  + Google/IG/web metrikák         │  │
+│  - virtualized   │  │  + kapcsolat blokk + következő    │  │
+│                  │  │    lépés gomb                     │  │
+└──────────────────┴─────────────────────────────────────────┘
+```
 
-Két szint, **mindkettőt megépítjük**, te döntöd melyiket használod:
+### Listanézet újítások
+- **Drag-select**: bal egér lehúzással téglalap-kijelölés (mint Finder). Shift+klikk range, Ctrl/Cmd+klikk egyenkénti toggle.
+- **Inline gyors-műveletek** hoverre: ✏️ jegyzet, 📞 hívás, ✉️ email, 🔭 kutat, 🗑️ töröl.
+- **Több info egyből** a sorban (kompakt, de olvasható):
+  - név + emoji-badge (🔥/⭐ kontextus)
+  - 2. sor: város · kategória · ⭐google · 📷 IG follower · 📧 ✓/✗ · 📞 ✓/✗
+  - jobb oldal: score-pill + grade-pill + státusz-chip + utolsó interakció relatív idő
+- **Oszlop-választó** (gear ikon): a user maga eldöntheti mit lát.
+- **Virtualizáció** (>500 sor): `@tanstack/react-virtual`, hogy 2000 lead se lassuljon.
 
-**(a) Félautomata — instant működik**
-- A LeadsKanban-ban már van „Send DM" → ig.me + vágólap. Ezt kibővítjük:
-  - **Bulk IG queue oldal** (`/admin/outreach/instagram`): listázza az összes IG-célzott leadet, mindegyiknél personalizált draft + „Megnyit & másol" gomb sorban. 1 lead = 2 kattintás (megnyit, Ctrl+V+Enter).
-  - Státusz tracking: `outreach_events.channel='instagram_manual'`, manuális „Elküldtem"/„Válasz jött" gombok.
+### Bulk akciók — minden egyszerre
+A `BulkActionBar` kibővítve:
+- 🔭 **"Kutass mindet"** → új `lead-bulk-research` edge function: queue-zva, párhuzamos `lead-auto-research` hívások (max 5 concurrent), élő progress toast.
+- 🤖 **"AI grade mindet"** → meglévő `lead-grade-ai-bulk` a kijelöltekre, nem fix top20-ra.
+- ✦ **"Score mindet"** (már van)
+- 🚀 **"Outreach mindet"** (már van)
+- 🗑️ **"Töröl"** (már van)
+- 📤 **"CSV"** (már van)
 
-**(b) Meta Graph API — teljes auto**
-- **Előfeltétel (te csinálod, 1x):** Instagram Business/Creator account + összekötve egy FB Page-zel. (Ha még nem, segítek beállítani — link a Meta dashboardra.)
-- **OAuth flow**: `/admin/settings/instagram` oldal egy „Connect Instagram" gombbal → Meta OAuth → access token mentve `comms_channels` táblába (új sor: `instagram_oauth jsonb`, `instagram_business_id`).
-- **`instagram-dm-send` edge function**: `POST /me/messages` Graph API hívás.
-- **Korlát amit a Meta szab**: hidegen indított DM **nincs**. Csak akkor küldhetünk, ha a lead már írt minket / mention-ölt / story replied. Tehát a Graph API itt **inbox + reply automation**-ra jó, nem cold outreach-re.
-- Cold IG outreach-hez marad az (a) félautomata. Ezt nyíltan jelzem az UI-on.
+## 3) AI Insight — brief + kutatás összevonása
+Jelenleg két különálló dolog: 3 mondatos `generateBrief` (admin-ai-chat) + részletes `lead-auto-research` (Fit/Risk/Talking points). **Összeolvasztom egybe**:
 
-**Meta App Review**: a `instagram_manage_messages` permission live-ban app review-t kér Meta-tól (2-5 munkanap). Dev/test módban a saját accountra megy review nélkül — első körre ez is elég.
+- Új egységes edge function: `lead-insight` (refaktor a `lead-auto-research`-ből)
+  - Ha még nincs kutatás → futtatja a web scrape-et + Gemini elemzést
+  - Ha van → friss `insight_summary`-t ad (TL;DR 2 mondat) + a meglévő Fit/Risk/Talking points-ot
+  - Cache: ha `last_researched_at` < 14 nap, csak újragenerálja a TL;DR-t a meglévő adatból (olcsó)
+- A drawerben **egy gomb**: ⚡ **AI Insight** (brief gomb megszűnik)
+- A meglévő `auto-kutatás` card mindig látszik ha van adat; a TL;DR a tetején
 
-## 3) Apify autopilot scheduling
+### Hiba javítása ("AI brief hiba: Failed to send a request to the Edge Function")
+- A `generateBrief` jelenleg `admin-ai-chat`-et hív — ez vagy nincs deployolva, vagy nincs CORS-a. A `lead-insight`-ra váltással ez a hívás megszűnik. Az új function-ön ellenőrzöm a CORS-t és deploy után curl-lel tesztelem.
 
-Most kézzel indítod a scrape-et. Hozzáadunk egy **napi 1x automatikus scrape-et** pg_cron-ról:
-- 06:00-kor `lead-discovery-plan` lefut → ha van gap és Apify balance > $5 → automatikusan indít 1 célzott scrape-et (max $3 limit).
-- Beérkező új leadeket auto-score-olja, és a top 10 grade A/B-t **berakja a másnapi task-autopilot bemenetébe**.
-- Toggle az AdminLeads-en: „Napi auto-scrape: BE/KI" + költségplafon slider.
+## 4) Új funkciók az Insight panelhez
+- **🎯 Következő lépés** gomb: AI generál 1 konkrét akciót ("küldj IG DM-et X szöveggel") → 1 kattintásra végrehajt (másol+megnyit / outreach enroll).
+- **📊 Versenytárs-kontextus**: ugyanabban a kerületben hány hasonló kategóriájú hely van már a piszkában — segít priorizálni.
+- **🔗 Hasonló nyertes**: ha van már signed partnered hasonló profillal, kiemeli ("Ez nagyon hasonlít a már signed Kandalló Bistro-ra").
+- **💬 Drafted message preview**: az IG DM / email első mondata, hogy ne kelljen modalba lépni.
+- **⏰ Best time to contact**: Google "popular times" adatból (ha Apify hozza) javasol időpontot.
+- **🏷️ Auto-tags**: AI tag-eli (pl. "rooftop", "kutyabarát", "élő zene") — szűrhetőek lesznek.
 
-## 4) Score átláthatóság a partner-listán
+## 5) Menü-dropdown bug
+A bal admin sidebar dropdown-jai jelenleg `onMouseEnter` + `onClick` mixet használnak → első klikk csak hover-state-et trigger-el, második nyit. Áttérek **single-click toggle**-re (Radix DropdownMenu vagy `useState` controlled). Egy klikk → nyit.
 
-A `LeadScoreBadge` popover már van. Hozzáadjuk:
-- **AdminLeads tábla nézetben** kis ℹ️ ikon a score mellett → ugyanaz a popover.
-- **Bulk re-score gomb** a BulkActionBar-ban: kijelölsz N leadet → mind újraszámolódik az új rubrikával (a régieknek még nincs `score_reasons.breakdown`).
+## 6) Technikai részletek
 
-## 5) Mit NEM csinálunk most
+### Új / módosított fájlok
+- **Új**: `src/components/admin/leads/LeadsListV2.tsx` (virtualizált lista + drag-select)
+- **Új**: `src/components/admin/leads/LeadInsightPanel.tsx` (egységes AI insight)
+- **Új**: `src/hooks/useDragSelect.ts`
+- **Új edge function**: `supabase/functions/lead-insight/index.ts` (egyesíti brief+research)
+- **Új edge function**: `supabase/functions/lead-bulk-research/index.ts` (párhuzamos batch)
+- **Módosított**: `src/pages/admin/AdminLeads.tsx` (új layout, sticky insight panel)
+- **Módosított**: `src/components/admin/leads/BulkActionBar.tsx` (új gombok: research, grade)
+- **Módosított**: `src/components/admin/crm/EntityDrawer.tsx` (brief gomb → AI Insight, hiba fix)
+- **Módosított**: sidebar dropdown komponens (single-click)
+- **Migráció**: `partners` táblára 2 új oszlop: `auto_tags text[]`, `insight_summary text`
 
-- TikTok / WhatsApp / Telegram csatornák
-- Hangposta / call agent (AI hívás)
-- A/B test framework az outreach copy-ra (jövő fázis)
+### DB takarítás SQL
+```sql
+DELETE FROM partners
+WHERE type='venue'
+  AND (source IS NULL OR source <> 'apify_google_maps')
+  AND status IN ('lead');  -- aktív dealt nem bántunk
+```
 
-## Érintett fájlok
+### Függőség
+`bun add @tanstack/react-virtual` (kis, ~3KB)
 
-**Edge functions**
-- `task-autopilot` *(módosítás)* — auto-activate B+ enrollments, daily cap check
-- `instagram-dm-send` *(új)* — Graph API DM
-- `instagram-oauth-callback` *(új)* — OAuth code → token csere
-- `apify-daily-autopilot` *(új)* — cron-driven napi scrape orchestrator
+## 7) Mi marad változatlan
+- Kanban + térkép nézet
+- Apify scrape modal és napi autopilot
+- Outreach sequences logika
+- Score rubric
 
-**Frontend**
-- `src/pages/admin/AdminInstagramQueue.tsx` *(új)* — bulk IG kiküldő UI
-- `src/pages/admin/AdminInstagramSettings.tsx` *(új)* — Connect button + state
-- `src/components/admin/leads/LeadScoreBadge.tsx` — kompakt mode AdminLeads táblához
-- `src/components/admin/leads/BulkActionBar.tsx` — „Újraszámol" gomb
-- `src/components/admin/outreach/SequenceGuardrailsEditor.tsx` — auto-send threshold mezők
-- `src/components/admin/dashboard/TaskAutopilotDialog.tsx` — „Approve A/B" gomb
-- `src/components/admin/leads/ApifyScrapeModal.tsx` — napi auto-scrape toggle + plafon
-
-**DB migráció**
-- `comms_channels`: új mezők `instagram_oauth jsonb`, `instagram_business_id text`
-- `outreach_sequences`: új `auto_send_min_grade text`, `auto_send_min_confidence numeric`, `daily_cap int`
-- `system_settings`: `apify_daily_autopilot bool`, `apify_daily_cap_usd numeric`
-- pg_cron: `apify-daily-autopilot` 06:00 UTC-kor
-
-**Secret amit kérek tőled (csak ha (b)-t is csináljuk most):**
-- `META_APP_ID`, `META_APP_SECRET` — a Meta Developer dashboardról
-
-## Mit válassz
-
-Mondd meg, mi legyen:
-- **A) Csak (1) + (3) + (4)** — autopilot zárás + napi scrape + score UI, IG marad félautomata. Gyors, 1 körben kész.
-- **B) Teljes csomag** — A + IG OAuth + Graph API. Hosszabb, Meta credentials kell tőled.
-- **C) Custom** — mondd meg mit hagyjunk ki/cseréljünk.
+## Kérdés mielőtt nekiállok
+1. **Törlés guard**: tényleg töröljem azt a 103 importált leadet most, vagy csak archiváljam (új `archived_at` mező)?
+2. **Insight panel**: jobb oldali sticky panel (desktop only), vagy a meglévő drawer maradjon és csak átdolgozzam?
+3. **Új funkciók közül** (4. pont): melyik 2-3 a legfontosabb most? Mindegyik belefér, de prioritás segítene a sorrendben.

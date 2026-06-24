@@ -34,9 +34,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   const [docs, setDocs] = useState<any[]>([]);
   const [decisions, setDecisions] = useState<any[]>([]);
   const [aiSuggestion, setAiSuggestion] = useState<string | null>(null);
-  const [aiBrief, setAiBrief] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
-  const [briefLoading, setBriefLoading] = useState(false);
   const [researchLoading, setResearchLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [outreachOpen, setOutreachOpen] = useState(false);
@@ -80,7 +78,6 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
     if (!open || !entityId) return;
     trackEvent("entity_drawer_opened", { entity_type: entityType, entity_id: entityId });
     setAiSuggestion(null);
-    setAiBrief(null);
     reload();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, entityId, entityType]);
@@ -99,34 +96,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
     }
   };
 
-  const generateBrief = async () => {
-    if (!entity) return;
-    setBriefLoading(true);
-    try {
-      const ctx = {
-        company: entity.company_name, city: entity.city, category: entity.category,
-        status: entity.status, score: entity.lead_score, last_contact: entity.last_contact_at,
-        recent_events: timeline.slice(0, 5),
-        notes: entity.notes,
-      };
-      const { data, error } = await supabase.functions.invoke("admin-ai-chat", {
-        body: {
-          messages: [
-            { role: "system", content: "Adj 3 mondatos magyar brief-et a partner/lead jelenlegi helyzetéről és egy konkrét javasolt következő lépést. Tömör, akcióközpontú." },
-            { role: "user", content: JSON.stringify(ctx) },
-          ],
-        },
-      });
-      if (error) throw error;
-      const text = data?.text ?? data?.message ?? data?.response ?? (typeof data === "string" ? data : JSON.stringify(data));
-      setAiBrief(text);
-      trackEvent("ai_brief_generated", { entity_type: entityType, entity_id: entityId! });
-    } catch (e: any) {
-      toast({ title: "AI brief hiba", description: e?.message ?? String(e), variant: "destructive" });
-    } finally {
-      setBriefLoading(false);
-    }
-  };
+  // Legacy AI brief (admin-ai-chat) eltávolítva — AI Insight egyesítve a kutatással.
 
   const runResearch = async () => {
     if (!entityId) return;
@@ -193,19 +163,16 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
         {/* Quick Action Bar */}
         {entity && (
           <div className="flex flex-wrap gap-2 mt-3 pb-3 border-b border-nf-border">
-            <Button size="sm" variant="neon" onClick={generateBrief} disabled={briefLoading}>
-              {briefLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Zap className="w-3 h-3 mr-1" />} AI brief
+            <Button size="sm" variant="neon" onClick={runResearch} disabled={researchLoading} title="AI mélyelemzés: web scrape + Fit/Risk/Talking points">
+              {researchLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Sparkles className="w-3 h-3 mr-1" />} AI Insight
             </Button>
             <Button size="sm" variant="outline" onClick={() => setOutreachOpen(true)}>
               <SendIcon className="w-3 h-3 mr-1" /> Outreach indítása
             </Button>
-            <Button size="sm" variant="outline" onClick={runResearch} disabled={researchLoading}>
-              {researchLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Telescope className="w-3 h-3 mr-1" />} Kutass utána
-            </Button>
             <Button size="sm" variant="outline" onClick={quickTask}><Plus className="w-3 h-3 mr-1" /> Task</Button>
             <Button size="sm" variant="outline" onClick={quickDecision}><Brain className="w-3 h-3 mr-1" /> Döntés</Button>
             <InlineAIHelper
-              context={{ partner: entity, recent_timeline: timeline.slice(0, 5), research: entity.research_dossier }}
+              context={{ partner: entity, recent_timeline: timeline.slice(0, 5), research: entity.research_dossier ?? entity.research_notes }}
               surface="partner drawer"
               suggestions={[
                 "Mit írjak első emailben?",
@@ -214,13 +181,6 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
               ]}
             />
           </div>
-        )}
-
-        {aiBrief && (
-          <Card className="p-3 mt-3 text-xs whitespace-pre-wrap bg-electric-300/5 border-electric-300/40">
-            <div className="text-[10px] uppercase tracking-wider text-electric-300 mb-1">AI brief</div>
-            {aiBrief}
-          </Card>
         )}
 
         {loading && <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-electric-300" /></div>}
