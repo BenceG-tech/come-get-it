@@ -203,13 +203,15 @@ Minden lépésben:
 1. THINK: rövid magyar gondolkodás (max 2 mondat) — mit látsz, mi a következő legjobb lépés
 2. TOOL CALL: válaszd ki a megfelelő tool-t
 
-Szabályok:
-- Ha üres találat: ne add fel, próbálj más szűrőt vagy bulk_pipeline-t új leadek scrape-elésére
-- Ha info hiányzik vagy döntés kell: ask_human (konkrét step-by-step lépésekkel)
-- Ha a cél elérve vagy minden lehetőséget kimerítettél: finish
-- Maximum 8 iteráció — légy hatékony
+KEMÉNY SZABÁLYOK:
+- TILOS ugyanazt a tool-t ugyanazokkal a paraméterekkel kétszer hívni. Ha egy lekérdezés üres (count=0), NE próbáld újra — vagy más szűrővel próbáld, vagy hívd a finish/ask_human-t.
+- Ha 2 lépés alatt nem találsz semmi értelmes adatot a feladathoz → hívd az ask_human-t konkrét step-by-step instrukcióval, hogy a founder kézzel mit tegyen.
+- Ha a feladat dokumentum-review / inbox-takarítás és üres az inbox → finish "Inbox üres, nincs teendő" összegzéssel.
+- Ha találtál releváns leadeket → bulk_pipeline VAGY draft_outreach a következő logikus lépés.
+- Ha info hiányzik (pl. nincs még scrape-elt lead) → ask_human "Indítsd a /admin/leads → Scrape gombot" lépéssel.
+- Maximum 6 iteráció — légy hatékony, ne köröggj.
 
-Magyarul válaszolj minden think-ben.`;
+Az ask_human ÉS finish összegzések MINDIG magyar, természetes, emberi mondatok legyenek — sosem JSON vagy tech-szöveg.`;
 
   const messages = [
     { role: "system", content: systemPrompt },
@@ -238,17 +240,32 @@ Magyarul válaszolj minden think-ben.`;
   const tc = msg?.tool_calls?.[0];
   if (!tc) throw new Error("AI nem hívott tool-t");
   return {
-    think: msg.content ?? "(nincs explicit think)",
+    think: msg.content ?? "",
     tool: tc.function.name,
     input: JSON.parse(tc.function.arguments || "{}"),
   };
 }
 
+function isEmptyObservation(obs: any): boolean {
+  if (!obs || typeof obs !== "object") return false;
+  if (obs.error) return true;
+  if (typeof obs.count === "number" && obs.count === 0) return true;
+  if (Array.isArray(obs.items) && obs.items.length === 0) return true;
+  if (Array.isArray(obs.leads) && obs.leads.length === 0) return true;
+  return false;
+}
+
+function isDuplicateCall(history: any[], tool: string, input: any): boolean {
+  const key = `${tool}::${JSON.stringify(input ?? {})}`;
+  return history.some((h) => `${h.tool}::${JSON.stringify(h.input ?? {})}` === key);
+}
+
 async function runLoop(runId: string) {
   const { data: run } = await admin.from("task_runs").select("goal, iterations, max_iterations").eq("id", runId).maybeSingle();
   if (!run) return;
-  const maxIter = run.max_iterations ?? 8;
+  const maxIter = Math.min(run.max_iterations ?? 6, 6);
   let history = Array.isArray(run.iterations) ? [...run.iterations] : [];
+  let consecutiveEmpty = 0;
 
   while (history.length < maxIter) {
     let decision: any;
@@ -259,13 +276,37 @@ async function runLoop(runId: string) {
       return;
     }
 
+    // Dedup guard: if AI repeats a tool+input it already tried, force ask_human
+    if (
+      decision.tool !== "ask_human" &&
+      decision.tool !== "finish" &&
+      isDuplicateCall(history, decision.tool, decision.input)
+    ) {
+      const askInput = {
+        question: "Az AI elakadt — ugyanazt a lekérdezést ismételné, ami már nem hozott új eredményt.",
+        steps: [
+          "Nézd meg, hogy van-e elég adat a rendszerben (pl. scrape-elt leadek a /admin/leads alatt).",
+          "Ha üres az adatbázis, indíts egy új Apify scrape-et a célváros / kategória szerint.",
+          "Ha van adat, fogalmazd át a célt konkrétabbra (pl. 'Budapesti koktélbárok, A-grade, email van').",
+          "Utána nyomj 'Kész — folytasd'-ot és az AI újra próbálja.",
+        ],
+        why: "Elkerüljük, hogy az AI hülyén köröggön ugyanazon a lekérdezésen.",
+      };
+      await appendIteration(runId, { think: decision.think, tool: "ask_human", input: askInput, awaiting_human: true });
+      await admin.from("task_runs").update({
+        status: "awaiting_human",
+        human_prompt: { ...askInput, asked_at: new Date().toISOString() },
+      }).eq("id", runId);
+      return;
+    }
+
     if (decision.tool === "ask_human") {
       await appendIteration(runId, { think: decision.think, tool: "ask_human", input: decision.input, awaiting_human: true });
       await admin.from("task_runs").update({
         status: "awaiting_human",
         human_prompt: { ...decision.input, asked_at: new Date().toISOString() },
       }).eq("id", runId);
-      return; // resume() folytatja
+      return;
     }
 
     if (decision.tool === "finish") {
@@ -281,13 +322,40 @@ async function runLoop(runId: string) {
     const observation = await executeTool(decision.tool, decision.input);
     await appendIteration(runId, { think: decision.think, tool: decision.tool, input: decision.input, observation });
     history.push({ think: decision.think, tool: decision.tool, input: decision.input, observation });
+
+    // Track consecutive empty results
+    if (isEmptyObservation(observation)) {
+      consecutiveEmpty += 1;
+    } else {
+      consecutiveEmpty = 0;
+    }
+
+    // After 2 empty results in a row, escalate to human instead of looping more
+    if (consecutiveEmpty >= 2) {
+      const askInput = {
+        question: "Nem találok releváns adatot a feladathoz — kérek emberi inputot.",
+        steps: [
+          "Ellenőrizd, hogy van-e friss scrape-elt lead a /admin/leads oldalon.",
+          "Ha nincs, indíts új Apify scrape-et (pl. Budapest, koktélbár).",
+          "Vagy zárd le ezt a feladatot készként, ha amúgy sem aktuális.",
+        ],
+        why: `${consecutiveEmpty} egymást követő üres lekérdezés után megálltam, hogy ne pazaroljam az AI hívásokat.`,
+      };
+      await appendIteration(runId, { think: "Több egymást követő üres eredmény — megállok és emberi segítséget kérek.", tool: "ask_human", input: askInput, awaiting_human: true });
+      await admin.from("task_runs").update({
+        status: "awaiting_human",
+        human_prompt: { ...askInput, asked_at: new Date().toISOString() },
+      }).eq("id", runId);
+      return;
+    }
   }
 
   await admin.from("task_runs").update({
     status: "completed",
-    final_summary: `Max iteráció (${maxIter}) elérve. Részleges eredmény mentve.`,
+    final_summary: `Elértem a maximum ${maxIter} lépést. Részleges eredmény mentve — nézd át a fenti lépéseket és döntsd el a következő lépést.`,
   }).eq("id", runId);
 }
+
 
 // ─────────────────────────────── HTTP ───────────────────────────────
 
