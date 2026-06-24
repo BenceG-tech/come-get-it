@@ -39,7 +39,8 @@ export default function AdminLeads() {
   const [filterCity, setFilterCity] = useState("all");
   const [filterScore, setFilterScore] = useState("all");
   const [filterReadiness, setFilterReadiness] = useState<ReadinessLevel | "all">("all");
-  const [kanbanGroup, setKanbanGroup] = useState<"status" | "readiness">("status");
+  const [groupMode, setGroupMode] = useState<GroupMode>("none");
+  const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [showImport, setShowImport] = useState(false);
   const [showApify, setShowApify] = useState(false);
