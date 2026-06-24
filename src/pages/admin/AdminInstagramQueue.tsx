@@ -48,12 +48,10 @@ export default function AdminInstagramQueue() {
       // mark partners that already had instagram_manual events
       const ids = (data ?? []).map((r: any) => r.id);
       if (ids.length) {
-        const { data: enr } = await supabase.from("outreach_enrollments")
-          .select("id, entity_id, metadata").eq("entity_type", "partner").in("entity_id", ids);
+        const { data: ints } = await supabase.from("partner_interactions")
+          .select("partner_id, kind").in("partner_id", ids).eq("kind", "instagram_dm");
         const sent = new Set<string>();
-        (enr ?? []).forEach((e: any) => {
-          if (e.metadata?.channel === "instagram_manual") sent.add(e.entity_id);
-        });
+        (ints ?? []).forEach((e: any) => sent.add(e.partner_id));
         setSentIds(sent);
       }
       setLoading(false);
@@ -74,13 +72,12 @@ export default function AdminInstagramQueue() {
 
   const markSent = async (p: Partner) => {
     setSentIds((s) => new Set(s).add(p.id));
-    await supabase.from("outreach_enrollments").insert({
-      entity_type: "partner",
-      entity_id: p.id,
-      status: "paused",
-      current_step: 0,
-      metadata: { channel: "instagram_manual", sent_at: new Date().toISOString(), body: draftFor(p) },
-    });
+    await supabase.from("partner_interactions").insert({
+      partner_id: p.id,
+      kind: "instagram_dm",
+      note: draftFor(p),
+      metadata: { channel: "instagram_manual", sent_at: new Date().toISOString() } as any,
+    } as any);
     await supabase.from("partners").update({ status: "contacted" }).eq("id", p.id).eq("status", "lead");
     toast({ title: "Elküldve megjelölve" });
   };
