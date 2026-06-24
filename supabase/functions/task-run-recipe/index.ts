@@ -50,16 +50,26 @@ async function failRun(runId: string, error: string) {
 
 // ─────────────── classifier ───────────────
 
-type RecipeType = "outreach" | "research" | "followup" | "inbox" | "custom";
+type RecipeType = "outreach" | "research" | "followup" | "inbox" | "content" | "doc_review" | "decision" | "custom";
 
 type Classification = {
   recipe_type: RecipeType;
   params: {
+    // outreach/research
     city?: string;
     category?: string;
     min_grade?: "A" | "B" | "C" | "D";
     count?: number;
     tone?: "founding_pitch" | "casual" | "formal";
+    // content
+    channel?: "instagram" | "linkedin" | "facebook" | "email" | "general";
+    topic?: string;
+    persona?: string;
+    // doc_review
+    doc_query?: string;
+    // decision
+    decision_query?: string;
+    options?: string[];
     notes?: string;
   };
   reasoning?: string;
@@ -73,10 +83,13 @@ RECEPT TÍPUSOK:
 - research: piackutatás, leadek átnézése, top X lista készítése (pl. "nézd át a budapesti helyeket", "kik a legjobb A grade leadek")
 - followup: már megkeresett, nem válaszolt partnereknek emlékeztető (pl. "follow up a múlt heti emailekre")
 - inbox: bejövő üzenetek / inbox itemek átnézése (pl. "mi van az inboxban", "válaszolj a leveleimre")
+- content: poszt / email / copy / hirdetés írás (pl. "írj egy IG posztot a Founding Partnerről", "csinálj egy LinkedIn copyt", "fogalmazz egy hírlevelet"). Töltsd ki: channel, topic, esetleg persona.
+- doc_review: egy konkrét dokumentum átnézése (pl. "nézd át a pitch deck-et", "review-old a Founding Partner pdf-et"). Töltsd ki: doc_query (a doksi neve vagy kulcsszó).
+- decision: döntéshozatal segítése (pl. "segíts dönteni X vagy Y", "melyik csatornát toljam"). Töltsd ki: decision_query, lehetőleg options[].
 - custom: bármi más amit a fenti receptek nem fednek le
 
 VÁLASZ FORMÁTUM (CSAK JSON, semmi más):
-{"recipe_type":"outreach","params":{"city":"Budapest","category":"koktélbár","min_grade":"B","count":5,"tone":"founding_pitch"},"reasoning":"rövid magyar magyarázat"}
+{"recipe_type":"content","params":{"channel":"instagram","topic":"Founding Partner Program","persona":"vendéglátós tulajdonos"},"reasoning":"rövid magyar magyarázat"}
 
 Ha valami nem derül ki, hagyd ki a paramétert. Default count: 5.`;
 
@@ -103,6 +116,24 @@ Ha valami nem derül ki, hagyd ki a paramétert. Default count: 5.`;
   } catch {
     return { recipe_type: "custom", params: {} };
   }
+}
+
+// ─────────────── AI helper ───────────────
+
+async function aiJson(systemPrompt: string, userPrompt: string, model = "google/gemini-2.5-flash"): Promise<any> {
+  const r = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model,
+      messages: [{ role: "system", content: systemPrompt }, { role: "user", content: userPrompt }],
+      response_format: { type: "json_object" },
+    }),
+  });
+  if (!r.ok) throw new Error(`AI ${r.status}: ${await r.text()}`);
+  const j = await r.json();
+  const text = j?.choices?.[0]?.message?.content ?? "{}";
+  try { return JSON.parse(text); } catch { return {}; }
 }
 
 // ─────────────── partner search ───────────────
