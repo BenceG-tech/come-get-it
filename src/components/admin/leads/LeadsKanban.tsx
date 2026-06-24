@@ -22,7 +22,16 @@ const FALLBACK: Stage[] = [
 
 type Engagement = { sent: number; opened: number; replied: number; failed: number };
 
-export default function LeadsKanban({ partners, onStatusChange }: { partners: any[]; onStatusChange: (id: string, status: string) => void }) {
+import { getReadiness, READINESS_LABEL, type ReadinessLevel } from "@/lib/lead-readiness";
+
+const READINESS_STAGES: Stage[] = [
+  { key: "r0", label: "Nyers", sla_days: null, order_index: 0 },
+  { key: "r1", label: "Kutatva", sla_days: null, order_index: 1 },
+  { key: "r2", label: "Pontozva", sla_days: null, order_index: 2 },
+  { key: "r3", label: "Értékelve", sla_days: null, order_index: 3 },
+];
+
+export default function LeadsKanban({ partners, onStatusChange, groupBy = "status", onCardClick }: { partners: any[]; onStatusChange: (id: string, status: string) => void; groupBy?: "status" | "readiness"; onCardClick?: (id: string) => void }) {
   const [stages, setStages] = useState<Stage[]>(FALLBACK);
   const [engagement, setEngagement] = useState<Record<string, Engagement>>({});
   const { toast } = useToast();
