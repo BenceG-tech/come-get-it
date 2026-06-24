@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, RefreshCw, CheckCircle2, Target, Users, Beer, Zap } from "lucide-react";
 import { toast } from "sonner";
 import HelpTip from "@/components/admin/help/HelpTip";
-import MissionLoopDialog from "./MissionLoopDialog";
+import TaskResultDialog from "./TaskResultDialog";
 
 type Task = {
   title: string;
