@@ -162,8 +162,20 @@ export default function AdminDashboard() {
     return "Jó estét, Bence!";
   })();
 
+  const sectionNav = [
+    { id: "focus", label: "Fókusz ma", icon: Target },
+    { id: "pipeline", label: "Pipeline", icon: TrendingUp },
+    { id: "weekly", label: "Heti munka", icon: ClipboardList },
+    { id: "insights", label: "Tudás", icon: BookOpen },
+    { id: "quick", label: "Gyors belépés", icon: Zap },
+    { id: "lists", label: "Listák", icon: ListChecks },
+    { id: "activity", label: "Aktivitás", icon: Activity },
+  ];
+
   return (
     <div className="admin-page">
+      <PageSectionNav sections={sectionNav} />
+
       <PageHeader
         title={greeting}
         subtitle={new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
@@ -177,13 +189,14 @@ export default function AdminDashboard() {
 
 
       {/* ===== FÓKUSZ MA — top 3 dolog + mai feladatok + inbox ===== */}
-      <section className="space-y-4">
+      <section id="focus" className="space-y-4 scroll-mt-20">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <TodayTasksCard />
           <InboxZeroCard />
         </div>
         <MissionTracker />
       </section>
+
 
 
       {/* ===== 2. PIPELINE & WAITLIST ===== */}
