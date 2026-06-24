@@ -249,61 +249,115 @@ export default function AdminLeads() {
 
       {/* Views */}
       {view === "list" && (
-        <Card className="overflow-hidden">
+        <Card className="overflow-hidden select-none">
+          <div className="px-3 py-2 text-[11px] text-nf-text-muted border-b border-nf-border bg-nf-surface-alt/20 flex items-center gap-3 flex-wrap">
+            <span>💡 <b>Drag-select</b>: tartsd lenyomva az egeret és húzd át a sorokat. <b>Shift+klikk</b> = tartomány. <b>Klikk a névre</b> = részletek.</span>
+          </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-left text-xs uppercase text-nf-text-muted border-b border-nf-border bg-nf-surface-alt/30">
                 <tr>
                   <th className="p-3 w-8"><input type="checkbox" checked={selected.size > 0 && selected.size === filtered.length} onChange={toggleAll} /></th>
-                  <th className="p-3">Hely</th>
-                  <th className="p-3 hidden md:table-cell">Város</th>
-                  <th className="p-3 hidden md:table-cell">Kategória</th>
-                  <th className="p-3">Score</th>
-                  <th className="p-3">Grade</th>
+                  <th className="p-3">Hely · Kapcsolat</th>
+                  <th className="p-3 hidden md:table-cell">Lokáció · Kategória</th>
+                  <th className="p-3">Score / Grade</th>
                   <th className="p-3 hidden sm:table-cell">Google</th>
+                  <th className="p-3">Elérhetőség</th>
                   <th className="p-3">Státusz</th>
-                  <th className="p-3 w-20">Művelet</th>
+                  <th className="p-3 w-24">AI</th>
                 </tr>
               </thead>
               <tbody>
-                {filtered.map(p => (
-                  <tr key={p.id} className={`border-b border-nf-border hover:bg-nf-surface-alt/50 ${selected.has(p.id) ? "bg-electric-300/5" : ""}`}>
-                    <td className="p-3"><input type="checkbox" checked={selected.has(p.id)} onChange={() => toggle(p.id)} /></td>
+                {filtered.map(p => {
+                  const research = p.research_notes ?? p.research_dossier ?? null;
+                  const hasEmail = !!p.email;
+                  const hasPhone = !!p.phone;
+                  const hasIg = !!(p.instagram_handle || p.instagram);
+                  const hasSite = !!p.website;
+                  return (
+                  <tr
+                    key={p.id}
+                    onMouseEnter={() => dragSelect.onMouseEnter(p.id)}
+                    className={`border-b border-nf-border hover:bg-nf-surface-alt/50 ${selected.has(p.id) ? "bg-electric-300/10" : ""}`}
+                  >
+                    <td className="p-3" onMouseDown={(e) => dragSelect.onMouseDown(p.id, e)}>
+                      <input type="checkbox" readOnly checked={selected.has(p.id)} className="cursor-pointer" />
+                    </td>
                     <td className="p-3">
                       <button onClick={() => setDrawerId(p.id)} className="text-electric-300 hover:underline font-medium text-left">{p.company_name}</button>
-                      {p.contact_name && <div className="text-[11px] text-nf-text-muted">{p.contact_name}</div>}
-                      {p.last_researched_at && <div className="text-[10px] text-emerald-400">✓ kutatva</div>}
+                      <div className="text-[11px] text-nf-text-muted flex items-center gap-2 flex-wrap">
+                        {p.contact_name && <span>{p.contact_name}</span>}
+                        {p.last_researched_at && <span className="text-emerald-400">✓ kutatva</span>}
+                        {Array.isArray(p.tags) && p.tags.slice(0, 3).map((t: string) => (
+                          <span key={t} className="px-1.5 py-0.5 rounded bg-nf-surface-alt text-[9px]">{t}</span>
+                        ))}
+                      </div>
                     </td>
-                    <td className="p-3 text-nf-text-muted hidden md:table-cell">{p.city || "—"}</td>
-                    <td className="p-3 text-nf-text-muted hidden md:table-cell text-xs">{p.category || "—"}</td>
-                    <td className="p-3"><LeadScoreBadge score={p.lead_score} /></td>
+                    <td className="p-3 text-nf-text-muted hidden md:table-cell text-xs">
+                      <div>{p.city || "—"}</div>
+                      <div className="text-[10px]">{p.category || "—"}</div>
+                    </td>
                     <td className="p-3">
-                      {p.lead_grade ? (
-                        <span
-                          title={p.lead_grade_source === 'ai' ? 'AI értékelés' : 'Auto (score alapján)'}
-                          className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
-                            p.lead_grade === 'A' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
-                            p.lead_grade === 'B' ? 'bg-electric-300/20 text-electric-300 border border-electric-300/40' :
-                            p.lead_grade === 'C' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' :
-                            'bg-nf-surface-alt text-nf-text-muted border border-nf-border'
-                          }`}
-                        >
-                          {p.lead_grade}{p.lead_grade_source === 'ai' && <sup className="ml-px text-[8px]">✦</sup>}
-                        </span>
-                      ) : <span className="text-nf-text-muted text-xs">—</span>}
+                      <div className="flex items-center gap-1.5">
+                        <LeadScoreBadge score={p.lead_score} />
+                        {p.lead_grade && (
+                          <span
+                            title={p.lead_grade_source === 'ai' ? 'AI értékelés' : 'Auto (score alapján)'}
+                            className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-[10px] font-bold ${
+                              p.lead_grade === 'A' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
+                              p.lead_grade === 'B' ? 'bg-electric-300/20 text-electric-300 border border-electric-300/40' :
+                              p.lead_grade === 'C' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' :
+                              'bg-nf-surface-alt text-nf-text-muted border border-nf-border'
+                            }`}
+                          >{p.lead_grade}</span>
+                        )}
+                      </div>
                     </td>
                     <td className="p-3 text-nf-text-muted hidden sm:table-cell text-xs">{p.google_rating ? `⭐ ${p.google_rating} (${p.google_reviews_count ?? 0})` : "—"}</td>
+                    <td className="p-3">
+                      <div className="flex items-center gap-1.5 text-[11px]">
+                        <Mail className={`w-3.5 h-3.5 ${hasEmail ? "text-emerald-400" : "text-nf-text-muted/30"}`} />
+                        <Phone className={`w-3.5 h-3.5 ${hasPhone ? "text-emerald-400" : "text-nf-text-muted/30"}`} />
+                        <Instagram className={`w-3.5 h-3.5 ${hasIg ? "text-emerald-400" : "text-nf-text-muted/30"}`} />
+                        <Globe className={`w-3.5 h-3.5 ${hasSite ? "text-emerald-400" : "text-nf-text-muted/30"}`} />
+                      </div>
+                    </td>
                     <td className="p-3"><span className="px-2 py-0.5 rounded text-[10px] bg-electric-300/10 text-electric-300">{STATUS_LABEL[p.status]}</span></td>
                     <td className="p-3">
-                      <Button size="sm" variant="ghost" disabled={researchingId === p.id} onClick={() => runResearch(p.id)} title="Auto-kutatás">
-                        {researchingId === p.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Telescope className="w-3 h-3" />}
-                      </Button>
+                      <div className="flex items-center gap-1">
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button size="sm" variant="ghost" title="AI Insight gyors-nézet" disabled={!research}>
+                              <Sparkles className={`w-3 h-3 ${research ? "text-electric-300" : "text-nf-text-muted/40"}`} />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-96 text-xs bg-nf-surface border-nf-border">
+                            {research ? (
+                              <div className="space-y-2">
+                                <div className="font-semibold text-electric-300">{research.snapshot ?? "—"}</div>
+                                {research.fit_reasons && (
+                                  <div><b>Fit:</b> <span className="text-nf-text-muted">{(research.fit_reasons ?? []).join(" · ")}</span></div>
+                                )}
+                                {research.risks && research.risks.length > 0 && (
+                                  <div><b>Risk:</b> <span className="text-amber-300">{research.risks.join(" · ")}</span></div>
+                                )}
+                                {research.next_action && (
+                                  <div className="pt-1 border-t border-nf-border"><b>Next:</b> {research.next_action}</div>
+                                )}
+                              </div>
+                            ) : <div className="text-nf-text-muted">Még nincs kutatás. Indítsd a 🔭 gombbal.</div>}
+                          </PopoverContent>
+                        </Popover>
+                        <Button size="sm" variant="ghost" disabled={researchingId === p.id} onClick={() => runResearch(p.id)} title="AI mélykutatás">
+                          {researchingId === p.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Telescope className="w-3 h-3" />}
+                        </Button>
+                      </div>
                     </td>
                   </tr>
-                ))}
+                );})}
                 {filtered.length === 0 && (
-                  <tr><td colSpan={9} className="p-8 text-center text-nf-text-muted">
-                    {loading ? "Töltés…" : "Nincs lead. Importálj egyet, vagy adj hozzá manuálisan a Partnerek oldalon."}
+                  <tr><td colSpan={8} className="p-8 text-center text-nf-text-muted">
+                    {loading ? "Töltés…" : "Nincs lead. Indíts egy Apify scrape-et a fenti gombbal."}
                   </td></tr>
                 )}
               </tbody>
