@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Upload, Search, LayoutGrid, List, MapIcon, Sparkles, Telescope, Loader2, Zap, Bot } from "lucide-react";
+import { Upload, Search, LayoutGrid, List, MapIcon, Telescope, Loader2, Zap, Bot, Mail, Phone, Instagram, Globe, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import LeadScoreBadge from "@/components/admin/leads/LeadScoreBadge";
 import BulkActionBar from "@/components/admin/leads/BulkActionBar";
@@ -19,6 +19,8 @@ import BulkOutreachModal from "@/components/admin/leads/BulkOutreachModal";
 import BulkTagModal from "@/components/admin/leads/BulkTagModal";
 import { exportRowsAsCsv } from "@/lib/export-csv";
 import { trackEvent } from "@/lib/track";
+import { useDragSelect } from "@/hooks/useDragSelect";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const STATUS_LABEL: Record<string, string> = {
   lead: "Új lead", contacted: "Megkeresve", negotiating: "Tárgyalás", proposal_sent: "Ajánlat", signed: "Aláírt", rejected: "Elutasítva", paused: "Szünetel",
