@@ -39,6 +39,8 @@ export default function AdminLeads() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterCity, setFilterCity] = useState("all");
   const [filterScore, setFilterScore] = useState("all");
+  const [filterReadiness, setFilterReadiness] = useState<ReadinessLevel | "all">("all");
+  const [kanbanGroup, setKanbanGroup] = useState<"status" | "readiness">("status");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [showImport, setShowImport] = useState(false);
   const [showApify, setShowApify] = useState(false);
@@ -49,8 +51,11 @@ export default function AdminLeads() {
   const [aiGrading, setAiGrading] = useState(false);
   const [drawerId, setDrawerId] = useState<string | null>(null);
   const [researchingId, setResearchingId] = useState<string | null>(null);
+  const [continuingId, setContinuingId] = useState<string | null>(null);
   const [bulkResearching, setBulkResearching] = useState(false);
   const [processingAll, setProcessingAll] = useState(false);
+  const [continuingBulk, setContinuingBulk] = useState(false);
+  const [busyLevel, setBusyLevel] = useState<ReadinessLevel | null>(null);
   const { toast } = useToast();
 
   const runAiGradeTop = async () => {
