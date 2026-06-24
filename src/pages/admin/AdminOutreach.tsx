@@ -95,8 +95,18 @@ export default function AdminOutreach() {
                 ))}
                 {(s.steps ?? []).length === 0 && <div className="text-xs text-nf-text-muted/60">Nincsenek lépések</div>}
               </div>
-              <div className="mt-3 flex gap-2">
+              {guardrailsBadges(s.guardrails).length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {guardrailsBadges(s.guardrails).map((b, i) => (
+                    <Badge key={i} variant="outline" className="text-[10px] border-electric-300/30 text-electric-300">{b}</Badge>
+                  ))}
+                </div>
+              )}
+              <div className="mt-3 flex gap-2 flex-wrap">
                 <Button size="sm" variant="outline" onClick={() => { setEditing(s); setOpenNew(true); }}>Szerkeszt</Button>
+                <Button size="sm" variant="outline" onClick={() => setGuardEditing(s)}>
+                  <Shield className="h-3 w-3 mr-1" /> Guardrails
+                </Button>
                 <Button size="sm" variant="outline" onClick={async () => {
                   await supabase.from("outreach_sequences").update({ active: !s.active }).eq("id", s.id);
                   load();
