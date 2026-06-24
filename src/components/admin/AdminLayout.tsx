@@ -11,6 +11,7 @@ import HubTabs from "@/components/admin/HubTabs";
 import { useKeyboardShortcuts, SHORTCUT_LABELS } from "@/hooks/useKeyboardShortcuts";
 import { NAV_GROUPS } from "@/lib/admin-nav-config";
 import HelpTip from "@/components/admin/help/HelpTip";
+import AdminBreadcrumb from "@/components/admin/AdminBreadcrumb";
 
 const HUB_FOR_PATH: Array<{ match: (p: string) => boolean; hub: "partners" | "content" | "knowledge" }> = [
   { match: (p) => p === "/admin/partners" || p.startsWith("/admin/outreach") || p.startsWith("/admin/leads"), hub: "partners" },
