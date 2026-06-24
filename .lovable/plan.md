@@ -1,57 +1,76 @@
-## Audit — mi van, mi hiányzik, hova menjünk
+## Mit látunk most a screenshoton
+Az AI azt írja, "tele van budapesti arcokkal" és olyan dolgokat ígér, amik nem igazak — mert az `outreach-personalize` prompt nem tud arról, hogy:
+- Most **founding partnereket** keresünk (még nincs felhasználói tömeg).
+- A launch **2026 szeptember**, addig csak waitlist van.
+- Nincs videó, nincs élő app, nincs userbase, amit lehetne ígérni.
+- A founding deal konkrét perkekkel jár (lifetime fee-kedvezmény, co-marketing stb.).
 
-### Helyzetkép a DB-ből
-| Mit | Mennyi |
-|---|---|
-| Partnerek/leadek | **103** |
-| Outreach sequence-ek | **0** ❗ |
-| Enrollment-ek | **0** ❗ |
-| Outreach event-ek | **0** ❗ |
-| Inbox itemek | 29 |
-| Decisions | 2 |
-| Documents | 51 |
-| Content briefs | 2 |
+A modal funkcionálisan is sovány: 1 textarea, nincs lépésenkénti előnézet, nincs tone/hossz kontroll, nincs regenerálás, nincs tooltip.
 
-**A legnagyobb gap:** az egész outreach motor (D fázis analytics, E fázis reply-detection, lead-promote) **üresben pörög**, mert nincs egy sequence se élesben. 103 lead ül és vár. Ezen kívül **1 db cron** van (decision-review-tick) — minden napi automatika manuálisan indul.
+## A terv — 3 réteg
 
-### Mi hiányzik (operatív sorrendben)
+### 1. Kontextus-tudatos AI (`outreach-personalize`)
+Új system prompt blokk, ami minden hívásnál belerakja:
+- **Fázis:** "founding partner toborzás, soft-launch 2026 szeptemberben, jelenleg waitlist + early access kohorsz épül"
+- **Tiltott állítások:** "ne ígérj userbase-t / forgalmat / azonnali vendéget", "ne mondj 'tele van budapesti arcokkal' típusú túlzást", "ne hivatkozz videóra / demóra, csak ha a partner adatban explicit van link"
+- **Ajánlott horgok:** founding kedvezmény, korai co-branding, részvétel a curated launch-line-upban, social-proof építés egymással
+- **Tone presetek:** `founding_pitch` | `warm_intro` | `short_nudge` | `meeting_close` — a UI küldi, az AI ehhez igazítja a hangot és hosszt
+- **Hossz cél:** szavakban paraméterezhető (60 / 120 / 200)
+- Visszaad mostantól: `subject`, `preheader`, `body`, `cta`, `risks[]` (mit kerüljön a follow-up), `variants[]` (2 alternatív subject)
 
-1. **Outreach onboarding** — sequence template galéria + 1 kattintásos "indítsd el ezt a 103 leadre" flow. Enélkül az egész D/E fázis dísz.
-2. **Cron-ok** — `outreach-tick`, `lead-promote-suggest`, `inbox-collect`, `kpi-snapshot`, `daily-briefing` nem fut magától. Reggel kell egy "minden frissítve" állapot.
-3. **Inbox actionability** — a `lead_promote` és `lead_stalled` itemekre nincs egy-kattintásos akció. Most csak megjelenik, de promotálni kézzel kell.
-4. **Health monitor** — nincs admin oldal ami mutatja: melyik edge function fut hibára, mikor futott utoljára egy cron, mennyi a `failed` event arány.
-5. **Onboarding wizard új admin user-nek** — most 22 admin oldal van, nincs vezetett bevezetés. "Hol kezdjem?" érzés.
-6. **Mobil élmény** — admin layout desktopra van optimalizálva, partner drawer mobilon kényelmetlen.
+A founding kontextust egy `_shared/brand-context.ts` konstans tartja, hogy a többi AI fn (outreach-suggest, lead-promote-suggest stb.) is használhassa.
 
-### Javasolt fázisok — válassz
+### 2. Komolyabb `LeadOutreachModal`
+Átalakítás tabos felületre a meglévő `Dialog`-on belül:
 
-**H — Outreach Activation Pack** (legnagyobb hatás, használhatóvá teszi a meglévőt)
-- 3 előre megírt sequence template seed (cold outreach venue, follow-up no-reply, post-meeting nurture).
-- `AdminOutreach.tsx`-en "Sequence galéria" tab + "Indítsd el N leadre" wizard (lead filter → sequence pick → preview → enroll).
-- `outreach-tick` és `lead-promote-suggest` cron beállítása (naponta 8:00).
-- Inbox `lead_promote` itemen "Promote 1 click" gomb.
+```text
+[ Tartalom ] [ Lépések ] [ Beállítások ]
+```
 
-**I — System Health & Automation cockpit**
-- Új `/admin/system` oldal: cron státusz, edge function utolsó futás + error rate, failed outreach events, embed lemaradás.
-- Cron registry tábla (`cron_jobs`: name, last_run_at, last_status, last_error) + minden cron-hívás végén heartbeat write.
-- "Run now" gomb minden cron-hoz.
+**Tartalom tab** (alapértelmezett):
+- Sequence select + step-picker (melyik lépést szerkesztjük — most csak az 1. megy)
+- Tone preset chip-sor (4 opció)
+- Hossz csúszka (rövid / közepes / hosszú)
+- Subject input + **karakterszám** + 2 AI-alternatíva chip ("használom" gombbal)
+- Preheader input (új)
+- Body Textarea **resizable + szószámláló + monospace toggle**
+- "AI személyre szabás" + "Regenerálás más hangnemmel" + "Csak a body-t" gombok
+- Risks panel (collapsible): AI mit kerüljön / mire figyeljünk a partnernél
+- Élő **email preview** kártya (sötét + világos toggle), placeholder-behelyettesítéssel ({{contact_name}}, {{company_name}})
 
-**J — Mobile-first admin polish**
-- Partner drawer mobil layout (full-screen sheet helyett bottom sheet, swipe-elhető tab-ok).
-- Inbox swipe-akciók (jobbra = done, balra = snooze 1 nap).
-- Voice capture FAB minden admin oldalon (már van, de nem mindenhol).
+**Lépések tab**:
+- A sequence összes step-je listában, mindegyikhez "Override-ot adok" toggle → ugyanaz a szerkesztő, perszisztálva az enrollment `metadata.personalized_steps[]`-be
+- `outreach-tick` ezt már tudja olvasni (kis bővítés)
 
-**K — Onboarding & guided tours**
-- Új user első login: 4 lépéses tour (Dashboard → Leads → Outreach → Inbox).
-- Üres állapotok minden oldalon: "0 lead — importálj Apify-val vagy CSV-vel".
-- `?tour=1` URL param → minden oldal saját mini-walkthrough.
+**Beállítások tab**:
+- Indítás időpontja (most / holnap reggel 9 / egyedi datetime picker)
+- "Csak ha még nem írtunk neki 30 napja" guard
+- Tag-ek hozzáadása az enrollment-hez
+- "Founding pitch melléklet csatolása" checkbox (linkeli a Founding Partner PDF-et a body-ba)
 
-**L — Cross-entity intelligence**
-- Globális "AI most mit csinálnál?" panel (jobb felső): aktuális oldal kontextusából 3 javasolt akció.
-- Lead → document linker: ha partnernek vannak küldött dokumentumai (partner_documents_sent), megjelenik a drawer-en + "küldd újra" gomb.
-- Decision ↔ Outreach loop: ha egy döntés "blocked" → automatikus inbox item.
+### 3. Tooltipek mindenhol
+Egy kis `<FieldHelp text="…" />` wrapper a `Tooltip` köré (info ikon a label mellett). Felteszem:
+- Sequence select → "Melyik előre megírt levélfolyam menjen ki. Founding pitch = ajánlott."
+- AI személyre szabás → "A partner adatai + founding kontextus alapján újraírja."
+- Tone chip-ek → mindegyikhez 1 mondat
+- Hossz csúszka → "Hány szó körül legyen a body."
+- Subject / Preheader / Body → mi hová kerül a postafiókban
+- Override toggle → "Csak ennél a partnernél írja felül az eredeti sequence lépést."
+- Indítás időpont, guard, founding pitch attach → szintén
+- Lead/Outreach kanban oszlopfejlécek és a stalled / promote kártyák → "Mit jelent ez a status?"
 
-### Ajánlott útvonal
-**1. H** (azonnal érzékelhető érték — végre élesedik az outreach) → **2. I** (a H-t fenntarthatóvá teszi) → **3. K vagy J** ízlés szerint.
+### Érintett fájlok
+- `supabase/functions/_shared/brand-context.ts` (új) — founding kontextus konstans
+- `supabase/functions/outreach-personalize/index.ts` — új prompt + tone/length/variants
+- `supabase/functions/outreach-tick/index.ts` — `metadata.personalized_steps[index]` olvasása
+- `src/components/admin/leads/LeadOutreachModal.tsx` — tabos átépítés
+- `src/components/admin/leads/EmailPreviewCard.tsx` (új) — élő preview
+- `src/components/admin/help/FieldHelp.tsx` (új) — tooltip-wrapper info ikonnal
+- Pár sor a `BatchEnrollWizard`, `AdminOutreach`, `AdminInbox`-ba: ugyanazt a `FieldHelp`-et használja a fő kontrolloknál
 
-Melyik fázist indítsuk?
+### Mit NEM csinálunk most
+- Nem írunk új sequence-engine-t, nem cseréljük a `outreach_sequences` schemát.
+- Nem nyúlunk a homepage / landing kóphoz.
+- A többi AI fn promptját csak akkor, ha kérsz rá külön zöld utat (most csak az import létrejön).
+
+Mehet?
