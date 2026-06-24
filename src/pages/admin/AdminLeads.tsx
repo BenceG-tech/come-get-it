@@ -47,6 +47,7 @@ export default function AdminLeads() {
   const [drawerId, setDrawerId] = useState<string | null>(null);
   const [researchingId, setResearchingId] = useState<string | null>(null);
   const [bulkResearching, setBulkResearching] = useState(false);
+  const [processingAll, setProcessingAll] = useState(false);
   const { toast } = useToast();
 
   const runAiGradeTop = async () => {
