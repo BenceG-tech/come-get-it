@@ -383,6 +383,9 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
                 <DropdownMenuItem onClick={() => setOrgOpen(true)}>
                   <Sparkles className="h-4 w-4 mr-2" /> AI rendezés
                 </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setBulkReviewOpen(true)}>
+                  <Sparkles className="h-4 w-4 mr-2" /> AI review az összesre
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={runAudit} disabled={auditing}>
                   <Sparkles className="h-4 w-4 mr-2" /> {auditing ? "Auditálás…" : "AI audit"}
                 </DropdownMenuItem>
