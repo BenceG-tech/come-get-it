@@ -18,6 +18,7 @@ import ImageAnalysisPanel from "@/components/admin/media/ImageAnalysisPanel";
 import BulkUploadDialog from "@/components/admin/documents/BulkUploadDialog";
 import OrganizationSuggestionsDialog from "@/components/admin/documents/OrganizationSuggestionsDialog";
 import OrganizationBanner from "@/components/admin/documents/OrganizationBanner";
+import BulkReviewDialog from "@/components/admin/documents/BulkReviewDialog";
 import PageIntro from "@/components/admin/help/PageIntro";
 
 const CATEGORIES = [
