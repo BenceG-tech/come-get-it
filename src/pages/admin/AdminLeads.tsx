@@ -320,18 +320,33 @@ export default function AdminLeads() {
         busyLevel={busyLevel}
       />
 
-      {/* View switcher */}
-      <div className="flex gap-1 border-b border-nf-border">
-        {[
-          { v: "list", l: "Lista", I: List },
-          { v: "kanban", l: "Kanban", I: LayoutGrid },
-          { v: "map", l: "Térkép", I: MapIcon },
-        ].map(({ v, l, I }) => (
-          <button key={v} onClick={() => setView(v as View)}
-            className={`px-4 py-2 text-sm flex items-center gap-2 border-b-2 -mb-px transition ${view === v ? "border-electric-300 text-electric-300" : "border-transparent text-nf-text-muted hover:text-white"}`}>
-            <I className="h-4 w-4" /> {l}
-          </button>
-        ))}
+      {/* View switcher + group-by */}
+      <div className="flex items-center justify-between gap-3 flex-wrap border-b border-nf-border">
+        <div className="flex gap-1">
+          {[
+            { v: "list", l: "Lista", I: List },
+            { v: "map", l: "Térkép", I: MapIcon },
+          ].map(({ v, l, I }) => (
+            <button key={v} onClick={() => setView(v as View)}
+              className={`px-4 py-2 text-sm flex items-center gap-2 border-b-2 -mb-px transition ${view === v ? "border-electric-300 text-electric-300" : "border-transparent text-nf-text-muted hover:text-white"}`}>
+              <I className="h-4 w-4" /> {l}
+            </button>
+          ))}
+        </div>
+        {view === "list" && (
+          <div className="flex items-center gap-1 text-xs pb-2">
+            <span className="text-nf-text-muted mr-2">Csoportosítás:</span>
+            {([["none", "Nincs"], ["status", "Státusz"], ["readiness", "AI állapot"]] as const).map(([k, l]) => (
+              <button
+                key={k}
+                onClick={() => { setGroupMode(k); setCollapsedGroups(new Set()); }}
+                className={`px-3 py-1 rounded-full border transition ${groupMode === k ? "border-electric-300 text-electric-300 bg-electric-300/10" : "border-nf-border text-nf-text-muted hover:text-white"}`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Filters */}
