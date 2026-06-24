@@ -1330,13 +1330,18 @@ export type Database = {
           entity_id: string
           entity_type: string
           finished_at: string | null
+          founding_deal_status: string | null
           id: string
+          last_reply_at: string | null
           metadata: Json
           next_run_at: string | null
+          reply_sentiment: string | null
+          reply_summary: string | null
           sequence_id: string
           started_at: string
           status: string
           stop_reason: string | null
+          suggested_reply: string | null
           updated_at: string
         }
         Insert: {
@@ -1346,13 +1351,18 @@ export type Database = {
           entity_id: string
           entity_type: string
           finished_at?: string | null
+          founding_deal_status?: string | null
           id?: string
+          last_reply_at?: string | null
           metadata?: Json
           next_run_at?: string | null
+          reply_sentiment?: string | null
+          reply_summary?: string | null
           sequence_id: string
           started_at?: string
           status?: string
           stop_reason?: string | null
+          suggested_reply?: string | null
           updated_at?: string
         }
         Update: {
@@ -1362,13 +1372,18 @@ export type Database = {
           entity_id?: string
           entity_type?: string
           finished_at?: string | null
+          founding_deal_status?: string | null
           id?: string
+          last_reply_at?: string | null
           metadata?: Json
           next_run_at?: string | null
+          reply_sentiment?: string | null
+          reply_summary?: string | null
           sequence_id?: string
           started_at?: string
           status?: string
           stop_reason?: string | null
+          suggested_reply?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -1393,6 +1408,7 @@ export type Database = {
           opened_at: string | null
           replied_at: string | null
           sent_at: string
+          skipped_reason: string | null
           status: string
           step_index: number
           subject: string | null
@@ -1408,6 +1424,7 @@ export type Database = {
           opened_at?: string | null
           replied_at?: string | null
           sent_at?: string
+          skipped_reason?: string | null
           status?: string
           step_index: number
           subject?: string | null
@@ -1423,6 +1440,7 @@ export type Database = {
           opened_at?: string | null
           replied_at?: string | null
           sent_at?: string
+          skipped_reason?: string | null
           status?: string
           step_index?: number
           subject?: string | null
@@ -1443,10 +1461,12 @@ export type Database = {
           created_at: string
           created_by: string | null
           description: string | null
+          guardrails: Json
           id: string
           kind: string
           name: string
           steps: Json
+          subject_library: Json
           updated_at: string
         }
         Insert: {
@@ -1454,10 +1474,12 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           description?: string | null
+          guardrails?: Json
           id?: string
           kind?: string
           name: string
           steps?: Json
+          subject_library?: Json
           updated_at?: string
         }
         Update: {
@@ -1465,10 +1487,12 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           description?: string | null
+          guardrails?: Json
           id?: string
           kind?: string
           name?: string
           steps?: Json
+          subject_library?: Json
           updated_at?: string
         }
         Relationships: []

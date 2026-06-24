@@ -35,7 +35,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    // 2. SLA breach: stages with sla_days exceeded
+    // 2. SLA breach
     const { data: stages } = await admin.from("pipeline_stages").select("key, kind, sla_days").not("sla_days", "is", null);
     const slaMap = new Map((stages ?? []).map((s) => [`${s.kind}:${s.key}`, s.sla_days]));
     const { data: parts } = await admin
@@ -61,25 +61,64 @@ Deno.serve(async (req) => {
       }
     }
 
-    // 3. Outreach replies in the last 24h
+    // 3. Outreach replies in the last 24h — also auto-classify + push lead_replied items
     const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
     const { data: replies } = await admin
       .from("outreach_events")
-      .select("id, enrollment_id, event_type, occurred_at, metadata")
-      .eq("event_type", "reply")
-      .gte("occurred_at", since)
+      .select("id, enrollment_id, status, sent_at, subject, body_preview")
+      .eq("status", "replied")
+      .gte("sent_at", since)
       .limit(50);
+
     for (const r of replies ?? []) {
-      items.push({
-        kind: "outreach_reply",
-        severity: "info",
-        title: "Új outreach válasz",
-        payload: { event_id: r.id, enrollment_id: r.enrollment_id, metadata: r.metadata ?? {} },
-        dedupe_key: `outreach_reply:${r.id}`,
-      });
+      // Look up the enrollment + partner for richer inbox card
+      const { data: en } = await admin
+        .from("outreach_enrollments")
+        .select("id, entity_type, entity_id, status, reply_sentiment, suggested_reply, last_reply_at")
+        .eq("id", r.enrollment_id)
+        .maybeSingle();
+      if (!en) continue;
+
+      // Auto-classify if not yet processed
+      if (!en.reply_sentiment && r.body_preview) {
+        try {
+          await fetch(`${Deno.env.get("SUPABASE_URL")}/functions/v1/outreach-reply-classify`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
+            body: JSON.stringify({ enrollment_id: en.id, reply_text: r.body_preview, reply_subject: r.subject }),
+          });
+        } catch (e) {
+          console.warn("auto-classify failed", e);
+        }
+      }
+
+      // Auto-pause enrollment + bump partner status
+      if (en.status === "active") {
+        await admin.from("outreach_enrollments").update({
+          status: "replied",
+          stop_reason: "auto_reply_detected",
+          next_run_at: null,
+          last_reply_at: en.last_reply_at ?? new Date().toISOString(),
+        }).eq("id", en.id);
+      }
+      if (en.entity_type === "partner" && en.entity_id) {
+        const { data: p } = await admin.from("partners").select("status, company_name").eq("id", en.entity_id).maybeSingle();
+        if (p?.status === "contacted") {
+          await admin.from("partners").update({ status: "negotiating" }).eq("id", en.entity_id);
+        }
+        items.push({
+          kind: "lead_replied",
+          severity: "info",
+          title: `Válaszolt: ${p?.company_name ?? "partner"}`,
+          entity_kind: "partner",
+          entity_id: en.entity_id,
+          payload: { event_id: r.id, enrollment_id: en.id, subject: r.subject },
+          dedupe_key: `lead_replied:${r.id}`,
+        });
+      }
     }
 
-    // 4. Stale documents flagged today
+    // 4. Stale documents
     const { data: stale } = await admin
       .from("documents")
       .select("id, title, lifecycle_status")
@@ -114,7 +153,6 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Upsert by dedupe_key
     let inserted = 0;
     for (const it of items) {
       const { error } = await admin
