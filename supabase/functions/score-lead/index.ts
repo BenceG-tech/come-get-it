@@ -76,12 +76,17 @@ Deno.serve(async (req) => {
   try {
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-    const supa = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: authHeader } } });
-    const { data: claims } = await supa.auth.getClaims(authHeader.replace("Bearer ", ""));
-    if (!claims?.claims?.sub) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    const token = authHeader.replace("Bearer ", "");
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    // Allow service-role calls (used by lead-bulk-process) to bypass user claim check.
+    if (token !== serviceKey) {
+      const supa = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: authHeader } } });
+      const { data: claims } = await supa.auth.getClaims(token);
+      if (!claims?.claims?.sub) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
 
-    const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-    const { partner_ids } = await req.json();
+    const admin = createClient(Deno.env.get("SUPABASE_URL")!, serviceKey);
+    const { partner_ids, background } = await req.json();
     if (!Array.isArray(partner_ids) || partner_ids.length === 0)
       return new Response(JSON.stringify({ error: "partner_ids required" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
@@ -89,9 +94,8 @@ Deno.serve(async (req) => {
     if (!partners?.length) return new Response(JSON.stringify({ error: "Not found" }), { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
     const LOVABLE_KEY = Deno.env.get("LOVABLE_API_KEY");
-    const results: any[] = [];
 
-    for (const p of partners) {
+    const processOne = async (p: any) => {
       const { baseline, lines } = computeBaseline(p);
       let adjustment = 0;
       let aiNote = "";
@@ -126,10 +130,7 @@ Deno.serve(async (req) => {
       const total = Math.max(0, Math.min(100, baseline + adjustment));
       const grade = total >= 80 ? "A" : total >= 60 ? "B" : total >= 40 ? "C" : "D";
       const score_reasons = {
-        baseline,
-        adjustment,
-        total,
-        grade,
+        baseline, adjustment, total, grade,
         breakdown: lines,
         ai_overlay: { summary: aiNote, reasons: aiReasons },
       };
@@ -140,9 +141,41 @@ Deno.serve(async (req) => {
         score_reasons,
         score_updated_at: new Date().toISOString(),
       }).eq("id", p.id);
-      results.push({ id: p.id, score: total, grade });
+      return { id: p.id, score: total, grade };
+    };
+
+    // Auto-background for big batches (>15) to avoid 504 — or if caller explicitly asks.
+    const shouldBackground = background === true || (background !== false && partners.length > 15);
+
+    if (shouldBackground) {
+      const runAll = async () => {
+        // Process 3 in parallel to stay under AI gateway rate-limits.
+        const queue = [...partners];
+        const worker = async () => {
+          while (queue.length) {
+            const p = queue.shift();
+            if (!p) break;
+            try { await processOne(p); } catch (e) { console.warn("score fail", p.id, e); }
+          }
+        };
+        await Promise.all(Array.from({ length: Math.min(3, partners.length) }, worker));
+      };
+      // @ts-ignore
+      if (typeof EdgeRuntime !== "undefined" && EdgeRuntime?.waitUntil) {
+        // @ts-ignore
+        EdgeRuntime.waitUntil(runAll());
+      } else {
+        runAll().catch(() => {});
+      }
+      return new Response(JSON.stringify({ ok: true, status: "running_in_background", queued: partners.length }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
+    const results: any[] = [];
+    for (const p of partners) {
+      try { results.push(await processOne(p)); } catch (e) { console.warn(e); }
+    }
     return new Response(JSON.stringify({ ok: true, results }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
   } catch (e) {
     console.error(e);

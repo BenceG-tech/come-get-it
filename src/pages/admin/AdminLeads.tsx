@@ -47,6 +47,7 @@ export default function AdminLeads() {
   const [drawerId, setDrawerId] = useState<string | null>(null);
   const [researchingId, setResearchingId] = useState<string | null>(null);
   const [bulkResearching, setBulkResearching] = useState(false);
+  const [processingAll, setProcessingAll] = useState(false);
   const { toast } = useToast();
 
   const runAiGradeTop = async () => {
@@ -146,13 +147,34 @@ export default function AdminLeads() {
   const bulkScore = async () => {
     setScoring(true);
     try {
-      const { error } = await supabase.functions.invoke("score-lead", { body: { partner_ids: [...selected] } });
+      const { data, error } = await supabase.functions.invoke("score-lead", { body: { partner_ids: [...selected] } });
       if (error) throw error;
-      toast({ title: `${selected.size} lead pontozva` });
+      if (data?.status === "running_in_background") {
+        toast({ title: "Score-olás háttérben fut", description: `${data.queued} lead — ~${Math.ceil(data.queued * 2 / 60)} perc múlva frissítsd az oldalt` });
+      } else {
+        toast({ title: `${selected.size} lead pontozva` });
+      }
       await load();
     } catch (e: any) {
       toast({ title: "Hiba", description: e.message, variant: "destructive" });
     } finally { setScoring(false); }
+  };
+
+  const bulkProcessAll = async () => {
+    if (selected.size === 0) return;
+    if (selected.size > 50 && !confirm(`${selected.size} lead teljes feldolgozása (Research + Score + Grade).\n\nEz kb. ${Math.ceil(selected.size / 10) * 60 / 60} perc és ~${selected.size * 3} AI hívás.\n\nFolytatod?`)) return;
+    setProcessingAll(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("lead-bulk-process", { body: { partner_ids: [...selected] } });
+      if (error) throw error;
+      toast({
+        title: "Teljes pipeline elindult háttérben",
+        description: `${data?.queued ?? selected.size} lead, ${data?.chunks ?? "?"} chunk — ~${Math.ceil((data?.eta_seconds ?? 60) / 60)} perc. Frissítsd később az oldalt.`,
+      });
+      setSelected(new Set());
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e.message, variant: "destructive" });
+    } finally { setProcessingAll(false); }
   };
 
   const bulkStatus = async (status: string) => {
@@ -396,8 +418,10 @@ export default function AdminLeads() {
         }}
         onResearch={bulkResearch}
         onGrade={bulkGrade}
+        onProcessAll={bulkProcessAll}
         researching={bulkResearching}
         grading={aiGrading}
+        processingAll={processingAll}
         loading={scoring}
       />
 
