@@ -5,8 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Users, FileText, Calendar, Sparkles, ArrowRight, Wand2, Palette, Activity, Image as ImageIcon,
-  ListChecks, Clock, ChevronDown,
+  ListChecks, Clock, ChevronDown, Target, TrendingUp, BookOpen, Zap, ClipboardList,
 } from "lucide-react";
+import PageSectionNav from "@/components/admin/PageSectionNav";
 import { PipelineFunnel } from "@/components/admin/dashboard/PipelineFunnel";
 import { ConversionFunnel } from "@/components/admin/dashboard/ConversionFunnel";
 import { StalledLeadsCard } from "@/components/admin/dashboard/StalledLeadsCard";
