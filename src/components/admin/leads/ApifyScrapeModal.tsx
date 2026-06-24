@@ -22,6 +22,8 @@ export default function ApifyScrapeModal({ onClose, onDone }: { onClose: () => v
   const [status, setStatus] = useState<string>("");
   const [result, setResult] = useState<any>(null);
   const [busy, setBusy] = useState(false);
+  const [dailySettings, setDailySettings] = useState<{ enabled: boolean; cap_usd: number }>({ enabled: false, cap_usd: 3 });
+  const [savingDaily, setSavingDaily] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -30,7 +32,22 @@ export default function ApifyScrapeModal({ onClose, onDone }: { onClose: () => v
       if (error) toast({ title: "Apify lista hiba", description: error.message, variant: "destructive" });
       else setActors(data);
     }).finally(() => setLoadingActors(false));
+    supabase.from("system_settings").select("value").eq("key", "apify_daily_autopilot").maybeSingle()
+      .then(({ data }) => {
+        if (data?.value) setDailySettings({ enabled: !!(data.value as any).enabled, cap_usd: Number((data.value as any).cap_usd ?? 3) });
+      });
   }, []);
+
+  const saveDailySettings = async (next: { enabled: boolean; cap_usd: number }) => {
+    setSavingDaily(true);
+    const { error } = await supabase.from("system_settings")
+      .upsert({ key: "apify_daily_autopilot", value: { ...next, hour_utc: 6 } as any }, { onConflict: "key" });
+    setSavingDaily(false);
+    if (error) { toast({ title: "Mentés hiba", description: error.message, variant: "destructive" }); return; }
+    setDailySettings(next);
+    toast({ title: next.enabled ? "Napi auto-scrape BE" : "Napi auto-scrape KI" });
+  };
+
 
   const planAutopilot = async () => {
     setBusy(true);
@@ -175,8 +192,41 @@ export default function ApifyScrapeModal({ onClose, onDone }: { onClose: () => v
               </div>
               <ChevronRight className="w-4 h-4 text-nf-text-muted self-center" />
             </button>
+
+            <div className="mt-4 p-3 rounded-lg border border-nf-border bg-nf-surface-alt/30">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1">
+                  <div className="text-sm font-semibold flex items-center gap-1.5">
+                    <Zap className="w-3.5 h-3.5 text-electric-300" /> Napi auto-scrape
+                  </div>
+                  <div className="text-[11px] text-nf-text-muted mt-1">
+                    Minden reggel 06:00 UTC-kor az AI automatikusan keres új helyeket, a megadott napi költségplafonig.
+                  </div>
+                </div>
+                <button
+                  onClick={() => saveDailySettings({ ...dailySettings, enabled: !dailySettings.enabled })}
+                  disabled={savingDaily}
+                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-medium border ${dailySettings.enabled ? "bg-electric-300/20 text-electric-300 border-electric-300/40" : "bg-nf-surface text-nf-text-muted border-nf-border"}`}
+                >
+                  {dailySettings.enabled ? "BE" : "KI"}
+                </button>
+              </div>
+              {dailySettings.enabled && (
+                <div className="flex items-center gap-2 mt-2">
+                  <label className="text-[11px] text-nf-text-muted">Napi plafon (USD):</label>
+                  <Input
+                    type="number" step="0.5" min="0.5" max="20"
+                    value={dailySettings.cap_usd}
+                    onChange={(e) => setDailySettings((s) => ({ ...s, cap_usd: Number(e.target.value) || 3 }))}
+                    onBlur={() => saveDailySettings(dailySettings)}
+                    className="h-7 w-20 text-xs"
+                  />
+                </div>
+              )}
+            </div>
           </div>
         )}
+
 
         {step === "autopilot-plan" && autopilotPlan && (
           <div className="space-y-4">

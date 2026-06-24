@@ -1464,8 +1464,11 @@ export type Database = {
       outreach_sequences: {
         Row: {
           active: boolean
+          auto_send_min_confidence: number | null
+          auto_send_min_grade: string | null
           created_at: string
           created_by: string | null
+          daily_cap: number | null
           description: string | null
           guardrails: Json
           id: string
@@ -1477,8 +1480,11 @@ export type Database = {
         }
         Insert: {
           active?: boolean
+          auto_send_min_confidence?: number | null
+          auto_send_min_grade?: string | null
           created_at?: string
           created_by?: string | null
+          daily_cap?: number | null
           description?: string | null
           guardrails?: Json
           id?: string
@@ -1490,8 +1496,11 @@ export type Database = {
         }
         Update: {
           active?: boolean
+          auto_send_min_confidence?: number | null
+          auto_send_min_grade?: string | null
           created_at?: string
           created_by?: string | null
+          daily_cap?: number | null
           description?: string | null
           guardrails?: Json
           id?: string
@@ -2131,6 +2140,27 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      system_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          updated_by: string | null
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Relationships: []
       }
       task_runs: {
         Row: {
