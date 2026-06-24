@@ -320,12 +320,12 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
             </TabsContent>
 
             <TabsContent value="ai" className="mt-3 space-y-2">
-              <Button variant="neon" size="sm" onClick={requestAi} disabled={aiLoading}>
-                {aiLoading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3" />} Outreach javaslat
+              <Button variant="neon" size="sm" onClick={() => setOutreachOpen(true)}>
+                <Sparkles className="h-3 w-3 mr-1" /> Outreach indítása (AI sablonok)
               </Button>
-              {aiSuggestion && (
-                <Card className="p-3 text-xs whitespace-pre-wrap bg-nf-surface border-nf-border">{aiSuggestion}</Card>
-              )}
+              <p className="text-[11px] text-nf-text-muted">
+                Az AI 3 kész emailt javasol — válassz, szerkeszd, küldd. Egy dialog, egy kattintás.
+              </p>
             </TabsContent>
           </Tabs>
         )}
