@@ -418,8 +418,10 @@ export default function AdminLeads() {
         }}
         onResearch={bulkResearch}
         onGrade={bulkGrade}
+        onProcessAll={bulkProcessAll}
         researching={bulkResearching}
         grading={aiGrading}
+        processingAll={processingAll}
         loading={scoring}
       />
 
