@@ -1,30 +1,57 @@
-## Hibajavítás + következő lépések
+## Audit — mi van, mi hiányzik, hova menjünk
 
-### A tényleges error
-Csak egy React DOM warning a konzolon:
-```
-React does not recognize the `fetchPriority` prop on a DOM element.
-```
-Forrás: `src/components/HeroSection.tsx:44` — `<img fetchPriority="high" />`. React 18 a camelCase `fetchPriority`-t nem ismeri natívan a DOM-on; lowercase `fetchpriority` kell (mint a `HeroBackground.tsx`-ben már jól van).
+### Helyzetkép a DB-ből
+| Mit | Mennyi |
+|---|---|
+| Partnerek/leadek | **103** |
+| Outreach sequence-ek | **0** ❗ |
+| Enrollment-ek | **0** ❗ |
+| Outreach event-ek | **0** ❗ |
+| Inbox itemek | 29 |
+| Decisions | 2 |
+| Documents | 51 |
+| Content briefs | 2 |
 
-**Nem törésfunkció**, csak warning — az E fázis (ConversionFunnel, StalledLeadsCard, lead-promote-suggest) buildje rendben lefutott.
+**A legnagyobb gap:** az egész outreach motor (D fázis analytics, E fázis reply-detection, lead-promote) **üresben pörög**, mert nincs egy sequence se élesben. 103 lead ül és vár. Ezen kívül **1 db cron** van (decision-review-tick) — minden napi automatika manuálisan indul.
 
-### Javítás (1 sor)
-- `src/components/HeroSection.tsx` 44. sor: `fetchPriority="high"` → `fetchpriority={"high" as any}` (vagy ts-ignore + lowercase, ugyanúgy mint `HeroBackground.tsx`-ben).
+### Mi hiányzik (operatív sorrendben)
 
-### Következő lépések — válassz irányt
+1. **Outreach onboarding** — sequence template galéria + 1 kattintásos "indítsd el ezt a 103 leadre" flow. Enélkül az egész D/E fázis dísz.
+2. **Cron-ok** — `outreach-tick`, `lead-promote-suggest`, `inbox-collect`, `kpi-snapshot`, `daily-briefing` nem fut magától. Reggel kell egy "minden frissítve" állapot.
+3. **Inbox actionability** — a `lead_promote` és `lead_stalled` itemekre nincs egy-kattintásos akció. Most csak megjelenik, de promotálni kézzel kell.
+4. **Health monitor** — nincs admin oldal ami mutatja: melyik edge function fut hibára, mikor futott utoljára egy cron, mennyi a `failed` event arány.
+5. **Onboarding wizard új admin user-nek** — most 22 admin oldal van, nincs vezetett bevezetés. "Hol kezdjem?" érzés.
+6. **Mobil élmény** — admin layout desktopra van optimalizálva, partner drawer mobilon kényelmetlen.
 
-**E2 — Lead→Partner konverzió bővítés** (folytatás az E fázishoz)
-- "Promote to partner" gomb az Inbox `lead_promote` itemen → státusz `lead` → `contacted` egy kattintással, opcionálisan AI üzenetjavaslat.
-- `lead_promote-suggest` cron schedule (naponta reggel 8-kor) — `pg_cron`-nal.
-- Konverziós ráta time-series a `ConversionFunnel`-hez (heti összehasonlítás).
+### Javasolt fázisok — válassz
 
-**F fázis — Content ↔ Outreach összekötés**
-- Saved snippet mint outreach step (eddig csak email_template volt).
-- "Mit küldjek ennek?" AI gomb a partner drawer-en (3 snippet javaslat).
-- Snippet → reply-rate visszacsatolás.
+**H — Outreach Activation Pack** (legnagyobb hatás, használhatóvá teszi a meglévőt)
+- 3 előre megírt sequence template seed (cold outreach venue, follow-up no-reply, post-meeting nurture).
+- `AdminOutreach.tsx`-en "Sequence galéria" tab + "Indítsd el N leadre" wizard (lead filter → sequence pick → preview → enroll).
+- `outreach-tick` és `lead-promote-suggest` cron beállítása (naponta 8:00).
+- Inbox `lead_promote` itemen "Promote 1 click" gomb.
 
-**G fázis — Daily ops cockpit**
-- Reggeli "today screen": ma kihez kell visszanyúlni, mi a legforróbb lead, mi a legfontosabb 1 döntés. Egy oldal, 30 mp alatt átlátható.
+**I — System Health & Automation cockpit**
+- Új `/admin/system` oldal: cron státusz, edge function utolsó futás + error rate, failed outreach events, embed lemaradás.
+- Cron registry tábla (`cron_jobs`: name, last_run_at, last_status, last_error) + minden cron-hívás végén heartbeat write.
+- "Run now" gomb minden cron-hoz.
 
-Melyik irányba menjünk a fix után?
+**J — Mobile-first admin polish**
+- Partner drawer mobil layout (full-screen sheet helyett bottom sheet, swipe-elhető tab-ok).
+- Inbox swipe-akciók (jobbra = done, balra = snooze 1 nap).
+- Voice capture FAB minden admin oldalon (már van, de nem mindenhol).
+
+**K — Onboarding & guided tours**
+- Új user első login: 4 lépéses tour (Dashboard → Leads → Outreach → Inbox).
+- Üres állapotok minden oldalon: "0 lead — importálj Apify-val vagy CSV-vel".
+- `?tour=1` URL param → minden oldal saját mini-walkthrough.
+
+**L — Cross-entity intelligence**
+- Globális "AI most mit csinálnál?" panel (jobb felső): aktuális oldal kontextusából 3 javasolt akció.
+- Lead → document linker: ha partnernek vannak küldött dokumentumai (partner_documents_sent), megjelenik a drawer-en + "küldd újra" gomb.
+- Decision ↔ Outreach loop: ha egy döntés "blocked" → automatikus inbox item.
+
+### Ajánlott útvonal
+**1. H** (azonnal érzékelhető érték — végre élesedik az outreach) → **2. I** (a H-t fenntarthatóvá teszi) → **3. K vagy J** ízlés szerint.
+
+Melyik fázist indítsuk?
