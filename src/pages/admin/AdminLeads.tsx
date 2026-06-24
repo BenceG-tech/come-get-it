@@ -415,7 +415,12 @@ export default function AdminLeads() {
                     </td>
                     <td className="p-3">
                       <div className="flex items-center gap-1.5">
-                        <LeadScoreBadge score={p.lead_score} />
+                        <ReadinessBadge
+                          partner={p}
+                          loading={continuingId === p.id}
+                          onContinue={(step) => continueOne(p.id, step)}
+                        />
+                        {p.lead_score != null && <LeadScoreBadge score={p.lead_score} />}
                         {p.lead_grade && (
                           <span
                             title={p.lead_grade_source === 'ai' ? 'AI értékelés' : 'Auto (score alapján)'}
