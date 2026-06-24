@@ -107,11 +107,13 @@ export type Database = {
         Row: {
           actor_id: string
           actor_name: string | null
+          actual_cost_usd: number | null
           ai_summary: string | null
           apify_run_id: string | null
           created_at: string
           dataset_id: string | null
           error_message: string | null
+          estimated_cost_usd: number | null
           finished_at: string | null
           id: string
           imported_count: number | null
@@ -126,11 +128,13 @@ export type Database = {
         Insert: {
           actor_id: string
           actor_name?: string | null
+          actual_cost_usd?: number | null
           ai_summary?: string | null
           apify_run_id?: string | null
           created_at?: string
           dataset_id?: string | null
           error_message?: string | null
+          estimated_cost_usd?: number | null
           finished_at?: string | null
           id?: string
           imported_count?: number | null
@@ -145,11 +149,13 @@ export type Database = {
         Update: {
           actor_id?: string
           actor_name?: string | null
+          actual_cost_usd?: number | null
           ai_summary?: string | null
           apify_run_id?: string | null
           created_at?: string
           dataset_id?: string | null
           error_message?: string | null
+          estimated_cost_usd?: number | null
           finished_at?: string | null
           id?: string
           imported_count?: number | null
@@ -1657,9 +1663,11 @@ export type Database = {
           city: string | null
           company_name: string
           contact_name: string | null
+          contacts_blob: Json | null
           created_at: string
           created_by: string | null
           email: string | null
+          facebook_url: string | null
           google_maps_url: string | null
           google_place_id: string | null
           google_rating: number | null
@@ -1674,6 +1682,7 @@ export type Database = {
           lead_grade_computed_at: string | null
           lead_grade_source: string | null
           lead_score: number | null
+          linkedin_url: string | null
           lng: number | null
           longitude: number | null
           next_followup_at: string | null
@@ -1707,9 +1716,11 @@ export type Database = {
           city?: string | null
           company_name: string
           contact_name?: string | null
+          contacts_blob?: Json | null
           created_at?: string
           created_by?: string | null
           email?: string | null
+          facebook_url?: string | null
           google_maps_url?: string | null
           google_place_id?: string | null
           google_rating?: number | null
@@ -1724,6 +1735,7 @@ export type Database = {
           lead_grade_computed_at?: string | null
           lead_grade_source?: string | null
           lead_score?: number | null
+          linkedin_url?: string | null
           lng?: number | null
           longitude?: number | null
           next_followup_at?: string | null
@@ -1757,9 +1769,11 @@ export type Database = {
           city?: string | null
           company_name?: string
           contact_name?: string | null
+          contacts_blob?: Json | null
           created_at?: string
           created_by?: string | null
           email?: string | null
+          facebook_url?: string | null
           google_maps_url?: string | null
           google_place_id?: string | null
           google_rating?: number | null
@@ -1774,6 +1788,7 @@ export type Database = {
           lead_grade_computed_at?: string | null
           lead_grade_source?: string | null
           lead_score?: number | null
+          linkedin_url?: string | null
           lng?: number | null
           longitude?: number | null
           next_followup_at?: string | null
