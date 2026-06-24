@@ -157,6 +157,9 @@ function ResultCard({ runId, item, index, onUpdate }: { runId: string; item: any
   if (item.kind === "followup_draft") return <OutreachDraftCard runId={runId} item={item} index={index} onUpdate={onUpdate} isFollowup />;
   if (item.kind === "lead_summary") return <LeadSummaryCard item={item} onUpdate={onUpdate} />;
   if (item.kind === "inbox_item") return <InboxItemCard item={item} onUpdate={onUpdate} />;
+  if (item.kind === "content_draft") return <ContentDraftCard runId={runId} item={item} index={index} onUpdate={onUpdate} />;
+  if (item.kind === "doc_review") return <DocReviewCard item={item} />;
+  if (item.kind === "decision_analysis") return <DecisionCard item={item} onUpdate={onUpdate} />;
   return null;
 }
 
