@@ -135,29 +135,28 @@ export default function MissionLoopDialog({
             <div key={i} className="rounded-lg border border-nf-border bg-nf-surface-alt p-3 space-y-2">
               <div className="flex items-center gap-2 text-xs text-nf-text-muted">
                 <span className="font-mono">#{i + 1}</span>
-                <span className="flex items-center gap-1">{TOOL_ICONS[it.tool] ?? <Wrench className="h-3 w-3" />} <span className="font-mono">{it.tool}</span></span>
+                <span className="flex items-center gap-1">{TOOL_ICONS[it.tool] ?? <Wrench className="h-3 w-3" />} <span className="font-mono">{humanToolName(it.tool)}</span></span>
                 <span className="ml-auto">{new Date(it.at).toLocaleTimeString("hu-HU")}</span>
               </div>
-              {it.think && (
+              {it.think && it.think !== "(nincs explicit think)" && (
                 <div className="flex gap-2 text-sm">
                   <Brain className="h-4 w-4 text-electric-300 shrink-0 mt-0.5" />
                   <div className="text-nf-text">{it.think}</div>
                 </div>
               )}
-              {it.input && Object.keys(it.input).length > 0 && (
-                <details className="text-[11px]">
-                  <summary className="cursor-pointer text-nf-text-muted">input ({Object.keys(it.input).length} param)</summary>
-                  <pre className="mt-1 text-[10px] overflow-x-auto bg-black/30 p-2 rounded">{JSON.stringify(it.input, null, 2)}</pre>
-                </details>
+              {humanInput(it.tool, it.input) && (
+                <div className="text-[11px] text-nf-text-muted">
+                  <span className="text-nf-text-muted">→ </span>{humanInput(it.tool, it.input)}
+                </div>
               )}
               {it.observation && (
-                <details className="text-[11px]" open={it.tool !== "search_partners"}>
-                  <summary className="cursor-pointer text-nf-text-muted">eredmény</summary>
-                  <pre className="mt-1 text-[10px] overflow-x-auto bg-black/30 p-2 rounded max-h-40">{JSON.stringify(it.observation, null, 2)}</pre>
-                </details>
+                <div className="text-sm text-nf-text">
+                  {humanObservation(it.tool, it.observation)}
+                </div>
               )}
             </div>
           ))}
+
           {status === "running" && (
             <div className="flex items-center gap-2 text-sm text-nf-text-muted p-3">
               <Loader2 className="h-4 w-4 animate-spin" /> AI dolgozik…
