@@ -33,8 +33,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   const [enrollments, setEnrollments] = useState<any[]>([]);
   const [docs, setDocs] = useState<any[]>([]);
   const [decisions, setDecisions] = useState<any[]>([]);
-  const [aiSuggestion, setAiSuggestion] = useState<string | null>(null);
-  const [aiLoading, setAiLoading] = useState(false);
+  
   const [researchLoading, setResearchLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [outreachOpen, setOutreachOpen] = useState(false);
@@ -77,24 +76,12 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   useEffect(() => {
     if (!open || !entityId) return;
     trackEvent("entity_drawer_opened", { entity_type: entityType, entity_id: entityId });
-    setAiSuggestion(null);
+    // (no AI state to reset)
     reload();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, entityId, entityType]);
 
-  const requestAi = async () => {
-    if (!entityId) return;
-    setAiLoading(true);
-    try {
-      const { data, error } = await supabase.functions.invoke("outreach-suggest", { body: { partner_id: entityId } });
-      if (error) throw error;
-      setAiSuggestion(typeof data === "string" ? data : (data?.suggestion ?? data?.message ?? JSON.stringify(data, null, 2)));
-    } catch (e: any) {
-      toast({ title: "AI hiba", description: e?.message ?? String(e), variant: "destructive" });
-    } finally {
-      setAiLoading(false);
-    }
-  };
+  // Outreach javaslat törölve — egységes flow a LeadOutreachModal-on keresztül (AI 3 sablon + küldés).
 
   // Legacy AI brief (admin-ai-chat) eltávolítva — AI Insight egyesítve a kutatással.
 
@@ -332,12 +319,12 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
             </TabsContent>
 
             <TabsContent value="ai" className="mt-3 space-y-2">
-              <Button variant="neon" size="sm" onClick={requestAi} disabled={aiLoading}>
-                {aiLoading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3" />} Outreach javaslat
+              <Button variant="neon" size="sm" onClick={() => setOutreachOpen(true)}>
+                <Sparkles className="h-3 w-3 mr-1" /> Outreach indítása (AI sablonok)
               </Button>
-              {aiSuggestion && (
-                <Card className="p-3 text-xs whitespace-pre-wrap bg-nf-surface border-nf-border">{aiSuggestion}</Card>
-              )}
+              <p className="text-[11px] text-nf-text-muted">
+                Az AI 3 kész emailt javasol — válassz, szerkeszd, küldd. Egy dialog, egy kattintás.
+              </p>
             </TabsContent>
           </Tabs>
         )}
