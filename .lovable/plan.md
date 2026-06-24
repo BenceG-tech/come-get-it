@@ -1,38 +1,86 @@
-# Fix: Top 3 fókusz + Mission Loop értelmes működése
+# Új megközelítés: receptek + eredmény panel (a ReAct loop helyett)
 
-## Probléma
-1. **Top 3 fókusz üres** — az AI legenerálja a feladatokat (`title`, `why`, …), de a `DailyFocusCard` `text`/`done` mezőket vár → üres checkboxokat mutat. Eközben a `TodayTasksCard` ugyanazt az adatot helyesen jeleníti meg → **két kártya, ugyanaz az adat, duplikáció**.
-2. **„AI csinálja" hülyeséget csinál** — a Mission Loop ugyanazt a `check_inbox`-ot hívja 3× egymás után üres találattal, majd `awaiting_human`-be áll értelmes kérdés nélkül. Nincs guard duplikált tool-hívás ellen, és a prompt nem mondja meg, hogy üres eredmény után váltson stratégiát.
+## Miért nem működik a jelenlegi
+A mostani `agent-loop` egy általános ReAct ügynök: a modell maga dönti el melyik tool-t hívja, és ettől gyakran random irányba indul, üresben pörög, vagy `ask_human`-ba menekül. Sok think/observe szöveg jön, de nincs a végén semmi, amit ki tudnál küldeni vagy elfogadni.
 
-## Megoldás (kicsi, fókuszált változtatások)
+## Új modell: "Recept" pipeline-ok feladat-típusonként
+A feladatnak van egy **típusa** (outreach / research / scoring / follow-up / inbox-triage). Minden típushoz tartozik egy fix, determinisztikus pipeline — nem az AI dönti el a lépéseket, hanem a kód. Az AI **csak a kreatív részt** csinálja (személyre szabás, szövegírás, döntés egy konkrét leadről), a többi sima DB lekérdezés és edge function hívás.
 
-### 1. `DailyFocusCard` eltávolítása a dashboardról
-A „Top 3 fókusz ma" kártya ugyanazt az adatot olvasta, csak rossz formátumban. A `TodayTasksCard` („Mai 3 feladat") már szépen mutatja ugyanezt — kézi checkboxszal, AI gombbal, prioritás-címkével. A duplikációt kivesszük → tisztább, egyszerűbb dashboard. (A komponensfájlt megtartjuk, csak az `AdminDashboard`-ról kivesszük; ha később kell, vissza tudjuk tenni.)
+Eredmény: minden run végén **konkrét, jóváhagyható kimenet** kerül egy panelbe.
 
-### 2. `agent-loop` — duplikált tool-hívás megakadályozása
-- A loop-ban ellenőrizzük: ha ugyanazt a tool-t ugyanazzal az inputtal hívná újra (előző iteráció), **automatikusan `ask_human`-re váltunk** explicit üzenettel: „Az AI elakadt — a(z) X tool nem ad új információt. Mit tegyek?" + felajánlott opciók (pl. „Indítsd a bulk scrape-et", „Ugorj a következő feladatra", „Zárd le").
-- A system prompt-hoz hozzáadjuk: **„Ha egy tool üres eredményt ad (count=0, items=[]), NE hívd újra ugyanazokkal a paraméterekkel. Vagy próbálj más szűrőt, vagy hívd a `finish`/`ask_human` tool-t."**
+### Példa receptek
 
-### 3. `agent-loop` — `finish`-re kényszerítés, ha nincs értelmes következő lépés
-- Maximum 2 egymást követő üres-eredményű tool-hívás után automatikus `finish` ezzel az összegzéssel: „Nincs releváns adat a feladathoz (X üres lekérdezés után). Javaslat: [konkrét emberi lépés]."
-- A `task_runs.final_summary` mindig magyar, emberi nyelv — nem JSON dump.
+**1. Outreach pipeline** (pl. „Küldj 5 megkeresést koktélbárokba")
+```
+1. search_partners(city, kategória, min_grade) → top 5 lead
+2. minden leadre párhuzamosan: draft_outreach(lead) → personalizált email
+3. eredmény panel: 5 kártya, mindegyiken {lead név, score, draft email, [Küldés] [Edit] [Skip]}
+```
 
-### 4. `MissionLoopDialog` — egyszerűbb, érthetőbb UI
-- A „(nincs explicit think)" sort csak akkor mutatjuk, ha tényleg van tartalom — különben elrejtjük.
-- Az `input` blokkot összecsukva, csak „Lekérdezés: X várost, Y státuszt keresett" emberi összefoglalót mutatunk.
-- Az `eredmény` JSON helyett: „0 találat" / „5 lead találva: Bar A, Bar B…" stb.
+**2. Research pipeline** (pl. „Nézz utána az új budapesti helyeknek")
+```
+1. bulk_pipeline(scrape + score + grade) — háttérben
+2. amikor kész → top 10 új A/B grade lead riport
+3. eredmény panel: lista + [Felvenni az outreach queue-ba] gomb
+```
 
-## Mit NEM változtatok
-- A `daily_focus` tábla séma — marad.
-- A `generate-daily-focus` edge function — marad (a kimenete amúgy is jó a TodayTasksCard-nak).
-- A meglévő `agent-loop` tool-készlet (search_partners, bulk_pipeline, draft_outreach, check_inbox, mission_snapshot, ask_human, finish) — marad.
-- A `TaskAutopilotDialog`, `MissionTracker` és egyéb kártyák — érintetlen.
+**3. Inbox triage** 
+```
+1. check_inbox → unread items
+2. minden itemhez AI kategorizál: válasz kell / spam / info
+3. eredmény panel: csoportosított lista, gyors válasz drafttal
+```
 
-## Érintett fájlok
-- `src/pages/admin/AdminDashboard.tsx` — `DailyFocusCard` import + render eltávolítása
-- `supabase/functions/agent-loop/index.ts` — dedup guard + prompt szigorítás + emberi `final_summary`
-- `src/components/admin/dashboard/MissionLoopDialog.tsx` — JSON helyett emberi formázás
+**4. Follow-up pipeline**
+```
+1. lekérdezi a 7+ napja nem válaszolt outreach-eket
+2. AI ír follow-up draftot mindegyikre (rövidebb hangnem)
+3. eredmény panel: lista + [Küldés mind] / egyenkénti jóváhagyás
+```
 
-## Várt eredmény
-- A dashboardon **egy** „Mai 3 feladat" kártya, AI által feltöltve, kipipálhatóan.
-- A „AI csinálja" gomb vagy elvégzi a feladatot, vagy max 2-3 lépés után **konkrét emberi instrukciót** ad — nem köröz üres lekérdezéseken.
+## Hogyan választódik ki a recept
+A task létrehozásakor (vagy első kattintásra) egy rövid AI hívás **klasszifikálja** a feladat szövegét egyetlen típusba (`outreach` | `research` | `followup` | `inbox` | `custom`) + kihúzza a paramétereket (város, kategória, mennyiség). Ez 1 db gyors `generateText` hívás strukturált outputtal — nem loop.
+
+Ha a típus `custom` (nem illik egyik sablonra sem), akkor — és **csak akkor** — fallback a mostani agent-loop egy szigorúbb verziójára, max 3 lépéssel.
+
+## UI változás: `MissionLoopDialog` → `TaskResultDialog`
+A mostani think/tool/observe stream helyett:
+- **Felül**: 1 mondat státusz („5 lead feldolgozása… 3/5 kész")
+- **Progress bar** a recept lépéseihez (Lead keresés → Draftok írása → Kész)
+- **Középen**: az eredmény panel — kártyák, draftok, akció gombok
+- **Alul**: „Mindet elfogadom" / „Bezárás"
+
+Háttérben futás közben push toast: „AI végzett: 5 draft vár jóváhagyásra".
+
+## Technikai változások
+
+**Új edge functions** (cseréli az `agent-loop`-ot a fő útvonalon):
+- `task-classify` — egy gyors AI hívás, ami eldönti a recept típusát + paramétereit
+- `task-run-recipe` — a determinisztikus pipeline futtató, recept ID alapján dispatch-el
+  - belül: `recipes/outreach.ts`, `recipes/research.ts`, `recipes/followup.ts`, `recipes/inbox.ts`
+  - mindegyik egy egyszerű async függvény, ami DB-t olvas/ír és AI-t hív a kreatív részhez
+- `agent-loop` megmarad fallbacknek `custom` típusra (de szigorítva: max 3 iter, kötelező `finish`)
+
+**DB**: `task_runs` táblához:
+- `recipe_type` (text) — melyik recept fut
+- `recipe_params` (jsonb) — kinyert paraméterek
+- `result_items` (jsonb) — a kártyák amiket a UI mutat (leadek, draftok, stb.)
+- `progress` (jsonb) — `{step: 2, total: 3, label: "Draftok írása"}`
+
+**UI**:
+- Új `TaskResultDialog.tsx` (cseréli a `MissionLoopDialog`-ot)
+- Realtime sub a `task_runs` sorra → progress + result_items frissül
+- Kártya komponensek típusonként: `OutreachDraftCard`, `LeadCard`, `InboxItemCard`
+- Akció gombok: a UI gombnyomásra hívja a megfelelő edge functiont (send-email, mark-read, stb.)
+- Háttérben futáskor toast notification + badge a feladat melletti gombon
+
+**Régi kód**: `MissionLoopDialog.tsx` törölve, `agent-loop` egyszerűsítve fallbacknek.
+
+## Mit nyer ezzel a felhasználó
+- **Látja** mit csinál: konkrét lépések, nem absztrakt „thinking"
+- **Konkrét output**: minden run végén kártyák amiket egy kattintással elfogadhat
+- **Nem akad el**: a recept fix lépéseken megy végig, nem találgat
+- **Háttérben fut**: nem kell nézni, jön a toast ha kész
+
+## Scope ennek az iterációnak
+Első körben 2 recept élesben: **outreach** és **research** (a leggyakoribb use case-ek). A `followup` és `inbox` recept szerkezete megvan, de később aktiváljuk. `custom` fallback megmarad ritka esetekre.
