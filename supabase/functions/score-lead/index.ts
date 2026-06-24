@@ -76,12 +76,17 @@ Deno.serve(async (req) => {
   try {
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-    const supa = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: authHeader } } });
-    const { data: claims } = await supa.auth.getClaims(authHeader.replace("Bearer ", ""));
-    if (!claims?.claims?.sub) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    const token = authHeader.replace("Bearer ", "");
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    // Allow service-role calls (used by lead-bulk-process) to bypass user claim check.
+    if (token !== serviceKey) {
+      const supa = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: authHeader } } });
+      const { data: claims } = await supa.auth.getClaims(token);
+      if (!claims?.claims?.sub) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
 
-    const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-    const { partner_ids } = await req.json();
+    const admin = createClient(Deno.env.get("SUPABASE_URL")!, serviceKey);
+    const { partner_ids, background } = await req.json();
     if (!Array.isArray(partner_ids) || partner_ids.length === 0)
       return new Response(JSON.stringify({ error: "partner_ids required" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
