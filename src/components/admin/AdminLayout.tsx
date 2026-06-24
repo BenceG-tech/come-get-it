@@ -11,6 +11,7 @@ import HubTabs from "@/components/admin/HubTabs";
 import { useKeyboardShortcuts, SHORTCUT_LABELS } from "@/hooks/useKeyboardShortcuts";
 import { NAV_GROUPS } from "@/lib/admin-nav-config";
 import HelpTip from "@/components/admin/help/HelpTip";
+import AdminBreadcrumb from "@/components/admin/AdminBreadcrumb";
 
 const HUB_FOR_PATH: Array<{ match: (p: string) => boolean; hub: "partners" | "content" | "knowledge" }> = [
   { match: (p) => p === "/admin/partners" || p.startsWith("/admin/outreach") || p.startsWith("/admin/leads"), hub: "partners" },
@@ -150,6 +151,9 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
 
         {/* pb-32 mobilon hogy a bottom nav + FAB ne takarja az oldalalját */}
         <main className="flex-1 min-w-0 overflow-auto pb-32 md:pb-8">
+          <div className="hidden md:block sticky top-0 z-20 bg-nf-bg/85 backdrop-blur-md border-b border-nf-border/40 px-6 py-2">
+            <AdminBreadcrumb />
+          </div>
           {(() => {
             const hub = HUB_FOR_PATH.find((h) => h.match(location.pathname))?.hub;
             return hub ? (

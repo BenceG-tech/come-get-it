@@ -5,8 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Users, FileText, Calendar, Sparkles, ArrowRight, Wand2, Palette, Activity, Image as ImageIcon,
-  ListChecks, Clock, ChevronDown,
+  ListChecks, Clock, ChevronDown, Target, TrendingUp, BookOpen, Zap, ClipboardList,
 } from "lucide-react";
+import PageSectionNav from "@/components/admin/PageSectionNav";
 import { PipelineFunnel } from "@/components/admin/dashboard/PipelineFunnel";
 import { ConversionFunnel } from "@/components/admin/dashboard/ConversionFunnel";
 import { StalledLeadsCard } from "@/components/admin/dashboard/StalledLeadsCard";
@@ -56,7 +57,8 @@ const ACTION_LABEL: Record<string, string> = {
   delete: "törölte",
 };
 
-/** Collapsible szekció — alapból zárva, állapot localStorage-ban. Badge mutatja a tartalmat csukva is. */
+/** Collapsible szekció — alapból zárva, állapot localStorage-ban. Badge mutatja a tartalmat csukva is.
+ *  Hallgat az `admin-section-open` event-re — ha PageSectionNav-ből oda navigálnak, kinyitja magát. */
 function Section({
   id, title, hint, badge, defaultOpen = false, children,
 }: { id: string; title: string; hint?: string; badge?: string | number | null; defaultOpen?: boolean; children: React.ReactNode }) {
@@ -66,6 +68,14 @@ function Section({
     const v = typeof window !== "undefined" ? window.localStorage.getItem(key) : null;
     if (v != null) setOpen(v === "1");
   }, [key]);
+  useEffect(() => {
+    const onJump = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail?.id === id) setOpen(true);
+    };
+    window.addEventListener("admin-section-open", onJump);
+    return () => window.removeEventListener("admin-section-open", onJump);
+  }, [id]);
   const toggle = () => {
     setOpen((o) => {
       const next = !o;
@@ -75,7 +85,7 @@ function Section({
   };
   const hasBadge = badge != null && badge !== 0 && badge !== "";
   return (
-    <section className="space-y-3">
+    <section id={id} className="space-y-3 scroll-mt-20">
       <button
         onClick={toggle}
         className="w-full flex items-center justify-between gap-3 px-1 group"
@@ -152,8 +162,20 @@ export default function AdminDashboard() {
     return "Jó estét, Bence!";
   })();
 
+  const sectionNav = [
+    { id: "focus", label: "Fókusz ma", icon: Target },
+    { id: "pipeline", label: "Pipeline", icon: TrendingUp },
+    { id: "weekly", label: "Heti munka", icon: ClipboardList },
+    { id: "insights", label: "Tudás", icon: BookOpen },
+    { id: "quick", label: "Gyors belépés", icon: Zap },
+    { id: "lists", label: "Listák", icon: ListChecks },
+    { id: "activity", label: "Aktivitás", icon: Activity },
+  ];
+
   return (
     <div className="admin-page">
+      <PageSectionNav sections={sectionNav} />
+
       <PageHeader
         title={greeting}
         subtitle={new Date().toLocaleDateString("hu-HU", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
@@ -167,13 +189,14 @@ export default function AdminDashboard() {
 
 
       {/* ===== FÓKUSZ MA — top 3 dolog + mai feladatok + inbox ===== */}
-      <section className="space-y-4">
+      <section id="focus" className="space-y-4 scroll-mt-20">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <TodayTasksCard />
           <InboxZeroCard />
         </div>
         <MissionTracker />
       </section>
+
 
 
       {/* ===== 2. PIPELINE & WAITLIST ===== */}
