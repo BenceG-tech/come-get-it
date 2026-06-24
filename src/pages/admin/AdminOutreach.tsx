@@ -25,6 +25,7 @@ export default function AdminOutreach() {
   const [editing, setEditing] = useState<Sequence | null>(null);
   const [openNew, setOpenNew] = useState(false);
   const [stats, setStats] = useState({ sent: 0, opened: 0, replied: 0 });
+  const [guardEditing, setGuardEditing] = useState<Sequence | null>(null);
 
   async function load() {
     const [seq, en, ps, ev] = await Promise.all([
