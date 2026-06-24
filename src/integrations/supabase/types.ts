@@ -2167,36 +2167,60 @@ export type Database = {
           created_at: string
           created_by: string | null
           error: string | null
+          final_summary: string | null
           generated: Json
+          goal: string | null
+          human_prompt: Json | null
+          human_response: Json | null
           id: string
+          iterations: Json
+          loop_kind: string
+          max_iterations: number
           status: string
           steps: Json
           task_payload: Json
           task_signature: string | null
+          tool_calls_count: number
           updated_at: string
         }
         Insert: {
           created_at?: string
           created_by?: string | null
           error?: string | null
+          final_summary?: string | null
           generated?: Json
+          goal?: string | null
+          human_prompt?: Json | null
+          human_response?: Json | null
           id?: string
+          iterations?: Json
+          loop_kind?: string
+          max_iterations?: number
           status?: string
           steps?: Json
           task_payload?: Json
           task_signature?: string | null
+          tool_calls_count?: number
           updated_at?: string
         }
         Update: {
           created_at?: string
           created_by?: string | null
           error?: string | null
+          final_summary?: string | null
           generated?: Json
+          goal?: string | null
+          human_prompt?: Json | null
+          human_response?: Json | null
           id?: string
+          iterations?: Json
+          loop_kind?: string
+          max_iterations?: number
           status?: string
           steps?: Json
           task_payload?: Json
           task_signature?: string | null
+          tool_calls_count?: number
           updated_at?: string
         }
         Relationships: []
