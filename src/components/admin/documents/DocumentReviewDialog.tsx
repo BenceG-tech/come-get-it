@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -78,6 +78,7 @@ export const DocumentReviewDialog = ({ open, onOpenChange, docId, existingReview
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2"><Sparkles className="h-4 w-4 text-electric-300" /> AI doksi review</DialogTitle>
+          <DialogDescription>4 szempont szerinti pontozás: tartalom, brand & hangnem, jogi kockázat, marketing erő.</DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
           <Button onClick={run} disabled={busy} variant="neon" className="w-full">

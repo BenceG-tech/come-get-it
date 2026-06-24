@@ -18,6 +18,7 @@ import ImageAnalysisPanel from "@/components/admin/media/ImageAnalysisPanel";
 import BulkUploadDialog from "@/components/admin/documents/BulkUploadDialog";
 import OrganizationSuggestionsDialog from "@/components/admin/documents/OrganizationSuggestionsDialog";
 import OrganizationBanner from "@/components/admin/documents/OrganizationBanner";
+import BulkReviewDialog from "@/components/admin/documents/BulkReviewDialog";
 import PageIntro from "@/components/admin/help/PageIntro";
 
 const CATEGORIES = [
@@ -78,6 +79,7 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
   const [aiImage, setAiImage] = useState<any | null>(null);
   const [bulkOpen, setBulkOpen] = useState(false);
   const [orgOpen, setOrgOpen] = useState(false);
+  const [bulkReviewOpen, setBulkReviewOpen] = useState(false);
   const [form, setForm] = useState({
     title: "", folder: "", category: "other", description: "", when_to_use: "", content: "", file: null as File | null,
   });
@@ -339,6 +341,9 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
             <Button variant="outline" size="sm" onClick={() => setOrgOpen(true)}>
               <Sparkles className="h-4 w-4" /> AI rendezés
             </Button>
+            <Button variant="outline" size="sm" onClick={() => setBulkReviewOpen(true)}>
+              <Sparkles className="h-4 w-4" /> AI review az összesre
+            </Button>
             <Button variant="outline" size="sm" onClick={runAudit} disabled={auditing}>
               <Sparkles className="h-4 w-4" /> {auditing ? "Auditálás…" : "AI audit"}
             </Button>
@@ -377,6 +382,9 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => setOrgOpen(true)}>
                   <Sparkles className="h-4 w-4 mr-2" /> AI rendezés
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setBulkReviewOpen(true)}>
+                  <Sparkles className="h-4 w-4 mr-2" /> AI review az összesre
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={runAudit} disabled={auditing}>
                   <Sparkles className="h-4 w-4 mr-2" /> {auditing ? "Auditálás…" : "AI audit"}
@@ -667,6 +675,7 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
           onApplied={load}
         />
       )}
+      <BulkReviewDialog open={bulkReviewOpen} onOpenChange={setBulkReviewOpen} />
     </div>
   );
 }

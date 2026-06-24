@@ -1,86 +1,58 @@
-# Új megközelítés: receptek + eredmény panel (a ReAct loop helyett)
+# Javítások — recept hibák + doksi review egyszerűsítése
 
-## Miért nem működik a jelenlegi
-A mostani `agent-loop` egy általános ReAct ügynök: a modell maga dönti el melyik tool-t hívja, és ettől gyakran random irányba indul, üresben pörög, vagy `ask_human`-ba menekül. Sok think/observe szöveg jön, de nincs a végén semmi, amit ki tudnál küldeni vagy elfogadni.
+## 1. `partners.contact_person does not exist` — kritikus hibajavítás
 
-## Új modell: "Recept" pipeline-ok feladat-típusonként
-A feladatnak van egy **típusa** (outreach / research / scoring / follow-up / inbox-triage). Minden típushoz tartozik egy fix, determinisztikus pipeline — nem az AI dönti el a lépéseket, hanem a kód. Az AI **csak a kreatív részt** csinálja (személyre szabás, szövegírás, döntés egy konkrét leadről), a többi sima DB lekérdezés és edge function hívás.
+A `task-run-recipe` edge function nem létező oszlopra hivatkozik. A `partners` táblán a valódi oszlop neve `contact_name`.
 
-Eredmény: minden run végén **konkrét, jóváhagyható kimenet** kerül egy panelbe.
+**Mit teszünk:** `supabase/functions/task-run-recipe/index.ts`-ben minden `contact_person` előfordulást átírunk `contact_name`-re (3 hely: select, result_item, followup body fallback). Ez azonnal megoldja az „Email kampány előkészítése partnerkereséshez" feladat hibáját.
 
-### Példa receptek
+## 2. Inbox nincs többé tele „Doksi review kell" itemekkel
 
-**1. Outreach pipeline** (pl. „Küldj 5 megkeresést koktélbárokba")
-```
-1. search_partners(city, kategória, min_grade) → top 5 lead
-2. minden leadre párhuzamosan: draft_outreach(lead) → personalizált email
-3. eredmény panel: 5 kártya, mindegyiken {lead név, score, draft email, [Küldés] [Edit] [Skip]}
-```
+A `inbox-collect` edge function minden olyan dokumentumot bejelöl review-ra, amelynek nincs `ai_review` mezője — beleértve a képeket és üres doksikat is. Ezért tele van az inbox értelmetlen review-feladatokkal, sőt egy részük szöveges tartalom hiánya miatt nem is futtatható le.
 
-**2. Research pipeline** (pl. „Nézz utána az új budapesti helyeknek")
-```
-1. bulk_pipeline(scrape + score + grade) — háttérben
-2. amikor kész → top 10 új A/B grade lead riport
-3. eredmény panel: lista + [Felvenni az outreach queue-ba] gomb
-```
+**Mit teszünk:**
 
-**3. Inbox triage** 
-```
-1. check_inbox → unread items
-2. minden itemhez AI kategorizál: válasz kell / spam / info
-3. eredmény panel: csoportosított lista, gyors válasz drafttal
-```
+- **`supabase/functions/inbox-collect/index.ts`** — kivesszük az 5-ös blokkot (`doc_review_needed`). A doksi review nem inbox-feladat, hanem háttérben futó automatizmus.
+- **Egyszeri takarítás:** migration, ami töröl minden már létező `doc_review_needed` kind-ú nyitott inbox itemet (`delete from inbox_items where kind='doc_review_needed'`). Így a felhasználó inboxa azonnal letisztul.
 
-**4. Follow-up pipeline**
-```
-1. lekérdezi a 7+ napja nem válaszolt outreach-eket
-2. AI ír follow-up draftot mindegyikre (rövidebb hangnem)
-3. eredmény panel: lista + [Küldés mind] / egyenkénti jóváhagyás
-```
+## 3. AI automatikus doksi review
 
-## Hogyan választódik ki a recept
-A task létrehozásakor (vagy első kattintásra) egy rövid AI hívás **klasszifikálja** a feladat szövegét egyetlen típusba (`outreach` | `research` | `followup` | `inbox` | `custom`) + kihúzza a paramétereket (város, kategória, mennyiség). Ez 1 db gyors `generateText` hívás strukturált outputtal — nem loop.
+Új edge function: **`auto-review-documents`**. Lefut háttérben (nem chat, nem UI), és bejelölt doksikat egyenként review-ol.
 
-Ha a típus `custom` (nem illik egyik sablonra sem), akkor — és **csak akkor** — fallback a mostani agent-loop egy szigorúbb verziójára, max 3 lépéssel.
+- Csak olyan doksit dolgoz fel, aminek **van `content` vagy `description`** és **még nincs `ai_review`**. Képeket / üres doksikat kihagy (azokhoz külön `image-analyze` van).
+- Egy hívás max 10 doksit dolgoz fel batch-ben, sorban, hogy ne robbantsa szét a rate limitet.
+- Ugyanazt a logikát használja, mint a `review-document` (system prompt + Lovable AI Gateway), csak nem stream-el, hanem mentési vég eredményt ír a `documents.ai_review`-ba.
 
-## UI változás: `MissionLoopDialog` → `TaskResultDialog`
-A mostani think/tool/observe stream helyett:
-- **Felül**: 1 mondat státusz („5 lead feldolgozása… 3/5 kész")
-- **Progress bar** a recept lépéseihez (Lead keresés → Draftok írása → Kész)
-- **Középen**: az eredmény panel — kártyák, draftok, akció gombok
-- **Alul**: „Mindet elfogadom" / „Bezárás"
+**Indítás módja** (két helyről):
 
-Háttérben futás közben push toast: „AI végzett: 5 draft vár jóváhagyásra".
+1. **Manuálisan, egy gombbal** a Dokumentumok oldalról — új gomb a header mellé: **„AI review az összesre"**. Megnyitja az új `BulkReviewDialog`-ot ami:
+   - Megmutatja hány doksi vár review-ra (van content, nincs ai_review).
+   - Indítás után progress bar (X/Y kész).
+   - Hívja az `auto-review-documents` functiont batch-elve, amíg el nem fogy a queue.
+2. **Automatikusan** új doksi feltöltésekor — az új `auto-review-documents` function chain-elhető, de első körben a manuális trigger a fókusz; az automatikust egy következő iterációban kötjük rá az `upload-document`-re, hogy ne keverjük most a scope-okat.
 
-## Technikai változások
+## 4. Egyszerűsített „AI csinálja" — eldobjuk a túlbonyolítást
 
-**Új edge functions** (cseréli az `agent-loop`-ot a fő útvonalon):
-- `task-classify` — egy gyors AI hívás, ami eldönti a recept típusát + paramétereit
-- `task-run-recipe` — a determinisztikus pipeline futtató, recept ID alapján dispatch-el
-  - belül: `recipes/outreach.ts`, `recipes/research.ts`, `recipes/followup.ts`, `recipes/inbox.ts`
-  - mindegyik egy egyszerű async függvény, ami DB-t olvas/ír és AI-t hív a kreatív részhez
-- `agent-loop` megmarad fallbacknek `custom` típusra (de szigorítva: max 3 iter, kötelező `finish`)
+A felhasználó panasza: túl sok cél/loop fogalom, az AI vagy hülyeséget csinál, vagy elakad. A jelenlegi recept-rendszer már jó irányba ment, de pár sallang maradt:
 
-**DB**: `task_runs` táblához:
-- `recipe_type` (text) — melyik recept fut
-- `recipe_params` (jsonb) — kinyert paraméterek
-- `result_items` (jsonb) — a kártyák amiket a UI mutat (leadek, draftok, stb.)
-- `progress` (jsonb) — `{step: 2, total: 3, label: "Draftok írása"}`
+- **Custom branch elhagyása user-szintről:** ha a classifier `custom`-ra esik, ne dobjon udvariaskodó hibaüzenetet, hanem **kötelezően essen vissza `research`-re** (lead lista). Inkább adjon konkrét leadeket, mint hogy „nem tudom mit csinálj".
+- **Progress label egyszerűsítés:** csak 3 fix lépés címke recipenként (Keresés / Készítés / Kész), nincs többé „Feladat osztályozása…" mikrofázis a UI-on — a klasszifikáció a háttérben fut.
+- **TaskResultDialog DialogDescription warning fix:** mindig adjunk értelmes leírást (pl. recipe label) — a kép is ezt mutatja (`Missing Description` warning).
 
-**UI**:
-- Új `TaskResultDialog.tsx` (cseréli a `MissionLoopDialog`-ot)
-- Realtime sub a `task_runs` sorra → progress + result_items frissül
-- Kártya komponensek típusonként: `OutreachDraftCard`, `LeadCard`, `InboxItemCard`
-- Akció gombok: a UI gombnyomásra hívja a megfelelő edge functiont (send-email, mark-read, stb.)
-- Háttérben futáskor toast notification + badge a feladat melletti gombon
+Semmilyen új ReAct/agent loop. Ami most van: klasszifikál → fix pipeline → kártyák. Marad. Csak a hibákat húzzuk ki belőle.
 
-**Régi kód**: `MissionLoopDialog.tsx` törölve, `agent-loop` egyszerűsítve fallbacknek.
+## Érintett fájlok
 
-## Mit nyer ezzel a felhasználó
-- **Látja** mit csinál: konkrét lépések, nem absztrakt „thinking"
-- **Konkrét output**: minden run végén kártyák amiket egy kattintással elfogadhat
-- **Nem akad el**: a recept fix lépéseken megy végig, nem találgat
-- **Háttérben fut**: nem kell nézni, jön a toast ha kész
+- `supabase/functions/task-run-recipe/index.ts` — `contact_person` → `contact_name`, custom→research fallback, label egyszerűsítés
+- `supabase/functions/inbox-collect/index.ts` — `doc_review_needed` blokk törlése
+- `supabase/functions/auto-review-documents/index.ts` — **új**, batch-es háttér review
+- `src/components/admin/documents/BulkReviewDialog.tsx` — **új**, progress UI a tömeges review-hoz
+- `src/pages/admin/AdminDocuments.tsx` — új „AI review az összesre" gomb a header mellé, dialog megnyitása
+- `src/components/admin/dashboard/TaskResultDialog.tsx` — fallback DialogDescription, ne legyen warning
+- Migration: nyitott `doc_review_needed` inbox itemek törlése
 
-## Scope ennek az iterációnak
-Első körben 2 recept élesben: **outreach** és **research** (a leggyakoribb use case-ek). A `followup` és `inbox` recept szerkezete megvan, de később aktiváljuk. `custom` fallback megmarad ritka esetekre.
+## Kívül marad (külön kérés esetén csináljuk)
+
+- Auto-trigger doksi feltöltésnél (`upload-document` chain)
+- Bulk review újrafuttatása már review-olt doksikra (most csak a hiányzókat csinálja)
+- Image doksik külön „AI elemzés" bulk gombja — már létezik `image-analyze`, csak nincs bulk; jelezd ha kell.

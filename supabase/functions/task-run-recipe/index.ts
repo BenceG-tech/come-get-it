@@ -109,7 +109,7 @@ Ha valami nem derül ki, hagyd ki a paramétert. Default count: 5.`;
 
 async function searchPartners(p: { city?: string; category?: string; min_grade?: string; has_email?: boolean; limit?: number; status?: string[] }) {
   let q = admin.from("partners")
-    .select("id, company_name, city, category, email, lead_score, lead_grade, status, contact_person")
+    .select("id, company_name, city, category, email, lead_score, lead_grade, status, contact_name")
     .eq("type", "venue");
   if (p.status?.length) q = q.in("status", p.status);
   else q = q.in("status", ["lead", "contacted"]);
@@ -206,7 +206,7 @@ async function recipeResearch(runId: string, params: Classification["params"]) {
   for (const lead of leads) {
     await addResultItem(runId, {
       kind: "lead_summary",
-      lead: { id: lead.id, company_name: lead.company_name, city: lead.city, category: lead.category, email: lead.email, lead_score: lead.lead_score, lead_grade: lead.lead_grade, status: lead.status, contact_person: lead.contact_person },
+      lead: { id: lead.id, company_name: lead.company_name, city: lead.city, category: lead.category, email: lead.email, lead_score: lead.lead_score, lead_grade: lead.lead_grade, status: lead.status, contact_name: lead.contact_name },
       action: "pending", // pending | queued_outreach | skipped
     });
   }
@@ -263,7 +263,7 @@ async function recipeFollowup(runId: string, params: Classification["params"]) {
       lead: p,
       last_sent_at: enr.last_sent_at,
       subject: `Re: Come Get It — emlékeztető`,
-      body: `Szia${p.contact_person ? ` ${p.contact_person.split(" ")[0]}` : ""}!\n\nNéhány hete írtam a Come Get It-tel kapcsolatban — gondoltam ráérek egy gyors emlékeztetőre. Érdekel még a Founding Partner Program?\n\nBármilyen kérdésre szívesen válaszolok.\n\nÜdv,\nBence`,
+      body: `Szia${p.contact_name ? ` ${p.contact_name.split(" ")[0]}` : ""}!\n\nNéhány hete írtam a Come Get It-tel kapcsolatban — gondoltam ráérek egy gyors emlékeztetőre. Érdekel még a Founding Partner Program?\n\nBármilyen kérdésre szívesen válaszolok.\n\nÜdv,\nBence`,
       action: "pending",
     });
   }
@@ -288,9 +288,8 @@ async function runRecipe(runId: string, goal: string) {
       case "followup":  return await recipeFollowup(runId, cls.params);
       case "custom":
       default:
-        await finishRun(runId,
-          `Ez a feladat nem illik egyetlen sablonra sem (${cls.reasoning ?? "nem egyértelmű"}). Próbáld konkrétabban megfogalmazni, pl. "Küldj 5 outreach emailt budapesti koktélbárba" vagy "Nézd át a top 10 A-grade leadet".`
-        );
+        // Fallback: ne mondjuk azt hogy "nem tudom mit csinálj" — adjunk legalább egy lead-listát.
+        return await recipeResearch(runId, cls.params);
     }
   } catch (e: any) {
     await failRun(runId, e?.message ?? String(e));
