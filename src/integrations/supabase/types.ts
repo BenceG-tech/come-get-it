@@ -2117,6 +2117,45 @@ export type Database = {
           },
         ]
       }
+      task_runs: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          error: string | null
+          generated: Json
+          id: string
+          status: string
+          steps: Json
+          task_payload: Json
+          task_signature: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          error?: string | null
+          generated?: Json
+          id?: string
+          status?: string
+          steps?: Json
+          task_payload?: Json
+          task_signature?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          error?: string | null
+          generated?: Json
+          id?: string
+          status?: string
+          steps?: Json
+          task_payload?: Json
+          task_signature?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       time_logs: {
         Row: {
           created_at: string
