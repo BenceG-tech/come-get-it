@@ -354,6 +354,13 @@ export default function AdminLeads() {
           <option value="low">&lt; 50</option>
           <option value="none">Nincs pontozva</option>
         </select>
+        <select value={String(filterReadiness)} onChange={(e) => setFilterReadiness(e.target.value === "all" ? "all" : (Number(e.target.value) as ReadinessLevel))} className="rounded-lg bg-nf-surface-alt border border-nf-border px-3 h-10 text-sm">
+          <option value="all">Minden AI állapot</option>
+          <option value="0">○ Nyers</option>
+          <option value="1">● Kutatva</option>
+          <option value="2">●● Pontozva</option>
+          <option value="3">✓ Értékelve</option>
+        </select>
       </div>
 
       {/* Views */}
