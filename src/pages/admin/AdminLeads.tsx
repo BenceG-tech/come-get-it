@@ -28,7 +28,8 @@ const STATUS_LABEL: Record<string, string> = {
   lead: "Új lead", contacted: "Megkeresve", negotiating: "Tárgyalás", proposal_sent: "Ajánlat", signed: "Aláírt", rejected: "Elutasítva", paused: "Szünetel",
 };
 
-type View = "list" | "kanban" | "map";
+type View = "list" | "map";
+type GroupMode = "none" | "status" | "readiness";
 
 export default function AdminLeads() {
   const [partners, setPartners] = useState<any[]>([]);
