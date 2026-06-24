@@ -113,6 +113,35 @@ export default function AdminLeads() {
     setSelected(next);
   };
   const toggleAll = () => setSelected(selected.size === filtered.length ? new Set() : new Set(filtered.map(p => p.id)));
+  const filteredIds = useMemo(() => filtered.map(p => p.id), [filtered]);
+  const dragSelect = useDragSelect({ ids: filteredIds, selected, setSelected });
+
+  const bulkResearch = async () => {
+    if (selected.size === 0) return;
+    setBulkResearching(true);
+    try {
+      const ids = [...selected];
+      const { data, error } = await supabase.functions.invoke("lead-bulk-research", { body: { partner_ids: ids } });
+      if (error) throw error;
+      toast({ title: "Bulk kutatás kész", description: `${data?.done ?? 0}/${ids.length} sikeres (${data?.failed ?? 0} hiba)` });
+      await load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e.message, variant: "destructive" });
+    } finally { setBulkResearching(false); }
+  };
+
+  const bulkGrade = async () => {
+    if (selected.size === 0) return;
+    setAiGrading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("lead-grade-ai-bulk", { body: { partner_ids: [...selected] } });
+      if (error) throw error;
+      toast({ title: "AI grade kész", description: `${data?.updated ?? 0} lead értékelve` });
+      await load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e.message, variant: "destructive" });
+    } finally { setAiGrading(false); }
+  };
 
   const bulkScore = async () => {
     setScoring(true);
