@@ -146,6 +146,15 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
                       {badEmail && <Badge variant="outline" className="border-red-500/40 text-red-300 text-[9px] px-1 py-0 h-4 flex items-center gap-0.5"><AlertTriangle className="w-2.5 h-2.5" />rossz email</Badge>}
                     </div>
                   )}
+                  {(p.instagram_handle || p.instagram) && (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); openIgDm(p); }}
+                      className="mt-2 w-full text-[10px] flex items-center justify-center gap-1 px-2 py-1 rounded border border-pink-500/40 text-pink-300 hover:bg-pink-500/10 transition"
+                      title="Üzenet vágólapra + Instagram megnyitása"
+                    >
+                      <Instagram className="w-3 h-3" /> DM @{(p.instagram_handle || p.instagram).replace(/^@/, "").slice(0, 18)}
+                    </button>
+                  )}
                 </Card>
               );
             })}
