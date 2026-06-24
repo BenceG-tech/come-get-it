@@ -104,9 +104,10 @@ export default function AdminLeads() {
     if (filterScore === "mid" && ((p.lead_score ?? -1) < 50 || (p.lead_score ?? 101) >= 80)) return false;
     if (filterScore === "low" && (p.lead_score == null || p.lead_score >= 50)) return false;
     if (filterScore === "none" && p.lead_score != null) return false;
+    if (filterReadiness !== "all" && getReadiness(p) !== filterReadiness) return false;
     if (search && !`${p.company_name} ${p.city} ${p.contact_name} ${p.email} ${p.category}`.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
-  }), [partners, filterStatus, filterCity, filterScore, search]);
+  }), [partners, filterStatus, filterCity, filterScore, filterReadiness, search]);
 
   const stats = useMemo(() => ({
     total: partners.length,
