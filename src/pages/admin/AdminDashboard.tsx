@@ -65,6 +65,7 @@ function Section({
 }: { id: string; title: string; hint?: string; badge?: string | number | null; defaultOpen?: boolean; children: React.ReactNode }) {
   const key = `admin-dash-section:${id}`;
   const [open, setOpen] = useState<boolean>(defaultOpen);
+  const [pulse, setPulse] = useState(false);
   useEffect(() => {
     const v = typeof window !== "undefined" ? window.localStorage.getItem(key) : null;
     if (v != null) setOpen(v === "1");
@@ -72,7 +73,11 @@ function Section({
   useEffect(() => {
     const onJump = (e: Event) => {
       const detail = (e as CustomEvent).detail;
-      if (detail?.id === id) setOpen(true);
+      if (detail?.id === id) {
+        setOpen(true);
+        setPulse(true);
+        window.setTimeout(() => setPulse(false), 750);
+      }
     };
     window.addEventListener("admin-section-open", onJump);
     return () => window.removeEventListener("admin-section-open", onJump);
@@ -86,14 +91,14 @@ function Section({
   };
   const hasBadge = badge != null && badge !== 0 && badge !== "";
   return (
-    <section id={id} className="space-y-3 scroll-mt-20">
+    <section id={id} className={cn("space-y-3 scroll-mt-20", pulse && "admin-section-pulse")}>
       <button
         onClick={toggle}
         className="w-full flex items-center justify-between gap-3 px-1 group"
         aria-expanded={open}
       >
         <div className="flex items-center gap-2 min-w-0">
-          <h2 className="text-sm uppercase tracking-widest font-semibold text-electric-300">{title}</h2>
+          <h2 className="admin-display text-sm uppercase tracking-widest font-semibold text-electric-300">{title}</h2>
           {hasBadge && (
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-electric-300/15 text-electric-300 border border-electric-300/30">
               {badge}
@@ -107,6 +112,7 @@ function Section({
     </section>
   );
 }
+
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ partners: 0, leads: 0, signed: 0, docs: 0, followupsDue: 0 });
