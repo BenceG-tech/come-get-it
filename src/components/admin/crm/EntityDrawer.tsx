@@ -34,9 +34,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   const [docs, setDocs] = useState<any[]>([]);
   const [decisions, setDecisions] = useState<any[]>([]);
   const [aiSuggestion, setAiSuggestion] = useState<string | null>(null);
-  const [aiBrief, setAiBrief] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
-  const [briefLoading, setBriefLoading] = useState(false);
   const [researchLoading, setResearchLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [outreachOpen, setOutreachOpen] = useState(false);
