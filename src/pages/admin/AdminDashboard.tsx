@@ -8,6 +8,8 @@ import {
   ListChecks, Clock, ChevronDown,
 } from "lucide-react";
 import { PipelineFunnel } from "@/components/admin/dashboard/PipelineFunnel";
+import { ConversionFunnel } from "@/components/admin/dashboard/ConversionFunnel";
+import { StalledLeadsCard } from "@/components/admin/dashboard/StalledLeadsCard";
 import { WaitlistGrowth } from "@/components/admin/dashboard/WaitlistGrowth";
 import { TimeTracker } from "@/components/admin/dashboard/TimeTracker";
 import { DailyBriefingCard } from "@/components/admin/dashboard/DailyBriefingCard";
@@ -183,8 +185,10 @@ export default function AdminDashboard() {
       >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <PipelineFunnel />
+          <ConversionFunnel />
           <WaitlistGrowth />
           <OutreachHealthCard />
+          <StalledLeadsCard />
         </div>
         <DailyBriefingCard />
       </Section>
