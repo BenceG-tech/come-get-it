@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { X, Sparkles, Mail, Trash2, Tag, Download, Send, Telescope, Bot, Loader2, Zap } from "lucide-react";
 
 export default function BulkActionBar({
-  count, onClear, onScore, onEmail, onStatus, onDelete, onTag, onExportCsv, onOutreach, onResearch, onGrade,
-  loading, researching, grading, showScore = true,
+  count, onClear, onScore, onEmail, onStatus, onDelete, onTag, onExportCsv, onOutreach, onResearch, onGrade, onProcessAll,
+  loading, researching, grading, processingAll, showScore = true,
 }: {
   count: number;
   onClear: () => void;
@@ -16,9 +16,11 @@ export default function BulkActionBar({
   onOutreach?: () => void;
   onResearch?: () => void;
   onGrade?: () => void;
+  onProcessAll?: () => void;
   loading?: boolean;
   researching?: boolean;
   grading?: boolean;
+  processingAll?: boolean;
   showScore?: boolean;
 }) {
   if (count === 0) return null;
