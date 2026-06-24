@@ -15,7 +15,7 @@ import { toast } from "@/hooks/use-toast";
 import { trackEvent } from "@/lib/track";
 
 type Step = { day_offset: number; channel: "email" | "task" | "wait"; subject?: string; body?: string; title?: string; description?: string; due_offset_days?: number };
-type Sequence = { id: string; name: string; description: string | null; kind: string; steps: Step[]; active: boolean; created_at: string };
+type Sequence = { id: string; name: string; description: string | null; kind: string; steps: Step[]; active: boolean; created_at: string; guardrails?: Guardrails | null };
 type Enrollment = { id: string; sequence_id: string; entity_type: string; entity_id: string; current_step: number; status: string; next_run_at: string | null; started_at: string };
 
 export default function AdminOutreach() {
