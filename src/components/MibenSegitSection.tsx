@@ -40,48 +40,39 @@ export const MibenSegitSection: React.FC = () => {
           {cards.map(({ icon: Icon, titleKey, descKey, bg }, idx) => (
             <article
               key={idx}
-              className="group relative overflow-hidden rounded-2xl border border-nf-primary/15 transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_24px_70px_-12px_rgba(0,188,212,0.45)]"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-nf-primary/15 bg-nf-surface/40 transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_24px_70px_-12px_rgba(0,188,212,0.45)]"
             >
-              {/* Image area */}
+              {/* Image area — fully visible */}
               <div
-                className="relative aspect-[3/4] bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                className="relative aspect-[4/3] bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 style={{ backgroundImage: `url(${bg})` }}
               >
-                {/* Constant darkening overlay */}
+                {/* Subtle bottom gradient only, so icon stays readable but image shows */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-black/55 group-hover:bg-black/40 transition-colors duration-500"
+                  className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/60 to-transparent pointer-events-none"
                 />
 
-                {/* Top-left larger icon chip */}
-                <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-10">
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-nf-primary/50 bg-nf-background/50 backdrop-blur-md flex items-center justify-center group-hover:border-nf-primary group-hover:bg-nf-primary/15 group-hover:shadow-[0_0_24px_rgba(0,188,212,0.55)] transition-all duration-500">
-                    <Icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
+                {/* Top-left icon chip */}
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
+                  <div className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-nf-primary/50 bg-nf-background/60 backdrop-blur-md flex items-center justify-center group-hover:border-nf-primary group-hover:bg-nf-primary/15 group-hover:shadow-[0_0_24px_rgba(0,188,212,0.55)] transition-all duration-500">
+                    <Icon className="w-5 h-5 md:w-6 md:h-6 text-nf-primary" strokeWidth={1.5} />
                   </div>
                 </div>
               </div>
 
-              {/* Always-visible info panel (title + description) */}
-              <div
-                className="absolute inset-x-0 bottom-0 z-20 px-4 sm:px-5 pt-4 pb-4 sm:pt-5 sm:pb-5 border-t border-nf-primary/30"
-                style={{
-                  backgroundColor: 'rgba(5,5,5,0.6)',
-                  backdropFilter: 'blur(14px) saturate(140%)',
-                  WebkitBackdropFilter: 'blur(14px) saturate(140%)',
-                }}
-              >
+              {/* Text block BELOW the image — does not cover it */}
+              <div className="px-4 sm:px-5 pt-3.5 pb-4 sm:pt-4 sm:pb-5 border-t border-nf-primary/20">
                 <h3 className="font-sans font-bold uppercase tracking-wider text-white text-sm sm:text-base mb-1.5 group-hover:text-nf-primary transition-colors">
                   {t(titleKey)}
                 </h3>
-                <p
-                  className="text-xs sm:text-sm text-white/85 leading-snug"
-                  style={{ textShadow: '0 1px 8px rgba(0,0,0,0.7)' }}
-                >
+                <p className="text-xs sm:text-sm text-white/70 leading-snug">
                   {t(descKey)}
                 </p>
               </div>
             </article>
           ))}
+
         </div>
       </div>
     </section>
