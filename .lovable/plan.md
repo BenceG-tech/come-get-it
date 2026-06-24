@@ -1,51 +1,53 @@
-## Következő fázis — I: Outreach Intelligence & Reply Loop
+# Fázis I lezárása — A/B subject feedback loop + Guardrail editor UI
 
-A személyre szabás és UI most rendben van. A következő nagy hiányosság: **mi történik, miután kiment a levél?** Jelenleg vakon megy a sequence, nincs reply-handling, nincs deliverability-jel, és nincs visszacsatolás az AI-nak, hogy mi működik.
+A maradék két elem az előző körből.
 
-### 1. Reply detection + auto-pause (`inbox-collect` bővítés)
-- Az `inbox-collect` már húz emaileket. Bővítjük: ha egy partnerhez kapcsolható válasz érkezik (Message-ID / In-Reply-To header vagy email-cím match), automatikusan:
-  - `outreach_enrollments.status = 'replied'`, `stop_reason = 'auto_reply_detected'`
-  - `outreach_events` insert `status='replied'`
-  - `inbox_items` insert `type='lead_replied'` magas prioritással
-  - Partner `status` → `negotiating` ha még `contacted` volt
-- Új mező: `outreach_enrollments.last_reply_at`, `reply_sentiment` (positive / neutral / negative — AI klasszifikál)
+## 1) A/B subject feedback loop az `outreach-suggest`-ben
 
-### 2. Reply sentiment + suggested response (`outreach-reply-classify`)
-Új edge function: a beérkezett választ az AI besorolja (érdeklődik / kérdez / elutasít / OOO / spam), és **javasol választ** a brand-context + eredeti thread alapján. Megjelenik az `AdminInbox` `lead_replied` kártyán: "Válasz-vázlat" + 1-click "Másol és nyiss Gmail-t".
+Cél: az AI lássa, milyen subject-ek nyitottak jól a múltban, és ennek megfelelően javasoljon új variánsokat.
 
-### 3. Deliverability & engagement jelek a kanban-on
-- `LeadOutreachModal` és a kanban kártya kap egy mini-strip-et: küldve / megnyitva / kattintva / válaszolt számokkal (`outreach_events`-ből aggregálva).
-- Ha 2 lépés után 0 open → "gyenge subject" jelzés (sárga badge a partneren).
-- Ha bounce / spam-complaint → "rossz email" piros badge + auto-pause.
+- `outreach-suggest/index.ts` bővítés:
+  - Lekérdezi az utolsó 30 nap `outreach_events` rekordjait (`status`, `subject`, `opened_at`, `replied_at`).
+  - Aggregál subject-szinten: küldés, open rate, reply rate.
+  - Top 10 jól teljesítő + 5 gyengén teljesítő subject pattern → prompt-ba "TANULSÁGOK" blokkként.
+  - A response JSON-ban új mező: `subject_variants: string[]` (3 alternatíva az első lépéshez).
+  - Ha a sequence-nek van `subject_library` JSONB-je, az új top-3 ide kerül upsert-tel (max 20 elem, FIFO).
 
-### 4. AI subject A/B tanulás (`outreach-suggest` bővítés)
-- Az `outreach_events` open-rate-jét visszacsatoljuk: amikor új subject variánsokat kér az AI, megkapja az utolsó 20 elküldött subject + open-rate párost a `BRAND_CONTEXT` mellé, és kifejezetten **eltérő stílust** javasol a leggyengébbtől.
-- Top-performer subject minták kerülnek a `outreach_sequences` "subject_library" mezőbe (új JSON oszlop), amit a wizard fel tud kínálni.
+- `outreach-personalize` is megkapja ezt a kontextust (rövidített top-5 lista), hogy konzisztens legyen.
 
-### 5. Sequence-szintű guardrails
-- A `LeadOutreachModal` "Beállítások" tab guardjait kiterjesztjük sequence-szintre is (sequence-en is állítható: "ne küldj péntek 18:00 után", "max 3 email / partner / hónap", "ha másik aktív sequence van, ne indulj").
-- `outreach-tick` ezeket ellenőrzi futás előtt, és `skipped_reason`-t ír az event-be (látható a timeline-on).
+## 2) Sequence-szintű Guardrail editor UI
 
-### 6. Founding-specifikus signal-ek a partner-detail oldalon
-A `AdminPartnerDetail` kap egy új "Outreach health" kártyát:
-- Hány lépés ment ki, mennyit nyitott, mikor válaszolt utoljára
-- AI-javasolt következő lépés (folytasd / pause / promote / új sequence) — egy `lead-promote-suggest` kibővítés
-- "Founding deal status": függőben / elfogadva / elutasítva — manuális dropdown + tag az enrollment-en
+Cél: admin felületen állítható legyen a `outreach_sequences.guardrails` JSONB, ne csak DB-ben.
 
-### Érintett fájlok
-- `supabase/functions/inbox-collect/index.ts` — reply matching + enrollment update
-- `supabase/functions/outreach-reply-classify/index.ts` (új)
-- `supabase/functions/outreach-suggest/index.ts` — open-rate feedback loop
-- `supabase/functions/outreach-tick/index.ts` — guardrail check + skipped_reason
-- `src/pages/admin/AdminInbox.tsx` — `lead_replied` kártya + válasz-vázlat
-- `src/components/admin/leads/LeadsKanban.tsx` — engagement strip + badge-ek
-- `src/components/admin/leads/LeadOutreachModal.tsx` — sequence-szintű guard tab
-- `src/pages/admin/AdminPartnerDetail.tsx` — Outreach health kártya
-- Migráció: `outreach_enrollments.last_reply_at`, `reply_sentiment`, `outreach_events.skipped_reason`, `outreach_sequences.guardrails jsonb`, `subject_library jsonb`
+- Új komponens: `src/components/admin/outreach/SequenceGuardrailsEditor.tsx`
+  - Tabs/Drawer-be illeszthető form. Mezők:
+    - **Csendes órák**: from/to time picker (default 20:00–08:00)
+    - **Hétvége kihagyása**: switch
+    - **Max email/partner/hónap**: number (default 3)
+    - **Csak munkanapokon**: switch
+    - **Min. nap két lépés között**: number
+    - **Auto-pause ha replied**: switch (default on)
+    - **Auto-pause ha bounced**: switch (default on)
+  - FieldHelp tooltipek mindenhol (követi az LeadOutreachModal mintát).
+  - Save → `update outreach_sequences set guardrails = ...`.
 
-### Mit NEM most
-- Nem építünk teljes IMAP-integrációt; az `inbox-collect` jelenlegi forrását használjuk.
-- Nem cseréljük a kanban-t / nem nyúlunk a landinghez.
-- A többi AI fn promptját csak akkor, ha kéred.
+- `AdminOutreach.tsx` integráció:
+  - Minden sequence kártyán "Guardrails" gomb (settings ikon) → megnyitja a Dialog-ot.
+  - Aktív guardrail-ek badge-ként megjelennek a kártyán (pl. "Csendes 20–8", "Max 3/hó").
 
-Mehet, vagy valamit kivennél / áttennél előbbre?
+- `outreach-tick` már olvassa a `guardrails`-t, nem kell módosítani.
+
+## Érintett fájlok
+
+**Edge functions**
+- `supabase/functions/outreach-suggest/index.ts` — A/B feedback + subject_library upsert
+- `supabase/functions/outreach-personalize/index.ts` — top performer kontextus
+
+**Frontend**
+- `src/components/admin/outreach/SequenceGuardrailsEditor.tsx` *(új)*
+- `src/pages/admin/AdminOutreach.tsx` — guardrails gomb + badge-ek a kártyán
+
+## Out of scope
+- Subject performance dashboard (külön fázisban, ha kell)
+- Per-step guardrail (most csak sequence-szint)
+- Kanban / landing változás

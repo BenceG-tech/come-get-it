@@ -7,14 +7,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Play, Pause, Trash2, Sparkles, Mail, ListTodo, Clock } from "lucide-react";
+import { Plus, Play, Pause, Trash2, Sparkles, Mail, ListTodo, Clock, Shield } from "lucide-react";
 import OutreachAnalytics from "@/components/admin/outreach/OutreachAnalytics";
 import BatchEnrollWizard from "@/components/admin/outreach/BatchEnrollWizard";
+import SequenceGuardrailsEditor, { guardrailsBadges, type Guardrails } from "@/components/admin/outreach/SequenceGuardrailsEditor";
 import { toast } from "@/hooks/use-toast";
 import { trackEvent } from "@/lib/track";
 
 type Step = { day_offset: number; channel: "email" | "task" | "wait"; subject?: string; body?: string; title?: string; description?: string; due_offset_days?: number };
-type Sequence = { id: string; name: string; description: string | null; kind: string; steps: Step[]; active: boolean; created_at: string };
+type Sequence = { id: string; name: string; description: string | null; kind: string; steps: Step[]; active: boolean; created_at: string; guardrails?: Guardrails | null };
 type Enrollment = { id: string; sequence_id: string; entity_type: string; entity_id: string; current_step: number; status: string; next_run_at: string | null; started_at: string };
 
 export default function AdminOutreach() {
@@ -24,6 +25,7 @@ export default function AdminOutreach() {
   const [editing, setEditing] = useState<Sequence | null>(null);
   const [openNew, setOpenNew] = useState(false);
   const [stats, setStats] = useState({ sent: 0, opened: 0, replied: 0 });
+  const [guardEditing, setGuardEditing] = useState<Sequence | null>(null);
 
   async function load() {
     const [seq, en, ps, ev] = await Promise.all([
@@ -93,8 +95,18 @@ export default function AdminOutreach() {
                 ))}
                 {(s.steps ?? []).length === 0 && <div className="text-xs text-nf-text-muted/60">Nincsenek lépések</div>}
               </div>
-              <div className="mt-3 flex gap-2">
+              {guardrailsBadges(s.guardrails).length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {guardrailsBadges(s.guardrails).map((b, i) => (
+                    <Badge key={i} variant="outline" className="text-[10px] border-electric-300/30 text-electric-300">{b}</Badge>
+                  ))}
+                </div>
+              )}
+              <div className="mt-3 flex gap-2 flex-wrap">
                 <Button size="sm" variant="outline" onClick={() => { setEditing(s); setOpenNew(true); }}>Szerkeszt</Button>
+                <Button size="sm" variant="outline" onClick={() => setGuardEditing(s)}>
+                  <Shield className="h-3 w-3 mr-1" /> Guardrails
+                </Button>
                 <Button size="sm" variant="outline" onClick={async () => {
                   await supabase.from("outreach_sequences").update({ active: !s.active }).eq("id", s.id);
                   load();
@@ -135,6 +147,16 @@ export default function AdminOutreach() {
 
       {editing && (
         <SequenceEditor open={openNew} onOpenChange={(o) => { setOpenNew(o); if (!o) setEditing(null); }} sequence={editing} onSaved={load} />
+      )}
+      {guardEditing && (
+        <SequenceGuardrailsEditor
+          sequenceId={guardEditing.id}
+          sequenceName={guardEditing.name}
+          initial={guardEditing.guardrails ?? null}
+          open={!!guardEditing}
+          onOpenChange={(o) => { if (!o) setGuardEditing(null); }}
+          onSaved={load}
+        />
       )}
     </div>
   );
