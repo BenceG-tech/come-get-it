@@ -13,7 +13,7 @@ import { StalledLeadsCard } from "@/components/admin/dashboard/StalledLeadsCard"
 import { WaitlistGrowth } from "@/components/admin/dashboard/WaitlistGrowth";
 import { TimeTracker } from "@/components/admin/dashboard/TimeTracker";
 import { DailyBriefingCard } from "@/components/admin/dashboard/DailyBriefingCard";
-import { DailyFocusCard } from "@/components/admin/dashboard/DailyFocusCard";
+// DailyFocusCard removed — duplicated TodayTasksCard data
 import { WeeklyGoalsCard } from "@/components/admin/dashboard/WeeklyGoalsCard";
 import { WeeklyContentSprintCard } from "@/components/admin/dashboard/WeeklyContentSprintCard";
 import OutreachHealthCard from "@/components/admin/dashboard/OutreachHealthCard";
@@ -169,12 +169,12 @@ export default function AdminDashboard() {
       {/* ===== FÓKUSZ MA — top 3 dolog + mai feladatok + inbox ===== */}
       <section className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <DailyFocusCard />
           <TodayTasksCard />
           <InboxZeroCard />
         </div>
         <MissionTracker />
       </section>
+
 
       {/* ===== 2. PIPELINE & WAITLIST ===== */}
       <Section

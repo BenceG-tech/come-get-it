@@ -38,6 +38,67 @@ const TOOL_ICONS: Record<string, JSX.Element> = {
   finish: <CheckCircle2 className="h-4 w-4 text-green-400" />,
 };
 
+const TOOL_NAME_HU: Record<string, string> = {
+  search_partners: "Lead keresés",
+  bulk_pipeline: "Bulk kutatás + score + grade",
+  draft_outreach: "Outreach email draft",
+  check_inbox: "Inbox ellenőrzés",
+  mission_snapshot: "Misszió státusz",
+  ask_human: "Kérdés feléd",
+  finish: "Befejezés",
+};
+function humanToolName(t: string) { return TOOL_NAME_HU[t] ?? t; }
+
+function humanInput(tool: string, input: any): string | null {
+  if (!input || typeof input !== "object") return null;
+  const parts: string[] = [];
+  if (tool === "search_partners") {
+    if (input.city) parts.push(`város: ${input.city}`);
+    if (input.category) parts.push(`kategória: ${input.category}`);
+    if (Array.isArray(input.status) && input.status.length) parts.push(`státusz: ${input.status.join(", ")}`);
+    if (input.min_grade) parts.push(`min. grade: ${input.min_grade}`);
+    if (input.has_email) parts.push("van email");
+    if (input.limit) parts.push(`max ${input.limit}`);
+  } else if (tool === "check_inbox") {
+    if (input.severity) parts.push(`súly: ${input.severity}`);
+    if (input.limit) parts.push(`max ${input.limit}`);
+  } else if (tool === "bulk_pipeline" && Array.isArray(input.partner_ids)) {
+    parts.push(`${input.partner_ids.length} lead`);
+  } else if (tool === "draft_outreach") {
+    if (input.tone) parts.push(`hangnem: ${input.tone}`);
+  }
+  return parts.length ? parts.join(" · ") : null;
+}
+
+function humanObservation(tool: string, obs: any): string {
+  if (!obs || typeof obs !== "object") return String(obs ?? "");
+  if (obs.error) return `⚠️ Hiba: ${obs.error}`;
+  if (tool === "search_partners") {
+    const n = obs.count ?? obs.leads?.length ?? 0;
+    if (n === 0) return "Nincs találat ezekkel a szűrőkkel.";
+    const names = (obs.leads ?? []).slice(0, 5).map((l: any) => l.company_name).filter(Boolean).join(", ");
+    return `${n} lead találva${names ? ": " + names + (n > 5 ? "…" : "") : ""}`;
+  }
+  if (tool === "check_inbox") {
+    const n = obs.count ?? obs.items?.length ?? 0;
+    if (n === 0) return "Üres az inbox — nincs nyitott item.";
+    return `${n} nyitott item az inboxban.`;
+  }
+  if (tool === "mission_snapshot") {
+    const l = obs.loi, w = obs.waitlist;
+    return `LOI: ${l?.current}/${l?.target} (még ${l?.gap}). Waitlist: ${w?.current}/${w?.target} (még ${w?.gap}).`;
+  }
+  if (tool === "bulk_pipeline") {
+    if (obs.task_run_id) return `Háttér-feldolgozás elindítva (run: ${String(obs.task_run_id).slice(0, 8)}…)`;
+    return obs.message ?? "Bulk pipeline futtatva.";
+  }
+  if (tool === "draft_outreach") {
+    return obs.subject ? `Draft kész — tárgy: "${obs.subject}" (${obs.full_body_length ?? 0} char)` : "Draft kész.";
+  }
+  return JSON.stringify(obs).slice(0, 200);
+}
+
+
 export default function MissionLoopDialog({
   open, onOpenChange, goal, task,
 }: {
@@ -135,29 +196,28 @@ export default function MissionLoopDialog({
             <div key={i} className="rounded-lg border border-nf-border bg-nf-surface-alt p-3 space-y-2">
               <div className="flex items-center gap-2 text-xs text-nf-text-muted">
                 <span className="font-mono">#{i + 1}</span>
-                <span className="flex items-center gap-1">{TOOL_ICONS[it.tool] ?? <Wrench className="h-3 w-3" />} <span className="font-mono">{it.tool}</span></span>
+                <span className="flex items-center gap-1">{TOOL_ICONS[it.tool] ?? <Wrench className="h-3 w-3" />} <span className="font-mono">{humanToolName(it.tool)}</span></span>
                 <span className="ml-auto">{new Date(it.at).toLocaleTimeString("hu-HU")}</span>
               </div>
-              {it.think && (
+              {it.think && it.think !== "(nincs explicit think)" && (
                 <div className="flex gap-2 text-sm">
                   <Brain className="h-4 w-4 text-electric-300 shrink-0 mt-0.5" />
                   <div className="text-nf-text">{it.think}</div>
                 </div>
               )}
-              {it.input && Object.keys(it.input).length > 0 && (
-                <details className="text-[11px]">
-                  <summary className="cursor-pointer text-nf-text-muted">input ({Object.keys(it.input).length} param)</summary>
-                  <pre className="mt-1 text-[10px] overflow-x-auto bg-black/30 p-2 rounded">{JSON.stringify(it.input, null, 2)}</pre>
-                </details>
+              {humanInput(it.tool, it.input) && (
+                <div className="text-[11px] text-nf-text-muted">
+                  <span className="text-nf-text-muted">→ </span>{humanInput(it.tool, it.input)}
+                </div>
               )}
               {it.observation && (
-                <details className="text-[11px]" open={it.tool !== "search_partners"}>
-                  <summary className="cursor-pointer text-nf-text-muted">eredmény</summary>
-                  <pre className="mt-1 text-[10px] overflow-x-auto bg-black/30 p-2 rounded max-h-40">{JSON.stringify(it.observation, null, 2)}</pre>
-                </details>
+                <div className="text-sm text-nf-text">
+                  {humanObservation(it.tool, it.observation)}
+                </div>
               )}
             </div>
           ))}
+
           {status === "running" && (
             <div className="flex items-center gap-2 text-sm text-nf-text-muted p-3">
               <Loader2 className="h-4 w-4 animate-spin" /> AI dolgozik…
