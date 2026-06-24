@@ -1,105 +1,59 @@
+## Mi a baj most
 
-# Leadek oldal újragondolása — v2
-
-## 1) Azonnali takarítás (egyszeri, most)
-- Törlöm a **103 db non-apify** leadet (`partners` ahol `type='venue' AND source <> 'apify_google_maps'`), kivéve azokat amelyeknek már van `status IN ('contacted','negotiating','proposal_sent','signed')` — ezeket megőrzöm, hogy ne veszítsünk élő dealt.
-- Megerősítést kérek a UI-ban ("103 lead törlése — biztos?") — ha nem akarod a guardot, szólj.
-
-## 2) Új Leads UI — egy oldal, három réteg
-
-```text
-┌────────────────────────────────────────────────────────────┐
-│  Header: stats + AI Autopilot CTA + Apify scrape           │
-├────────────────────────────────────────────────────────────┤
-│  Toolbar:  [keresés] [városi chip] [grade chip] [score]    │
-│            [drag-select toggle] [oszlop-választó]          │
-├──────────────────┬─────────────────────────────────────────┤
-│  Lista (bal)     │  Insight panel (jobb, sticky)           │
-│  - sűrű sor      │  ┌─ Áttekintés ─ Kutatás ─ Outreach ─┐  │
-│  - inline check  │  │  EGYESÍTETT "AI Insight"          │  │
-│  - drag-select   │  │  (brief + auto-kutatás összevonva)│  │
-│  - hover-quick   │  │  + Fit/Risk/Talking points        │  │
-│    actions       │  │  + Google/IG/web metrikák         │  │
-│  - virtualized   │  │  + kapcsolat blokk + következő    │  │
-│                  │  │    lépés gomb                     │  │
-└──────────────────┴─────────────────────────────────────────┘
+### 1) Posztok generálása "Failed to fetch" → BOOT ERROR
+Edge function log (brief-to-posts):
 ```
-
-### Listanézet újítások
-- **Drag-select**: bal egér lehúzással téglalap-kijelölés (mint Finder). Shift+klikk range, Ctrl/Cmd+klikk egyenkénti toggle.
-- **Inline gyors-műveletek** hoverre: ✏️ jegyzet, 📞 hívás, ✉️ email, 🔭 kutat, 🗑️ töröl.
-- **Több info egyből** a sorban (kompakt, de olvasható):
-  - név + emoji-badge (🔥/⭐ kontextus)
-  - 2. sor: város · kategória · ⭐google · 📷 IG follower · 📧 ✓/✗ · 📞 ✓/✗
-  - jobb oldal: score-pill + grade-pill + státusz-chip + utolsó interakció relatív idő
-- **Oszlop-választó** (gear ikon): a user maga eldöntheti mit lát.
-- **Virtualizáció** (>500 sor): `@tanstack/react-virtual`, hogy 2000 lead se lassuljon.
-
-### Bulk akciók — minden egyszerre
-A `BulkActionBar` kibővítve:
-- 🔭 **"Kutass mindet"** → új `lead-bulk-research` edge function: queue-zva, párhuzamos `lead-auto-research` hívások (max 5 concurrent), élő progress toast.
-- 🤖 **"AI grade mindet"** → meglévő `lead-grade-ai-bulk` a kijelöltekre, nem fix top20-ra.
-- ✦ **"Score mindet"** (már van)
-- 🚀 **"Outreach mindet"** (már van)
-- 🗑️ **"Töröl"** (már van)
-- 📤 **"CSV"** (már van)
-
-## 3) AI Insight — brief + kutatás összevonása
-Jelenleg két különálló dolog: 3 mondatos `generateBrief` (admin-ai-chat) + részletes `lead-auto-research` (Fit/Risk/Talking points). **Összeolvasztom egybe**:
-
-- Új egységes edge function: `lead-insight` (refaktor a `lead-auto-research`-ből)
-  - Ha még nincs kutatás → futtatja a web scrape-et + Gemini elemzést
-  - Ha van → friss `insight_summary`-t ad (TL;DR 2 mondat) + a meglévő Fit/Risk/Talking points-ot
-  - Cache: ha `last_researched_at` < 14 nap, csak újragenerálja a TL;DR-t a meglévő adatból (olcsó)
-- A drawerben **egy gomb**: ⚡ **AI Insight** (brief gomb megszűnik)
-- A meglévő `auto-kutatás` card mindig látszik ha van adat; a TL;DR a tetején
-
-### Hiba javítása ("AI brief hiba: Failed to send a request to the Edge Function")
-- A `generateBrief` jelenleg `admin-ai-chat`-et hív — ez vagy nincs deployolva, vagy nincs CORS-a. A `lead-insight`-ra váltással ez a hívás megszűnik. Az új function-ön ellenőrzöm a CORS-t és deploy után curl-lel tesztelem.
-
-## 4) Új funkciók az Insight panelhez
-- **🎯 Következő lépés** gomb: AI generál 1 konkrét akciót ("küldj IG DM-et X szöveggel") → 1 kattintásra végrehajt (másol+megnyit / outreach enroll).
-- **📊 Versenytárs-kontextus**: ugyanabban a kerületben hány hasonló kategóriájú hely van már a piszkában — segít priorizálni.
-- **🔗 Hasonló nyertes**: ha van már signed partnered hasonló profillal, kiemeli ("Ez nagyon hasonlít a már signed Kandalló Bistro-ra").
-- **💬 Drafted message preview**: az IG DM / email első mondata, hogy ne kelljen modalba lépni.
-- **⏰ Best time to contact**: Google "popular times" adatból (ha Apify hozza) javasol időpontot.
-- **🏷️ Auto-tags**: AI tag-eli (pl. "rooftop", "kutyabarát", "élő zene") — szűrhetőek lesznek.
-
-## 5) Menü-dropdown bug
-A bal admin sidebar dropdown-jai jelenleg `onMouseEnter` + `onClick` mixet használnak → első klikk csak hover-state-et trigger-el, második nyit. Áttérek **single-click toggle**-re (Radix DropdownMenu vagy `useState` controlled). Egy klikk → nyit.
-
-## 6) Technikai részletek
-
-### Új / módosított fájlok
-- **Új**: `src/components/admin/leads/LeadsListV2.tsx` (virtualizált lista + drag-select)
-- **Új**: `src/components/admin/leads/LeadInsightPanel.tsx` (egységes AI insight)
-- **Új**: `src/hooks/useDragSelect.ts`
-- **Új edge function**: `supabase/functions/lead-insight/index.ts` (egyesíti brief+research)
-- **Új edge function**: `supabase/functions/lead-bulk-research/index.ts` (párhuzamos batch)
-- **Módosított**: `src/pages/admin/AdminLeads.tsx` (új layout, sticky insight panel)
-- **Módosított**: `src/components/admin/leads/BulkActionBar.tsx` (új gombok: research, grade)
-- **Módosított**: `src/components/admin/crm/EntityDrawer.tsx` (brief gomb → AI Insight, hiba fix)
-- **Módosított**: sidebar dropdown komponens (single-click)
-- **Migráció**: `partners` táblára 2 új oszlop: `auto_tags text[]`, `insight_summary text`
-
-### DB takarítás SQL
-```sql
-DELETE FROM partners
-WHERE type='venue'
-  AND (source IS NULL OR source <> 'apify_google_maps')
-  AND status IN ('lead');  -- aktív dealt nem bántunk
+worker boot error: Uncaught SyntaxError: The requested module
+'../_shared/brand-context.ts' does not provide an export named 'loadBrandContext'
 ```
+A `_shared/brand-context.ts` csak `BRAND_CONTEXT` konstansot exportál, **de 9 edge function `loadBrandContext()` függvényt importál belőle**, ami nincs. Emiatt mindegyik funkció már a boot-nál meghal — ezért dob "Failed to fetch"-et a UI.
 
-### Függőség
-`bun add @tanstack/react-virtual` (kis, ~3KB)
+Érintett (mind ugyanattól a hibától halott):
+`brief-to-posts`, `suggest-content-briefs`, `content-brand-check`, `generate-multi-format`, `generate-post-image`, `marketing-plan-suggest`, `marketing-assistant-chat`, `calendar-autofill`, `admin-ai-chat`.
 
-## 7) Mi marad változatlan
-- Kanban + térkép nézet
-- Apify scrape modal és napi autopilot
-- Outreach sequences logika
-- Score rubric
+→ Emiatt nem megy a posztgenerálás, AI brief-ajánló, brand check, image generálás, marketing chat — egyszerre.
 
-## Kérdés mielőtt nekiállok
-1. **Törlés guard**: tényleg töröljem azt a 103 importált leadet most, vagy csak archiváljam (új `archived_at` mező)?
-2. **Insight panel**: jobb oldali sticky panel (desktop only), vagy a meglévő drawer maradjon és csak átdolgozzam?
-3. **Új funkciók közül** (4. pont): melyik 2-3 a legfontosabb most? Mindegyik belefér, de prioritás segítene a sorrendben.
+### 2) Top 3 fókusz üres
+`DailyFocusCard.tsx` csak olvas a `daily_focus` táblából — **soha nem hívja meg** a már létező `generate-daily-focus` edge functiont. Az AI-os auto-fill kódja kész van, csak nincs bekötve.
+
+---
+
+## Mit csinálok
+
+### A) Fix: `loadBrandContext` export hozzáadása
+`supabase/functions/_shared/brand-context.ts`:
+```ts
+export async function loadBrandContext(supabase: any): Promise<string> {
+  let extra = "";
+  try {
+    const { data } = await supabase.from("brand_memory").select("content").maybeSingle();
+    if (data?.content) extra = `\n\nBRAND MEMORY (user overrides):\n${data.content}`;
+  } catch (_) { /* tábla opcionális */ }
+  return BRAND_CONTEXT + extra;
+}
+```
+Ezzel a 9 funkció egyszerre élesedik — beleértve a "Posztok generálása", "AI brief-ajánló", brand check, image generálás, marketing chat.
+
+(Deploy után curl-lel ellenőrzöm a `brief-to-posts`-ot egy létező brief_id-vel, hogy 200-at ad.)
+
+### B) Top 3 fókusz auto-fill
+`DailyFocusCard.tsx`-be:
+- Ha mai `daily_focus` record üres / nincs → automatikusan meghívja a `generate-daily-focus` edge functiont (csak egyszer / nap, localStorage flag-gel, hogy ne pörögjön végtelenül ha az AI üres listát ad).
+- Add hozzá egy 🪄 **"Újragenerál AI-val"** gombot a kártya headerjébe, hogy bármikor manuálisan is frissíthető.
+- Loading state amíg pörög.
+
+### C) Mi van még hátra (a korábbi tervekből, amiket még nem fejeztünk be)
+
+A `.lovable/plan.md` szerint tudatosan kihagyott / félbemaradt elemek:
+
+1. **Sticky jobb-oldali Insight panel** (drawer + sortűztű popover lefedi most)
+2. **Virtualizáció** a leadlistára (`@tanstack/react-virtual`) — 720 leadnél még oké, de skálázódáshoz kell
+3. **Versenytárs-kontextus / Hasonló nyertes / Best-time blokk** az insight panelen
+4. **Auto-tags** (`auto_tags text[]` oszlop + AI tag-elés)
+5. **Meta Graph API integráció (Option B)** — automatikus IG DM küldés `META_APP_ID` + `META_APP_SECRET` titkokkal (most semi-auto: copy + ig.me link)
+6. **Apify napi autopilot** cron-monitor UI (manuálisan futtatható már, de nincs dashboard a futásokról)
+7. **Inbox / reply detection** (most a kimenő szál van, az IG/email válaszok automatikus betöltése + classify nincs end-to-end kötve)
+
+## Most milyen sorrendben menjek?
+
+Először az A + B fix megy (ez kötelező, mert most a fél admin felület halott a brand-context hiba miatt). Aztán a fenti listából amit mondasz, abban a sorrendben építem.
