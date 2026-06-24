@@ -87,6 +87,75 @@ export default function AdminLeads() {
     }
   };
 
+  const runStepForIds = async (step: "research" | "score" | "grade", ids: string[]) => {
+    if (!ids.length) return { ok: 0 };
+    if (step === "research") {
+      const { data, error } = await supabase.functions.invoke("lead-bulk-research", { body: { partner_ids: ids } });
+      if (error) throw error;
+      return { ok: data?.done ?? ids.length };
+    }
+    if (step === "score") {
+      const { data, error } = await supabase.functions.invoke("score-lead", { body: { partner_ids: ids } });
+      if (error) throw error;
+      return { ok: data?.queued ?? ids.length };
+    }
+    const { data, error } = await supabase.functions.invoke("lead-grade-ai-bulk", { body: { partner_ids: ids } });
+    if (error) throw error;
+    return { ok: data?.updated ?? ids.length };
+  };
+
+  const continueOne = async (id: string, step: "research" | "score" | "grade") => {
+    setContinuingId(id);
+    try {
+      await runStepForIds(step, [id]);
+      toast({ title: `${step === "research" ? "Kutatás" : step === "score" ? "Pontozás" : "Grade"} kész` });
+      await load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setContinuingId(null);
+    }
+  };
+
+  const processLevel = async (lvl: ReadinessLevel, ids: string[]) => {
+    if (lvl === 3 || !ids.length) return;
+    const step: "research" | "score" | "grade" = lvl === 0 ? "research" : lvl === 1 ? "score" : "grade";
+    setBusyLevel(lvl);
+    try {
+      const { ok } = await runStepForIds(step, ids);
+      toast({ title: `${ids.length} lead — ${step}`, description: `${ok} feldolgozva (háttérben is futhat)` });
+      await load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setBusyLevel(null);
+    }
+  };
+
+  const bulkContinueMissing = async () => {
+    if (selected.size === 0) return;
+    const sel = partners.filter((p) => selected.has(p.id));
+    const groups: Record<"research" | "score" | "grade", string[]> = { research: [], score: [], grade: [] };
+    sel.forEach((p) => {
+      const m = getMissingStep(p);
+      if (m) groups[m].push(p.id);
+    });
+    const todo = (["research", "score", "grade"] as const).filter((s) => groups[s].length);
+    if (!todo.length) { toast({ title: "Minden kijelölt lead már értékelve" }); return; }
+    setContinuingBulk(true);
+    try {
+      for (const s of todo) {
+        await runStepForIds(s, groups[s]);
+      }
+      toast({ title: "Hiányzó lépések elindítva", description: todo.map((s) => `${s}: ${groups[s].length}`).join(" · ") });
+      await load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setContinuingBulk(false);
+    }
+  };
+
   const load = async () => {
     setLoading(true);
     const { data } = await supabase.from("partners").select("*").eq("type", "venue").order("lead_score", { ascending: false, nullsFirst: false }).limit(2000);
