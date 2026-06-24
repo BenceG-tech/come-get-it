@@ -51,39 +51,40 @@ async function aiJson(prompt: string, system = "Csak érvényes JSON-t adj vissz
 }
 
 async function runPartnerAutopilot(runId: string, task: Task) {
-  // 1) Plan: AI extracts filters from the task description
   await appendStep(runId, "Tervet készítek a feladathoz…");
   const { data: seqs } = await admin.from("outreach_sequences")
-    .select("id, name, kind").eq("active", true).eq("kind", "partner");
+    .select("id, name, kind, auto_send_min_grade, auto_send_min_confidence, daily_cap")
+    .eq("active", true).eq("kind", "partner");
   const plan = await aiJson(
-    `Egy magyar founder napi feladata. Ebből vonj ki strukturált tervet partner-outreach autopilothoz.
+    `Egy magyar founder napi feladata. Strukturált terv autopilothoz.
 
 FELADAT:
 - Cím: ${task.title}
 - Miért: ${task.why ?? "—"}
 - Javasolt akció: ${task.suggested_action ?? "—"}
 
-ELÉRHETŐ SEQUENCE-EK:
+SEQUENCE-EK:
 ${(seqs ?? []).map((s: any) => `- ${s.id} :: ${s.name}`).join("\n")}
 
 Válasz JSON:
 {
-  "max_results": szám 3-20 között (alap 10),
+  "max_results": 3-20 (alap 10),
   "city": "Budapest" | null,
-  "category": string | null,  // pl. "kávézó", "bár", "bisztró"
-  "statuses": ["lead","contacted"],  // status szűrő, alap ["lead","contacted"]
-  "min_score": szám 0-100 | null,
-  "sequence_id": a fenti listából a legrelevánsabb id (kötelező),
-  "tone": "founding_pitch" | "casual" | "formal" (alap founding_pitch),
-  "extra_instructions": "rövid hint a personalize-nek, mit hangsúlyozzon ebben a feladatban"
+  "category": string | null,
+  "statuses": ["lead","contacted"],
+  "min_score": 0-100 | null,
+  "sequence_id": kötelező a fenti listából,
+  "tone": "founding_pitch" | "casual" | "formal",
+  "extra_instructions": "hint",
+  "confidence": 0..1
 }`,
   );
   const sequence_id = plan.sequence_id || seqs?.[0]?.id;
   if (!sequence_id) throw new Error("Nincs aktív partner sequence");
+  const seq = (seqs ?? []).find((s: any) => s.id === sequence_id) ?? {};
   await appendStep(runId, "Terv kész", plan);
 
-  // 2) Find partners
-  let q = admin.from("partners").select("id, company_name, city, category, email, lead_score, status")
+  let q = admin.from("partners").select("id, company_name, city, category, email, lead_score, lead_grade, status")
     .eq("type", "venue")
     .not("email", "is", null)
     .neq("email", "");
@@ -92,24 +93,49 @@ Válasz JSON:
   if (plan.city) q = q.ilike("city", `%${plan.city}%`);
   if (plan.category) q = q.ilike("category", `%${plan.category}%`);
   if (typeof plan.min_score === "number") q = q.gte("lead_score", plan.min_score);
-  q = q.order("lead_score", { ascending: false, nullsFirst: false }).limit(Math.max(3, Math.min(20, plan.max_results || 10)));
+  q = q.order("lead_score", { ascending: false, nullsFirst: false })
+    .limit(Math.max(3, Math.min(20, plan.max_results || 10)));
 
   const { data: candidates, error: candErr } = await q;
   if (candErr) throw candErr;
-  await appendStep(runId, `${candidates?.length ?? 0} partner jelölt találva`, { ids: candidates?.map((c: any) => c.id) });
+  await appendStep(runId, `${candidates?.length ?? 0} partner jelölt`, { ids: candidates?.map((c: any) => c.id) });
 
   if (!candidates || candidates.length === 0) {
     await admin.from("task_runs").update({ status: "awaiting_approval", generated: [] }).eq("id", runId);
     return;
   }
 
-  // Skip those already enrolled in this sequence
+  // Daily cap
+  const sinceIso = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+  const dailyCap = Number(seq.daily_cap ?? 30);
+  const { count: usedToday } = await admin
+    .from("outreach_enrollments")
+    .select("id", { count: "exact", head: true })
+    .eq("sequence_id", sequence_id)
+    .gte("created_at", sinceIso);
+  const remaining = Math.max(0, dailyCap - (usedToday ?? 0));
+  if (remaining <= 0) {
+    await appendStep(runId, `Napi cap elérve (${dailyCap}/nap).`);
+    await admin.from("task_runs").update({ status: "awaiting_approval" }).eq("id", runId);
+    return;
+  }
+  await appendStep(runId, `Napi cap: ${usedToday ?? 0}/${dailyCap}, ${remaining} hely.`);
+
+  // Dedup
   const { data: existing } = await admin.from("outreach_enrollments")
     .select("entity_id").eq("sequence_id", sequence_id)
     .in("entity_id", candidates.map((c: any) => c.id));
   const skip = new Set((existing ?? []).map((e: any) => e.entity_id));
-  const targets = candidates.filter((c: any) => !skip.has(c.id));
-  if (skip.size) await appendStep(runId, `${skip.size} már enrolled, kihagyom`);
+  const targets = candidates.filter((c: any) => !skip.has(c.id)).slice(0, remaining);
+  if (skip.size) await appendStep(runId, `${skip.size} már enrolled — kihagyom`);
+
+  // Auto-send küszöb
+  const minGrade = String(seq.auto_send_min_grade ?? "").toUpperCase();
+  const minConf = Number(seq.auto_send_min_confidence ?? 0.75);
+  const planConfidence = Number(plan.confidence ?? 0);
+  const gradeRank: Record<string, number> = { A: 4, B: 3, C: 2, D: 1 };
+  const wantsAutoSend = !!minGrade && (gradeRank[minGrade] ?? 0) > 0 && planConfidence >= minConf;
+  if (wantsAutoSend) await appendStep(runId, `Auto-send: grade ≥ ${minGrade}, conf ${planConfidence.toFixed(2)} ≥ ${minConf}`);
 
   const generated: any[] = [];
   for (const p of targets) {
@@ -129,16 +155,22 @@ Válasz JSON:
       if (!r.ok) throw new Error(`personalize ${r.status}`);
       const draft = await r.json();
 
+      const partnerGrade = String(p.lead_grade ?? "").toUpperCase();
+      const autoSendThis = wantsAutoSend && (gradeRank[partnerGrade] ?? 0) >= (gradeRank[minGrade] ?? 99);
+      const initialStatus = autoSendThis ? "active" : "draft";
+      const initialNext = autoSendThis ? new Date().toISOString() : null;
+
       const { data: enr, error: enrErr } = await admin.from("outreach_enrollments").insert({
         sequence_id,
         entity_type: "partner",
         entity_id: p.id,
         current_step: 0,
-        status: "draft",
-        next_run_at: null,
+        status: initialStatus,
+        next_run_at: initialNext,
         metadata: {
           source: "task-autopilot",
           task_run_id: runId,
+          auto_sent: autoSendThis,
           personalized_steps: [{ subject: draft.subject, body: draft.body, preheader: draft.preheader }],
         },
       }).select("id").single();
@@ -149,6 +181,8 @@ Válasz JSON:
         enrollment_id: enr.id,
         partner_id: p.id,
         partner_name: p.company_name,
+        partner_grade: partnerGrade || null,
+        auto_sent: autoSendThis,
         subject: draft.subject,
         body_preview: (draft.body ?? "").slice(0, 240),
       });
@@ -159,7 +193,8 @@ Válasz JSON:
   }
 
   await admin.from("task_runs").update({ status: "awaiting_approval" }).eq("id", runId);
-  await appendStep(runId, `Kész — ${generated.length} draft vár jóváhagyásra.`);
+  const autoCount = generated.filter((g) => g.auto_sent).length;
+  await appendStep(runId, `Kész — ${generated.length} draft (${autoCount} auto-aktiválva).`);
 }
 
 async function runGenericTask(runId: string, task: Task) {
@@ -182,12 +217,10 @@ async function runGenericTask(runId: string, task: Task) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
-
   try {
     const { task, task_index } = await req.json();
     if (!task?.title) throw new Error("task.title required");
 
-    // Auth: identify user
     const authHeader = req.headers.get("Authorization");
     let userId: string | null = null;
     if (authHeader) {
@@ -206,7 +239,6 @@ Deno.serve(async (req) => {
     }).select("id").single();
     if (runErr) throw runErr;
 
-    // Run asynchronously, return run id immediately
     (async () => {
       try {
         if ((task.mission_pillar ?? "partner") === "partner") await runPartnerAutopilot(run.id, task);

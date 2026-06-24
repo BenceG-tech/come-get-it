@@ -9,7 +9,7 @@ import { toast } from "sonner";
 
 type Step = { at: string; message: string; data?: any };
 type Generated =
-  | { kind: "enrollment_draft"; enrollment_id: string; partner_id: string; partner_name: string; subject: string; body_preview: string }
+  | { kind: "enrollment_draft"; enrollment_id: string; partner_id: string; partner_name: string; subject: string; body_preview: string; partner_grade?: string | null; auto_sent?: boolean }
   | { kind: "pipeline_task"; task_id: string; title: string };
 
 export default function TaskAutopilotDialog({
@@ -28,7 +28,6 @@ export default function TaskAutopilotDialog({
   const [approving, setApproving] = useState<string | null>(null);
   const [approved, setApproved] = useState<Set<string>>(new Set());
 
-  // Start the run when opened
   useEffect(() => {
     if (!open || runId) return;
     let cancelled = false;
@@ -45,12 +44,10 @@ export default function TaskAutopilotDialog({
     return () => { cancelled = true; };
   }, [open]);
 
-  // Reset on close
   useEffect(() => {
     if (!open) { setRunId(null); setSteps([]); setGenerated([]); setStatus("starting"); setError(null); setApproved(new Set()); }
   }, [open]);
 
-  // Realtime subscribe to the run
   useEffect(() => {
     if (!runId) return;
     const load = async () => {
@@ -83,19 +80,22 @@ export default function TaskAutopilotDialog({
     setApproving(null);
     if (error) { toast.error(error.message); return; }
     setApproved((s) => new Set(s).add(g.enrollment_id));
-    toast.success(`${g.partner_name} aktiválva — első email a következő tick-nél megy`);
+    toast.success(`${g.partner_name} aktiválva`);
   };
 
-  const approveAll = async () => {
-    const drafts = generated.filter((g): g is Extract<Generated,{kind:"enrollment_draft"}> => g.kind === "enrollment_draft" && !approved.has(g.enrollment_id));
-    if (!drafts.length) return;
+  const approveSubset = async (predicate: (g: Extract<Generated, { kind: "enrollment_draft" }>) => boolean, label: string) => {
+    const drafts = generated.filter((g): g is Extract<Generated, { kind: "enrollment_draft" }> =>
+      g.kind === "enrollment_draft" && !approved.has(g.enrollment_id) && !g.auto_sent && predicate(g));
+    if (!drafts.length) { toast.info(`Nincs ${label} draft`); return; }
     const { error } = await supabase.from("outreach_enrollments")
       .update({ status: "active", next_run_at: new Date().toISOString() })
       .in("id", drafts.map((d) => d.enrollment_id));
     if (error) { toast.error(error.message); return; }
     setApproved((s) => { const n = new Set(s); drafts.forEach((d) => n.add(d.enrollment_id)); return n; });
-    toast.success(`${drafts.length} enrollment aktiválva`);
+    toast.success(`${drafts.length} ${label} aktiválva`);
   };
+  const approveAll = () => approveSubset(() => true, "összes");
+  const approveAB = () => approveSubset((g) => ["A", "B"].includes(String(g.partner_grade ?? "").toUpperCase()), "A/B grade");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -108,7 +108,6 @@ export default function TaskAutopilotDialog({
           <div className="text-sm text-nf-text-muted mt-1">{task?.title}</div>
         </DialogHeader>
 
-        {/* Steps log */}
         <div className="space-y-1.5 border border-nf-border rounded-lg p-3 bg-nf-surface-alt/30 max-h-64 overflow-y-auto">
           {steps.length === 0 && status !== "failed" && (
             <div className="flex items-center gap-2 text-sm text-nf-text-muted"><Loader2 className="h-3.5 w-3.5 animate-spin" /> Indítás…</div>
@@ -134,45 +133,51 @@ export default function TaskAutopilotDialog({
           )}
         </div>
 
-        {/* Generated artifacts */}
         {generated.length > 0 && (
           <div className="space-y-2 mt-3">
             <div className="flex items-center justify-between">
               <div className="text-sm font-medium flex items-center gap-2">
                 <ListChecks className="h-4 w-4 text-electric-300" /> Eredmények ({generated.length})
               </div>
-              {generated.some((g) => g.kind === "enrollment_draft" && !approved.has(g.enrollment_id)) && (
-                <Button size="sm" variant="neon" onClick={approveAll}>
-                  <Send className="h-3.5 w-3.5 mr-1.5" /> Mind aktiválás
-                </Button>
+              {generated.some((g) => g.kind === "enrollment_draft" && !approved.has(g.enrollment_id) && !g.auto_sent) && (
+                <div className="flex gap-1.5">
+                  <Button size="sm" variant="outline" onClick={approveAB}>A/B grade</Button>
+                  <Button size="sm" variant="neon" onClick={approveAll}>
+                    <Send className="h-3.5 w-3.5 mr-1.5" /> Mind
+                  </Button>
+                </div>
               )}
             </div>
             {generated.map((g, i) => (
               <div key={i} className="border border-nf-border rounded-lg p-3 bg-nf-surface-alt/20">
                 {g.kind === "enrollment_draft" ? (
-                  <>
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
-                          <Mail className="h-3.5 w-3.5 text-electric-300" />
-                          <Link to={`/admin/partners/${g.partner_id}`} className="font-medium text-sm hover:text-electric-300">
-                            {g.partner_name}
-                          </Link>
-                        </div>
-                        <div className="text-xs text-nf-text mt-1 font-medium">{g.subject}</div>
-                        <div className="text-xs text-nf-text-muted mt-1 line-clamp-3 whitespace-pre-wrap">{g.body_preview}</div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <Mail className="h-3.5 w-3.5 text-electric-300" />
+                        <Link to={`/admin/partners/${g.partner_id}`} className="font-medium text-sm hover:text-electric-300">
+                          {g.partner_name}
+                        </Link>
+                        {g.partner_grade && (
+                          <Badge variant="outline" className="text-[9px] h-4 px-1">{g.partner_grade}</Badge>
+                        )}
+                        {g.auto_sent && (
+                          <Badge className="text-[9px] h-4 px-1 bg-electric-300/20 text-electric-300 border-electric-300/40">auto</Badge>
+                        )}
                       </div>
-                      {approved.has(g.enrollment_id) ? (
-                        <Badge variant="outline" className="text-electric-300 border-electric-300/40 shrink-0">
-                          <CheckCircle2 className="h-3 w-3 mr-1" /> aktív
-                        </Badge>
-                      ) : (
-                        <Button size="sm" variant="outline" onClick={() => approveOne(g)} disabled={approving === g.enrollment_id} className="shrink-0">
-                          {approving === g.enrollment_id ? <Loader2 className="h-3 w-3 animate-spin" /> : "Aktivál"}
-                        </Button>
-                      )}
+                      <div className="text-xs text-nf-text mt-1 font-medium">{g.subject}</div>
+                      <div className="text-xs text-nf-text-muted mt-1 line-clamp-3 whitespace-pre-wrap">{g.body_preview}</div>
                     </div>
-                  </>
+                    {approved.has(g.enrollment_id) || g.auto_sent ? (
+                      <Badge variant="outline" className="text-electric-300 border-electric-300/40 shrink-0">
+                        <CheckCircle2 className="h-3 w-3 mr-1" /> aktív
+                      </Badge>
+                    ) : (
+                      <Button size="sm" variant="outline" onClick={() => approveOne(g)} disabled={approving === g.enrollment_id} className="shrink-0">
+                        {approving === g.enrollment_id ? <Loader2 className="h-3 w-3 animate-spin" /> : "Aktivál"}
+                      </Button>
+                    )}
+                  </div>
                 ) : (
                   <div className="flex items-center gap-2 text-sm">
                     <ListChecks className="h-3.5 w-3.5 text-electric-300" />
@@ -186,7 +191,7 @@ export default function TaskAutopilotDialog({
 
         {status === "awaiting_approval" && generated.length === 0 && (
           <div className="text-sm text-nf-text-muted py-4 text-center">
-            Nem találtam megfelelő jelöltet a feladathoz. Próbáld pontosítani a daily focus task leírását.
+            Nem találtam megfelelő jelöltet. Pontosítsd a daily focus task leírását.
           </div>
         )}
       </DialogContent>
