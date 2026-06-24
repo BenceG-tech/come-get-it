@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
     const results: any[] = [];
 
     for (const en of due ?? []) {
-      const { data: seq } = await admin.from("outreach_sequences").select("steps, active, kind").eq("id", en.sequence_id).maybeSingle();
+      const { data: seq } = await admin.from("outreach_sequences").select("steps, active, kind, guardrails").eq("id", en.sequence_id).maybeSingle();
       if (!seq || !seq.active) {
         await admin.from("outreach_enrollments").update({ status: "stopped", stop_reason: "sequence_inactive", next_run_at: null }).eq("id", en.id);
         continue;
@@ -32,6 +32,33 @@ Deno.serve(async (req) => {
       const baseStep = steps[en.current_step];
       if (!baseStep) {
         await admin.from("outreach_enrollments").update({ status: "done", finished_at: new Date().toISOString(), next_run_at: null }).eq("id", en.id);
+        continue;
+      }
+
+      // ---- Guardrails ----
+      const g = (seq.guardrails ?? {}) as { quiet_hours?: [number, number]; skip_weekends?: boolean; max_per_month?: number };
+      const nowDate = new Date();
+      let skip: string | null = null;
+      if (g.skip_weekends && (nowDate.getUTCDay() === 0 || nowDate.getUTCDay() === 6)) skip = "weekend";
+      if (g.quiet_hours && Array.isArray(g.quiet_hours)) {
+        const h = nowDate.getUTCHours();
+        const [from, to] = g.quiet_hours;
+        if (from <= to ? (h >= from && h < to) : (h >= from || h < to)) skip = "quiet_hours";
+      }
+      if (!skip && g.max_per_month && en.entity_type === "partner") {
+        const since = new Date(Date.now() - 30 * 86400000).toISOString();
+        const { count } = await admin.from("outreach_events").select("id", { count: "exact", head: true }).eq("status", "sent").gte("sent_at", since)
+          .in("enrollment_id", (await admin.from("outreach_enrollments").select("id").eq("entity_id", en.entity_id)).data?.map((x: any) => x.id) ?? []);
+        if ((count ?? 0) >= g.max_per_month) skip = "max_per_month";
+      }
+      if (skip) {
+        await admin.from("outreach_events").insert({
+          enrollment_id: en.id, step_index: en.current_step, channel: baseStep.channel,
+          status: "skipped", skipped_reason: skip,
+        });
+        // Push next_run forward 6h to retry outside the guardrail window
+        await admin.from("outreach_enrollments").update({ next_run_at: new Date(Date.now() + 6 * 3600 * 1000).toISOString() }).eq("id", en.id);
+        results.push({ enrollment_id: en.id, step: en.current_step, status: "skipped", skipped_reason: skip });
         continue;
       }
 
