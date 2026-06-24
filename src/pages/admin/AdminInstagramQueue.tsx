@@ -49,7 +49,7 @@ export default function AdminInstagramQueue() {
       const ids = (data ?? []).map((r: any) => r.id);
       if (ids.length) {
         const { data: ints } = await supabase.from("partner_interactions")
-          .select("partner_id, kind").in("partner_id", ids).eq("kind", "instagram_dm");
+          .select("partner_id, channel").in("partner_id", ids).eq("channel", "instagram_dm");
         const sent = new Set<string>();
         (ints ?? []).forEach((e: any) => sent.add(e.partner_id));
         setSentIds(sent);
@@ -74,9 +74,11 @@ export default function AdminInstagramQueue() {
     setSentIds((s) => new Set(s).add(p.id));
     await supabase.from("partner_interactions").insert({
       partner_id: p.id,
-      kind: "instagram_dm",
-      note: draftFor(p),
-      metadata: { channel: "instagram_manual", sent_at: new Date().toISOString() } as any,
+      channel: "instagram_dm",
+      direction: "outbound",
+      summary: "Instagram DM elküldve (manuális)",
+      full_content: draftFor(p),
+      occurred_at: new Date().toISOString(),
     } as any);
     await supabase.from("partners").update({ status: "contacted" }).eq("id", p.id).eq("status", "lead");
     toast({ title: "Elküldve megjelölve" });
