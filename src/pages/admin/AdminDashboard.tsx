@@ -169,12 +169,12 @@ export default function AdminDashboard() {
       {/* ===== FÓKUSZ MA — top 3 dolog + mai feladatok + inbox ===== */}
       <section className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <DailyFocusCard />
           <TodayTasksCard />
           <InboxZeroCard />
         </div>
         <MissionTracker />
       </section>
+
 
       {/* ===== 2. PIPELINE & WAITLIST ===== */}
       <Section
