@@ -206,7 +206,7 @@ async function recipeResearch(runId: string, params: Classification["params"]) {
   for (const lead of leads) {
     await addResultItem(runId, {
       kind: "lead_summary",
-      lead: { id: lead.id, company_name: lead.company_name, city: lead.city, category: lead.category, email: lead.email, lead_score: lead.lead_score, lead_grade: lead.lead_grade, status: lead.status, contact_person: lead.contact_person },
+      lead: { id: lead.id, company_name: lead.company_name, city: lead.city, category: lead.category, email: lead.email, lead_score: lead.lead_score, lead_grade: lead.lead_grade, status: lead.status, contact_name: lead.contact_name },
       action: "pending", // pending | queued_outreach | skipped
     });
   }
