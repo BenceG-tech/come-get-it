@@ -429,8 +429,8 @@ export default function AdminLeads() {
                   <th className="p-3 w-24">AI</th>
                 </tr>
               </thead>
-              <tbody>
-                {filtered.map(p => {
+              {(() => {
+                const renderRow = (p: any) => {
                   const research = p.research_notes ?? p.research_dossier ?? null;
                   const hasEmail = !!p.email;
                   const hasPhone = !!p.phone;
@@ -521,13 +521,60 @@ export default function AdminLeads() {
                       </div>
                     </td>
                   </tr>
-                );})}
-                {filtered.length === 0 && (
-                  <tr><td colSpan={8} className="p-8 text-center text-nf-text-muted">
-                    {loading ? "Töltés…" : "Nincs lead. Indíts egy Apify scrape-et a fenti gombbal."}
-                  </td></tr>
-                )}
-              </tbody>
+                  );
+                };
+
+                if (filtered.length === 0) {
+                  return (
+                    <tbody>
+                      <tr><td colSpan={8} className="p-8 text-center text-nf-text-muted">
+                        {loading ? "Töltés…" : "Nincs lead. Indíts egy Apify scrape-et a fenti gombbal."}
+                      </td></tr>
+                    </tbody>
+                  );
+                }
+
+                if (!groups) {
+                  return <tbody>{filtered.map(renderRow)}</tbody>;
+                }
+
+                return groups.map((g) => {
+                  const isCollapsed = collapsedGroups.has(g.key);
+                  const lvl = g.readinessLevel;
+                  const canProcess = lvl != null && lvl < 3 && g.items.length > 0;
+                  return (
+                    <tbody key={g.key}>
+                      <tr className="bg-nf-surface-alt/40 border-b border-nf-border">
+                        <td colSpan={8} className="p-0">
+                          <div className="flex items-center justify-between gap-2 px-3 py-2">
+                            <button
+                              onClick={() => toggleGroup(g.key)}
+                              className="flex items-center gap-2 text-sm font-semibold text-white hover:text-electric-300"
+                            >
+                              {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                              <span>{g.label}</span>
+                              <span className="text-xs text-nf-text-muted font-normal">· {g.items.length}</span>
+                            </button>
+                            {canProcess && (
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                disabled={busyLevel === lvl}
+                                onClick={() => processLevel(lvl!, g.items.map((p) => p.id))}
+                                title={`Összes (${g.items.length}) feldolgozása`}
+                              >
+                                {busyLevel === lvl ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5" />}
+                                <span className="text-xs">Mind</span>
+                              </Button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                      {!isCollapsed && g.items.map(renderRow)}
+                    </tbody>
+                  );
+                });
+              })()}
             </table>
           </div>
         </Card>
