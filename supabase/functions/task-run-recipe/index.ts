@@ -263,7 +263,7 @@ async function recipeFollowup(runId: string, params: Classification["params"]) {
       lead: p,
       last_sent_at: enr.last_sent_at,
       subject: `Re: Come Get It — emlékeztető`,
-      body: `Szia${p.contact_person ? ` ${p.contact_person.split(" ")[0]}` : ""}!\n\nNéhány hete írtam a Come Get It-tel kapcsolatban — gondoltam ráérek egy gyors emlékeztetőre. Érdekel még a Founding Partner Program?\n\nBármilyen kérdésre szívesen válaszolok.\n\nÜdv,\nBence`,
+      body: `Szia${p.contact_name ? ` ${p.contact_name.split(" ")[0]}` : ""}!\n\nNéhány hete írtam a Come Get It-tel kapcsolatban — gondoltam ráérek egy gyors emlékeztetőre. Érdekel még a Founding Partner Program?\n\nBármilyen kérdésre szívesen válaszolok.\n\nÜdv,\nBence`,
       action: "pending",
     });
   }
