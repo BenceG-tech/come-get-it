@@ -1,101 +1,75 @@
 ## Cél
-Tegyük átláthatóvá a leadek **AI-feldolgozottsági állapotát**: egy szempillantás alatt látszódjon, melyik lead **nyers**, melyik már **kutatva / score-olva / grade-elve**, és mi a következő lépés. Jelenleg minden egy listában van, a "score / grade / research" külön mezők, és nem lehet egyszerűen szűrni azokra, amik még feldolgozásra várnak.
+A Kanban nézet zsúfolt, vízszintesen scrollozni kell, a drag & drop kínos, és a státuszok keverednek az AI readiness-szel. Ezért **töröljük a Kanbant** a `/admin/leads`-ről. Marad **List + Map**, és a List kap egy egyszerű csoportosító kapcsolót, ami pótolja a Kanban átláthatóságát anélkül, hogy oszlopokkal kellene küzdeni.
 
-## Új mentális modell: 4 readiness-szint
+## Mit változtatunk
 
-Minden leadhez egy **AI Readiness állapot** tartozik (kliens-oldalon számolt, partner mezők alapján — nincs DB migráció):
+### 1. View kapcsolóból eltűnik a Kanban
+`AdminLeads.tsx` view toggle: `list | kanban | map` → `list | map`.
+- Ha valakinek `kanban` van localStorage-ban / state-ben mentve, fallback `list`.
+- Az importok és a komponens hívás (`<LeadsKanban .../>`) törlődik.
 
+### 2. List nézet: új "Csoportosítás" kapcsoló
+A meglévő filter sorba egy kis select kerül a View toggle mellé:
+- **Nincs csoportosítás** (alapértelmezett — a jelenlegi sima lista)
+- **Státusz szerint** (Új lead / Megkeresve / Tárgyalás / Ajánlat / Aláírt / Elutasítva / Szünetel)
+- **AI állapot szerint** (Nyers / Kutatva / Pontozva / Értékelve)
+
+Csoportosított módban a táblázat **collapsible szekciókra bomlik**:
 ```
-0 · Nyers       → nincs research, nincs score, nincs grade
-1 · Kutatva     → van research_notes, de nincs score
-2 · Pontozva    → van score (lead_score vagy ai_score), de nincs grade
-3 · Értékelve   → van lead_grade (A/B/C/D) → kész, mehet outreach-re
+▼  Új lead · 142
+   [táblázat sor]
+   [táblázat sor]
+   ...
+▶  Megkeresve · 38
+▶  Tárgyalás · 19
 ```
+- Minden szekció fejléce: ikon + label + count + (státusz csoportnál) gyors „összes feldolgozása" gomb csak readiness-módban, a meglévő `processLevel` újrahasznosítva.
+- Drag & drop **nincs** — státuszváltás a meglévő drawer + sor-action útján (nem szükséges új UI).
+- A táblázat oszlopok, sort, bulk-select **változatlanok** maradnak.
 
-## Mit építünk
+### 3. ReadinessPipelineBar marad
+A 4 kártyás sáv az oldal tetején megmarad — gyors szűrőként és „mind feldolgozása" akcióként továbbra is hasznos. Ez pótolja a vizuális overview-t, amit eddig a Kanban próbált adni.
 
-### 1. Pipeline Readiness sáv az `/admin/leads` tetejére
-A jelenlegi 5 stat-card (Összes / Új / Folyamatban / Aláírt / Hot) **alá** kerül egy 4-kártyás "AI Pipeline" sor:
-
-```
-[ Nyers 142 ]   [ Kutatva 38 ]   [ Pontozva 19 ]   [ Értékelve 24 ]
-   →Research      →Score            →Grade            ✓ Kész
-```
-
-- Minden kártya **kattintható szűrő** (active state cyan border).
-- Jobb sarokban kis "▶ Mind feldolgozása" gomb → az adott szint összes leadjére meghívja a következő lépést (research / score / grade).
-- Kártya alatt vékony progress-bar mutatja: `Kutatva: 81/223 (36%)`.
-
-### 2. Új "Readiness" szűrő a meglévő filter-sorba
-Az `filterScore` mellé egy `filterReadiness` select:
-- Minden szint / Csak nyers / Csak kutatva / Csak pontozva / Csak értékelve / Hiányzik valami.
-
-A jelenlegi score-szűrőt **megtartjuk** — kompatibilis, csak ortogonális.
-
-### 3. Lista nézet: Readiness oszlop a Score/Grade helyett
-A "Score / Grade" oszlop **átalakul** "AI állapot" oszloppá: kis 4-pontos progress jelölővel.
-
-```
-●●●○   Pontozva (score 72)
-●●●●   Értékelve A (score 88)
-●○○○   Nyers
-```
-
-Mellé tooltip: melyik lépés hiányzik még + `→ Folytat` gomb (futtatja a következő lépést erre az egy leadre).
-
-Score és Grade badge-ek **megmaradnak** a tooltipben / drawer-ben (nem veszünk el infót), csak a fő oszlop letisztul.
-
-### 4. Kanban: új "View mode" toggle
-A meglévő státusz-Kanban (`lead → contacted → ...`) mellé egy "Group by" váltó:
-- **Státusz** (jelenlegi)
-- **AI Readiness** (új) — 4 oszlop: Nyers / Kutatva / Pontozva / Értékelve
-
-Drag & drop a Readiness módban **nincs** (csak vizuális csoportosítás), kattintásra megnyílik a drawer.
-
-### 5. Bulk-bar: új "Hiányzó lépés futtatása" gomb
-A meglévő Research / Score / Grade / "Teljes pipeline" gombok mellé:
-- **"Folytasd a kiválasztottakat"** — minden kijelölt leadre csak azt a lépést futtatja, ami épp hiányzik. Egy gomb a leggyakoribb usecase-re.
-
-### 6. Drawer: kis "Pipeline progress" sáv az `EntityDrawer` tetejére
-A Quick Action Bar fölé 1 sor:
-```
-AI állapot: ●●●○ Pontozva  ·  Hiányzik: Grade  ·  [▶ Értékel most]
-```
+### 4. Map nézet
+Változatlan.
 
 ## Mit NEM bántunk
-
-- `EntityDrawer`, `LeadOutreachModal`, `BulkOutreachModal` — outreach flow kész, marad.
-- Edge functionök (`lead-auto-research`, `score-lead`, `lead-grade-ai-bulk`, `lead-bulk-process`) — változatlanok, csak több helyről hívjuk.
-- DB schema — **nincs migráció**. A readiness 100%-ban a meglévő `research_notes` / `lead_score` / `ai_score` / `lead_grade` mezőkből számolódik.
-- `partners` táblastruktúra, RLS, status-flow.
+- `LeadsKanban.tsx` fájl egyelőre **a repo-ban marad** (nincs törölve), csak nem rendereljük. Ha később kell, könnyen visszaköthető. _Opcionális:_ ha szeretnéd, törlöm — kérdés a végén.
+- `EntityDrawer`, outreach flow, edge functionök, DB schema, bulk action bar, readiness-rendszer — mind változatlan.
+- A státuszváltás logika (`pipeline_transitions` insert) **átkerül a drawer-be** ha még nincs ott (ellenőrzendő); jelenleg is működik onnan.
 
 ## Technikai részletek
 
-**Új fájlok**
-- `src/lib/lead-readiness.ts` — `getReadiness(partner) → 0|1|2|3`, `getReadinessLabel`, `getMissingStep`, `getNextAction`.
-- `src/components/admin/leads/ReadinessPipelineBar.tsx` — 4-kártyás sáv a stats alatt.
-- `src/components/admin/leads/ReadinessBadge.tsx` — ●●●○ jelölő + tooltip + "Folytat" gomb.
-- `src/components/admin/leads/ReadinessKanban.tsx` — read-only 4-oszlopos nézet (vagy bővítjük a `LeadsKanban`-t egy `groupBy` prop-pal — ezt választjuk, kevesebb duplikáció).
-
 **Módosított fájlok**
-- `src/pages/admin/AdminLeads.tsx` — új readiness state, szűrő, pipeline-bar, oszlop-csere, kanban `groupBy` prop, új bulk-gomb.
-- `src/components/admin/leads/LeadsKanban.tsx` — `groupBy?: "status" | "readiness"` prop, readiness módban DnD letiltva.
-- `src/components/admin/crm/EntityDrawer.tsx` — 1 soros readiness progress a Quick Action Bar fölé.
+- `src/pages/admin/AdminLeads.tsx`
+  - `type View = "list" | "map"` (kanban kivéve)
+  - View toggle gomb-csoportból Kanban gomb kivéve
+  - Új state: `groupMode: "none" | "status" | "readiness"`
+  - List render: ha `groupMode !== "none"`, a `filtered` tömböt csoportosítjuk és szekciónként renderelünk `<Collapsible>`-ben.
+  - `<LeadsKanban>` import és render törölve
+  - `kanbanGroup` state törölve (már nem kell)
+- (semmi más fájl)
 
-**Readiness logika**
+**Collapsible implementáció**
+A meglévő `@/components/ui/collapsible` (Radix) használata, vagy egyszerű `useState` per szekció. Default: első szekció nyitva, többi csukva — gyors átlátás.
+
+**Csoportosító logika (vázlat)**
 ```ts
-function getReadiness(p) {
-  const hasResearch = !!(p.research_notes || p.research_dossier || p.last_researched_at);
-  const hasScore    = p.lead_score != null || p.ai_score != null;
-  const hasGrade    = !!p.lead_grade;
-  if (hasGrade)    return 3;
-  if (hasScore)    return 2;
-  if (hasResearch) return 1;
-  return 0;
-}
+const groups = useMemo(() => {
+  if (groupMode === "none") return null;
+  const map = new Map<string, any[]>();
+  filtered.forEach((p) => {
+    const key = groupMode === "status" ? p.status : `r${getReadiness(p)}`;
+    (map.get(key) ?? map.set(key, []).get(key)!).push(p);
+  });
+  return map;
+}, [filtered, groupMode]);
 ```
 
 ## Sikerkritérium
-- A leadek oldal megnyitásakor **első ránézésre** látszik: hány lead vár research-re, score-ra, grade-re.
-- 1 kattintással szűrhető bármelyik szint, 1 kattintással elindítható a hiányzó lépés (akár tömegesen, akár 1 leadre).
-- Semmilyen meglévő flow nem törik (status Kanban, outreach, bulk pipeline, drawer marad).
+- A `/admin/leads` oldalon nincs többé vízszintes Kanban scroll.
+- 1 kattintással csoportosítható a lista státusz vagy AI állapot szerint, és bármelyik szekció be/kicsukható.
+- A ReadinessPipelineBar továbbra is azonnali áttekintést ad a feldolgozottságról.
+
+## Eldöntendő (mielőtt buildelek)
+**Töröljem fizikailag a `LeadsKanban.tsx` fájlt is**, vagy hagyjuk benn a kódbázisban arra az esetre, ha vissza akarnád hozni? Alapból **benn hagyom** (kisebb diff), de szólj ha töröljem.

@@ -4,13 +4,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Upload, Search, LayoutGrid, List, MapIcon, Telescope, Loader2, Zap, Bot, Mail, Phone, Instagram, Globe, Sparkles } from "lucide-react";
+import { Upload, Search, List, MapIcon, Telescope, Loader2, Zap, Bot, Mail, Phone, Instagram, Globe, Sparkles, ChevronDown, ChevronRight, Play } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import LeadScoreBadge from "@/components/admin/leads/LeadScoreBadge";
 import BulkActionBar from "@/components/admin/leads/BulkActionBar";
 import ImportWizard from "@/components/admin/leads/ImportWizard";
 import EmailComposer from "@/components/admin/leads/EmailComposer";
-import LeadsKanban from "@/components/admin/leads/LeadsKanban";
 import LeadsMap from "@/components/admin/leads/LeadsMap";
 import EntityDrawer from "@/components/admin/crm/EntityDrawer";
 import PageIntro from "@/components/admin/help/PageIntro";
@@ -29,7 +28,8 @@ const STATUS_LABEL: Record<string, string> = {
   lead: "Új lead", contacted: "Megkeresve", negotiating: "Tárgyalás", proposal_sent: "Ajánlat", signed: "Aláírt", rejected: "Elutasítva", paused: "Szünetel",
 };
 
-type View = "list" | "kanban" | "map";
+type View = "list" | "map";
+type GroupMode = "none" | "status" | "readiness";
 
 export default function AdminLeads() {
   const [partners, setPartners] = useState<any[]>([]);
@@ -40,7 +40,8 @@ export default function AdminLeads() {
   const [filterCity, setFilterCity] = useState("all");
   const [filterScore, setFilterScore] = useState("all");
   const [filterReadiness, setFilterReadiness] = useState<ReadinessLevel | "all">("all");
-  const [kanbanGroup, setKanbanGroup] = useState<"status" | "readiness">("status");
+  const [groupMode, setGroupMode] = useState<GroupMode>("none");
+  const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [showImport, setShowImport] = useState(false);
   const [showApify, setShowApify] = useState(false);
@@ -272,10 +273,40 @@ export default function AdminLeads() {
     await load();
   };
 
-  const onKanbanChange = async (id: string, status: string) => {
-    await supabase.from("partners").update({ status: status as any }).eq("id", id);
-    setPartners(prev => prev.map(p => p.id === id ? { ...p, status } : p));
+  // Csoportosított nézet: kulcs + label + ids
+  const STATUS_ORDER = ["lead", "contacted", "negotiating", "proposal_sent", "signed", "rejected", "paused"];
+  const READINESS_GROUP_LABEL: Record<string, string> = {
+    r0: "○ Nyers", r1: "● Kutatva", r2: "●● Pontozva", r3: "✓ Értékelve",
   };
+
+  const groups = useMemo(() => {
+    if (groupMode === "none") return null;
+    const map = new Map<string, any[]>();
+    filtered.forEach((p) => {
+      const key = groupMode === "status" ? (p.status || "lead") : `r${getReadiness(p)}`;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(p);
+    });
+    const order = groupMode === "status"
+      ? STATUS_ORDER.filter((k) => map.has(k))
+      : ["r0", "r1", "r2", "r3"].filter((k) => map.has(k));
+    return order.map((key) => ({
+      key,
+      label: groupMode === "status" ? STATUS_LABEL[key] : READINESS_GROUP_LABEL[key],
+      items: map.get(key)!,
+      readinessLevel: groupMode === "readiness" ? (Number(key.slice(1)) as ReadinessLevel) : null,
+    }));
+  }, [filtered, groupMode]);
+
+  const toggleGroup = (k: string) => {
+    setCollapsedGroups((prev) => {
+      const n = new Set(prev);
+      n.has(k) ? n.delete(k) : n.add(k);
+      return n;
+    });
+  };
+
+
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-4 md:space-y-6">
@@ -319,18 +350,33 @@ export default function AdminLeads() {
         busyLevel={busyLevel}
       />
 
-      {/* View switcher */}
-      <div className="flex gap-1 border-b border-nf-border">
-        {[
-          { v: "list", l: "Lista", I: List },
-          { v: "kanban", l: "Kanban", I: LayoutGrid },
-          { v: "map", l: "Térkép", I: MapIcon },
-        ].map(({ v, l, I }) => (
-          <button key={v} onClick={() => setView(v as View)}
-            className={`px-4 py-2 text-sm flex items-center gap-2 border-b-2 -mb-px transition ${view === v ? "border-electric-300 text-electric-300" : "border-transparent text-nf-text-muted hover:text-white"}`}>
-            <I className="h-4 w-4" /> {l}
-          </button>
-        ))}
+      {/* View switcher + group-by */}
+      <div className="flex items-center justify-between gap-3 flex-wrap border-b border-nf-border">
+        <div className="flex gap-1">
+          {[
+            { v: "list", l: "Lista", I: List },
+            { v: "map", l: "Térkép", I: MapIcon },
+          ].map(({ v, l, I }) => (
+            <button key={v} onClick={() => setView(v as View)}
+              className={`px-4 py-2 text-sm flex items-center gap-2 border-b-2 -mb-px transition ${view === v ? "border-electric-300 text-electric-300" : "border-transparent text-nf-text-muted hover:text-white"}`}>
+              <I className="h-4 w-4" /> {l}
+            </button>
+          ))}
+        </div>
+        {view === "list" && (
+          <div className="flex items-center gap-1 text-xs pb-2">
+            <span className="text-nf-text-muted mr-2">Csoportosítás:</span>
+            {([["none", "Nincs"], ["status", "Státusz"], ["readiness", "AI állapot"]] as const).map(([k, l]) => (
+              <button
+                key={k}
+                onClick={() => { setGroupMode(k); setCollapsedGroups(new Set()); }}
+                className={`px-3 py-1 rounded-full border transition ${groupMode === k ? "border-electric-300 text-electric-300 bg-electric-300/10" : "border-nf-border text-nf-text-muted hover:text-white"}`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Filters */}
@@ -383,8 +429,8 @@ export default function AdminLeads() {
                   <th className="p-3 w-24">AI</th>
                 </tr>
               </thead>
-              <tbody>
-                {filtered.map(p => {
+              {(() => {
+                const renderRow = (p: any) => {
                   const research = p.research_notes ?? p.research_dossier ?? null;
                   const hasEmail = !!p.email;
                   const hasPhone = !!p.phone;
@@ -475,40 +521,66 @@ export default function AdminLeads() {
                       </div>
                     </td>
                   </tr>
-                );})}
-                {filtered.length === 0 && (
-                  <tr><td colSpan={8} className="p-8 text-center text-nf-text-muted">
-                    {loading ? "Töltés…" : "Nincs lead. Indíts egy Apify scrape-et a fenti gombbal."}
-                  </td></tr>
-                )}
-              </tbody>
+                  );
+                };
+
+                if (filtered.length === 0) {
+                  return (
+                    <tbody>
+                      <tr><td colSpan={8} className="p-8 text-center text-nf-text-muted">
+                        {loading ? "Töltés…" : "Nincs lead. Indíts egy Apify scrape-et a fenti gombbal."}
+                      </td></tr>
+                    </tbody>
+                  );
+                }
+
+                if (!groups) {
+                  return <tbody>{filtered.map(renderRow)}</tbody>;
+                }
+
+                return groups.map((g) => {
+                  const isCollapsed = collapsedGroups.has(g.key);
+                  const lvl = g.readinessLevel;
+                  const canProcess = lvl != null && lvl < 3 && g.items.length > 0;
+                  return (
+                    <tbody key={g.key}>
+                      <tr className="bg-nf-surface-alt/40 border-b border-nf-border">
+                        <td colSpan={8} className="p-0">
+                          <div className="flex items-center justify-between gap-2 px-3 py-2">
+                            <button
+                              onClick={() => toggleGroup(g.key)}
+                              className="flex items-center gap-2 text-sm font-semibold text-white hover:text-electric-300"
+                            >
+                              {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                              <span>{g.label}</span>
+                              <span className="text-xs text-nf-text-muted font-normal">· {g.items.length}</span>
+                            </button>
+                            {canProcess && (
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                disabled={busyLevel === lvl}
+                                onClick={() => processLevel(lvl!, g.items.map((p) => p.id))}
+                                title={`Összes (${g.items.length}) feldolgozása`}
+                              >
+                                {busyLevel === lvl ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5" />}
+                                <span className="text-xs">Mind</span>
+                              </Button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                      {!isCollapsed && g.items.map(renderRow)}
+                    </tbody>
+                  );
+                });
+              })()}
             </table>
           </div>
         </Card>
       )}
 
-      {view === "kanban" && (
-        <div className="space-y-3">
-          <div className="flex items-center gap-1 text-xs">
-            <span className="text-nf-text-muted mr-2">Csoportosítás:</span>
-            {([["status", "Státusz"], ["readiness", "AI állapot"]] as const).map(([k, l]) => (
-              <button
-                key={k}
-                onClick={() => setKanbanGroup(k)}
-                className={`px-3 py-1 rounded-full border transition ${kanbanGroup === k ? "border-electric-300 text-electric-300 bg-electric-300/10" : "border-nf-border text-nf-text-muted hover:text-white"}`}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
-          <LeadsKanban
-            partners={filtered}
-            onStatusChange={onKanbanChange}
-            groupBy={kanbanGroup}
-            onCardClick={kanbanGroup === "readiness" ? (id) => setDrawerId(id) : undefined}
-          />
-        </div>
-      )}
+      {view === "map" && <LeadsMap partners={filtered} />}
       {view === "map" && <LeadsMap partners={filtered} />}
 
       <BulkActionBar
