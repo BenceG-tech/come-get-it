@@ -32,7 +32,8 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
     g.items.some(i => i.end ? location.pathname === i.to : location.pathname.startsWith(i.to))
   );
 
-  const toggle = (k: string) => setCollapsed(s => ({ ...s, [k]: !s[k] }));
+  const isGroupCollapsed = (key: string) => collapsed[key] ?? (activeGroup?.key !== key);
+  const toggle = (k: string) => setCollapsed(s => ({ ...s, [k]: !isGroupCollapsed(k) }));
 
   const Sidebar = (
     <aside className="w-64 shrink-0 border-r border-nf-border bg-nf-surface flex flex-col h-full">
