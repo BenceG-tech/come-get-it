@@ -17,6 +17,7 @@ import LeadMockupGenerator from "@/components/admin/leads/LeadMockupGenerator";
 import LeadOutreachModal from "@/components/admin/leads/LeadOutreachModal";
 import InlineAIHelper from "@/components/admin/ai/InlineAIHelper";
 import { Image as ImageIcon, Send as SendIcon } from "lucide-react";
+import ReadinessBadge from "@/components/admin/leads/ReadinessBadge";
 
 
 interface Props {
@@ -146,6 +147,14 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
           </SheetTitle>
           <div className="text-xs text-nf-text-muted">{entity?.city} · {entity?.category} · {entity?.status}</div>
         </SheetHeader>
+
+        {/* AI Readiness */}
+        {entity && (
+          <div className="mt-3 flex items-center gap-2 text-xs text-nf-text-muted">
+            <span>AI állapot:</span>
+            <ReadinessBadge partner={entity} />
+          </div>
+        )}
 
         {/* Quick Action Bar */}
         {entity && (

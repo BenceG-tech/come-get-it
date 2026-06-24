@@ -21,6 +21,9 @@ import { exportRowsAsCsv } from "@/lib/export-csv";
 import { trackEvent } from "@/lib/track";
 import { useDragSelect } from "@/hooks/useDragSelect";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import ReadinessPipelineBar from "@/components/admin/leads/ReadinessPipelineBar";
+import ReadinessBadge from "@/components/admin/leads/ReadinessBadge";
+import { getReadiness, getMissingStep, type ReadinessLevel } from "@/lib/lead-readiness";
 
 const STATUS_LABEL: Record<string, string> = {
   lead: "Új lead", contacted: "Megkeresve", negotiating: "Tárgyalás", proposal_sent: "Ajánlat", signed: "Aláírt", rejected: "Elutasítva", paused: "Szünetel",
@@ -36,6 +39,8 @@ export default function AdminLeads() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterCity, setFilterCity] = useState("all");
   const [filterScore, setFilterScore] = useState("all");
+  const [filterReadiness, setFilterReadiness] = useState<ReadinessLevel | "all">("all");
+  const [kanbanGroup, setKanbanGroup] = useState<"status" | "readiness">("status");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [showImport, setShowImport] = useState(false);
   const [showApify, setShowApify] = useState(false);
@@ -46,8 +51,11 @@ export default function AdminLeads() {
   const [aiGrading, setAiGrading] = useState(false);
   const [drawerId, setDrawerId] = useState<string | null>(null);
   const [researchingId, setResearchingId] = useState<string | null>(null);
+  const [continuingId, setContinuingId] = useState<string | null>(null);
   const [bulkResearching, setBulkResearching] = useState(false);
   const [processingAll, setProcessingAll] = useState(false);
+  const [continuingBulk, setContinuingBulk] = useState(false);
+  const [busyLevel, setBusyLevel] = useState<ReadinessLevel | null>(null);
   const { toast } = useToast();
 
   const runAiGradeTop = async () => {
@@ -79,6 +87,75 @@ export default function AdminLeads() {
     }
   };
 
+  const runStepForIds = async (step: "research" | "score" | "grade", ids: string[]) => {
+    if (!ids.length) return { ok: 0 };
+    if (step === "research") {
+      const { data, error } = await supabase.functions.invoke("lead-bulk-research", { body: { partner_ids: ids } });
+      if (error) throw error;
+      return { ok: data?.done ?? ids.length };
+    }
+    if (step === "score") {
+      const { data, error } = await supabase.functions.invoke("score-lead", { body: { partner_ids: ids } });
+      if (error) throw error;
+      return { ok: data?.queued ?? ids.length };
+    }
+    const { data, error } = await supabase.functions.invoke("lead-grade-ai-bulk", { body: { partner_ids: ids } });
+    if (error) throw error;
+    return { ok: data?.updated ?? ids.length };
+  };
+
+  const continueOne = async (id: string, step: "research" | "score" | "grade") => {
+    setContinuingId(id);
+    try {
+      await runStepForIds(step, [id]);
+      toast({ title: `${step === "research" ? "Kutatás" : step === "score" ? "Pontozás" : "Grade"} kész` });
+      await load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setContinuingId(null);
+    }
+  };
+
+  const processLevel = async (lvl: ReadinessLevel, ids: string[]) => {
+    if (lvl === 3 || !ids.length) return;
+    const step: "research" | "score" | "grade" = lvl === 0 ? "research" : lvl === 1 ? "score" : "grade";
+    setBusyLevel(lvl);
+    try {
+      const { ok } = await runStepForIds(step, ids);
+      toast({ title: `${ids.length} lead — ${step}`, description: `${ok} feldolgozva (háttérben is futhat)` });
+      await load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setBusyLevel(null);
+    }
+  };
+
+  const bulkContinueMissing = async () => {
+    if (selected.size === 0) return;
+    const sel = partners.filter((p) => selected.has(p.id));
+    const groups: Record<"research" | "score" | "grade", string[]> = { research: [], score: [], grade: [] };
+    sel.forEach((p) => {
+      const m = getMissingStep(p);
+      if (m) groups[m].push(p.id);
+    });
+    const todo = (["research", "score", "grade"] as const).filter((s) => groups[s].length);
+    if (!todo.length) { toast({ title: "Minden kijelölt lead már értékelve" }); return; }
+    setContinuingBulk(true);
+    try {
+      for (const s of todo) {
+        await runStepForIds(s, groups[s]);
+      }
+      toast({ title: "Hiányzó lépések elindítva", description: todo.map((s) => `${s}: ${groups[s].length}`).join(" · ") });
+      await load();
+    } catch (e: any) {
+      toast({ title: "Hiba", description: e?.message ?? String(e), variant: "destructive" });
+    } finally {
+      setContinuingBulk(false);
+    }
+  };
+
   const load = async () => {
     setLoading(true);
     const { data } = await supabase.from("partners").select("*").eq("type", "venue").order("lead_score", { ascending: false, nullsFirst: false }).limit(2000);
@@ -96,9 +173,10 @@ export default function AdminLeads() {
     if (filterScore === "mid" && ((p.lead_score ?? -1) < 50 || (p.lead_score ?? 101) >= 80)) return false;
     if (filterScore === "low" && (p.lead_score == null || p.lead_score >= 50)) return false;
     if (filterScore === "none" && p.lead_score != null) return false;
+    if (filterReadiness !== "all" && getReadiness(p) !== filterReadiness) return false;
     if (search && !`${p.company_name} ${p.city} ${p.contact_name} ${p.email} ${p.category}`.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
-  }), [partners, filterStatus, filterCity, filterScore, search]);
+  }), [partners, filterStatus, filterCity, filterScore, filterReadiness, search]);
 
   const stats = useMemo(() => ({
     total: partners.length,
@@ -232,6 +310,15 @@ export default function AdminLeads() {
         <Card className="p-3"><div className="text-2xl font-bold text-electric-300">🔥 {stats.hot}</div><div className="text-[10px] uppercase text-nf-text-muted">Hot (80+)</div></Card>
       </div>
 
+      {/* AI Pipeline Readiness */}
+      <ReadinessPipelineBar
+        partners={partners}
+        activeLevel={filterReadiness}
+        onSelectLevel={setFilterReadiness}
+        onProcessLevel={(lvl, ids) => processLevel(lvl, ids)}
+        busyLevel={busyLevel}
+      />
+
       {/* View switcher */}
       <div className="flex gap-1 border-b border-nf-border">
         {[
@@ -267,6 +354,13 @@ export default function AdminLeads() {
           <option value="low">&lt; 50</option>
           <option value="none">Nincs pontozva</option>
         </select>
+        <select value={String(filterReadiness)} onChange={(e) => setFilterReadiness(e.target.value === "all" ? "all" : (Number(e.target.value) as ReadinessLevel))} className="rounded-lg bg-nf-surface-alt border border-nf-border px-3 h-10 text-sm">
+          <option value="all">Minden AI állapot</option>
+          <option value="0">○ Nyers</option>
+          <option value="1">● Kutatva</option>
+          <option value="2">●● Pontozva</option>
+          <option value="3">✓ Értékelve</option>
+        </select>
       </div>
 
       {/* Views */}
@@ -282,7 +376,7 @@ export default function AdminLeads() {
                   <th className="p-3 w-8"><input type="checkbox" checked={selected.size > 0 && selected.size === filtered.length} onChange={toggleAll} /></th>
                   <th className="p-3">Hely · Kapcsolat</th>
                   <th className="p-3 hidden md:table-cell">Lokáció · Kategória</th>
-                  <th className="p-3">Score / Grade</th>
+                  <th className="p-3">AI állapot</th>
                   <th className="p-3 hidden sm:table-cell">Google</th>
                   <th className="p-3">Elérhetőség</th>
                   <th className="p-3">Státusz</th>
@@ -321,7 +415,12 @@ export default function AdminLeads() {
                     </td>
                     <td className="p-3">
                       <div className="flex items-center gap-1.5">
-                        <LeadScoreBadge score={p.lead_score} />
+                        <ReadinessBadge
+                          partner={p}
+                          loading={continuingId === p.id}
+                          onContinue={(step) => continueOne(p.id, step)}
+                        />
+                        {p.lead_score != null && <LeadScoreBadge score={p.lead_score} />}
                         {p.lead_grade && (
                           <span
                             title={p.lead_grade_source === 'ai' ? 'AI értékelés' : 'Auto (score alapján)'}
@@ -388,7 +487,28 @@ export default function AdminLeads() {
         </Card>
       )}
 
-      {view === "kanban" && <LeadsKanban partners={filtered} onStatusChange={onKanbanChange} />}
+      {view === "kanban" && (
+        <div className="space-y-3">
+          <div className="flex items-center gap-1 text-xs">
+            <span className="text-nf-text-muted mr-2">Csoportosítás:</span>
+            {([["status", "Státusz"], ["readiness", "AI állapot"]] as const).map(([k, l]) => (
+              <button
+                key={k}
+                onClick={() => setKanbanGroup(k)}
+                className={`px-3 py-1 rounded-full border transition ${kanbanGroup === k ? "border-electric-300 text-electric-300 bg-electric-300/10" : "border-nf-border text-nf-text-muted hover:text-white"}`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+          <LeadsKanban
+            partners={filtered}
+            onStatusChange={onKanbanChange}
+            groupBy={kanbanGroup}
+            onCardClick={kanbanGroup === "readiness" ? (id) => setDrawerId(id) : undefined}
+          />
+        </div>
+      )}
       {view === "map" && <LeadsMap partners={filtered} />}
 
       <BulkActionBar
@@ -419,9 +539,11 @@ export default function AdminLeads() {
         onResearch={bulkResearch}
         onGrade={bulkGrade}
         onProcessAll={bulkProcessAll}
+        onContinueMissing={bulkContinueMissing}
         researching={bulkResearching}
         grading={aiGrading}
         processingAll={processingAll}
+        continuing={continuingBulk}
         loading={scoring}
       />
 

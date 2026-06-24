@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { X, Sparkles, Mail, Trash2, Tag, Download, Send, Telescope, Bot, Loader2, Zap } from "lucide-react";
+import { X, Sparkles, Mail, Trash2, Tag, Download, Send, Telescope, Bot, Loader2, Zap, FastForward } from "lucide-react";
 
 export default function BulkActionBar({
-  count, onClear, onScore, onEmail, onStatus, onDelete, onTag, onExportCsv, onOutreach, onResearch, onGrade, onProcessAll,
-  loading, researching, grading, processingAll, showScore = true,
+  count, onClear, onScore, onEmail, onStatus, onDelete, onTag, onExportCsv, onOutreach, onResearch, onGrade, onProcessAll, onContinueMissing,
+  loading, researching, grading, processingAll, continuing, showScore = true,
 }: {
   count: number;
   onClear: () => void;
@@ -17,10 +17,12 @@ export default function BulkActionBar({
   onResearch?: () => void;
   onGrade?: () => void;
   onProcessAll?: () => void;
+  onContinueMissing?: () => void;
   loading?: boolean;
   researching?: boolean;
   grading?: boolean;
   processingAll?: boolean;
+  continuing?: boolean;
   showScore?: boolean;
 }) {
   if (count === 0) return null;
@@ -29,15 +31,27 @@ export default function BulkActionBar({
       <button onClick={onClear} className="text-nf-text-muted hover:text-white p-1"><X className="h-4 w-4" /></button>
       <div className="text-sm font-medium px-2 whitespace-nowrap">{count} kijelölve</div>
       <div className="h-5 w-px bg-nf-border" />
+      {onContinueMissing && (
+        <Button
+          size="sm"
+          onClick={onContinueMissing}
+          disabled={continuing}
+          className="bg-electric-300 hover:bg-electric-400 text-black font-semibold rounded-full"
+          title="Minden kijelölt leadre csak a hiányzó AI lépést futtatja (research / score / grade)"
+        >
+          {continuing ? <Loader2 className="h-4 w-4 animate-spin" /> : <FastForward className="h-4 w-4" />} Folytat
+        </Button>
+      )}
       {onProcessAll && (
         <Button
           size="sm"
+          variant="ghost"
           onClick={onProcessAll}
           disabled={processingAll}
-          className="bg-electric-300 hover:bg-electric-400 text-black font-semibold rounded-full"
-          title="Teljes pipeline: Research + Score + Grade (háttérben, chunkokban)"
+          className="rounded-full"
+          title="Teljes pipeline újra: Research + Score + Grade (háttérben)"
         >
-          {processingAll ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4" />} Mindent
+          {processingAll ? <Loader2 className="h-4 w-4 animate-spin" /> : <Zap className="h-4 w-4" />} Mind
         </Button>
       )}
       {onResearch && (

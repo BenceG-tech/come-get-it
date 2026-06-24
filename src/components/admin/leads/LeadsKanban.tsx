@@ -22,7 +22,16 @@ const FALLBACK: Stage[] = [
 
 type Engagement = { sent: number; opened: number; replied: number; failed: number };
 
-export default function LeadsKanban({ partners, onStatusChange }: { partners: any[]; onStatusChange: (id: string, status: string) => void }) {
+import { getReadiness, READINESS_LABEL, type ReadinessLevel } from "@/lib/lead-readiness";
+
+const READINESS_STAGES: Stage[] = [
+  { key: "r0", label: "Nyers", sla_days: null, order_index: 0 },
+  { key: "r1", label: "Kutatva", sla_days: null, order_index: 1 },
+  { key: "r2", label: "Pontozva", sla_days: null, order_index: 2 },
+  { key: "r3", label: "Értékelve", sla_days: null, order_index: 3 },
+];
+
+export default function LeadsKanban({ partners, onStatusChange, groupBy = "status", onCardClick }: { partners: any[]; onStatusChange: (id: string, status: string) => void; groupBy?: "status" | "readiness"; onCardClick?: (id: string) => void }) {
   const [stages, setStages] = useState<Stage[]>(FALLBACK);
   const [engagement, setEngagement] = useState<Record<string, Engagement>>({});
   const { toast } = useToast();
@@ -79,9 +88,14 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
     })();
   }, [partners]);
 
+  const byReadiness = groupBy === "readiness";
+  const activeStages = byReadiness ? READINESS_STAGES : stages;
   const byStatus: Record<string, any[]> = {};
-  stages.forEach((s) => (byStatus[s.key] = []));
-  partners.forEach((p) => { (byStatus[p.status] ??= []).push(p); });
+  activeStages.forEach((s) => (byStatus[s.key] = []));
+  partners.forEach((p) => {
+    const key = byReadiness ? `r${getReadiness(p)}` : p.status;
+    (byStatus[key] ??= []).push(p);
+  });
 
   const onDragStart = (e: React.DragEvent, id: string, fromStatus: string) => {
     e.dataTransfer.setData("text/plain", id);
@@ -108,8 +122,13 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
 
   return (
     <div className="flex gap-3 overflow-x-auto pb-3">
-      {stages.map((s) => (
-        <div key={s.key} className="w-72 shrink-0" onDragOver={(e) => e.preventDefault()} onDrop={(e) => onDrop(e, s.key)}>
+      {activeStages.map((s) => (
+        <div
+          key={s.key}
+          className="w-72 shrink-0"
+          onDragOver={(e) => !byReadiness && e.preventDefault()}
+          onDrop={(e) => !byReadiness && onDrop(e, s.key)}
+        >
           <div className="flex items-center justify-between mb-2 px-1">
             <div className="text-xs uppercase tracking-wider text-nf-text-muted font-semibold">{s.label}</div>
             <div className="text-xs text-nf-text-muted">{byStatus[s.key]?.length ?? 0}</div>
@@ -122,12 +141,17 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
               return (
                 <Card
                   key={p.id}
-                  draggable
-                  onDragStart={(e) => onDragStart(e, p.id, s.key)}
-                  className="p-3 hover:border-electric-300/50 cursor-grab active:cursor-grabbing"
+                  draggable={!byReadiness}
+                  onDragStart={(e) => !byReadiness && onDragStart(e, p.id, s.key)}
+                  onClick={() => onCardClick?.(p.id)}
+                  className={`p-3 hover:border-electric-300/50 ${byReadiness ? "cursor-pointer" : "cursor-grab active:cursor-grabbing"}`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-1">
-                    <Link to={`/admin/partners/${p.id}`} className="font-medium text-electric-300 text-sm truncate">{p.company_name}</Link>
+                    {onCardClick ? (
+                      <button className="font-medium text-electric-300 text-sm truncate text-left">{p.company_name}</button>
+                    ) : (
+                      <Link to={`/admin/partners/${p.id}`} className="font-medium text-electric-300 text-sm truncate">{p.company_name}</Link>
+                    )}
                     <LeadScoreBadge score={p.lead_score} reasons={p.score_reasons} />
                   </div>
                   <div className="text-[11px] text-nf-text-muted truncate">{p.city || "—"}{p.category ? ` · ${p.category}` : ""}</div>
