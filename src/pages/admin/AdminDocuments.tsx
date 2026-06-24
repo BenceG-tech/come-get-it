@@ -79,6 +79,7 @@ export default function AdminDocuments({ initialTab }: { initialTab?: TabKey } =
   const [aiImage, setAiImage] = useState<any | null>(null);
   const [bulkOpen, setBulkOpen] = useState(false);
   const [orgOpen, setOrgOpen] = useState(false);
+  const [bulkReviewOpen, setBulkReviewOpen] = useState(false);
   const [form, setForm] = useState({
     title: "", folder: "", category: "other", description: "", when_to_use: "", content: "", file: null as File | null,
   });
