@@ -503,28 +503,7 @@ export default function AdminLeads() {
         </Card>
       )}
 
-      {view === "kanban" && (
-        <div className="space-y-3">
-          <div className="flex items-center gap-1 text-xs">
-            <span className="text-nf-text-muted mr-2">Csoportosítás:</span>
-            {([["status", "Státusz"], ["readiness", "AI állapot"]] as const).map(([k, l]) => (
-              <button
-                key={k}
-                onClick={() => setKanbanGroup(k)}
-                className={`px-3 py-1 rounded-full border transition ${kanbanGroup === k ? "border-electric-300 text-electric-300 bg-electric-300/10" : "border-nf-border text-nf-text-muted hover:text-white"}`}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
-          <LeadsKanban
-            partners={filtered}
-            onStatusChange={onKanbanChange}
-            groupBy={kanbanGroup}
-            onCardClick={kanbanGroup === "readiness" ? (id) => setDrawerId(id) : undefined}
-          />
-        </div>
-      )}
+      {view === "map" && <LeadsMap partners={filtered} />}
       {view === "map" && <LeadsMap partners={filtered} />}
 
       <BulkActionBar
