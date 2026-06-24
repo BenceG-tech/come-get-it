@@ -17,6 +17,67 @@ function pickField(o: any, keys: string[]) {
   return null;
 }
 
+function firstNonEmpty(arr: any): string | null {
+  if (!arr) return null;
+  if (typeof arr === "string") return arr;
+  if (Array.isArray(arr)) {
+    for (const x of arr) {
+      const s = (typeof x === "string" ? x : x?.url ?? x?.value ?? "").toString().trim();
+      if (s) return s;
+    }
+  }
+  return null;
+}
+
+function extractIgHandle(item: any): string | null {
+  const candidates = [item.instagrams, item.contacts?.instagrams, item.instagram, item.socialLinks?.instagram];
+  for (const c of candidates) {
+    const url = firstNonEmpty(c);
+    if (url) {
+      const m = String(url).match(/instagram\.com\/([A-Za-z0-9_.]+)/);
+      if (m) return m[1].replace(/\/$/, "");
+      if (/^[A-Za-z0-9_.]+$/.test(url)) return url;
+    }
+  }
+  if (Array.isArray(item.additionalInfo?.Profiles)) {
+    const ig = item.additionalInfo.Profiles.find((s: any) => String(s).toLowerCase().includes("instagram"));
+    if (ig) {
+      const m = String(ig).match(/instagram\.com\/([A-Za-z0-9_.]+)/);
+      if (m) return m[1];
+    }
+  }
+  return null;
+}
+
+function cleanWebsite(item: any): string | null {
+  const lists = [item.websites, item.website, item.url];
+  for (const l of lists) {
+    if (Array.isArray(l)) {
+      const w = l.find((u: any) => {
+        const s = String(typeof u === "string" ? u : u?.url ?? "");
+        return s && !/facebook\.com|instagram\.com|google\.com|maps\./i.test(s);
+      });
+      if (w) return typeof w === "string" ? w : w.url;
+    } else if (typeof l === "string") {
+      if (!/facebook\.com|instagram\.com|google\.com|maps\./i.test(l)) return l;
+    }
+  }
+  return null;
+}
+
+function cleanEmail(item: any): string | null {
+  const list = item.emails ?? item.contacts?.emails ?? item.email;
+  if (Array.isArray(list)) {
+    const valid = list.find((e: any) => /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(String(e)));
+    return valid ?? null;
+  }
+  if (typeof list === "string") {
+    const first = list.split(/[,;]/)[0].trim();
+    return /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(first) ? first : null;
+  }
+  return null;
+}
+
 function mapGoogleMapsItem(it: any): any {
   return {
     type: "venue",
@@ -26,16 +87,11 @@ function mapGoogleMapsItem(it: any): any {
     address: pickField(it, ["address", "street"]),
     city: pickField(it, ["city"]) ?? "Budapest",
     phone: pickField(it, ["phone", "phoneUnformatted"]),
-    email: pickField(it, ["email", "emails"])?.toString().split(",")[0]?.trim() ?? null,
-    website: pickField(it, ["website", "url"]),
-    instagram_handle: (() => {
-      const socials = it.additionalInfo?.["Profiles"] || it.socialLinks || it.contacts?.instagrams || it.instagrams;
-      if (Array.isArray(socials)) {
-        const ig = socials.find((s: any) => String(s).toLowerCase().includes("instagram"));
-        if (ig) return String(ig).replace(/.*instagram\.com\//, "").replace(/\/.*$/, "");
-      }
-      return null;
-    })(),
+    email: cleanEmail(it),
+    website: cleanWebsite(it),
+    instagram_handle: extractIgHandle(it),
+    facebook_url: firstNonEmpty(it.facebooks ?? it.contacts?.facebooks ?? it.facebook),
+    linkedin_url: firstNonEmpty(it.linkedIns ?? it.contacts?.linkedIns ?? it.linkedin),
     category: pickField(it, ["categoryName", "category"]),
     google_rating: pickField(it, ["totalScore", "rating"]),
     google_reviews_count: pickField(it, ["reviewsCount", "rating_count"]),
@@ -47,6 +103,15 @@ function mapGoogleMapsItem(it: any): any {
     latitude: it.location?.lat ?? pickField(it, ["lat", "latitude"]),
     longitude: it.location?.lng ?? pickField(it, ["lng", "longitude"]),
     notes: it.description ?? null,
+    contacts_blob: {
+      emails: it.emails ?? null,
+      phones: it.phones ?? null,
+      websites: it.websites ?? null,
+      instagrams: it.instagrams ?? null,
+      facebooks: it.facebooks ?? null,
+      linkedIns: it.linkedIns ?? null,
+      twitters: it.twitters ?? null,
+    },
   };
 }
 

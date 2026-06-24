@@ -46,16 +46,20 @@ Deno.serve(async (req) => {
     const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
 
     const body = await req.json();
-    let { actor_id, input, natural_query, actor_name } = body;
+    let { actor_id, input, natural_query, actor_name, estimated_cost_usd } = body;
 
     if (natural_query && !input) {
       actor_id = actor_id || "compass/crawler-google-places";
       actor_name = actor_name || "Google Maps Extractor";
       input = await aiBuildGoogleMapsInput(natural_query, lovableKey);
     }
+    if (input && !actor_id) {
+      // Default to Google Maps scraper when only input is provided (e.g. from discovery-plan)
+      actor_id = "compass/crawler-google-places";
+      actor_name = actor_name || "Google Maps Extractor (Autopilot)";
+    }
     if (!actor_id || !input) throw new Error("actor_id and input required (or natural_query for auto-build)");
 
-    // Apify expects actor id slug with `~` instead of `/` for path
     const actorPath = actor_id.replace("/", "~");
     const startRes = await fetch(`${APIFY}/acts/${actorPath}/runs?token=${token}`, {
       method: "POST",
@@ -63,7 +67,13 @@ Deno.serve(async (req) => {
       body: JSON.stringify(input),
     });
     const startJ = await startRes.json();
-    if (!startRes.ok) throw new Error(`Apify start ${startRes.status}: ${JSON.stringify(startJ)}`);
+    if (!startRes.ok) {
+      const msg = startJ?.error?.message ?? JSON.stringify(startJ);
+      if (startRes.status === 402 || /payment|credit|balance|quota/i.test(msg)) {
+        throw new Error(`Apify egyenleg elfogyott — tölts fel kreditet: https://console.apify.com/billing  (${msg})`);
+      }
+      throw new Error(`Apify start ${startRes.status}: ${msg}`);
+    }
 
     const run = startJ.data;
     const { data: row, error } = await admin.from("apify_runs").insert({
@@ -75,6 +85,7 @@ Deno.serve(async (req) => {
       input,
       dataset_id: run.defaultDatasetId,
       source_query: natural_query ?? null,
+      estimated_cost_usd: estimated_cost_usd ?? null,
     }).select().single();
     if (error) throw error;
 

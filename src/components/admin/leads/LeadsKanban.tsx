@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import LeadScoreBadge from "./LeadScoreBadge";
 import SlaWarningBadge from "@/components/admin/crm/SlaWarningBadge";
 import { trackEvent } from "@/lib/track";
-import { Mail, MailOpen, MessageSquare, AlertTriangle } from "lucide-react";
+import { Mail, MailOpen, MessageSquare, AlertTriangle, Instagram } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 type Stage = { id?: string; key: string; label: string; sla_days: number | null; order_index: number };
 
@@ -24,6 +25,16 @@ type Engagement = { sent: number; opened: number; replied: number; failed: numbe
 export default function LeadsKanban({ partners, onStatusChange }: { partners: any[]; onStatusChange: (id: string, status: string) => void }) {
   const [stages, setStages] = useState<Stage[]>(FALLBACK);
   const [engagement, setEngagement] = useState<Record<string, Engagement>>({});
+  const { toast } = useToast();
+
+  const openIgDm = async (p: any) => {
+    const handle = (p.instagram_handle || p.instagram || "").toString().replace(/^@/, "").trim();
+    if (!handle) { toast({ title: "Nincs Instagram handle", variant: "destructive" }); return; }
+    const msg = `Szia ${p.company_name}! Bence vagyok a Come Get It-ről 👋\n\nEgy ingyenes ital app-ot építünk magyar vendéglátóhelyeknek — minden user kap napi 1 üdvözlőitalt, ti meg új törzsvendégeket. Founding Partner program most még ingyen.\n\nÉrdekel egy 10 perces telefonos egyeztetés?\n\nhttps://come-get-it.app`;
+    try { await navigator.clipboard.writeText(msg); toast({ title: "Üzenet vágólapra másolva", description: "Most nyitjuk az Instagramot — Ctrl+V + Enter" }); } catch { /* ignore */ }
+    window.open(`https://ig.me/m/${handle}`, "_blank", "noopener");
+    trackEvent("ig_dm_opened", { entity_type: "partner", entity_id: p.id });
+  };
 
   useEffect(() => {
     (async () => {
@@ -117,7 +128,7 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
                 >
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <Link to={`/admin/partners/${p.id}`} className="font-medium text-electric-300 text-sm truncate">{p.company_name}</Link>
-                    <LeadScoreBadge score={p.lead_score} />
+                    <LeadScoreBadge score={p.lead_score} reasons={p.score_reasons} />
                   </div>
                   <div className="text-[11px] text-nf-text-muted truncate">{p.city || "—"}{p.category ? ` · ${p.category}` : ""}</div>
                   <div className="flex items-center gap-1 mt-1 flex-wrap">
@@ -134,6 +145,15 @@ export default function LeadsKanban({ partners, onStatusChange }: { partners: an
                       {weakSubject && <Badge variant="outline" className="border-amber-500/40 text-amber-300 text-[9px] px-1 py-0 h-4">gyenge subject</Badge>}
                       {badEmail && <Badge variant="outline" className="border-red-500/40 text-red-300 text-[9px] px-1 py-0 h-4 flex items-center gap-0.5"><AlertTriangle className="w-2.5 h-2.5" />rossz email</Badge>}
                     </div>
+                  )}
+                  {(p.instagram_handle || p.instagram) && (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); openIgDm(p); }}
+                      className="mt-2 w-full text-[10px] flex items-center justify-center gap-1 px-2 py-1 rounded border border-pink-500/40 text-pink-300 hover:bg-pink-500/10 transition"
+                      title="Üzenet vágólapra + Instagram megnyitása"
+                    >
+                      <Instagram className="w-3 h-3" /> DM @{(p.instagram_handle || p.instagram).replace(/^@/, "").slice(0, 18)}
+                    </button>
                   )}
                 </Card>
               );
