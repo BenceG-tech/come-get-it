@@ -310,6 +310,15 @@ export default function AdminLeads() {
         <Card className="p-3"><div className="text-2xl font-bold text-electric-300">🔥 {stats.hot}</div><div className="text-[10px] uppercase text-nf-text-muted">Hot (80+)</div></Card>
       </div>
 
+      {/* AI Pipeline Readiness */}
+      <ReadinessPipelineBar
+        partners={partners}
+        activeLevel={filterReadiness}
+        onSelectLevel={setFilterReadiness}
+        onProcessLevel={(lvl, ids) => processLevel(lvl, ids)}
+        busyLevel={busyLevel}
+      />
+
       {/* View switcher */}
       <div className="flex gap-1 border-b border-nf-border">
         {[
