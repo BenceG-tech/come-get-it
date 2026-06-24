@@ -59,7 +59,7 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
 
       <nav className="flex-1 p-3 space-y-3 overflow-y-auto">
         {NAV_GROUPS.map(g => {
-          const isCollapsed = collapsed[g.key] ?? (activeGroup?.key !== g.key);
+          const isCollapsed = isGroupCollapsed(g.key);
           const GIcon = g.icon;
           return (
             <div key={g.key}>
