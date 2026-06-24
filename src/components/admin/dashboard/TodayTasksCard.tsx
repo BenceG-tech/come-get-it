@@ -134,11 +134,10 @@ export default function TodayTasksCard() {
         })}
       </CardContent>
       {autopilot && (
-        <TaskAutopilotDialog
+        <MissionLoopDialog
           open={!!autopilot}
           onOpenChange={(v) => !v && setAutopilot(null)}
           task={autopilot.task}
-          taskIndex={autopilot.index}
         />
       )}
     </Card>
