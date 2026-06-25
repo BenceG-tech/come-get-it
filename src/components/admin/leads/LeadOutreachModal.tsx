@@ -36,6 +36,15 @@ export default function LeadOutreachModal({
   const [recentDays, setRecentDays] = useState<number | null>(null);
   const { toast } = useToast();
 
+  const buildVars = (p: any) => ({
+    company_name: p?.company_name ?? partnerName ?? "",
+    contact_name: p?.contact_name ?? "",
+    first_name: (p?.contact_name ?? "").split(" ")[0] ?? "",
+    city: p?.city ?? "",
+  });
+  const applyVars = (s: string, vars: Record<string, string>) =>
+    (s ?? "").replace(/\{\{(\w+)\}\}/g, (_, k) => (vars as any)[k] ?? `{{${k}}}`);
+
   // Reset + load on open
   useEffect(() => {
     if (!open || !partnerId) return;
@@ -55,12 +64,12 @@ export default function LeadOutreachModal({
         const days = Math.floor((Date.now() - new Date(last).getTime()) / 86400000);
         if (days <= 30) setRecentDays(days);
       }
-      generate();
+      generate(p);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, partnerId]);
 
-  const generate = async () => {
+  const generate = async (partnerArg?: any) => {
     if (!partnerId) return;
     setLoading(true);
     try {
@@ -68,8 +77,14 @@ export default function LeadOutreachModal({
         body: { partner_id: partnerId },
       });
       if (error) throw error;
-      const list: Draft[] = Array.isArray(data?.drafts) ? data.drafts : [];
-      if (list.length === 0) throw new Error("Nem érkezett draft.");
+      const rawList: Draft[] = Array.isArray(data?.drafts) ? data.drafts : [];
+      if (rawList.length === 0) throw new Error("Nem érkezett draft.");
+      const vars = buildVars(partnerArg ?? partner);
+      const list: Draft[] = rawList.map((d) => ({
+        tone: d.tone,
+        subject: applyVars(d.subject, vars),
+        body: applyVars(d.body, vars),
+      }));
       setDrafts(list);
       const first = list.find((d) => d.tone === activeTone) ?? list[0];
       setActiveTone(first.tone);
@@ -88,14 +103,8 @@ export default function LeadOutreachModal({
     if (d) { setSubject(d.subject); setBody(d.body); }
   };
 
-  const previewVars = {
-    company_name: partner?.company_name ?? partnerName ?? "",
-    contact_name: partner?.contact_name ?? "",
-    first_name: (partner?.contact_name ?? "").split(" ")[0] ?? "",
-    city: partner?.city ?? "",
-  };
-  const render = (s: string) =>
-    s.replace(/\{\{(\w+)\}\}/g, (_, k) => (previewVars as any)[k] ?? `{{${k}}}`);
+  const render = (s: string) => applyVars(s, buildVars(partner));
+
 
   const send = async () => {
     if (!partnerId || !subject.trim() || !body.trim()) return;
