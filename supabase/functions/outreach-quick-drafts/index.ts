@@ -1,7 +1,7 @@
 // @ts-nocheck
-// Generate 3 quick email drafts (founding_pitch / warm_intro / short_nudge) for a partner.
+// Generate 3 persuasive email drafts (founding_pitch / warm_intro / short_nudge) for a hospitality lead.
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
-import { BRAND_CONTEXT } from "../_shared/brand-context.ts";
+import { BRAND_CONTEXT, TONE_GUIDES } from "../_shared/brand-context.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -45,33 +45,66 @@ Deno.serve(async (req) => {
 
     const sbAdmin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
     const { data: partner } = await sbAdmin.from("partners")
-      .select("company_name, contact_name, city, category, notes, ai_score, ai_next_action")
+      .select("company_name, contact_name, city, category, address, website, instagram, notes, ai_summary, ai_next_action, lead_score, lead_grade, rating")
       .eq("id", partner_id).maybeSingle();
     if (!partner) return new Response(JSON.stringify({ error: "partner not found" }), { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
+    const { data: interactions } = await sbAdmin.from("partner_interactions")
+      .select("channel, direction, summary, occurred_at")
+      .eq("partner_id", partner_id)
+      .order("occurred_at", { ascending: false })
+      .limit(3);
+
     const tops = await loadTopSubjects(sbAdmin);
     const topHint = tops.length
-      ? `\nTOP MŰKÖDŐ subjectek (kövesd a stílust): ${tops.map((t) => `"${t.subject}" (open ${(t.open_rate * 100).toFixed(0)}%)`).join(", ")}`
+      ? `\nTOP MŰKÖDŐ subjectek az elmúlt 30 napban (kövesd a stílust, ne másold szó szerint): ${tops.map((t) => `"${t.subject}" (open ${(t.open_rate * 100).toFixed(0)}%, reply ${(t.reply_rate * 100).toFixed(0)}%)`).join(" | ")}`
       : "";
 
-    const sys = `Te a Come Get It outreach copywritere vagy. Magyarul, tegezve. Adj 3 alternatív első emailt egy vendéglátós lead-nek. Mindegyik más hangnem: founding_pitch (limitált founding kör, magabiztos), warm_intro (személyes, 1 konkrét részlet a partnerről, kávé-CTA), short_nudge (max 60 szó follow-up, 1 kérdés).
-${BRAND_CONTEXT}${topHint}
+    const interactionsHint = (interactions && interactions.length)
+      ? `\nKORÁBBI INTERAKCIÓK (legutóbbi 3): ${interactions.map((i: any) => `[${i.channel}/${i.direction}] ${(i.summary ?? "").slice(0, 120)}`).join(" || ")}`
+      : "";
 
-Subject: 40-60 char. Body: 80-150 szó (kivéve short_nudge: max 60 szó). Használj {{first_name}}, {{company_name}}, {{city}} placeholdereket ha illik. Csak JSON-t adj vissza.`;
-    const userMsg = `PARTNER:\n${JSON.stringify(partner, null, 2)}${extra ? `\n\nEXTRA INSTRUKCIÓ: ${extra}` : ""}\n\nJSON: { "drafts": [{ "tone": "founding_pitch", "subject": "...", "body": "..." }, { "tone": "warm_intro", ... }, { "tone": "short_nudge", ... }] }`;
+    const sys = `Te a Come Get It outreach copywritere vagy. Founder hangján írsz: tegező, magyar, energikus, baráti — NEM ügynökség, NEM corporate. Adj 3 alternatív első emailt egy budapesti vendéglátós leadnek.
+
+${BRAND_CONTEXT}
+
+${TONE_GUIDES.founding_pitch}
+${TONE_GUIDES.warm_intro}
+${TONE_GUIDES.short_nudge}
+${topHint}${interactionsHint}
+
+KEMÉNY SZABÁLYOK:
+1. SOHA ne kezdj "Tisztelt…" / "Kedves Uram/Hölgyem" / "Üdvözlöm" formával. Kezdj egy konkrét megfigyeléssel a helyről (név, kategória, város, rating, instagram, notes — abból, amit a partner adatokban LÁTSZ).
+2. Ha a partner adatokban nincs konkrét adat (pl. rating, IG bio), NE találj ki — használj általánosabb, de személyes hangot ("láttam, hogy ${'$'}{city}-i bár vagytok…").
+3. TILTOTT KIFEJEZÉSEK: "remek lehetőség", "izgalmas együttműködés", "win-win", "forradalmasítjuk", "game-changer", "innovatív megoldás", "platformunk", "szinergiák". Ha ilyet írsz, írd át.
+4. NE ígérj forgalom-növekedést számokkal. NE hivatkozz létező userbase-re vagy demo videóra.
+5. Minden draftban legyen 1 konkrét value prop a founding körből (lifetime kedvezményes fee / co-marketing / limitált launch line-up / közös termék-shaping) — NEM mind, csak 1-2 ami illik.
+6. CTA mindig KONKRÉT és alacsony súrlódású: vagy "15 perces hívás" konkrét időpont-javaslattal (pl. "csütörtök 10:00 vagy péntek 14:00"), vagy "beugrok hozzátok egy kávéra jövő héten" — DE csak EGY CTA per email.
+7. Subject 35-65 karakter, kis kezdőbetű OK, tartalmazza vagy a cégnevet vagy a várost vagy egy konkrét horgot. Példák jó stílusra: "Grumpy + Come Get It — 15 perc?", "budapesti bárok founding köre", "kávé jövő héten, ${'$'}{first_name}?".
+8. Hosszak: founding_pitch 90-140 szó, warm_intro 70-110 szó, short_nudge MAX 50 szó (1 kérdés, semmi P.S.).
+9. Aláírás MINDEN draftban: "Bence — Come Get It" (új sorban). Ne tegyél email/telefon aláírást, azt a sequence rakja rá.
+10. Használhatsz {{first_name}}, {{company_name}}, {{city}} placeholdert HA tényleg személyre szabottabb lesz tőle — különben írd ki a konkrét adatot.
+
+MIELŐTT VISSZAADOD: nézd át mind a 3 draftot. Ha bármelyikben tiltott kifejezés, "Tisztelt", számoló ígéret, vagy 2+ CTA van — írd át. Csak ezután válaszolj.
+
+Kizárólag JSON-t adj vissza.`;
+
+    const userMsg = `PARTNER ADATOK:\n${JSON.stringify(partner, null, 2)}${extra ? `\n\nEXTRA INSTRUKCIÓ A FELHASZNÁLÓTÓL: ${extra}` : ""}\n\nVÁRT JSON SÉMA:\n{ "drafts": [\n  { "tone": "founding_pitch", "subject": "...", "body": "..." },\n  { "tone": "warm_intro", "subject": "...", "body": "..." },\n  { "tone": "short_nudge", "subject": "...", "body": "..." }\n] }`;
 
     const aiRes = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
-      headers: { Authorization: `Bearer ${Deno.env.get("LOVABLE_API_KEY")}`, "Content-Type": "application/json" },
+      headers: { "Lovable-API-Key": Deno.env.get("LOVABLE_API_KEY")!, "Content-Type": "application/json" },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
         messages: [{ role: "system", content: sys }, { role: "user", content: userMsg }],
         response_format: { type: "json_object" },
       }),
     });
+    if (aiRes.status === 429) return new Response(JSON.stringify({ error: "Rate limit — várj és próbáld újra." }), { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    if (aiRes.status === 402) return new Response(JSON.stringify({ error: "AI kredit elfogyott." }), { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     if (!aiRes.ok) {
       const t = await aiRes.text();
-      return new Response(JSON.stringify({ error: `AI error ${aiRes.status}: ${t}` }), { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      return new Response(JSON.stringify({ error: `AI error ${aiRes.status}: ${t.slice(0, 300)}` }), { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
     const aij = await aiRes.json();
     const parsed = JSON.parse(aij.choices?.[0]?.message?.content ?? "{}");
