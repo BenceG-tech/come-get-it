@@ -13,7 +13,7 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
   imageUrl,
   className = "",
   fit = 'cover',
-  widthClassName = "w-[260px] sm:w-[280px] md:w-[300px]",
+  widthClassName = "w-[200px] sm:w-[220px] md:w-[240px]",
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
