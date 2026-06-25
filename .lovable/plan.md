@@ -1,22 +1,26 @@
-## Diagnózis
+## Probléma
+A `PhoneMockup` komponensben a screenshotok `object-cover object-top` módon vannak megjelenítve, ami levágja az oldalakat/aljat ha a kép nem pontosan a telefon képernyő arányához (kb. 9:19.5) igazodik. A jelenlegi screenshotok különböző arányúak, ezért egyesek lecsúsznak.
 
-A múltkor feltöltöttem a Vinozza/Kiscsibe listás screenshotot CDN-re (`src/assets/hero-app-venues.png.asset.json`) és `src/pages/Index.tsx`-ben az `appImages` tömb első elemét lecseréltem rá. A te képeden viszont a régi „FIRST Local Craft Beer & Kitchen" listás kép látszik — tehát vagy nem frissült a preview cache, vagy az asset URL nem töltődik be rendesen a `/__l5e/` útvonalról.
+## Megoldás
+Két részből álló javítás a `src/components/PhoneMockup.tsx`-ben:
 
-## Cél
+### 1. Screenshot megjelenítés javítása
+- `object-cover object-top` → `object-contain` váltás, hogy a teljes screenshot látszódjon torzítás/levágás nélkül.
+- Háttér beállítása a screenshot mögé (sötét vagy a screenshot domináns színe) — `bg-black` vagy `bg-gray-900` — hogy ha a kép keskenyebb mint a képernyő, ne legyen csúnya fehér sáv.
+- A jelenlegi `bg-gradient-to-br from-gray-50 to-white` belső háttér lecserélése sötétebbre, hogy app-szerűen nézzen ki.
 
-A telefon-mockup rotációjában a **felső** képet (lista nézet) garantáltan a múltkor feltöltött screenshot mutassa, a térképes kép változatlan marad másodikként.
+### 2. Új `imageAspect` opcionális prop (jövőálló)
+- Hozzáadunk egy `fit?: 'cover' | 'contain'` propot (alapból `contain`), hogy ha egy adott helyen mégis a teljes kitöltést akarjuk, felülírható legyen.
 
-## Lépések
+### 3. Felső notch fedés kezelése
+- A notch (`absolute top-0 ... w-32 h-6`) jelenleg a kép tetejére rátakar. Mivel `object-contain`-nél a kép teteje a képernyő tetején van, a notch eltakarna fontos UI elemeket. Megoldás: kis felső padding (`pt-6`) a képnek, hogy a notch alatt induljon.
 
-1. **Ellenőrzés** — `curl -I` a `/__l5e/assets-v1/543318c5-.../hero-app-venues.png` URL-re a dev szerveren, hogy 200-at ad-e vissza. Ha 404 / nem renderelődik, akkor a CDN pointer hibás és újra kell tölteni.
-2. **Ha az asset nem elérhető**: újrafeltöltöm a screenshotot (`/mnt/user-uploads/9D01517A-BB98-45D6-BF87-C0D0FC927242.png`) friss asset ID-val, és felülírom a `src/assets/hero-app-venues.png.asset.json`-t.
-3. **Fallback megerősítés**: a `src/pages/Index.tsx`-ben az `appImages` első eleme `heroVenuesAsset.url` marad. Hozzáadok egy `key={src}` propot a `PhoneMockup`-hoz vagy a képhez, hogy a böngésző biztosan újratöltse és ne a régi cache-t mutassa.
-4. **Vizuális verifikáció** — headless Playwright-tal megnyitom a `localhost:8080/`-t, 8 másodpercig nézem a rotációt, screenshotot csinálok a hero szekcióról és megerősítem, hogy a Vinozza/Kiscsibe lista jelenik meg, nem a régi FIRST Local Craft Beer.
+## Érintett fájl
+- `src/components/PhoneMockup.tsx` (csak ez — minden szekció ezt használja, így egy helyen javítva minden mockup szinkronba kerül)
 
-## Érintett fájlok
+## Nem érintünk
+- A screenshot fájlokat nem cseréljük/vágjuk — egy CSS-szintű fix mindenre megoldás.
+- A többi szekció (Hero, Drink, Link, Earn) komponensei változatlanok maradnak.
 
-- `src/assets/hero-app-venues.png.asset.json` (esetleg újragenerálva)
-- `src/pages/Index.tsx` (kép key, ha kell)
-- `src/components/PhoneMockup.tsx` (csak ha a `key` ott kell)
-
-Nem nyúlok a térképes (második) képhez, a többi szekcióhoz, vagy bármi máshoz az oldalon.
+## Eredmény
+Minden telefon mockupban a teljes screenshot látszik, levágás nélkül, egységes méretben, sötét háttérrel a kép körül ahol szükséges.

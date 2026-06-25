@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 interface PhoneMockupProps {
   imageUrl: string;
   className?: string;
+  fit?: 'cover' | 'contain';
 }
 
 export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = "" }) => {
