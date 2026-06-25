@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 type Tone = "base" | "accent" | "sub";
 
-interface SurfaceCardProps extends HTMLAttributes<HTMLDivElement> {
+interface SurfaceCardProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   tone?: Tone;
   title?: ReactNode;
   subtitle?: ReactNode;
