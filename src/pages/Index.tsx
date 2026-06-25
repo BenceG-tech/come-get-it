@@ -22,6 +22,7 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
+import heroVenuesAsset from '@/assets/hero-app-venues.png.asset.json';
 // QuickAccessChips removed from homepage — partner-link cards moved to /partnerek hub
  
 const Index = () => {
@@ -37,7 +38,7 @@ const Index = () => {
   }, []);
 
   const appImages = [
-    "/lovable-uploads/1d253158-a9a3-4377-bfe6-480c7551ca4b.webp",
+    heroVenuesAsset.url,
     "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.webp"
   ];
 
