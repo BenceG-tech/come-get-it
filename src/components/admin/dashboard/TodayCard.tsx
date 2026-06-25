@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sun, Zap, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import DailyBriefingCard from "./DailyBriefingCard";
+import { DailyBriefingCard } from "./DailyBriefingCard";
 import TodayTasksCard from "./TodayTasksCard";
 import EveningSummaryCard from "./EveningSummaryCard";
 import DailyStreakBar from "./DailyStreakBar";
