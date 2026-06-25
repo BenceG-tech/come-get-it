@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Users, FileText, Calendar, ArrowRight, Wand2, Activity,
+  Users, FileText, ArrowRight, Activity,
   ListChecks, Clock, ChevronDown, Target, TrendingUp, BarChart3,
 } from "lucide-react";
 import PageSectionNav from "@/components/admin/PageSectionNav";
@@ -13,6 +12,7 @@ import WeekCard from "@/components/admin/dashboard/WeekCard";
 import InboxZeroCard from "@/components/admin/dashboard/InboxZeroCard";
 import QuickActionsBar from "@/components/admin/dashboard/QuickActionsBar";
 import PageHeader from "@/components/admin/PageHeader";
+import SurfaceCard from "@/components/admin/ui/SurfaceCard";
 import { cn } from "@/lib/utils";
 
 type ActivityRow = {
@@ -73,18 +73,45 @@ function Section({
     <section id={id} className={cn("space-y-3 scroll-mt-20", pulse && "admin-section-pulse")}>
       <button onClick={toggle} className="w-full flex items-center justify-between gap-3 px-1 group" aria-expanded={open}>
         <div className="flex items-center gap-2 min-w-0">
-          <h2 className="admin-display text-sm uppercase tracking-widest font-semibold text-electric-300">{title}</h2>
+          <h2 className="admin-display text-[11px] uppercase tracking-[0.18em] font-semibold text-white/40 group-hover:text-white/70 transition-colors">{title}</h2>
           {hasBadge && (
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-electric-300/15 text-electric-300 border border-electric-300/30">
               {badge}
             </span>
           )}
-          {hint && <span className="text-[11px] text-nf-text-muted hidden sm:inline">— {hint}</span>}
+          {hint && <span className="text-[11px] text-white/30 hidden sm:inline">— {hint}</span>}
         </div>
-        <ChevronDown className={cn("h-4 w-4 text-nf-text-muted shrink-0 transition-transform", !open && "-rotate-90")} />
+        <ChevronDown className={cn("h-3.5 w-3.5 text-white/30 shrink-0 transition-transform", !open && "-rotate-90")} />
       </button>
       {open && <div className="space-y-4">{children}</div>}
     </section>
+  );
+}
+
+function ListBlock({
+  title, icon: Icon, items, empty, renderItem,
+}: {
+  title: string;
+  icon: typeof Clock;
+  items: any[];
+  empty: React.ReactNode;
+  renderItem: (it: any) => React.ReactNode;
+}) {
+  return (
+    <SurfaceCard
+      tone="base"
+      icon={<Icon className="h-4 w-4" />}
+      title={title}
+      action={items.length > 0 ? <span className="text-xs text-electric-300 font-medium">{items.length}</span> : null}
+    >
+      <div className="space-y-1.5">
+        {items.length === 0 ? (
+          <div className="text-xs text-white/40 py-2">{empty}</div>
+        ) : (
+          items.map(renderItem)
+        )}
+      </div>
+    </SurfaceCard>
   );
 }
 
@@ -135,6 +162,13 @@ export default function AdminDashboard() {
     { id: "activity", label: "Aktivitás", icon: Activity },
   ];
 
+  const statCards = [
+    { label: "Partner", value: stats.partners, icon: Users, to: "/admin/partners" },
+    { label: "Új lead", value: stats.leads, icon: Target, to: "/admin/leads" },
+    { label: "Aláírt", value: stats.signed, icon: Users, to: "/admin/partners" },
+    { label: "Doksi", value: stats.docs, icon: FileText, to: "/admin/documents" },
+  ];
+
   return (
     <div className="admin-page">
       <PageSectionNav sections={sectionNav} />
@@ -145,13 +179,15 @@ export default function AdminDashboard() {
         helpSlug="dashboard"
       />
 
-      {/* ===== FOLD-ABOVE: max 4 modul ===== */}
-      <section id="focus" className="space-y-4 scroll-mt-20">
-        <div className="grid gap-4 md:grid-cols-2">
+      {/* ===== FOLD-ABOVE: 2 oszlop, bal a fókusz, jobb az inbox + gyors akciók ===== */}
+      <section id="focus" className="scroll-mt-20">
+        <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
           <TodayCard />
-          <InboxZeroCard />
+          <div className="space-y-4">
+            <InboxZeroCard />
+            <QuickActionsBar />
+          </div>
         </div>
-        <QuickActionsBar />
       </section>
 
       {/* ===== PIPELINE PULSE ===== */}
@@ -181,115 +217,86 @@ export default function AdminDashboard() {
       {/* ===== LISTÁK ===== */}
       <Section id="lists" title="Mai listák" hint="Follow-up, checklist, review" badge={stats.followupsDue > 0 ? `${stats.followupsDue} esedékes` : null}>
         <div className="grid gap-4 md:grid-cols-3">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Clock className="h-4 w-4 text-electric-300" /> Follow-up
-                {followups.length > 0 && <span className="ml-auto text-xs text-electric-300">{followups.length}</span>}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {followups.length === 0 && <div className="text-nf-text-muted text-sm">Nincs esedékes follow-up. 🎉</div>}
-              {followups.map((f) => (
-                <Link key={f.id} to={`/admin/partners/${f.id}`} className="flex items-center justify-between p-2.5 rounded-lg bg-nf-surface-alt hover:bg-nf-surface-alt/70">
-                  <div className="min-w-0">
-                    <div className="font-medium text-sm truncate">{f.company_name}</div>
-                    <div className="text-xs text-nf-text-muted">{f.status} · {new Date(f.next_followup_at).toLocaleDateString("hu-HU")}</div>
-                  </div>
-                  <ArrowRight className="h-4 w-4 text-electric-300 shrink-0" />
-                </Link>
-              ))}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <ListChecks className="h-4 w-4 text-electric-300" /> Checklist
-                {todayChecklist.length > 0 && <span className="ml-auto text-xs text-electric-300">{todayChecklist.length}</span>}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {todayChecklist.length === 0 && <div className="text-nf-text-muted text-sm">Üres. <Link to="/admin/checklist" className="text-electric-300 underline">Új feladat</Link></div>}
-              {todayChecklist.map((c) => (
-                <Link key={c.id} to="/admin/checklist" className="flex items-center justify-between p-2.5 rounded-lg bg-nf-surface-alt hover:bg-nf-surface-alt/70">
-                  <div className="min-w-0">
-                    <div className="font-medium text-sm truncate">{c.title}</div>
-                    <div className="text-xs text-nf-text-muted">{c.status} · prio: {c.priority ?? "—"}</div>
-                  </div>
-                  <ArrowRight className="h-4 w-4 text-electric-300 shrink-0" />
-                </Link>
-              ))}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <FileText className="h-4 w-4 text-electric-300" /> Doksi review
-                {pendingReviews.length > 0 && <span className="ml-auto text-xs text-electric-300">{pendingReviews.length}</span>}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {pendingReviews.length === 0 && <div className="text-nf-text-muted text-sm">Nincs függő review.</div>}
-              {pendingReviews.map((d) => (
-                <Link key={d.id} to={`/admin/documents/${d.id}`} className="flex items-center justify-between p-2.5 rounded-lg bg-nf-surface-alt hover:bg-nf-surface-alt/70">
-                  <div className="min-w-0">
-                    <div className="font-medium text-sm truncate">{d.title}</div>
-                    <div className="text-xs text-nf-text-muted">{new Date(d.updated_at).toLocaleDateString("hu-HU")}</div>
-                  </div>
-                  <ArrowRight className="h-4 w-4 text-electric-300 shrink-0" />
-                </Link>
-              ))}
-            </CardContent>
-          </Card>
+          <ListBlock
+            title="Follow-up"
+            icon={Clock}
+            items={followups}
+            empty="Nincs esedékes follow-up. 🎉"
+            renderItem={(f) => (
+              <Link key={f.id} to={`/admin/partners/${f.id}`} className="group flex items-center justify-between p-2.5 rounded-lg hover:bg-white/[0.03] transition-colors">
+                <div className="min-w-0">
+                  <div className="font-medium text-sm truncate text-white/85">{f.company_name}</div>
+                  <div className="text-[11px] text-white/40">{f.status} · {new Date(f.next_followup_at).toLocaleDateString("hu-HU")}</div>
+                </div>
+                <ArrowRight className="h-4 w-4 text-white/30 group-hover:text-electric-300 transition-colors shrink-0" />
+              </Link>
+            )}
+          />
+          <ListBlock
+            title="Checklist"
+            icon={ListChecks}
+            items={todayChecklist}
+            empty={<>Üres. <Link to="/admin/checklist" className="text-electric-300 underline">Új feladat</Link></>}
+            renderItem={(c) => (
+              <Link key={c.id} to="/admin/checklist" className="group flex items-center justify-between p-2.5 rounded-lg hover:bg-white/[0.03] transition-colors">
+                <div className="min-w-0">
+                  <div className="font-medium text-sm truncate text-white/85">{c.title}</div>
+                  <div className="text-[11px] text-white/40">{c.status} · prio: {c.priority ?? "—"}</div>
+                </div>
+                <ArrowRight className="h-4 w-4 text-white/30 group-hover:text-electric-300 transition-colors shrink-0" />
+              </Link>
+            )}
+          />
+          <ListBlock
+            title="Doksi review"
+            icon={FileText}
+            items={pendingReviews}
+            empty="Nincs függő review."
+            renderItem={(d) => (
+              <Link key={d.id} to={`/admin/documents/${d.id}`} className="group flex items-center justify-between p-2.5 rounded-lg hover:bg-white/[0.03] transition-colors">
+                <div className="min-w-0">
+                  <div className="font-medium text-sm truncate text-white/85">{d.title}</div>
+                  <div className="text-[11px] text-white/40">{new Date(d.updated_at).toLocaleDateString("hu-HU")}</div>
+                </div>
+                <ArrowRight className="h-4 w-4 text-white/30 group-hover:text-electric-300 transition-colors shrink-0" />
+              </Link>
+            )}
+          />
         </div>
       </Section>
 
       {/* ===== AKTIVITÁS ===== */}
       <Section id="activity" title="Aktivitás">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Activity className="h-4 w-4 text-electric-300" /> Friss események
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-1.5">
-            {activity.length === 0 && <div className="text-nf-text-muted text-sm">Még nincs naplózott esemény.</div>}
+        <SurfaceCard tone="base" icon={<Activity className="h-4 w-4" />} title="Friss események">
+          <div className="space-y-0.5">
+            {activity.length === 0 && <div className="text-xs text-white/40">Még nincs naplózott esemény.</div>}
             {activity.map((a) => {
               const href = a.entity_id && ENTITY_LINK[a.entity_type]?.(a.entity_id);
               const inner = (
-                <div className="flex items-center justify-between gap-3 py-1.5 px-2 rounded hover:bg-nf-surface-alt">
-                  <div className="text-sm truncate">
+                <div className="flex items-center justify-between gap-3 py-1.5 px-2 -mx-1 rounded hover:bg-white/[0.03] transition-colors">
+                  <div className="text-sm truncate text-white/80">
                     <span className="text-electric-300">{ACTION_LABEL[a.action] ?? a.action}</span>{" "}
-                    <span className="text-nf-text-muted text-xs">{a.entity_type}:</span>{" "}
+                    <span className="text-white/40 text-xs">{a.entity_type}:</span>{" "}
                     <span>{a.entity_label || "—"}</span>
                   </div>
-                  <div className="text-[10px] text-nf-text-muted whitespace-nowrap">{new Date(a.created_at).toLocaleString("hu-HU", { dateStyle: "short", timeStyle: "short" })}</div>
+                  <div className="text-[10px] text-white/35 whitespace-nowrap tabular-nums">{new Date(a.created_at).toLocaleString("hu-HU", { dateStyle: "short", timeStyle: "short" })}</div>
                 </div>
               );
               return href ? <Link key={a.id} to={href}>{inner}</Link> : <div key={a.id}>{inner}</div>;
             })}
-          </CardContent>
-        </Card>
+          </div>
+        </SurfaceCard>
       </Section>
 
       {/* Statisztika footer */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {[
-          { label: "Partner", value: stats.partners, icon: Users, to: "/admin/partners" },
-          { label: "Új lead", value: stats.leads, icon: Target, to: "/admin/leads" },
-          { label: "Aláírt", value: stats.signed, icon: Users, to: "/admin/partners" },
-          { label: "Doksi", value: stats.docs, icon: FileText, to: "/admin/documents" },
-        ].map((c) => (
+        {statCards.map((c) => (
           <Link key={c.label} to={c.to}>
-            <Card className="hover:border-electric-300/50 transition-colors h-full">
-              <CardContent className="p-4">
-                <c.icon className="h-4 w-4 text-electric-300 mb-2" />
-                <div className="text-2xl font-bold">{c.value}</div>
-                <div className="text-[10px] text-nf-text-muted uppercase tracking-wider mt-1">{c.label}</div>
-              </CardContent>
-            </Card>
+            <SurfaceCard tone="base" padded={false} className="p-4 h-full hover:border-electric-300/30 transition-colors">
+              <c.icon className="h-4 w-4 text-electric-300 mb-2" />
+              <div className="text-2xl font-bold tabular-nums text-white">{c.value}</div>
+              <div className="text-[10px] text-white/40 uppercase tracking-wider mt-1">{c.label}</div>
+            </SurfaceCard>
           </Link>
         ))}
       </div>
