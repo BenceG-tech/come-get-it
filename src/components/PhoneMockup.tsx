@@ -7,7 +7,7 @@ interface PhoneMockupProps {
   fit?: 'cover' | 'contain';
 }
 
-export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = "" }) => {
+export const PhoneMockup: React.FC<PhoneMockupProps> = ({ imageUrl, className = "", fit = 'contain' }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
