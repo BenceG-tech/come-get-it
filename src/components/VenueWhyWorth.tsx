@@ -64,19 +64,19 @@ export const VenueWhyWorth: React.FC = () => {
             >
               {/* Image area — fully visible */}
               <div
-                className="relative aspect-[16/10] bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                className="relative aspect-[21/9] bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 style={{ backgroundImage: `url(${card.bg})` }}
               >
                 {/* Subtle top gradient so icon stays readable */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/60 to-transparent pointer-events-none"
+                  className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/60 to-transparent pointer-events-none"
                 />
 
                 {/* Top-left icon medallion */}
                 <div className="absolute top-3 left-3 z-10">
-                  <div className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-nf-primary/50 bg-nf-background/60 backdrop-blur-md flex items-center justify-center group-hover:border-nf-primary group-hover:shadow-[0_0_25px_rgba(0,188,212,0.55)] transition-all duration-500">
-                    <card.icon className="w-5 h-5 md:w-6 md:h-6 text-nf-primary" strokeWidth={1.5} />
+                  <div className="w-10 h-10 md:w-11 md:h-11 rounded-full border border-nf-primary/50 bg-nf-background/60 backdrop-blur-md flex items-center justify-center group-hover:border-nf-primary group-hover:shadow-[0_0_25px_rgba(0,188,212,0.55)] transition-all duration-500">
+                    <card.icon className="w-4 h-4 md:w-5 md:h-5 text-nf-primary" strokeWidth={1.5} />
                   </div>
                 </div>
               </div>
