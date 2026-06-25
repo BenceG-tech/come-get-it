@@ -79,6 +79,7 @@ export const NAV_GROUPS: NavGroup[] = [
     icon: MoreHorizontal,
     secondary: true,
     items: [
+      { to: "/admin/reports", label: "Riportok", icon: TrendingUp, description: "Northstar · health · waitlist · AI." },
       { to: "/admin/simulator", label: "Pipeline szimulátor", icon: TrendingUp, description: "What-if pipeline." },
       { to: "/admin/checklist", label: "Checklist", icon: ListChecks, description: "Heti to-do." },
       { to: "/admin/decisions", label: "Döntésnapló", icon: Brain, description: "Döntések + review." },

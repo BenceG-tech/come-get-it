@@ -41,6 +41,7 @@ import AdminSimulator from "./pages/admin/AdminSimulator";
 import AdminDecisions from "./pages/admin/AdminDecisions";
 import AdminTrends from "./pages/admin/AdminTrends";
 import AdminMission from "./pages/admin/AdminMission";
+import AdminReports from "./pages/admin/AdminReports";
 
 const queryClient = new QueryClient();
 
@@ -86,6 +87,7 @@ const App = () => (
               <Route path="/admin/decisions" element={<AdminRoute><AdminLayout><AdminDecisions /></AdminLayout></AdminRoute>} />
               <Route path="/admin/trends" element={<AdminRoute><AdminLayout><AdminTrends /></AdminLayout></AdminRoute>} />
               <Route path="/admin/mission" element={<AdminRoute><AdminLayout><AdminMission /></AdminLayout></AdminRoute>} />
+              <Route path="/admin/reports" element={<AdminRoute><AdminLayout><AdminReports /></AdminLayout></AdminRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
