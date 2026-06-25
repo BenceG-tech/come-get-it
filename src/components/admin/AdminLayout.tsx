@@ -13,10 +13,10 @@ import { NAV_GROUPS } from "@/lib/admin-nav-config";
 import HelpTip from "@/components/admin/help/HelpTip";
 import AdminBreadcrumb from "@/components/admin/AdminBreadcrumb";
 
-const HUB_FOR_PATH: Array<{ match: (p: string) => boolean; hub: "partners" | "content" | "knowledge" }> = [
-  { match: (p) => p === "/admin/partners" || p.startsWith("/admin/outreach") || p.startsWith("/admin/leads"), hub: "partners" },
+const HUB_FOR_PATH: Array<{ match: (p: string) => boolean; hub: "pipeline" | "content" | "knowledge" }> = [
+  { match: (p) => p === "/admin/partners" || p.startsWith("/admin/outreach") || p.startsWith("/admin/leads"), hub: "pipeline" },
   { match: (p) => p.startsWith("/admin/content") || p.startsWith("/admin/calendar") || p.startsWith("/admin/brand") || p.startsWith("/admin/media"), hub: "content" },
-  { match: (p) => p === "/admin/documents" || p.startsWith("/admin/documents/chat") || p.startsWith("/admin/trends"), hub: "knowledge" },
+  { match: (p) => p === "/admin/documents" || p.startsWith("/admin/documents/chat") || p.startsWith("/admin/trends") || p.startsWith("/admin/drive"), hub: "knowledge" },
 ];
 
 export const AdminLayout = ({ children }: { children: ReactNode }) => {

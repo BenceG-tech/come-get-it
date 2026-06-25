@@ -1,137 +1,91 @@
 
-# Admin felület — audit és fejlesztési terv
+# Fázis 2 — IA konszolidáció (4 hub + fülek)
 
-## 1. Mit látok ma (állapot)
+## Cél
+23 admin route helyett **4 elsődleges hub** a felső navban, mindegyik egy oldal fülekkel. A mély-linkek megmaradnak (redirect).
 
-**Méret:** 23 admin oldal, ~60 edge function, ~80 admin komponens, 4+1 fő nav-csoport, Bento dashboard 7 szekcióval, ~15 dashboard kártya.
-
-### Funkcionális térkép (rövid)
-
-```text
-MA           PARTNEREK         TARTALOM         TUDÁS            TÖBB
-├ Dashboard  ├ Pipeline         ├ Studio         ├ Documents      ├ Simulator
-├ Inbox      ├ Outreach         ├ Calendar       ├ Doc Chat       ├ Checklist
-└ Mission    └ Leads            ├ Brand          ├ Trends         ├ Decisions
-                                └ Media          └ AI             ├ Retro
-                                                                  └ Drive
-                                                  + Instagram queue, Documents/audit
-```
-
-### Mi működik jól
-- **Leadek**: Readiness pipeline + bulk akciók + Apify scrape + outreach modal — tiszta, fókuszált.
-- **Content Studio + Brand Memory**: a "1 brief → minden formátum" jó pattern.
-- **Dokumentumok bulk review + chat doksikkal**: hasznos és letisztult.
-- **Outreach Quick Drafts**: 3 hangnem chip + inline szerkesztés — egyszerű.
-- **Section-nav (dot rail) + Bento grid**: a dashboard navigálható.
-
-### Mi NEM működik / fájó pontok
-1. **Dashboard túlterhelt** — 15+ kártya, 7 collapsible szekció, sok átfedés:
-   - `DailyBriefing` ≈ `EveningSummary` ≈ `TodayTasks` ≈ `MissionTracker` mind "mai fókuszról" beszél.
-   - `PipelineFunnel` + `ConversionFunnel` + `StalledLeads` + `OutreachHealth` ugyanazt a sales-képet darabolják.
-   - `WeeklyGoals` + `WeeklyContentSprint` + `Checklist` + `DecisionsDue` heti listák, három különböző helyen.
-   - `NorthstarCard` + `CompanyHealth` + `WaitlistGrowth` + `Trend` + `AiUsage` + `TimeTracker` riport-zaj.
-2. **Funkció-duplikáció oldalak között**:
-   - `Checklist` ↔ `TodayTasks` (dashboard) ↔ `Mission` feladatok — 3 hely, 3 modell.
-   - `Mission` ↔ `Retro` ↔ `Decisions` — célok és visszanézés szétszórva.
-   - `Outreach` ↔ `Leads/outreach modal` ↔ `InstagramQueue` — három outreach belépő.
-   - `Documents` ↔ `Documents/audit` ↔ `Doc Chat` ↔ `Drive` — négy doksi-felület.
-   - `AI asszisztens` ↔ `FloatingAIAssistant` ↔ `InlineAIHelper` ↔ `CommandPalette` — sok AI belépő, nincs egy "fő" csatorna.
-3. **IA súrlódások**:
-   - "Mission" külön hub, miközben funkcionálisan Ma + Heti retro kombinációja.
-   - `Simulator`, `Retro`, `Decisions` a "Több" alatt, így senki nem találja meg.
-   - `Inbox` címke összemosódik az emailes inboxszal (valójában mixed-feed action queue).
-4. **Design / megjelenés**:
-   - A "Neon Fidelity" tokenek jók, de a dashboard kártyák vizuálisan egyforma sűrűségűek — nincs hierarchia.
-   - Sok kártya cím egyformán cyan uppercase, nehéz a szemnek prioritizálni.
-   - Section-nav (dot rail) és AdminFabCluster + FloatingAIAssistant + MobileBottomNav együtt zsúfolt — három overlay-réteg verseng.
-   - PageHeader + PageIntro + Breadcrumb + PageSectionNav minden oldalon 4 fej-elem ⇒ tartalom messze lent kezdődik.
-5. **User flow problémák**:
-   - "Új lead → kutatás → score → grade → outreach" most 3-4 oldal ugrálással.
-   - "Új poszt brief → naptár → publikálás" 2 oldal + külön Brand ellenőrzés.
-   - "Heti tervezés" nem egy helyen történik (Retro + Mission + Checklist + WeeklyGoals).
-
-## 2. Vezérelvek a továbbiakhoz
-
-1. **Egy munkafolyamat = egy oldal.** Ne kelljen ugrálni egy taszk közben.
-2. **Dashboard = válaszok, nem kártya-katalógus.** Max 5 modul fold-above.
-3. **Egy AI belépő.** Minden más AI hívás kontextuális helyen él (inline).
-4. **Konszolidálj, ne törölj.** A meglévő edge functionöket megtartjuk; a felület hajtogatja össze őket.
-
-## 3. Fejlesztési terv (4 fázis)
-
-### Fázis 1 — Dashboard radikális egyszerűsítés *(1 nap, csak frontend)*
-
-Új "Ma" fold-above, **max 4 modul**:
+## Új struktúra
 
 ```text
-┌──────────────────────────┬──────────────────┐
-│  TODAY (mai 3 feladat +  │  PIPELINE PULSE  │
-│  streak + esti összegzés │  (1 funnel + új  │
-│  egy kártyában)          │  leadek + stalled│
-├──────────────────────────┤  + outreach KPI) │
-│  INBOX ZERO (action q.)  │                  │
-└──────────────────────────┴──────────────────┘
-QUICK ACTIONS (chips)
+MA              PIPELINE              TARTALOM           TUDÁS                 [⋯ Több]
+/admin          /admin/pipeline       /admin/content     /admin/knowledge
+└ Dashboard     ├ Leadek (tab)        ├ Studio (tab)     ├ Doksik (tab)
+└ Inbox (tab)   ├ Partners (tab)      ├ Naptár (tab)     ├ Doksi chat (tab)
+                ├ Outreach (tab)      ├ Brand (tab)      ├ Trendek (tab)
+                └ Instagram (tab)     └ Média (tab)      └ Drive (tab)
 ```
 
-Konkrét lépések:
-- Összevon: `DailyBriefing + EveningSummary + TodayTasks + DailyStreak + MissionTracker` → **`TodayCard`** (1 kártya, 3 tab: Reggel / Most / Este).
-- Összevon: `PipelineFunnel + ConversionFunnel + StalledLeads + OutreachHealth` → **`PipelinePulseCard`** (1 funnel, alá 3 mini-KPI).
-- Összevon: `WeeklyGoals + WeeklyContentSprint + DecisionsDue + Checklist` → **`WeekCard`** (1 oldalsó kártya, fülek).
-- Áthelyez egy "Riportok" aloldalra: `Northstar, CompanyHealth, AiUsage, TimeTracker, Trend, Waitlist`. Új route: `/admin/reports` (régi `Mission` page-et erre nevezem át).
-- Eltávolít: `BentoGrid` 12-oszlopos rács → egyszerű 2-oszlopos `grid md:grid-cols-2`.
+A **Több** sheet-ben marad: Riportok, Retro, Decisions, Simulator, Checklist, Misszió, AI asszisztens.
 
-### Fázis 2 — IA konszolidáció *(1 nap)*
+## Konkrét lépések
 
-**Új nav (4 hub, nincs "Több" lenyíló a fő sávban):**
+### 1. Hub shell komponens
+`src/components/admin/HubShell.tsx` — egységes wrapper:
+- `PageHeader` címmel
+- horizontális tab-sáv (a meglévő `HubTabs.tsx` újrahasznosítva, ha kompatibilis)
+- URL-szinkron: `?tab=leads` query paraméter, mély-link barát
+- billentyűs nyilakkal váltható tabok
 
-```text
-MA  ·  PIPELINE  ·  TARTALOM  ·  TUDÁS                [⋯ Több]
+### 2. Új hub oldalak (3 db)
+
+**`src/pages/admin/AdminPipelineHub.tsx`**
+```tsx
+tabs = [
+  { key: "leads",     label: "Leadek",     component: <AdminLeadsContent /> },
+  { key: "partners",  label: "Pipeline",   component: <AdminPartnersContent /> },
+  { key: "outreach",  label: "Outreach",   component: <AdminOutreachContent /> },
+  { key: "instagram", label: "Instagram",  component: <AdminInstagramQueueContent /> },
+]
 ```
 
-- **MA** = Dashboard + Inbox (fülek egy oldalon, nem külön route).
-- **PIPELINE** = Leadek + Partners kanban + Outreach **egy oldalon, fülekkel** (`/admin/pipeline?tab=leads|partners|outreach|instagram`).
-- **TARTALOM** = Studio + Calendar + Brand + Media (már most fülezhető, csak egy `/admin/content` shellbe rakjuk).
-- **TUDÁS** = Documents (lista + audit + chat fülek) + Trends + Drive.
-- **Több** menüpont megmarad sheet-ként: Reports, Retro, Decisions, Simulator, Checklist, AI asszisztens (mert most már inline mindenhol elérhető).
+**`src/pages/admin/AdminContentHub.tsx`** — Studio / Naptár / Brand / Média fülek.
 
-Hatás: 23 route → ~8 elsődleges + másodlagosak. Mély-linkek megmaradnak (redirect a régiekről).
+**`src/pages/admin/AdminKnowledgeHub.tsx`** — Doksik / Doksi-chat / Trendek / Drive fülek.
 
-### Fázis 3 — User flow varratmentesítés *(2 nap)*
+A **Ma** hub (`/admin`) szintén kap egy Inbox fület a meglévő `AdminInbox` tartalommal — kis változtatás, csak a dashboard fölé tab-sáv kerül.
 
-1. **Lead → Outreach pipeline egy oldalon**: a `Pipeline` oldalon a kanban kártya jobb oldali drawerje már most létezik (`EntityDrawer`) — bővítjük "Outreach lépés" gombbal, hogy ne kelljen másik oldalra menni.
-2. **Content brief → publish flow**: Studio belépőn új "wizard" mód (3 lépés: Brief → AI variánsok → Naptárba). Brand-check inline a 2. lépésben.
-3. **Heti tervezés egy helyen**: a `WeekCard` (Fázis 1) modal-ban kinyitható → ugyanaz a UI, mint a Retro page; megszünteti az ugrálást.
-4. **Egy AI belépő**: `FloatingAIAssistant` marad a globális fő csatorna; `CommandPalette` lesz a "go to / do" rétege (Cmd-K). Az `AdminFabCluster`-t eltüntetjük (a tagjait a Command Palette parancsai alá visszük).
+### 3. Page → Content refaktor
+A meglévő oldal-komponenseket (`AdminLeads`, `AdminPartners`, stb.) NEM másoljuk át — a default exportokat hub-fülekként direktben renderelve használjuk (page chrome — `PageHeader`, `PageSectionNav` — opcionálisan elrejthető `hideChrome` propon át, ahol szükséges). Ha egy oldal nem fogad ilyen propot, mostani fej marad — vizuálisan kicsit dupla, de funkcionálisan helyes (későbbi finomítás).
 
-### Fázis 4 — Design hierarchia *(0.5 nap)*
+Legtisztább: minden hub-tag kap egy egyszerű `embedded` prop-ot, ami elrejti a saját `PageHeader`-jét és `PageSectionNav`-ját. Ezt 7 oldalon kell felvenni (leads, partners, outreach, instagram, content-studio, calendar, brand, media, documents, doc-chat, trends, drive).
 
-- **3-szintű kártya-skála**:
-  - `hero` (nagy, gradient border, KPI-szám 36px) — fold-above-ra.
-  - `default` (jelenlegi).
-  - `dense` (kompakt lista — listáknál).
-- **Cím-hierarchia**: csak a szekciók maradnak cyan uppercase; kártya-címek `text-foreground` semleges + ikon cyan.
-- **Page chrome diéta**: `PageSectionNav` csak akkor jelenik meg, ha ≥4 szekció; `PageIntro` alapból kollapszolva (már így van, csak ellenőrzés).
-- **Overlay-tisztítás**: max 2 lebegő elem egyszerre (AI assistant + MobileBottomNav mobilon, AI assistant + Cmd-K hint desktopon).
+### 4. Redirect-ek
+Régi route-ok megmaradnak, de a `Route element`-jük `<Navigate to="/admin/pipeline?tab=leads" replace />`-re cserélve:
+- `/admin/leads`         → `/admin/pipeline?tab=leads`
+- `/admin/partners`      → `/admin/pipeline?tab=partners`
+- `/admin/outreach`      → `/admin/pipeline?tab=outreach`
+- `/admin/outreach/instagram` → `/admin/pipeline?tab=instagram`
+- `/admin/calendar`      → `/admin/content?tab=calendar`
+- `/admin/brand`         → `/admin/content?tab=brand`
+- `/admin/media`         → `/admin/content?tab=media`
+- `/admin/documents/chat` → `/admin/knowledge?tab=chat`
+- `/admin/documents/audit`→ `/admin/knowledge?tab=docs` (audit funkció a Doksik fülben akció)
+- `/admin/trends`        → `/admin/knowledge?tab=trends`
+- `/admin/drive`         → `/admin/knowledge?tab=drive`
 
-## 4. Mit NEM csinálunk
+Megmaradnak külön route-ként: `/admin/partners/:id`, `/admin/documents/:id` (detail oldalak), `/admin/ai`, `/admin/inbox` (deep linkek).
 
-- Nem törlünk edge functionöket.
-- Nem nyúlunk a publikus oldalakhoz (csak `/admin/*`).
-- Nem cseréljük a tokeneket, palettát, fontokat.
-- Nem írjuk újra az adatmodellt.
+### 5. Nav config átírás
+`src/lib/admin-nav-config.ts`:
+- `NAV_GROUPS` → 4 lapos top-level item (`Ma`, `Pipeline`, `Tartalom`, `Tudás`) + 1 "Több" másodlagos.
+- `MOBILE_BOTTOM_NAV` ugyanaz a 4 hub + Több sheet.
+- `MOBILE_MORE_ITEMS` = a "Több" csoport tartalma.
 
-## 5. Sorrend és priorizálás
+A jelenlegi `AdminLayout` sidebar/topbar renderelése feltehetően `NAV_GROUPS`-ot olvas — meg kell néznem és igazítani, hogy ne csoportcímkék legyenek, hanem közvetlen linkek.
 
-| # | Fázis | Hatás | Kockázat | Becslés |
-|---|-------|-------|----------|---------|
-| 1 | Dashboard egyszerűsítés | Nagy (napi élmény) | Alacsony | 1 nap |
-| 2 | IA konszolidáció (4 hub) | Nagy (navigáció) | Közepes (redirektek) | 1 nap |
-| 3 | User flow varratok | Közepes | Alacsony | 2 nap |
-| 4 | Design hierarchia | Közepes (átláthatóság) | Alacsony | 0.5 nap |
+### 6. Cmd-K parancs-paletta frissítés
+A `CommandPalette` jelenleg minden oldalra ugrik — bővítjük hub+tab kombókkal (`Pipeline · Outreach`, `Tartalom · Naptár`, stb.), hogy gyors hozzáférés legyen.
 
-## 6. Kérdés mielőtt indulunk
+## Mit NEM csinálunk most
+- Nem írjuk át a hub-tag oldalakat funkcionálisan — csak az `embedded` propot és a chrome elrejtését.
+- Nem mozgatjuk a Doksik audit funkciót külön oldalról — beleolvasztjuk a Doksik fülbe (a régi oldal route-ja redirect lesz, de a komponens fülbe ágyazva továbbra is működik).
+- A `/admin/partners/:id` és `/admin/documents/:id` mély oldalak változatlanul külön route-ok maradnak.
 
-1. **Melyik fázist kezdjük először?** Javaslat: **Fázis 1 (Dashboard)** — leggyorsabb látható javulás.
-2. Van olyan oldal/funkció, amit **biztosan napi szinten használsz** és nem szabad átalakítani? (pl. Leadek, Outreach modal — ezeket nem terveztem bontani.)
-3. A "Több" menüben lévők közül van olyan, amit **soha nem nyitsz meg**? Ha igen, azokat archiváljuk (route megmarad, de kikerül a navból).
+## Becslés
+~3-4 óra: 3 új hub-fájl, 12 oldalon `embedded` prop, nav config + layout igazítás, ~10 redirect.
+
+## Kérdés mielőtt indulunk
+
+1. **`AdminInbox` legyen a Ma-hub egyik füle, vagy maradjon külön oldal (és csak a Dashboard-on legyen egy nagy belépő rá)?** Javaslat: maradjon külön route (`/admin/inbox`), de a Dashboard fold-above tegyen ki erős linket — a fülezés a Ma-on csak zavarná a tiszta "Ma reggel" élményt.
+2. **A `Documents audit` oldal (`/admin/documents/audit`) tartalma — egyszerű akció gomb a Doksik fülben, vagy maradjon teljes aloldal, csak más helyen?** Javaslat: gomb + dialog (egyszerűbb).
+3. **A "Misszió központ" (`/admin/mission`) maradjon-e a "Több" alatt, vagy a Ma-hub kapjon egy "Misszió" KPI panelt és ez az oldal eltűnjön?** Javaslat: Több alatt marad, a Dashboardon a `TodayCard` "Most" füle alá kerül egy mini misszió-sor.
