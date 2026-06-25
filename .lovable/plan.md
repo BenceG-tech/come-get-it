@@ -1,10 +1,25 @@
-A gond nem maga a screenshot, hanem hogy a mostani telefon keret fix `w-64 h-[520px]`, ami kb. 0.49-es képarány, miközben a hero screenshotok inkább 0.56 körüliek. Ezért vagy levágódik, vagy fekete sávos/összenyomott érzete van.
+Screenshot és mockup méretezés – terv
 
-Terv:
-1. Átállítom a `PhoneMockup` komponenst egy screenshot-barát telefon arányra: kb. `9:16` kijelző, nem a mostani túl keskeny/túl magas formára.
-2. A hero telefonban a képek `cover + object-top` módban menjenek, hogy szépen kitöltsék a kijelzőt, de a fontos felső UI ne csússzon ki.
-3. Meghagyom opcionálisan a `contain` módot azoknak a régi szekcióknak, ahol nagyon eltérő arányú kép van, de a főoldali hero mockup kapjon külön, szép kitöltős beállítást.
-4. Mobilon kicsit szélesebb, alacsonyabb mockupot használok, hogy ne tűnjön „lecsúszottnak” és ne foglaljon túl sok vertikális helyet.
-5. Finomítom a notch/káva méretét is, hogy inkább modern iPhone-szerű legyen, ne takarja feleslegesen a screenshot tetejét.
+1. Mi volt előtte
+   - A régi PhoneMockup fix `w-64 h-[520px]` volt, azaz 256px × 520px, képarány ~1:2.03 (9:18.3).
+   - Ez túl magas volt, és a screenshotok vagy lecsúsztak, vagy fekete sávosak lettek.
 
-Eredmény: a hero telefon mockup nem fekete sávos lesz, nem vágja le durván a széleket, és a feltöltött app screenshot természetesebben tölti ki a képernyőt.
+2. Mi van most
+   - A komponens már 9:19.5 arányú (modern iPhone-szerű), desktopon 300px széles.
+   - A képarány jó, de a 300px-es szélesség túl nagy a heróban – a telefon dominálja a kompozíciót.
+
+3. Mit mondj a rork.com-nak screenshot-generáláskor
+   - Felbontás: `1179 × 2556 px` (iPhone 15 Pro) vagy `1170 × 2532 px` (iPhone 14 Pro).
+   - Képarány: `9:19.5`.
+   - Formátum: PNG (transzparens elemek nélkül, hogy a mockup fekete háttérén jól mutasson).
+   - Fontos: a tetején hagyjanak helyet a Dynamic Island számára (~38px magas sáv a tetején), és az alján a home indicator/bar számára (~34px). Ne tegyenek kritikus UI-t a legfelső 5%-ba és a legalsó 5%-ba.
+
+4. Mit változtassunk az oldalon
+   - Csökkenteni a PhoneMockup alapértelmezett szélességét: `w-[220px] sm:w-[240px] md:w-[260px]` (jelenleg 260/280/300).
+   - Ez a heróban kisebb, arányosabb telefont ad, és a szöveg/Cta marad a fókuszban.
+   - A képarányt nem kell módosítani, a 9:19.5 továbbra is jó.
+
+5. Amikor megvannak az új screenshotok
+   - Feltöltés Lovable asset-ként (`lovable-assets create`).
+   - `src/assets/hero-app-... .asset.json` pointerek frissítése.
+   - Ellenőrzés: a screenshotok `object-cover object-top` módban kitöltik a kijelzőt, a Dynamic Island nem takar el lényeges tartalmat.
