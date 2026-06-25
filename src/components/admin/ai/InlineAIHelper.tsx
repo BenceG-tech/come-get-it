@@ -38,18 +38,19 @@ export default function InlineAIHelper({
   const ask = async (prompt: string) => {
     setLoading(true); setAnswer(null);
     try {
-      const sys = `Te a Come Get It admin AI asszisztense vagy. Magyarul, tömören, akcióközpontúan válaszolj. Felület: ${surface}.`;
-      const userMsg = `Kontextus:\n${JSON.stringify(context, null, 2)}\n\nKérés:\n${prompt}`;
-      const { data, error } = await supabase.functions.invoke("admin-ai-chat", {
-        body: { messages: [{ role: "system", content: sys }, { role: "user", content: userMsg }] },
+      const { data, error } = await supabase.functions.invoke("admin-ai-quick", {
+        body: { surface, context, prompt },
       });
       if (error) throw error;
-      const text = data?.text ?? data?.message ?? data?.response ?? (typeof data === "string" ? data : JSON.stringify(data));
+      if (data?.error) throw new Error(data.error);
+      const text = typeof data?.text === "string" ? data.text : "";
+      if (!text) throw new Error("Üres válasz az AI-tól.");
       setAnswer(text);
     } catch (e: any) {
       toast({ title: "AI hiba", description: e?.message ?? String(e), variant: "destructive" });
     } finally { setLoading(false); }
   };
+
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
