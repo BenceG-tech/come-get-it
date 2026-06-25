@@ -1,91 +1,97 @@
+## Fázis 3 — User flow varratok + Dashboard vizuális rehab
 
-# Fázis 2 — IA konszolidáció (4 hub + fülek)
+A képen látható dashboard problémái: rideg fekete blokkok, nincs vizuális hierarchia, az "AI napi briefing" egy hatalmas, nehezen olvasható szövegfal, a jobb oldali Founder Inbox üres-szerű (3 db ugyanaz a "trend digest"), és a két oszlop magassága/sűrűsége nincs összehangolva.
 
-## Cél
-23 admin route helyett **4 elsődleges hub** a felső navban, mindegyik egy oldal fülekkel. A mély-linkek megmaradnak (redirect).
+### A) Dashboard megjelenés javítás (azonnali rehab)
 
-## Új struktúra
+**1. Vizuális hierarchia + light surface**
+- A `TodayCard`, `PipelinePulseCard`, `WeekCard` és `Founder Inbox` mind ugyanazt a fekete háttér + cyan keret kombót használja → unalmas. Bevezetek 3 felület-szintet:
+  - `surface-1` (kártya alap): `bg-white/[0.02]` + `border-white/[0.06]`
+  - `surface-2` (kiemelt kártya, pl. mai briefing): `bg-gradient-to-br from-cyan-500/[0.04] via-transparent to-transparent` + `border-cyan-500/20`
+  - `surface-3` (sub-blokk a kártyán belül): `bg-white/[0.015]` + `rounded-xl`, halvány bal oldali accent bar
+- Egységes `rounded-2xl`, finomabb belső padding (24px), 12px-os szekció-gap.
+
+**2. AI napi briefing tagolása**
+- A jelenlegi 3 szöveg-blokk (Tegnap / Mai fókusz / Figyelmeztetések) átalakul **3 mini-kártyára** ikonnal és színkóddal:
+  - Tegnap → zöld accent + `TrendingUp`
+  - Mai fókusz → cyan accent + `Target`
+  - Figyelmeztetések → amber accent + `AlertTriangle`
+- Minden mini-kártya max 2 mondat összegzéssel, "Részletek" expand chevronnal. A hosszú szövegek alapból csukva.
+- A "Javasolt fókusz" lista chip-stílusú, számozott pirula gombokkal, az "Átemelés Top 3 fókuszba" CTA primary gradient pill.
+
+**3. Most / Reggel / Este tabok**
+- Jelenleg üres-szerűek. Átalakul `SegmentedControl` stílusra (csúszó háttér), és csak akkor látszik a tab-sor, ha tényleg több nézet van — különben csak az aktuális napszak címkéje.
+
+**4. Founder Inbox tisztítás**
+- 3× ugyanaz a "trend digest" → group-by típus, 1 sor + badge `×3`.
+- Üres állapot: ha nincs valódi jelzés, ne 0-tételes lista jelenjen meg, hanem "Minden tiszta" illusztráció.
+- Sorok: ikon (típus szerint) + cím + relatív idő + jobbra `→`, hover halvány cyan glow.
+
+**5. Layout ritmus**
+- A jelenlegi `grid-cols-3` (2:1) marad, de:
+  - Bal oszlop: `TodayCard` (nagy) + alá `PipelinePulseCard` + `WeekCard` egymás alatt
+  - Jobb oszlop: `Founder Inbox` (sticky a görgetésnél) + alá kompakt `QuickActions` kártya (új lead / új jegyzet / új feladat) + `MiniStreak` (egysoros)
+- Köztük 16px-os gap, mobilon egyetlen oszlop.
+
+**6. Tipográfia + szín finomhangolás**
+- Kártya címek: Sora 16px semibold, ikon + cím egy sorban, alatta `text-white/50` subtitle.
+- Body: Manrope 14px / `text-white/70`, a hangsúlyos számok 28px cyan.
+- Megszüntetjük a teljes cyan border-t — helyette csak felső 1px-es cyan glow-line a `surface-2` kártyák tetején.
+
+### B) User flow varratok (Fázis 3 lényeg)
+
+**1. Lead → Outreach folytonosság**
+- `LeadDetailDrawer`-be beépítjük az `outreach-quick-drafts` chip-eket egy "Következő lépés" sávként, így a drawerből 1 kattintással küldhető megkeresés (nem kell külön modalt nyitni egyszerű esetekhez).
+- A pipeline kanban kártyán direkt "Megkeresés" gomb, ami a drawert egyből az outreach pane-en nyitja.
+
+**2. Inbox → akció link**
+- Minden inbox item kap egy elsődleges akciót (pl. trend digest → "Megnyitás Trendekben", lead jelzés → "Lead megnyitása"), így nem kell visszanavigálni.
+- Egységes `InboxItemRow` komponens.
+
+**3. Hub-on belüli mély-link megőrzés**
+- A hub-fülek (Pipeline/Tartalom/Tudás) megőrzik a query paramétereket (pl. szűrők, kiválasztott lead), hogy a fülek közötti váltás ne dobja vissza a felhasználót.
+- `useHubNavigation` hook a sticky state-hez (sessionStorage).
+
+**4. Globális "Vissza ide" emlékezet**
+- Amikor egy oldalról drilldown-olsz (pl. lead → partner profil), a vissza nyíl tényleg az előző kontextusra visz, nem a hub gyökerére. Egy egyszerű `useBackStack` hook a layoutban.
+
+**5. Parancspaletta (Cmd+K) bővítés**
+- A jelenlegi "Keresés / parancs" sorhoz hozzáadjuk a leggyakoribb 8 akciót: új lead, új feladat, nyiss inbox, mai fókusz, scrape leadek, generálj outreach-et, briefing frissítés, este zárás.
+- Recent items + fuzzy search.
+
+**6. Toast → akció**
+- A hosszan futó folyamatok (bulk research, score, grade) toastjai kapnak "Megnyitás" akciót az eredmény oldalra, és progress sávot.
+
+### Érintett fájlok (technikai)
 
 ```text
-MA              PIPELINE              TARTALOM           TUDÁS                 [⋯ Több]
-/admin          /admin/pipeline       /admin/content     /admin/knowledge
-└ Dashboard     ├ Leadek (tab)        ├ Studio (tab)     ├ Doksik (tab)
-└ Inbox (tab)   ├ Partners (tab)      ├ Naptár (tab)     ├ Doksi chat (tab)
-                ├ Outreach (tab)      ├ Brand (tab)      ├ Trendek (tab)
-                └ Instagram (tab)     └ Média (tab)      └ Drive (tab)
+src/pages/admin/AdminDashboard.tsx          (layout újrarendezés)
+src/components/admin/dashboard/
+  TodayCard.tsx                             (3 mini-kártya tagolás, segmented tabs)
+  PipelinePulseCard.tsx                     (surface-1 stílus)
+  WeekCard.tsx                              (surface-1 stílus)
+  FounderInboxCard.tsx                      (új: group-by + üres állapot)
+  QuickActionsCard.tsx                      (új: jobb oszlop kompakt)
+  MiniStreak.tsx                            (új: 1 soros streak)
+src/components/admin/ui/
+  SurfaceCard.tsx                           (új: 3 szintű surface variant)
+  SegmentedControl.tsx                      (új)
+src/components/admin/leads/
+  LeadDetailDrawer.tsx                      (+ outreach chip sáv)
+  LeadKanbanCard.tsx                        (+ direkt Megkeresés gomb)
+src/components/admin/inbox/InboxItemRow.tsx (új, egységes)
+src/hooks/
+  useHubNavigation.ts                       (új)
+  useBackStack.ts                           (új)
+src/components/admin/CommandPalette.tsx     (bővített akciók)
+src/index.css                               (admin surface tokenek)
 ```
 
-A **Több** sheet-ben marad: Riportok, Retro, Decisions, Simulator, Checklist, Misszió, AI asszisztens.
+### Sorrend
+1. SurfaceCard + dashboard layout újrarendezés (vizuális rehab — ez azonnal látszik a képen lévő problémán)
+2. TodayCard tagolás + FounderInbox group-by
+3. Lead drawer outreach sáv + kanban gomb
+4. Inbox akció linkek + hub-nav memória
+5. Command palette bővítés + toast akciók
 
-## Konkrét lépések
-
-### 1. Hub shell komponens
-`src/components/admin/HubShell.tsx` — egységes wrapper:
-- `PageHeader` címmel
-- horizontális tab-sáv (a meglévő `HubTabs.tsx` újrahasznosítva, ha kompatibilis)
-- URL-szinkron: `?tab=leads` query paraméter, mély-link barát
-- billentyűs nyilakkal váltható tabok
-
-### 2. Új hub oldalak (3 db)
-
-**`src/pages/admin/AdminPipelineHub.tsx`**
-```tsx
-tabs = [
-  { key: "leads",     label: "Leadek",     component: <AdminLeadsContent /> },
-  { key: "partners",  label: "Pipeline",   component: <AdminPartnersContent /> },
-  { key: "outreach",  label: "Outreach",   component: <AdminOutreachContent /> },
-  { key: "instagram", label: "Instagram",  component: <AdminInstagramQueueContent /> },
-]
-```
-
-**`src/pages/admin/AdminContentHub.tsx`** — Studio / Naptár / Brand / Média fülek.
-
-**`src/pages/admin/AdminKnowledgeHub.tsx`** — Doksik / Doksi-chat / Trendek / Drive fülek.
-
-A **Ma** hub (`/admin`) szintén kap egy Inbox fület a meglévő `AdminInbox` tartalommal — kis változtatás, csak a dashboard fölé tab-sáv kerül.
-
-### 3. Page → Content refaktor
-A meglévő oldal-komponenseket (`AdminLeads`, `AdminPartners`, stb.) NEM másoljuk át — a default exportokat hub-fülekként direktben renderelve használjuk (page chrome — `PageHeader`, `PageSectionNav` — opcionálisan elrejthető `hideChrome` propon át, ahol szükséges). Ha egy oldal nem fogad ilyen propot, mostani fej marad — vizuálisan kicsit dupla, de funkcionálisan helyes (későbbi finomítás).
-
-Legtisztább: minden hub-tag kap egy egyszerű `embedded` prop-ot, ami elrejti a saját `PageHeader`-jét és `PageSectionNav`-ját. Ezt 7 oldalon kell felvenni (leads, partners, outreach, instagram, content-studio, calendar, brand, media, documents, doc-chat, trends, drive).
-
-### 4. Redirect-ek
-Régi route-ok megmaradnak, de a `Route element`-jük `<Navigate to="/admin/pipeline?tab=leads" replace />`-re cserélve:
-- `/admin/leads`         → `/admin/pipeline?tab=leads`
-- `/admin/partners`      → `/admin/pipeline?tab=partners`
-- `/admin/outreach`      → `/admin/pipeline?tab=outreach`
-- `/admin/outreach/instagram` → `/admin/pipeline?tab=instagram`
-- `/admin/calendar`      → `/admin/content?tab=calendar`
-- `/admin/brand`         → `/admin/content?tab=brand`
-- `/admin/media`         → `/admin/content?tab=media`
-- `/admin/documents/chat` → `/admin/knowledge?tab=chat`
-- `/admin/documents/audit`→ `/admin/knowledge?tab=docs` (audit funkció a Doksik fülben akció)
-- `/admin/trends`        → `/admin/knowledge?tab=trends`
-- `/admin/drive`         → `/admin/knowledge?tab=drive`
-
-Megmaradnak külön route-ként: `/admin/partners/:id`, `/admin/documents/:id` (detail oldalak), `/admin/ai`, `/admin/inbox` (deep linkek).
-
-### 5. Nav config átírás
-`src/lib/admin-nav-config.ts`:
-- `NAV_GROUPS` → 4 lapos top-level item (`Ma`, `Pipeline`, `Tartalom`, `Tudás`) + 1 "Több" másodlagos.
-- `MOBILE_BOTTOM_NAV` ugyanaz a 4 hub + Több sheet.
-- `MOBILE_MORE_ITEMS` = a "Több" csoport tartalma.
-
-A jelenlegi `AdminLayout` sidebar/topbar renderelése feltehetően `NAV_GROUPS`-ot olvas — meg kell néznem és igazítani, hogy ne csoportcímkék legyenek, hanem közvetlen linkek.
-
-### 6. Cmd-K parancs-paletta frissítés
-A `CommandPalette` jelenleg minden oldalra ugrik — bővítjük hub+tab kombókkal (`Pipeline · Outreach`, `Tartalom · Naptár`, stb.), hogy gyors hozzáférés legyen.
-
-## Mit NEM csinálunk most
-- Nem írjuk át a hub-tag oldalakat funkcionálisan — csak az `embedded` propot és a chrome elrejtését.
-- Nem mozgatjuk a Doksik audit funkciót külön oldalról — beleolvasztjuk a Doksik fülbe (a régi oldal route-ja redirect lesz, de a komponens fülbe ágyazva továbbra is működik).
-- A `/admin/partners/:id` és `/admin/documents/:id` mély oldalak változatlanul külön route-ok maradnak.
-
-## Becslés
-~3-4 óra: 3 új hub-fájl, 12 oldalon `embedded` prop, nav config + layout igazítás, ~10 redirect.
-
-## Kérdés mielőtt indulunk
-
-1. **`AdminInbox` legyen a Ma-hub egyik füle, vagy maradjon külön oldal (és csak a Dashboard-on legyen egy nagy belépő rá)?** Javaslat: maradjon külön route (`/admin/inbox`), de a Dashboard fold-above tegyen ki erős linket — a fülezés a Ma-on csak zavarná a tiszta "Ma reggel" élményt.
-2. **A `Documents audit` oldal (`/admin/documents/audit`) tartalma — egyszerű akció gomb a Doksik fülben, vagy maradjon teljes aloldal, csak más helyen?** Javaslat: gomb + dialog (egyszerűbb).
-3. **A "Misszió központ" (`/admin/mission`) maradjon-e a "Több" alatt, vagy a Ma-hub kapjon egy "Misszió" KPI panelt és ez az oldal eltűnjön?** Javaslat: Több alatt marad, a Dashboardon a `TodayCard` "Most" füle alá kerül egy mini misszió-sor.
+Mehet?
