@@ -2,20 +2,21 @@ import { NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
   Users, Send, Target, Wand2, Calendar, Palette, Image as ImageIcon,
-  FileText, MessageSquare, Telescope,
+  FileText, MessageSquare, Telescope, Instagram, Cloud,
 } from "lucide-react";
 
-type HubKey = "partners" | "content" | "knowledge";
+type HubKey = "pipeline" | "content" | "knowledge";
 
 type Tab = { to: string; label: string; icon: any; end?: boolean };
 
 const HUBS: Record<HubKey, { label: string; tabs: Tab[] }> = {
-  partners: {
-    label: "Partnerek",
+  pipeline: {
+    label: "Pipeline",
     tabs: [
-      { to: "/admin/partners", label: "Pipeline", icon: Users, end: false },
-      { to: "/admin/outreach", label: "Outreach", icon: Send },
       { to: "/admin/leads", label: "Leadek", icon: Target },
+      { to: "/admin/partners", label: "Pipeline", icon: Users, end: false },
+      { to: "/admin/outreach", label: "Outreach", icon: Send, end: true },
+      { to: "/admin/outreach/instagram", label: "Instagram", icon: Instagram },
     ],
   },
   content: {
@@ -33,13 +34,14 @@ const HUBS: Record<HubKey, { label: string; tabs: Tab[] }> = {
       { to: "/admin/documents", label: "Dokumentumok", icon: FileText, end: true },
       { to: "/admin/documents/chat", label: "Chat doksikkal", icon: MessageSquare },
       { to: "/admin/trends", label: "Trend Radar", icon: Telescope },
+      { to: "/admin/drive", label: "Drive", icon: Cloud },
     ],
   },
 };
 
 /**
  * Vízszintes fülek a hub oldalakon. Mobile: vízszintesen görgethető.
- * Helyezd az oldal tetejére (PageHeader fölé/alá).
+ * Az AdminLayout path alapján automatikusan renderel.
  */
 export default function HubTabs({ hub }: { hub: HubKey }) {
   const h = HUBS[hub];
