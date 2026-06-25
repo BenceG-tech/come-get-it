@@ -1,19 +1,24 @@
 import { PipelineFunnel } from "./PipelineFunnel";
 import { StalledLeadsCard } from "./StalledLeadsCard";
 import OutreachHealthCard from "./OutreachHealthCard";
+import SurfaceCard from "@/components/admin/ui/SurfaceCard";
+import { TrendingUp } from "lucide-react";
 
-/**
- * Egy modul, ami a sales-pulzust összefogja: funnel + akadt leadek + outreach egészség.
- * A részletes konverziós tölcsér a /admin/reports oldalra került.
- */
 export default function PipelinePulseCard() {
   return (
-    <div className="space-y-3">
-      <PipelineFunnel />
-      <div className="grid gap-3 md:grid-cols-2">
-        <StalledLeadsCard />
-        <OutreachHealthCard />
+    <SurfaceCard
+      tone="base"
+      icon={<TrendingUp className="h-4 w-4" />}
+      title="Pipeline pulzus"
+      subtitle="Funnel, akadt leadek, outreach egészség"
+    >
+      <div className="space-y-3">
+        <PipelineFunnel />
+        <div className="grid gap-3 md:grid-cols-2">
+          <StalledLeadsCard />
+          <OutreachHealthCard />
+        </div>
       </div>
-    </div>
+    </SurfaceCard>
   );
 }
