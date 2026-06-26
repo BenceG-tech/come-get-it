@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Music2, Mail } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
+import { useSecretAdminEntry } from '@/hooks/useSecretAdminEntry';
 
 export const Footer: React.FC = () => {
   const headingCls = 'text-white/90 font-anton uppercase tracking-wider text-xs mb-3';
   const linkCls = 'text-white/65 hover:text-nf-primary transition-colors';
+  const secretEntry = useSecretAdminEntry();
 
   return (
     <footer className="relative mt-16 border-t border-nf-primary/20 bg-nf-background text-white/80">
@@ -84,7 +86,7 @@ export const Footer: React.FC = () => {
       </div>
 
       <div className="border-t border-nf-primary/15 py-6 text-center text-xs text-white/50">
-        © {new Date().getFullYear()} Come Get It. Minden jog fenntartva.
+        <span onClick={secretEntry} className="select-none">© {new Date().getFullYear()} Come Get It. Minden jog fenntartva.</span>
       </div>
     </footer>
   );
