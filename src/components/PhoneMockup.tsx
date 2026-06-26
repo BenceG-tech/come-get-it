@@ -73,7 +73,8 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
             <img
               src={imageUrl}
               alt="App Screenshot"
-              className={`w-full h-full ${fit === 'cover' ? 'object-cover object-top' : 'object-contain'}`}
+              onLoad={handleImgLoad}
+              className={`w-full h-full ${resolvedFit === 'cover' ? 'object-cover object-top' : 'object-contain'}`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
           </div>
