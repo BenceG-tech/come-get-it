@@ -95,11 +95,11 @@ const Vendeglatohelyek = () => {
       <Navigation />
       <main>
         <VenueHeroSection />
-        <HowItWorksForVenues />
-        <FoundingPartnerPerks />
         <VenueWhyWorth />
+        <FoundingPartnerPerks />
         <VenueROI />
         <VenueStats />
+        <HowItWorksForVenues />
         <VenueApplicationSection />
       </main>
       <CustomerSupport />
