@@ -6,11 +6,13 @@ import { UserMenu } from '@/components/UserMenu';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/ui/Logo';
 import { useI18n } from '@/hooks/useI18n';
+import { useSecretAdminEntry } from '@/hooks/useSecretAdminEntry';
 
 export const Navigation: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { t, lang, setLang } = useI18n();
+  const secretAdminClick = useSecretAdminEntry();
 
   const handleNavClick = (section: string) => {
     if (window.location.pathname !== '/') {
@@ -37,7 +39,7 @@ export const Navigation: React.FC = () => {
   return (
     <nav className="nf-navbar hidden lg:block">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" aria-label={t('nav.brand')} className="flex items-center transition-opacity duration-300 hover:opacity-80">
+        <Link to="/" aria-label={t('nav.brand')} onClick={secretAdminClick} className="flex items-center transition-opacity duration-300 hover:opacity-80">
           <Logo />
         </Link>
         <div className="flex space-x-8 items-center">
