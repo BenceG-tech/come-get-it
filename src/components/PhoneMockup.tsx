@@ -4,19 +4,32 @@ import React, { useState } from 'react';
 interface PhoneMockupProps {
   imageUrl: string;
   className?: string;
-  fit?: 'cover' | 'contain';
-  /** Tailwind width class for the phone frame. Defaults to a screenshot-friendly 9:16 size. */
+  fit?: 'cover' | 'contain' | 'auto';
   widthClassName?: string;
 }
+
+const FRAME_RATIO = 9 / 19.5;
 
 export const PhoneMockup: React.FC<PhoneMockupProps> = ({
   imageUrl,
   className = "",
-  fit = 'cover',
+  fit = 'auto',
   widthClassName = "w-[200px] sm:w-[220px] md:w-[240px]",
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [autoFit, setAutoFit] = useState<'cover' | 'contain'>('cover');
+
+  const handleImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const { naturalWidth: w, naturalHeight: h } = e.currentTarget;
+    if (!w || !h) return;
+    const ratio = w / h;
+    // if image ratio differs from frame by >15%, fall back to contain so nothing is cropped
+    const diff = Math.abs(ratio - FRAME_RATIO) / FRAME_RATIO;
+    setAutoFit(diff > 0.15 ? 'contain' : 'cover');
+  };
+
+  const resolvedFit: 'cover' | 'contain' = fit === 'auto' ? autoFit : fit;
 
   const handleMouseEnter = () => {
     setTilt({
@@ -60,7 +73,8 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
             <img
               src={imageUrl}
               alt="App Screenshot"
-              className={`w-full h-full ${fit === 'cover' ? 'object-cover object-top' : 'object-contain'}`}
+              onLoad={handleImgLoad}
+              className={`w-full h-full ${resolvedFit === 'cover' ? 'object-cover object-top' : 'object-contain'}`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
           </div>
