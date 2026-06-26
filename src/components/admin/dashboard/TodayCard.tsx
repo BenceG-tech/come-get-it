@@ -34,10 +34,10 @@ export default function TodayCard() {
       title="Mai nap"
       subtitle={TODAY_LABEL}
       action={
-        <SegmentedControl<TabId>
-          options={TABS}
+        <SegmentedControl
+          options={TABS as any}
           value={tab}
-          onChange={setTab}
+          onChange={(v) => setTab(v as TabId)}
         />
       }
     >

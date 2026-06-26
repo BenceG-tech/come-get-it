@@ -23,7 +23,7 @@ export default function WeekCard() {
       icon={<ListChecks className="h-4 w-4" />}
       title="Heti munka"
       subtitle="Célok, content sprint, döntések"
-      action={<SegmentedControl<TabId> options={TABS} value={tab} onChange={setTab} />}
+      action={<SegmentedControl options={TABS as any} value={tab} onChange={(v) => setTab(v as TabId)} />}
     >
       <div>
         {tab === "goals" && <WeeklyGoalsCard />}
