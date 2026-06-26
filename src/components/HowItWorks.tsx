@@ -1,15 +1,15 @@
 import React from 'react';
-import { MapPin, Footprints, Wine, HeartHandshake } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
+import { AnimatedStepIcon, type StepIconKind } from '@/components/how-it-works/AnimatedStepIcon';
 
 export const HowItWorks: React.FC = () => {
   const { t } = useI18n();
 
-  const cards = [
-    { number: 1, icon: MapPin,         titleKey: 'how_it_works.cards.1.title', descKey: 'how_it_works.cards.1.description' },
-    { number: 2, icon: Footprints,     titleKey: 'how_it_works.cards.2.title', descKey: 'how_it_works.cards.2.description' },
-    { number: 3, icon: Wine,           titleKey: 'how_it_works.cards.3.title', descKey: 'how_it_works.cards.3.description' },
-    { number: 4, icon: HeartHandshake, titleKey: 'how_it_works.cards.4.title', descKey: 'how_it_works.cards.4.description' },
+  const cards: { number: number; kind: StepIconKind; titleKey: string; descKey: string }[] = [
+    { number: 1, kind: 'choose', titleKey: 'how_it_works.cards.1.title', descKey: 'how_it_works.cards.1.description' },
+    { number: 2, kind: 'walk',   titleKey: 'how_it_works.cards.2.title', descKey: 'how_it_works.cards.2.description' },
+    { number: 3, kind: 'drink',  titleKey: 'how_it_works.cards.3.title', descKey: 'how_it_works.cards.3.description' },
+    { number: 4, kind: 'give',   titleKey: 'how_it_works.cards.4.title', descKey: 'how_it_works.cards.4.description' },
   ];
 
   return (
@@ -39,7 +39,7 @@ export const HowItWorks: React.FC = () => {
                 <div className="relative mb-6 flex justify-start">
                   <div className="relative">
                     <div className="w-16 h-16 rounded-full border border-nf-primary/50 bg-nf-primary/[0.06] flex items-center justify-center group-hover:border-nf-primary group-hover:shadow-[0_0_30px_rgba(0,188,212,0.5)] transition-all duration-500">
-                      <card.icon className="w-7 h-7 text-nf-primary" strokeWidth={1.5} />
+                      <AnimatedStepIcon kind={card.kind} size={28} />
                     </div>
                     <div className="absolute -top-2 -right-2 w-7 h-7 bg-nf-primary rounded-full flex items-center justify-center text-black font-bold text-sm shadow-[0_0_15px_rgba(0,188,212,0.6)]">
                       {card.number}
@@ -80,7 +80,7 @@ export const HowItWorks: React.FC = () => {
                 <div className="group flex-1 mb-4 bg-white/[0.03] backdrop-blur-md border border-nf-primary/20 rounded-2xl p-5 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.4)] transition-all duration-500">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-12 h-12 rounded-full border border-nf-primary/50 bg-nf-primary/[0.06] flex items-center justify-center shrink-0">
-                      <card.icon className="w-6 h-6 text-nf-primary" strokeWidth={1.5} />
+                      <AnimatedStepIcon kind={card.kind} size={24} />
                     </div>
                     <h3 className="text-lg font-bold text-white">
                       {t(card.titleKey)}
