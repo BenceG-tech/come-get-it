@@ -1,18 +1,41 @@
 ## Cél
-A titkos admin belépés (5× kattintás 2 mp-en belül, csak admin role-lal) jelenleg csak a footer copyright szövegen működik. Bővítsük ki a header logókra is, hogy mobilon is könnyen elérhető legyen.
+A `HowItWorks.tsx` 4 kártyájának ikonjait élővé tenni — diszkrét, mégis figyelemfelkeltő animációkkal, framer-motion-nel. Nem rakunk háttérképet vagy textúrát; a változás kizárólag az ikon-medálon belül történik.
 
-## Változtatások
+## Megközelítés
+- Új komponens: `src/components/how-it-works/AnimatedStepIcon.tsx`
+- Egy `kind` prop alapján (`choose` / `walk` / `drink` / `give`) eltérő animáció minden kártyához
+- Mindegyik animáció **folyamatos, lassú loop** (4-6 mp), `viewport={{ once: false }}` + `whileInView`, hogy csak akkor pörögjön, ha látszik. Hover esetén kicsit gyorsul.
+- A számbadge (1-4) körül enyhe pulzáló halo gyűrű (cyan glow), `motion.div` `animate={{ scale, opacity }}` 2 mp loop.
 
-1. **`src/components/Header.tsx`** — A desktop headerben lévő "Come Get It" logó/brand linkre kötjük rá a `useSecretAdminEntry` hookot. A hook `onClick` handlerét úgy fűzzük hozzá, hogy a normál navigáció (`/` link) továbbra is működjön — csak az 5. gyors kattintás után irányítja át `/admin`-ra (admin user esetén).
+## Animációk kártyánként
 
-2. **Mobil menü panel logója** — Ugyanezt a hookot rákötjük a mobil slide-in menü tetején lévő logóra is, hogy mobil nézetben is elérhető legyen a titkos belépés.
+1. **Válassz — MapPin (térkép tűhegy)**
+   - A tű enyhén lebeg fel-le (`y: [0, -4, 0]`)
+   - Alatta egy SVG koncentrikus "radar pulzus" gyűrű, ami szétterjed és elhalványul (loop)
 
-3. **`src/hooks/useSecretAdminEntry.ts`** — Ha szükséges, kiegészítjük, hogy több elemen párhuzamosan is használható legyen (külön számláló példányonként, ami már most is így működik, mivel a hook minden hívásnál saját state-et kap).
+2. **Menj el — Footprints (lépések)**
+   - Két lábnyom váltakozva villan fel (bal-jobb-bal-jobb), `opacity` lépcsőzés
+   - Enyhe horizontal drift (`x: [0, 2, 0]`)
 
-## Viselkedés
-- Nem-admin user: a logó kattintás normál módon a főoldalra visz, semmilyen redirect nem történik.
-- Admin user: 5× kattintás 2 mp-en belül → `/admin` átirányítás. Egyetlen kattintás vagy lassabb sorozat → normál navigáció.
+3. **Igyál — Wine (pohár)**
+   - A pohár SVG-jén belül egy folyadékszint emelkedik-süllyed (cyan gradient fill mask animáció), vagy egyszerűbben: pohár enyhe billegése (`rotate: [-3, 3, -3]`) + felül egy kis buborék emelkedik
+   - Megoldás: SVG-be wrappolt Wine ikon + egy kis cyan kör ami felfelé úszik és elhalványul (buborék)
+
+4. **Adj vissza — HeartHandshake**
+   - A szív rész lüktet (`scale: [1, 1.15, 1]`, 1.2 mp loop)
+   - Cyan glow pulzál a háttérben szinkronban
+
+## Technikai megvalósítás
+- `framer-motion` már a projektben van (project knowledge alapján)
+- A meglévő `<card.icon className="w-7 h-7 text-nf-primary" />` helyére `<AnimatedStepIcon kind={card.kind} />` kerül
+- Desktop és mobile változat is ezt használja
+- `prefers-reduced-motion` esetén az animációk leállnak (a `motion` ezt natívan tudja respektálni `useReducedMotion()` hookkal)
 
 ## Érintett fájlok
-- `src/components/Header.tsx` (desktop + mobil menü logó)
-- `src/hooks/useSecretAdminEntry.ts` (csak ha kell finomhangolás)
+- `src/components/how-it-works/AnimatedStepIcon.tsx` (új)
+- `src/components/HowItWorks.tsx` (icon swap + opcionális halo a badge köré, `kind` mező a cards tömbbe)
+
+## Mit NEM csinálunk
+- Nincs új háttérkép, nincs textúra, nincs dot grid
+- A kártya háttér és border változatlan
+- A timeline rail (számok + szaggatott vonal) változatlan
