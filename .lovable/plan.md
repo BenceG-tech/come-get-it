@@ -1,47 +1,24 @@
-# Plan: Jobb animált ikonok + telefon mockup javítás
+## Probléma
+A `useSecretAdminEntry` hook csak akkor navigál `/admin`-ra, ha a felhasználó **már bejelentkezett ÉS admin**. Ha nem vagy bejelentkezve (ami a fejléc logó 99%-os esete), az 5x kattintás semmit nem csinál — nincs visszajelzés, nem visz az auth oldalra.
 
-## 1. Új, érthetőbb karakter-animációk (`src/components/how-it-works/AnimatedStepIcon.tsx`)
+További gyanús pont: a hook `clicksNeeded=5` darab kattintást vár **2 másodpercen belül** — ez gyors, és a `<Link>` elem default `onClick`-je egyúttal navigálhat is, ami megszakíthatja a számlálót route váltással.
 
-A jelenlegi `walk`, `drink`, `give` ikonok absztraktak. Lecserélem őket konkrétabb, „mesélő" jelenetekre, mind keret nélkül, nagyobb karakterekkel, hogy a 64×64 viewBox-ban olvashatóak legyenek.
+## Javítás
 
-### `walk` — sétáló ember oldalnézetből, ténylegesen halad
-- Teljes alak (fej + nyak + törzs + 2 kar + 2 láb) oldalnézetben, profilban.
-- A teljes figura **vízszintesen mozog** balról jobbra (loop): bal szélről beúszik, középen, jobb szélen kilép, újraindul — így vizuálisan tényleg "menj el".
-- Lábak váltakozva előre-hátra lendülnek (térdhajlítás SVG path-szal, nem csak egyenes vonalak).
-- Karok ellentétes lengéssel.
-- Talaj alatti scrolling kötőjel-vonal a haladás érzékeltetésére.
-- Apró por-pöttyök a sarka mögött (fade out).
+**`src/hooks/useSecretAdminEntry.ts`**
+- Ha a user nincs bejelentkezve → `/auth?redirect=/admin`-ra navigál (silent, hint nélkül).
+- Ha be van jelentkezve és admin → `/admin`.
+- Ha be van jelentkezve de NEM admin → semmi (nem áruljuk el a létezését).
+- Ablakot 2000ms → **2500ms**-re lazítjuk, hogy desktopon is kényelmes legyen.
+- `event.preventDefault()` + `event.stopPropagation()` amikor eléri a küszöböt, hogy a `<Link>` ne navigáljon közben a `/`-ra.
 
-### `drink` — ember pohárral, tényleg iszik
-- Frontális/háromnegyed nézetből: fej (kerek), nyak, vállak, **2 kar** amelyek a pohár két oldalát fogják.
-- Pohár (talpas, koktél-pohár sziluett) a két kéz között.
-- Animáció ciklus (~3s): pohár + kezek **felemelkednek a szájhoz** (translateY -10), fej picit hátradől (rotate -8°), a pohárban a folyadék-szint **lecsökken** (rect height animál), majd vissza alaphelyzetbe.
-- Apró kortyolási „gyöngyök" a száj mellett amikor iszik.
-- Csillám-szikrák a pohár fölött (a jutalom érzet).
+**`src/components/Navigation.tsx`**
+- A logó jelenleg `<Link to="/" onClick={secretAdminClick}>`. Mivel a Link mindig navigál, a számláló reset-elődhet mert már a `/`-on vagyunk (nincs route váltás, de a `ScrollToTop` futhat). A `secretAdminClick`-et `event`-tel hívjuk, és a hook a 5. kattintásnál `preventDefault`-ot hív.
 
-### `give` — két ember, egyik ad a másiknak
-- Bal oldalon **adó alak** (fej + törzs + kinyújtott kar) ami egy kis ajándék/szív ikont tart.
-- Jobb oldalon **kapó alak** (fej + törzs + nyitott tenyér).
-- Animáció ciklus (~3s): a szív/ajándék **átúszik** a bal kéztől a jobb kézig (translateX), közben enyhén pulzál; amikor megérkezik, a kapó feje picit bólint és felette `+1` érme száll fel.
-- Mindkét figura enyhe légzés-bobing.
+**`src/components/MobileNavigation.tsx`** és **`src/components/Footer.tsx`**
+- Ugyanaz a frissített hook automatikusan érvényesül, nincs változtatás szükséges (mobilon `<button>`-ra van kötve, footernél copyright szövegen).
 
-Mindhárom animáció `useReducedMotion` esetén statikus.
-
-Méret: a karakterek a 64×64 viewBox ~80%-át töltik ki (most ~40% csak), hogy a medallionban is jól látszódjanak.
-
-## 2. Térkép screenshot fix a hero telefon mockup-ban
-
-A `/` oldal hero `PhoneMockup` jelenleg `object-cover object-top` 9:19.5 aspect ratio-val. Ha a screenshot nem pontosan ebben az arányban van, vagy a r2 URL nem tölt → fekete telefon látszik.
-
-Megoldás:
-- A `PhoneMockup` kap egy új default fallback viselkedést: ha `fit="cover"` és a kép `naturalRatio` eltér a frame ratio-tól >15%-kal, automatikusan `contain`-re vált (state-ben `onLoad` után számolva). Így a térképes screenshot teljes egészében látszik, nem vágódik le.
-- A `Index.tsx`-ben a hero PhoneMockup-nak explicit `fit="contain"` propot adok, mert a hero-ban a teljes screenshot fontosabb mint a kitöltés.
-- Ellenőrzöm hogy a `heroVenuesAsset.url` ténylegesen elérhető-e (a `/__l5e/...` path Lovable asset CDN-re mutat — ha 404, akkor kicserélem a public/lovable-uploads alól egy meglévő képre, vagy kérek új feltöltést).
-
-## Érintett fájlok
-- `src/components/how-it-works/AnimatedStepIcon.tsx` — 3 új karakter-jelenet komponens
-- `src/components/PhoneMockup.tsx` — auto-contain fallback + `object-position` finomítás
-- `src/pages/Index.tsx` — `fit="contain"` a hero mockup-on (1 sor)
-
-## Nyitott kérdés
-Ha az `/__l5e/...` asset URL tényleg nem tölt (404), újra fel kell töltened a térkép screenshotot, vagy mondd meg melyik `/lovable-uploads/...` képet használjam helyette.
+## Tesztelési forgatókönyv
+1. Kijelentkezve, főoldal fejléc-logóra 5x kattintás → `/auth?redirect=/admin` betöltődik.
+2. Bejelentkezve admin user-ként → egyenesen `/admin`.
+3. Bejelentkezve nem-admin user-ként → semmi nem történik (silent).
