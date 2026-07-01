@@ -1,24 +1,39 @@
-## Probléma
-A `useSecretAdminEntry` hook csak akkor navigál `/admin`-ra, ha a felhasználó **már bejelentkezett ÉS admin**. Ha nem vagy bejelentkezve (ami a fejléc logó 99%-os esete), az 5x kattintás semmit nem csinál — nincs visszajelzés, nem visz az auth oldalra.
+## Cél
 
-További gyanús pont: a hook `clicksNeeded=5` darab kattintást vár **2 másodpercen belül** — ez gyors, és a `<Link>` elem default `onClick`-je egyúttal navigálhat is, ami megszakíthatja a számlálót route váltással.
+Egy `.docx` dokumentum a `/mnt/documents/` mappába, ami tartalmazza a **come-get-it.app** honlap minden publikus oldalának és szekcióinak szöveges tartalmát — magyarul, ahogy az oldalon megjelenik. Az admin súgó (PageIntro / ADMIN_PAGE_HELP) NEM kerül bele.
 
-## Javítás
+## Mit tartalmaz a dokumentum
 
-**`src/hooks/useSecretAdminEntry.ts`**
-- Ha a user nincs bejelentkezve → `/auth?redirect=/admin`-ra navigál (silent, hint nélkül).
-- Ha be van jelentkezve és admin → `/admin`.
-- Ha be van jelentkezve de NEM admin → semmi (nem áruljuk el a létezését).
-- Ablakot 2000ms → **2500ms**-re lazítjuk, hogy desktopon is kényelmes legyen.
-- `event.preventDefault()` + `event.stopPropagation()` amikor eléri a küszöböt, hogy a `<Link>` ne navigáljon közben a `/`-ra.
+Minden publikus route-hoz egy fejezet, azon belül szekciónkénti alfejezetek: H1 (title), subtitle, body szövegek, CTA feliratok, kártyák szövege, form mezők/labelek.
 
-**`src/components/Navigation.tsx`**
-- A logó jelenleg `<Link to="/" onClick={secretAdminClick}>`. Mivel a Link mindig navigál, a számláló reset-elődhet mert már a `/`-on vagyunk (nincs route váltás, de a `ScrollToTop` futhat). A `secretAdminClick`-et `event`-tel hívjuk, és a hook a 5. kattintásnál `preventDefault`-ot hív.
+### Lefedett oldalak
+1. **Főoldal** (`/` — `src/pages/Index.tsx`)
+   - Hero, MibenSegit, Benefits, Features, Drink, Give, Earn, Link, HowItWorks, VenuePartnerTeaser, FoundingPartnerPerks, FOMO, SocialProof, WorkWithUs, Pricing, ExitIntent, SignupForm, Footer
+2. **Vendéglátóhelyek** (`/vendeglatohelyek`)
+   - VenueHero, VenueWhyWorth, FoundingPerks, VenueROI, VenueStats, HowItWorksForVenues (5 lépés), VenueApplication
+3. **Partnerek hub** (`/partnerek`)
+4. **Italmárkák** (`/italmarkak`)
+5. **Rewards Partners** (`/rewards-partners`)
+6. **Come Get It Accelerator** (`/come-get-it-accelerator`)
+7. **Adatvédelmi Szabályzat** (`/adatvedelmi-szabalyzat`)
+8. **Navigáció & Footer** (közös elemek, menüpontok, jogi linkek)
 
-**`src/components/MobileNavigation.tsx`** és **`src/components/Footer.tsx`**
-- Ugyanaz a frissített hook automatikusan érvényesül, nincs változtatás szükséges (mobilon `<button>`-ra van kötve, footernél copyright szövegen).
+### Forrás
+- Szövegek `src/i18n/hu.json`-ból + a komponensekbe hardkódolt magyar copyból.
+- Sorrend a valós render-sorrendet követi (oldal komponens `<Section />` sorrend).
 
-## Tesztelési forgatókönyv
-1. Kijelentkezve, főoldal fejléc-logóra 5x kattintás → `/auth?redirect=/admin` betöltődik.
-2. Bejelentkezve admin user-ként → egyenesen `/admin`.
-3. Bejelentkezve nem-admin user-ként → semmi nem történik (silent).
+### Kihagyva
+- `src/pages/admin/**` (admin felület)
+- `src/components/admin/**` súgótartalom (`admin-help-content.ts`, `PageIntro`, `HelpTip`, `FieldHelp`)
+- `Auth.tsx` (belső)
+
+## Hogyan készül
+
+1. Beolvasom a route-konfigot (`src/App.tsx`), az `hu.json`-t és minden érintett oldal + section komponenst — kigyűjtöm a látható stringeket.
+2. Egy Node script (`docx` csomag, ami már használható) generálja a fájlt: H1 = oldal neve + URL, H2 = szekció, alatta a copy. Táblázat helyett tiszta bekezdések + bullet-listák.
+3. Kimenet: **`/mnt/documents/come-get-it-honlap-tartalom.docx`** (Arial, US Letter, 1" margók, Neon Fidelity témával összhangban semleges tipográfia).
+4. Validálás a docx skill script-jével, majd letölthető linket adok.
+
+## Kérdés jóváhagyás előtt
+
+Csak a **magyar** verzió kell (default), vagy az angol (`en.json`) fordításokat is tegyem be minden szekcióhoz párhuzamosan?
