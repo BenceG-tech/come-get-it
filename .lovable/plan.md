@@ -1,34 +1,43 @@
-# Come Get It — üzleti kérdőív válaszdokumentum
+# Terv: `come-get-it-uzleti-kerdoiv-v2.docx`
 
-## Cél
-Egy `.docx` fájl `/mnt/documents/come-get-it-uzleti-kerdoiv.docx` néven, ami végigmegy a kapott 24 kérdésen, és a Come Get It jelenlegi (pre-launch, 2026 szeptemberi soft launch előtt álló) valóságához igazított, őszinte válaszokat ad. Ahol nincs bizonyíték, ott explicit `[FELTÉTELEZÉS]` / `[MÉG NEM BIZONYÍTOTT]` / `[NEM TUDJUK PONTOSAN]` címkével jelölöm — a kérdező kérésének megfelelően.
+A felhasználó által beírt teljes anyagot (A) kérdőív-válaszok + B) weboldal-optimalizálás) egy letisztult, Founding Pitch stílusú DOCX-be öntöm. Kód nem változik.
 
-## Tartalmi forrás
-- `mem://` (Core + business-investor, waitlist-auth, venue-applications, admin-system)
-- `public/llms.txt`, `supabase/functions/_shared/brand-context.ts` — kanonikus fázis/ár/GIVE-tények
-- `src/i18n/hu.json` és publikus oldalak (Index, Vendéglátóhelyek, Italmárkák, Rewards Partners, Accelerator) — value prop és ügyfél-szegmensek
-- Semmilyen kitalált szám: user count, revenue, retention, pipeline → mind `[NINCS ADAT — pre-launch]`
+## Kimenet
+- `/mnt/documents/come-get-it-uzleti-kerdoiv-v2.docx`
+- Utána `<presentation-artifact>` tag.
 
-## Dokumentum struktúra
-Cover page (cím, dátum 2026-07-07, kapcsolat: Bence Gátai / hello@come-get-it.app), majd a 7 fejezet (I–VII) a beküldött sorrendben, kérdésenként:
-- **Kérdés** (félkövér, eredeti szöveggel)
-- **Válasz** (rövid, konkrét bekezdés)
-- Ahol releváns: `Bizonyíték:` sor (mit tudunk felmutatni) és `Nyitott kérdés:` sor
+## Tartalom (a beírt szöveget követi, nem generálok új választ)
 
-Kiemelt tartalmi döntések:
-- **I. Alaphelyzet:** Cég = Come Get It; piac = Budapest (majd HU); fázis = pre-launch, waitlist + founding partner recruiting; ami létezik = landing, waitlist regisztráció, partner outreach pipeline, admin CRM — nincs élő user, nincs bevétel.
-- **II. Mit adtok el:** Két oldalú piactér — fogyasztónak loyalty/discovery + előfizetés (990/hét, 2 990/hó), partnernek incremental traffic holtidőben + Founding Partner perkek.
-- **III. Ügyfélkapcsolat:** Első vásárlás = waitlist → app install → első pontgyűjtés vagy előfizetés; partner oldalon = Founding cohort szerződés. Bővülés = több lokáció / brand aktiváció. `[MÉG NEM BIZONYÍTOTT]` — pre-launch.
-- **IV/a. Valódi kérdés:** Ami működik = outreach → founding partner érdeklődés, waitlist növekedés. Ami nyitott = konverzió waitlist→aktív user, előfizetési take-rate, partner retention. 12 hónapos döntés: geo-expanzió timing, subscription pricing finomhangolás, GIVE-partner skálázás.
-- **IV/b. Enterprise:** Nem klasszikus enterprise SaaS — kihagyható vagy egy rövid „nem alkalmazható, B2B2C marketplace vagyunk” megjegyzéssel.
-- **V. Gazdasági kép:** Bevétel = subscription + partner fee/rev-share (memóriából); erőforrás-intenzív = partner onboarding és content ops.
-- **VI. Mire épül a cég:** Founding Partner Program + waitlist momentum; kockázat = ha a launch csúszik, a waitlist hűl.
-- **VII. Háttéranyagok:** Linkek — come-get-it.app, /vendeglatohelyek, /italmarkak, /rewards-partners, /come-get-it-accelerator, llms.txt, llm.html.
+1. **Címlap** — Come Get It · Üzleti kérdőív-válaszok (vázlat) · 2026-07-07 · Gátai Bence · hello@come-get-it.app · +36 70 585 2053
+2. **Bevezető keret** — a „⚠️ = nem bizonyított / eldöntendő" jelölés magyarázata, a kérdőív szellemének idézése („a 'nem tudjuk pontosan' informatívabb").
+3. **A rész — Kérdőív-válaszok**
+   - I. Alaphelyzet (1–4)
+   - II. Mit adtok el, és kinek? (5–8) — az 5. pontban a venue-pricing ellentmondás pirosan kiemelve
+   - III. Ügyfélkapcsolat (9–11)
+   - IV/a. Hol van a valódi kérdés? (12–15)
+   - IV/b. Enterprise szerep — rövid „nem releváns" bekezdés
+   - V. Gazdasági kép (19–21)
+   - VI. Mire épül a cég? (22–24)
+   - VII. Háttéranyagok — bullet-lista
+4. **B rész — Weboldal tartalom-optimalizálás**
+   - 🔴 Kritikus (1–4): ROI-blokk átkeretezése, „garantált" állítások, számok egységesítése (15 vs 50, 91%), AI-mockup szövegek
+   - 🟠 Konverzió (5–9): hero-alcím, duplikált „hogyan működik", CTA-káosz, social proof, vendéglátóhely-oldal sorrend
+   - 🟢 Finomítások (10–13): adatvédelem (Brevo, GPS), footer/IG-handle, bejelentkezés gomb, nyelvi apróságok
+5. **Zárás** — „Következő lépések" mini-blokk: (a) venue-pricing döntés, (b) számok egységesítése kifelé, (c) ROI-blokk átírása, (d) waitlist-számláló élesítése amint van szám.
 
-## Formátum
-- Python `python-docx` script (`/tmp/gen_business_doc.py`), Arial, A4, 2 cm margó, H1/H2/H3 stílusok, bullet-listák.
-- Validálás: PDF konverzió LibreOffice-szal, oldal- és tartalomellenőrzés.
-- Kimenet: `/mnt/documents/come-get-it-uzleti-kerdoiv.docx`.
+## Formázás (`mem://` PDF-stílus szerint)
+- `python-docx`, Liberation Sans / Arial, A4, 2 cm margó
+- H1 (chapter): 22pt, cyan `#00BCD4`, bold
+- H2 (kérdés/téma): 15pt, cyan, bold
+- Body: 11pt fekete
+- ⚠️-jelölésnél a mondat félkövér
+- Bullet-listák a felsorolásokra
+- Kérdésszámok cyan színnel a kérdés előtt (pl. „**5.** Mit vesz meg…")
 
-## Nyelv
-Magyar, tegező, tömör — a kérdőív hangneméhez illeszkedve.
+## Ellenőrzés
+- LibreOffice headless → PDF → `pdftoppm` → minden oldal PNG-jét megnézem (nincs overflow, cyan renderel, ⚠️ karakter kijön).
+- Ha bármi tört, javítom és újragenerálom v3 nélkül (v2 fájlnév marad, egy fordulóban rendbe teszem).
+
+## Amit NEM csinálok most
+- Nem módosítok kódot / komponenseket / szövegeket a site-on. Ha kell, külön körben megyünk végig a 🔴/🟠/🟢 listán.
+- Nem találok ki új választ — a beírt szöveget tükrözöm, minimál tipográfiai kiigazítással.
