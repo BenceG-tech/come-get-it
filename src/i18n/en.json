@@ -187,11 +187,11 @@
   },
   "venues": {
     "hero": {
-      "badge": "FOUNDING PARTNER PROGRAM — 15 SPOTS",
+      "badge": "FOUNDING PARTNER PILOT — 15 SPOTS",
       "line1": "MORE GUESTS.",
       "line2": "FEWER EMPTY TABLES.",
-      "subtitle": "We bring new guests during slow hours. The daily free drink gives them a concrete reason to come to you tonight — the venue takes care of the rest.",
-      "cta": "Become a Founding Partner",
+      "subtitle": "Come Get It drives new guests to you during your slower hours — the daily free drink gives them a concrete reason to pick you tonight. We don't promise numbers: every 30 days we look at the data together and see whether it's working for you.",
+      "cta": "Apply to the pilot",
       "cta_secondary": "How it works"
     },
     "how_it_works": {
