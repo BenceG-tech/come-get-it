@@ -22,7 +22,13 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
-import heroVenuesAsset from '@/assets/hero-app-venues.png.asset.json';
+import heroMapAsset from '@/assets/IMG_9833.png.asset.json';
+import heroFeedAsset from '@/assets/IMG_9834.png.asset.json';
+import linkVenueAsset from '@/assets/IMG_9844.png.asset.json';
+import drinkTonicAsset from '@/assets/IMG_9846.png.asset.json';
+import drinkBeerAsset from '@/assets/IMG_9838.png.asset.json';
+import earnRewardAsset from '@/assets/IMG_9843.png.asset.json';
+import earnRedeemAsset from '@/assets/IMG_9847.png.asset.json';
 // QuickAccessChips removed from homepage — partner-link cards moved to /partnerek hub
  
 const Index = () => {
@@ -38,23 +44,23 @@ const Index = () => {
   }, []);
 
   const appImages = [
-    heroVenuesAsset.url,
-    "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.webp"
+    heroMapAsset.url,
+    heroFeedAsset.url,
   ];
 
   // Drink section uses these two images alternating
   const drinkImages = [
-    "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.webp",
-    "/lovable-uploads/7f0ed43a-5016-4db8-89ae-f51f0c7e6126.webp"
+    drinkTonicAsset.url,
+    drinkBeerAsset.url,
   ];
 
   // Link section uses specific image
-  const linkImage = "/lovable-uploads/d9b38dee-209b-4035-9d5a-5026e973ed21.webp";
+  const linkImage = linkVenueAsset.url;
 
   // Earn section uses these two images alternating
   const earnImages = [
-    "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.webp",
-    "/lovable-uploads/574c49aa-62ba-49c3-9425-e564722b764e.webp"
+    earnRewardAsset.url,
+    earnRedeemAsset.url,
   ];
 
   useEffect(() => {
