@@ -105,22 +105,22 @@
   },
   "venue_teaser": {
     "title": "Vendéglátóhely vagy?",
-    "subtitle": "A Come Get It Founding Partner Programmal az első 15 budapesti partner csatlakozása teljesen jutalékmentes az első 6 hónapban. Mi hozzuk a vendégeket — te megtartod őket.",
+    "subtitle": "Az első 15 budapesti Founding Partnerrel közösen bizonyítjuk be, hogy a rendszer a gyengébb időszakokban is mérhető forgalmat hoz. 6 hónap jutalékmentesen — a napi ingyen ital ad okot a vendégnek, hogy ma este hozzád menjen.",
     "cards": {
       "1": {
-        "title": "ÚJ VENDÉGEK",
-        "description": "Garantált forgalmat hozunk a holtidőkben — mérhetően és kockázatmentesen."
+        "title": "ÚJ VENDÉGEK, MÉRVE",
+        "description": "Nem ígérünk számokat — együtt mérjük: hány beváltás, mennyi utóköltés, hányan tértek vissza."
       },
       "2": {
         "title": "NULLA RIZIKÓ",
-        "description": "Nincs fix díj, nincs hosszú szerződés. Ha 2 hét után nem éred el a célt, egy mondat és kilépsz."
+        "description": "6 hónap jutalékmentes. Nincs setup-fee, nincs hosszú szerződés — a 30 napos review után bármikor kilépsz."
       },
       "3": {
-        "title": "VALÓDI INSIGHT",
-        "description": "Adatokat kapsz arról, ki mikor jön, melyik italra reagálnak — A/B tesztelheted az ajánlataidat."
+        "title": "TE SZABOD A KERETET",
+        "description": "Te döntöd el, melyik italt, melyik napokon, melyik órákban adod — mi végrehajtjuk és mérjük."
       }
     },
-    "cta": "Vendéglátóhelyként csatlakozom →"
+    "cta": "Jelentkezem a pilotra →"
   },
   "fomo": {
     "title": "Legyél alapító tag",
