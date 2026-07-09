@@ -427,7 +427,7 @@
       }
     },
     "features": {
-      "title": "Jutalom rendszer előnyei",
+      "title": "Jutalomrendszer előnyei",
       "items": {
         "1": {
           "title": "Közvetlen beváltás-meghajtás",
@@ -435,7 +435,7 @@
         },
         "2": {
           "title": "Fiatal, esti-aktív bázis",
-          "description": "91% Gen Z & Millennial – elkötelezett közönség."
+          "description": "18–35 éves budapesti fiatalok — a kategória, amit a legnehezebb hagyományos reklámmal elérni."
         },
         "3": {
           "title": "Együttműködési csomagok",
@@ -443,26 +443,9 @@
         }
       }
     },
-    "stats": {
-      "title": "Jutalom partnereink eredményei",
-      "items": {
-        "1": {
-          "value": "85%",
-          "label": "Kupon beváltási arány"
-        },
-        "2": {
-          "value": "+120%",
-          "label": "Új vásárlók növekedése"
-        },
-        "3": {
-          "value": "50+",
-          "label": "Aktív jutalom partner"
-        },
-        "4": {
-          "value": "95%",
-          "label": "Partner elégedettség"
-        }
-      }
+    "early_access": {
+      "title": "Rewards-partner early access",
+      "body": "Az első rewards-partnerek a program indulásakor a beváltási menü elején jelennek meg — az early access most erre ad helyet."
     }
   },
   "accelerator_page": {
