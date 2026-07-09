@@ -237,11 +237,11 @@
   },
   "venues": {
     "hero": {
-      "badge": "FOUNDING PARTNER PROGRAM — 15 HELY",
+      "badge": "FOUNDING PARTNER PILOT — 15 HELY",
       "line1": "TÖBB VENDÉG.",
       "line2": "KEVESEBB ÜRES ASZTAL.",
-      "subtitle": "Új vendégeket hozunk a holtidőkben. A napi ingyen ital ad nekik konkrét okot, hogy ma este hozzád menjenek — a többit a hely már intézi.",
-      "cta": "Founding Partnerré válok",
+      "subtitle": "A Come Get It a gyengébb időszakaidban terel hozzád új vendéget — a napi ingyen ital ad nekik konkrét okot, hogy ma hozzád menjenek. Nem ígérünk számokat: 30 naponta együtt nézzük meg az adatokból, hogy nálad működik-e.",
+      "cta": "Jelentkezem a pilotra",
       "cta_secondary": "Hogyan működik?"
     },
     "how_it_works": {
