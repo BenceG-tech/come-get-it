@@ -9,6 +9,7 @@ import { FoundingPartnerPerks } from '@/components/FoundingPartnerPerks';
 import { VenueROI } from '@/components/VenueROI';
 import { VenueStats } from '@/components/VenueStats';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
+import { VenueExpectations } from '@/components/VenueExpectations';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
