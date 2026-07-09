@@ -1,0 +1,315 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family:'Inter'; src:url('assets/Inter.ttf') format('truetype'); font-weight:100 900; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1920px; background:#000; overflow:hidden; }
+  #stage {
+    position:relative; width:1080px; height:1920px; background:#000;
+    font-family:'Inter',sans-serif; overflow:hidden; perspective:1600px;
+  }
+  .bg { position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 800px 600px at 25% 15%, rgba(0,188,212,0.09), transparent 60%),
+      radial-gradient(ellipse 800px 700px at 78% 90%, rgba(0,120,150,0.10), transparent 60%),
+      radial-gradient(ellipse 1200px 1600px at 50% 50%, #060809 0%, #000 72%);
+  }
+  .vignette { position:absolute; inset:0;
+    background: radial-gradient(ellipse 700px 1300px at 50% 50%, transparent 45%, rgba(0,0,0,0.6) 100%); }
+  .blob { position:absolute; border-radius:50%; filter:blur(90px); will-change:transform; }
+
+  /* ---- logo ---- */
+  .logoScene { position:absolute; left:50%; top:50%; width:640px; height:640px; margin-left:-320px; margin-top:-320px;
+    display:flex; align-items:center; justify-content:center; }
+  .logoGlow { position:absolute; width:1000px; height:1000px; border-radius:50%;
+    background: radial-gradient(circle, rgba(0,188,212,0.5) 0%, rgba(0,188,212,0) 70%); filter:blur(6px); }
+  .logoImg { position:relative; width:480px; height:480px; object-fit:contain;
+    filter: drop-shadow(0 0 40px rgba(0,188,212,0.35)); }
+  .ctaText { position:absolute; left:0; top:66%; width:1080px; text-align:center;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:40px; letter-spacing:0.5px; color:#eafcff;
+    text-shadow:0 0 24px rgba(0,188,212,0.4); padding:0 90px; line-height:1.4; }
+
+  /* ---- phone frame ---- */
+  .phoneOuter { position:absolute; left:50%; top:50%; width:840px; height:1800px; margin-left:-420px; margin-top:-900px;
+    transform-style:preserve-3d; }
+  .phoneFrame { position:absolute; inset:0; border-radius:64px; background:#050708;
+    border:12px solid #101416;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.7), 0 0 0 1.5px rgba(255,255,255,0.05), 0 0 90px rgba(0,188,212,0.12);
+  }
+  .phoneScreen { position:absolute; left:20px; top:20px; right:20px; bottom:20px; border-radius:48px; overflow:hidden; background:#000; }
+  .sceneStage { position:absolute; left:0; top:0; width:1206px; height:2622px;
+    transform: scale(0.67125); transform-origin: 0 0; }
+  .kb { position:absolute; inset:0; width:1206px; height:2622px; }
+  .kb img { position:absolute; left:0; top:0; width:1206px; height:2622px; }
+  .sheenSweep { position:absolute; left:-60%; top:-20%; width:55%; height:140%;
+    background:linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.10) 45%, rgba(180,245,255,0.14) 50%, rgba(255,255,255,0.10) 55%, transparent 80%);
+    transform:skewX(-16deg); pointer-events:none; mix-blend-mode:screen; }
+
+  .glowDot { position:absolute; border-radius:50%; background:radial-gradient(circle, rgba(120,235,255,0.95) 0%, rgba(0,188,212,0.5) 40%, transparent 72%); }
+  .glowRect { position:absolute; border-radius:28px; border:2px solid rgba(120,230,255,0.85); box-shadow:0 0 0 1px rgba(120,230,255,0.25), 0 0 28px rgba(0,200,230,0.55), inset 0 0 20px rgba(0,200,230,0.18); }
+  .glowPill { position:absolute; border-radius:999px; border:2.5px solid rgba(130,235,255,0.9); box-shadow:0 0 0 1px rgba(130,235,255,0.3), 0 0 34px rgba(0,210,235,0.6), inset 0 0 24px rgba(0,210,235,0.2); }
+  .bloomRect { position:absolute; border-radius:24px; mix-blend-mode:screen;
+    background:radial-gradient(ellipse at center, rgba(120,235,255,0.55) 0%, rgba(0,180,210,0.18) 55%, transparent 75%); }
+  .stepGlow { position:absolute; border-radius:50%; box-shadow:0 0 0 3px rgba(130,235,255,0.9), 0 0 30px rgba(0,210,235,0.7); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="bg"></div>
+  <div class="blob" id="blob1" style="width:620px;height:620px;background:rgba(0,188,212,0.15);left:-160px;top:120px;"></div>
+  <div class="blob" id="blob2" style="width:600px;height:600px;background:rgba(0,120,150,0.13);right:-160px;bottom:80px;"></div>
+  <div class="vignette"></div>
+
+  <div class="logoScene" id="logoScene">
+    <div class="logoGlow" id="logoGlow"></div>
+    <img class="logoImg" src="assets/logo_alpha.png">
+  </div>
+  <div class="ctaText" id="ctaText">Napi ingyen ital.<br>Budapesten hamarosan.</div>
+
+  <div class="phoneOuter" id="phoneOuter">
+    <div class="phoneFrame"></div>
+    <div class="phoneScreen">
+      <div class="sceneStage" id="stageDiscovery"><div class="kb" id="kbDiscovery">
+        <img src="assets/discovery.png">
+        <div class="glowDot" id="pin1"></div>
+        <div class="glowDot" id="pin2"></div>
+        <div class="glowDot" id="pin3"></div>
+        <div class="glowRect" id="card1"></div>
+        <div class="glowRect" id="card2"></div>
+      </div></div>
+      <div class="sceneStage" id="stageDetail"><div class="kb" id="kbDetail">
+        <img src="assets/detail.png">
+        <div class="glowPill" id="ctaButton"></div>
+        <div class="bloomRect" id="ctaBloom"></div>
+      </div></div>
+      <div class="sceneStage" id="stageRedeem"><div class="kb" id="kbRedeem">
+        <img src="assets/redeem.png">
+        <div class="stepGlow" id="step1"></div>
+        <div class="stepGlow" id="step2"></div>
+        <div class="stepGlow" id="step3"></div>
+        <svg id="ringSvg" style="position:absolute;left:0;top:0;width:1206px;height:2622px;overflow:visible;">
+          <circle id="ringArc" cx="603" cy="1955" r="153" fill="none" stroke="#5be8ff" stroke-width="10"
+            stroke-linecap="round" transform="rotate(-90 603 1955)"/>
+        </svg>
+        <div class="glowPill" id="bevaltomBtn"></div>
+      </div></div>
+      <div class="sceneStage" id="stageSuccess"><div class="kb" id="kbSuccess">
+        <img src="assets/success.png">
+        <div class="bloomRect" id="successTextBloom"></div>
+        <div class="glowRect" id="impactBox"></div>
+      </div></div>
+      <div class="sheenSweep" id="sheenSweep"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function clamp(x,a,b){ return Math.min(b, Math.max(a,x)); }
+function progress(t,a,b){ if(b<=a) return t>=b?1:0; return clamp((t-a)/(b-a), 0, 1); }
+function lerp(a,b,t){ return a + (b-a)*t; }
+function easeOutCubic(x){ return 1-Math.pow(1-x,3); }
+function easeInCubic(x){ return x*x*x; }
+function easeInOutCubic(x){ return x<0.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; }
+function easeOutExpo(x){ return x===1?1:1-Math.pow(2,-10*x); }
+
+const T = {
+  logoIn: [0.0, 1.0],
+  discovery: [1.0, 2.5],
+  detail: [2.5, 4.0],
+  redeem: [4.0, 5.5],
+  success: [5.5, 7.0],
+  logoOut: [7.0, 8.0],
+};
+const FADE = 0.35;
+
+function sceneOpacity(t, start, end){
+  const inP = progress(t, start, start+FADE);
+  const outP = 1 - progress(t, end-FADE, end);
+  return Math.min(inP, outP);
+}
+
+const els = {};
+function $(id){ if(!els[id]) els[id]=document.getElementById(id); return els[id]; }
+
+// natural-pixel coordinates (1206x2622 source space)
+const COORDS = {
+  pin1:{cx:686,cy:458,r:22}, pin2:{cx:795,cy:392,r:22}, pin3:{cx:838,cy:468,r:22},
+  card1:{x:20,y:780,w:1166,h:840}, card2:{x:20,y:1620,w:1166,h:840},
+  ctaButton:{x:45,y:2295,w:1118,h:213},
+  ring:{cx:603,cy:1955,r:153},
+  step1:{cx:398,cy:1052,r:78}, step2:{cx:603,cy:1052,r:78}, step3:{cx:807,cy:1052,r:78},
+  bevaltomBtn:{x:95,y:2403,w:1018,h:219},
+  successText:{x:270,y:1355,w:665,h:100},
+  impactBox:{x:95,y:1638,w:1018,h:442},
+};
+
+function placeDot(el,c,r,opacity){
+  el.style.left=(c.cx-r)+'px'; el.style.top=(c.cy-r)+'px';
+  el.style.width=(r*2)+'px'; el.style.height=(r*2)+'px';
+  el.style.opacity=opacity;
+}
+function placeRect(el,c,opacity,pad){
+  pad = pad||0;
+  el.style.left=(c.x-pad)+'px'; el.style.top=(c.y-pad)+'px';
+  el.style.width=(c.w+pad*2)+'px'; el.style.height=(c.h+pad*2)+'px';
+  el.style.opacity=opacity;
+}
+
+function render(t){
+  // ambient background drift
+  $('blob1').style.transform = `translate(${Math.sin(t*0.14)*35}px, ${Math.cos(t*0.11)*25}px)`;
+  $('blob2').style.transform = `translate(${Math.cos(t*0.12)*35}px, ${Math.sin(t*0.10)*25}px)`;
+
+  // ================= LOGO IN =================
+  const [li0,li1] = T.logoIn;
+  const logoScene = $('logoScene'), logoGlow = $('logoGlow'), ctaText = $('ctaText');
+  const [lo0,lo1] = T.logoOut;
+
+  let logoVisible = 0;
+  if (t < li1 + FADE) {
+    logoVisible = Math.max(logoVisible, progress(t, 0, 0.22) * (1-progress(t, li1, li1+FADE)));
+  }
+  let logoOutVisible = progress(t, lo0-FADE, lo0) ;
+  if (t>=lo0-FADE) logoOutVisible = 1;
+  const showOutro = t >= lo0-FADE;
+
+  if (!showOutro) {
+    logoScene.style.opacity = logoVisible;
+    const glowP = progress(t, li0, li1);
+    logoGlow.style.opacity = 0.15 + glowP*0.85;
+    ctaText.style.opacity = 0;
+  } else {
+    const inP = easeOutCubic(progress(t, lo0-FADE, lo0+0.35));
+    logoScene.style.opacity = inP;
+    logoGlow.style.opacity = 0.3 + Math.min(1, progress(t, lo0, lo0+0.6))*0.7;
+    logoScene.style.transform = `scale(${lerp(0.9,1.0,inP)})`;
+    const ctaP = easeOutCubic(progress(t, lo0+0.3, lo0+0.7));
+    ctaText.style.opacity = ctaP;
+    ctaText.style.transform = `translateY(${lerp(20,0,ctaP)}px)`;
+  }
+
+  // ================= PHONE FRAME =================
+  const phoneOuter = $('phoneOuter');
+  const contentStart = T.discovery[0], contentEnd = T.success[1];
+  const phoneIn = easeOutCubic(progress(t, contentStart-0.5, contentStart+0.05));
+  const phoneOut = 1 - easeInCubic(progress(t, contentEnd-0.05, contentEnd+0.35));
+  const phoneOpacity = Math.min(phoneIn, phoneOut);
+  phoneOuter.style.opacity = phoneOpacity;
+
+  const tiltSettle = easeOutExpo(progress(t, contentStart-0.5, contentStart+0.5));
+  const restTiltY = Math.sin(t*0.55)*2.6;
+  const restTiltX = Math.cos(t*0.4)*1.4;
+  const startTiltY = -16, startTiltX = 6;
+  const tiltY = lerp(startTiltY, restTiltY, tiltSettle);
+  const tiltX = lerp(startTiltX, restTiltX, tiltSettle);
+  const scalePop = lerp(0.92, 1.0, tiltSettle) * lerp(1.0, 0.94, phoneOut>0?(1-phoneOut):0);
+  phoneOuter.style.transform = `rotateY(${tiltY}deg) rotateX(${tiltX}deg) scale(${scalePop})`;
+
+  // glass sheen sweep - slow diagonal pass, once per content scene
+  const sweep = $('sheenSweep');
+  const sweepCycle = 1.5;
+  const sceneLocalT = (t - contentStart) % sweepCycle;
+  const sweepP = easeInOutCubic(progress(sceneLocalT, 0.15, 1.1));
+  sweep.style.transform = `translateX(${lerp(-40, 260, sweepP)}%)`;
+  sweep.style.opacity = t>=contentStart && t<contentEnd ? 1 : 0;
+
+  // ---------------- scene content helper ----------------
+  function applyScene(stageId, kbId, start, end, focus, zoomMax){
+    const stage = $(stageId), kb = $(kbId);
+    const op = sceneOpacity(t, start, end);
+    stage.style.opacity = op;
+    if (op <= 0) return;
+    const p = progress(t, start, end);
+    const z = 1 + (zoomMax-1)*easeInOutCubic(clamp(p/0.85,0,1));
+    const driftX = Math.sin((t-start)*0.6)*5;
+    const driftY = Math.cos((t-start)*0.5)*4;
+    const slideInPx = lerp(30, 0, progress(t,start,start+FADE)) / 0.67125;
+    kb.style.transformOrigin = `${focus.x}px ${focus.y}px`;
+    kb.style.transform = `translateY(${slideInPx}px) scale(${z}) translate(${driftX}px,${driftY}px)`;
+  }
+
+  // ================= DISCOVERY =================
+  applyScene('stageDiscovery', 'kbDiscovery', T.discovery[0], T.discovery[1], {x:700,y:1000}, 1.14);
+  {
+    const [s,e] = T.discovery;
+    const localP = progress(t, s+0.2, s+0.9);
+    [['pin1',0],['pin2',0.12],['pin3',0.22]].forEach(([id,delay])=>{
+      const c = COORDS[id];
+      const p = progress(t, s+0.2+delay, s+0.6+delay);
+      const pulse = 0.7 + Math.sin((t-s)*3.2 + delay*10)*0.3;
+      placeDot($(id), c, c.r, p*pulse*sceneOpacity(t,s,e));
+    });
+    const cardP1 = progress(t, s+0.35, s+0.85);
+    const cardP2 = progress(t, s+0.5, s+1.0);
+    placeRect($('card1'), COORDS.card1, cardP1*0.85*sceneOpacity(t,s,e), 4);
+    placeRect($('card2'), COORDS.card2, cardP2*0.85*sceneOpacity(t,s,e), 4);
+  }
+
+  // ================= DETAIL =================
+  applyScene('stageDetail', 'kbDetail', T.detail[0], T.detail[1], {x:603,y:1750}, 1.16);
+  {
+    const [s,e] = T.detail;
+    const so = sceneOpacity(t,s,e);
+    const inP = progress(t, s+0.3, s+0.75);
+    const pulse = 0.75 + Math.sin((t-s)*3.4)*0.25;
+    placeRect($('ctaButton'), COORDS.ctaButton, inP*pulse*so, 6);
+    $('ctaButton').style.borderRadius = '110px';
+    const bloomP = progress(t, s+0.3, s+0.9);
+    const bloomPulse = 0.5 + Math.sin((t-s)*3.4)*0.5;
+    placeRect($('ctaBloom'), {x:COORDS.ctaButton.x-20,y:COORDS.ctaButton.y-20,w:COORDS.ctaButton.w+40,h:COORDS.ctaButton.h+40}, bloomP*bloomPulse*0.8*so, 0);
+  }
+
+  // ================= REDEEM =================
+  applyScene('stageRedeem', 'kbRedeem', T.redeem[0], T.redeem[1], {x:603,y:1850}, 1.08);
+  {
+    const [s,e] = T.redeem;
+    const so = sceneOpacity(t,s,e);
+    const stepDelays = [0.15, 0.5, 0.85];
+    ['step1','step2','step3'].forEach((id,i)=>{
+      const c = COORDS[id];
+      const p = progress(t, s+stepDelays[i], s+stepDelays[i]+0.3);
+      const decay = 1 - progress(t, s+stepDelays[i]+0.3, s+stepDelays[i]+0.9)*0.55;
+      el2Place($(id), c, (p*decay)*so);
+    });
+    function el2Place(el,c,opacity){
+      el.style.left=(c.cx-c.r)+'px'; el.style.top=(c.cy-c.r)+'px';
+      el.style.width=(c.r*2)+'px'; el.style.height=(c.r*2)+'px';
+      el.style.opacity=opacity;
+    }
+    // countdown ring sweep
+    const ring = $('ringArc');
+    const circumference = 2*Math.PI*COORDS.ring.r;
+    ring.setAttribute('stroke-dasharray', circumference);
+    const sweepP = easeInOutCubic(progress(t, s+0.2, s+1.3));
+    ring.setAttribute('stroke-dashoffset', circumference*(1-sweepP));
+    ring.style.opacity = so * (0.85);
+    ring.style.filter = 'drop-shadow(0 0 10px rgba(0,210,235,0.85))';
+
+    const btnP = progress(t, s+1.0, s+1.4);
+    const btnPulse = 0.7 + Math.sin((t-s)*4)*0.3;
+    placeRect($('bevaltomBtn'), COORDS.bevaltomBtn, btnP*btnPulse*so, 6);
+    $('bevaltomBtn').style.borderRadius = '48px';
+  }
+
+  // ================= SUCCESS =================
+  applyScene('stageSuccess', 'kbSuccess', T.success[0], T.success[1], {x:603,y:1650}, 1.13);
+  {
+    const [s,e] = T.success;
+    const so = sceneOpacity(t,s,e);
+    const textP = progress(t, s+0.25, s+0.75);
+    const textPulse = 0.6 + Math.sin((t-s)*3)*0.4;
+    placeRect($('successTextBloom'), COORDS.successText, textP*textPulse*0.9*so, 10);
+    const boxP = easeOutCubic(progress(t, s+0.45, s+0.95));
+    placeRect($('impactBox'), COORDS.impactBox, boxP*0.8*so, 6);
+    const scalePulse = 1 + Math.sin((t-s-0.7)*2.4)*0.008*progress(t,s+0.7,s+0.9);
+    $('impactBox').style.transform = `scale(${boxP<1?lerp(0.96,1.0,boxP):scalePulse})`;
+  }
+}
+
+window.__setTime = render;
+render(0);
+</script>
+</body>
+</html>
