@@ -20,13 +20,13 @@
     "en": "EN"
   },
   "hero": {
-    "badge": "LAUNCHING IN BUDAPEST — SEPTEMBER 2026",
+    "badge": "LAUNCHING IN BUDAPEST — 1 SEPTEMBER 2026",
     "title_line1": "DON'T KNOW",
     "title_line2": "WHERE TO GO TODAY?",
-    "subtitle": "Partner venues in Budapest. A free drink every day. Each redemption funds clean water for someone in need.",
-    "cta": "Join as a founding member",
+    "subtitle": "Pick a place. Go there. The first drink is on us. And every redeemed drink gives someone in need a day of clean drinking water.",
+    "cta": "I'm in for a round! 🍻",
     "cta_secondary": "How it works",
-    "founding_note": "The first 500 founding members get lifetime Founding Member status and 1 month of Plus free."
+    "founding_note": "The first 500 founding members get lifetime Founding Member status and 1 month of Plus as a gift."
   },
   "miben_segit": {
     "title": "How does it help?",
@@ -69,8 +69,8 @@
   "give": {
     "title": "GIVE.",
     "subtitle": "Every sip counts.",
-    "body": "The \"Drink for a Cause\" model is in our DNA. We don't just want to fuel the party — we want to fuel change.",
-    "quote": "For Gen Z, social responsibility isn't optional — it's expected. We donate after every Welcome Drink."
+    "body": "Every drink you redeem in the app gives one day of clean drinking water to someone in need. Not a campaign, not a yearly donation — it's how the system works. In the app you can see your own impact: how many days of clean water you've given so far.",
+    "quote": "For Gen Z, social responsibility isn't optional — it's expected. We donate after every redeemed drink."
   },
   "fomo": {
     "title": "Become a founding member",
@@ -128,16 +128,16 @@
         "description": "Download the app"
       },
       "2": {
-        "title": "SIGN UP",
-        "description": "Sign up and link your card"
+        "title": "LOOK AROUND",
+        "description": "See which partner venue has a free drink waiting today"
       },
       "3": {
-        "title": "DRINK",
-        "description": "Enjoy your daily welcome drink"
+        "title": "REDEEM",
+        "description": "One tap at the venue and the first round is yours"
       },
       "4": {
-        "title": "EARN POINTS",
-        "description": "Earn points and redeem for free drinks and discounts"
+        "title": "EARN",
+        "description": "Points for every activity, redeemable for rewards"
       }
     }
   },
@@ -187,11 +187,11 @@
   },
   "venues": {
     "hero": {
-      "badge": "FOUNDING PARTNER PROGRAM — 15 SPOTS",
+      "badge": "FOUNDING PARTNER PILOT — 15 SPOTS",
       "line1": "MORE GUESTS.",
       "line2": "FEWER EMPTY TABLES.",
-      "subtitle": "We bring new guests during slow hours. The daily free drink gives them a concrete reason to come to you tonight — the venue takes care of the rest.",
-      "cta": "Become a Founding Partner",
+      "subtitle": "Come Get It drives new guests to you during your slower hours — the daily free drink gives them a concrete reason to pick you tonight. We don't promise numbers: every 30 days we look at the data together and see whether it's working for you.",
+      "cta": "Apply to the pilot",
       "cta_secondary": "How it works"
     },
     "how_it_works": {
@@ -223,12 +223,12 @@
           "description": "Bring new, relevant guests even on weekdays."
         },
         "2": {
-          "title": "PROVABLE ATTRIBUTION",
-          "description": "Card-linked, real traffic feedback — no guesswork."
+          "title": "MEASURED REDEMPTION & FOLLOW-UP SPEND",
+          "description": "Every redemption is logged, with follow-up spend attached. No guesswork — the report shows what actually happened."
         },
         "3": {
-          "title": "NO DISCOUNTING",
-          "description": "Not freebie seekers: experience-driven audience who spend."
+          "title": "EXPERIENCE-DRIVEN CROWD",
+          "description": "We build the system to reward returning guests, not coupon-hunters — and the pilot measures exactly whether it works."
         },
         "4": {
           "title": "REDEMPTIONS / TRAFFIC REPORTS",
@@ -267,7 +267,7 @@
       "line2": "AT THE FIRST SIP.",
       "subtitle": "Show your drink to the people who are deciding right now what to drink. Not as an ad — as a first sip. Sampling at scale, with measurable results.",
       "phase_note": "Drink-brand activations launch after the Founding Partner venues sign on. You can apply now for early access — the target audience and the first campaign blueprints are ready, waiting to be rolled out together.",
-      "cta": "Let's talk"
+      "cta": "Request early access"
     },
     "how_it_works": {
       "title": "HOW IT WORKS?",
@@ -299,7 +299,7 @@
         },
         "2": {
           "title": "TARGETED REACH",
-          "description": "91% Gen Z & Millennial — precise, valuable audience."
+          "description": "Our audience: 18–35-year-old Budapest locals — the category traditional advertising struggles most to reach."
         },
         "3": {
           "title": "CREATIVE EXPERIENCE PACKS",
@@ -307,7 +307,7 @@
         },
         "4": {
           "title": "PERFORMANCE MEASUREMENT",
-          "description": "Card-linked attribution and real-time stats."
+          "description": "Redemption-level data: where, when, which of your drinks moved, and what happened next."
         },
         "5": {
           "title": "TASTING IN A REAL SITUATION",
@@ -343,8 +343,8 @@
     "final_cta": {
       "title_line1": "LAUNCH YOUR",
       "title_line2": "EXPERIENCE CAMPAIGN!",
-      "subtitle": "Message us and join early!",
-      "cta": "Contact us"
+      "subtitle": "Message us and request early access to the drink-brand program.",
+      "cta": "Request early access"
     }
   },
   "rewards_page": {
@@ -353,7 +353,7 @@
       "line2": "POINTS GET REDEEMED.",
       "subtitle": "Our users earn points with every spend. What do they redeem them for? That's where you come in. Tickets, experiences, gym, beauty, coffee, brunch — anything a Budapest local values.",
       "phase_note": "The rewards-partner program launches in phase 2, after the user base is established. You can apply now for early access so you're among the first listed in the redemption menu when we go live.",
-      "cta": "Become a rewards partner"
+      "cta": "Request early access"
     },
     "how_it_works": {
       "title": "HOW IT WORKS?",
@@ -385,7 +385,7 @@
         },
         "2": {
           "title": "Young, evening-active base",
-          "description": "91% Gen Z & Millennial — engaged audience."
+          "description": "18–35-year-old Budapest locals — the category traditional advertising struggles most to reach."
         },
         "3": {
           "title": "Collaboration packages",
@@ -393,26 +393,9 @@
         }
       }
     },
-    "stats": {
-      "title": "Our rewards partners' results",
-      "items": {
-        "1": {
-          "value": "85%",
-          "label": "Coupon redemption rate"
-        },
-        "2": {
-          "value": "+120%",
-          "label": "New customers growth"
-        },
-        "3": {
-          "value": "50+",
-          "label": "Active rewards partners"
-        },
-        "4": {
-          "value": "95%",
-          "label": "Partner satisfaction"
-        }
-      }
+    "early_access": {
+      "title": "Rewards partner early access",
+      "body": "The first rewards partners appear at the top of the redemption menu when the program goes live — early access reserves that spot."
     }
   },
   "accelerator_page": {
@@ -518,17 +501,17 @@
       "badge": "PARTNER PROGRAM — 2026",
       "line1": "LET'S BUILD",
       "line2": "BUDAPEST'S NIGHTLIFE TOGETHER.",
-      "subtitle": "Three different ways to join Come Get It. Find the one that fits you."
+      "subtitle": "Three ways to join. We're kicking off with the venue pilots — the drink-brand and rewards programs build on top of that in phase 2."
     },
     "sections": {
       "venues": {
         "phase": "PHASE 1 — LAUNCH",
         "title": "Are you a venue?",
-        "description": "We bring new guests during slow hours. The daily free drink gives them a concrete reason to come to you tonight — the venue takes care of the rest.",
+        "description": "With the first 15 Budapest Founding Partners we're proving that the system brings measurable traffic during weaker periods. We don't promise numbers — we measure them together.",
         "bullets": {
           "1": "6 months commission-free",
-          "2": "New guests during slow hours",
-          "3": "Real consumer data"
+          "2": "30-day review cycle, exit any time",
+          "3": "Measured redemption and follow-up spend"
         },
         "cta": "Details"
       },
