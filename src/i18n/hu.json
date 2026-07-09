@@ -178,16 +178,16 @@
         "description": "Töltsd le az appot"
       },
       "2": {
-        "title": "REGISZTRÁLJ",
-        "description": "Regisztrálj és linkeld a kártyádat"
+        "title": "NÉZZ KÖRÜL",
+        "description": "Lásd, melyik partnerhelyen vár ma ingyen ital"
       },
       "3": {
-        "title": "IGYÁL",
-        "description": "Élvezd napi welcome drink-ed"
+        "title": "VÁLTSD BE",
+        "description": "A helyszínen egy gombnyomás, és a tiéd az első kör"
       },
       "4": {
-        "title": "GYŰJTS PONTOKAT",
-        "description": "Gyűjtsd a pontokat és váltsd be további ingyen italokra, kedvezményekre"
+        "title": "GYŰJTS",
+        "description": "Pontok minden aktivitás után, jutalmakra váltva"
       }
     }
   },
