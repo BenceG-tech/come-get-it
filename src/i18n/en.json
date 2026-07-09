@@ -385,7 +385,7 @@
         },
         "2": {
           "title": "Young, evening-active base",
-          "description": "91% Gen Z & Millennial — engaged audience."
+          "description": "18–35-year-old Budapest locals — the category traditional advertising struggles most to reach."
         },
         "3": {
           "title": "Collaboration packages",
@@ -393,26 +393,9 @@
         }
       }
     },
-    "stats": {
-      "title": "Our rewards partners' results",
-      "items": {
-        "1": {
-          "value": "85%",
-          "label": "Coupon redemption rate"
-        },
-        "2": {
-          "value": "+120%",
-          "label": "New customers growth"
-        },
-        "3": {
-          "value": "50+",
-          "label": "Active rewards partners"
-        },
-        "4": {
-          "value": "95%",
-          "label": "Partner satisfaction"
-        }
-      }
+    "early_access": {
+      "title": "Rewards partner early access",
+      "body": "The first rewards partners appear at the top of the redemption menu when the program goes live — early access reserves that spot."
     }
   },
   "accelerator_page": {
