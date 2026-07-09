@@ -101,6 +101,7 @@ const Vendeglatohelyek = () => {
         <VenueROI />
         <VenueStats />
         <HowItWorksForVenues />
+        <VenueExpectations />
         <VenueApplicationSection />
       </main>
       <CustomerSupport />
