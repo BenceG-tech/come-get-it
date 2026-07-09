@@ -1,0 +1,333 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face {
+    font-family: 'Inter';
+    src: url('assets/Inter.ttf') format('truetype');
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('assets/InterBold.ttf') format('truetype');
+    font-weight: 700;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1920px; height:1080px; background:#000; overflow:hidden; }
+  #stage {
+    position:relative; width:1920px; height:1080px; background:#000;
+    font-family:'Inter', sans-serif; overflow:hidden;
+  }
+  .bg {
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 900px 700px at 30% 20%, rgba(0,188,212,0.10), transparent 60%),
+      radial-gradient(ellipse 900px 700px at 75% 85%, rgba(0,90,120,0.14), transparent 60%),
+      radial-gradient(ellipse 1600px 1000px at 50% 50%, #0a0e10 0%, #000 70%);
+  }
+  .grain {
+    position:absolute; inset:0; opacity:0.05; mix-blend-mode:overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .vignette {
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse 1400px 900px at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%);
+  }
+  .blob {
+    position:absolute; border-radius:50%; filter:blur(80px); will-change:transform;
+  }
+
+  .card {
+    position:absolute; left:50%; top:50%; width:340px; height:739px;
+    margin-left:-170px; margin-top:-369.5px;
+    border-radius:44px; border:7px solid #14181a;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.65), 0 0 0 1.5px rgba(255,255,255,0.06);
+    overflow:hidden; background:#000; will-change:transform,filter,opacity;
+  }
+  .card img { position:absolute; width:100%; top:0; left:0; }
+  .card .sheen {
+    position:absolute; inset:0;
+    background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.10) 48%, transparent 60%);
+    background-size:260% 260%;
+  }
+
+  .logoWrap {
+    position:absolute; left:680px; top:150px; width:560px; height:560px;
+    display:flex; align-items:center; justify-content:center; will-change:transform,filter,opacity;
+  }
+  .logoGlow {
+    position:absolute; width:900px; height:900px; border-radius:50%;
+    background: radial-gradient(circle, rgba(0,188,212,0.55) 0%, rgba(0,188,212,0.0) 70%);
+    filter: blur(10px);
+  }
+  .logoImg {
+    position:relative; width:520px; height:520px; object-fit:contain;
+    filter: drop-shadow(0 0 40px rgba(0,188,212,0.35));
+  }
+
+  .boltSvg { position:absolute; inset:0; overflow:visible; }
+  .flash { position:absolute; inset:0; background:#eafcff; opacity:0; }
+  .impactBurst {
+    position:absolute; left:945px; top:150px; width:10px; height:10px;
+    margin-left:-5px; margin-top:-5px; border-radius:50%;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(120,235,255,0.8) 35%, rgba(0,188,212,0) 70%);
+    opacity:0;
+  }
+
+  .ctaWrap {
+    position:absolute; left:0; top:770px; width:1920px; text-align:center; will-change:transform,opacity;
+  }
+  .rule {
+    width:120px; height:3px; margin:0 auto 34px auto;
+    background: linear-gradient(90deg, transparent, #00e5ff, transparent);
+    transform: scaleX(0); opacity:0.9;
+  }
+  .ctaMain {
+    font-family:'Inter'; font-weight:700; font-size:50px; letter-spacing:2px;
+    color:#f5fdff; text-transform:uppercase; opacity:0; transform:translateY(26px);
+    text-shadow: 0 0 30px rgba(0,188,212,0.35);
+  }
+  .ctaMain .accent { color:#00d4ec; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="bg"></div>
+  <div class="blob" id="blob1" style="width:700px;height:700px;background:rgba(0,188,212,0.16);left:-100px;top:100px;"></div>
+  <div class="blob" id="blob2" style="width:650px;height:650px;background:rgba(0,120,150,0.14);right:-120px;bottom:0px;"></div>
+  <div class="grain"></div>
+
+  <div class="card" id="card1"><img src="assets/shot1.png"><div class="sheen" id="sheen1"></div></div>
+  <div class="card" id="card2"><img src="assets/shot2.png"><div class="sheen" id="sheen2"></div></div>
+  <div class="card" id="card3"><img src="assets/shot3.png"><div class="sheen" id="sheen3"></div></div>
+  <div class="card" id="card4"><img src="assets/shot4.png"><div class="sheen" id="sheen4"></div></div>
+
+  <div class="logoWrap" id="logoWrap">
+    <div class="logoGlow" id="logoGlow"></div>
+    <img class="logoImg" src="assets/logo_alpha.png" id="logoImg">
+  </div>
+
+  <svg class="boltSvg" width="1920" height="1080" id="boltSvg">
+    <defs>
+      <filter id="boltBlur" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="4" result="b"/>
+        <feMerge>
+          <feMergeNode in="b"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <path id="boltPath" d="M 960,-60 L 918,20 L 958,55 L 900,110 L 950,140 L 945,150"
+      fill="none" stroke="#eafcff" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"
+      filter="url(#boltBlur)" stroke-dasharray="360" stroke-dashoffset="360" opacity="0"/>
+    <path id="boltPathCore" d="M 960,-60 L 918,20 L 958,55 L 900,110 L 950,140 L 945,150"
+      fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"
+      stroke-dasharray="360" stroke-dashoffset="360" opacity="0"/>
+  </svg>
+  <div class="impactBurst" id="impactBurst"></div>
+
+  <div class="ctaWrap" id="ctaWrap">
+    <div class="rule" id="rule"></div>
+    <div class="ctaMain" id="ctaMain">Book your next day with <span class="accent">Come Get It</span></div>
+  </div>
+
+  <div class="flash" id="flash"></div>
+</div>
+
+<script>
+function clamp(x,a,b){ return Math.min(b, Math.max(a,x)); }
+function progress(t,a,b){ if(b<=a) return t>=b?1:0; return clamp((t-a)/(b-a), 0, 1); }
+function lerp(a,b,t){ return a + (b-a)*t; }
+function easeOutBack(x){ const c1=1.70158, c3=c1+1; return 1 + c3*Math.pow(x-1,3) + c1*Math.pow(x-1,2); }
+function easeOutCubic(x){ return 1-Math.pow(1-x,3); }
+function easeOutExpo(x){ return x===1?1:1-Math.pow(2,-10*x); }
+function easeInOutCubic(x){ return x<0.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; }
+function easeInCubic(x){ return x*x*x; }
+
+const T = {
+  shotsStart: 0.15,
+  shotsDur: 0.85,
+  stagger: [0.00, 0.12, 0.06, 0.18],
+  shotsExitStart: 1.85,
+  shotsExitEnd: 2.25,
+  logoStart: 1.95,
+  logoEnd: 3.45,
+  boltStart: 3.55,
+  boltDraw: 0.12,
+  boltFlashPeak: 3.66,
+  boltFade: 3.9,
+  ctaRuleStart: 3.95,
+  ctaRuleEnd: 4.25,
+  ctaTextStart: 4.15,
+  ctaTextEnd: 4.55,
+  endFadeStart: 7.55,
+  endFadeEnd: 8.0,
+};
+
+const cards = [
+  { id:'card1', sheen:'sheen1', fx:-560, fy:20,  frot:-10, sx:-1750, srot:-34, phase:0.3 },
+  { id:'card2', sheen:'sheen2', fx:-190, fy:-35, frot:-4,  sx:-1750, srot:-20, phase:1.1 },
+  { id:'card3', sheen:'sheen3', fx:190,  fy:-15, frot:5,   sx:1750,  srot:20,  phase:2.0 },
+  { id:'card4', sheen:'sheen4', fx:560,  fy:25,  frot:11,  sx:1750,  srot:34,  phase:2.7 },
+];
+
+const els = {};
+function $(id){ if(!els[id]) els[id]=document.getElementById(id); return els[id]; }
+
+function render(t){
+  // ---- background ambience (always on, subtle drift) ----
+  const b1x = Math.sin(t*0.15)*40, b1y = Math.cos(t*0.12)*30;
+  const b2x = Math.cos(t*0.13)*40, b2y = Math.sin(t*0.11)*30;
+  $('blob1').style.transform = `translate(${b1x}px, ${b1y}px)`;
+  $('blob2').style.transform = `translate(${b2x}px, ${b2y}px)`;
+
+  // ---- phone cards ----
+  cards.forEach((c, i) => {
+    const el = $(c.id);
+    const sheenEl = $(c.sheen);
+    const start = T.shotsStart + T.stagger[i];
+    const end = start + T.shotsDur;
+    const pIn = easeOutBack(progress(t, start, end));
+
+    let x, y, rot, scale, blurPx, opacity;
+
+    if (t < end) {
+      x = lerp(c.sx, c.fx, pIn);
+      rot = lerp(c.srot, c.frot, pIn);
+      y = c.fy;
+      scale = lerp(0.72, 1.0, clamp(progress(t,start,end),0,1));
+      blurPx = lerp(10, 0, clamp(progress(t,start,start+T.shotsDur*0.7),0,1));
+      opacity = progress(t, start, start+0.18);
+    } else if (t < T.shotsExitStart) {
+      const wob = t - end;
+      x = c.fx;
+      y = c.fy + Math.sin(wob*1.1 + c.phase)*7;
+      rot = c.frot + Math.sin(wob*0.9 + c.phase)*1.6;
+      scale = 1.0 + Math.sin(wob*0.7+c.phase)*0.01;
+      blurPx = 0;
+      opacity = 1;
+    } else {
+      const pOut = easeInCubic(progress(t, T.shotsExitStart, T.shotsExitEnd));
+      x = c.fx + pOut*(c.fx>0?260:-260);
+      y = c.fy;
+      rot = c.frot;
+      scale = lerp(1.0, 1.22, pOut);
+      blurPx = lerp(0, 26, pOut);
+      opacity = lerp(1, 0, pOut);
+    }
+
+    el.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg) scale(${scale})`;
+    el.style.filter = `blur(${blurPx}px)`;
+    el.style.opacity = opacity;
+
+    const sheenX = lerp(-40, 160, clamp(progress(t,start,end+0.3),0,1));
+    sheenEl.style.backgroundPosition = `${sheenX}% ${sheenX}%`;
+  });
+
+  // ---- logo ----
+  const logoWrap = $('logoWrap');
+  const pLogo = easeOutExpo(progress(t, T.logoStart, T.logoEnd));
+  let logoScale = lerp(1.35, 1.0, pLogo);
+  let logoBlur = lerp(46, 0, easeOutCubic(progress(t, T.logoStart, T.logoStart+ (T.logoEnd-T.logoStart)*0.85)));
+  let logoOpacity = progress(t, T.logoStart, T.logoStart+0.5);
+
+  // idle float after settle
+  if (t > T.logoEnd) {
+    logoScale = 1.0 + Math.sin((t-T.logoEnd)*0.8)*0.012;
+  }
+  // lightning impact punch
+  let punch = 0;
+  if (t >= T.boltStart && t < T.boltFade) {
+    const pp = progress(t, T.boltStart+T.boltDraw, T.boltStart+T.boltDraw+0.22);
+    punch = Math.sin(pp*Math.PI) * 0.07 * (1-pp*0.3);
+  }
+  logoScale += punch;
+
+  let shakeX = 0, shakeY = 0;
+  if (t >= T.boltStart+T.boltDraw-0.02 && t < T.boltStart+T.boltDraw+0.16) {
+    const s = 1 - progress(t, T.boltStart+T.boltDraw-0.02, T.boltStart+T.boltDraw+0.16);
+    shakeX = Math.sin(t*90)*6*s;
+    shakeY = Math.cos(t*80)*4*s;
+  }
+
+  logoWrap.style.transform = `translate(${shakeX}px, ${shakeY}px) scale(${logoScale})`;
+  logoWrap.style.filter = `blur(${logoBlur}px)`;
+  logoWrap.style.opacity = logoOpacity;
+
+  const glowPulse = 0.55 + Math.sin(t*1.6)*0.12 + punch*2.2;
+  $('logoGlow').style.opacity = clamp(glowPulse,0,1) * logoOpacity;
+
+  // ---- lightning bolt ----
+  const boltP = $('boltPath'), boltCore = $('boltPathCore'), impact = $('impactBurst'), flash = $('flash');
+  const drawEnd = T.boltStart + T.boltDraw;
+  if (t < T.boltStart) {
+    boltP.style.opacity = 0; boltCore.style.opacity = 0;
+  } else if (t < drawEnd) {
+    const pd = easeOutCubic(progress(t, T.boltStart, drawEnd));
+    boltP.style.opacity = 0.85; boltCore.style.opacity = 1;
+    const off = lerp(360, 0, pd);
+    boltP.style.strokeDashoffset = off;
+    boltCore.style.strokeDashoffset = off;
+  } else if (t < T.boltFade) {
+    const pf = 1 - progress(t, drawEnd, T.boltFade);
+    boltP.style.opacity = 0.85*Math.max(pf, t<drawEnd+0.05?1:pf);
+    boltCore.style.opacity = pf<0.4 ? pf*1.8 : 1;
+    boltP.style.strokeDashoffset = 0;
+    boltCore.style.strokeDashoffset = 0;
+  } else {
+    boltP.style.opacity = 0; boltCore.style.opacity = 0;
+  }
+
+  // impact burst + screen flash right at contact
+  const impactPeak = drawEnd;
+  const burstProg = progress(t, impactPeak-0.02, impactPeak+0.35);
+  if (t >= impactPeak-0.02 && t < impactPeak+0.35) {
+    const bp = burstProg;
+    const size = lerp(10, 620, easeOutCubic(bp));
+    impact.style.width = size+'px'; impact.style.height = size+'px';
+    impact.style.marginLeft = (-size/2)+'px'; impact.style.marginTop = (-size/2)+'px';
+    impact.style.opacity = (1-bp)*0.9;
+  } else {
+    impact.style.opacity = 0;
+  }
+
+  let flashOpacity = 0;
+  if (t >= T.boltStart+T.boltDraw-0.015 && t < T.boltStart+T.boltDraw+0.22) {
+    const fp = progress(t, T.boltStart+T.boltDraw-0.015, T.boltStart+T.boltDraw+0.22);
+    flashOpacity = Math.sin(fp*Math.PI) * 0.55;
+  }
+  // opening flash
+  if (t < 0.18) {
+    flashOpacity = Math.max(flashOpacity, (1-progress(t,0,0.18))*1.0);
+  }
+  // ending fade to black
+  if (t >= T.endFadeStart) {
+    const fp = progress(t, T.endFadeStart, T.endFadeEnd);
+    flash.style.background = '#000';
+    flashOpacity = fp;
+  } else {
+    flash.style.background = '#eafcff';
+  }
+  flash.style.opacity = flashOpacity;
+
+  // ---- CTA ----
+  const rule = $('rule'), ctaMain = $('ctaMain');
+  const pRule = easeOutCubic(progress(t, T.ctaRuleStart, T.ctaRuleEnd));
+  rule.style.transform = `scaleX(${pRule})`;
+
+  const pText = easeOutCubic(progress(t, T.ctaTextStart, T.ctaTextEnd));
+  ctaMain.style.opacity = pText;
+  ctaMain.style.transform = `translateY(${lerp(26,0,pText)}px)`;
+
+  if (t > T.ctaTextEnd) {
+    const idle = t - T.ctaTextEnd;
+    $('ctaWrap').style.transform = `translateY(${Math.sin(idle*0.7)*3}px)`;
+  }
+}
+
+window.__setTime = render;
+render(0);
+</script>
+</body>
+</html>
