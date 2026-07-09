@@ -5,9 +5,10 @@ import { ArrowRight } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import venueInteriorHero from '@/assets/venue-interior-hero.jpg';
+import venueDrinksAsset from '@/assets/app-venue-drinks.png.asset.json';
 
 export const VenueHeroSection: React.FC = () => {
-  const venueDetailImage = "/lovable-uploads/49708be5-5db5-4f1e-adcf-e3b9ad6ddf45.png";
+  const venueDetailImage = venueDrinksAsset.url;
   const { t } = useI18n();
 
   return (
