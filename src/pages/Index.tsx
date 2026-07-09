@@ -5,6 +5,9 @@ import { MibenSegitSection } from '@/components/MibenSegitSection';
 import { PricingSection } from '@/components/PricingSection';
 import { VenuePartnerTeaser } from '@/components/VenuePartnerTeaser';
 import { HowItWorks } from '@/components/HowItWorks';
+import { DrinkSection } from '@/components/DrinkSection';
+import { LinkSection } from '@/components/LinkSection';
+import { EarnSection } from '@/components/EarnSection';
 import { GiveSection } from '@/components/GiveSection';
 import { BenefitsSection } from '@/components/BenefitsSection';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
@@ -19,12 +22,13 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
-import heroListAsset from '@/assets/app-hero-list.png.asset.json';
-import heroDetailAsset from '@/assets/app-hero-detail.png.asset.json';
+import heroVenuesAsset from '@/assets/hero-app-venues.png.asset.json';
 // QuickAccessChips removed from homepage — partner-link cards moved to /partnerek hub
  
 const Index = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [drinkImageIndex, setDrinkImageIndex] = useState(0);
+  const [earnImageIndex, setEarnImageIndex] = useState(0);
   const { showExitIntent, hideExitIntent } = useExitIntent();
   const { toast } = useToast();
 
@@ -34,13 +38,28 @@ const Index = () => {
   }, []);
 
   const appImages = [
-    heroListAsset.url,
-    heroDetailAsset.url
+    heroVenuesAsset.url,
+    "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.webp"
+  ];
+
+  // Drink section uses these two images alternating
+  const drinkImages = [
+    "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.webp",
+    "/lovable-uploads/7f0ed43a-5016-4db8-89ae-f51f0c7e6126.webp"
+  ];
+
+  // Link section uses specific image
+  const linkImage = "/lovable-uploads/d9b38dee-209b-4035-9d5a-5026e973ed21.webp";
+
+  // Earn section uses these two images alternating
+  const earnImages = [
+    "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.webp",
+    "/lovable-uploads/574c49aa-62ba-49c3-9425-e564722b764e.webp"
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) =>
+      setCurrentImageIndex((prevIndex) => 
         (prevIndex + 1) % appImages.length
       );
     }, 4000);
@@ -48,6 +67,25 @@ const Index = () => {
     return () => clearInterval(interval);
   }, [appImages.length]);
 
+  useEffect(() => {
+    const drinkInterval = setInterval(() => {
+      setDrinkImageIndex((prevIndex) => 
+        (prevIndex + 1) % drinkImages.length
+      );
+    }, 4000);
+
+    return () => clearInterval(drinkInterval);
+  }, [drinkImages.length]);
+
+  useEffect(() => {
+    const earnInterval = setInterval(() => {
+      setEarnImageIndex((prevIndex) => 
+        (prevIndex + 1) % earnImages.length
+      );
+    }, 4000);
+
+    return () => clearInterval(earnInterval);
+  }, [earnImages.length]);
 
   const handleExitIntentSignup = async (email: string) => {
     const supabase = getSupabaseClient();
@@ -115,14 +153,18 @@ const Index = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Come Get It — Találd meg, hova menj ma Budapesten"
-        description="Napi egy ingyen ital Budapest jó helyein. Válassz helyet, menj el, az első ital a miénk — és minden beváltás egy nap tiszta ivóvizet ad valakinek. Szeptemberben indulunk."
+        description="Budapesti loyalty és discovery app. Ingyen italok, pontok, jutalmak — szeptemberben indulunk. Csatlakozz alapító tagként."
         canonical="/"
       />
       <Navigation />
       <main>
       <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
       <MibenSegitSection />
+      {/* QuickAccessChips eltávolítva — a 4 partner-link a /partnerek hub-on érhető el */}
       <HowItWorks />
+      <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
+      <LinkSection linkImage={linkImage} />
+      <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
       <GiveSection />
       <PricingSection />
       <VenuePartnerTeaser />

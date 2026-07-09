@@ -1,41 +1,42 @@
-## Cél
-A 8 új iPhone screenshot lecserélje a régi mockup képeket a főoldalon és a Vendéglátóhelyek oldalon. Egyben rendezzük a PhoneMockup megjelenítést, hogy minden új kép torzítás/vágás nélkül férjen bele.
+# Terv: 2 DOCX az Aron-emailből
 
-## Új képek szerepe (javasolt hozzárendelés)
+Két külön dokumentum, Founding Pitch stílus (Liberation Sans, cyan #00BCD4 címek, A4, 2 cm margó, python-docx). A szöveget nem írom át — a beírt/feltöltött anyagot tükrözöm, minimál tipográfiai csiszolással.
 
-Jelenleg 3 helyen látható PhoneMockup:
-- **Főoldal Hero** (`Index.tsx` → `HeroSection`) — 2 kép rotál 4mp-enként
-- **Vendéglátóhelyek Hero** (`VenueHeroSection`) — 1 statikus kép
-- **Vendéglátóhelyek Key Features** (`VenueKeyFeatures`) — 1 statikus kép
+## Fájl 1 — `/mnt/documents/come-get-it-strukturalis-diagnozis.docx`
 
-Javasolt párosítás (megerősítést kérek ⚠️):
+Forrás: az e-mail „Come Get It — Végleges strukturális elemzés és diagnózis" része (a chatben beírt hosszú anyag).
 
-| Slot | Új kép | Miért |
-|---|---|---|
-| Főoldal Hero – 1. rotáció | `IMG_9732` (lista + térkép fent) | Ez a "belépő" nézet, jól mutatja a discovery-t |
-| Főoldal Hero – 2. rotáció | `IMG_9734` (Bar detail hero fotóval) | Erős vizuál, kontrasztos a listával |
-| Vendéglátóhely Hero | `IMG_9735` (detail + Ingyen italok + Kérd ingyen italod) | A "napi egy ingyen ital" ígéretet mutatja |
-| Vendéglátóhely Key Features | `IMG_9736` (napok + térkép + Útvonaltervezés) | A funkciókat/mélységet illusztrálja |
+Szekciók (11 fejezet):
+1. Rövid helyzetkép
+2. Observed Symptoms (4 alpont)
+3. Commercial Transition Map (Capability · Purchase Moment · Customer Role · Repeatable Delivery · Revenue Capture)
+4. Relevant Systems (Capability / Market / Client / Revenue / Decision System)
+5. Dominant Transition Tension
+6. Primary Structural Break
+7. Causal Explanation
+8. Leadership Decision — a réteg-táblázattal (Consumer / Napi ingyen ital / GIVE / Venue / Brand / Rewards / Dashboard)
+9. Strategic Direction
+10. Proof Condition
+11. Végső diagnózis
 
-Nem használt (későbbre / Jutalmak oldalhoz tartogatjuk): `IMG_9733`, `IMG_9737`, `IMG_9738`, `IMG_9747`. Ezeket a "Jutalmak" oldalhoz beígért csomagnál helyezzük el.
+Formázás: H1 fejezetcímek cyan, H2 alcímek cyan, bullet-lista a felsorolásokra, kulcsmondatok félkövéren („A Come Get It nem egy ingyen italos loyalty app…"), a réteg-tábla cyan header-sorral.
 
-## PhoneMockup optimalizálás
+## Fájl 2 — `/mnt/documents/come-get-it-90-day-launch-plan.docx`
 
-Az új screenshotok 1179×2556 (iPhone 15 Pro, kb. 9:19.5) — pontosan egyeznek a mockup arányával, tehát:
-- `PhoneMockup` alapértelmezetten `object-cover` + `object-top` marad, de mivel arány = 1:1, a `contain` és `cover` ugyanazt adja → nincs vágás
-- Az `auto` fit-módban rögzítjük hogy 9:19.5 arányú képnél `cover`-t használjon (nincs "letterbox" fekete sáv)
-- A hero-ban lévő 240px szélesség marad
-- Ellenőrizzük: statusbar (17:11 / 5G) a mockup notch-a alatt szépen elfér, nem takarja a Dynamic Island stílusú fejrészt
+Forrás: `user-uploads://pasted-2026-07-07T14-48-04-335Z.txt` (2534 sor, „Budapest Soft Launch — 90 Day Execution Plan").
 
-## Technikai lépések
+Feldolgozás: végigolvasom a teljes fájlt, felismerem a numerikus fejezetstruktúrát (`0.`, `1.`, `2.`, `3.1`, `3.2` stb.), és aszerint mapelem H1/H2/H3-ra. Táblázatokat (`Rendszerelem | Funkció` típus) valódi Word-táblává alakítom. Üres sorok bekezdés-elválasztók. A tartalmat nem szerkesztem, csak strukturálom.
 
-1. `lovable-assets create` a 4 kiválasztott PNG-re → `src/assets/*.asset.json` pointerek (a `/mnt/user-uploads/` mountról, nem a repóba másolva)
-2. `src/pages/Index.tsx`: `appImages` tömb két elemét lecserélni az új asset URL-ekre
-3. `src/components/VenueHeroSection.tsx`: `venueDetailImage` konstans → új asset
-4. `src/components/VenueKeyFeatures.tsx`: `venueDetailImage` konstans → új asset
-5. `src/components/PhoneMockup.tsx`: `auto` fit döntési szabály finomhangolása 9:19.5 arányra
-6. Ellenőrzés preview-ban (mobil és desktop)
+Címlap: „Come Get It · Budapest Soft Launch — 90 Day Execution Plan · Belső működési dokumentum · 2026 szeptember–december".
 
-## Kérdés a felhasználóhoz
+## Amit NEM csinálok
+- Nem foglalkozom a második feltöltött fájllal („AI Working Instructions", 3186 sor) — a válaszban ezt nem kérted, csak a launch plant. Ha kell, egy külön körben.
+- Nem foglalkozom a Padel-projekt promptokkal (az egy másik projekt anyaga, véletlenül lóg az email-thread végén).
+- Nem foglalkozom a 2026 februári régebbi diagnózissal (a mostani végleges verzió felváltja).
+- Kód nem változik. Memória nem változik (a stratégiai fordulat még nem eldöntött vezetői döntés, csak Aron javaslata — amíg te ki nem mondod, hogy „ez az irány", nem mentem `mem://`-be).
 
-Rendben van a fenti párosítás, vagy másképp szeretnéd? Ha "OK", megyek buildbe. Ha másképp: írd meg pl. "Hero-ba 9734 + 9738, Venue Hero-ba 9735, Key Features-be 9736".
+## Ellenőrzés
+Mindkét DOCX → LibreOffice headless PDF → pdftoppm → minden oldal QA-JPG-jét megnézem (címek renderelnek, nincs overflow, táblázatok tiszták, ⚠️/ékezetek OK). Ha bármi tört, egy körben javítom.
+
+## Kimenet
+Két `<presentation-artifact>` tag a végén.

@@ -9,7 +9,6 @@ import { FoundingPartnerPerks } from '@/components/FoundingPartnerPerks';
 import { VenueROI } from '@/components/VenueROI';
 import { VenueStats } from '@/components/VenueStats';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
-import { VenueExpectations } from '@/components/VenueExpectations';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
@@ -80,8 +79,8 @@ const Vendeglatohelyek = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Founding Partner Pilot vendéglátóhelyeknek | Come Get It"
-        description="Az első 15 budapesti hely. 6 hónap jutalékmentes pilot: új vendég, utóköltés és visszatérés — közösen mérve, nulla pénzügyi rizikóval."
+        title="Vendéglátóhelyeknek — Founding Partner Program | Come Get It"
+        description="Csatlakozz az első 15 budapesti partnerhelyhez. 6 hónap jutalékmentes, 100+ új vendég havonta a holtidőkben."
         canonical="/vendeglatohelyek"
         jsonLd={{
           '@context': 'https://schema.org',
@@ -101,7 +100,6 @@ const Vendeglatohelyek = () => {
         <VenueROI />
         <VenueStats />
         <HowItWorksForVenues />
-        <VenueExpectations />
         <VenueApplicationSection />
       </main>
       <CustomerSupport />

@@ -5,22 +5,22 @@ const items = [
   {
     icon: Clock,
     title: 'HOLTIDŐ-FÓKUSZ',
-    description: 'Akkor terelünk vendéget hozzád, amikor üresebbek az asztalok.',
+    description: 'Akkor hozunk vendéget, amikor üresek az asztalok.',
   },
   {
     icon: Users,
-    title: 'FIATAL BUDAPESTI KÖZÖNSÉG',
-    description: '18–35 éves, mobile-first, esti és afterwork-aktív — a waitlistünkről indul az első kör.',
+    title: 'GEN Z & MILLENNIÁL',
+    description: 'A budapesti, vendéglátóhelyekre járó fiatal felnőtt közönség.',
   },
   {
     icon: MapPin,
-    title: 'HAMAROSAN — LOKÁCIÓ-ALAPÚ ÉRTESÍTÉS',
-    description: 'Későbbi fázisban: push az appban, ha a user 500 méteren belül van.',
+    title: 'LOKÁCIÓ-ALAPÚ ÉRTESÍTÉS',
+    description: 'A juzereink push-üzenetet kapnak, ha 500 méteren belül vannak.',
   },
   {
     icon: BarChart3,
     title: 'VALÓDI MÉRÉS',
-    description: 'App-beváltás és utóköltés alapján — nem becslések, nem közvélemény-kutatás.',
+    description: 'Banki tranzakciók és app-aktivitás alapján — nem becslések.',
   },
 ];
 
@@ -28,11 +28,6 @@ export const VenueStats: React.FC = () => {
   return (
     <section className="py-20 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-10">
-          <div className="text-xs md:text-sm uppercase tracking-[0.25em] text-white/55">
-            Kit célzunk
-          </div>
-        </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {items.map((item, index) => (
             <div key={index} className="text-center group">

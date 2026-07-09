@@ -2,10 +2,9 @@ import React from 'react';
 import { PhoneMockup } from './PhoneMockup';
 import { GlassWater, Star, CheckCircle, Footprints, Compass } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
-import venueMapAsset from '@/assets/app-venue-map.png.asset.json';
 
 export const VenueKeyFeatures: React.FC = () => {
-  const venueDetailImage = venueMapAsset.url;
+  const venueDetailImage = "/lovable-uploads/306d0815-37a6-4087-8408-3986c94eb037.png";
   const { t } = useI18n();
 
   const features = [

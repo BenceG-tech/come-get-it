@@ -4,7 +4,7 @@ import { Check } from 'lucide-react';
 const perks = [
   '6 hónap teljesen jutalékmentes',
   'Founding Partner badge az appban — örökre',
-  'Megjelenés a közös launch-PR-ben',
+  'Garantált megjelenés a launch-PR-ben',
   'Saját social media tartalom rólunk az indulás körül',
   'Lifetime preferred jutalék-sáv (alacsonyabb, mint a későbbi partnereké)',
   'Korai hozzáférés a brand-kampányokhoz (Heineken, Coca-Cola és más nagy márkák szponzorált aktivációihoz)',
