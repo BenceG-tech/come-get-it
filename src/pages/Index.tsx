@@ -34,8 +34,8 @@ const Index = () => {
   }, []);
 
   const appImages = [
-    heroVenuesAsset.url,
-    "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.webp"
+    heroListAsset.url,
+    heroDetailAsset.url
   ];
 
   useEffect(() => {
