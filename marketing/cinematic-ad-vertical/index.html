@@ -1,0 +1,488 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family:'Inter'; src:url('assets/Inter.ttf') format('truetype'); font-weight:100 900; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1080px; height:1920px; background:#000; overflow:hidden; }
+  #stage {
+    position:relative; width:1080px; height:1920px; background:#000;
+    font-family:'Inter',sans-serif; overflow:hidden; perspective:1700px;
+  }
+  .bg { position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 850px 650px at 24% 10%, rgba(0,188,212,0.11), transparent 60%),
+      radial-gradient(ellipse 850px 750px at 80% 90%, rgba(0,120,150,0.12), transparent 60%),
+      radial-gradient(ellipse 1200px 1700px at 50% 46%, #070a0b 0%, #000 72%);
+  }
+  .vignette { position:absolute; inset:0;
+    background: radial-gradient(ellipse 700px 1300px at 50% 42%, transparent 42%, rgba(0,0,0,0.62) 100%); }
+  .blob { position:absolute; border-radius:50%; filter:blur(90px); will-change:transform; }
+  .halo { position:absolute; left:50%; top:820px; width:1300px; height:1300px; margin-left:-650px; margin-top:-650px;
+    border-radius:50%; opacity:0.5; filter:blur(30px); will-change:transform; }
+
+  /* ---- logo ---- */
+  .logoScene { position:absolute; left:50%; top:820px; width:600px; height:600px; margin-left:-300px; margin-top:-300px;
+    display:flex; align-items:center; justify-content:center; }
+  .logoGlow { position:absolute; width:1000px; height:1000px; border-radius:50%;
+    background: radial-gradient(circle, rgba(0,188,212,0.55) 0%, rgba(0,188,212,0) 70%); filter:blur(6px); }
+  .logoImg { position:relative; width:420px; height:420px; object-fit:contain;
+    filter: drop-shadow(0 0 44px rgba(0,188,212,0.4)); }
+  .phoneGhost { position:absolute; left:50%; top:820px; width:520px; height:1120px; margin-left:-260px; margin-top:-560px;
+    border-radius:56px; border:3px solid rgba(0,200,230,0.18); opacity:0; filter:blur(1px); }
+
+  .wordmark { position:absolute; left:0; top:1130px; width:1080px; text-align:center;
+    font-weight:800; font-size:44px; letter-spacing:14px; color:#eafeff; opacity:0;
+    text-shadow:0 0 30px rgba(0,210,235,0.55); }
+
+  /* ---- phone frame ---- */
+  .phoneOuter { position:absolute; left:50%; top:70px; width:700px; height:1500px; margin-left:-350px;
+    transform-style:preserve-3d; }
+  .phoneFrame { position:absolute; inset:0; border-radius:56px; background:#050708;
+    border:11px solid #101416;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.75), 0 0 0 1.5px rgba(255,255,255,0.06), 0 0 90px rgba(0,188,212,0.16);
+  }
+  .phoneScreen { position:absolute; left:18px; top:18px; right:18px; bottom:18px; border-radius:42px; overflow:hidden; background:#000; }
+  .sceneStage { position:absolute; left:0; top:0; width:1206px; height:2622px;
+    transform: scale(0.55683); transform-origin: 0 0; }
+  .kb { position:absolute; inset:0; width:1206px; height:2622px; }
+  .kb img { position:absolute; left:0; top:0; width:1206px; height:2622px; }
+  .sheenSweep { position:absolute; left:-60%; top:-20%; width:55%; height:140%;
+    background:linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.11) 45%, rgba(180,245,255,0.16) 50%, rgba(255,255,255,0.11) 55%, transparent 80%);
+    transform:skewX(-16deg); pointer-events:none; mix-blend-mode:screen; }
+
+  .glowDot { position:absolute; border-radius:50%; background:radial-gradient(circle, rgba(120,235,255,0.95) 0%, rgba(0,188,212,0.5) 40%, transparent 72%); }
+  .glowRect { position:absolute; border-radius:28px; border:2px solid rgba(120,230,255,0.85); box-shadow:0 0 0 1px rgba(120,230,255,0.25), 0 0 28px rgba(0,200,230,0.55), inset 0 0 20px rgba(0,200,230,0.18); }
+  .glowPill { position:absolute; border-radius:999px; border:2.5px solid rgba(130,235,255,0.9); box-shadow:0 0 0 1px rgba(130,235,255,0.3), 0 0 34px rgba(0,210,235,0.6), inset 0 0 24px rgba(0,210,235,0.2); }
+  .bloomRect { position:absolute; border-radius:24px; mix-blend-mode:screen;
+    background:radial-gradient(ellipse at center, rgba(120,235,255,0.55) 0%, rgba(0,180,210,0.18) 55%, transparent 75%); }
+  .bloomSoft { position:absolute; border-radius:18px; mix-blend-mode:screen;
+    background:radial-gradient(ellipse at center, rgba(120,235,255,0.32) 0%, rgba(0,180,210,0.10) 55%, transparent 75%); }
+  .stepGlow { position:absolute; border-radius:50%; box-shadow:0 0 0 3px rgba(130,235,255,0.9), 0 0 30px rgba(0,210,235,0.7); }
+  .callout { position:absolute; background:rgba(5,12,14,0.55); border:1.5px solid rgba(130,235,255,0.9);
+    border-radius:999px; padding:10px 24px; font-weight:700; font-size:32px; color:#eafcff; white-space:nowrap;
+    box-shadow:0 0 26px rgba(0,210,235,0.55), inset 0 0 14px rgba(0,210,235,0.18);
+    transform-origin:center; }
+
+  /* ---- neon streak transition ---- */
+  .streak { position:absolute; top:-10%; left:0; width:38%; height:120%;
+    background:linear-gradient(100deg, transparent 10%, rgba(0,210,235,0.0) 30%, rgba(150,245,255,0.85) 48%, rgba(255,255,255,0.95) 50%, rgba(150,245,255,0.85) 52%, rgba(0,210,235,0.0) 70%, transparent 90%);
+    transform:skewX(-14deg) translateX(-140%); mix-blend-mode:screen; opacity:0; pointer-events:none; }
+  .streakGlow { position:absolute; inset:0; background:radial-gradient(ellipse 700px 900px at 50% 43%, rgba(0,210,235,0.3), transparent 70%);
+    opacity:0; pointer-events:none; mix-blend-mode:screen; }
+
+  /* ---- caption band ---- */
+  .captionBand { position:absolute; left:0; top:1660px; width:1080px; text-align:center; padding:0 80px; }
+  .capRule { width:56px; height:3px; margin:0 auto 22px auto;
+    background: linear-gradient(90deg, transparent, #00e5ff, transparent); transform: scaleX(0); }
+  .capLine { font-family:'Inter',sans-serif; font-weight:800; font-size:50px; line-height:1.25;
+    color:#f5fdff; text-shadow:0 0 26px rgba(0,188,212,0.45); opacity:0; }
+  .capMain { font-family:'Inter',sans-serif; font-weight:800; font-size:50px; line-height:1.28;
+    color:#f5fdff; text-shadow:0 0 30px rgba(0,188,212,0.5); opacity:0; }
+  .capLockup { font-family:'Inter',sans-serif; font-weight:600; font-size:30px; letter-spacing:2px;
+    color:#8fe4f2; opacity:0; margin-top:20px; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="bg"></div>
+  <div class="blob" id="blob1" style="width:640px;height:640px;background:rgba(0,188,212,0.16);left:-160px;top:100px;"></div>
+  <div class="blob" id="blob2" style="width:620px;height:620px;background:rgba(0,120,150,0.14);right:-160px;bottom:120px;"></div>
+  <div class="halo" id="halo" style="background:conic-gradient(from 0deg, rgba(0,210,235,0.0), rgba(0,210,235,0.22), rgba(0,210,235,0.0) 30%, rgba(0,210,235,0.0) 70%, rgba(0,210,235,0.18), rgba(0,210,235,0.0));"></div>
+  <div class="vignette"></div>
+
+  <div class="phoneGhost" id="phoneGhost"></div>
+  <div class="logoScene" id="logoScene">
+    <div class="logoGlow" id="logoGlow"></div>
+    <img class="logoImg" src="assets/logo_alpha.png">
+  </div>
+  <div class="wordmark" id="wordmark">COME GET IT</div>
+
+  <div class="phoneOuter" id="phoneOuter">
+    <div class="phoneFrame"></div>
+    <div class="phoneScreen">
+      <div class="sceneStage" id="stageDiscovery"><div class="kb" id="kbDiscovery">
+        <img src="assets/discovery.png">
+        <div class="glowDot" id="pin1"></div>
+        <div class="glowDot" id="pin2"></div>
+        <div class="glowDot" id="pin3"></div>
+        <div class="glowRect" id="card1"></div>
+        <div class="glowRect" id="card2"></div>
+        <div class="callout" id="calloutDiscovery">Ingyen ital</div>
+      </div></div>
+      <div class="sceneStage" id="stageDetail"><div class="kb" id="kbDetail">
+        <img src="assets/detail.png">
+        <div class="bloomSoft" id="descBloom"></div>
+        <div class="bloomSoft" id="hoursBloom"></div>
+        <div class="glowPill" id="ctaButton"></div>
+        <div class="bloomRect" id="ctaBloom"></div>
+        <div class="glowDot" id="pointsIcon"></div>
+        <div class="callout" id="calloutDetail">Hűségpontok</div>
+      </div></div>
+      <div class="sceneStage" id="stageRedeem"><div class="kb" id="kbRedeem">
+        <img src="assets/redeem.png">
+        <div class="stepGlow" id="step1"></div>
+        <div class="stepGlow" id="step2"></div>
+        <div class="stepGlow" id="step3"></div>
+        <svg id="ringSvg" style="position:absolute;left:0;top:0;width:1206px;height:2622px;overflow:visible;">
+          <circle id="ringArc" cx="603" cy="1955" r="153" fill="none" stroke="#5be8ff" stroke-width="10"
+            stroke-linecap="round" transform="rotate(-90 603 1955)"/>
+        </svg>
+        <div class="glowPill" id="bevaltomBtn"></div>
+        <div class="callout" id="calloutRedeem">1 érintés</div>
+      </div></div>
+      <div class="sceneStage" id="stageSuccess"><div class="kb" id="kbSuccess">
+        <img src="assets/success.png">
+        <div class="bloomRect" id="successTextBloom"></div>
+        <div class="glowRect" id="impactBox"></div>
+        <div class="callout" id="calloutSuccess">Valós hatás</div>
+      </div></div>
+      <div class="sheenSweep" id="sheenSweep"></div>
+    </div>
+  </div>
+
+  <div class="streakGlow" id="streakGlow"></div>
+  <div class="streak" id="streak"></div>
+
+  <div class="captionBand" id="bandIntro1"><div class="capRule"></div><div class="capLine">„Az app, ami<br>vendéget hoz.”</div></div>
+  <div class="captionBand" id="bandDiscovery1"><div class="capRule"></div><div class="capLine">Új vendégek.</div></div>
+  <div class="captionBand" id="bandDiscovery2"><div class="capRule"></div><div class="capLine">Valódi felfedezés.</div></div>
+  <div class="captionBand" id="bandDiscovery3"><div class="capRule"></div><div class="capLine">Budapesti<br>partnerhelyek.</div></div>
+  <div class="captionBand" id="bandDetail1"><div class="capRule"></div><div class="capLine">Saját<br>partnerprofil.</div></div>
+  <div class="captionBand" id="bandDetail2"><div class="capRule"></div><div class="capLine">Látványos<br>megjelenés.</div></div>
+  <div class="captionBand" id="bandDetail3"><div class="capRule"></div><div class="capLine">Azonnali<br>érdeklődés.</div></div>
+  <div class="captionBand" id="bandRedeem1"><div class="capRule"></div><div class="capLine">Gyors beváltás.</div></div>
+  <div class="captionBand" id="bandRedeem2"><div class="capRule"></div><div class="capLine">Egyszerű<br>pultos flow.</div></div>
+  <div class="captionBand" id="bandSuccess1"><div class="capRule"></div><div class="capLine">Sikeres élmény.</div></div>
+  <div class="captionBand" id="bandSuccess2"><div class="capRule"></div><div class="capLine">Minden beváltás<br>számít.</div></div>
+  <div class="captionBand" id="bandOutro">
+    <div class="capRule"></div>
+    <div class="capMain">Csatlakozz<br>partnerként.</div>
+    <div class="capLockup">Come Get It · Budapest</div>
+  </div>
+</div>
+
+<script>
+function clamp(x,a,b){ return Math.min(b, Math.max(a,x)); }
+function progress(t,a,b){ if(b<=a) return t>=b?1:0; return clamp((t-a)/(b-a), 0, 1); }
+function lerp(a,b,t){ return a + (b-a)*t; }
+function easeOutCubic(x){ return 1-Math.pow(1-x,3); }
+function easeInCubic(x){ return x*x*x; }
+function easeInOutCubic(x){ return x<0.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; }
+function easeOutExpo(x){ return x===1?1:1-Math.pow(2,-10*x); }
+function easeOutBack(x){ const c1=1.70158, c3=c1+1; return 1 + c3*Math.pow(x-1,3) + c1*Math.pow(x-1,2); }
+
+const T = {
+  intro:     [0.0, 1.5],
+  discovery: [1.5, 4.0],
+  detail:    [4.0, 6.5],
+  redeem:    [6.5, 9.5],
+  success:   [9.5, 11.5],
+  outro:     [11.5, 15.0],
+};
+const FADE = 0.3;
+const SCENE_STARTS = [1.5, 4.0, 6.5, 9.5];
+const TRANSITIONS = [1.5, 4.0, 6.5, 9.5, 11.5];
+
+function sceneOpacity(t, start, end){
+  const inP = progress(t, start, start+FADE);
+  const outP = 1 - progress(t, end-FADE, end);
+  return Math.min(inP, outP);
+}
+function currentSceneStart(t){
+  let s = SCENE_STARTS[0];
+  for (const b of SCENE_STARTS) if (t >= b) s = b;
+  return s;
+}
+
+const els = {};
+function $(id){ if(!els[id]) els[id]=document.getElementById(id); return els[id]; }
+
+const COORDS = {
+  pin1:{cx:686,cy:458,r:22}, pin2:{cx:795,cy:392,r:22}, pin3:{cx:838,cy:468,r:22},
+  card1:{x:20,y:780,w:1166,h:840}, card2:{x:20,y:1620,w:1166,h:840},
+  freeTag:{x:705,y:1235,w:475,h:80},
+  ctaButton:{x:45,y:2295,w:1118,h:213},
+  descBloom:{x:40,y:1790,w:1130,h:250},
+  hoursBloom:{x:40,y:2030,w:900,h:110},
+  pointsIcon:{cx:170,cy:1605,r:55},
+  ring:{cx:603,cy:1955,r:153},
+  step1:{cx:398,cy:1052,r:78}, step2:{cx:603,cy:1052,r:78}, step3:{cx:807,cy:1052,r:78},
+  bevaltomBtn:{x:95,y:2403,w:1018,h:219},
+  successText:{x:270,y:1355,w:665,h:100},
+  impactBox:{x:95,y:1638,w:1018,h:442},
+  impactIcon:{cx:602,cy:1750,r:80},
+};
+
+function placeDot(el,c,r,opacity){
+  el.style.left=(c.cx-r)+'px'; el.style.top=(c.cy-r)+'px';
+  el.style.width=(r*2)+'px'; el.style.height=(r*2)+'px';
+  el.style.opacity=opacity;
+}
+function placeRect(el,c,opacity,pad){
+  pad = pad||0;
+  el.style.left=(c.x-pad)+'px'; el.style.top=(c.y-pad)+'px';
+  el.style.width=(c.w+pad*2)+'px'; el.style.height=(c.h+pad*2)+'px';
+  el.style.opacity=opacity;
+}
+function placeCircle(el,c,opacity){
+  el.style.left=(c.cx-c.r)+'px'; el.style.top=(c.cy-c.r)+'px';
+  el.style.width=(c.r*2)+'px'; el.style.height=(c.r*2)+'px';
+  el.style.opacity=opacity;
+}
+function placeCallout(el, cx, cy, start, end, t){
+  const p = easeOutBack(progress(t, start, start+0.35));
+  const outP = 1 - progress(t, end-0.25, end);
+  el.style.left = cx + 'px'; el.style.top = cy + 'px';
+  el.style.opacity = Math.min(easeOutCubic(progress(t,start,start+0.3)), outP);
+  el.style.transform = `translate(-50%,-50%) scale(${lerp(0.7,1,p)})`;
+}
+
+// ---- caption pop-in helper (punchy scale+fade rather than slide) ----
+function popCaption(id, start, end){
+  const wrap = $(id);
+  const rule = wrap.querySelector('.capRule');
+  const lines = wrap.querySelectorAll('.capLine, .capMain');
+  const lockup = wrap.querySelector('.capLockup');
+  const inP = easeOutBack(progress(t_global, start, start+0.32));
+  const outP = 1 - progress(t_global, end-FADE, end);
+  const op = Math.min(progress(t_global,start,start+0.28), outP);
+  rule.style.transform = `scaleX(${easeOutCubic(progress(t_global,start,start+0.3))})`;
+  rule.style.opacity = op;
+  lines.forEach(line=>{
+    line.style.opacity = op;
+    line.style.transform = `scale(${lerp(0.88,1,inP)})`;
+  });
+  if (lockup){
+    const lp = progress(t_global, start+0.35, start+0.75);
+    const lop = Math.min(lp, outP);
+    lockup.style.opacity = lop;
+    lockup.style.transform = `translateY(${lerp(10,0,lp)}px)`;
+  }
+}
+
+let t_global = 0;
+
+function render(t){
+  t_global = t;
+  $('blob1').style.transform = `translate(${Math.sin(t*0.14)*35}px, ${Math.cos(t*0.11)*25}px)`;
+  $('blob2').style.transform = `translate(${Math.cos(t*0.12)*35}px, ${Math.sin(t*0.10)*25}px)`;
+  $('halo').style.transform = `rotate(${t*22}deg)`;
+
+  // ================= INTRO =================
+  const [i0,i1] = T.intro;
+  const logoScene = $('logoScene'), logoGlow = $('logoGlow'), wordmark = $('wordmark'), ghost = $('phoneGhost');
+  const [o0,o1] = T.outro;
+  const showOutro = t >= o0-FADE;
+
+  if (!showOutro) {
+    const logoVisible = Math.max(0, progress(t, 0, 0.2)) * (1-progress(t, i1, i1+FADE));
+    logoScene.style.opacity = logoVisible;
+    logoScene.style.transform = `scale(${lerp(0.85,1,easeOutBack(progress(t,0,0.35)))})`;
+    const glowP = progress(t, i0, i1);
+    logoGlow.style.opacity = 0.1 + glowP*0.9;
+    const wmP = progress(t,0.15,0.55) * (1-progress(t,0.75,1.0));
+    wordmark.style.opacity = Math.max(0,wmP);
+    wordmark.style.transform = `scale(${lerp(0.9,1,easeOutCubic(progress(t,0.15,0.5)))})`;
+    ghost.style.opacity = 0;
+  } else {
+    const inP = easeOutCubic(progress(t, o0-FADE, o0+0.4));
+    logoScene.style.opacity = inP;
+    logoScene.style.transform = `scale(${lerp(0.9,1.0,inP)})`;
+    logoGlow.style.opacity = 0.3 + Math.min(1, progress(t, o0, o0+0.7))*0.7;
+    wordmark.style.opacity = 0;
+    const ghostP = progress(t, o0+0.2, o0+1.0);
+    ghost.style.opacity = ghostP*0.5;
+    ghost.style.transform = `translateY(${lerp(30,0,ghostP)}px)`;
+  }
+
+  // ================= PHONE FRAME =================
+  const phoneOuter = $('phoneOuter');
+  const contentStart = T.discovery[0], contentEnd = T.success[1];
+  const phoneIn = easeOutCubic(progress(t, contentStart-0.4, contentStart+0.05));
+  const phoneOut = 1 - easeInCubic(progress(t, contentEnd-0.05, contentEnd+0.3));
+  const phoneOpacity = Math.min(phoneIn, phoneOut);
+  phoneOuter.style.opacity = phoneOpacity;
+
+  const sceneStart = currentSceneStart(t);
+  const localT = t - sceneStart;
+  const entranceP = easeOutBack(clamp(localT/0.45, 0, 1));
+
+  const restTiltY = Math.sin(t*0.5)*2.4;
+  const restTiltX = Math.cos(t*0.42)*1.3;
+  const spinFrom = (sceneStart % 2 === 0) ? -46 : 46;
+  const tiltY = lerp(spinFrom, restTiltY, entranceP);
+  const tiltX = lerp(-8, restTiltX, entranceP);
+  const scalePunch = lerp(0.8, 1.0, entranceP) * lerp(1.0, 0.94, phoneOut>0?(1-phoneOut):0);
+  phoneOuter.style.transform = `rotateY(${tiltY}deg) rotateX(${tiltX}deg) scale(${scalePunch})`;
+
+  const sweep = $('sheenSweep');
+  const sweepCycle = 1.6;
+  const sceneLocalT2 = (t - contentStart) % sweepCycle;
+  const sweepP = easeInOutCubic(progress(sceneLocalT2, 0.15, 1.2));
+  sweep.style.transform = `translateX(${lerp(-40, 260, sweepP)}%)`;
+  sweep.style.opacity = t>=contentStart && t<contentEnd ? 1 : 0;
+
+  // ================= NEON STREAK TRANSITIONS =================
+  const streak = $('streak'), streakGlow = $('streakGlow');
+  let streakOp = 0, streakGlowOp = 0, streakX = -140;
+  TRANSITIONS.forEach(b=>{
+    const w = 0.42;
+    const p = progress(t, b-w/2, b+w/2);
+    if (p>0 && p<1){
+      const x = lerp(-140, 240, easeInOutCubic(p));
+      const fade = Math.sin(p*Math.PI);
+      if (fade > streakOp) { streakOp = fade; streakX = x; }
+      streakGlowOp = Math.max(streakGlowOp, fade*0.85);
+    }
+  });
+  streak.style.transform = `skewX(-14deg) translateX(${streakX}%)`;
+  streak.style.opacity = streakOp;
+  streakGlow.style.opacity = streakGlowOp;
+
+  // ---------------- scene content helper ----------------
+  function applyScene(stageId, kbId, start, end, focusFn, zoomFn){
+    const stage = $(stageId), kb = $(kbId);
+    const op = sceneOpacity(t, start, end);
+    stage.style.opacity = op;
+    if (op <= 0) return;
+    const p = progress(t, start, end);
+    const focus = focusFn(p, t, start);
+    const z = zoomFn(p, t, start);
+    const driftX = Math.sin((t-start)*0.6)*5;
+    const driftY = Math.cos((t-start)*0.5)*4;
+    kb.style.transformOrigin = `${focus.x}px ${focus.y}px`;
+    kb.style.transform = `scale(${z}) translate(${driftX}px,${driftY}px)`;
+  }
+
+  // ================= DISCOVERY =================
+  applyScene('stageDiscovery', 'kbDiscovery', T.discovery[0], T.discovery[1],
+    ()=>({x:700,y:1000}),
+    (p)=>1 + 0.16*easeInOutCubic(clamp(p/0.85,0,1)));
+  {
+    const [s,e] = T.discovery;
+    [['pin1',0],['pin2',0.12],['pin3',0.22]].forEach(([id,delay])=>{
+      const c = COORDS[id];
+      const p = progress(t, s+0.2+delay, s+0.6+delay);
+      const pulse = 0.7 + Math.sin((t-s)*3.2 + delay*10)*0.3;
+      placeDot($(id), c, c.r, p*pulse*sceneOpacity(t,s,e));
+    });
+    const cardP1 = progress(t, s+0.35, s+0.85);
+    const cardP2 = progress(t, s+0.5, s+1.0);
+    placeRect($('card1'), COORDS.card1, cardP1*0.85*sceneOpacity(t,s,e), 4);
+    placeRect($('card2'), COORDS.card2, cardP2*0.85*sceneOpacity(t,s,e), 4);
+    placeCallout($('calloutDiscovery'), COORDS.freeTag.x+COORDS.freeTag.w/2, COORDS.freeTag.y-70, s+0.9, s+1.9, t);
+  }
+
+  // ================= DETAIL (moving focus: image -> description -> hours -> button) =================
+  applyScene('stageDetail', 'kbDetail', T.detail[0], T.detail[1],
+    (p)=>{ const travel = easeInOutCubic(clamp(p/0.9,0,1)); return { x:603, y: lerp(650, 2050, travel) }; },
+    (p)=>1 + 0.19*easeInOutCubic(clamp(p/0.85,0,1)));
+  {
+    const [s,e] = T.detail;
+    const so = sceneOpacity(t,s,e);
+    const descP = progress(t, s+0.35, s+0.75) * (1-progress(t, s+1.0, s+1.3));
+    placeRect($('descBloom'), COORDS.descBloom, Math.max(descP,0)*0.7*so, 0);
+    const hoursP = progress(t, s+0.6, s+0.95) * (1-progress(t, s+1.15, s+1.4));
+    placeRect($('hoursBloom'), COORDS.hoursBloom, Math.max(hoursP,0)*0.7*so, 0);
+    const pointsP = progress(t, s+0.15, s+0.55) * (1-progress(t, s+0.8, s+1.1));
+    placeDot($('pointsIcon'), COORDS.pointsIcon, COORDS.pointsIcon.r, Math.max(pointsP,0)*0.8*so);
+    const inP = progress(t, s+0.9, s+1.35);
+    const pulse = 0.75 + Math.sin((t-s)*3.4)*0.25;
+    placeRect($('ctaButton'), COORDS.ctaButton, inP*pulse*so, 6);
+    $('ctaButton').style.borderRadius = '110px';
+    const bloomP = progress(t, s+0.9, s+1.4);
+    const bloomPulse = 0.5 + Math.sin((t-s)*3.4)*0.5;
+    placeRect($('ctaBloom'), {x:COORDS.ctaButton.x-20,y:COORDS.ctaButton.y-20,w:COORDS.ctaButton.w+40,h:COORDS.ctaButton.h+40}, bloomP*bloomPulse*0.8*so, 0);
+    placeCallout($('calloutDetail'), COORDS.pointsIcon.cx+170, COORDS.pointsIcon.cy, s+0.5, s+1.4, t);
+  }
+
+  // ================= REDEEM (two-phase: steps -> punch into button) =================
+  const redeemPunchAt = T.redeem[0] + 1.6;
+  applyScene('stageRedeem', 'kbRedeem', T.redeem[0], T.redeem[1],
+    (p, tt)=>{
+      if (tt < redeemPunchAt) return {x:603,y:1850};
+      const pp = easeOutExpo(progress(tt, redeemPunchAt, redeemPunchAt+0.4));
+      return { x: 603, y: lerp(1850, 2420, pp) };
+    },
+    (p, tt)=>{
+      if (tt < redeemPunchAt) return 1 + 0.06*easeInOutCubic(clamp((tt-T.redeem[0])/1.4,0,1));
+      const pp = easeOutExpo(progress(tt, redeemPunchAt, redeemPunchAt+0.4));
+      const punchBounce = 1 + Math.sin(pp*Math.PI)*0.03*(1-pp);
+      return lerp(1.06, 1.42, pp) * punchBounce;
+    });
+  {
+    const [s,e] = T.redeem;
+    const so = sceneOpacity(t,s,e);
+    const stepDelays = [0.2, 0.55, 0.9];
+    ['step1','step2','step3'].forEach((id,i)=>{
+      const c = COORDS[id];
+      const p = progress(t, s+stepDelays[i], s+stepDelays[i]+0.3);
+      const decay = 1 - progress(t, s+stepDelays[i]+0.3, s+stepDelays[i]+1.0)*0.5;
+      placeCircle($(id), c, (p*decay)*so);
+    });
+    const ring = $('ringArc');
+    const circumference = 2*Math.PI*COORDS.ring.r;
+    ring.setAttribute('stroke-dasharray', circumference);
+    const sweepP = easeInOutCubic(progress(t, s+0.25, s+2.4));
+    ring.setAttribute('stroke-dashoffset', circumference*(1-sweepP));
+    ring.style.opacity = so * 0.85;
+    ring.style.filter = 'drop-shadow(0 0 10px rgba(0,210,235,0.85))';
+
+    const btnP = progress(t, redeemPunchAt, redeemPunchAt+0.5);
+    const btnPulse = 0.65 + Math.sin((t-redeemPunchAt)*5)*0.35;
+    placeRect($('bevaltomBtn'), COORDS.bevaltomBtn, btnP*Math.max(btnPulse,0.3)*so, 6);
+    $('bevaltomBtn').style.borderRadius = '48px';
+    placeCallout($('calloutRedeem'), 603, COORDS.ring.cy-COORDS.ring.r-70, redeemPunchAt+0.3, redeemPunchAt+1.2, t);
+  }
+
+  // ================= SUCCESS =================
+  applyScene('stageSuccess', 'kbSuccess', T.success[0], T.success[1],
+    ()=>({x:603,y:1650}),
+    (p)=>1 + 0.15*easeInOutCubic(clamp(p/0.85,0,1)));
+  {
+    const [s,e] = T.success;
+    const so = sceneOpacity(t,s,e);
+    const textP = progress(t, s+0.25, s+0.7);
+    const textPulse = 0.6 + Math.sin((t-s)*3)*0.4;
+    placeRect($('successTextBloom'), COORDS.successText, textP*textPulse*0.9*so, 10);
+    const boxP = easeOutCubic(progress(t, s+0.4, s+0.85));
+    placeRect($('impactBox'), COORDS.impactBox, boxP*0.8*so, 6);
+    const scalePulse = 1 + Math.sin((t-s-0.6)*2.4)*0.008*progress(t,s+0.6,s+0.8);
+    $('impactBox').style.transform = `scale(${boxP<1?lerp(0.96,1.0,boxP):scalePulse})`;
+    placeCallout($('calloutSuccess'), COORDS.impactIcon.cx, COORDS.impactIcon.cy-140, s+0.7, s+1.6, t);
+  }
+
+  // ================= CAPTIONS =================
+  popCaption('bandIntro1', 0.85, T.intro[1]);
+  popCaption('bandDiscovery1', 1.6, 2.3);
+  popCaption('bandDiscovery2', 2.35, 3.05);
+  popCaption('bandDiscovery3', 3.1, 4.0);
+  popCaption('bandDetail1', 4.1, 4.85);
+  popCaption('bandDetail2', 4.9, 5.65);
+  popCaption('bandDetail3', 5.7, 6.5);
+  popCaption('bandRedeem1', 6.6, 8.0);
+  popCaption('bandRedeem2', 8.0, 9.5);
+  popCaption('bandSuccess1', 9.6, 10.5);
+  popCaption('bandSuccess2', 10.55, 11.5);
+  popCaption('bandOutro', 11.7, 15.0);
+
+  // hide non-active captions explicitly to avoid stale opacity bleed
+  [['bandIntro1',0,T.intro[1]],
+   ['bandDiscovery1',1.6,2.3],['bandDiscovery2',2.35,3.05],['bandDiscovery3',3.1,4.0],
+   ['bandDetail1',4.1,4.85],['bandDetail2',4.9,5.65],['bandDetail3',5.7,6.5],
+   ['bandRedeem1',6.6,8.0],['bandRedeem2',8.0,9.5],
+   ['bandSuccess1',9.6,10.5],['bandSuccess2',10.55,11.5],
+   ['bandOutro',11.7,15.0]
+  ].forEach(([id,s,e])=>{
+    if (t < s-0.05 || t > e+0.35) $(id).style.opacity = 0;
+    else $(id).style.opacity = 1;
+  });
+}
+
+window.__setTime = render;
+render(0);
+</script>
+</body>
+</html>
