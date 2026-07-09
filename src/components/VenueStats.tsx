@@ -5,22 +5,22 @@ const items = [
   {
     icon: Clock,
     title: 'HOLTIDŐ-FÓKUSZ',
-    description: 'Akkor hozunk vendéget, amikor üresek az asztalok.',
+    description: 'Akkor terelünk vendéget hozzád, amikor üresebbek az asztalok.',
   },
   {
     icon: Users,
-    title: 'GEN Z & MILLENNIÁL',
-    description: 'A budapesti, vendéglátóhelyekre járó fiatal felnőtt közönség.',
+    title: 'FIATAL BUDAPESTI KÖZÖNSÉG',
+    description: '18–35 éves, mobile-first, esti és afterwork-aktív — a waitlistünkről indul az első kör.',
   },
   {
     icon: MapPin,
-    title: 'LOKÁCIÓ-ALAPÚ ÉRTESÍTÉS',
-    description: 'A juzereink push-üzenetet kapnak, ha 500 méteren belül vannak.',
+    title: 'HAMAROSAN — LOKÁCIÓ-ALAPÚ ÉRTESÍTÉS',
+    description: 'Későbbi fázisban: push az appban, ha a user 500 méteren belül van.',
   },
   {
     icon: BarChart3,
     title: 'VALÓDI MÉRÉS',
-    description: 'Banki tranzakciók és app-aktivitás alapján — nem becslések.',
+    description: 'App-beváltás és utóköltés alapján — nem becslések, nem közvélemény-kutatás.',
   },
 ];
 
