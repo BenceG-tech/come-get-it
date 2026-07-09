@@ -128,16 +128,16 @@
         "description": "Download the app"
       },
       "2": {
-        "title": "SIGN UP",
-        "description": "Sign up and link your card"
+        "title": "LOOK AROUND",
+        "description": "See which partner venue has a free drink waiting today"
       },
       "3": {
-        "title": "DRINK",
-        "description": "Enjoy your daily welcome drink"
+        "title": "REDEEM",
+        "description": "One tap at the venue and the first round is yours"
       },
       "4": {
-        "title": "EARN POINTS",
-        "description": "Earn points and redeem for free drinks and discounts"
+        "title": "EARN",
+        "description": "Points for every activity, redeemable for rewards"
       }
     }
   },
