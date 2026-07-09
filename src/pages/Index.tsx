@@ -19,7 +19,8 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
-import heroVenuesAsset from '@/assets/hero-app-venues.png.asset.json';
+import heroListAsset from '@/assets/app-hero-list.png.asset.json';
+import heroDetailAsset from '@/assets/app-hero-detail.png.asset.json';
 // QuickAccessChips removed from homepage — partner-link cards moved to /partnerek hub
  
 const Index = () => {
