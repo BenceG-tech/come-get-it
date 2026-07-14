@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 
 export const StickyCallToAction: React.FC = () => {
   const { t } = useI18n();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const updateVisibility = () => {
+      setIsVisible(window.scrollY > window.innerHeight * 0.72);
+    };
+
+    updateVisibility();
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('resize', updateVisibility);
+
+    return () => {
+      window.removeEventListener('scroll', updateVisibility);
+      window.removeEventListener('resize', updateVisibility);
+    };
+  }, []);
+
+  if (!isVisible) return null;
+
   return (
     <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center items-center px-4">
       <Button 
