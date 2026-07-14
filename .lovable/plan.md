@@ -1,25 +1,34 @@
-## Új screenshotok cseréje a főoldalon
+## Cél
+A `PhoneMockup` keret pontosan az iPhone 17 Pro screenshot-arányához igazodjon, hogy a képek pixelre illeszkedjenek — se lelógás, se fekete csík.
 
-A feltöltött 10 iPhone screenshot (1179×2556, pontos 9:19.5 arány → a mockup keret tökéletesen kitölti, nem lóg ki semmi) elhelyezése a főoldal 4 telefon-mockup szekciójában.
+## iPhone 17 Pro specifikációk
+- Screenshot felbontás: **1206 × 2622 px**
+- Arány: **1206 / 2622 ≈ 0.4600** (≈ 201:437, gyakorlatilag `9 / 19.5522`)
+- A jelenlegi keret `9/19.5` (0.4615) — közel, de nem pontos, ezért 1-2 px lelógás/vágás előfordul.
 
-### Hozzárendelés
+## Változtatások — csak `src/components/PhoneMockup.tsx`
 
-| Szekció | Komponens | Screenshot(ok) | Miért |
-|---|---|---|---|
-| Hero (fent, váltakozó) | `HeroSection` (Index.tsx `appImages`) | **IMG_9833** (térkép + kártya) + **IMG_9834** (feed lista) | A jelenlegi hero szintén térkép + feed volt |
-| LINK (helyszín részlet) | `LinkSection` | **IMG_9844** (Restaurant részlet) | Új, letisztult prémium enteriőr |
-| DRINK (ingyen italok) | `DrinkSection` | **IMG_9846** (Midnight Tonic lista + térkép) + **IMG_9838** (Craft Beer lista) | Két különböző "ingyen italok" nézet |
-| EARN (jutalmak) | `EarnSection` | **IMG_9843** (2. koktél féláron részlet) + **IMG_9847** (Mutasd a pultosnak beváltás) | Jutalom + beváltási folyamat együtt |
+1. **Frame arány pontosítása**
+   - `FRAME_RATIO = 9 / 19.5` → `1206 / 2622`
+   - `aspect-[9/19.5]` → `aspect-[1206/2622]` (Tailwind arbitrary value engedi)
 
-Kimaradnak: IMG_9837 (Romkocsma), IMG_9840 (beer beváltás), IMG_9845 (steak) — nem férnek be redundancia nélkül, de bármikor cserélhetők, ha jelzed.
+2. **Default fit visszaállítása `cover`-re**
+   - Mivel most az arány pixelre stimmel, a `contain` már nem szükséges — a `cover` teljesen kitölti a képernyőt fekete csík nélkül.
+   - `fit?: ... default = 'cover'` (auto marad fallbacknek, ha valaki más arányú képet ad be).
+   - Az `auto` logika toleranciáját szűkítem 15%-ról 3%-ra, hogy csak akkor váltson `contain`-re, ha tényleg más eszközről jött a screenshot.
 
-### Technikai megvalósítás
+3. **Corner radius finomhangolás (opcionális, iPhone 17 Pro-hoz illő)**
+   - Külső keret: `rounded-[2.75rem]` marad
+   - Belső képernyő: `rounded-[2.35rem]` marad
+   - (Az iPhone 17 Pro sarok-görbülete ~55px @ 1206px szélesség = kb. 4.5% → az aktuális arány rendben van a 200-240px mockup méretnél)
 
-1. **Asset feltöltés**: Mindegyik szükséges screenshot Lovable Assetként regisztrálva (`lovable-assets create` → `src/assets/*.png.asset.json` pointerek). Nem másoljuk binárisan a repóba.
-2. **Index.tsx**: `appImages`, `drinkImages`, `linkImage`, `earnImages` tömbök átírása az új asset URL-ekre.
-3. **Méret optimalizálás**: A screenshotok pontosan 9:19.5 arányúak (1179×2556), tehát a `PhoneMockup` `fit="auto"` `cover`-re kapcsol és teljesen kitölti a képernyőt vágás nélkül. Nem kell PhoneMockup módosítás — a jelenlegi mockup keret pont ehhez a mérethez lett tervezve.
-4. **`object-top`** marad, így a status bar (19:00 óra, akku) látszik felül, a beváltás gomb nem szorul le.
+## Amit NEM módosítok
+- Az `Index.tsx`-ben lévő szekciók, kép-listák, animációk maradnak.
+- A hover-tilt, glow, border effektek változatlanok.
+- Nem érintem a `LinkSection`, `DrinkSection`, `EarnSection`, `HeroSection` fájlokat — csak a keret aránya változik, ami automatikusan minden helyen alkalmazódik.
 
-### Ha valamelyik hozzárendelés nem tetszik
+## Ellenőrzés implementálás után
+- Preview: 402×701 (mobil) — hero szekció phone mockup nézete
+- Ellenőrzöm mindegyik szekciónál (Hero, Link, Drink, Earn), hogy a screenshot pixelre kitölti a keretet.
 
-A cserék után egyesével cserélgethetőek, csak jelezd melyik szekcióhoz melyik IMG_xxxx számot szeretnéd.
+Ha ez így jó, jóváhagyás után átváltok build módba és beadom a módosítást.

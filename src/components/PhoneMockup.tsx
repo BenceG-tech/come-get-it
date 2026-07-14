@@ -8,25 +8,26 @@ interface PhoneMockupProps {
   widthClassName?: string;
 }
 
-const FRAME_RATIO = 9 / 19.5;
+// iPhone 17 Pro screenshot ratio: 1206 × 2622
+const FRAME_RATIO = 1206 / 2622;
 
 export const PhoneMockup: React.FC<PhoneMockupProps> = ({
   imageUrl,
   className = "",
-  fit = 'contain',
+  fit = 'cover',
   widthClassName = "w-[200px] sm:w-[220px] md:w-[240px]",
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [autoFit, setAutoFit] = useState<'cover' | 'contain'>('contain');
+  const [autoFit, setAutoFit] = useState<'cover' | 'contain'>('cover');
 
   const handleImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const { naturalWidth: w, naturalHeight: h } = e.currentTarget;
     if (!w || !h) return;
     const ratio = w / h;
-    // if image ratio differs from frame by >15%, fall back to contain so nothing is cropped
+    // Only fall back to contain when ratio really differs (>3%), otherwise cover fills the frame perfectly
     const diff = Math.abs(ratio - FRAME_RATIO) / FRAME_RATIO;
-    setAutoFit(diff > 0.15 ? 'contain' : 'cover');
+    setAutoFit(diff > 0.03 ? 'contain' : 'cover');
   };
 
   const resolvedFit: 'cover' | 'contain' = fit === 'auto' ? autoFit : fit;
@@ -63,7 +64,7 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
 
       {/* Phone frame — 9:19.5 ratio (modern iPhone-like), screenshot fills nicely */}
       <div
-        className={`relative ${widthClassName} aspect-[9/19.5] bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[2.75rem] p-[6px] shadow-2xl border border-gray-700/40 phone-frame-solid`}
+        className={`relative ${widthClassName} aspect-[1206/2622] bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[2.75rem] p-[6px] shadow-2xl border border-gray-700/40 phone-frame-solid`}
       >
         <div className="w-full h-full bg-black rounded-[2.35rem] overflow-hidden relative">
           <div className="relative w-full h-full bg-black">
