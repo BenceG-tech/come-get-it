@@ -58,8 +58,8 @@ const Index = () => {
     drink3Asset.url,
   ];
 
-  // Link section uses specific image
-  const linkImage = linkVenueAsset.url;
+  // Link section alternates between screenshots
+  const linkImage = [linkRewardsAsset.url, linkRewardDetailAsset.url];
 
   // Earn section uses these two images alternating
   const earnImages = [
