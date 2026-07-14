@@ -63,9 +63,9 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
 
       {/* iPhone 17 Pro screenshot frame */}
       <div
-        className={`relative ${widthClassName} aspect-[1206/2622] rounded-[2.15rem] sm:rounded-[2.45rem] bg-[#111315] p-[4px] shadow-[0_24px_80px_rgba(0,0,0,0.65)] ring-1 ring-white/10`}
+        className={`relative ${widthClassName} aspect-[1206/2622] rounded-[2.15rem] sm:rounded-[2.45rem] bg-nf-surface-alt p-[4px] shadow-[0_24px_80px_rgba(0,0,0,0.65)] ring-1 ring-nf-border`}
       >
-        <div className="absolute inset-[2px] rounded-[2rem] sm:rounded-[2.32rem] border border-white/10 pointer-events-none" />
+        <div className="absolute inset-[2px] rounded-[2rem] sm:rounded-[2.32rem] border border-nf-primary/15 pointer-events-none" />
         <div className="relative h-full w-full overflow-hidden rounded-[1.85rem] sm:rounded-[2.15rem] bg-black">
           <img
             src={imageUrl}
