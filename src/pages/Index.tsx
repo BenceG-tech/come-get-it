@@ -25,8 +25,9 @@ import { getSupabaseClient } from '@/lib/supabase';
 import heroMapAsset from '@/assets/IMG_hero_map.png.asset.json';
 import heroFeedAsset from '@/assets/IMG_9861.png.asset.json';
 import linkVenueAsset from '@/assets/IMG_9844.png.asset.json';
-import drinkTonicAsset from '@/assets/IMG_9846.png.asset.json';
-import drinkBeerAsset from '@/assets/IMG_9838.png.asset.json';
+import drink1Asset from '@/assets/IMG_9965.png.asset.json';
+import drink2Asset from '@/assets/IMG_9964.png.asset.json';
+import drink3Asset from '@/assets/IMG_9966.png.asset.json';
 import earnRewardAsset from '@/assets/IMG_9843.png.asset.json';
 import earnRedeemAsset from '@/assets/IMG_9847.png.asset.json';
 // QuickAccessChips removed from homepage — partner-link cards moved to /partnerek hub
