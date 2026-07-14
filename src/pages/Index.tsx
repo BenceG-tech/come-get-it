@@ -25,6 +25,8 @@ import { getSupabaseClient } from '@/lib/supabase';
 import heroMapAsset from '@/assets/IMG_hero_map.png.asset.json';
 import heroFeedAsset from '@/assets/IMG_9861.png.asset.json';
 import linkVenueAsset from '@/assets/IMG_9844.png.asset.json';
+import linkRewardsAsset from '@/assets/IMG_9931.png.asset.json';
+import linkRewardDetailAsset from '@/assets/IMG_9842_v2.png.asset.json';
 import drink1Asset from '@/assets/IMG_9965.png.asset.json';
 import drink2Asset from '@/assets/IMG_9964.png.asset.json';
 import drink3Asset from '@/assets/IMG_9966.png.asset.json';
@@ -56,8 +58,8 @@ const Index = () => {
     drink3Asset.url,
   ];
 
-  // Link section uses specific image
-  const linkImage = linkVenueAsset.url;
+  // Link section alternates between screenshots
+  const linkImage = [linkRewardsAsset.url, linkRewardDetailAsset.url];
 
   // Earn section uses these two images alternating
   const earnImages = [
