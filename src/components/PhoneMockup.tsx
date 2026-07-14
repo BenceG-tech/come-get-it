@@ -13,12 +13,12 @@ const FRAME_RATIO = 9 / 19.5;
 export const PhoneMockup: React.FC<PhoneMockupProps> = ({
   imageUrl,
   className = "",
-  fit = 'auto',
+  fit = 'contain',
   widthClassName = "w-[200px] sm:w-[220px] md:w-[240px]",
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [autoFit, setAutoFit] = useState<'cover' | 'contain'>('cover');
+  const [autoFit, setAutoFit] = useState<'cover' | 'contain'>('contain');
 
   const handleImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const { naturalWidth: w, naturalHeight: h } = e.currentTarget;
