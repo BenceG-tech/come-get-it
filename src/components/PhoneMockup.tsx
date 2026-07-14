@@ -13,12 +13,12 @@ const FRAME_RATIO = 9 / 19.5;
 export const PhoneMockup: React.FC<PhoneMockupProps> = ({
   imageUrl,
   className = "",
-  fit = 'auto',
+  fit = 'contain',
   widthClassName = "w-[200px] sm:w-[220px] md:w-[240px]",
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [autoFit, setAutoFit] = useState<'cover' | 'contain'>('cover');
+  const [autoFit, setAutoFit] = useState<'cover' | 'contain'>('contain');
 
   const handleImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const { naturalWidth: w, naturalHeight: h } = e.currentTarget;
@@ -66,17 +66,13 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
         className={`relative ${widthClassName} aspect-[9/19.5] bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[2.75rem] p-[6px] shadow-2xl border border-gray-700/40 phone-frame-solid`}
       >
         <div className="w-full h-full bg-black rounded-[2.35rem] overflow-hidden relative">
-          {/* Dynamic-island style notch — smaller, doesn't cover content */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-full z-30 border border-gray-900/60" />
-
           <div className="relative w-full h-full bg-black">
             <img
               src={imageUrl}
               alt="App Screenshot"
               onLoad={handleImgLoad}
-              className={`w-full h-full ${resolvedFit === 'cover' ? 'object-cover object-top' : 'object-contain'}`}
+              className={`w-full h-full ${resolvedFit === 'cover' ? 'object-cover object-center' : 'object-contain'}`}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
           </div>
         </div>
       </div>
