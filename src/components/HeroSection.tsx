@@ -116,16 +116,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
 
           {/* 3. Phone mockup — between CTAs and founding note on mobile, right column on desktop */}
           <div className="order-3 lg:order-2 lg:col-start-2 lg:row-start-1 lg:row-span-3 relative flex justify-center items-center min-h-[390px] sm:min-h-[480px] lg:min-h-[580px] py-2 sm:py-4">
-            {/* Soft cyan glow behind phone */}
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 -z-0 pointer-events-none"
-              style={{
-                background:
-                  'radial-gradient(ellipse 42% 42% at 50% 50%, rgba(0,188,212,0.65) 0%, rgba(0,188,212,0.28) 40%, transparent 65%)',
-                filter: 'blur(18px)',
-              }}
-            />
             <div className="relative z-20">
               <PhoneMockup
                 imageUrl={appImages[currentImageIndex]}
