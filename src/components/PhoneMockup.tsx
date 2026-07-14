@@ -20,10 +20,8 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [autoFit, setAutoFit] = useState<'cover' | 'contain'>('cover');
-  const [hasError, setHasError] = useState(false);
 
   const handleImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    setHasError(false);
     const { naturalWidth: w, naturalHeight: h } = e.currentTarget;
     if (!w || !h) return;
     const ratio = w / h;
@@ -73,16 +71,10 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
             src={imageUrl}
             alt="Come Get It app képernyőkép"
             onLoad={handleImgLoad}
-            onError={() => setHasError(true)}
             className={`h-full w-full ${resolvedFit === 'cover' ? 'object-cover object-center' : 'object-contain object-center'}`}
             loading="lazy"
             decoding="async"
           />
-          {hasError && (
-            <div className="absolute inset-0 flex items-center justify-center bg-nf-background text-center text-xs font-semibold text-nf-primary/80 px-5">
-              Come Get It
-            </div>
-          )}
         </div>
       </div>
     </div>
