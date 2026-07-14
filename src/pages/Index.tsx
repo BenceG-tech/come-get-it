@@ -22,8 +22,8 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
-import heroMapAsset from '@/assets/IMG_9833.png.asset.json';
-import heroFeedAsset from '@/assets/IMG_9834.png.asset.json';
+import heroMapAsset from '@/assets/IMG_hero_map.png.asset.json';
+import heroFeedAsset from '@/assets/IMG_9861.png.asset.json';
 import linkVenueAsset from '@/assets/IMG_9844.png.asset.json';
 import drinkTonicAsset from '@/assets/IMG_9846.png.asset.json';
 import drinkBeerAsset from '@/assets/IMG_9838.png.asset.json';
@@ -44,8 +44,8 @@ const Index = () => {
   }, []);
 
   const appImages = [
-    heroMapAsset.url,
     heroFeedAsset.url,
+    heroMapAsset.url,
   ];
 
   // Drink section uses these two images alternating
