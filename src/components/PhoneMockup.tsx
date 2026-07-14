@@ -14,8 +14,8 @@ const FRAME_RATIO = 1206 / 2622;
 export const PhoneMockup: React.FC<PhoneMockupProps> = ({
   imageUrl,
   className = "",
-  fit = 'cover',
-  widthClassName = "w-[200px] sm:w-[220px] md:w-[240px]",
+  fit = 'auto',
+  widthClassName = "w-[176px] sm:w-[206px] md:w-[232px]",
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -25,9 +25,9 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
     const { naturalWidth: w, naturalHeight: h } = e.currentTarget;
     if (!w || !h) return;
     const ratio = w / h;
-    // Only fall back to contain when ratio really differs (>3%), otherwise cover fills the frame perfectly
+    // Only fall back to contain when ratio really differs, otherwise fill the frame perfectly.
     const diff = Math.abs(ratio - FRAME_RATIO) / FRAME_RATIO;
-    setAutoFit(diff > 0.03 ? 'contain' : 'cover');
+    setAutoFit(diff > 0.018 ? 'contain' : 'cover');
   };
 
   const resolvedFit: 'cover' | 'contain' = fit === 'auto' ? autoFit : fit;
@@ -46,7 +46,7 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
 
   return (
     <div 
-      className={`relative ${className}`}
+      className={`relative inline-flex items-center justify-center ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -56,25 +56,25 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
         transition: 'transform 0.3s ease-out'
       }}
     >
-      {/* Glow */}
-      <div 
-        className="absolute -inset-6 blur-[25px] rounded-[3.5rem] transform-gpu will-change-transform"
-        style={{ background: 'radial-gradient(ellipse 100% 100%, rgba(0, 212, 255, 0.45) 0%, rgba(0, 191, 230, 0.3) 40%, rgba(0, 169, 204, 0.15) 70%, transparent 100%)' }}
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 h-[78%] w-[118%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-nf-primary/25 blur-3xl opacity-80"
       />
 
-      {/* Phone frame — 9:19.5 ratio (modern iPhone-like), screenshot fills nicely */}
+      {/* iPhone 17 Pro screenshot frame */}
       <div
-        className={`relative ${widthClassName} aspect-[1206/2622] bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[2.75rem] p-[6px] shadow-2xl border border-gray-700/40 phone-frame-solid`}
+        className={`relative ${widthClassName} aspect-[1206/2622] rounded-[2.15rem] sm:rounded-[2.45rem] bg-[#111315] p-[4px] shadow-[0_24px_80px_rgba(0,0,0,0.65)] ring-1 ring-white/10`}
       >
-        <div className="w-full h-full bg-black rounded-[2.35rem] overflow-hidden relative">
-          <div className="relative w-full h-full bg-black">
-            <img
-              src={imageUrl}
-              alt="App Screenshot"
-              onLoad={handleImgLoad}
-              className={`w-full h-full ${resolvedFit === 'cover' ? 'object-cover object-center' : 'object-contain'}`}
-            />
-          </div>
+        <div className="absolute inset-[2px] rounded-[2rem] sm:rounded-[2.32rem] border border-white/10 pointer-events-none" />
+        <div className="relative h-full w-full overflow-hidden rounded-[1.85rem] sm:rounded-[2.15rem] bg-black">
+          <img
+            src={imageUrl}
+            alt="Come Get It app képernyőkép"
+            onLoad={handleImgLoad}
+            className={`h-full w-full ${resolvedFit === 'cover' ? 'object-cover object-center' : 'object-contain object-center'}`}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </div>
