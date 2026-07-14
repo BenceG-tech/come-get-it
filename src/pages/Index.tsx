@@ -44,8 +44,8 @@ const Index = () => {
   }, []);
 
   const appImages = [
-    heroMapAsset.url,
     heroFeedAsset.url,
+    heroMapAsset.url,
   ];
 
   // Drink section uses these two images alternating
