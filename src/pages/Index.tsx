@@ -51,8 +51,9 @@ const Index = () => {
 
   // Drink section uses these two images alternating
   const drinkImages = [
-    drinkTonicAsset.url,
-    drinkBeerAsset.url,
+    drink1Asset.url,
+    drink2Asset.url,
+    drink3Asset.url,
   ];
 
   // Link section uses specific image
