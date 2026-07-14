@@ -62,7 +62,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-16 lg:items-center">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-5 lg:gap-16 lg:items-center">
           {/* 1. Headline block (badge + H1 + subtitle) */}
           <div className="text-center lg:text-left order-1 lg:order-1 lg:col-start-1 lg:row-start-1">
             {/* Launch badge */}
@@ -115,19 +115,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
           </div>
 
           {/* 3. Phone mockup — between CTAs and founding note on mobile, right column on desktop */}
-          <div className="order-3 lg:order-2 lg:col-start-2 lg:row-start-1 lg:row-span-3 relative flex justify-center items-center min-h-[380px] lg:min-h-[580px]">
-            {/* Soft cyan glow behind phone */}
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 -z-0 pointer-events-none"
-              style={{
-                background:
-                  'radial-gradient(ellipse 42% 42% at 50% 50%, rgba(0,188,212,0.65) 0%, rgba(0,188,212,0.28) 40%, transparent 65%)',
-                filter: 'blur(18px)',
-              }}
-            />
+          <div className="order-3 lg:order-2 lg:col-start-2 lg:row-start-1 lg:row-span-3 relative flex justify-center items-center min-h-[390px] sm:min-h-[480px] lg:min-h-[580px] py-2 sm:py-4">
             <div className="relative z-20">
-              <PhoneMockup imageUrl={appImages[currentImageIndex]} />
+              <PhoneMockup
+                imageUrl={appImages[currentImageIndex]}
+                widthClassName="w-[160px] min-[390px]:w-[170px] sm:w-[210px] md:w-[236px]"
+              />
             </div>
           </div>
 

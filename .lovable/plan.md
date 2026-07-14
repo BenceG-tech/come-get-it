@@ -1,34 +1,36 @@
-## Cél
-A `PhoneMockup` keret pontosan az iPhone 17 Pro screenshot-arányához igazodjon, hogy a képek pixelre illeszkedjenek — se lelógás, se fekete csík.
+## Probléma
+A képen a telefon mockup még mindig nem néz ki natívan: túl vastag/mesterséges a keret, a screenshot körül/alatt látszik egy türkiz négyzetes háttér, és mobil nézetben a telefon túl nagyra nő, ezért rálóg a következő CTA/szöveg területre.
 
-## iPhone 17 Pro specifikációk
-- Screenshot felbontás: **1206 × 2622 px**
-- Arány: **1206 / 2622 ≈ 0.4600** (≈ 201:437, gyakorlatilag `9 / 19.5522`)
-- A jelenlegi keret `9/19.5` (0.4615) — közel, de nem pontos, ezért 1-2 px lelógás/vágás előfordul.
+## Javítási terv
+1. **PhoneMockup újrarakása egyszerűbb, pontosabb kerettel**
+   - A jelenlegi extra belső háttér/keret rétegeket minimalizálom.
+   - A screenshotot közvetlenül egy iPhone 17 Pro arányú, lekerekített viewportba teszem.
+   - Eltüntetem azt a látható türkiz/négyzetes hátteret, ami most kilóg a telefon mögül.
 
-## Változtatások — csak `src/components/PhoneMockup.tsx`
+2. **Képarány és illeszkedés stabilizálása**
+   - A mockup aránya marad `1206 / 2622`.
+   - A képek alapértelmezésben teljesen kitöltik a telefont, de nem kapnak plusz belső pozicionálási hibát.
+   - Ha valamelyik asset tényleges mérete eltér, az `auto` fit csak akkor váltson `contain`-re, amikor tényleg szükséges.
 
-1. **Frame arány pontosítása**
-   - `FRAME_RATIO = 9 / 19.5` → `1206 / 2622`
-   - `aspect-[9/19.5]` → `aspect-[1206/2622]` (Tailwind arbitrary value engedi)
+3. **Mobil hero méret javítása**
+   - A hero telefon külön kisebb méretet kap mobilon, hogy ne nyomja rá magát az alsó CTA-ra és founding note-ra.
+   - Desktopon marad látványos, de mobilon kontrolláltabb lesz.
 
-2. **Default fit visszaállítása `cover`-re**
-   - Mivel most az arány pixelre stimmel, a `contain` már nem szükséges — a `cover` teljesen kitölti a képernyőt fekete csík nélkül.
-   - `fit?: ... default = 'cover'` (auto marad fallbacknek, ha valaki más arányú képet ad be).
-   - Az `auto` logika toleranciáját szűkítem 15%-ról 3%-ra, hogy csak akkor váltson `contain`-re, ha tényleg más eszközről jött a screenshot.
+4. **Szekciók egységesítése**
+   - Hero, Drink, Link és Earn telefonok ugyanazt a javított mockupot használják.
+   - Ahol kell, külön `widthClassName`-mel állítom a méretet, nem skálázással, hogy ne torzuljon.
 
-3. **Corner radius finomhangolás (opcionális, iPhone 17 Pro-hoz illő)**
-   - Külső keret: `rounded-[2.75rem]` marad
-   - Belső képernyő: `rounded-[2.35rem]` marad
-   - (Az iPhone 17 Pro sarok-görbülete ~55px @ 1206px szélesség = kb. 4.5% → az aktuális arány rendben van a 200-240px mockup méretnél)
+5. **Ellenőrzés mobil nézetben**
+   - A végén megnézem a főoldalt mobil viewporton, hogy:
+     - nincs kilógó türkiz téglalap,
+     - nem vágódik le a screenshot széle,
+     - a telefon nem takarja a CTA-t/szöveget,
+     - a mockup aránya egységes minden szekcióban.
 
-## Amit NEM módosítok
-- Az `Index.tsx`-ben lévő szekciók, kép-listák, animációk maradnak.
-- A hover-tilt, glow, border effektek változatlanok.
-- Nem érintem a `LinkSection`, `DrinkSection`, `EarnSection`, `HeroSection` fájlokat — csak a keret aránya változik, ami automatikusan minden helyen alkalmazódik.
+## Technikai részletek
+Érintett fájlok:
+- `src/components/PhoneMockup.tsx`
+- `src/components/HeroSection.tsx`
+- szükség esetén: `src/components/DrinkSection.tsx`, `src/components/LinkSection.tsx`, `src/components/EarnSection.tsx`
 
-## Ellenőrzés implementálás után
-- Preview: 402×701 (mobil) — hero szekció phone mockup nézete
-- Ellenőrzöm mindegyik szekciónál (Hero, Link, Drink, Earn), hogy a screenshot pixelre kitölti a keretet.
-
-Ha ez így jó, jóváhagyás után átváltok build módba és beadom a módosítást.
+Nem cserélek képet, csak a telefon mockup megjelenítését és méretezését javítom.

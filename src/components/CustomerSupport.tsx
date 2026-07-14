@@ -43,6 +43,7 @@ const POINTS_REWARDS_SECTIONS = [
 
 export const CustomerSupport: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showLauncher, setShowLauncher] = useState(false);
   const [currentTab, setCurrentTab] = useState<MainTab>('home');
   const [detailView, setDetailView] = useState<DetailView>(null);
   const [message, setMessage] = useState('');
@@ -60,6 +61,21 @@ export const CustomerSupport: React.FC = () => {
       window.removeEventListener('open-support', open);
       window.removeEventListener('open_support', open);
       window.removeEventListener('openSupport', open);
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateVisibility = () => {
+      setShowLauncher(window.scrollY > window.innerHeight * 0.72);
+    };
+
+    updateVisibility();
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('resize', updateVisibility);
+
+    return () => {
+      window.removeEventListener('scroll', updateVisibility);
+      window.removeEventListener('resize', updateVisibility);
     };
   }, []);
 
@@ -488,7 +504,7 @@ export const CustomerSupport: React.FC = () => {
 
   return (
     <>
-      {!isOpen && (
+      {!isOpen && showLauncher && (
         <button
           onClick={toggleSupport}
           aria-label="Súgó megnyitása"
