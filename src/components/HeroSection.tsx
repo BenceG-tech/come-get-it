@@ -119,7 +119,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, app
             <div className="relative z-20">
               <PhoneMockup
                 imageUrl={appImages[currentImageIndex]}
-                widthClassName="w-[178px] min-[390px]:w-[188px] sm:w-[220px] md:w-[240px]"
+                widthClassName="w-[160px] min-[390px]:w-[170px] sm:w-[210px] md:w-[236px]"
               />
             </div>
           </div>
