@@ -64,7 +64,7 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
 
       {/* Phone frame — 9:19.5 ratio (modern iPhone-like), screenshot fills nicely */}
       <div
-        className={`relative ${widthClassName} aspect-[9/19.5] bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[2.75rem] p-[6px] shadow-2xl border border-gray-700/40 phone-frame-solid`}
+        className={`relative ${widthClassName} aspect-[1206/2622] bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[2.75rem] p-[6px] shadow-2xl border border-gray-700/40 phone-frame-solid`}
       >
         <div className="w-full h-full bg-black rounded-[2.35rem] overflow-hidden relative">
           <div className="relative w-full h-full bg-black">
