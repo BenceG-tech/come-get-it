@@ -23,8 +23,8 @@
     "badge": "BUDAPESTEN INDULUNK — SZEPTEMBER 2026",
     "title_line1": "NEM TUDOD,",
     "title_line2": "HOVA MENJ MA?",
-    "subtitle": "Partnerhelyek Budapesten. Napi ingyen ital. Minden beváltással tiszta ivóvíz egy rászorulónak.",
-    "cta": "Csatlakozom alapító tagként",
+    "subtitle": "Válassz egy helyet. Menj el. Az első ital a miénk. És minden beváltott italoddal egy nap tiszta ivóvizet adsz valakinek, akinek nincs.",
+    "cta": "Jövök a körre! 🍻",
     "cta_secondary": "Hogyan működik?",
     "founding_note": "Az első 500 alapító tag életre szóló Founding Member státuszt és 1 hónap Plus-t kap ingyen."
   },
@@ -53,13 +53,13 @@
   "drink": {
     "title": "DRINK.",
     "subtitle": "Az első pohár nyitja az estét.",
-    "body": "Válassz egy helyet, mutasd fel az appot és tedd emlékezetessé a napod első körét. Minden este más hangulat, más társaság — a sztori rajtad múlik.",
-    "button": "Kezdjük ma este!"
+    "body": "Válassz egy helyet, váltsd be a napi italod, és tedd emlékezetessé a napod első körét. Minden este más hangulat, más társaság — a sztori rajtad múlik.",
+    "button": "Jövök a körre! 🍻"
   },
   "link": {
     "title": "LINK.",
-    "subtitle": "Bennfentes élmény, egy mozdulattal.",
-    "body": "Kösd össze biztonságosan a kártyádat, és automatikusan jár a pont minden fogyasztás után. Nincs kupon, nincs QR — csak flow."
+    "subtitle": "Nincs kupon, nincs QR — csak flow.",
+    "body": "Egy gombnyomás, és indul. A beváltás az appban történik, a helyszínen — kupon és sorban állás nélkül. Hamarosan: kösd össze a kártyádat, és minden fogyasztásod után automatikusan gyűlnek a pontok."
   },
   "earn": {
     "title": "EARN.",
@@ -69,8 +69,8 @@
   "give": {
     "title": "GIVE.",
     "subtitle": "Minden korty számít.",
-    "body": "A \"Drink for a Cause\" modell a kártyád DNS-ének része. Nem csak a pörgést akarjuk támogatni, hanem a változást is. Minden appon keresztül beváltott italért egy napi tiszta ivóvizet biztosítunk egy rászorulónak.",
-    "quote": "A Z generáció számára a társadalmi felelősségvállalás nem opció, hanem alapkövetelmény. Minden Welcome Drink után adományozunk."
+    "body": "Minden appon keresztül beváltott ital után egy napi tiszta ivóvizet biztosítunk egy rászorulónak. Nem kampány, nem évi egyszeri adomány — a rendszer része. Az appban látod a saját hatásod: hány napnyi tiszta vizet adtál már.",
+    "quote": ""
   },
   "pricing": {
     "title": "Ingyen kezded. Plusként többet kapsz.",
@@ -95,7 +95,7 @@
       "b3": "Teljes italkínálat a partnerhelyeken",
       "b4": "Extra jutalmak és exkluzív ajánlatok",
       "b5": "Saját Give-impact: lásd hány liter tiszta víz adományoztál",
-      "cta": "Csatlakozom Plusként"
+      "cta": "Értesíts az indulásról"
     },
     "info": "A partnerhelyek maguk választják ki, milyen italokat ajánlanak ingyen — egy hideg korsó sörtől a házi limonádén át a frissen készített koktélig. Az ajánlat helyenként eltér, ezért érdemes a Come Get It-en böngészni, mielőtt elindulsz.",
     "promo": {
@@ -105,22 +105,22 @@
   },
   "venue_teaser": {
     "title": "Vendéglátóhely vagy?",
-    "subtitle": "A Come Get It Founding Partner Programmal az első 15 budapesti partner csatlakozása teljesen jutalékmentes az első 6 hónapban. Mi hozzuk a vendégeket — te megtartod őket.",
+    "subtitle": "Az első 15 budapesti Founding Partnerrel közösen bizonyítjuk be, hogy a rendszer a gyengébb időszakokban is mérhető forgalmat hoz. 6 hónap jutalékmentesen — a napi ingyen ital ad okot a vendégnek, hogy ma este hozzád menjen.",
     "cards": {
       "1": {
         "title": "ÚJ VENDÉGEK",
-        "description": "Garantált forgalmat hozunk a holtidőkben — mérhetően és kockázatmentesen."
+        "description": "Nem ígérünk számokat — együtt mérjük: hány beváltás történt, mennyi volt az utóköltés, hányan tértek vissza."
       },
       "2": {
         "title": "NULLA RIZIKÓ",
-        "description": "Nincs fix díj, nincs hosszú szerződés. Ha 2 hét után nem éred el a célt, egy mondat és kilépsz."
+        "description": "6 hónap jutalékmentes. Nincs setup-fee, nincs hosszú szerződés — a 30 napos közös kiértékelés után bármikor kilépsz."
       },
       "3": {
         "title": "VALÓDI INSIGHT",
         "description": "Adatokat kapsz arról, ki mikor jön, melyik italra reagálnak — A/B tesztelheted az ajánlataidat."
       }
     },
-    "cta": "Vendéglátóhelyként csatlakozom →"
+    "cta": "Jelentkezem a pilotra →"
   },
   "fomo": {
     "title": "Legyél alapító tag",
@@ -156,20 +156,20 @@
     "subheadline": "Pár lépés, és tudod, hova menj ma.",
     "cards": {
       "1": {
-        "title": "Válassz",
-        "description": "Nézd meg, melyik partnerhely ad ma pluszt."
+        "title": "TÖLTSD LE",
+        "description": "Töltsd le az appot."
       },
       "2": {
-        "title": "Menj el",
-        "description": "Indulj el oda, ahol tényleg megéri beülni."
+        "title": "NÉZZ KÖRÜL",
+        "description": "Lásd, melyik partnerhelyen vár ma ingyen ital."
       },
       "3": {
-        "title": "Igyál",
-        "description": "Használd ki a napi ingyen italod és gyűjts pontokat."
+        "title": "VÁLTSD BE",
+        "description": "A helyszínen egy gombnyomás, és a tiéd az első kör."
       },
       "4": {
-        "title": "Adj vissza",
-        "description": "Minden beváltott ital egy nap tiszta ivóvizet biztosít egy rászorulónak."
+        "title": "GYŰJTS PONTOKAT",
+        "description": "Pontok minden aktivitás után, jutalmakra váltva."
       }
     },
     "steps": {
@@ -240,8 +240,8 @@
       "badge": "FOUNDING PARTNER PROGRAM — 15 HELY",
       "line1": "TÖBB VENDÉG.",
       "line2": "KEVESEBB ÜRES ASZTAL.",
-      "subtitle": "Új vendégeket hozunk a holtidőkben. A napi ingyen ital ad nekik konkrét okot, hogy ma este hozzád menjenek — a többit a hely már intézi.",
-      "cta": "Founding Partnerré válok",
+      "subtitle": "A Come Get It a gyengébb időszakaidban terel hozzád új vendéget — a napi ingyen ital ad nekik konkrét okot, hogy ma hozzád menjenek. Nem ígérünk számokat: 30 naponta együtt nézzük meg az adatokból, hogy nálad működik-e.",
+      "cta": "Jelentkezem a pilotra",
       "cta_secondary": "Hogyan működik?"
     },
     "how_it_works": {
@@ -273,12 +273,12 @@
           "description": "Hétköznapokon is hozunk új, releváns vendégeket."
         },
         "2": {
-          "title": "BIZONYÍTHATÓ ATTRIBUTION",
-          "description": "Kártyalinkelt, valós forgalmi visszajelzés – nincsenek találgatások."
+          "title": "MÉRT BEVÁLTÁS ÉS UTÓKÖLTÉS",
+          "description": "Minden beváltás rögzül, és melléírjuk az utóköltést is. Nem találgatunk: a riportban azt látod, ami történt."
         },
         "3": {
-          "title": "NEM NYOMOTT ÁR",
-          "description": "Nem freebie-seekerek: élménykereső közönség, aki költ is."
+          "title": "ÉLMÉNYKERESŐ KÖZÖNSÉG",
+          "description": "A rendszert úgy építjük, hogy ne a kuponvadászokat, hanem a visszatérő vendégeket jutalmazza — a pilot pontosan azt méri, sikerül-e."
         },
         "4": {
           "title": "BEVÁLTÁS/ FORGALOM RIPORTOK",
@@ -349,7 +349,7 @@
         },
         "2": {
           "title": "CÉLZOTT ELÉRÉS",
-          "description": "91% Gen Z & Millennial – pontos, értékes közönség."
+          "description": "18–35 éves budapesti fiatalok — pontos, értékes közönség."
         },
         "3": {
           "title": "KREATÍV ÉLMÉNYCSOMAGOK",
@@ -357,7 +357,7 @@
         },
         "4": {
           "title": "TELJESÍTMÉNYMÉRÉS",
-          "description": "Kártyaalapú attribúció és valós idejű statisztikák."
+          "description": "Beváltás-szintű adatok: hol, mikor, melyik italod fogyott — és mi történt utána."
         },
         "5": {
           "title": "KÓSTOLÁS VALÓDI HELYZETBEN",
@@ -394,7 +394,7 @@
       "title_line1": "INDÍTSD EL AZ",
       "title_line2": "ÉLMÉNYKAMPÁNYT!",
       "subtitle": "Írj nekünk, csatlakozz az elsők között!",
-      "cta": "KAPCSOLATFELVÉTEL"
+      "cta": "Early access-t kérek"
     }
   },
   "rewards_page": {
@@ -403,7 +403,7 @@
       "line2": "PONTOKAT VÁLTANAK BE.",
       "subtitle": "A felhasználóink minden költésük után pontot gyűjtenek. Mire váltják be? Erre te válaszolsz. Jegyek, élmények, sportbérlet, beauty, kávé, brunch — bármi, ami egy budapesti fiatalnak érték.",
       "phase_note": "A rewards-partnerprogram a felhasználói bázis kialakulása után, a 2. fázisban indul el. Most jelentkezhetsz early access-szel, hogy a beváltási menüben az elsők között szerepelj, amikor a programot elindítjuk.",
-      "cta": "Csatlakozom rewards-partnerként"
+      "cta": "Early access-t kérek"
     },
     "how_it_works": {
       "title": "HOGYAN MŰKÖDIK?",
@@ -435,7 +435,7 @@
         },
         "2": {
           "title": "Fiatal, esti-aktív bázis",
-          "description": "91% Gen Z & Millennial – elkötelezett közönség."
+          "description": "18–35 éves, esténként aktív budapesti közönség."
         },
         "3": {
           "title": "Együttműködési csomagok",
@@ -568,13 +568,13 @@
       "badge": "PARTNERPROGRAM — 2026",
       "line1": "ÉPÍTSÜK KÖZÖSEN",
       "line2": "BUDAPEST ÉJSZAKAI ÉLETÉT.",
-      "subtitle": "Három különböző módon csatlakozhatsz a Come Get It-hez. Találd meg a tiédet."
+      "subtitle": "Három különböző módon csatlakozhatsz a Come Get It-hez. Az indulást a vendéglátóhely-pilotokkal kezdjük — az italmárka- és rewards-programok erre épülnek a 2. fázisban."
     },
     "sections": {
       "venues": {
         "phase": "1. FÁZIS — INDULÁS",
         "title": "Vendéglátóhely vagy?",
-        "description": "Új vendégeket hozunk a holtidőkben. A napi ingyen ital ad nekik konkrét okot, hogy ma este hozzád menjenek — a többit a hely már intézi.",
+        "description": "Az első 15 budapesti Founding Partnerrel közösen bizonyítjuk be, hogy a rendszer a gyengébb időszakokban is mérhető forgalmat hoz. 6 hónap jutalékmentesen — a napi ingyen ital ad okot a vendégnek, hogy ma este hozzád menjen.",
         "bullets": {
           "1": "6 hónap jutalékmentesen",
           "2": "Új vendégek a holtidőkben",
