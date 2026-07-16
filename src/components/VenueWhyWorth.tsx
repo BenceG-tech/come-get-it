@@ -10,14 +10,14 @@ import bgKilepes from '@/assets/venue-why/kockazatmentes-kilepes.jpg';
 const cards = [
   {
     icon: Users,
-    title: 'Garantált új vendégek',
-    description: 'A juzereink azért nyitják meg az appot, mert döntéshelyzetben vannak: „hova menjek ma?" Te megjelensz a válaszuk között.',
+    title: 'Vendég a döntés pillanatában',
+    description: 'A userünk akkor nyitja meg az appot, amikor épp azt kérdezi: hova menjek ma? Te ott jelensz meg a válaszai között — pont az általad kijelölt időablakban.',
     bg: bgUjVendegek,
   },
   {
     icon: DollarSign,
     title: 'Nulla pénzügyi rizikó',
-    description: 'Az első 6 hónap teljesen jutalékmentes. Nincs fix havidíj, nincs setup-fee. A free drink költsége a beszerzési árad — egy alacsony marketing-befektetés, amiért egy átlagos 3500 Ft-ot költő vendéget kapsz cserébe.',
+    description: 'Az első 6 hónap teljesen jutalékmentes. Nincs fix havidíj, nincs setup-fee. A free drink költsége a beszerzési árad. Hogy ez megtérül-e — pontosan ezt mérjük együtt: minden beváltás mellé látod az utóköltést is.',
     bg: bgNullaRizko,
   },
   {
@@ -29,19 +29,19 @@ const cards = [
   {
     icon: BarChart3,
     title: 'Adatok, amiket sehol máshol nem kapsz',
-    description: 'Megmondjuk, ki mikor jött be, melyik italra reagáltak jobban, hányan tértek vissza. A/B tesztelheted: egyik héten sör, másikon bor, harmadikon limonádé. Pontosan látod, mi vonzza a célközönségedet.',
+    description: 'Látod, hány beváltás történt, mikor, új vagy visszatérő vendég volt-e, és mennyit költött az ingyen ital után. A/B tesztelheted az ajánlatod hétről hétre.',
     bg: bgAdatok,
   },
   {
     icon: MapPin,
-    title: 'Lokáció-alapú push az utcán',
+    title: 'HAMAROSAN — Lokáció-alapú push az utcán',
     description: 'Ha egy juzer 500 méteres körzetedben elsétál, az appja értesítést dob: „Itt és itt kapsz egy ingyen sört, Come Get It." Ez egy acquisition-csatorna, amit hagyományos kuponozóknál nem kapsz meg.',
     bg: bgLokacio,
   },
   {
     icon: DoorOpen,
     title: 'Kockázatmentes kilépés',
-    description: 'Ha 2 hét után úgy látod, a juzereink csak az ingyen italért jönnek és nem maradnak — egy üzenet és levesszük a rendszerből. Nincs lock-in, nincs büntetés. A program csak akkor működik, ha mindkettőnk nyer.',
+    description: 'A pilot 30 napos ciklusokban fut, közös kiértékeléssel. Ha az adatok alapján nem működik nálad — egy üzenet, és levesszük a rendszerből. Nincs lock-in, nincs büntetés.',
     bg: bgKilepes,
   },
 ];

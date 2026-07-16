@@ -52,9 +52,12 @@ export const GiveSection: React.FC = () => {
             <p className="text-lg text-nf-text-muted max-w-lg mb-8">
               {t('give.body')}
             </p>
-            <blockquote className="text-base md:text-lg text-nf-text-muted/80 italic border-l-2 border-nf-primary pl-4 max-w-lg">
-              "{t('give.quote')}"
-            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
           </div>
         </div>
       </div>
