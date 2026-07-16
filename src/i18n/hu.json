@@ -714,7 +714,7 @@
           },
           "hogyan_juthatsz": {
             "title": "Hogyan juthatsz hozzá egy ingyen italhoz?",
-            "content": "Folyamatosan indítunk új ingyen italos akciókat, szóval érdemes résen lenni!\nNézd meg az applikációban a bárlistát, vagy keresd a térképen az ‘ingyen ital’ jelzést – ezek mutatják, hol vár rád a következő pohár öröm.\n\nAmikor a helyszínre érsz, csak nyomd meg az ‘Ingyen ital’ gombot, és mutasd meg a pultosnak a visszaigazoló képernyőt. Ennyi az egész!\n\nNe felejtsd el értékelni a helyet, a kiszolgálást és magát az italt! Az őszinte véleményed sokat számít – mind a bár, mind a márka számára hasznos visszajelzés lesz (és természetesen teljesen anonim módon)."
+            "content": "Folyamatosan indítunk új ingyen italos akciókat, szóval érdemes résen lenni!\nNézd meg az applikációban a bárlistát, vagy keresd a térképen az ‘ingyen ital’ jelzést – ezek mutatják, hol vár rád a következő pohár öröm.\n\nAmikor a helyszínre érsz, nyomd meg a Kérd ingyen italod gombot, és add oda a telefonod a pultosnak — ő nyomja meg a BEVÁLTOM gombot. Ennyi az egész!\n\nNe felejtsd el értékelni a helyet, a kiszolgálást és magát az italt! Az őszinte véleményed sokat számít – mind a bár, mind a márka számára hasznos visszajelzés lesz (és természetesen teljesen anonim módon)."
           },
           "miert_nem_latok": {
             "title": "Miért nem látok most ital ajánlatokat?",
@@ -722,11 +722,11 @@
           },
           "miert_zarolva": {
             "title": "Miért van zárolva nálam az ingyen ital lehetőség?",
-            "content": "Az ingyen italok csak akkor érhetők el, ha összekapcsolod a bankkártyádat a Come Get It Rewards rendszerével. Ezzel nemcsak az italokhoz jutsz hozzá, hanem minden fogyasztásod után pontokat is gyűjtesz, amit további jutalmakra válthatsz be. Szóval tényleg megéri! A részleteket megtalálod az alkalmazásban."
+            "content": "Az ingyen italok beváltásához csak egy regisztrált fiók kell, és az, hogy a helyszínen legyél a megadott időablakban. Ennyi. Később érkezik a kártya-összekapcsolás is, amivel minden fogyasztásod után automatikusan gyűlnek majd a pontok."
           },
           "van_limit": {
             "title": "Van valamilyen limit?",
-            "content": "Igen, egy este mindenki csak egy ingyen italt válthat be – de ne aggódj, a helyszínen további kedvezmények és exkluzív ajánlatok is várnak!"
+            "content": "Naponta egy ingyen ital váltható be – a helyszínen további kedvezmények és ajánlatok is várhatnak."
           },
           "adhatok_visszajelzest": {
             "title": "Adhatok még több visszajelzést?",
