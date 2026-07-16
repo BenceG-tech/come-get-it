@@ -1,36 +1,69 @@
-## Probléma
-A képen a telefon mockup még mindig nem néz ki natívan: túl vastag/mesterséges a keret, a screenshot körül/alatt látszik egy türkiz négyzetes háttér, és mobil nézetben a telefon túl nagyra nő, ezért rálóg a következő CTA/szöveg területre.
+# Szövegcserék terve — csak copy, semmi layout
 
-## Javítási terv
-1. **PhoneMockup újrarakása egyszerűbb, pontosabb kerettel**
-   - A jelenlegi extra belső háttér/keret rétegeket minimalizálom.
-   - A screenshotot közvetlenül egy iPhone 17 Pro arányú, lekerekített viewportba teszem.
-   - Eltüntetem azt a látható türkiz/négyzetes hátteret, ami most kilóg a telefon mögül.
+Kizárólag szövegcserék. Layout, komponensek, sorrend, design változatlan. Admin felülethez nem nyúlok.
 
-2. **Képarány és illeszkedés stabilizálása**
-   - A mockup aránya marad `1206 / 2622`.
-   - A képek alapértelmezésben teljesen kitöltik a telefont, de nem kapnak plusz belső pozicionálási hibát.
-   - Ha valamelyik asset tényleges mérete eltér, az `auto` fit csak akkor váltson `contain`-re, amikor tényleg szükséges.
+## 1. Globális elvek
+- "garantált" szó eltávolítása / cseréje az adott szekció szerint
+- CTA-egységesítés:
+  - Fogyasztói fő CTA: `Jövök a körre! 🍻`
+  - Vendéglátóhely CTA: `Jelentkezem a pilotra`
+  - Italmárka + rewards CTA: `Early access-t kérek`
+  - Plus csomag CTA: `Értesíts az indulásról`
+- "91% Gen Z & Millennial" → `18–35 éves budapesti fiatalok — a közönség, amit a legnehezebb hagyományos reklámmal elérni.`
+- Kártya-összekapcsolás minden helyen "hamarosan" formulával, nem feltételként
 
-3. **Mobil hero méret javítása**
-   - A hero telefon külön kisebb méretet kap mobilon, hogy ne nyomja rá magát az alsó CTA-ra és founding note-ra.
-   - Desktopon marad látványos, de mobilon kontrolláltabb lesz.
+## 2. Főoldal (`/`)
+- `src/components/SEO.tsx` vagy `Index.tsx` SEO description csere
+- `HeroSection.tsx` — alcím + primary CTA szöveg
+- `HowItWorks.tsx` — 4 lépés címe + leírása az új verzióra
+- `DrinkSection.tsx` / `i18n/hu.json` (`drink.body`) — új body szöveg
+- `LinkSection.tsx` — új body, "Nincs kupon…" alcím marad
+- `EarnSection.tsx` — változatlan
+- `GiveSection.tsx` / `hu.json` — új body, quote törlendő
+- `PricingSection.tsx` — Plus CTA `Értesíts az indulásról`
+- `VenuePartnerTeaser.tsx` — alcím + 3 kártya szöveg (Új vendégek, Nulla rizikó, Valódi insight marad) + CTA `Jelentkezem a pilotra →`
 
-4. **Szekciók egységesítése**
-   - Hero, Drink, Link és Earn telefonok ugyanazt a javított mockupot használják.
-   - Ahol kell, külön `widthClassName`-mel állítom a méretet, nem skálázással, hogy ne torzuljon.
+## 3. Vendéglátóhelyek (`/vendeglatohelyek`)
+- `Vendeglatohelyek.tsx` — SEO description új szöveg
+- `VenueHeroSection.tsx` — alcím + CTA `Jelentkezem a pilotra`
+- `VenueWhyWorth.tsx` — 6 kártya:
+  1. cím + szöveg csere ("Vendég a döntés pillanatában")
+  2. szöveg vége csere
+  3. változatlan
+  4. szöveg csere (mért adatok)
+  5. cím elé `HAMAROSAN —`
+  6. szöveg csere (kockázatmentes kilépés)
+- `FoundingPartnerPerks.tsx` — "Garantált megjelenés a launch-PR-ben" → `Megjelenés a közös launch-PR-ben`
+- `VenueROI.tsx` — új cím `SZÁMOLJUNK EGYÜTT`, teljes tartalom cseréje a példa-szöveggel + záró kiemelés `Nem mi mondjuk meg, hogy megéri. Az adataid fogják.` (keret és pozíció marad)
+- `VenueStats.tsx` — felcím `KIT CÉLZUNK`, 4 kártya konkrét százalék nélkül
+- `VenueKeyFeatures.tsx` — "BIZONYÍTHATÓ ATTRIBUTION" → `MÉRT BEVÁLTÁS ÉS UTÓKÖLTÉS`, "NEM NYOMOTT ÁR" → `ÉLMÉNYKERESŐ KÖZÖNSÉG` új szöveggel
 
-5. **Ellenőrzés mobil nézetben**
-   - A végén megnézem a főoldalt mobil viewporton, hogy:
-     - nincs kilógó türkiz téglalap,
-     - nem vágódik le a screenshot széle,
-     - a telefon nem takarja a CTA-t/szöveget,
-     - a mockup aránya egységes minden szekcióban.
+## 4. Partnerek hub (`/partnerek`)
+- `Partnerek.tsx` — hero alcím kiegészítés második mondattal, vendéglátóhely-kártya szövege azonos a főoldali új teaser-alcímmel
 
-## Technikai részletek
-Érintett fájlok:
-- `src/components/PhoneMockup.tsx`
-- `src/components/HeroSection.tsx`
-- szükség esetén: `src/components/DrinkSection.tsx`, `src/components/LinkSection.tsx`, `src/components/EarnSection.tsx`
+## 5. Italmárkák (`/italmarkak`)
+- Célzott elérés + Teljesítménymérés kártyák szövegcsere
+- Alsó üres statisztika-sáv (FELHASZNÁLÓ / NŐK / PARTNER / APP ÉRTÉKELÉS) törlése
+- Záró CTA → `Early access-t kérek`
 
-Nem cserélek képet, csak a telefon mockup megjelenítését és méretezését javítom.
+## 6. Rewards partnerek (`/rewards-partners`)
+- "Fiatal, esti-aktív bázis" kártya új szöveg
+- "Partner eredmények" 4 statisztika-kártya teljes törlése, helyére 1 szövegsor
+- CTA-k → `Early access-t kérek`
+
+## 7. Founding Partner Program (`/come-get-it-accelerator`)
+- 4 lépés → 5 lépés (Beszélgetünk → LOI → Profil → Launch → 6 hónap jutalékmentes)
+- FRESH / SUPER-FRESH blokk fölé alcím: `Programcsomagok italmárkáknak — 2. fázis`
+
+## 8. Súgó / GYIK (`CustomerSupport.tsx`)
+- 3 válasz szövegcsere (zárolt ingyen ital, limit, hogyan juthatsz hozzá)
+
+## 9. Adatvédelmi szabályzat (`AdatvedelmiSzabalyzat.tsx`)
+- Adatfeldolgozók listába: `Brevo (e-mail küldés és értesítések).`
+- "Utolsó frissítés" mai dátumra
+
+## 10. Végső ellenőrzés
+Kódbázis-keresés: `garantált`, `91%`, `475`, `kártyalinkelt` — a nem lefedett előfordulásokat jelentem külön listában.
+
+## Munkamódszer
+- Először beolvasom az érintett fájlokat (`VenueHeroSection`, `VenueWhyWorth`, `VenueROI`, `VenueStats`, `VenueKeyFeatures`, `Italmarkak`, `RewardsPartners`, `ComeGetItAccelerator`, `Partnerek`, `HowItWorks`, `HeroSection`, `VenuePartnerTeaser`, `PricingSection`, `CustomerSupport`, `AdatvedelmiSzabalyzat`, `hu.json`), majd targetált `line_replace` szerkesztésekkel cserélem a szövegeket. Layout, className, komponensek érintetlenek.

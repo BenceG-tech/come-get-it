@@ -1,26 +1,26 @@
 import React from 'react';
-import { Clock, Users, MapPin, BarChart3 } from 'lucide-react';
+import { Users, Smartphone, MoonStar, ListChecks } from 'lucide-react';
 
 const items = [
   {
-    icon: Clock,
-    title: 'HOLTIDŐ-FÓKUSZ',
-    description: 'Akkor hozunk vendéget, amikor üresek az asztalok.',
-  },
-  {
     icon: Users,
-    title: 'GEN Z & MILLENNIÁL',
-    description: 'A budapesti, vendéglátóhelyekre járó fiatal felnőtt közönség.',
+    title: '18–35 ÉVES BUDAPESTI KÖZÖNSÉG',
+    description: 'A közönség, amit a legnehezebb hagyományos reklámmal elérni.',
   },
   {
-    icon: MapPin,
-    title: 'LOKÁCIÓ-ALAPÚ ÉRTESÍTÉS',
-    description: 'A juzereink push-üzenetet kapnak, ha 500 méteren belül vannak.',
+    icon: Smartphone,
+    title: 'MOBILE-FIRST GENERÁCIÓ',
+    description: 'Az appban dől el a döntés: hova menjenek ma este.',
   },
   {
-    icon: BarChart3,
-    title: 'VALÓDI MÉRÉS',
-    description: 'Banki tranzakciók és app-aktivitás alapján — nem becslések.',
+    icon: MoonStar,
+    title: 'ESTI ÉS AFTERWORK-AKTÍV',
+    description: 'Akkor keresnek helyet, amikor nálad a legnagyobb szükség van a forgalomra.',
+  },
+  {
+    icon: ListChecks,
+    title: 'A WAITLISTÜNKRŐL INDUL AZ ELSŐ KÖR',
+    description: 'A launch-ra már elköteleződött korai bázisunk vesz részt.',
   },
 ];
 
@@ -28,6 +28,11 @@ export const VenueStats: React.FC = () => {
   return (
     <section className="py-20 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-10">
+          <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-nf-primary/80">
+            Kit célzunk
+          </p>
+        </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {items.map((item, index) => (
             <div key={index} className="text-center group">
@@ -49,3 +54,4 @@ export const VenueStats: React.FC = () => {
     </section>
   );
 };
+

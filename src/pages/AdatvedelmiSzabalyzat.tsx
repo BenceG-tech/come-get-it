@@ -19,7 +19,7 @@ export default function AdatvedelmiSzabalyzat() {
       <article className="max-w-3xl mx-auto px-4 py-16">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Adatvédelmi szabályzat</h1>
-          <p className="text-muted-foreground mt-2">Hatályos: 2025-08-08</p>
+          <p className="text-muted-foreground mt-2">Hatályos: 2026-07-15</p>
         </header>
 
         <section className="space-y-8 leading-relaxed text-sm md:text-base">
@@ -62,6 +62,7 @@ export default function AdatvedelmiSzabalyzat() {
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Adatfeldolgozók és címzettek</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>Supabase (adatbázis, Edge Functions, e‑mail értesítések továbbítása).</li>
+              <li>Brevo (e-mail küldés és értesítések).</li>
               <li>Google Analytics 4 (forgalom‑ és eseménymérés).</li>
               <li>Hoszting és infrastruktúra szolgáltatók a webalkalmazás üzemeltetéséhez.</li>
             </ul>
@@ -122,7 +123,7 @@ export default function AdatvedelmiSzabalyzat() {
             </p>
           </section>
 
-          <p className="text-muted-foreground">Utolsó frissítés: 2025-08-08</p>
+          <p className="text-muted-foreground">Utolsó frissítés: 2026-07-15</p>
         </section>
       </article>
     </main>
