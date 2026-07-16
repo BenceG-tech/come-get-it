@@ -58,9 +58,3 @@ export const GiveSection: React.FC = () => {
     </section>
   );
 };
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
