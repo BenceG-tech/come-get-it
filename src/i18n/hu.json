@@ -105,7 +105,7 @@
   },
   "venue_teaser": {
     "title": "Vendéglátóhely vagy?",
-    "subtitle": "Az első 15 budapesti Founding Partnerrel közösen bizonyítjuk be, hogy a rendszer a gyengébb időszakokban is mérhető forgalmat hoz. 6 hónap jutalékmentesen — a napi ingyen ital ad okot a vendégnek, hogy ma este hozzád menjen.",
+    "subtitle": "Az első 15 budapesti Founding Partnerrel közösen bizonyítjuk be, hogy a rendszer a gyengébb időszakokban is mérhető forgalmat hoz. 6 hónap jutalékmentesen — az appban elérhető ajánlat ad okot a vendégnek, hogy ma este hozzád jöjjön.",
     "cards": {
       "1": {
         "title": "ÚJ VENDÉGEK",
@@ -240,7 +240,7 @@
       "badge": "FOUNDING PARTNER PROGRAM — 15 HELY",
       "line1": "TÖBB VENDÉG.",
       "line2": "KEVESEBB ÜRES ASZTAL.",
-      "subtitle": "A Come Get It a gyengébb időszakaidban terel hozzád új vendéget — a napi ingyen ital ad nekik konkrét okot, hogy ma hozzád menjenek. Nem ígérünk számokat: 30 naponta együtt nézzük meg az adatokból, hogy nálad működik-e.",
+      "subtitle": "A Come Get It a gyengébb időszakaidban terel hozzád új vendéget — az általad kínált ajánlat ad nekik konkrét okot, hogy ma hozzád jöjjenek. Nem ígérünk számokat: 30 naponta együtt nézzük meg az adatokból, hogy nálad működik-e.",
       "cta": "Jelentkezem a pilotra",
       "cta_secondary": "Hogyan működik?"
     },
@@ -574,7 +574,7 @@
       "venues": {
         "phase": "1. FÁZIS — INDULÁS",
         "title": "Vendéglátóhely vagy?",
-        "description": "Az első 15 budapesti Founding Partnerrel közösen bizonyítjuk be, hogy a rendszer a gyengébb időszakokban is mérhető forgalmat hoz. 6 hónap jutalékmentesen — a napi ingyen ital ad okot a vendégnek, hogy ma este hozzád menjen.",
+        "description": "Az első 15 budapesti Founding Partnerrel közösen bizonyítjuk be, hogy a rendszer a gyengébb időszakokban is mérhető forgalmat hoz. 6 hónap jutalékmentesen — az appban elérhető ajánlat ad okot a vendégnek, hogy ma este hozzád jöjjön.",
         "bullets": {
           "1": "6 hónap jutalékmentesen",
           "2": "Új vendégek a holtidőkben",
