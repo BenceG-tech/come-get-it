@@ -194,7 +194,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Vendéglátóhelyeknek – Csatlakozz a Come Get It hálózathoz</h1>
-    <p>A Come Get It egy hűségrendszer és forgalomgenerátor magyarországi vendéglátóhelyek számára. Bárok, kávézók és éttermek új vendégeket szereznek, miközben mérhető visszatérést és kampányhatást kapnak. Az app előfizetői naponta visszatérnek a napi italért — ez stabil, kiszámítható forgalom.</p>
+    <p>A Come Get It egy hűségrendszer és forgalomgenerátor magyarországi vendéglátóhelyek számára. Bárok, kávézók és éttermek új vendégeket szereznek, miközben mérhető visszatérést és kampányhatást kapnak. Az app jelenleg ingyenes bétaverzióban működik, és a partnerhelyek maguk döntik el, milyen ajánlatot tesznek elérhetővé.</p>
   </header>
 
   <section>
@@ -213,7 +213,7 @@ export const ROUTES: RouteSEO[] = [
       <li><strong>Új vendégek lábforgalma:</strong> a Come Get It közössége aktívan keres partnerhelyeket az appban.</li>
       <li><strong>Hűségrendszer dobozból:</strong> nincs külön kártya vagy bélyegző, az app intézi a pontgyűjtést.</li>
       <li><strong>Mérhető forgalom:</strong> valós idejű analitika a beváltásokról, csúcsidőről, vendégtípusról.</li>
-      <li><strong>Subscription forgalom:</strong> az előfizetők naponta visszatérnek a napi italért — kiszámítható ismétlődő bevétel.</li>
+      <li><strong>Visszatérő vendégek:</strong> a pontgyűjtés és az elérhető ajánlatok okot adnak a visszatérésre.</li>
       <li><strong>Felfedezhetőség:</strong> kiemelt megjelenés az in-app térképen és „mit egyek/igyak ma" felfedezőben.</li>
     </ul>
   </section>
@@ -224,7 +224,7 @@ export const ROUTES: RouteSEO[] = [
       <li>A vendég megrendel a kasszánál.</li>
       <li>Beolvas vagy felmutat egy QR-kódot az appból.</li>
       <li>Te visszaigazolod a beváltást a partner-felületen (mobil vagy tablet).</li>
-      <li>A tranzakció azonnal rögzül a riportingban; a vendég pontot kap vagy levonja a napi ingyen italát.</li>
+      <li>A tranzakció azonnal rögzül a riportingban; a vendég pontot kap, vagy beváltja az adott helyen elérhető ingyen italt.</li>
     </ol>
   </section>
 
@@ -282,7 +282,7 @@ export const ROUTES: RouteSEO[] = [
     <h2>Brand aktivációs lehetőségek</h2>
     <ul>
       <li>Termékfókuszú kampányok partnerhelyeken (kóstoltatás, double points, free pour).</li>
-      <li>Subscription bundle-ök – a napi ingyen ital lehet a te márkád.</li>
+      <li>Tervezett csomagajánlatok – a partnerhelyen elérhető ingyen ital lehet a te márkád.</li>
       <li>In-app megjelenések, push és tematikus jutalmak.</li>
     </ul>
   </section>
@@ -356,7 +356,7 @@ export const ROUTES: RouteSEO[] = [
   <section>
     <h2>Hogyan váltják be a felhasználók</h2>
     <ol>
-      <li>A user pontjaiból vagy előfizetéséből „kiválasztja” a te jutalmadat az appban.</li>
+      <li>A user a pontjaiból „kiválasztja” a te jutalmadat az appban.</li>
       <li>Egyedi QR-kódot kap.</li>
       <li>A QR-t bemutatja nálad vagy a webshopodban beváltja – mi mérjük a tranzakciót.</li>
     </ol>
