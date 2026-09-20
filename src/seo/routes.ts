@@ -106,17 +106,15 @@ export const ROUTES: RouteSEO[] = [
     <h2>Gyakori kérdések</h2>
     <dl>
       <dt>Mennyibe kerül a Come Get It?</dt>
-      <dd>A pontgyűjtős alapverzió ingyenes. Az opcionális előfizetés 990 HUF/hét vagy 2 990 HUF/hó, ami napi 1 ingyen italt tartalmaz partnerhelyeken.</dd>
-      <dt>Hol indul először?</dt>
-      <dd>Budapesten, később országos terjeszkedés Magyarországon.</dd>
-      <dt>Mikor indul élesben?</dt>
-      <dd>A pontos indulási dátumot a várólistán értesítjük. Iratkozz fel, és elsők között próbálhatod ki.</dd>
-      <dt>Mit jelent a GIVE?</dt>
-      <dd>Minden beváltott italért 1 napi tiszta ivóvíz egy rászorulónak; a felhasználó visszamenőleg látja a saját hozzájárulását.</dd>
-      <dt>Hogyan működik a fizetés összekapcsolása?</dt>
-      <dd>A kasszánál egyedi QR-kódot olvasol be vagy mutatsz fel — ezzel rögzítjük a beváltást és írjuk jóvá a pontokat.</dd>
-      <dt>Lemondható az előfizetés?</dt>
-      <dd>Igen, bármikor, kötbér nélkül.</dd>
+      <dd>Az app jelenleg ingyenes bétaverzióban érhető el. Fizetős előfizetés nincs.</dd>
+      <dt>Hol érhető el?</dt>
+      <dd>Budapesti partnerhelyeken, folyamatosan bővülő listával.</dd>
+      <dt>Garantált a napi ingyen ital?</dt>
+      <dd>Nem. Az ajánlatok a partnerhelyek aktuális készletétől és nyitvatartásától függnek, és bármikor elfogyhatnak vagy változhatnak.</dd>
+      <dt>Hogyan működik a beváltás?</dt>
+      <dd>Az appban kiválasztod az elérhető ajánlatot, a helyszínen pedig a pultos igazolja vissza a beváltást.</dd>
+      <dt>Hogyan törölhetem a fiókom?</dt>
+      <dd>Az appban: Profil &gt; Beállítások &gt; Fiók törlése, vagy e-mailben a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címen. Részletek: <a href="/support">/support</a>.</dd>
       <dt>Mi van, ha nincs partnerhely a közelemben?</dt>
       <dd>Az app egy térképen megmutatja a legközelebbi partnereket. Az indulás Budapesten történik, ahol már több helyszín lesz elérhető. Új városokba a kereslet alapján terjeszkedünk.</dd>
       <dt>Hogyan csatlakozhat egy vendéglátóhely vagy márka?</dt>
@@ -141,6 +139,8 @@ export const ROUTES: RouteSEO[] = [
       <li><a href="/italmarkak">Italmárkáknak</a></li>
       <li><a href="/rewards-partners">Rewards Partnerek</a></li>
       <li><a href="/come-get-it-accelerator">Come Get It Accelerator</a></li>
+      <li><a href="/support">Támogatás</a></li>
+      <li><a href="/felhasznalasi-feltetelek">Felhasználási feltételek</a></li>
       <li><a href="/adatvedelmi-szabalyzat">Adatvédelmi szabályzat</a></li>
       <li><a href="/llm.html">AI/LLM összefoglaló</a></li>
     </ul>
@@ -156,23 +156,23 @@ export const ROUTES: RouteSEO[] = [
             name: "Mennyibe kerül a Come Get It?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "A pontgyűjtős verzió ingyenes. Az opcionális előfizetés 990 HUF/hét vagy 2990 HUF/hó, ami napi 1 ingyen italt tartalmaz partnerhelyeken.",
+              text: "Az app jelenleg ingyenes bétaverzióban érhető el. Fizetős előfizetés nincs.",
             },
           },
           {
             "@type": "Question",
-            name: "Hol indul először?",
+            name: "Hol érhető el?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Az indulás Budapesten kezdődik, később országos terjeszkedés.",
+              text: "Budapesti partner vendéglátóhelyeken, folyamatosan bővülő listával.",
             },
           },
           {
             "@type": "Question",
-            name: "Mi az a GIVE?",
+            name: "Garantált a napi ingyen ital?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Minden beváltott italért egy napi tiszta ivóvizet biztosítunk egy rászorulónak. Az appban visszamenőleg is látod a saját hozzájárulásodat.",
+              text: "Nem. Az elérhető ingyen italok és jutalmak a partnerhelyek aktuális készletétől és nyitvatartásától függnek.",
             },
           },
         ],
