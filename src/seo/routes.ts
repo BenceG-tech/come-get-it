@@ -466,14 +466,14 @@ export const ROUTES: RouteSEO[] = [
     description:
       "A Come Get It adatvédelmi szabályzata: milyen adatokat kezelünk, milyen célból, milyen jogalapon, meddig őrizzük, és milyen jogaid vannak.",
     h1: "Adatvédelmi szabályzat",
-    lastmod: "2025-08-08",
+    lastmod: "2026-09-20",
     priority: 0.3,
     changefreq: "yearly",
     bodyHtml: `
 <main data-prerender="true">
   <article>
     <h1>Adatvédelmi szabályzat</h1>
-    <p>Hatályos: 2025-08-08</p>
+    <p>Hatályos: 2026-09-20</p>
     <p>A Come Get It alkalmazás és weboldal (come-get-it.app) üzemeltetőjeként elkötelezettek vagyunk a személyes adatok védelme mellett. Ez a szabályzat összefoglalja, milyen adatokat kezelünk, milyen célból, milyen jogalapon, meddig őrizzük meg azokat, és milyen jogaid vannak.</p>
 
     <h2>Adatkezelő</h2>
@@ -484,8 +484,8 @@ export const ROUTES: RouteSEO[] = [
       <li>Várólistás regisztráció: e‑mail cím, időbélyeg, forrás/UTM adatok.</li>
       <li>Üzleti jelentkezés: név, e‑mail, telefonszám (ha megadod), cégadatok (ha megadod).</li>
       <li>Hozzájárulások: marketing és kommunikációs beállítások.</li>
-      <li>Technikai adatok: IP-cím, böngésző és eszköz adatok, sütikhez kapcsolódó azonosítók.</li>
-      <li>Analitika: oldal- és esemény‑mérési adatok (összesített, anonimizált/pszeudonimizált módon).</li>
+      <li>Mobilalkalmazás-fiók: e‑mail cím és jelszó (titkosítva), beváltások és pontok.</li>
+      <li>Technikai adatok: IP-cím, böngésző és eszköz adatok, bejelentkezéshez szükséges azonosítók.</li>
     </ul>
 
     <h2>Adatkezelés céljai és jogalapja</h2>
@@ -497,13 +497,16 @@ export const ROUTES: RouteSEO[] = [
 
     <h2>Adatfeldolgozók és címzettek</h2>
     <ul>
-      <li>Supabase (adatbázis, Edge Functions, e‑mail értesítések továbbítása).</li>
-      <li>Google Analytics 4 (forgalom‑ és eseménymérés).</li>
+      <li>Supabase (adatbázis, hitelesítés, Edge Functions).</li>
+      <li>Resend (tranzakciós és értesítő e‑mailek küldése).</li>
       <li>Hoszting és infrastruktúra szolgáltatók a webalkalmazás üzemeltetéséhez.</li>
     </ul>
 
     <h2>Sütik (cookie‑k)</h2>
-    <p>A működéshez szükséges sütiket és analitikai sütiket használunk. A sütik a böngésződ beállításaiban korlátozhatók vagy törölhetők.</p>
+    <p>Csak a működéshez szükséges tárolást használjuk (pl. bejelentkezési munkamenet). Külső analitikai vagy marketing követőkódot nem futtatunk.</p>
+
+    <h2>Fiók és adatok törlése</h2>
+    <p>A mobilalkalmazásban: Profil &gt; Beállítások &gt; Fiók törlése. Ha nem tudsz belépni, írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre a regisztrált e‑mail címedről.</p>
 
     <h2>Adatmegőrzés</h2>
     <p>A várólistás adatokat legfeljebb az indulást követő 24 hónapig őrizzük meg, vagy az érintetti törlési kérelem beérkezéséig.</p>
