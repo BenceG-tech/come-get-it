@@ -132,7 +132,7 @@ export const ROUTES: RouteSEO[] = [
 
   <section>
     <h2>Kapcsolat</h2>
-    <p>E-mail: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a><br/>Alapító: Bence Gátai, +36 70 585 2053<br/>Közösségi média: @comegetit_app (Instagram, TikTok)</p>
+    <p>E-mail: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a><br/>Alapító: Bence Gátai, +36 70 585 2053<br/>Közösségi média: @comegetit_app (Instagram, TikTok)</p>
   </section>
 
   <nav aria-label="További oldalak">
@@ -246,7 +246,7 @@ export const ROUTES: RouteSEO[] = [
 
   <section>
     <h2>Jelentkezés</h2>
-    <p>Tölts ki a <a href="/vendeglatohelyek#apply">partneri jelentkezési űrlapot</a>, vagy írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a>. Telefon: Bence Gátai, +36 70 585 2053.</p>
+    <p>Tölts ki a <a href="/vendeglatohelyek#apply">partneri jelentkezési űrlapot</a>, vagy írj nekünk: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a>. Telefon: Bence Gátai, +36 70 585 2053.</p>
   </section>
 </main>`.trim(),
     jsonLd: [
@@ -305,7 +305,7 @@ export const ROUTES: RouteSEO[] = [
   </section>
   <section>
     <h2>Kapcsolat</h2>
-    <p>Brand kampányért írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a> vagy tölts ki egy <a href="/italmarkak#apply">érdeklődési űrlapot</a>.</p>
+    <p>Brand kampányért írj nekünk: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> vagy tölts ki egy <a href="/italmarkak#apply">érdeklődési űrlapot</a>.</p>
   </section>
 </main>`.trim(),
     jsonLd: [
@@ -364,7 +364,7 @@ export const ROUTES: RouteSEO[] = [
   </section>
   <section>
     <h2>Jelentkezés</h2>
-    <p>Írj nekünk a <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a> címre, vagy <a href="/rewards-partners#apply">jelentkezz az űrlapon</a>.</p>
+    <p>Írj nekünk a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre, vagy <a href="/rewards-partners#apply">jelentkezz az űrlapon</a>.</p>
   </section>
 </main>`.trim(),
     jsonLd: [
@@ -407,7 +407,7 @@ export const ROUTES: RouteSEO[] = [
   </section>
   <section>
     <h2>Kapcsolat</h2>
-    <p>Írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a></p>
+    <p>Írj nekünk: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a></p>
   </section>
 </main>`.trim(),
     jsonLd: [breadcrumb("Partnerek", "partnerek")],
@@ -453,7 +453,7 @@ export const ROUTES: RouteSEO[] = [
       <li>Bemutatkozó hívás (20 perc).</li>
       <li>Bekerülsz a soron következő Accelerator kohortba.</li>
     </ol>
-    <p>Indulás: <a href="/come-get-it-accelerator#apply">Jelentkezem az Acceleratorba</a> vagy írj a <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a> címre.</p>
+    <p>Indulás: <a href="/come-get-it-accelerator#apply">Jelentkezem az Acceleratorba</a> vagy írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre.</p>
   </section>
 </main>`.trim(),
     jsonLd: [breadcrumb("Come Get It Accelerator", "come-get-it-accelerator")],
@@ -477,7 +477,7 @@ export const ROUTES: RouteSEO[] = [
     <p>A Come Get It alkalmazás és weboldal (come-get-it.app) üzemeltetőjeként elkötelezettek vagyunk a személyes adatok védelme mellett. Ez a szabályzat összefoglalja, milyen adatokat kezelünk, milyen célból, milyen jogalapon, meddig őrizzük meg azokat, és milyen jogaid vannak.</p>
 
     <h2>Adatkezelő</h2>
-    <p>Név: Come Get It<br/>E-mail: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a></p>
+    <p>Név: Come Get It<br/>E-mail: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a></p>
 
     <h2>Kezelt adatok köre</h2>
     <ul>
@@ -519,7 +519,7 @@ export const ROUTES: RouteSEO[] = [
     <p>Nemzeti Adatvédelmi és Információszabadság Hatóság (NAIH), 1055 Budapest, Falk Miksa utca 9-11. – naih.hu</p>
 
     <h2>Kapcsolat</h2>
-    <p><a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a></p>
+    <p><a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a></p>
   </article>
 </main>`.trim(),
     jsonLd: [

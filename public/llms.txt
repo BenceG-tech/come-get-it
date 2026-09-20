@@ -13,7 +13,7 @@ A platform három partnertípussal dolgozik: vendéglátóhelyek (bárok, kávé
 ## Kulcsadatok
 
 - Domain: https://come-get-it.app
-- Kapcsolat: hello@come-get-it.app
+- Kapcsolat: gataibence@gmail.com
 - Alapító: Bence Gátai, +36 70 585 2053
 - Közösségi média: @comegetit_app (Instagram, TikTok)
 - Indulási piac: Budapest
