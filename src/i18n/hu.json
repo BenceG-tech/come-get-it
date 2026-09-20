@@ -23,10 +23,10 @@
     "badge": "BUDAPESTEN INDULUNK — SZEPTEMBER 2026",
     "title_line1": "NEM TUDOD,",
     "title_line2": "HOVA MENJ MA?",
-    "subtitle": "Válassz egy helyet. Menj el. Az első ital a miénk. És minden beváltott italoddal egy nap tiszta ivóvizet adsz valakinek, akinek nincs.",
+    "subtitle": "Válassz egy helyet, és nézd meg, hol vár rád épp elérhető ingyen ital vagy jutalom. Az app ingyenes bétaverzióban fut.",
     "cta": "Jövök a körre! 🍻",
     "cta_secondary": "Hogyan működik?",
-    "founding_note": "Az első 500 alapító tag életre szóló Founding Member státuszt és 1 hónap Plus-t kap ingyen."
+    "founding_note": "Az első 500 alapító tag életre szóló Founding Member státuszt kap. Az app használata a béta alatt ingyenes."
   },
   "miben_segit": {
     "title": "Miben segít?",
@@ -53,54 +53,54 @@
   "drink": {
     "title": "DRINK.",
     "subtitle": "Az első pohár nyitja az estét.",
-    "body": "Válassz egy helyet, váltsd be a napi italod, és tedd emlékezetessé a napod első körét. Minden este más hangulat, más társaság — a sztori rajtad múlik.",
+    "body": "Válassz egy helyet, nézd meg, van-e ott épp elérhető ingyen ital, és tedd emlékezetessé a nap első körét. Az ajánlatok helyenként és naponta változnak.",
     "button": "Jövök a körre! 🍻"
   },
   "link": {
     "title": "LINK.",
     "subtitle": "Nincs kupon, nincs QR — csak flow.",
-    "body": "Egy gombnyomás, és indul. A beváltás az appban történik, a helyszínen — kupon és sorban állás nélkül. Hamarosan: kösd össze a kártyádat, és minden fogyasztásod után automatikusan gyűlnek a pontok."
+    "body": "Egy gombnyomás, és indul. A beváltás az appban történik, a helyszínen — kupon és sorban állás nélkül. Tervben: kártya-összekapcsolás, hogy a pontok automatikusan gyűljenek."
   },
   "earn": {
     "title": "EARN.",
     "subtitle": "Pontokból élmények.",
-    "body": "Minden korty, felfedezés és aktivitás pont. Váltsd be exkluzív jutalmakra, és közben jó ügyeket is támogatsz. Igyál okosan, élj intenzíven."
+    "body": "Minden korty, felfedezés és aktivitás pont. Váltsd be az appban elérhető jutalmakra — a kínálat a partnerek aktuális készletétől függ."
   },
   "give": {
     "title": "GIVE.",
-    "subtitle": "Minden korty számít.",
-    "body": "Minden appon keresztül beváltott ital után egy napi tiszta ivóvizet biztosítunk egy rászorulónak. Nem kampány, nem évi egyszeri adomány — a rendszer része. Az appban látod a saját hatásod: hány napnyi tiszta vizet adtál már.",
+    "subtitle": "Amit hosszú távon tervezünk.",
+    "body": "Célunk, hogy a Come Get It a közösségnek is visszaadjon: társadalmi célú programot tervezünk a jövőre. Ez jelenleg terv — amíg nem indul el, nem ígérünk hozzá kapcsolódó hatást vagy adományt.",
     "quote": ""
   },
   "pricing": {
-    "title": "Ingyen kezded. Plusként többet kapsz.",
-    "subtitle": "A Come Get It alap funkciói örökre ingyenesek. Akik többet akarnak, Plus előfizetéssel napi 1 ingyen italt kapnak partnerhelyeken.",
+    "title": "Ingyenes béta. Nulla forint.",
+    "subtitle": "A Come Get It jelenleg ingyenes bétaverzióban érhető el. Nincs előfizetés, nincs appon belüli vásárlás. Az elérhető italok és jutalmak a partnerhelyek aktuális készletétől függnek.",
     "free": {
-      "label": "INGYENES",
+      "label": "MOST ELÉRHETŐ — INGYENES BÉTA",
       "price": "0 Ft",
-      "b1": "Helyek felfedezése a városban",
-      "b2": "2 ingyen ital / hó (alkoholmentes és limonádé)",
-      "b3": "Lokáció-alapú értesítések",
-      "b4": "Pontgyűjtés és jutalmak",
-      "b5": "GIVE hatás követése",
-      "b6": "Referral bónuszok",
+      "b1": "Partnerhelyek felfedezése térképen és listán",
+      "b2": "Épp elérhető ingyen italok beváltása a helyszínen",
+      "b3": "Fiók e-mail címmel és jelszóval",
+      "b4": "Pontgyűjtés és jutalmak igénylése",
+      "b5": "Küldetések és új helyek felfedezése",
+      "b6": "Nincs rejtett költség, nincs bankkártya",
       "cta": "Regisztrálok ingyen"
     },
     "plus": {
-      "label": "COME GET IT PLUS",
-      "badge": "AJÁNLOTT",
-      "price": "990 Ft / hét vagy 2990 Ft / hó",
-      "b1": "Minden ami az ingyenesben",
-      "b2": "Napi 1 ingyen ital — sör, bor, koktél, üdítő",
-      "b3": "Teljes italkínálat a partnerhelyeken",
-      "b4": "Extra jutalmak és exkluzív ajánlatok",
-      "b5": "Saját Give-impact: lásd hány liter tiszta víz adományoztál",
-      "cta": "Értesíts az indulásról"
+      "label": "TERVEZETT FUNKCIÓK",
+      "badge": "MÉG NEM ELÉRHETŐ",
+      "price": "Későbbi fejlesztések",
+      "b1": "Kártya-összekapcsolás automatikus pontgyűjtéshez",
+      "b2": "Bővülő partnerhely- és jutalomkínálat",
+      "b3": "Személyre szabott ajánlatok",
+      "b4": "Közösségi, társadalmi célú program",
+      "b5": "Ezek tervek — ha elindulnak, szólunk",
+      "cta": "Értesíts az újdonságokról"
     },
-    "info": "A partnerhelyek maguk választják ki, milyen italokat ajánlanak ingyen — egy hideg korsó sörtől a házi limonádén át a frissen készített koktélig. Az ajánlat helyenként eltér, ezért érdemes a Come Get It-en böngészni, mielőtt elindulsz.",
+    "info": "A partnerhelyek maguk választják ki, milyen italokat ajánlanak ingyen, és az ajánlatok készlet, nyitvatartás és időszak szerint változnak. Ezért nem ígérünk garantált vagy napi ingyen italt — nézd meg az appban, mi érhető el ma.",
     "promo": {
-      "label": "🎁 LAUNCH-AKCIÓ",
-      "body": "Az első 500 alapító tag 1 hónap Plust kap ingyen + életre szóló Founding Member badge-et. A regisztráció utáni első 1500 user 2 hét Plust kap ajándékba. Egy haver meghívásával te és ő is +1 hét Plust kaptok."
+      "label": "🎁 BÉTA",
+      "body": "A béta alatt minden funkció ingyenes. Az első 500 regisztráló életre szóló Founding Member badge-et kap, és elsőként értesül az új helyekről és jutalmakról."
     }
   },
   "venue_teaser": {
@@ -202,13 +202,13 @@
       },
       "2": {
         "title": "IGYÁL ÉS GYŰJTS.",
-        "description": "Minden nap jár egy ingyen ital, minden fogyasztás után pont jár.",
-        "benefit": "Pontjaidat értékes jutalmakra válthatod!"
+        "description": "Fedezd fel, hol érhető el épp ingyen ital, és gyűjts pontot a fogyasztásaid után.",
+        "benefit": "Pontjaidat az appban elérhető jutalmakra válthatod."
       },
       "3": {
-        "title": "SEGÍTS!",
-        "description": "Minden ital után automatikusan támogatod a jótékonyságot.",
-        "benefit": "Iszol, szórakozol, közben jót teszel – win-win."
+        "title": "FEJLŐDJ VELÜNK.",
+        "description": "A béta alatt a visszajelzésed formálja az appot.",
+        "benefit": "Te mondod meg, milyen helyek és jutalmak kerüljenek be."
       }
     }
   },
@@ -718,15 +718,15 @@
           },
           "miert_nem_latok": {
             "title": "Miért nem látok most ital ajánlatokat?",
-            "content": "Előfordulhat, hogy éppen nincs aktív kampány a városodban. Ne aggódj, hamarosan visszatérünk újabb meglepetésekkel! Addig is, ha a partner bárjainkban a regisztrált kártyáddal fizetsz, exkluzív ajánlatokat és hűségjutalmakat gyűjthetsz."
+            "content": "Előfordulhat, hogy éppen nincs aktív kampány a városodban. Ilyenkor nem jelenik meg elérhető ingyen ital — nézz vissza később, folyamatosan érkeznek új ajánlatok a partnerhelyekről."
           },
           "miert_zarolva": {
             "title": "Miért van zárolva nálam az ingyen ital lehetőség?",
-            "content": "Az ingyen italok beváltásához csak egy regisztrált fiók kell, és az, hogy a helyszínen legyél a megadott időablakban. Ennyi. Később érkezik a kártya-összekapcsolás is, amivel minden fogyasztásod után automatikusan gyűlnek majd a pontok."
+            "content": "Az ingyen italok beváltásához regisztrált fiók kell, és az, hogy a helyszínen legyél a megadott időablakban. Ha egy ajánlat elfogyott vagy éppen nem aktív, nem beváltható. Tervben van a kártya-összekapcsolás is, amivel később automatikusan gyűlhetnek a pontok."
           },
           "van_limit": {
             "title": "Van valamilyen limit?",
-            "content": "Naponta egy ingyen ital váltható be – a helyszínen további kedvezmények és ajánlatok is várhatnak."
+            "content": "Általában egy nap egy ingyen ital váltható be, de az elérhető ajánlatok a partnerhelyek készletétől és nyitvatartásától függnek, ezért nem garantált, hogy minden nap van elérhető ital."
           },
           "adhatok_visszajelzest": {
             "title": "Adhatok még több visszajelzést?",
