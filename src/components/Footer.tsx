@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
         <div>
           <Logo className="h-9 mb-4" />
           <p className="text-sm text-white/60 leading-relaxed">
-            Gyűjts pontokat, szerezz jutalmakat, támogass jótékonysági célokat – minden korttyal.
+            Találd meg, hova menj ma Budapesten. Ingyenes béta: helyek, jutalmak, pontok.
           </p>
         </div>
 
@@ -33,6 +33,8 @@ export const Footer: React.FC = () => {
           <h4 className={headingCls}>Jogi</h4>
           <ul className="space-y-2 text-sm">
             <li><Link to="/adatvedelmi-szabalyzat" className={linkCls}>Adatvédelmi szabályzat</Link></li>
+            <li><Link to="/felhasznalasi-feltetelek" className={linkCls}>Felhasználási feltételek</Link></li>
+            <li><Link to="/support" className={linkCls}>Támogatás</Link></li>
             <li><a href="/llm.html" className={linkCls}>AI/LLM összefoglaló</a></li>
             <li><a href="/sitemap.xml" className={linkCls}>Sitemap</a></li>
           </ul>
@@ -60,7 +62,7 @@ export const Footer: React.FC = () => {
               <Music2 className="w-4 h-4" strokeWidth={1.5} />
             </a>
             <a
-              href="mailto:hello@come-get-it.app"
+              href="mailto:gataibence@gmail.com"
               aria-label="Email"
               className="w-9 h-9 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] flex items-center justify-center text-nf-primary hover:border-nf-primary hover:shadow-[0_0_20px_rgba(0,188,212,0.5)] transition-all"
             >
@@ -68,7 +70,8 @@ export const Footer: React.FC = () => {
             </a>
           </div>
           <ul className="space-y-2 text-sm">
-            <li><a href="mailto:hello@come-get-it.app" className={linkCls}>hello@come-get-it.app</a></li>
+            <li><a href="mailto:gataibence@gmail.com" className={linkCls}>gataibence@gmail.com</a></li>
+            <li><Link to="/support" className={linkCls}>Támogatás</Link></li>
             <li><a href="https://instagram.com/comegetit_app" target="_blank" rel="noopener noreferrer" className={linkCls}>Instagram</a></li>
             <li><a href="https://tiktok.com/@comegetit_app" target="_blank" rel="noopener noreferrer" className={linkCls}>TikTok</a></li>
           </ul>
