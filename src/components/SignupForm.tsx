@@ -17,37 +17,10 @@ export const SignupForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [lastEmail, setLastEmail] = useState<string | null>(null);
   const [isResending, setIsResending] = useState(false);
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const { toast } = useToast();
-  const { user, signInWithGoogle } = useAuth();
+  const { user } = useAuth();
   const { t } = useI18n();
 
-  const handleGoogleSignup = async () => {
-    setIsGoogleLoading(true);
-    try {
-      analytics.ctaClick('signup_google', 'Google regisztráció');
-      const { error } = await signInWithGoogle();
-      if (error) {
-        const msg = (error as any)?.message || '';
-        const isProviderDisabled = /validation_failed|Unsupported provider|provider is not enabled/i.test(msg);
-        toast({
-          title: isProviderDisabled ? "Google bejelentkezés még nem elérhető" : "Hiba történt",
-          description: isProviderDisabled
-            ? "A Google regisztráció hamarosan elérhető lesz. Addig is regisztrálj e-mail címeddel feljebb."
-            : "A Google regisztráció nem sikerült. Kérjük, próbáld újra.",
-          variant: "destructive",
-        });
-      }
-    } catch (err) {
-      toast({
-        title: "Hiba történt",
-        description: "Váratlan hiba történt. Kérjük, próbáld újra.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsGoogleLoading(false);
-    }
-  };
   useEffect(() => {
     // Track when signup form is viewed
     analytics.signupFormView();
