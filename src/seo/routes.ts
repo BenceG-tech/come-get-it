@@ -50,17 +50,17 @@ export const ROUTES: RouteSEO[] = [
     distDir: "",
     title: "Come Get It – Találd meg, hova menj ma Budapesten",
     description:
-      "Mutatjuk Budapest partnerhelyeit, ahol napi ingyen italt, pontokat és jutalmakat kapsz — válassz könnyebben, hova menj enni, inni vagy bulizni.",
+      "Ingyenes béta: mutatjuk Budapest partnerhelyeit, ahol elérhető ingyen italokat válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz.",
     h1: "Nem tudod, hova menj ma?",
-    lastmod: "2026-05-06",
+    lastmod: "2026-09-20",
     priority: 1.0,
     changefreq: "weekly",
     bodyHtml: `
 <main data-prerender="true">
   <header>
     <h1>Nem tudod, hova menj ma?</h1>
-    <p>A <strong>Come Get It</strong> segít eldönteni, hova menj Budapesten. Megmutatja azokat a partner vendéglátóhelyeket, ahol <strong>napi ingyen italt</strong>, pontokat és jutalmakat kapsz — így könnyebb választani, hol reggelizz, ebédelj, igyál vagy bulizz. Minden beváltott italért egy napi tiszta ivóvizet biztosítunk egy rászorulónak.</p>
-    <p>Státusz: várólista nyitva. Indulás Budapesten, később országos terjeszkedés Magyarországon. Magyar nyelvű app, célközönség 18–45 éves városi vendéglátó-aktív közönség.</p>
+    <p>A <strong>Come Get It</strong> segít eldönteni, hova menj Budapesten. Megmutatja azokat a partner vendéglátóhelyeket, ahol <strong>éppen elérhető ingyen italt</strong> válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz — így könnyebb választani, hol reggelizz, ebédelj, igyál vagy bulizz.</p>
+    <p>Státusz: <strong>ingyenes bétaverzió</strong>. Fizetős előfizetés nincs. Az elérhető ajánlatok a partnerhelyek aktuális készletétől és nyitvatartásától függnek. Indulás Budapesten, magyar nyelvű app.</p>
   </header>
 
   <section>
@@ -69,33 +69,32 @@ export const ROUTES: RouteSEO[] = [
       <li><strong>Hol reggelizzek?</strong> – Találj helyet, ahol a napindításhoz extra jutalom is jár (kávé + croissant pontokért, napi kedvezmények).</li>
       <li><strong>Hol ebédeljek?</strong> – Válassz gyorsabban a közeli partnerhelyek közül; lásd, hol érdemes ma beülni.</li>
       <li><strong>Hova üljünk be?</strong> – Találj jó helyet kávéra, randira vagy afterworkre, ahol az élmény mellé jutalom is jár.</li>
-      <li><strong>Hol bulizzunk?</strong> – Menj oda, ahol az esti program mellé napi ingyen ital is jár előfizetőknek.</li>
+      <li><strong>Hol bulizzunk?</strong> – Menj oda, ahol az esti program mellé éppen extra ajánlat is elérhető.</li>
     </ul>
   </section>
 
   <section>
-    <h2>Hogyan működik – 4 lépés</h2>
+    <h2>Hogyan működik</h2>
     <ol>
-      <li><strong>Drink</strong> – Igyál a partner vendéglátóhelyeken Budapesten.</li>
-      <li><strong>Link</strong> – Kapcsold össze a fizetést az appal QR-kóddal a kasszánál.</li>
-      <li><strong>Earn</strong> – Pontokat és jutalmakat gyűjtesz, vagy előfizetőként napi 1 ingyen italt kapsz.</li>
-      <li><strong>Give</strong> – Minden beváltott italért 1 napi tiszta ivóvizet biztosítunk egy rászorulónak. Az appban visszamenőleg látod a saját hozzájárulásodat (pl. „Te már 25 napi tiszta vizet biztosítottál").</li>
+      <li><strong>Regisztrálj</strong> – e-mail címmel és jelszóval, ingyenesen.</li>
+      <li><strong>Fedezd fel</strong> – nézd meg a térképen és a listán a partner vendéglátóhelyeket.</li>
+      <li><strong>Váltsd be</strong> – ha épp van elérhető ajánlat, a helyszínen a pultos igazolja vissza a beváltást.</li>
+      <li><strong>Gyűjts</strong> – pontokat kapsz, amiket az appban elérhető jutalmakra válthatsz.</li>
     </ol>
   </section>
 
   <section>
-    <h2>Hibrid modell – két használati mód</h2>
+    <h2>Árazás</h2>
     <ul>
-      <li><strong>Ingyenes verzió:</strong> regisztrálj, gyűjts pontokat minden vásárlással és válts be jutalmakat partner márkáktól.</li>
-      <li><strong>Heti előfizetés:</strong> 990 HUF / hét – napi 1 ingyen ital partnerhelyeken.</li>
-      <li><strong>Havi előfizetés:</strong> 2 990 HUF / hó – napi 1 ingyen ital partnerhelyeken, kedvezőbb áron.</li>
+      <li><strong>Ingyenes bétaverzió:</strong> minden jelenlegi funkció ingyenes.</li>
+      <li>Fizetős előfizetés vagy appon belüli vásárlás jelenleg nincs.</li>
     </ul>
-    <p>Az előfizetés bármikor lemondható. Az ingyen italok partnerhelyenként és napszakonként eltérőek lehetnek.</p>
+    <p>Az ingyen italok és jutalmak a partnerhelyek aktuális készletétől, kínálatától és nyitvatartásától függnek, ezért nem garantáltak.</p>
   </section>
 
   <section>
-    <h2>GIVE – Tiszta víz egy rászorulónak</h2>
-    <p>A Come Get It minden beváltott italért egy napi tiszta ivóvizet biztosít egy rászorulónak. A számláló kumulatív és visszamenőleges: az app megmutatja, hány napi tiszta vizet adományoztál összesen. Ez a felelős fogyasztás közösségi pillanata: úgy iszol, hogy közben másnak is segítesz.</p>
+    <h2>Tervezett fejlesztések</h2>
+    <p>Hosszabb távon szeretnénk társadalmi célú programot és további funkciókat indítani. Ezek egyelőre tervek: amíg nem élesek, nem ígérünk hozzájuk kapcsolódó hatást vagy szolgáltatást.</p>
   </section>
 
   <section>
