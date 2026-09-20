@@ -23,10 +23,10 @@
     "badge": "LAUNCHING IN BUDAPEST — SEPTEMBER 2026",
     "title_line1": "DON'T KNOW",
     "title_line2": "WHERE TO GO TODAY?",
-    "subtitle": "Partner venues in Budapest. A free drink every day. Each redemption funds clean water for someone in need.",
+    "subtitle": "Partner venues in Budapest. Check the app to see where a free drink or reward is available right now. Free beta.",
     "cta": "Join as a founding member",
     "cta_secondary": "How it works",
-    "founding_note": "The first 500 founding members get lifetime Founding Member status and 1 month of Plus free."
+    "founding_note": "The first 500 founding members get lifetime Founding Member status. The app is free during the beta."
   },
   "miben_segit": {
     "title": "How does it help?",
@@ -68,9 +68,9 @@
   },
   "give": {
     "title": "GIVE.",
-    "subtitle": "Every sip counts.",
-    "body": "The \"Drink for a Cause\" model is in our DNA. We don't just want to fuel the party — we want to fuel change.",
-    "quote": "For Gen Z, social responsibility isn't optional — it's expected. We donate after every Welcome Drink."
+    "subtitle": "What we plan next.",
+    "body": "We want Come Get It to give something back to the community, so a social-impact programme is on our roadmap. It is a plan for now — until it launches we promise no donation or impact.",
+    "quote": "Social responsibility matters to us, and we will only claim impact once the programme is live."
   },
   "fomo": {
     "title": "Become a founding member",
@@ -152,13 +152,13 @@
       },
       "2": {
         "title": "DRINK & EARN.",
-        "description": "Get one free drink daily, earn points with every purchase.",
-        "benefit": "Redeem your points for valuable rewards!"
+        "description": "See where a free drink is available right now and earn points as you go.",
+        "benefit": "Redeem your points for rewards available in the app."
       },
       "3": {
-        "title": "GIVE BACK!",
-        "description": "Every drink automatically supports charity.",
-        "benefit": "You drink, have fun, and do good — win-win."
+        "title": "GROW WITH US.",
+        "description": "During the beta your feedback shapes the app.",
+        "benefit": "You tell us which venues and rewards to add."
       }
     }
   },

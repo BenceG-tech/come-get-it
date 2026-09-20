@@ -34,7 +34,7 @@ export default function AdatvedelmiSzabalyzat() {
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Adatkezelő</h2>
             <p>
               Név: Come Get It<br />
-              E-mail: hello@come-get-it.app
+              E-mail: gataibence@gmail.com
             </p>
           </section>
 
@@ -44,8 +44,8 @@ export default function AdatvedelmiSzabalyzat() {
               <li>Várólistás regisztráció: e‑mail cím, időbélyeg, forrás/UTM adatok.</li>
               <li>Üzleti jelentkezés: név, e‑mail, telefonszám (ha megadod), cégadatok (ha megadod).</li>
               <li>Hozzájárulások: marketing és kommunikációs beállítások.</li>
-              <li>Technikai adatok: IP-cím, böngésző és eszköz adatok, sütikhez kapcsolódó azonosítók.</li>
-              <li>Analitika: oldal- és esemény‑mérési adatok (összesített, anonimizált/pszeudonimizált módon).</li>
+              <li>Mobilalkalmazás-fiók: e‑mail cím és jelszó (titkosítva tárolva), valamint az appban végzett beváltások és pontok.</li>
+              <li>Technikai adatok: IP-cím, böngésző és eszköz adatok, a bejelentkezéshez szükséges tárolt azonosítók.</li>
             </ul>
           </section>
 
@@ -61,9 +61,8 @@ export default function AdatvedelmiSzabalyzat() {
           <section>
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Adatfeldolgozók és címzettek</h2>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Supabase (adatbázis, Edge Functions, e‑mail értesítések továbbítása).</li>
-              <li>Brevo (e-mail küldés és értesítések).</li>
-              <li>Google Analytics 4 (forgalom‑ és eseménymérés).</li>
+              <li>Supabase (adatbázis, hitelesítés, Edge Functions).</li>
+              <li>Resend (tranzakciós és értesítő e‑mailek küldése).</li>
               <li>Hoszting és infrastruktúra szolgáltatók a webalkalmazás üzemeltetéséhez.</li>
             </ul>
             <p className="text-muted-foreground mt-2">
@@ -75,8 +74,9 @@ export default function AdatvedelmiSzabalyzat() {
           <section>
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Sütik (cookie‑k)</h2>
             <p>
-              A működéshez szükséges sütiket és analitikai sütiket használunk. A sütik
-              a böngésződ beállításaiban korlátozhatók vagy törölhetők.
+              A weboldalon jelenleg csak a működéshez szükséges tárolást használjuk (pl. bejelentkezési
+              munkamenet). Külső analitikai vagy marketing követőkódot nem futtatunk. A böngésződ
+              beállításaiban bármikor törölheted a tárolt adatokat.
             </p>
           </section>
 
@@ -119,11 +119,20 @@ export default function AdatvedelmiSzabalyzat() {
           <section>
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Kapcsolat</h2>
             <p>
-              Ha kérdésed van, vagy szeretnéd gyakorolni jogaidat: hello@come-get-it.app
+              Ha kérdésed van, vagy szeretnéd gyakorolni jogaidat: gataibence@gmail.com
             </p>
           </section>
 
-          <p className="text-muted-foreground">Utolsó frissítés: 2026-07-15</p>
+          <section>
+            <h2 className="text-xl md:text-2xl font-semibold mb-2">Fiók és adatok törlése</h2>
+            <p>
+              A mobilalkalmazásban: Profil &gt; Beállítások &gt; Fiók törlése. Ha nem tudsz belépni,
+              írj a gataibence@gmail.com címre a regisztrált e‑mail címedről. További részletek a
+              támogatás oldalon: /support
+            </p>
+          </section>
+
+          <p className="text-muted-foreground">Utolsó frissítés: 2026-09-20</p>
         </section>
       </article>
     </main>

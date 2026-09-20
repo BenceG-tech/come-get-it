@@ -50,17 +50,17 @@ export const ROUTES: RouteSEO[] = [
     distDir: "",
     title: "Come Get It – Találd meg, hova menj ma Budapesten",
     description:
-      "Mutatjuk Budapest partnerhelyeit, ahol napi ingyen italt, pontokat és jutalmakat kapsz — válassz könnyebben, hova menj enni, inni vagy bulizni.",
+      "Ingyenes béta: mutatjuk Budapest partnerhelyeit, ahol elérhető ingyen italokat válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz.",
     h1: "Nem tudod, hova menj ma?",
-    lastmod: "2026-05-06",
+    lastmod: "2026-09-20",
     priority: 1.0,
     changefreq: "weekly",
     bodyHtml: `
 <main data-prerender="true">
   <header>
     <h1>Nem tudod, hova menj ma?</h1>
-    <p>A <strong>Come Get It</strong> segít eldönteni, hova menj Budapesten. Megmutatja azokat a partner vendéglátóhelyeket, ahol <strong>napi ingyen italt</strong>, pontokat és jutalmakat kapsz — így könnyebb választani, hol reggelizz, ebédelj, igyál vagy bulizz. Minden beváltott italért egy napi tiszta ivóvizet biztosítunk egy rászorulónak.</p>
-    <p>Státusz: várólista nyitva. Indulás Budapesten, később országos terjeszkedés Magyarországon. Magyar nyelvű app, célközönség 18–45 éves városi vendéglátó-aktív közönség.</p>
+    <p>A <strong>Come Get It</strong> segít eldönteni, hova menj Budapesten. Megmutatja azokat a partner vendéglátóhelyeket, ahol <strong>éppen elérhető ingyen italt</strong> válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz — így könnyebb választani, hol reggelizz, ebédelj, igyál vagy bulizz.</p>
+    <p>Státusz: <strong>ingyenes bétaverzió</strong>. Fizetős előfizetés nincs. Az elérhető ajánlatok a partnerhelyek aktuális készletétől és nyitvatartásától függnek. Indulás Budapesten, magyar nyelvű app.</p>
   </header>
 
   <section>
@@ -69,33 +69,32 @@ export const ROUTES: RouteSEO[] = [
       <li><strong>Hol reggelizzek?</strong> – Találj helyet, ahol a napindításhoz extra jutalom is jár (kávé + croissant pontokért, napi kedvezmények).</li>
       <li><strong>Hol ebédeljek?</strong> – Válassz gyorsabban a közeli partnerhelyek közül; lásd, hol érdemes ma beülni.</li>
       <li><strong>Hova üljünk be?</strong> – Találj jó helyet kávéra, randira vagy afterworkre, ahol az élmény mellé jutalom is jár.</li>
-      <li><strong>Hol bulizzunk?</strong> – Menj oda, ahol az esti program mellé napi ingyen ital is jár előfizetőknek.</li>
+      <li><strong>Hol bulizzunk?</strong> – Menj oda, ahol az esti program mellé éppen extra ajánlat is elérhető.</li>
     </ul>
   </section>
 
   <section>
-    <h2>Hogyan működik – 4 lépés</h2>
+    <h2>Hogyan működik</h2>
     <ol>
-      <li><strong>Drink</strong> – Igyál a partner vendéglátóhelyeken Budapesten.</li>
-      <li><strong>Link</strong> – Kapcsold össze a fizetést az appal QR-kóddal a kasszánál.</li>
-      <li><strong>Earn</strong> – Pontokat és jutalmakat gyűjtesz, vagy előfizetőként napi 1 ingyen italt kapsz.</li>
-      <li><strong>Give</strong> – Minden beváltott italért 1 napi tiszta ivóvizet biztosítunk egy rászorulónak. Az appban visszamenőleg látod a saját hozzájárulásodat (pl. „Te már 25 napi tiszta vizet biztosítottál").</li>
+      <li><strong>Regisztrálj</strong> – e-mail címmel és jelszóval, ingyenesen.</li>
+      <li><strong>Fedezd fel</strong> – nézd meg a térképen és a listán a partner vendéglátóhelyeket.</li>
+      <li><strong>Váltsd be</strong> – ha épp van elérhető ajánlat, a helyszínen a pultos igazolja vissza a beváltást.</li>
+      <li><strong>Gyűjts</strong> – pontokat kapsz, amiket az appban elérhető jutalmakra válthatsz.</li>
     </ol>
   </section>
 
   <section>
-    <h2>Hibrid modell – két használati mód</h2>
+    <h2>Árazás</h2>
     <ul>
-      <li><strong>Ingyenes verzió:</strong> regisztrálj, gyűjts pontokat minden vásárlással és válts be jutalmakat partner márkáktól.</li>
-      <li><strong>Heti előfizetés:</strong> 990 HUF / hét – napi 1 ingyen ital partnerhelyeken.</li>
-      <li><strong>Havi előfizetés:</strong> 2 990 HUF / hó – napi 1 ingyen ital partnerhelyeken, kedvezőbb áron.</li>
+      <li><strong>Ingyenes bétaverzió:</strong> minden jelenlegi funkció ingyenes.</li>
+      <li>Fizetős előfizetés vagy appon belüli vásárlás jelenleg nincs.</li>
     </ul>
-    <p>Az előfizetés bármikor lemondható. Az ingyen italok partnerhelyenként és napszakonként eltérőek lehetnek.</p>
+    <p>Az ingyen italok és jutalmak a partnerhelyek aktuális készletétől, kínálatától és nyitvatartásától függnek, ezért nem garantáltak.</p>
   </section>
 
   <section>
-    <h2>GIVE – Tiszta víz egy rászorulónak</h2>
-    <p>A Come Get It minden beváltott italért egy napi tiszta ivóvizet biztosít egy rászorulónak. A számláló kumulatív és visszamenőleges: az app megmutatja, hány napi tiszta vizet adományoztál összesen. Ez a felelős fogyasztás közösségi pillanata: úgy iszol, hogy közben másnak is segítesz.</p>
+    <h2>Tervezett fejlesztések</h2>
+    <p>Hosszabb távon szeretnénk társadalmi célú programot és további funkciókat indítani. Ezek egyelőre tervek: amíg nem élesek, nem ígérünk hozzájuk kapcsolódó hatást vagy szolgáltatást.</p>
   </section>
 
   <section>
@@ -107,17 +106,15 @@ export const ROUTES: RouteSEO[] = [
     <h2>Gyakori kérdések</h2>
     <dl>
       <dt>Mennyibe kerül a Come Get It?</dt>
-      <dd>A pontgyűjtős alapverzió ingyenes. Az opcionális előfizetés 990 HUF/hét vagy 2 990 HUF/hó, ami napi 1 ingyen italt tartalmaz partnerhelyeken.</dd>
-      <dt>Hol indul először?</dt>
-      <dd>Budapesten, később országos terjeszkedés Magyarországon.</dd>
-      <dt>Mikor indul élesben?</dt>
-      <dd>A pontos indulási dátumot a várólistán értesítjük. Iratkozz fel, és elsők között próbálhatod ki.</dd>
-      <dt>Mit jelent a GIVE?</dt>
-      <dd>Minden beváltott italért 1 napi tiszta ivóvíz egy rászorulónak; a felhasználó visszamenőleg látja a saját hozzájárulását.</dd>
-      <dt>Hogyan működik a fizetés összekapcsolása?</dt>
-      <dd>A kasszánál egyedi QR-kódot olvasol be vagy mutatsz fel — ezzel rögzítjük a beváltást és írjuk jóvá a pontokat.</dd>
-      <dt>Lemondható az előfizetés?</dt>
-      <dd>Igen, bármikor, kötbér nélkül.</dd>
+      <dd>Az app jelenleg ingyenes bétaverzióban érhető el. Fizetős előfizetés nincs.</dd>
+      <dt>Hol érhető el?</dt>
+      <dd>Budapesti partnerhelyeken, folyamatosan bővülő listával.</dd>
+      <dt>Garantált a napi ingyen ital?</dt>
+      <dd>Nem. Az ajánlatok a partnerhelyek aktuális készletétől és nyitvatartásától függnek, és bármikor elfogyhatnak vagy változhatnak.</dd>
+      <dt>Hogyan működik a beváltás?</dt>
+      <dd>Az appban kiválasztod az elérhető ajánlatot, a helyszínen pedig a pultos igazolja vissza a beváltást.</dd>
+      <dt>Hogyan törölhetem a fiókom?</dt>
+      <dd>Az appban: Profil &gt; Beállítások &gt; Fiók törlése, vagy e-mailben a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címen. Részletek: <a href="/support">/support</a>.</dd>
       <dt>Mi van, ha nincs partnerhely a közelemben?</dt>
       <dd>Az app egy térképen megmutatja a legközelebbi partnereket. Az indulás Budapesten történik, ahol már több helyszín lesz elérhető. Új városokba a kereslet alapján terjeszkedünk.</dd>
       <dt>Hogyan csatlakozhat egy vendéglátóhely vagy márka?</dt>
@@ -132,7 +129,7 @@ export const ROUTES: RouteSEO[] = [
 
   <section>
     <h2>Kapcsolat</h2>
-    <p>E-mail: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a><br/>Alapító: Bence Gátai, +36 70 585 2053<br/>Közösségi média: @comegetit_app (Instagram, TikTok)</p>
+    <p>E-mail: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a><br/>Alapító: Bence Gátai, +36 70 585 2053<br/>Közösségi média: @comegetit_app (Instagram, TikTok)</p>
   </section>
 
   <nav aria-label="További oldalak">
@@ -142,6 +139,8 @@ export const ROUTES: RouteSEO[] = [
       <li><a href="/italmarkak">Italmárkáknak</a></li>
       <li><a href="/rewards-partners">Rewards Partnerek</a></li>
       <li><a href="/come-get-it-accelerator">Come Get It Accelerator</a></li>
+      <li><a href="/support">Támogatás</a></li>
+      <li><a href="/felhasznalasi-feltetelek">Felhasználási feltételek</a></li>
       <li><a href="/adatvedelmi-szabalyzat">Adatvédelmi szabályzat</a></li>
       <li><a href="/llm.html">AI/LLM összefoglaló</a></li>
     </ul>
@@ -157,23 +156,23 @@ export const ROUTES: RouteSEO[] = [
             name: "Mennyibe kerül a Come Get It?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "A pontgyűjtős verzió ingyenes. Az opcionális előfizetés 990 HUF/hét vagy 2990 HUF/hó, ami napi 1 ingyen italt tartalmaz partnerhelyeken.",
+              text: "Az app jelenleg ingyenes bétaverzióban érhető el. Fizetős előfizetés nincs.",
             },
           },
           {
             "@type": "Question",
-            name: "Hol indul először?",
+            name: "Hol érhető el?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Az indulás Budapesten kezdődik, később országos terjeszkedés.",
+              text: "Budapesti partner vendéglátóhelyeken, folyamatosan bővülő listával.",
             },
           },
           {
             "@type": "Question",
-            name: "Mi az a GIVE?",
+            name: "Garantált a napi ingyen ital?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Minden beváltott italért egy napi tiszta ivóvizet biztosítunk egy rászorulónak. Az appban visszamenőleg is látod a saját hozzájárulásodat.",
+              text: "Nem. Az elérhető ingyen italok és jutalmak a partnerhelyek aktuális készletétől és nyitvatartásától függnek.",
             },
           },
         ],
@@ -195,7 +194,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Vendéglátóhelyeknek – Csatlakozz a Come Get It hálózathoz</h1>
-    <p>A Come Get It egy hűségrendszer és forgalomgenerátor magyarországi vendéglátóhelyek számára. Bárok, kávézók és éttermek új vendégeket szereznek, miközben mérhető visszatérést és kampányhatást kapnak. Az app előfizetői naponta visszatérnek a napi italért — ez stabil, kiszámítható forgalom.</p>
+    <p>A Come Get It egy hűségrendszer és forgalomgenerátor magyarországi vendéglátóhelyek számára. Bárok, kávézók és éttermek új vendégeket szereznek, miközben mérhető visszatérést és kampányhatást kapnak. Az app jelenleg ingyenes bétaverzióban működik, és a partnerhelyek maguk döntik el, milyen ajánlatot tesznek elérhetővé.</p>
   </header>
 
   <section>
@@ -214,7 +213,7 @@ export const ROUTES: RouteSEO[] = [
       <li><strong>Új vendégek lábforgalma:</strong> a Come Get It közössége aktívan keres partnerhelyeket az appban.</li>
       <li><strong>Hűségrendszer dobozból:</strong> nincs külön kártya vagy bélyegző, az app intézi a pontgyűjtést.</li>
       <li><strong>Mérhető forgalom:</strong> valós idejű analitika a beváltásokról, csúcsidőről, vendégtípusról.</li>
-      <li><strong>Subscription forgalom:</strong> az előfizetők naponta visszatérnek a napi italért — kiszámítható ismétlődő bevétel.</li>
+      <li><strong>Visszatérő vendégek:</strong> a pontgyűjtés és az elérhető ajánlatok okot adnak a visszatérésre.</li>
       <li><strong>Felfedezhetőség:</strong> kiemelt megjelenés az in-app térképen és „mit egyek/igyak ma" felfedezőben.</li>
     </ul>
   </section>
@@ -225,7 +224,7 @@ export const ROUTES: RouteSEO[] = [
       <li>A vendég megrendel a kasszánál.</li>
       <li>Beolvas vagy felmutat egy QR-kódot az appból.</li>
       <li>Te visszaigazolod a beváltást a partner-felületen (mobil vagy tablet).</li>
-      <li>A tranzakció azonnal rögzül a riportingban; a vendég pontot kap vagy levonja a napi ingyen italát.</li>
+      <li>A tranzakció azonnal rögzül a riportingban; a vendég pontot kap, vagy beváltja az adott helyen elérhető ingyen italt.</li>
     </ol>
   </section>
 
@@ -246,7 +245,7 @@ export const ROUTES: RouteSEO[] = [
 
   <section>
     <h2>Jelentkezés</h2>
-    <p>Tölts ki a <a href="/vendeglatohelyek#apply">partneri jelentkezési űrlapot</a>, vagy írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a>. Telefon: Bence Gátai, +36 70 585 2053.</p>
+    <p>Tölts ki a <a href="/vendeglatohelyek#apply">partneri jelentkezési űrlapot</a>, vagy írj nekünk: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a>. Telefon: Bence Gátai, +36 70 585 2053.</p>
   </section>
 </main>`.trim(),
     jsonLd: [
@@ -283,7 +282,7 @@ export const ROUTES: RouteSEO[] = [
     <h2>Brand aktivációs lehetőségek</h2>
     <ul>
       <li>Termékfókuszú kampányok partnerhelyeken (kóstoltatás, double points, free pour).</li>
-      <li>Subscription bundle-ök – a napi ingyen ital lehet a te márkád.</li>
+      <li>Tervezett csomagajánlatok – a partnerhelyen elérhető ingyen ital lehet a te márkád.</li>
       <li>In-app megjelenések, push és tematikus jutalmak.</li>
     </ul>
   </section>
@@ -305,7 +304,7 @@ export const ROUTES: RouteSEO[] = [
   </section>
   <section>
     <h2>Kapcsolat</h2>
-    <p>Brand kampányért írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a> vagy tölts ki egy <a href="/italmarkak#apply">érdeklődési űrlapot</a>.</p>
+    <p>Brand kampányért írj nekünk: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> vagy tölts ki egy <a href="/italmarkak#apply">érdeklődési űrlapot</a>.</p>
   </section>
 </main>`.trim(),
     jsonLd: [
@@ -357,14 +356,14 @@ export const ROUTES: RouteSEO[] = [
   <section>
     <h2>Hogyan váltják be a felhasználók</h2>
     <ol>
-      <li>A user pontjaiból vagy előfizetéséből „kiválasztja” a te jutalmadat az appban.</li>
+      <li>A user a pontjaiból „kiválasztja” a te jutalmadat az appban.</li>
       <li>Egyedi QR-kódot kap.</li>
       <li>A QR-t bemutatja nálad vagy a webshopodban beváltja – mi mérjük a tranzakciót.</li>
     </ol>
   </section>
   <section>
     <h2>Jelentkezés</h2>
-    <p>Írj nekünk a <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a> címre, vagy <a href="/rewards-partners#apply">jelentkezz az űrlapon</a>.</p>
+    <p>Írj nekünk a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre, vagy <a href="/rewards-partners#apply">jelentkezz az űrlapon</a>.</p>
   </section>
 </main>`.trim(),
     jsonLd: [
@@ -407,7 +406,7 @@ export const ROUTES: RouteSEO[] = [
   </section>
   <section>
     <h2>Kapcsolat</h2>
-    <p>Írj nekünk: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a></p>
+    <p>Írj nekünk: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a></p>
   </section>
 </main>`.trim(),
     jsonLd: [breadcrumb("Partnerek", "partnerek")],
@@ -453,7 +452,7 @@ export const ROUTES: RouteSEO[] = [
       <li>Bemutatkozó hívás (20 perc).</li>
       <li>Bekerülsz a soron következő Accelerator kohortba.</li>
     </ol>
-    <p>Indulás: <a href="/come-get-it-accelerator#apply">Jelentkezem az Acceleratorba</a> vagy írj a <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a> címre.</p>
+    <p>Indulás: <a href="/come-get-it-accelerator#apply">Jelentkezem az Acceleratorba</a> vagy írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre.</p>
   </section>
 </main>`.trim(),
     jsonLd: [breadcrumb("Come Get It Accelerator", "come-get-it-accelerator")],
@@ -466,26 +465,26 @@ export const ROUTES: RouteSEO[] = [
     description:
       "A Come Get It adatvédelmi szabályzata: milyen adatokat kezelünk, milyen célból, milyen jogalapon, meddig őrizzük, és milyen jogaid vannak.",
     h1: "Adatvédelmi szabályzat",
-    lastmod: "2025-08-08",
+    lastmod: "2026-09-20",
     priority: 0.3,
     changefreq: "yearly",
     bodyHtml: `
 <main data-prerender="true">
   <article>
     <h1>Adatvédelmi szabályzat</h1>
-    <p>Hatályos: 2025-08-08</p>
+    <p>Hatályos: 2026-09-20</p>
     <p>A Come Get It alkalmazás és weboldal (come-get-it.app) üzemeltetőjeként elkötelezettek vagyunk a személyes adatok védelme mellett. Ez a szabályzat összefoglalja, milyen adatokat kezelünk, milyen célból, milyen jogalapon, meddig őrizzük meg azokat, és milyen jogaid vannak.</p>
 
     <h2>Adatkezelő</h2>
-    <p>Név: Come Get It<br/>E-mail: <a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a></p>
+    <p>Név: Come Get It<br/>E-mail: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a></p>
 
     <h2>Kezelt adatok köre</h2>
     <ul>
       <li>Várólistás regisztráció: e‑mail cím, időbélyeg, forrás/UTM adatok.</li>
       <li>Üzleti jelentkezés: név, e‑mail, telefonszám (ha megadod), cégadatok (ha megadod).</li>
       <li>Hozzájárulások: marketing és kommunikációs beállítások.</li>
-      <li>Technikai adatok: IP-cím, böngésző és eszköz adatok, sütikhez kapcsolódó azonosítók.</li>
-      <li>Analitika: oldal- és esemény‑mérési adatok (összesített, anonimizált/pszeudonimizált módon).</li>
+      <li>Mobilalkalmazás-fiók: e‑mail cím és jelszó (titkosítva), beváltások és pontok.</li>
+      <li>Technikai adatok: IP-cím, böngésző és eszköz adatok, bejelentkezéshez szükséges azonosítók.</li>
     </ul>
 
     <h2>Adatkezelés céljai és jogalapja</h2>
@@ -497,13 +496,16 @@ export const ROUTES: RouteSEO[] = [
 
     <h2>Adatfeldolgozók és címzettek</h2>
     <ul>
-      <li>Supabase (adatbázis, Edge Functions, e‑mail értesítések továbbítása).</li>
-      <li>Google Analytics 4 (forgalom‑ és eseménymérés).</li>
+      <li>Supabase (adatbázis, hitelesítés, Edge Functions).</li>
+      <li>Resend (tranzakciós és értesítő e‑mailek küldése).</li>
       <li>Hoszting és infrastruktúra szolgáltatók a webalkalmazás üzemeltetéséhez.</li>
     </ul>
 
     <h2>Sütik (cookie‑k)</h2>
-    <p>A működéshez szükséges sütiket és analitikai sütiket használunk. A sütik a böngésződ beállításaiban korlátozhatók vagy törölhetők.</p>
+    <p>Csak a működéshez szükséges tárolást használjuk (pl. bejelentkezési munkamenet). Külső analitikai vagy marketing követőkódot nem futtatunk.</p>
+
+    <h2>Fiók és adatok törlése</h2>
+    <p>A mobilalkalmazásban: Profil &gt; Beállítások &gt; Fiók törlése. Ha nem tudsz belépni, írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre a regisztrált e‑mail címedről.</p>
 
     <h2>Adatmegőrzés</h2>
     <p>A várólistás adatokat legfeljebb az indulást követő 24 hónapig őrizzük meg, vagy az érintetti törlési kérelem beérkezéséig.</p>
@@ -519,7 +521,7 @@ export const ROUTES: RouteSEO[] = [
     <p>Nemzeti Adatvédelmi és Információszabadság Hatóság (NAIH), 1055 Budapest, Falk Miksa utca 9-11. – naih.hu</p>
 
     <h2>Kapcsolat</h2>
-    <p><a href="mailto:hello@come-get-it.app">hello@come-get-it.app</a></p>
+    <p><a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a></p>
   </article>
 </main>`.trim(),
     jsonLd: [
@@ -528,6 +530,99 @@ export const ROUTES: RouteSEO[] = [
         "@type": "WebPage",
         name: "Adatvédelmi szabályzat – Come Get It",
         url: `${SITE_ORIGIN}/adatvedelmi-szabalyzat`,
+        inLanguage: "hu-HU",
+      },
+    ],
+  },
+
+  {
+    path: "/support",
+    distDir: "support",
+    title: "Támogatás és kapcsolat – Come Get It",
+    description:
+      "Segítség a Come Get It ingyenes béta alkalmazáshoz: kapcsolat, gyakori témák és fióktörlés lépésről lépésre.",
+    h1: "Támogatás",
+    lastmod: "2026-09-20",
+    priority: 0.5,
+    changefreq: "monthly",
+    bodyHtml: `
+<main data-prerender="true">
+  <article>
+    <h1>Támogatás</h1>
+    <p>A Come Get It jelenleg ingyenes bétaverzióban érhető el. Ha kérdésed vagy problémád van, írj nekünk.</p>
+
+    <h2>Kapcsolat</h2>
+    <p>E-mail: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> — általában 2 munkanapon belül válaszolunk.</p>
+
+    <h2>Miben tudunk segíteni</h2>
+    <ul>
+      <li>Regisztráció, bejelentkezés, elfelejtett jelszó.</li>
+      <li>Partnerhelyek keresése, térkép.</li>
+      <li>Ingyen ital beváltása a helyszínen.</li>
+      <li>Pontok és jutalmak.</li>
+      <li>Hibabejelentés és adatkezelési kérések.</li>
+    </ul>
+    <p>Az elérhető jutalmak és ingyen italok a partnerhelyek aktuális készletétől és nyitvatartásától függnek.</p>
+
+    <h2>Fiók törlése</h2>
+    <p>A mobilalkalmazásban: Profil &gt; Beállítások &gt; Fiók törlése. Ha nem tudsz bejelentkezni, írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre a regisztrált e-mail címedről.</p>
+
+    <h2>Jogi dokumentumok</h2>
+    <p><a href="/adatvedelmi-szabalyzat">Adatvédelmi szabályzat</a> · <a href="/felhasznalasi-feltetelek">Felhasználási feltételek</a></p>
+  </article>
+</main>`.trim(),
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "Támogatás – Come Get It",
+        url: `${SITE_ORIGIN}/support`,
+        inLanguage: "hu-HU",
+      },
+    ],
+  },
+
+  {
+    path: "/felhasznalasi-feltetelek",
+    distDir: "felhasznalasi-feltetelek",
+    title: "Felhasználási feltételek – Come Get It",
+    description:
+      "A Come Get It ingyenes bétaverziójának felhasználási feltételei: fiók, jutalmak elérhetősége, felelősség, kapcsolat.",
+    h1: "Felhasználási feltételek",
+    lastmod: "2026-09-20",
+    priority: 0.3,
+    changefreq: "yearly",
+    bodyHtml: `
+<main data-prerender="true">
+  <article>
+    <h1>Felhasználási feltételek</h1>
+    <p>Hatályos: 2026-09-20</p>
+
+    <h2>A szolgáltatás</h2>
+    <p>A Come Get It mobilalkalmazás ingyenes bétaverzióban működik: partnerhelyeket kereshetsz, alkalmanként ingyen italt válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz. A funkciók változhatnak vagy időszakosan elérhetetlenek lehetnek.</p>
+
+    <h2>Fiók</h2>
+    <p>A használathoz e-mail címmel és jelszóval létrehozott fiók szükséges. Az alkalmazás 18 éven felülieknek szól. A fiókod bármikor törölheted az appban (Profil &gt; Beállítások &gt; Fiók törlése) vagy e-mailben.</p>
+
+    <h2>Italok, jutalmak és elérhetőség</h2>
+    <p>Az ingyen italok és jutalmak a partnerhelyek aktuális készletétől és nyitvatartásától függnek. Nincs garantált vagy napi rendszerességű ingyen ital. A pontok nem válthatók készpénzre.</p>
+
+    <h2>Nincs fizetős csomag</h2>
+    <p>Jelenleg nem kínálunk előfizetést vagy appon belüli vásárlást.</p>
+
+    <h2>Felelősség</h2>
+    <p>A szolgáltatást „adott állapotában” nyújtjuk; a béta jellegből adódóan nem garantáljuk a folyamatos, hibamentes működést, sem az ajánlatok elérhetőségét.</p>
+
+    <h2>Kapcsolat</h2>
+    <p><a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> · <a href="/support">Támogatás</a> · <a href="/adatvedelmi-szabalyzat">Adatvédelmi szabályzat</a></p>
+  </article>
+</main>`.trim(),
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "Felhasználási feltételek – Come Get It",
+        url: `${SITE_ORIGIN}/felhasznalasi-feltetelek`,
         inLanguage: "hu-HU",
       },
     ],

@@ -16,6 +16,8 @@ import Partnerek from "./pages/Partnerek";
 import ComeGetItAccelerator from "./pages/ComeGetItAccelerator";
 import NotFound from "./pages/NotFound";
 import AdatvedelmiSzabalyzat from "./pages/AdatvedelmiSzabalyzat";
+import Support from "./pages/Support";
+import FelhasznalasiFeltetelek from "./pages/FelhasznalasiFeltetelek";
 import { AdminRoute } from "./components/admin/AdminRoute";
 import { AdminLayout } from "./components/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -63,6 +65,8 @@ const App = () => (
               <Route path="/partnerek" element={<Partnerek />} />
               <Route path="/come-get-it-accelerator" element={<ComeGetItAccelerator />} />
               <Route path="/adatvedelmi-szabalyzat" element={<AdatvedelmiSzabalyzat />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/felhasznalasi-feltetelek" element={<FelhasznalasiFeltetelek />} />
               <Route path="/admin" element={<AdminRoute><AdminLayout><AdminDashboard /></AdminLayout></AdminRoute>} />
               <Route path="/admin/leads" element={<AdminRoute><AdminLayout><AdminLeads /></AdminLayout></AdminRoute>} />
               <Route path="/admin/partners" element={<AdminRoute><AdminLayout><AdminPartners /></AdminLayout></AdminRoute>} />

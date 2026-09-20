@@ -161,7 +161,7 @@ const Index = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Come Get It — Találd meg, hova menj ma Budapesten"
-        description="Napi egy ingyen ital Budapest jó helyein. Válassz helyet, menj el, az első ital a miénk — és minden beváltás egy nap tiszta ivóvizet ad valakinek. Szeptemberben indulunk."
+        description="Ingyenes béta: találd meg a budapesti partnerhelyeket, válts be épp elérhető ingyen italokat, gyűjts pontokat és igényelj jutalmakat. Előfizetés nincs."
         canonical="/"
       />
       <Navigation />
