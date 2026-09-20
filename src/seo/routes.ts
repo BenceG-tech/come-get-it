@@ -534,6 +534,99 @@ export const ROUTES: RouteSEO[] = [
       },
     ],
   },
+
+  {
+    path: "/support",
+    distDir: "support",
+    title: "Támogatás és kapcsolat – Come Get It",
+    description:
+      "Segítség a Come Get It ingyenes béta alkalmazáshoz: kapcsolat, gyakori témák és fióktörlés lépésről lépésre.",
+    h1: "Támogatás",
+    lastmod: "2026-09-20",
+    priority: 0.5,
+    changefreq: "monthly",
+    bodyHtml: `
+<main data-prerender="true">
+  <article>
+    <h1>Támogatás</h1>
+    <p>A Come Get It jelenleg ingyenes bétaverzióban érhető el. Ha kérdésed vagy problémád van, írj nekünk.</p>
+
+    <h2>Kapcsolat</h2>
+    <p>E-mail: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> — általában 2 munkanapon belül válaszolunk.</p>
+
+    <h2>Miben tudunk segíteni</h2>
+    <ul>
+      <li>Regisztráció, bejelentkezés, elfelejtett jelszó.</li>
+      <li>Partnerhelyek keresése, térkép.</li>
+      <li>Ingyen ital beváltása a helyszínen.</li>
+      <li>Pontok és jutalmak.</li>
+      <li>Hibabejelentés és adatkezelési kérések.</li>
+    </ul>
+    <p>Az elérhető jutalmak és ingyen italok a partnerhelyek aktuális készletétől és nyitvatartásától függnek.</p>
+
+    <h2>Fiók törlése</h2>
+    <p>A mobilalkalmazásban: Profil &gt; Beállítások &gt; Fiók törlése. Ha nem tudsz bejelentkezni, írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre a regisztrált e-mail címedről.</p>
+
+    <h2>Jogi dokumentumok</h2>
+    <p><a href="/adatvedelmi-szabalyzat">Adatvédelmi szabályzat</a> · <a href="/felhasznalasi-feltetelek">Felhasználási feltételek</a></p>
+  </article>
+</main>`.trim(),
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "Támogatás – Come Get It",
+        url: `${SITE_ORIGIN}/support`,
+        inLanguage: "hu-HU",
+      },
+    ],
+  },
+
+  {
+    path: "/felhasznalasi-feltetelek",
+    distDir: "felhasznalasi-feltetelek",
+    title: "Felhasználási feltételek – Come Get It",
+    description:
+      "A Come Get It ingyenes bétaverziójának felhasználási feltételei: fiók, jutalmak elérhetősége, felelősség, kapcsolat.",
+    h1: "Felhasználási feltételek",
+    lastmod: "2026-09-20",
+    priority: 0.3,
+    changefreq: "yearly",
+    bodyHtml: `
+<main data-prerender="true">
+  <article>
+    <h1>Felhasználási feltételek</h1>
+    <p>Hatályos: 2026-09-20</p>
+
+    <h2>A szolgáltatás</h2>
+    <p>A Come Get It mobilalkalmazás ingyenes bétaverzióban működik: partnerhelyeket kereshetsz, alkalmanként ingyen italt válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz. A funkciók változhatnak vagy időszakosan elérhetetlenek lehetnek.</p>
+
+    <h2>Fiók</h2>
+    <p>A használathoz e-mail címmel és jelszóval létrehozott fiók szükséges. Az alkalmazás 18 éven felülieknek szól. A fiókod bármikor törölheted az appban (Profil &gt; Beállítások &gt; Fiók törlése) vagy e-mailben.</p>
+
+    <h2>Italok, jutalmak és elérhetőség</h2>
+    <p>Az ingyen italok és jutalmak a partnerhelyek aktuális készletétől és nyitvatartásától függnek. Nincs garantált vagy napi rendszerességű ingyen ital. A pontok nem válthatók készpénzre.</p>
+
+    <h2>Nincs fizetős csomag</h2>
+    <p>Jelenleg nem kínálunk előfizetést vagy appon belüli vásárlást.</p>
+
+    <h2>Felelősség</h2>
+    <p>A szolgáltatást „adott állapotában” nyújtjuk; a béta jellegből adódóan nem garantáljuk a folyamatos, hibamentes működést, sem az ajánlatok elérhetőségét.</p>
+
+    <h2>Kapcsolat</h2>
+    <p><a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> · <a href="/support">Támogatás</a> · <a href="/adatvedelmi-szabalyzat">Adatvédelmi szabályzat</a></p>
+  </article>
+</main>`.trim(),
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "Felhasználási feltételek – Come Get It",
+        url: `${SITE_ORIGIN}/felhasznalasi-feltetelek`,
+        inLanguage: "hu-HU",
+      },
+    ],
+  },
 ];
 
 export const getRouteByPath = (path: string): RouteSEO | undefined =>
