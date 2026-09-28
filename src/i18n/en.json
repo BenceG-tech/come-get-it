@@ -20,13 +20,13 @@
     "en": "EN"
   },
   "hero": {
-    "badge": "LAUNCHING IN BUDAPEST — SEPTEMBER 2026",
+    "badge": "CLOSED BETA — BUDAPEST 2026",
     "title_line1": "DON'T KNOW",
     "title_line2": "WHERE TO GO TODAY?",
     "subtitle": "Partner venues in Budapest. Check the app to see where a free drink or reward is available right now. Free beta.",
     "cta": "Join as a founding member",
     "cta_secondary": "How it works",
-    "founding_note": "The first 500 founding members get lifetime Founding Member status. The app is free during the beta."
+    "founding_note": "The app is free during the beta. New venues and rewards become available gradually and may be limited."
   },
   "miben_segit": {
     "title": "How does it help?",
@@ -46,25 +46,25 @@
       },
       "4": {
         "title": "Where should we party?",
-        "description": "Go where the night out comes with a daily free drink."
+        "description": "See where a limited free-drink offer or reward is available right now."
       }
     }
   },
   "drink": {
     "title": "DRINK.",
     "subtitle": "The first glass opens the night",
-    "body": "Pick a spot, show the app, and make your first round memorable. Every night a new vibe, new people — the story is yours.",
+    "body": "Pick a partner venue and check which limited offers are active. Availability depends on the venue, stock and the offer window.",
     "button": "Start tonight!"
   },
   "link": {
     "title": "LINK.",
-    "subtitle": "Insider experience in one move",
-    "body": "Securely link your card and earn points automatically with every purchase. No coupons, no QR—just flow."
+    "subtitle": "Secure QR redemption at the venue",
+    "body": "Select an active offer in the app. A short-lived QR code appears at the venue; staff scan and approve it in the partner portal. Payment-card linking is not part of the current beta."
   },
   "earn": {
     "title": "EARN.",
     "subtitle": "Points into experiences",
-    "body": "Every sip, discovery, and action gives points. Redeem for exclusive rewards while supporting good causes. Drink smart, live intensely."
+    "body": "See points actually credited in the app and browse currently available rewards. Availability, point values and stock may vary by partner."
   },
   "give": {
     "title": "GIVE.",
@@ -72,9 +72,59 @@
     "body": "We want Come Get It to give something back to the community, so a social-impact programme is on our roadmap. It is a plan for now — until it launches we promise no donation or impact.",
     "quote": "Social responsibility matters to us, and we will only claim impact once the programme is live."
   },
+  "pricing": {
+    "title": "Free beta. Zero forints.",
+    "subtitle": "Come Get It is currently available as a free beta. There is no subscription or in-app purchase. Offers and rewards depend on each partner venue's current stock and opening hours.",
+    "free": {
+      "label": "AVAILABLE NOW — FREE BETA",
+      "price": "0 HUF",
+      "b1": "Discover partner venues on a map and list",
+      "b2": "Redeem currently available free-drink offers on site",
+      "b3": "Account with email address and password",
+      "b4": "View credited points and claim active rewards",
+      "b5": "Short-lived QR redemption confirmed by venue staff",
+      "b6": "No hidden fee and no payment-card data",
+      "cta": "Join the free beta"
+    },
+    "plus": {
+      "label": "PLANNED FEATURES",
+      "badge": "NOT AVAILABLE YET",
+      "price": "Future development",
+      "b1": "Possible card-linked earning only after a new privacy review",
+      "b2": "A growing venue and reward catalogue",
+      "b3": "More personalised recommendations",
+      "b4": "A future social-impact programme",
+      "b5": "These are plans — we will announce them if they launch",
+      "cta": "Notify me about updates"
+    },
+    "info": "Partner venues choose which offers to make available. Stock, opening hours and time windows vary, so we do not promise a guaranteed daily free drink — check the app for what is active now.",
+    "promo": {
+      "label": "🎁 BETA",
+      "body": "All currently enabled beta features are free. Early users will be the first to hear about new venues and rewards."
+    }
+  },
+  "venue_teaser": {
+    "title": "Do you run a venue?",
+    "subtitle": "With the first Budapest pilot venues, we measure whether a limited offer brings useful visits during quieter periods. The pilot records QR redemptions; any follow-up spend is measured separately with the venue.",
+    "cards": {
+      "1": {
+        "title": "NEW VISITS",
+        "description": "No invented numbers: we measure redemptions and agreed pilot outcomes together."
+      },
+      "2": {
+        "title": "LIMITED PILOT",
+        "description": "You control the offer, stock and time window, with clear stop conditions."
+      },
+      "3": {
+        "title": "REAL EVIDENCE",
+        "description": "The partner portal shows successful QR redemptions for your own venue."
+      }
+    },
+    "cta": "Apply for the pilot →"
+  },
   "fomo": {
     "title": "Become a founding member",
-    "p1": "The first 1000 insiders get a special badge, extra rewards, and lifelong bragging rights.",
+    "p1": "Join the early beta and help shape the app with real feedback.",
     "p2": "Budapest’s nightlife is being written now — with us.",
     "button": "I’m in for a round"
   },
@@ -102,24 +152,24 @@
   },
   "how_it_works": {
     "title": "HOW IT WORKS",
-    "headline": "Choose. Go. Drink. Give back.",
+    "headline": "Choose. Go. Redeem. Discover.",
     "subheadline": "A few steps and you know where to go today.",
     "cards": {
       "1": {
-        "title": "Choose",
-        "description": "See which partner venue gives you a perk today."
+        "title": "DOWNLOAD",
+        "description": "Download the app and create an account."
       },
       "2": {
-        "title": "Go",
-        "description": "Head to a place where it's actually worth dropping in."
+        "title": "BROWSE",
+        "description": "See which partner venue has an active offer."
       },
       "3": {
-        "title": "Drink",
-        "description": "Enjoy your daily free drink and earn points."
+        "title": "SHOW THE QR",
+        "description": "Venue staff scan and approve the short-lived QR code."
       },
       "4": {
-        "title": "Give back",
-        "description": "Every redeemed drink provides a day of clean drinking water for someone in need."
+        "title": "DISCOVER REWARDS",
+        "description": "See points credited in the app and currently available rewards."
       }
     },
     "steps": {
@@ -129,15 +179,15 @@
       },
       "2": {
         "title": "SIGN UP",
-        "description": "Sign up and link your card"
+        "description": "Sign up with your email address and password"
       },
       "3": {
-        "title": "DRINK",
-        "description": "Enjoy your daily welcome drink"
+        "title": "REDEEM",
+        "description": "Venue staff scan the QR code shown in the app"
       },
       "4": {
-        "title": "EARN POINTS",
-        "description": "Earn points and redeem for free drinks and discounts"
+        "title": "DISCOVER",
+        "description": "Browse available venues, offers and rewards"
       }
     }
   },
@@ -190,7 +240,7 @@
       "badge": "FOUNDING PARTNER PROGRAM — 15 SPOTS",
       "line1": "MORE GUESTS.",
       "line2": "FEWER EMPTY TABLES.",
-      "subtitle": "We bring new guests during slow hours. The daily free drink gives them a concrete reason to come to you tonight — the venue takes care of the rest.",
+      "subtitle": "You choose a limited offer, stock and time window. The pilot records QR redemptions and tests whether the offer brings useful visits during quieter periods — without promising results in advance.",
       "cta": "Become a Founding Partner",
       "cta_secondary": "How it works"
     },
@@ -220,11 +270,11 @@
       "items": {
         "1": {
           "title": "QUALITY FOOTFALL",
-          "description": "Bring new, relevant guests even on weekdays."
+          "description": "The pilot tests whether a limited offer brings useful new visits during quieter periods."
         },
         "2": {
-          "title": "PROVABLE ATTRIBUTION",
-          "description": "Card-linked, real traffic feedback — no guesswork."
+          "title": "MEASURED REDEMPTIONS",
+          "description": "Successful QR redemptions appear in the partner report; optional follow-up spend is measured separately during the pilot."
         },
         "3": {
           "title": "NO DISCOUNTING",
@@ -299,7 +349,7 @@
         },
         "2": {
           "title": "TARGETED REACH",
-          "description": "91% Gen Z & Millennial — precise, valuable audience."
+          "description": "A Budapest pilot audience is measured from real sign-ups and redemptions; no demographic percentage is claimed yet."
         },
         "3": {
           "title": "CREATIVE EXPERIENCE PACKS",
@@ -307,7 +357,7 @@
         },
         "4": {
           "title": "PERFORMANCE MEASUREMENT",
-          "description": "Card-linked attribution and real-time stats."
+          "description": "Measured QR redemptions and campaign reporting from the pilot."
         },
         "5": {
           "title": "TASTING IN A REAL SITUATION",
@@ -350,8 +400,8 @@
   "rewards_page": {
     "hero": {
       "line1": "BE THERE WHEN",
-      "line2": "POINTS GET REDEEMED.",
-      "subtitle": "Our users earn points with every spend. What do they redeem them for? That's where you come in. Tickets, experiences, gym, beauty, coffee, brunch — anything a Budapest local values.",
+      "line2": "REWARDS GET REDEEMED.",
+      "subtitle": "Offer a limited, agreed reward that can appear in the app. The current beta is not connected to payment-card spending; only points actually credited in the app and approved rewards can be used.",
       "phase_note": "The rewards-partner program launches in phase 2, after the user base is established. You can apply now for early access so you're among the first listed in the redemption menu when we go live.",
       "cta": "Become a rewards partner"
     },
@@ -368,7 +418,7 @@
         },
         "3": {
           "title": "ACTIVATE",
-          "description": "Your promo goes live instantly!"
+          "description": "The approved reward appears in the app."
         },
         "4": {
           "title": "TRACK RESULTS",
@@ -381,11 +431,11 @@
       "items": {
         "1": {
           "title": "Direct redemption drive",
-          "description": "Instant point redemption brings traffic and conversions."
+          "description": "The pilot measures real reward redemptions without promising traffic or conversion results in advance."
         },
         "2": {
           "title": "Young, evening-active base",
-          "description": "91% Gen Z & Millennial — engaged audience."
+          "description": "The Budapest pilot audience is measured from real sign-ups and redemptions; no demographic percentage is claimed yet."
         },
         "3": {
           "title": "Collaboration packages",
@@ -394,22 +444,22 @@
       }
     },
     "stats": {
-      "title": "Our rewards partners' results",
+      "title": "Outcomes to measure in the pilot",
       "items": {
         "1": {
-          "value": "85%",
-          "label": "Coupon redemption rate"
+          "value": "MEASURE",
+          "label": "Reward redemption rate"
         },
         "2": {
-          "value": "+120%",
-          "label": "New customers growth"
+          "value": "MEASURE",
+          "label": "New-user redemptions"
         },
         "3": {
-          "value": "50+",
-          "label": "Active rewards partners"
+          "value": "CURRENT",
+          "label": "Active rewards"
         },
         "4": {
-          "value": "95%",
+          "value": "INTERVIEW",
           "label": "Partner satisfaction"
         }
       }
@@ -419,7 +469,7 @@
     "hero": {
       "line1": "BE THERE,",
       "line2": "AMONG THE FIRST.",
-      "subtitle": "The first 15 venues, the first drink brands, the first rewards partners. 6 months commission-free, lifetime preferred rates, joint launch PR. Pre-launch only — once we go live, this offer is gone.",
+      "subtitle": "A small Budapest pilot for venues, drink brands and reward partners. Offer terms, QR redemption, owners and evaluation are agreed in advance, with no lifetime or automatic commercial promise.",
       "cta": "Apply now!"
     },
     "how_it_works": {
@@ -524,11 +574,11 @@
       "venues": {
         "phase": "PHASE 1 — LAUNCH",
         "title": "Are you a venue?",
-        "description": "We bring new guests during slow hours. The daily free drink gives them a concrete reason to come to you tonight — the venue takes care of the rest.",
+        "description": "You choose a limited offer and time window; the pilot measures whether it brings useful new visits during quieter periods.",
         "bullets": {
-          "1": "6 months commission-free",
-          "2": "New guests during slow hours",
-          "3": "Real consumer data"
+          "1": "No Come Get It platform fee during the pilot",
+          "2": "QR redemptions for your own venue",
+          "3": "No promised outcome before evidence"
         },
         "cta": "Details"
       },
@@ -537,16 +587,16 @@
         "title": "Are you a drink brand?",
         "description": "Show your drink to the people who are deciding right now what to drink. Not as an ad — as a first sip. Sampling at scale, with measurable results.",
         "bullets": {
-          "1": "Precise targeting on Gen Z & Millennial consumers",
-          "2": "Real-time sampling data",
-          "3": "Measurable brand activations"
+          "1": "A limited audience agreed in advance",
+          "2": "Real redemption data",
+          "3": "A measurable pilot activation"
         },
         "cta": "Details"
       },
       "rewards": {
         "phase": "PHASE 2 — POST LAUNCH",
         "title": "Are you a rewards partner?",
-        "description": "Our users earn points with every spend. What do they redeem them for? That's where you come in. Tickets, experiences, gym, beauty, coffee, brunch — anything a Budapest local values.",
+        "description": "Offer a limited reward that can appear in the app. Availability and redemption rules are agreed before the pilot; automatic card-linked earning is not part of the current beta.",
         "bullets": {
           "1": "Reach a new audience",
           "2": "Positive brand experience",
@@ -558,7 +608,7 @@
     "founding": {
       "title_line1": "Founding Partner status",
       "title_line2": "in every category",
-      "body": "The first 15 venues, the first drink brands and the first rewards partners get lifetime preferred rates and Founding Partner status. Pre-launch only.",
+      "body": "Selected pilot partners agree the offer, stock, time window and measurement rules in advance. Any later commercial relationship requires a separate written agreement.",
       "cta": "Founding Partner Program"
     }
   },
@@ -602,7 +652,7 @@
     "placeholder": "Your email",
     "submit": "Sign me up for updates",
     "submitting": "⏳ Sending...",
-    "footer": "Exclusive bonus for the first 1000 signups",
+    "footer": "Early access to the Budapest beta",
     "toasts": {
       "error_title": "Error",
       "error_desc": "Please try again later."
@@ -664,19 +714,19 @@
           },
           "hogyan_juthatsz": {
             "title": "How to claim a free drink?",
-            "content": "We launch new free‑drink campaigns regularly — stay tuned!\nCheck the bar list in the app or look for the ‘free drink’ marker on the map — that’s where your next glass of joy awaits.\n\nAt the venue, tap ‘Free drink’ and show the confirmation screen to the bartender. That’s it!\n\nDon’t forget to rate the venue, service, and the drink. Your honest feedback matters to both the bar and the brand (anonymously, of course)."
+            "content": "Check the partner venues and active offers in the app. Offers depend on stock, opening hours and the configured time window.\n\nAt the venue, select the offer. The app shows a short-lived QR code; staff scan and approve it in the partner portal. The app then confirms a successful redemption.\n\nNever send or publicly share the full QR code or redemption secret."
           },
           "miert_nem_latok": {
             "title": "Why don’t I see offers right now?",
-            "content": "There may be no active campaign in your city at the moment. No worries — new surprises are coming soon! Meanwhile, when you pay with your linked card at partner bars, you’ll still collect exclusive offers and loyalty rewards."
+            "content": "There may be no active, in-stock offer in your area or current time window. Check again later; payment-card linking and automatic purchase rewards are not part of the current beta."
           },
           "miert_zarolva": {
             "title": "Why is the free drink locked for me?",
-            "content": "Free drinks are available after you link your payment card to Come Get It Rewards. You’ll also earn points on every purchase to redeem for rewards — totally worth it! See details in the app."
+            "content": "You must be signed in, allow foreground location and be near the venue during the active offer window. Sold-out, expired or paused offers cannot be redeemed. Payment-card linking is not part of the current beta."
           },
           "van_limit": {
             "title": "Is there a limit?",
-            "content": "Yes. You can redeem one free drink per night — but don’t worry, there are more discounts and exclusive offers at the venue."
+            "content": "Normal accounts can complete at most one successful free-drink redemption per Budapest calendar day, and an offer may also have its own stock and time-window limits. Availability is never guaranteed."
           },
           "adhatok_visszajelzest": {
             "title": "Can I give more feedback?",
@@ -693,11 +743,11 @@
         "sections": {
           "mi_az_a_rewards": {
             "title": "What is Come Get It Rewards?",
-            "content": "Come Get It Rewards celebrates you for going out and enjoying the city’s best spots. Earn points on every purchase at partner venues in Budapest (and more cities later). Redeem points for exclusive rewards and great brand offers. No stamp cards, and you don’t even have to open the app every time (but you’ll want to — new stuff drops often)."
+            "content": "The Rewards tab shows points actually credited in the app and currently active rewards. Availability, required point values and stock may vary by partner. The current beta does not connect to your payment card or monitor purchases."
           },
           "hogyan_szerezhetek_pontokat": {
             "title": "How do I earn points?",
-            "content": "Earn points whenever you spend at a partner venue. Link your payment card to the app — points are credited automatically for eligible transactions. Invite friends for bonus points. Track transactions and invites in your Profile."
+            "content": "Only points actually credited in the app can be used during the beta. There is no automatic card-linked earning and no active referral bonus. If your balance looks wrong, email gataibence@gmail.com."
           },
           "mire_kolthetem": {
             "title": "What can I spend points on?",
@@ -705,31 +755,31 @@
           },
           "hogyan_osszekotom": {
             "title": "How do I link my card?",
-            "content": "Open the Rewards menu in the app and choose ‘Link card’. Enter your card details manually or scan them with your camera."
+            "content": "Payment-card linking is not available in the current free beta, so the app does not ask for or store card details."
           },
           "biztonsag": {
             "title": "Is my data secure?",
-            "content": "Your data is 100% safe — we never charge your card. We use Fidel.uk (Fidel API), a secure, PCI‑certified SDK for card‑linking. We don’t store card data — it’s tokenized and used only to recognize Visa, Mastercard, and AmEx transactions and attribute eligible purchases."
+            "content": "Authentication and app data are protected with access controls and encrypted transport. The current beta does not collect payment-card data. Never send your password, complete QR code or redemption secret by email or chat."
           },
           "kartya_frissitese": {
             "title": "How can I update my card details?",
-            "content": "If your card expires but the number stays the same, you don’t need to do anything. To change or add a new card, open Profile → ‘View linked cards’ and manage them there."
+            "content": "There is nothing to update: the current beta does not connect to a payment card or store card details."
           },
           "minden_tranzakcio": {
             "title": "Do you see all my transactions?",
-            "content": "We only access transactions made with your linked card at partner venues via payment terminals."
+            "content": "No. The current beta is not linked to your payment card and cannot access card transactions. It only handles Come Get It redemption and reward data."
           },
           "lejarnak_pontok": {
             "title": "Do my points expire?",
-            "content": "Points never expire. Save up for the big rewards."
+            "content": "The point balance and reward conditions currently shown in the beta apply. We will announce material changes in advance; points cannot be exchanged for cash."
           },
           "online_fizetes": {
             "title": "Do you support online/table payments?",
-            "content": "Not yet. We only support in‑venue terminal transactions at partner locations."
+            "content": "No. The current Come Get It beta does not process payments or offer in-app purchases. You pay the venue directly for any on-site purchase."
           },
           "miert_nem_kaptam_pontot": {
             "title": "Why didn’t I receive points for a transaction?",
-            "content": "If you’ve just linked a Mastercard, it can take up to a week for the first transaction data to arrive. Points still accrue and will show later. If they still don’t appear, contact us in live chat and attach your receipt — we’ll help! Come Get It can only credit transactions from the last 7 days retroactively."
+            "content": "The current beta does not automatically award points for payment-card transactions. If an already credited balance or reward appears incorrectly, email gataibence@gmail.com and never send full QR codes or card details."
           }
         }
       },
@@ -738,7 +788,7 @@
         "items": {
           "1": {
             "q": "How can I sign up?",
-            "a": "Download the app and follow the registration steps. You’ll need an email address and phone number."
+            "a": "Download the app and sign up with an email address and password. A phone number is optional."
           },
           "2": {
             "q": "How can I change my details?",
@@ -751,11 +801,11 @@
         "items": {
           "1": {
             "q": "How can I invite friends?",
-            "a": "Find your referral link in the Share menu and send it to friends."
+            "a": "The referral programme is not active in the current beta. You can still share the app with friends."
           },
           "2": {
             "q": "What do I get for inviting someone?",
-            "a": "You earn points for every successful invite — redeem them for rewards."
+            "a": "There is no referral bonus or automatic point award in the current beta."
           }
         }
       }

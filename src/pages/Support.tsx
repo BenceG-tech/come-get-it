@@ -64,7 +64,7 @@ export default function Support() {
               <ol className="list-decimal pl-6 space-y-2 mt-2">
                 <li>Nyisd meg a mobilalkalmazást.</li>
                 <li>
-                  Lépj a <strong>Profil</strong> &gt; <strong>Beállítások</strong> &gt;{" "}
+                  Lépj a <strong>Profil</strong> &gt; <strong>Fiók</strong> &gt;{" "}
                   <strong>Fiók törlése</strong> menüpontra.
                 </li>
                 <li>Erősítsd meg a törlést.</li>

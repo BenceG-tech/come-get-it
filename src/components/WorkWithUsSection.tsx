@@ -11,8 +11,8 @@ export const WorkWithUsSection: React.FC = () => {
   const keyFeatures = [
     {
       icon: Plus,
-      title: "Magasabb átlagfogyasztás",
-      description: "A jutalmak növelik a kosárértéket és visszahozzák a vendéget.",
+      title: "Mérhető QR-beváltás",
+      description: "A partnerfelületen a saját helyed sikeres beváltásait látod.",
       iconColor: "text-electric-300"
     },
     {
@@ -29,8 +29,8 @@ export const WorkWithUsSection: React.FC = () => {
     },
     {
       icon: TrendingUp,
-      title: "Valósidejű eredmények",
-      description: "Minden adat azonnal, átlátható riportokban.",
+      title: "Pilotbizonyíték",
+      description: "A tényleges beváltásokat mérjük; az utóköltést külön, egyeztetett módszerrel vizsgáljuk.",
       iconColor: "text-electric-300"
     }
   ];
@@ -38,27 +38,27 @@ export const WorkWithUsSection: React.FC = () => {
   const demographics = [
     { 
       icon: Building, 
-      value: "24", 
-      label: "év átlagéletkor",
-      description: "Fiatal, social aktív"
+      value: "PILOT",
+      label: "valós résztvevők",
+      description: "Regisztrációból és beváltásból mérve"
     },
     { 
       icon: Heart, 
-      value: "91%", 
-      label: "millenniál & Gen Z",
-      description: "Célzott demográfia"
+      value: "MÉRÉS",
+      label: "korcsoport",
+      description: "Előre nem állítunk arányt"
     },
     { 
       icon: Users, 
-      value: "56%", 
-      label: "női felhasználó",
-      description: "Kiegyensúlyozott arány"
+      value: "MÉRÉS",
+      label: "közönségösszetétel",
+      description: "Csak valós pilotadatból"
     },
     { 
       icon: Star, 
-      value: "85%", 
-      label: "aktív este/hétvégén",
-      description: "Rendszeres látogatók"
+      value: "MÉRÉS",
+      label: "aktív idősáv",
+      description: "Beváltások alapján"
     }
   ];
 

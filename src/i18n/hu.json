@@ -20,13 +20,13 @@
     "en": "EN"
   },
   "hero": {
-    "badge": "BUDAPESTEN INDULUNK — SZEPTEMBER 2026",
+    "badge": "ZÁRT BÉTA — BUDAPEST 2026",
     "title_line1": "NEM TUDOD,",
     "title_line2": "HOVA MENJ MA?",
     "subtitle": "Válassz egy helyet, és nézd meg, hol vár rád épp elérhető ingyen ital vagy jutalom. Az app ingyenes bétaverzióban fut.",
     "cta": "Jövök a körre! 🍻",
     "cta_secondary": "Hogyan működik?",
-    "founding_note": "Az első 500 alapító tag életre szóló Founding Member státuszt kap. Az app használata a béta alatt ingyenes."
+    "founding_note": "Az app használata a béta alatt ingyenes. Az új helyek és jutalmak korlátozottan, fokozatosan válnak elérhetővé."
   },
   "miben_segit": {
     "title": "Miben segít?",
@@ -58,13 +58,13 @@
   },
   "link": {
     "title": "LINK.",
-    "subtitle": "Nincs kupon, nincs QR — csak flow.",
-    "body": "Egy gombnyomás, és indul. A beváltás az appban történik, a helyszínen — kupon és sorban állás nélkül. Tervben: kártya-összekapcsolás, hogy a pontok automatikusan gyűljenek."
+    "subtitle": "Biztonságos QR-beváltás a helyszínen.",
+    "body": "Válaszd ki az elérhető ajánlatot az appban. A helyszínen egy rövid ideig érvényes QR-kód jelenik meg, amelyet a pultos a partnerfelületen beolvas és jóváhagy. Bankkártya-összekapcsolás nincs a jelenlegi bétában."
   },
   "earn": {
     "title": "EARN.",
     "subtitle": "Pontokból élmények.",
-    "body": "Minden korty, felfedezés és aktivitás pont. Váltsd be az appban elérhető jutalmakra — a kínálat a partnerek aktuális készletétől függ."
+    "body": "Nézd meg az appban jóváírt pontjaidat és az éppen elérhető jutalmakat. A kínálat, a pontérték és a készlet partnerenként változhat."
   },
   "give": {
     "title": "GIVE.",
@@ -100,7 +100,7 @@
     "info": "A partnerhelyek maguk választják ki, milyen italokat ajánlanak ingyen, és az ajánlatok készlet, nyitvatartás és időszak szerint változnak. Ezért nem ígérünk garantált vagy napi ingyen italt — nézd meg az appban, mi érhető el ma.",
     "promo": {
       "label": "🎁 BÉTA",
-      "body": "A béta alatt minden funkció ingyenes. Az első 500 regisztráló életre szóló Founding Member badge-et kap, és elsőként értesül az új helyekről és jutalmakról."
+      "body": "A jelenleg engedélyezett bétafunkciók ingyenesek. A regisztrálók elsőként értesülnek az új helyekről és jutalmakról."
     }
   },
   "venue_teaser": {
@@ -109,7 +109,7 @@
     "cards": {
       "1": {
         "title": "ÚJ VENDÉGEK",
-        "description": "Nem ígérünk számokat — együtt mérjük: hány beváltás történt, mennyi volt az utóköltés, hányan tértek vissza."
+        "description": "Nem ígérünk számokat — a QR-beváltásokat automatikusan mérjük, az utóköltést és visszatérést pedig külön, egyeztetett pilotmódszerrel vizsgáljuk."
       },
       "2": {
         "title": "NULLA RIZIKÓ",
@@ -124,7 +124,7 @@
   },
   "fomo": {
     "title": "Legyél alapító tag",
-    "p1": "Az első 1000 bennfentes külön badge‑et, extra jutalmakat és életre szóló bragging right‑ot kap.",
+    "p1": "Csatlakozz a korai bétafelhasználókhoz, és segíts valós visszajelzéssel formálni az appot.",
     "p2": "Budapest éjszakája most íródik — velünk.",
     "button": "Jövök a körre"
   },
@@ -152,7 +152,7 @@
   },
   "how_it_works": {
     "title": "HOGYAN MŰKÖDIK",
-    "headline": "Válassz. Menj el. Igyál. Adj vissza.",
+    "headline": "Válassz. Menj el. Váltsd be. Fedezz fel.",
     "subheadline": "Pár lépés, és tudod, hova menj ma.",
     "cards": {
       "1": {
@@ -164,12 +164,12 @@
         "description": "Lásd, melyik partnerhelyen vár ma ingyen ital."
       },
       "3": {
-        "title": "VÁLTSD BE",
-        "description": "A helyszínen egy gombnyomás, és a tiéd az első kör."
+        "title": "MUTASD A QR-T",
+        "description": "A rövid ideig érvényes QR-kódot a pultos olvassa be és hagyja jóvá."
       },
       "4": {
-        "title": "GYŰJTS PONTOKAT",
-        "description": "Pontok minden aktivitás után, jutalmakra váltva."
+        "title": "FEDEZD FEL A JUTALMAKAT",
+        "description": "Nézd meg az appban jóváírt pontokat és az elérhető jutalmakat."
       }
     },
     "steps": {
@@ -179,15 +179,15 @@
       },
       "2": {
         "title": "REGISZTRÁLJ",
-        "description": "Regisztrálj és linkeld a kártyádat"
+        "description": "Regisztrálj e-mail címmel és jelszóval"
       },
       "3": {
-        "title": "IGYÁL",
-        "description": "Élvezd napi welcome drink-ed"
+        "title": "VÁLTSD BE",
+        "description": "A pultos beolvassa az appban megjelenő QR-kódot"
       },
       "4": {
-        "title": "GYŰJTS PONTOKAT",
-        "description": "Gyűjtsd a pontokat és váltsd be további ingyen italokra, kedvezményekre"
+        "title": "FEDEZD FEL",
+        "description": "Nézd meg az elérhető helyeket, ajánlatokat és jutalmakat"
       }
     }
   },
@@ -270,11 +270,11 @@
       "items": {
         "1": {
           "title": "MINŐSÉGI FOOTFALL",
-          "description": "Hétköznapokon is hozunk új, releváns vendégeket."
+          "description": "A pilot azt méri, hogy a korlátozott ajánlat hoz-e új, releváns vendéget a gyengébb idősávokban."
         },
         "2": {
-          "title": "MÉRT BEVÁLTÁS ÉS UTÓKÖLTÉS",
-          "description": "Minden beváltás rögzül, és melléírjuk az utóköltést is. Nem találgatunk: a riportban azt látod, ami történt."
+          "title": "MÉRT BEVÁLTÁS",
+          "description": "Minden sikeres beváltás rögzül a partnerriportban. Az utóköltést a pilotban külön, egyeztetett módszerrel mérjük."
         },
         "3": {
           "title": "ÉLMÉNYKERESŐ KÖZÖNSÉG",
@@ -400,8 +400,8 @@
   "rewards_page": {
     "hero": {
       "line1": "LEGYÉL OTT, AMIKOR",
-      "line2": "PONTOKAT VÁLTANAK BE.",
-      "subtitle": "A felhasználóink minden költésük után pontot gyűjtenek. Mire váltják be? Erre te válaszolsz. Jegyek, élmények, sportbérlet, beauty, kávé, brunch — bármi, ami egy budapesti fiatalnak érték.",
+      "line2": "JUTALMAT VÁLTANAK BE.",
+      "subtitle": "Adj korlátozott, előre egyeztetett jutalmat, amely megjelenhet az appban. A jelenlegi béta nem kapcsolódik bankkártyás költésekhez; csak a ténylegesen jóváírt pontok és jóváhagyott jutalmak használhatók.",
       "phase_note": "A rewards-partnerprogram a felhasználói bázis kialakulása után, a 2. fázisban indul el. Most jelentkezhetsz early access-szel, hogy a beváltási menüben az elsők között szerepelj, amikor a programot elindítjuk.",
       "cta": "Early access-t kérek"
     },
@@ -418,7 +418,7 @@
         },
         "3": {
           "title": "AKTIVÁLD",
-          "description": "Promód azonnal él!"
+          "description": "Jóváhagyás után megjelenik az appban."
         },
         "4": {
           "title": "KÖVESD EREDMÉNYEKET",
@@ -431,7 +431,7 @@
       "items": {
         "1": {
           "title": "Közvetlen beváltás-meghajtás",
-          "description": "A pontok azonnali beváltásával hozunk trafficet és konverziót."
+          "description": "A pilot a tényleges jutalombeváltásokat méri; forgalmi eredményt előre nem ígérünk."
         },
         "2": {
           "title": "Fiatal, esti-aktív bázis",
@@ -444,23 +444,23 @@
       }
     },
     "stats": {
-      "title": "Jutalom partnereink eredményei",
+      "title": "Pilotban mérendő eredmények",
       "items": {
         "1": {
-          "value": "85%",
-          "label": "Kupon beváltási arány"
+          "value": "MÉRÉS",
+          "label": "Jutalombeváltási arány"
         },
         "2": {
-          "value": "+120%",
-          "label": "Új vásárlók növekedése"
+          "value": "MÉRÉS",
+          "label": "Új felhasználói beváltás"
         },
         "3": {
-          "value": "50+",
-          "label": "Aktív jutalom partner"
+          "value": "AKTUÁLIS",
+          "label": "Aktív jutalmak"
         },
         "4": {
-          "value": "95%",
-          "label": "Partner elégedettség"
+          "value": "INTERJÚ",
+          "label": "Partneri elégedettség"
         }
       }
     }
@@ -469,7 +469,7 @@
     "hero": {
       "line1": "LÉGY OTT,",
       "line2": "AZ ELSŐK KÖZÖTT.",
-      "subtitle": "Az első 15 vendéglátóhely, az első italmárkák, az első rewards-partnerek. 6 hónap jutalékmentesen, lifetime kedvezménnyel, közös launch-PR-rel. Csak indulás előtt — utána már nincs ilyen.",
+      "subtitle": "Kis létszámú budapesti pilot vendéglátóhelyeknek, italmárkáknak és jutalompartnereknek. Előre rögzített ajánlat, QR-beváltás, felelősök és közös kiértékelés — lifetime vagy automatikus kereskedelmi ígéret nélkül.",
       "cta": "Jelentkezz most!"
     },
     "how_it_works": {
@@ -574,11 +574,11 @@
       "venues": {
         "phase": "1. FÁZIS — INDULÁS",
         "title": "Vendéglátóhely vagy?",
-        "description": "Az első 15 budapesti Founding Partnerrel közösen bizonyítjuk be, hogy a rendszer a gyengébb időszakokban is mérhető forgalmat hoz. 6 hónap jutalékmentesen — az appban elérhető ajánlat ad okot a vendégnek, hogy ma este hozzád jöjjön.",
+        "description": "Te adod meg a korlátozott ajánlatot, készletet és időablakot; a pilot méri, hogy ez hoz-e hasznos új látogatást a gyengébb időszakokban.",
         "bullets": {
-          "1": "6 hónap jutalékmentesen",
-          "2": "Új vendégek a holtidőkben",
-          "3": "Valós fogyasztói adatok"
+          "1": "Nincs Come Get It platformdíj a pilotban",
+          "2": "QR-beváltások a saját helyedről",
+          "3": "Eredmények előzetes ígéret nélkül"
         },
         "cta": "Részletek"
       },
@@ -587,16 +587,16 @@
         "title": "Italmárka vagy?",
         "description": "Mutasd meg az italodat azoknak, akik most döntenek arról, mit isznak. Nem reklámként — első kortyként. Sampling at scale, mérhető eredménnyel.",
         "bullets": {
-          "1": "Precíz célzás Gen Z & Millennial fogyasztókra",
-          "2": "Real-time sampling-adatok",
-          "3": "Mérhető brand-aktivációk"
+          "1": "Korlátozott, előre egyeztetett célcsoport",
+          "2": "Valós beváltási adatok",
+          "3": "Mérhető pilotaktiváció"
         },
         "cta": "Részletek"
       },
       "rewards": {
         "phase": "2. FÁZIS — INDULÁS UTÁN",
         "title": "Rewards-partner vagy?",
-        "description": "A felhasználóink minden költésük után pontot gyűjtenek. Mire váltják be? Erre te válaszolsz. Jegyek, élmények, sportbérlet, beauty, kávé, brunch — bármi, ami egy budapesti fiatalnak érték.",
+        "description": "Adj korlátozott, előre egyeztetett jutalmat, amely megjelenhet az appban. A jelenlegi béta nem kapcsolódik bankkártyás költésekhez.",
         "bullets": {
           "1": "Új közönség elérése",
           "2": "Pozitív brand-élmény",
@@ -608,7 +608,7 @@
     "founding": {
       "title_line1": "Founding Partner státusz",
       "title_line2": "minden kategóriában",
-      "body": "Az első 15 vendéglátóhely, az első italmárkák és az első rewards-partnerek lifetime kedvezményt és Founding Partner státuszt kapnak. Csak indulás előtt elérhető.",
+      "body": "A kiválasztott pilotpartnerekkel előre rögzítjük az ajánlatot, a készletet, az időablakot és a mérési feltételeket. Bármilyen későbbi kereskedelmi kapcsolat külön írásos megállapodást igényel.",
       "cta": "Founding Partner Program"
     }
   },
@@ -652,7 +652,7 @@
     "placeholder": "Email címed",
     "submit": "Regisztrálok az értesítésre",
     "submitting": "⏳ Küldés...",
-    "footer": "Exkluzív bónusz az első 1000 regisztrálónak",
+    "footer": "Korai hozzáférés a budapesti bétához",
     "toasts": {
       "error_title": "Hiba történt",
       "error_desc": "Kérjük, próbálja újra később."
@@ -714,7 +714,7 @@
           },
           "hogyan_juthatsz": {
             "title": "Hogyan juthatsz hozzá egy ingyen italhoz?",
-            "content": "Folyamatosan indítunk új ingyen italos akciókat, szóval érdemes résen lenni!\nNézd meg az applikációban a bárlistát, vagy keresd a térképen az ‘ingyen ital’ jelzést – ezek mutatják, hol vár rád a következő pohár öröm.\n\nAmikor a helyszínre érsz, nyomd meg a Kérd ingyen italod gombot, és add oda a telefonod a pultosnak — ő nyomja meg a BEVÁLTOM gombot. Ennyi az egész!\n\nNe felejtsd el értékelni a helyet, a kiszolgálást és magát az italt! Az őszinte véleményed sokat számít – mind a bár, mind a márka számára hasznos visszajelzés lesz (és természetesen teljesen anonim módon)."
+            "content": "Nézd meg az appban a partnerhelyeket és az éppen aktív ajánlatokat. Az ajánlatok készlettől, időablaktól és nyitvatartástól függnek.\n\nA helyszínen válaszd ki az ajánlatot. Az app rövid ideig érvényes QR-kódot mutat; ezt a pultos a partnerfelületen beolvassa és jóváhagyja. A sikeres beváltást az app visszaigazolja.\n\nA teljes QR-kódot vagy beváltási titkot ne küldd el másnak, és ne oszd meg képernyőképen."
           },
           "miert_nem_latok": {
             "title": "Miért nem látok most ital ajánlatokat?",
@@ -722,7 +722,7 @@
           },
           "miert_zarolva": {
             "title": "Miért van zárolva nálam az ingyen ital lehetőség?",
-            "content": "Az ingyen italok beváltásához regisztrált fiók kell, és az, hogy a helyszínen legyél a megadott időablakban. Ha egy ajánlat elfogyott vagy éppen nem aktív, nem beváltható. Tervben van a kártya-összekapcsolás is, amivel később automatikusan gyűlhetnek a pontok."
+            "content": "A beváltáshoz bejelentkezett fiók, helyengedély és az szükséges, hogy az aktív ajánlat időablakában a partnerhely közelében legyél. Az elfogyott, lejárt vagy szüneteltetett ajánlat nem váltható be. Bankkártya-összekapcsolás nincs a jelenlegi bétában."
           },
           "van_limit": {
             "title": "Van valamilyen limit?",
@@ -743,11 +743,11 @@
         "sections": {
           "mi_az_a_rewards": {
             "title": "Mi az a Come Get It Rewards?",
-            "content": "A Come Get It Rewards jutalmaz azért, mert kimész és élvezed a város legjobb helyeit. Gyűjts pontokat minden egyes fogyasztásod után a budapesti (és később más városok) partnerhelyeken – ezeket a pontokat exkluzív jutalmakra, menő márkák kedvezményeire válthatod be. Nincs szükség hűségkártyára, pecsétekre – sőt, nem kell minden alkalommal megnyitnod az appot (de érdemes, mert gyakran vár újdonság)."
+            "content": "A Jutalmak fülön láthatod az appban jóváírt pontjaidat és az éppen aktív jutalmakat. A kínálat, a szükséges pontérték és a készlet partnerenként változhat. A jelenlegi béta nem kapcsolódik a bankkártyádhoz, és nem figyeli a vásárlásaidat."
           },
           "hogyan_szerezhetek_pontokat": {
             "title": "Hogyan szerezhetek pontokat?",
-            "content": "Pontokat kapsz minden alkalommal, amikor partnerhelyen fogyasztasz. Kapcsold össze a bankkártyád az alkalmazással, és a résztvevő helyeken történt tranzakciók után automatikusan járnak a pontok. Meghívásokért bónuszpont is jár. A tranzakciókat és meghívásokat a Profilban követheted."
+            "content": "A bétában csak az appban ténylegesen jóváírt pontok használhatók. Nincs automatikus bankkártyás pontgyűjtés és nincs aktív meghívási bónusz. Ha az egyenleged hibásnak tűnik, írj a gataibence@gmail.com címre."
           },
           "mire_kolthetem": {
             "title": "Mire költhetem a pontjaimat?",
@@ -755,31 +755,31 @@
           },
           "hogyan_osszekotom": {
             "title": "Hogyan tudom összekötni a kártyámat?",
-            "content": "Nyisd meg az alkalmazásban a Jutalmak menüt és válaszd a ‘Kártya összekötése’ opciót. Kézzel megadhatod, vagy a kamerával be is szkennelheted."
+            "content": "A jelenlegi ingyenes bétában nincs bankkártya-összekapcsolás, ezért az app nem kér és nem tárol kártyaadatot."
           },
           "biztonsag": {
             "title": "Biztonságosak az adataim?",
-            "content": "Az adataid 100%‑ban biztonságban vannak, a kártyát soha nem terheljük meg. A kártya‑linkeléshez a Fidel.uk (Fidel API) PCI‑tanúsított SDK‑ját használjuk. Kártyaadatot nem tárolunk – tokenizáljuk, és csak a Visa/Mastercard/AmEx tranzakciók felismerésére használjuk, jogosult vásárlások attribúciójához."
+            "content": "A bejelentkezést és az alkalmazás adatait jogosultság-ellenőrzéssel és titkosított adatátvitellel védjük. A jelenlegi béta nem kér bankkártyaadatot. Jelszót, teljes QR-kódot vagy beváltási titkot soha ne küldj el e-mailben vagy chatben."
           },
           "kartya_frissitese": {
             "title": "Hogyan frissíthetem a kártyaadataimat?",
-            "content": "Ha lejár a kártya, de a száma változatlan, nincs teendő. Csere vagy új kártya hozzáadásához: Profil → ‘Kapcsolt kártyák megtekintése’."
+            "content": "Nincs ilyen teendő: a jelenlegi béta nem kapcsolódik bankkártyához és nem tárol kártyaadatot."
           },
           "minden_tranzakcio": {
             "title": "Minden tranzakciómat látjátok?",
-            "content": "Csak a partnerhelyeken, a regisztrált kártyával, terminálon végzett tranzakciókhoz férünk hozzá."
+            "content": "Nem. A jelenlegi béta nem kapcsolódik a bankkártyádhoz, ezért nem fér hozzá a kártyás tranzakcióidhoz. Az app csak a saját beváltási és jutalomadatait kezeli."
           },
           "lejarnak_pontok": {
             "title": "Lejárnak a pontjaim?",
-            "content": "A pontok soha nem járnak le — gyűjtheted a nagyobb jutalmakhoz is."
+            "content": "A bétában az appban megjelenő aktuális pontérték és jutalomfeltételek érvényesek. Lényeges változásról előzetesen tájékoztatunk; a pontok készpénzre nem válthatók."
           },
           "online_fizetes": {
             "title": "Támogatjátok az online/asztali fizetést?",
-            "content": "Még nem. Csak a helyszíni kártyaterminálos tranzakciók számítanak a partnerhelyeken."
+            "content": "Nem. A Come Get It jelenlegi bétája nem dolgoz fel fizetést, és nincs appon belüli vásárlás. A helyszíni fogyasztásért közvetlenül a vendéglátóhelynek fizetsz."
           },
           "miert_nem_kaptam_pontot": {
             "title": "Miért nem kaptam pontot egy tranzakció után?",
-            "content": "Ha most linkeltél először Mastercardot, akár egy hét is lehet, mire az első adatok megérkeznek. A pontok közben is gyűlnek, csak később jelennek meg. Ha mégsem látod, írj nekünk a chaten és csatolj blokkot — segítünk! Utólag legfeljebb az elmúlt 7 nap tranzakcióit tudjuk jóváírni."
+            "content": "A jelenlegi béta nem ír jóvá automatikusan pontot bankkártyás tranzakció után. Ha az appban egy már jóváírt egyenleg vagy jutalom hibásan jelenik meg, írj a gataibence@gmail.com címre, és ne küldj teljes QR-kódot vagy kártyaadatot."
           }
         }
       },
@@ -788,7 +788,7 @@
         "items": {
           "1": {
             "q": "Hogyan regisztrálhatok?",
-            "a": "Töltsd le az appot és kövesd a lépéseket. Email címre és telefonszámra lesz szükséged."
+            "a": "Töltsd le az appot, majd regisztrálj e-mail címmel és jelszóval. Telefonszám megadása nem kötelező."
           },
           "2": {
             "q": "Hogyan változtathatom meg az adataimat?",
@@ -801,11 +801,11 @@
         "items": {
           "1": {
             "q": "Hogyan hívhatom meg a barátaimat?",
-            "a": "A Megosztás menüben találod a referral linked, amit elküldhetsz barátaidnak."
+            "a": "A meghívási program még nem aktív a jelenlegi bétában. Az appot ettől függetlenül megoszthatod barátaiddal."
           },
           "2": {
             "q": "Mit kapok, ha meghívok valakit?",
-            "a": "Minden sikeres meghívásért pont jár, amelyet jutalmakra válthatsz be."
+            "a": "A jelenlegi bétában nincs meghívási bónusz vagy automatikus pontjóváírás."
           }
         }
       }
@@ -842,7 +842,7 @@
     "resend_loading": "Újraküldés...",
     "resend_button": "Üdvözlő email újraküldése",
     "main_title": "Legyél az alapító tagok között.",
-    "subtitle": "Az első 500 jelentkező 1 hónap Come Get It Plus-t és életre szóló Founding Member státuszt kap. Iratkozz fel — szeptemberben elsőként értesítünk az indulásról.",
+    "subtitle": "Iratkozz fel a budapesti ingyenes béta híreire. Fizetős Plus csomag és életre szóló státusz jelenleg nincs.",
     "placeholder_email": "Add meg az email címed",
     "gdpr_label_prefix": "Elfogadom az",
     "privacy_policy": "adatvédelmi szabályzatot",

@@ -15,7 +15,7 @@ export const VenueROI: React.FC = () => {
 
           <div className="relative z-10">
             <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto text-center md:text-left">
-              Egy példa — az első beszélgetésen a te számaiddal számoljuk végig: mondjuk a free drink önköltsége 400 Ft. Ha a beváltó vendég rendel mellé még egy kört vagy egy ételt — mondjuk 3 000 Ft értékben —, egyetlen új vendég többszörösen fedezi az ital költségét. A kérdés nem az, hogy ez elméletben igaz-e, hanem hogy nálad, a te időablakodban mennyi lesz a valós utóköltés. Pontosan ezt méri a pilot: beváltás → utóköltés → visszatérés, 30 naponta közösen kiértékelve.
+              Egy példa — az első beszélgetésen a te számaiddal számoljuk végig: mondjuk a free drink önköltsége 400 Ft. Ha a beváltó vendég rendel mellé még egy kört vagy egy ételt — mondjuk 3 000 Ft értékben —, egyetlen új vendég többszörösen fedezheti az ital költségét. A QR-beváltást a rendszer rögzíti; az utóköltést és visszatérést csak külön, veled egyeztetett pilotméréssel állítjuk, 30 naponta közösen kiértékelve.
             </p>
 
             <div className="border-t border-nf-primary/20 pt-8 mt-8 text-center">
@@ -29,4 +29,3 @@ export const VenueROI: React.FC = () => {
     </section>
   );
 };
-
