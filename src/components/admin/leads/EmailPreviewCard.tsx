@@ -28,7 +28,7 @@ export default function EmailPreviewCard({
         </Button>
       </div>
       <div className={`p-4 space-y-2 ${light ? "text-zinc-900" : "text-white"}`}>
-        <div className={`text-xs ${light ? "text-zinc-500" : "text-nf-text-muted"}`}>From: Bence — Come Get It &lt;hello@come-get-it.app&gt;</div>
+        <div className={`text-xs ${light ? "text-zinc-500" : "text-nf-text-muted"}`}>From: Bence — Come Get It &lt;gataibence@gmail.com&gt;</div>
         <div className="font-semibold text-sm">{s || <span className="opacity-50">(üres subject)</span>}</div>
         {p && <div className={`text-xs ${light ? "text-zinc-500" : "text-nf-text-muted"} italic`}>{p}</div>}
         <hr className={light ? "border-zinc-200" : "border-nf-border"} />

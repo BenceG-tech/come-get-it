@@ -22,10 +22,19 @@ export default function FelhasznalasiFeltetelek() {
         <article className="max-w-3xl mx-auto px-4 py-16">
           <header className="mb-10">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Felhasználási feltételek</h1>
-            <p className="text-muted-foreground mt-2">Hatályos: 2026-09-20</p>
+            <p className="text-muted-foreground mt-2">Hatályos: 2026-09-28</p>
           </header>
 
           <section className="space-y-8 leading-relaxed text-sm md:text-base">
+            <section>
+              <h2 className="text-xl md:text-2xl font-semibold mb-2">Üzemeltető és kapcsolat</h2>
+              <p>
+                Gátai Bence, a Come Get It szolgáltatás üzemeltetője ·{" "}
+                <a className="text-nf-primary underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> ·{" "}
+                <a className="text-nf-primary underline" href="tel:+36705852053">+36 70 585 2053</a>
+              </p>
+            </section>
+
             <section>
               <h2 className="text-xl md:text-2xl font-semibold mb-2">1. A szolgáltatás</h2>
               <p>
@@ -43,7 +52,7 @@ export default function FelhasznalasiFeltetelek() {
                 <li>Egy személy egy fiókot hozhat létre; a jelszavadért te felelsz.</li>
                 <li>Az alkalmazás alkoholtartalmú italokhoz kapcsolódó ajánlatokat is tartalmazhat, ezért 18 éven felüliek használhatják.</li>
                 <li>
-                  A fiókod bármikor törölheted az appban (Profil &gt; Beállítások &gt; Fiók törlése), vagy e-mailben:{" "}
+                  A fiókod bármikor törölheted az appban (Profil &gt; Fiók &gt; Fiók törlése), vagy e-mailben:{" "}
                   <a className="text-nf-primary underline" href={`mailto:${SUPPORT_EMAIL}`}>
                     {SUPPORT_EMAIL}
                   </a>

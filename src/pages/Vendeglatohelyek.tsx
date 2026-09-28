@@ -80,7 +80,7 @@ const Vendeglatohelyek = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Vendéglátóhelyeknek — Founding Partner Program | Come Get It"
-        description="Az első 15 budapesti hely. 6 hónap jutalékmentes pilot: új vendég, utóköltés és visszatérés — közösen mérve, nulla pénzügyi rizikóval."
+        description="Az első 15 budapesti hely. 6 hónap jutalékmentes pilot: QR-beváltások mérése, az utóköltés és visszatérés külön, közösen egyeztetett vizsgálatával."
         canonical="/vendeglatohelyek"
         jsonLd={{
           '@context': 'https://schema.org',

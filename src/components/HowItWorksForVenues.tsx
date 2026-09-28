@@ -11,8 +11,8 @@ const steps = [
   {
     number: '2',
     icon: FileSignature,
-    title: 'Aláírjuk a Letter of Intent-et',
-    description: 'Egy egyszerű szándéknyilatkozat, hogy szeptemberben együtt indulunk. Most még nincs szerződéses kötelezettséged — csak egy közös elköteleződés a launch-ra.',
+    title: 'Rögzítjük a pilot feltételeit',
+    description: 'Írásban tisztázzuk az ajánlatot, készletet, időablakot, felelősöket és leállítási feltételeket.',
   },
   {
     number: '3',
@@ -23,14 +23,14 @@ const steps = [
   {
     number: '4',
     icon: Rocket,
-    title: 'Elindulunk szeptember 1-én',
-    description: 'A Founding Partner badge-eddel az első naptól megjelensz az appban. PR-megjelenés, social media, launch-kampány — közösen csináljuk.',
+    title: 'Korlátozott teszttel indulunk',
+    description: 'Az ajánlat csak a partnerprofil, személyzeti folyamat és sikeres QR-próba után jelenik meg.',
   },
   {
     number: '5',
     icon: ShieldCheck,
-    title: 'Az első 6 hónap teljesen jutalékmentes',
-    description: 'Pénz csak akkor lép be a képbe, ha mindketten azt látjuk, hogy működik. Onnantól is csak a Come Get It által generált forgalomból, alacsony jutalék mellett.',
+    title: 'Közösen kiértékeljük',
+    description: 'A pilotban nincs Come Get It platformdíj. Bármilyen későbbi kereskedelmi feltételhez külön írásos megállapodás kell.',
   },
 ];
 

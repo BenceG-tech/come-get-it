@@ -19,7 +19,7 @@ export default function AdatvedelmiSzabalyzat() {
       <article className="max-w-3xl mx-auto px-4 py-16">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Adatvédelmi szabályzat</h1>
-          <p className="text-muted-foreground mt-2">Hatályos: 2026-07-15</p>
+          <p className="text-muted-foreground mt-2">Hatályos: 2026-09-28</p>
         </header>
 
         <section className="space-y-8 leading-relaxed text-sm md:text-base">
@@ -33,8 +33,9 @@ export default function AdatvedelmiSzabalyzat() {
           <section>
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Adatkezelő</h2>
             <p>
-              Név: Come Get It<br />
-              E-mail: gataibence@gmail.com
+              Név: Gátai Bence, a Come Get It szolgáltatás üzemeltetője<br />
+              E-mail: <a className="text-nf-primary underline" href="mailto:gataibence@gmail.com">gataibence@gmail.com</a><br />
+              Telefon: <a className="text-nf-primary underline" href="tel:+36705852053">+36 70 585 2053</a>
             </p>
           </section>
 
@@ -44,16 +45,27 @@ export default function AdatvedelmiSzabalyzat() {
               <li>Várólistás regisztráció: e‑mail cím, időbélyeg, forrás/UTM adatok.</li>
               <li>Üzleti jelentkezés: név, e‑mail, telefonszám (ha megadod), cégadatok (ha megadod).</li>
               <li>Hozzájárulások: marketing és kommunikációs beállítások.</li>
-              <li>Mobilalkalmazás-fiók: e‑mail cím és jelszó (titkosítva tárolva), valamint az appban végzett beváltások és pontok.</li>
-              <li>Technikai adatok: IP-cím, böngésző és eszköz adatok, a bejelentkezéshez szükséges tárolt azonosítók.</li>
+              <li>Mobilalkalmazás-fiók: felhasználói azonosító, e‑mail cím, megjelenített név, opcionális telefonszám és a fiók létrehozásának ideje.</li>
+              <li>Bejelentkezési adatok: a Supabase által kezelt hitelesítési adatok; választható külső belépésnél a szolgáltató által átadott azonosító és engedélyezett profiladatok. A Google- vagy Apple-jelszót nem kapjuk meg.</li>
+              <li>Pontos helyadat: csak külön engedéllyel, az app használata közben, közeli helyek megjelenítéséhez és a helyszíni beváltás ellenőrzéséhez. Háttérbeli helymeghatározást nem végzünk, és a beváltási koordinátát nem mentjük el a beváltási rekord részeként.</li>
+              <li>Használati adatok: kedvencek, pontok, jutalmak, partnerhely, kiválasztott ital, beváltási időpont, egyszer használatos beváltási token és annak állapota.</li>
+              <li>Technikai és biztonsági adatok: IP-cím, munkamenet-azonosítók, kérés-, hiba- és visszaélés-megelőzési naplók.</li>
             </ul>
+            <p className="text-muted-foreground mt-2">
+              A jelenlegi ingyenes béta nem kér bankkártyaadatot, nem kapcsolódik a kártyás tranzakcióidhoz,
+              nem tartalmaz appon belüli vásárlást, és nem használ adatot más vállalkozások alkalmazásain vagy
+              weboldalain keresztüli követésre.
+            </p>
           </section>
 
           <section>
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Adatkezelés céljai és jogalapja</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>Várólista és kapcsolatfelvétel: hozzájárulásod alapján (GDPR 6. cikk (1) a)).</li>
-              <li>Szolgáltatás fejlesztése és biztonság: jogos érdekünk (GDPR 6. cikk (1) f)).</li>
+              <li>Fiók, partnerhelyek, jutalmak és beváltások biztosítása: szerződés teljesítése vagy szerződéskötést megelőző lépések (GDPR 6. cikk (1) b)).</li>
+              <li>Pontos helyadat: külön hozzájárulásod alapján (GDPR 6. cikk (1) a)); az engedély az eszköz beállításaiban bármikor visszavonható.</li>
+              <li>Szolgáltatás fejlesztése, biztonság, csalás- és visszaélés-megelőzés: jogos érdekünk (GDPR 6. cikk (1) f)).</li>
+              <li>Jogszabályi vagy hatósági kötelezettségek: jogi kötelezettség (GDPR 6. cikk (1) c)).</li>
               <li>Marketing kommunikáció: csak hozzájárulással (bármikor visszavonható).</li>
             </ul>
           </section>
@@ -63,7 +75,8 @@ export default function AdatvedelmiSzabalyzat() {
             <ul className="list-disc pl-6 space-y-2">
               <li>Supabase (adatbázis, hitelesítés, Edge Functions).</li>
               <li>Resend (tranzakciós és értesítő e‑mailek küldése).</li>
-              <li>Hoszting és infrastruktúra szolgáltatók a webalkalmazás üzemeltetéséhez.</li>
+              <li>Expo/EAS és az alkalmazás-áruházak (alkalmazás-összeállítás és terjesztés).</li>
+              <li>Hoszting- és infrastruktúra-szolgáltatók a weboldal és az alkalmazás üzemeltetéséhez.</li>
             </ul>
             <p className="text-muted-foreground mt-2">
               A partnereink csak a szolgáltatás nyújtásához szükséges mértékben férnek
@@ -83,9 +96,11 @@ export default function AdatvedelmiSzabalyzat() {
           <section>
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Adatmegőrzés</h2>
             <p>
-              A várólistás adatokat legfeljebb az indulást követő 24 hónapig őrizzük meg,
-              vagy az érintetti törlési kérelem beérkezéséig. A hozzájárulás bármikor
-              visszavonható, a visszavonás nem érinti a korábbi kezelés jogszerűségét.
+              A várólistás adatokat legfeljebb az indulást követő 24 hónapig, vagy a törlési kérelemig őrizzük meg.
+              A fiókhoz tartozó adatokat a fiók fennállásáig, illetve a szükséges szolgáltatási cél teljesüléséig
+              kezeljük. Fióktörléskor a közvetlenül azonosító profil- és aktivitási adatokat töröljük vagy
+              anonimizáljuk, kivéve, ha jogszabály vagy jogi igény további megőrzést tesz szükségessé. A
+              biztonsági naplókat csak a működéshez és incidenskezeléshez szükséges ideig őrizzük meg.
             </p>
           </section>
 
@@ -99,12 +114,30 @@ export default function AdatvedelmiSzabalyzat() {
           </section>
 
           <section>
+            <h2 className="text-xl md:text-2xl font-semibold mb-2">Adatbiztonság</h2>
+            <p>
+              Hozzáférés-szabályozást, titkosított adatátvitelt, szerveroldali jogosultság-ellenőrzést és egyszer
+              használatos beváltási tokent alkalmazunk. Egyetlen internetes szolgáltatás sem garantálhat teljes
+              kockázatmentességet. Jelszót, teljes QR-kódot vagy beváltási titkot ne küldj e-mailben vagy chatben.
+            </p>
+          </section>
+
+          <section>
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Érintetti jogok</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>Hozzáférés, helyesbítés, törlés, adatkezelés korlátozása.</li>
               <li>Adathordozhatóság és tiltakozás a jogos érdeken alapuló kezelés ellen.</li>
               <li>Hozzájárulás bármikori visszavonása.</li>
             </ul>
+          </section>
+
+          <section>
+            <h2 className="text-xl md:text-2xl font-semibold mb-2">18 éven aluliak</h2>
+            <p>
+              Az alkoholtartalmú ajánlatokkal kapcsolatos funkciók 18 éven aluliaknak nem szólnak. Ha tudomásunkra
+              jut, hogy szükséges hozzájárulás nélkül kezeltünk gyermekhez kapcsolódó személyes adatot, megtesszük
+              a szükséges törlési lépéseket.
+            </p>
           </section>
 
           <section>
@@ -126,13 +159,13 @@ export default function AdatvedelmiSzabalyzat() {
           <section>
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Fiók és adatok törlése</h2>
             <p>
-              A mobilalkalmazásban: Profil &gt; Beállítások &gt; Fiók törlése. Ha nem tudsz belépni,
+              A mobilalkalmazásban: Profil &gt; Fiók &gt; Fiók törlése. Ha nem tudsz belépni,
               írj a gataibence@gmail.com címre a regisztrált e‑mail címedről. További részletek a
               támogatás oldalon: /support
             </p>
           </section>
 
-          <p className="text-muted-foreground">Utolsó frissítés: 2026-09-20</p>
+          <p className="text-muted-foreground">Utolsó frissítés: 2026-09-28</p>
         </section>
       </article>
     </main>

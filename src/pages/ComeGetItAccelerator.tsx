@@ -59,17 +59,17 @@ const ComeGetItAccelerator = () => {
 
   const howItWorksSteps = [
     { number: "1", title: "Beszélgetünk", description: "Online vagy személyesen találkozunk. Megmutatjuk az appot és válaszolunk minden kérdésedre.", icon: MessageCircle },
-    { number: "2", title: "Aláírjuk a Letter of Intent-et", description: "Egyszerű szándéknyilatkozat, hogy szeptemberben együtt indulunk.", icon: FileSignature },
+    { number: "2", title: "Rögzítjük a pilot feltételeit", description: "Írásban tisztázzuk az ajánlatot, készletet, időablakot, felelősöket és leállítási feltételeket.", icon: FileSignature },
     { number: "3", title: "Beállítjuk a profilodat", description: "Felvesszük az adataidat, ajánlataidat, időablakaidat. Te döntöd el, mit, mikor és kinek.", icon: UserCog },
-    { number: "4", title: "Elindulunk szeptember 1-én", description: "Founding Partner badge-eddel az első naptól megjelensz az appban — közös launch-kampánnyal.", icon: Rocket },
-    { number: "5", title: "Az első 6 hónap jutalékmentes", description: "Pénz csak akkor lép be a képbe, ha mindketten azt látjuk, hogy működik.", icon: Gift }
+    { number: "4", title: "Korlátozott teszttel indulunk", description: "Csak akkor jelenik meg az ajánlat, ha a partnerprofil, a személyzeti folyamat és a QR-próba készen áll.", icon: Rocket },
+    { number: "5", title: "Közösen kiértékeljük", description: "A pilotban nincs Come Get It platformdíj. Bármilyen későbbi kereskedelmi feltétel csak külön írásos megállapodással léphet életbe.", icon: Gift }
   ];
 
   const benefits = [
-    { icon: Award, title: "EXKLUZÍV STÁTUSZ", description: "Founding Partner badge örökre az appban — örök megkülönböztetés a később csatlakozóktól." },
-    { icon: Wallet, title: "NULLA RIZIKÓ", description: "6 hónap teljesen jutalékmentes. Nincs setup-fee, nincs hosszú szerződés, bármikor kiléphetsz." },
-    { icon: Megaphone, title: "KÖZÖS LAUNCH-PR", description: "Sajtómegjelenés, social media kampány, dedikált tartalom — közösen erősítjük az indulást." },
-    { icon: Handshake, title: "LIFETIME ELŐNYÖK", description: "Alacsonyabb jutalék-sáv örökre, korai hozzáférés a brand-kampányokhoz, prioritás minden új feature-nél." }
+    { icon: Award, title: "KORAI PILOT", description: "A partner a valós tesztben segít kialakítani az ajánlatot és a pultos folyamatot." },
+    { icon: Wallet, title: "NINCS PLATFORMDÍJ A TESZTBEN", description: "A Come Get It a korlátozott pilotért nem számít fel díjat; az ajánlat költségét és keretét előre egyeztetjük." },
+    { icon: Megaphone, title: "EGYEZTETETT KOMMUNIKÁCIÓ", description: "Közös tartalom vagy PR csak külön jóváhagyással és igazolt állításokkal készül." },
+    { icon: Handshake, title: "KÜLÖN KÉSŐBBI DÖNTÉS", description: "Nincs automatikus hosszú távú vagy lifetime ígéret; a folytatásról a pilot bizonyítékai alapján, írásban döntünk." }
   ];
 
   const cardCls = "group relative h-full flex flex-col items-center text-center p-6 md:p-7 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]";
@@ -80,7 +80,7 @@ const ComeGetItAccelerator = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Founding Partner Program — Csatlakozz korán | Come Get It"
-        description="A Come Get It Founding Partner Program vendéglátóknak, italmárkáknak és rewards-partnereknek. Korai hozzáférés, exkluzív feltételek, lifetime preferred státusz."
+        description="A Come Get It korlátozott pilotprogramja vendéglátóknak, italmárkáknak és jutalompartnereknek: előre rögzített ajánlat, QR-beváltás és közös kiértékelés."
         canonical="/come-get-it-accelerator"
         jsonLd={{
           '@context': 'https://schema.org',

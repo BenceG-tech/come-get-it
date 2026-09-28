@@ -2,13 +2,13 @@ import React from 'react';
 import { Check } from 'lucide-react';
 
 const perks = [
-  '6 hónap teljesen jutalékmentes',
-  'Founding Partner badge az appban — örökre',
-  'Megjelenés a közös launch-PR-ben',
-  'Saját social media tartalom rólunk az indulás körül',
-  'Lifetime preferred jutalék-sáv (alacsonyabb, mint a későbbi partnereké)',
-  'Korai hozzáférés a brand-kampányokhoz (Heineken, Coca-Cola és más nagy márkák szponzorált aktivációihoz)',
-  'Rendszeres személyes konzultáció a CGI csapattal',
+  'A korlátozott pilot alatt nincs Come Get It platformdíj',
+  'Te állítod be az ajánlatot, a készletet és az időablakot',
+  'A partnerfelület csak a saját helyed QR-beváltásait mutatja',
+  'A pultos folyamatot indulás előtt együtt teszteljük',
+  'A pilot eredményeit közösen, előre rögzített szempontok szerint értékeljük',
+  'Közös kommunikáció vagy kampány csak külön jóváhagyással indul',
+  'A későbbi kereskedelmi feltételekhez külön írásos megállapodás szükséges',
 ];
 
 export const FoundingPartnerPerks: React.FC = () => {
@@ -37,7 +37,7 @@ export const FoundingPartnerPerks: React.FC = () => {
 
           <div className="relative z-10">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight text-center mb-8">
-              Founding Partner kizárólagos előnyök
+              A korlátozott partnerpilot feltételei
             </h2>
 
             <ul className="space-y-4 max-w-2xl mx-auto mb-10">
@@ -53,7 +53,7 @@ export const FoundingPartnerPerks: React.FC = () => {
 
             <div className="text-center">
               <span className="inline-block px-6 py-3 rounded-full border border-nf-primary/40 bg-nf-primary/10 text-xl md:text-2xl lg:text-3xl font-anton uppercase tracking-tight text-nf-primary drop-shadow-[0_0_25px_rgba(0,188,212,0.45)]">
-                Csak az első 15 budapesti vendéglátóhely.
+                Kis létszámú budapesti pilot, ellenőrzött kapacitással.
               </span>
             </div>
           </div>

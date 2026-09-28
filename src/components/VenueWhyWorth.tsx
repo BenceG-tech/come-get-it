@@ -17,7 +17,7 @@ const cards = [
   {
     icon: DollarSign,
     title: 'Nulla pénzügyi rizikó',
-    description: 'Az első 6 hónap teljesen jutalékmentes. Nincs fix havidíj, nincs setup-fee. A free drink költsége a beszerzési árad. Hogy ez megtérül-e — pontosan ezt mérjük együtt: minden beváltás mellé látod az utóköltést is.',
+    description: 'Az első 6 hónap teljesen jutalékmentes. Nincs fix havidíj, nincs setup-fee. A free drink költsége a beszerzési árad. A QR-beváltásokat a partnerfelület méri; az utóköltést a pilotban külön, veled egyeztetett módszerrel vizsgáljuk.',
     bg: bgNullaRizko,
   },
   {
@@ -29,7 +29,7 @@ const cards = [
   {
     icon: BarChart3,
     title: 'Adatok, amiket sehol máshol nem kapsz',
-    description: 'Látod, hány beváltás történt, mikor, új vagy visszatérő vendég volt-e, és mennyit költött az ingyen ital után. A/B tesztelheted az ajánlatod hétről hétre.',
+    description: 'Látod, hány sikeres beváltás történt a saját helyeden és mikor. A visszatérést és utóköltést csak külön, előre egyeztetett pilotméréssel értékeljük.',
     bg: bgAdatok,
   },
   {

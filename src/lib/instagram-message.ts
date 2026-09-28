@@ -3,7 +3,7 @@ export function buildIgPitch(p: { company_name?: string | null }) {
   const name = p.company_name?.trim() || "ott";
   return `Szia ${name}! Bence vagyok a Come Get It-ről 👋
 
-Egy ingyenes ital app-ot építünk magyar vendéglátóhelyeknek — minden user kap napi 1 üdvözlőitalt, ti meg új törzsvendégeket. Founding Partner program most még ingyen.
+Egy ingyenes béta appot építünk magyar vendéglátóhelyeknek: ti állítjátok be a korlátozott ajánlatot és időablakot, mi mérjük a QR-beváltásokat. Nincs garantált napi ital vagy automatikus kártyaadat.
 
 Érdekel egy 10 perces telefonos egyeztetés?
 

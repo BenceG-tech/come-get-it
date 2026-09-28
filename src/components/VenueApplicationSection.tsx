@@ -164,10 +164,10 @@ export const VenueApplicationSection: React.FC = () => {
             </div>
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white mb-4 tracking-tight">
-            Csatlakozz az első 15 közé
+            Jelentkezz a budapesti partnerpilotba
           </h2>
           <p className="text-base md:text-lg text-white/65 max-w-2xl mx-auto leading-relaxed">
-            A Founding Partner Program szeptember 1-ig nyitva — vagy amíg az első 15 hely megtelik. Nincs fizetési kötelezettség, nincs hosszú szerződés.
+            Kis létszámú, ellenőrzött pilotot indítunk. A jelentkezés nem jelent automatikus bekerülést vagy fizetési kötelezettséget; az ajánlatot és a felelősségeket indulás előtt írásban egyeztetjük.
           </p>
         </div>
 

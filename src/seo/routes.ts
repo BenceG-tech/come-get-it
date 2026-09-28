@@ -52,7 +52,7 @@ export const ROUTES: RouteSEO[] = [
     description:
       "Ingyenes béta: mutatjuk Budapest partnerhelyeit, ahol elérhető ingyen italokat válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz.",
     h1: "Nem tudod, hova menj ma?",
-    lastmod: "2026-09-20",
+    lastmod: "2026-09-28",
     priority: 1.0,
     changefreq: "weekly",
     bodyHtml: `
@@ -114,7 +114,7 @@ export const ROUTES: RouteSEO[] = [
       <dt>Hogyan működik a beváltás?</dt>
       <dd>Az appban kiválasztod az elérhető ajánlatot, a helyszínen pedig a pultos igazolja vissza a beváltást.</dd>
       <dt>Hogyan törölhetem a fiókom?</dt>
-      <dd>Az appban: Profil &gt; Beállítások &gt; Fiók törlése, vagy e-mailben a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címen. Részletek: <a href="/support">/support</a>.</dd>
+      <dd>Az appban: Profil &gt; Fiók &gt; Fiók törlése, vagy e-mailben a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címen. Részletek: <a href="/support">/support</a>.</dd>
       <dt>Mi van, ha nincs partnerhely a közelemben?</dt>
       <dd>Az app egy térképen megmutatja a legközelebbi partnereket. Az indulás Budapesten történik, ahol már több helyszín lesz elérhető. Új városokba a kereslet alapján terjeszkedünk.</dd>
       <dt>Hogyan csatlakozhat egy vendéglátóhely vagy márka?</dt>
@@ -194,7 +194,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Vendéglátóhelyeknek – Csatlakozz a Come Get It hálózathoz</h1>
-    <p>A Come Get It egy hűségrendszer és forgalomgenerátor magyarországi vendéglátóhelyek számára. Bárok, kávézók és éttermek új vendégeket szereznek, miközben mérhető visszatérést és kampányhatást kapnak. Az app jelenleg ingyenes bétaverzióban működik, és a partnerhelyek maguk döntik el, milyen ajánlatot tesznek elérhetővé.</p>
+    <p>A Come Get It jelenleg korlátozott, ingyenes bétát készít magyarországi vendéglátóhelyekkel. A partner maga állítja be az ajánlatot, készletet és időablakot; a pilot a QR-beváltásokat méri, és eredményt nem ígér előre.</p>
   </header>
 
   <section>
@@ -210,10 +210,10 @@ export const ROUTES: RouteSEO[] = [
   <section>
     <h2>Miért éri meg csatlakozni</h2>
     <ul>
-      <li><strong>Új vendégek lábforgalma:</strong> a Come Get It közössége aktívan keres partnerhelyeket az appban.</li>
+      <li><strong>Felfedezhetőség:</strong> a bétafelhasználók az appban láthatják az aktív partnerhelyet és ajánlatot.</li>
       <li><strong>Hűségrendszer dobozból:</strong> nincs külön kártya vagy bélyegző, az app intézi a pontgyűjtést.</li>
-      <li><strong>Mérhető forgalom:</strong> valós idejű analitika a beváltásokról, csúcsidőről, vendégtípusról.</li>
-      <li><strong>Visszatérő vendégek:</strong> a pontgyűjtés és az elérhető ajánlatok okot adnak a visszatérésre.</li>
+      <li><strong>Mért beváltás:</strong> a sikeres QR-beváltások megjelennek a partner riportjában.</li>
+      <li><strong>Pilotértékelés:</strong> a visszatérést és az utóköltést csak külön, előre egyeztetett módszerrel vizsgáljuk.</li>
       <li><strong>Felfedezhetőség:</strong> kiemelt megjelenés az in-app térképen és „mit egyek/igyak ma" felfedezőben.</li>
     </ul>
   </section>
@@ -222,9 +222,9 @@ export const ROUTES: RouteSEO[] = [
     <h2>Hogyan működik a beváltás</h2>
     <ol>
       <li>A vendég megrendel a kasszánál.</li>
-      <li>Beolvas vagy felmutat egy QR-kódot az appból.</li>
-      <li>Te visszaigazolod a beváltást a partner-felületen (mobil vagy tablet).</li>
-      <li>A tranzakció azonnal rögzül a riportingban; a vendég pontot kap, vagy beváltja az adott helyen elérhető ingyen italt.</li>
+      <li>Az app rövid ideig érvényes QR-kódot jelenít meg.</li>
+      <li>A pultos beolvassa és visszaigazolja a beváltást a partnerfelületen.</li>
+      <li>A sikeres beváltás megjelenik a partner riportjában. A rendszer nem kapcsolódik a vendég bankkártyájához.</li>
     </ol>
   </section>
 
@@ -350,7 +350,7 @@ export const ROUTES: RouteSEO[] = [
     <ul>
       <li>Új, célzott közönség elérése extra hirdetési költség nélkül.</li>
       <li>Mérhető beváltás: pontosan látod, ki és mikor váltotta be a jutalmat.</li>
-      <li>Pozícionálás egy felelős, közösségi márkaüzenet (GIVE) mellett.</li>
+      <li>Korlátozott, előre egyeztetett pilot valós beváltási adatokkal.</li>
     </ul>
   </section>
   <section>
@@ -358,7 +358,7 @@ export const ROUTES: RouteSEO[] = [
     <ol>
       <li>A user a pontjaiból „kiválasztja” a te jutalmadat az appban.</li>
       <li>Egyedi QR-kódot kap.</li>
-      <li>A QR-t bemutatja nálad vagy a webshopodban beváltja – mi mérjük a tranzakciót.</li>
+      <li>A helyszínen bemutatja a QR-kódot; a partner beolvassa és jóváhagyja a beváltást.</li>
     </ol>
   </section>
   <section>
@@ -465,32 +465,39 @@ export const ROUTES: RouteSEO[] = [
     description:
       "A Come Get It adatvédelmi szabályzata: milyen adatokat kezelünk, milyen célból, milyen jogalapon, meddig őrizzük, és milyen jogaid vannak.",
     h1: "Adatvédelmi szabályzat",
-    lastmod: "2026-09-20",
+    lastmod: "2026-09-28",
     priority: 0.3,
     changefreq: "yearly",
     bodyHtml: `
 <main data-prerender="true">
   <article>
     <h1>Adatvédelmi szabályzat</h1>
-    <p>Hatályos: 2026-09-20</p>
+    <p>Hatályos: 2026-09-28</p>
     <p>A Come Get It alkalmazás és weboldal (come-get-it.app) üzemeltetőjeként elkötelezettek vagyunk a személyes adatok védelme mellett. Ez a szabályzat összefoglalja, milyen adatokat kezelünk, milyen célból, milyen jogalapon, meddig őrizzük meg azokat, és milyen jogaid vannak.</p>
 
     <h2>Adatkezelő</h2>
-    <p>Név: Come Get It<br/>E-mail: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a></p>
+    <p>Név: Gátai Bence, a Come Get It szolgáltatás üzemeltetője<br/>E-mail: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a><br/>Telefon: <a href="tel:+36705852053">+36 70 585 2053</a></p>
 
     <h2>Kezelt adatok köre</h2>
     <ul>
       <li>Várólistás regisztráció: e‑mail cím, időbélyeg, forrás/UTM adatok.</li>
       <li>Üzleti jelentkezés: név, e‑mail, telefonszám (ha megadod), cégadatok (ha megadod).</li>
       <li>Hozzájárulások: marketing és kommunikációs beállítások.</li>
-      <li>Mobilalkalmazás-fiók: e‑mail cím és jelszó (titkosítva), beváltások és pontok.</li>
-      <li>Technikai adatok: IP-cím, böngésző és eszköz adatok, bejelentkezéshez szükséges azonosítók.</li>
+      <li>Mobilalkalmazás-fiók: felhasználói azonosító, e‑mail cím, megjelenített név, opcionális telefonszám és fióklétrehozási idő.</li>
+      <li>Bejelentkezési adatok: a Supabase által kezelt hitelesítési adatok; választható külső belépésnél a szolgáltató által átadott azonosító és engedélyezett profiladatok.</li>
+      <li>Pontos helyadat: csak külön engedéllyel, az app használata közben, közeli helyekhez és a helyszíni beváltás ellenőrzéséhez. Háttérbeli helymeghatározást nem végzünk.</li>
+      <li>Használati adatok: kedvencek, pontok, jutalmak, partnerhely, kiválasztott ital, beváltási időpont és az egyszer használatos token állapota.</li>
+      <li>Technikai és biztonsági adatok: IP-cím, munkamenet-azonosítók, kérés-, hiba- és visszaélés-megelőzési naplók.</li>
     </ul>
+    <p>A jelenlegi ingyenes béta nem kér bankkártyaadatot, nem fér hozzá kártyás tranzakciókhoz, nem tartalmaz appon belüli vásárlást, és nem végez más vállalkozások alkalmazásain vagy weboldalain keresztüli követést.</p>
 
     <h2>Adatkezelés céljai és jogalapja</h2>
     <ul>
       <li>Várólista és kapcsolatfelvétel: hozzájárulásod alapján (GDPR 6. cikk (1) a)).</li>
-      <li>Szolgáltatás fejlesztése és biztonság: jogos érdekünk (GDPR 6. cikk (1) f)).</li>
+      <li>Fiók, partnerhelyek, jutalmak és beváltások biztosítása: szerződés teljesítése vagy szerződéskötést megelőző lépések (GDPR 6. cikk (1) b)).</li>
+      <li>Pontos helyadat: külön hozzájárulásod alapján (GDPR 6. cikk (1) a)).</li>
+      <li>Szolgáltatás fejlesztése, biztonság, csalás- és visszaélés-megelőzés: jogos érdekünk (GDPR 6. cikk (1) f)).</li>
+      <li>Jogszabályi vagy hatósági kötelezettségek: jogi kötelezettség (GDPR 6. cikk (1) c)).</li>
       <li>Marketing kommunikáció: csak hozzájárulással (bármikor visszavonható).</li>
     </ul>
 
@@ -498,17 +505,21 @@ export const ROUTES: RouteSEO[] = [
     <ul>
       <li>Supabase (adatbázis, hitelesítés, Edge Functions).</li>
       <li>Resend (tranzakciós és értesítő e‑mailek küldése).</li>
-      <li>Hoszting és infrastruktúra szolgáltatók a webalkalmazás üzemeltetéséhez.</li>
+      <li>Expo/EAS és az alkalmazás-áruházak (alkalmazás-összeállítás és terjesztés).</li>
+      <li>Hoszting- és infrastruktúra-szolgáltatók a weboldal és az alkalmazás üzemeltetéséhez.</li>
     </ul>
 
     <h2>Sütik (cookie‑k)</h2>
     <p>Csak a működéshez szükséges tárolást használjuk (pl. bejelentkezési munkamenet). Külső analitikai vagy marketing követőkódot nem futtatunk.</p>
 
     <h2>Fiók és adatok törlése</h2>
-    <p>A mobilalkalmazásban: Profil &gt; Beállítások &gt; Fiók törlése. Ha nem tudsz belépni, írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre a regisztrált e‑mail címedről.</p>
+    <p>A mobilalkalmazásban: Profil &gt; Fiók &gt; Fiók törlése. Ha nem tudsz belépni, írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre a regisztrált e‑mail címedről.</p>
 
     <h2>Adatmegőrzés</h2>
-    <p>A várólistás adatokat legfeljebb az indulást követő 24 hónapig őrizzük meg, vagy az érintetti törlési kérelem beérkezéséig.</p>
+    <p>A várólistás adatokat legfeljebb az indulást követő 24 hónapig vagy törlési kérelemig őrizzük meg. A fiókadatait a fiók fennállásáig kezeljük; törléskor az azonosító adatokat töröljük vagy anonimizáljuk, kivéve a kötelező vagy jogi igényhez szükséges megőrzést.</p>
+
+    <h2>Adatbiztonság</h2>
+    <p>Hozzáférés-szabályozást, titkosított adatátvitelt, szerveroldali jogosultság-ellenőrzést és egyszer használatos beváltási tokent alkalmazunk. Jelszót, teljes QR-kódot vagy beváltási titkot ne küldj e-mailben vagy chatben.</p>
 
     <h2>Érintetti jogok</h2>
     <ul>
@@ -516,6 +527,9 @@ export const ROUTES: RouteSEO[] = [
       <li>Adathordozhatóság és tiltakozás a jogos érdeken alapuló kezelés ellen.</li>
       <li>Hozzájárulás bármikori visszavonása.</li>
     </ul>
+
+    <h2>18 éven aluliak</h2>
+    <p>Az alkoholtartalmú ajánlatokkal kapcsolatos funkciók 18 éven aluliaknak nem szólnak.</p>
 
     <h2>Panasz benyújtása</h2>
     <p>Nemzeti Adatvédelmi és Információszabadság Hatóság (NAIH), 1055 Budapest, Falk Miksa utca 9-11. – naih.hu</p>
@@ -565,7 +579,7 @@ export const ROUTES: RouteSEO[] = [
     <p>Az elérhető jutalmak és ingyen italok a partnerhelyek aktuális készletétől és nyitvatartásától függnek.</p>
 
     <h2>Fiók törlése</h2>
-    <p>A mobilalkalmazásban: Profil &gt; Beállítások &gt; Fiók törlése. Ha nem tudsz bejelentkezni, írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre a regisztrált e-mail címedről.</p>
+    <p>A mobilalkalmazásban: Profil &gt; Fiók &gt; Fiók törlése. Ha nem tudsz bejelentkezni, írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre a regisztrált e-mail címedről.</p>
 
     <h2>Jogi dokumentumok</h2>
     <p><a href="/adatvedelmi-szabalyzat">Adatvédelmi szabályzat</a> · <a href="/felhasznalasi-feltetelek">Felhasználási feltételek</a></p>
@@ -589,20 +603,23 @@ export const ROUTES: RouteSEO[] = [
     description:
       "A Come Get It ingyenes bétaverziójának felhasználási feltételei: fiók, jutalmak elérhetősége, felelősség, kapcsolat.",
     h1: "Felhasználási feltételek",
-    lastmod: "2026-09-20",
+    lastmod: "2026-09-28",
     priority: 0.3,
     changefreq: "yearly",
     bodyHtml: `
 <main data-prerender="true">
   <article>
     <h1>Felhasználási feltételek</h1>
-    <p>Hatályos: 2026-09-20</p>
+    <p>Hatályos: 2026-09-28</p>
+
+    <h2>Üzemeltető és kapcsolat</h2>
+    <p>Gátai Bence, a Come Get It szolgáltatás üzemeltetője · <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> · <a href="tel:+36705852053">+36 70 585 2053</a></p>
 
     <h2>A szolgáltatás</h2>
     <p>A Come Get It mobilalkalmazás ingyenes bétaverzióban működik: partnerhelyeket kereshetsz, alkalmanként ingyen italt válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz. A funkciók változhatnak vagy időszakosan elérhetetlenek lehetnek.</p>
 
     <h2>Fiók</h2>
-    <p>A használathoz e-mail címmel és jelszóval létrehozott fiók szükséges. Az alkalmazás 18 éven felülieknek szól. A fiókod bármikor törölheted az appban (Profil &gt; Beállítások &gt; Fiók törlése) vagy e-mailben.</p>
+    <p>A használathoz e-mail címmel és jelszóval létrehozott fiók szükséges. Az alkalmazás 18 éven felülieknek szól. A fiókod bármikor törölheted az appban (Profil &gt; Fiók &gt; Fiók törlése) vagy e-mailben.</p>
 
     <h2>Italok, jutalmak és elérhetőség</h2>
     <p>Az ingyen italok és jutalmak a partnerhelyek aktuális készletétől és nyitvatartásától függnek. Nincs garantált vagy napi rendszerességű ingyen ital. A pontok nem válthatók készpénzre.</p>
