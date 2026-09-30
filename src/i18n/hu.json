@@ -264,6 +264,27 @@
       "desc": "Egy erősebb, összetartóbb vendéglátó és fogyasztói közösség."
     }
   },
+  "screens": {
+    "drink": {
+      "1": "Come Get It partnerhelyek listája",
+      "2": "Come Get It Bistro részletei és italajánlata",
+      "3": "Azure Garden Spritz ajánlat és helyszín"
+    },
+    "link": {
+      "1": "Helyszínre érkezés a beváltás első lépéseként",
+      "2": "Beváltás bemutatása a pultosnak",
+      "3": "Azure Garden Spritz QR-beváltás megerősítése"
+    },
+    "earn": {
+      "1": "Elérhető ital- és élményjutalmak",
+      "2": "Jutalom részletei és pontigénye",
+      "3": "Élményjutalmak listája"
+    },
+    "venue_offer": "Azure Garden Spritz ajánlat és helyszín a partnerprofilon",
+    "venue_detail": "Come Get It Bistro partnerhely részletei",
+    "redeem_confirm": "Azure Garden Spritz beváltásának megerősítése",
+    "rewards_list": "Elérhető ital- és élményjutalmak"
+  },
   "venue_value": {
     "title": "A meghívótól a bizonyítékig",
     "steps": {

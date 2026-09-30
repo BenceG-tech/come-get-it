@@ -264,6 +264,27 @@
       "desc": "A stronger, more connected venue and consumer community."
     }
   },
+  "screens": {
+    "drink": {
+      "1": "List of Come Get It partner venues",
+      "2": "Come Get It Bistro details and drink offer",
+      "3": "Azure Garden Spritz offer and venue"
+    },
+    "link": {
+      "1": "Arriving at the venue to redeem an offer",
+      "2": "Showing the redemption to staff",
+      "3": "Confirming the Azure Garden Spritz QR redemption"
+    },
+    "earn": {
+      "1": "Available drink and experience rewards",
+      "2": "Reward details and required points",
+      "3": "List of experience rewards"
+    },
+    "venue_offer": "Azure Garden Spritz offer and venue on the partner profile",
+    "venue_detail": "Come Get It Bistro venue details",
+    "redeem_confirm": "Confirming an Azure Garden Spritz redemption",
+    "rewards_list": "Available drink and experience rewards"
+  },
   "venue_value": {
     "title": "From invitation to evidence",
     "steps": {
