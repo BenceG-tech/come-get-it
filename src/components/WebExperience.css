@@ -41,11 +41,11 @@
 .experience-note { position: absolute; z-index: 3; right: 5vw; bottom: 4vh; }
 @media (max-width: 760px) {
   .experience-story { height: 440svh; }
-  .experience-steps { top: auto; bottom: 13svh; transform: none; width: 90vw; }
+  .experience-steps { top: auto; bottom: 19svh; transform: none; width: 90vw; }
   .experience-step-content { min-height: 154px; }
   .experience-step h2 { font-size: clamp(32px, 10vw, 42px); }
-  .experience-progress { bottom: 8svh; }
-  .experience-note { left: 5vw; right: auto; bottom: 2svh; }
+  .experience-progress { bottom: 12svh; }
+  .experience-note { left: 5vw; right: auto; bottom: 8svh; }
   .experience-phone-wrap { left: 50%; right: auto; top: 5svh; transform: translateX(-50%); }
   .experience-phone { width: min(210px, 52vw, 23svh); }
   .experience-offer { width: min(125px, 30vw); right: -25%; }
