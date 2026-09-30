@@ -223,7 +223,7 @@ export const ROUTES: RouteSEO[] = [
     <ol>
       <li>A vendég megrendel a kasszánál.</li>
       <li>A vendég az „Itt vagyok” gombbal jelzi, hogy megérkezett.</li>
-      <li>A pultos beolvassa és visszaigazolja a beváltást a partnerfelületen.</li>
+      <li>A vendég megmutatja a telefonját a pultosnak, aki a vendég telefonján megnyomja a BEVÁLTOM gombot.</li>
       <li>A sikeres beváltás megjelenik a partner riportjában. A rendszer nem kapcsolódik a vendég bankkártyájához.</li>
     </ol>
   </section>

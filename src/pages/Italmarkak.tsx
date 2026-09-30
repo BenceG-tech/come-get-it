@@ -4,7 +4,7 @@ import { Footer } from '@/components/Footer';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
-import { HeroBackground, PhoneGlowWrapper } from '@/components/HeroBackground';
+import { HeroBackground } from '@/components/HeroBackground';
 import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket, Target, MapPin, BarChart3 } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
@@ -51,7 +51,7 @@ const Italmarkak = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Italmárkáknak — Az első korty a partnerhelyen | Come Get It"
-        description="A 2. fázisban valós helyszíni kóstoltatást tervezünk: az első korty a választás pillanatában, mérhető mérhető beváltással. Early access."
+        description="A 2. fázisban valós helyszíni kóstoltatást tervezünk: az első korty a választás pillanatában, mérhető beváltással. Early access."
         canonical="/italmarkak"
         jsonLd={{
           '@context': 'https://schema.org',
