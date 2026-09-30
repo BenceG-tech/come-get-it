@@ -379,6 +379,24 @@
     }
   },
   "brands_page": {
+    "value_props": {
+      "1": {
+        "title": "TARGETED PILOT",
+        "description": "Designed for Budapest adults exploring venues; no verified reach is claimed."
+      },
+      "2": {
+        "title": "REAL MOMENT",
+        "description": "A first sip can take place at a partner venue when guests are choosing."
+      },
+      "3": {
+        "title": "MEASURED REDEMPTION",
+        "description": "We measure QR redemption; feedback requires a separately managed campaign."
+      },
+      "4": {
+        "title": "JOINT PLANNING",
+        "description": "Campaign scope and terms are agreed with the partner in advance."
+      }
+    },
     "hero": {
       "line1": "DON'T JUST SHOW IT.",
       "line2": "OFFER THE FIRST SIP.",
@@ -465,6 +483,25 @@
     }
   },
   "rewards_page": {
+    "value_props": {
+      "title": "Opportunities for reward partners",
+      "1": {
+        "title": "NEW CONNECTION",
+        "description": "After a venue visit, a reward may introduce your brand."
+      },
+      "2": {
+        "title": "AGREED REWARD",
+        "description": "The offer, stock and redemption terms are settled in advance."
+      },
+      "3": {
+        "title": "MEASURED REDEMPTION",
+        "description": "The pilot reviews actual reward redemptions; traffic is not guaranteed."
+      },
+      "4": {
+        "title": "SEPARATE AGREEMENT",
+        "description": "Joint campaigns launch only on agreed terms."
+      }
+    },
     "hero": {
       "line1": "THE DRINK STARTS THE VISIT.",
       "line2": "THE REWARD EXTENDS THE CONNECTION.",
@@ -533,6 +570,53 @@
     }
   },
   "accelerator_page": {
+    "pilot_benefits": {
+      "1": {
+        "title": "EARLY PILOT",
+        "description": "We test per venue whether the offer helps guests choose."
+      },
+      "2": {
+        "title": "NO PLATFORM FEE IN THE TEST",
+        "description": "We charge no fee for the limited pilot; offer costs are agreed in advance."
+      },
+      "3": {
+        "title": "AGREED COMMUNICATION",
+        "description": "Joint content or PR needs separate approval and evidence-backed claims."
+      },
+      "4": {
+        "title": "SEPARATE DECISION LATER",
+        "description": "No automatic long-term commitment; continuing requires a written agreement."
+      }
+    },
+    "pilot_steps": {
+      "1": {
+        "title": "We talk",
+        "description": "We learn your goals and agree what the pilot should test."
+      },
+      "2": {
+        "title": "We agree on terms",
+        "description": "We document the offer, stock, time window and stop conditions."
+      },
+      "3": {
+        "title": "We prepare the test",
+        "description": "We check the staff process and QR flow together."
+      },
+      "4": {
+        "title": "We launch carefully",
+        "description": "The agreed offer can appear in the approved time window."
+      },
+      "5": {
+        "title": "We review the results",
+        "description": "We assess QR redemptions together; other business measurements need a separate agreement."
+      }
+    },
+    "pilot_labels": {
+      "how": "How we test",
+      "why": "What a controlled pilot means",
+      "join1": "Test with us",
+      "join2": "on a small scale",
+      "join_body": "We measure QR redemptions per venue and decide together whether to continue."
+    },
     "hero": {
       "line1": "DON'T TAKE OUR WORD FOR IT.",
       "line2": "LET'S TEST IT TOGETHER.",

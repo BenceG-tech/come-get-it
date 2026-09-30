@@ -379,6 +379,24 @@
     }
   },
   "brands_page": {
+    "value_props": {
+      "1": {
+        "title": "CÉLZOTT PILOT",
+        "description": "Budapesti, helyeket kereső felnőtteknek tervezett aktiváció; igazolt elérést nem állítunk."
+      },
+      "2": {
+        "title": "VALÓDI HELYZET",
+        "description": "Az első korty egy partnerhelyen, valódi választási helyzetben jöhet létre."
+      },
+      "3": {
+        "title": "MÉRHETŐ BEVÁLTÁS",
+        "description": "A QR-beváltást mérjük; visszajelzés csak külön kezelt kampányban gyűjthető."
+      },
+      "4": {
+        "title": "KÖZÖS TERVEZÉS",
+        "description": "A kampány méretét és feltételeit a partnerrel előre egyeztetjük."
+      }
+    },
     "hero": {
       "line1": "NE CSAK MUTASD MEG.",
       "line2": "ADD AZ ELSŐ KORTYOT.",
@@ -465,6 +483,25 @@
     }
   },
   "rewards_page": {
+    "value_props": {
+      "title": "A jutalompartnerek lehetőségei",
+      "1": {
+        "title": "ÚJ KAPCSOLAT",
+        "description": "A helyszíni élmény után a jutalom bemutathatja a márkádat."
+      },
+      "2": {
+        "title": "EGYEZTETETT JUTALOM",
+        "description": "Előre rögzítjük a kínálatot, a készletet és a beváltás módját."
+      },
+      "3": {
+        "title": "MÉRHETŐ BEVÁLTÁS",
+        "description": "A pilotban a tényleges jutalombeváltást értékeljük, nem ígérünk forgalmat."
+      },
+      "4": {
+        "title": "KÜLÖN MEGÁLLAPODÁS",
+        "description": "Közös kampány csak egyeztetett feltételekkel indul."
+      }
+    },
     "hero": {
       "line1": "AZ ITAL ELINDÍTJA A LÁTOGATÁST.",
       "line2": "A JUTALOM TOVÁBBVISZI A KAPCSOLATOT.",
@@ -533,6 +570,53 @@
     }
   },
   "accelerator_page": {
+    "pilot_benefits": {
+      "1": {
+        "title": "KORAI PILOT",
+        "description": "Helyenként teszteljük, hogy az ajánlat segít-e a választásban."
+      },
+      "2": {
+        "title": "NINCS PLATFORMDÍJ A TESZTBEN",
+        "description": "A korlátozott pilotért nem számítunk fel díjat; az ajánlat költségét előre egyeztetjük."
+      },
+      "3": {
+        "title": "EGYEZTETETT KOMMUNIKÁCIÓ",
+        "description": "Közös tartalom vagy PR csak külön jóváhagyással és igazolt állításokkal készül."
+      },
+      "4": {
+        "title": "KÜLÖN KÉSŐBBI DÖNTÉS",
+        "description": "A pilot nem jelent automatikus hosszú távú kötelezettséget; a folytatás írásos megállapodás kérdése."
+      }
+    },
+    "pilot_steps": {
+      "1": {
+        "title": "Beszélgetünk",
+        "description": "Megismerjük a helyed céljait és tisztázzuk, mit szeretnénk bizonyítani."
+      },
+      "2": {
+        "title": "Rögzítjük a feltételeket",
+        "description": "Írásban egyeztetjük az ajánlatot, készletet, időablakot és leállítás feltételeit."
+      },
+      "3": {
+        "title": "Előkészítjük a tesztet",
+        "description": "A helyszíni folyamatot és a személyzeti QR-próbát együtt ellenőrizzük."
+      },
+      "4": {
+        "title": "Korlátozottan indulunk",
+        "description": "A megállapodott ajánlat a jóváhagyott időablakban jelenhet meg."
+      },
+      "5": {
+        "title": "Kiértékeljük",
+        "description": "A QR-beváltást közösen vizsgáljuk; további üzleti mérést külön egyeztetünk."
+      }
+    },
+    "pilot_labels": {
+      "how": "Hogyan tesztelünk?",
+      "why": "Mit jelent a kontrollált pilot?",
+      "join1": "Tesztelj velünk",
+      "join2": "kis léptékben",
+      "join_body": "Helyenként mérjük a QR-beváltást; a folytatásról együtt döntünk."
+    },
     "hero": {
       "line1": "NE HIGGY NEKÜNK VAKON.",
       "line2": "TESZTELJÜK LE EGYÜTT.",
