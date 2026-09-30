@@ -4,23 +4,23 @@ import { Users, Smartphone, MoonStar, ListChecks } from 'lucide-react';
 const items = [
   {
     icon: Users,
-    title: '18–35 ÉVES BUDAPESTI KÖZÖNSÉG',
-    description: 'A közönség, amit a legnehezebb hagyományos reklámmal elérni.',
+    title: 'BUDAPESTI FELNŐTT KÖZÖNSÉG',
+    description: 'A helyet és új élményeket kereső vendégeket célozzuk; pontos arányt nem állítunk.',
   },
   {
     icon: Smartphone,
     title: 'MOBILE-FIRST GENERÁCIÓ',
-    description: 'Az appban dől el a döntés: hova menjenek ma este.',
+    description: 'A helyválasztás pillanatában találkozhatnak az ajánlatoddal.',
   },
   {
     icon: MoonStar,
     title: 'ESTI ÉS AFTERWORK-AKTÍV',
-    description: 'Akkor keresnek helyet, amikor nálad a legnagyobb szükség van a forgalomra.',
+    description: 'A pilotban az általad kijelölt napokon és idősávokban próbálunk elérni vendégeket.',
   },
   {
     icon: ListChecks,
     title: 'A WAITLISTÜNKRŐL INDUL AZ ELSŐ KÖR',
-    description: 'A launch-ra már elköteleződött korai bázisunk vesz részt.',
+    description: 'A pilot eredményét valós beváltásokon ellenőrizzük, nem előre feltételezett közönségen.',
   },
 ];
 
