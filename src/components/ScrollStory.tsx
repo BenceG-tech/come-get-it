@@ -32,6 +32,7 @@ export const ScrollStory: React.FC = () => {
   const storyRef = useRef<HTMLElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(0);
+  const [visible, setVisible] = useState(false);
   const [reduced, setReduced] = useState(false);
   const phase = Math.round(position);
 
@@ -40,6 +41,13 @@ export const ScrollStory: React.FC = () => {
     const update = () => setReduced(media.matches);
     update(); media.addEventListener('change', update);
     return () => media.removeEventListener('change', update);
+  }, []);
+  useEffect(() => {
+    const target = storyRef.current;
+    if (!target) return;
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { rootMargin: '100px' });
+    observer.observe(target);
+    return () => observer.disconnect();
   }, []);
   useEffect(() => {
     const mobile = matchMedia('(max-width: 760px)');
@@ -93,7 +101,7 @@ export const ScrollStory: React.FC = () => {
         </div>
         <div className="phone-col">
           <div className="story-phone-wrap"><div className="story-phone" ref={phoneRef}><div className="story-screen">
-            {screens.map((screen, i) => <img key={screen} src={screen} alt={phase === i ? t(`experience.screen${i + 1}_alt`) : ''} aria-hidden={phase !== i} className={phase === i ? 'is-active' : ''} width={920} height={2000} loading="lazy" />)}
+            {screens.map((screen, i) => <React.Fragment key={screen}><img src={screen} alt={phase === i ? t(`experience.screen${i + 1}_alt`) : ''} aria-hidden={phase !== i} className={phase === i ? 'is-active' : ''} width={920} height={2000} loading="lazy" />{visible && !reduced && (i === 0 || i === 2) && phase === i && <video className="story-ui-loop" src={v2[i === 0 ? 'ui-phone-step-1-map-v2.mp4' : 'ui-phone-step-3-redeem-v2.mp4']} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />}</React.Fragment>)}
             {phase === 0 && !reduced && <div className="story-pins" aria-hidden="true"><span /><span /><span /></div>}
           </div></div></div>
           <div className="story-float story-venue" style={{ opacity: clamp(1 - Math.abs(position - 1) * 1.8) }} aria-hidden="true"><img src={v2['fg-offer-venue.webp']} alt="" loading="lazy" /></div>
