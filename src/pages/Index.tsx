@@ -22,15 +22,15 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
-import consumerList from '@/assets/app-screens-v2/consumer/consumer-list.webp.asset.json';
-import venueDetail from '@/assets/app-screens-v2/consumer/venue-detail.webp.asset.json';
-import venueOffer from '@/assets/app-screens-v2/consumer/venue-offer.webp.asset.json';
-import redeemArrival from '@/assets/app-screens-v2/consumer/redeem-arrival.webp.asset.json';
-import redeemShow from '@/assets/app-screens-v2/consumer/redeem-show.webp.asset.json';
-import redeemConfirm from '@/assets/app-screens-v2/consumer/redeem-confirm.webp.asset.json';
-import rewardsList from '@/assets/app-screens-v2/rewards/rewards-list.webp.asset.json';
-import rewardDetail from '@/assets/app-screens-v2/rewards/reward-detail.webp.asset.json';
-import rewardsExperiences from '@/assets/app-screens-v2/rewards/rewards-experiences.webp.asset.json';
+const consumerList = '/app-screens-v2/consumer/consumer-list.webp';
+const venueDetail = '/app-screens-v2/consumer/venue-detail.webp';
+const venueOffer = '/app-screens-v2/consumer/venue-offer.webp';
+const redeemArrival = '/app-screens-v2/consumer/redeem-arrival.webp';
+const redeemShow = '/app-screens-v2/consumer/redeem-show.webp';
+const redeemConfirm = '/app-screens-v2/consumer/redeem-confirm.webp';
+const rewardsList = '/app-screens-v2/rewards/rewards-list.webp';
+const rewardDetail = '/app-screens-v2/rewards/reward-detail.webp';
+const rewardsExperiences = '/app-screens-v2/rewards/rewards-experiences.webp';
 // QuickAccessChips removed from homepage — partner-link cards moved to /partnerek hub
  
 const Index = () => {
@@ -44,9 +44,9 @@ const Index = () => {
     analytics.pageView('index');
   }, []);
 
-  const drinkImages = [consumerList.url, venueDetail.url, venueOffer.url];
-  const linkImages = [redeemArrival.url, redeemShow.url, redeemConfirm.url];
-  const earnImages = [rewardsList.url, rewardDetail.url, rewardsExperiences.url];
+  const drinkImages = [consumerList, venueDetail, venueOffer];
+  const linkImages = [redeemArrival, redeemShow, redeemConfirm];
+  const earnImages = [rewardsList, rewardDetail, rewardsExperiences];
 
   useEffect(() => {
     const drinkInterval = setInterval(() => {

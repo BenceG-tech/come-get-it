@@ -11,7 +11,7 @@ import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
-import redeemConfirm from '@/assets/app-screens-v2/consumer/redeem-confirm.webp.asset.json';
+const redeemConfirm = '/app-screens-v2/consumer/redeem-confirm.webp';
 
 const ComeGetItAccelerator = () => {
   const { t } = useI18n();
@@ -131,7 +131,7 @@ const ComeGetItAccelerator = () => {
             </div>
 
             <PhoneGlowWrapper>
-              <PhoneMockup imageUrl={redeemConfirm.url} alt={t('screens.redeem_confirm')} fit="contain" />
+              <PhoneMockup imageUrl={redeemConfirm} alt={t('screens.redeem_confirm')} fit="contain" />
             </PhoneGlowWrapper>
           </div>
         </div>

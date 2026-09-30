@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import venueInteriorHero from '@/assets/venue-interior-hero.jpg';
-import venueOffer from '@/assets/app-screens-v2/consumer/venue-offer.webp.asset.json';
+const venueOffer = '/app-screens-v2/consumer/venue-offer.webp';
 
 export const VenueHeroSection: React.FC = () => {
   const { t } = useI18n();
@@ -116,7 +116,7 @@ export const VenueHeroSection: React.FC = () => {
               }}
             />
             <div className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_28px_rgba(0,188,212,0.6))]">
-              <PhoneMockup imageUrl={venueOffer.url} alt={t('screens.venue_offer')} fit="contain" />
+              <PhoneMockup imageUrl={venueOffer} alt={t('screens.venue_offer')} fit="contain" />
             </div>
           </div>
         </div>

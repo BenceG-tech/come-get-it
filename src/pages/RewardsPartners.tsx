@@ -12,7 +12,7 @@ import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNightHero from '@/assets/budapest-night-hero.jpg';
-import rewardsList from '@/assets/app-screens-v2/rewards/rewards-list.webp.asset.json';
+const rewardsList = '/app-screens-v2/rewards/rewards-list.webp';
 
 const RewardsPartners = () => {
   const { t } = useI18n();
@@ -201,7 +201,7 @@ const RewardsPartners = () => {
                 </svg>
               </div>
               <div className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
-                <PhoneMockup imageUrl={rewardsList.url} alt={t('screens.rewards_list')} fit="contain" />
+                <PhoneMockup imageUrl={rewardsList} alt={t('screens.rewards_list')} fit="contain" />
               </div>
             </div>
           </div>
