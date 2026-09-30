@@ -47,7 +47,7 @@
   .experience-progress { bottom: 8svh; }
   .experience-note { left: 5vw; right: auto; bottom: 2svh; }
   .experience-phone-wrap { left: 50%; right: auto; top: 5svh; transform: translateX(-50%); }
-  .experience-phone { width: min(210px, 52vw, 19svh); }
+  .experience-phone { width: min(210px, 52vw, 23svh); }
   .experience-offer { width: min(125px, 30vw); right: -25%; }
   .experience-drink { width: min(160px, 38vw); right: -25%; top: auto; bottom: 4%; }
   .experience-vignette { background: linear-gradient(180deg, hsl(var(--background) / .1), hsl(var(--background) / .88) 72%); }
@@ -60,7 +60,7 @@
   .experience-hero::after { background: linear-gradient(180deg, hsl(var(--background) / .65), transparent 47%); }
 }
 @media (max-aspect-ratio: 1/1) and (max-width: 760px) {
-  .experience-hero .experience-poster, .experience-hero video { transform: translateY(13svh); }
+  .experience-hero .experience-poster, .experience-hero video { top: 28svh; height: 72svh; object-position: 50% 50%; }
   .experience-hero-copy { padding-top: 96px; padding-bottom: 0; }
   .experience-hero { min-height: 740px; }
 }
