@@ -140,7 +140,7 @@
       "label": "TERVEZETT FUNKCIÓK",
       "badge": "MÉG NEM ELÉRHETŐ",
       "price": "Későbbi fejlesztések",
-      "b1": "Kártya-összekapcsolás automatikus pontgyűjtéshez",
+      "b1": "TERV: bankkártya-összekapcsolás esetleges későbbi vizsgálata; a jelenlegi béta nem kapcsol bankkártyát.",
       "b2": "Bővülő partnerhely- és jutalomkínálat",
       "b3": "Személyre szabott ajánlatok",
       "b4": "Közösségi, társadalmi célú program",
@@ -215,7 +215,7 @@
       },
       "3": {
         "title": "MUTASD A PULTOSNAK",
-        "description": "A rövid ideig érvényes beváltást a pultos olvassa be és hagyja jóvá."
+        "description": "A helyszínen nyomd meg az „Itt vagyok” gombot, mutasd meg a pultosnak, majd ő a telefonodon megnyomja a BEVÁLTOM gombot."
       },
       "4": {
         "title": "FEDEZD FEL A JUTALMAKAT",
@@ -233,7 +233,7 @@
       },
       "3": {
         "title": "VÁLTSD BE",
-        "description": "A pultos beolvassa az appban megjelenő beváltást"
+        "description": "„Itt vagyok” → „Mutasd a pultosnak” → a pultos a telefonodon megnyomja a BEVÁLTOM gombot."
       },
       "4": {
         "title": "FEDEZD FEL",
@@ -385,7 +385,7 @@
     "perks": {
       "1": "A korlátozott pilot alatt nincs Come Get It platformdíj",
       "2": "Te állítod be az ajánlatot, a készletet és az időablakot",
-      "3": "A partnerfelület csak a saját helyed beváltásait mutatja",
+      "3": "A sikeres beváltásokat a pilot közös összesítőjében mérjük.",
       "4": "A pultos folyamatot indulás előtt együtt teszteljük",
       "5": "A pilot eredményeit közösen, előre rögzített szempontok szerint értékeljük",
       "6": "Közös kommunikáció vagy kampány csak külön jóváhagyással indul",
@@ -471,11 +471,11 @@
           "description": "Budapesti felnőtt vendégeket célzunk; arányokat nem állítunk."
         },
         "2": {
-          "label": "MILLENNIÁL & GEN Z ADATBÁZIS",
+          "label": "DÖNTÉSI PILLANAT",
           "description": "A helyválasztás pillanatában jelenhet meg az ajánlat."
         },
         "3": {
-          "label": "NŐI KÖZÖNSÉG",
+          "label": "KONTROLLÁLT PILOT",
           "description": "Nem állítunk igazolatlan közönségösszetételt."
         },
         "4": {
@@ -747,7 +747,7 @@
         },
         "4": {
           "title": "SKÁLÁZD FEL",
-          "description": "Indítsd el több helyen – növeld az eladásokat!"
+          "description": "Közösen kiértékeljük a pilotot; a folytatásról külön döntünk."
         }
       }
     },
@@ -785,7 +785,7 @@
         },
         "2": {
           "title": "CÉLZOTT KÖZÖNSÉG",
-          "description": "18-34 éves aktív fiatalok"
+          "description": "Budapesti, helyet kereső felnőtteket célzunk; mért közönségarányt nem állítunk."
         },
         "3": {
           "title": "VALÓDI FOGYASZTÓI ADATOK",
@@ -798,19 +798,19 @@
       }
     },
     "demo_stats": {
-      "title": "FELHASZNÁLÓI DEMÓ ADATOK",
+      "title": "A PILOT VIZSGÁLATI SZEMPONTJAI",
       "items": {
         "1": {
-          "label": "ÁTLAGÉLETKOR"
+          "label": "AJÁNLAT ÉS IDŐABLAK"
         },
         "2": {
-          "label": "GEN Z/MILLENNIAL"
+          "label": "BEVÁLTÁSI EREDMÉNY"
         },
         "3": {
-          "label": "NŐI KÖZÖNSÉG"
+          "label": "HELYSZÍNI TAPASZTALAT"
         },
         "4": {
-          "label": "AKTÍV APPHASZNÁLÓ"
+          "label": "KÖZÖS KIÉRTÉKELÉS"
         }
       }
     },
@@ -972,7 +972,7 @@
           },
           "hogyan_juthatsz": {
             "title": "Hogyan juthatsz hozzá egy ingyen italhoz?",
-            "content": "Nézd meg az appban a partnerhelyeket és az éppen aktív ajánlatokat. Az ajánlatok készlettől, időablaktól és nyitvatartástól függnek.\n\nA helyszínen válaszd ki az ajánlatot. Az app rövid ideig érvényes beváltást mutat; ezt a pultos a partnerfelületen beolvassa és jóváhagyja. A sikeres beváltást az app visszaigazolja.\n\nA teljes beváltást vagy beváltási titkot ne küldd el másnak, és ne oszd meg képernyőképen."
+            "content": "Nézd meg az appban a partnerhelyeket és az éppen aktív ajánlatokat. Az ajánlatok készlettől, időablaktól és nyitvatartástól függnek.\n\nA helyszínen válaszd ki az ajánlatot, majd nyomd meg az „Itt vagyok” gombot. Mutasd meg a telefonodat a pultosnak; ő a te telefonodon megnyomja a BEVÁLTOM gombot. A sikeres beváltást az app visszaigazolja.\n\nA telefonodat a helyszínen mutasd meg a személyzetnek; ne oszd meg másokkal a beváltás képernyőképét."
           },
           "miert_nem_latok": {
             "title": "Miért nem látok most ital ajánlatokat?",
@@ -1129,7 +1129,7 @@
     "header": {
       "heading": "Üzlettulajdonos vagy?",
       "sub1": "Csatlakozz partnereink közé!",
-      "sub2": "Növeld vendégeid számát, építs hűséges közönséget és szerezz új vásárlókat az ingyenes promócióinkkal."
+      "sub2": "Te szabod meg az ajánlatot és az időablakot; a beváltást mérjük, az eredményeket a pilotban értékeljük."
     },
     "demo_banner": "⚠️ Demo mód: Email küldés jelenleg nem elérhető",
     "form": {
@@ -1139,7 +1139,7 @@
       "sending": "Küldés...",
       "submit": "Jelentkezés elküldése"
     },
-    "benefits_line": "🎯 Ingyenes promóció • 📈 Növekvő forgalom • 👥 Hűséges vendégek • 📊 Mérhető eredmények"
+    "benefits_line": "Időzíthető ajánlat • mérhető beváltás • kontrollált pilot"
   },
   "partner_app": {
     "toasts": {

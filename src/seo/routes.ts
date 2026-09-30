@@ -267,7 +267,7 @@ export const ROUTES: RouteSEO[] = [
     distDir: "italmarkak",
     title: "Italmárkáknak – Légy ott a fogyasztásnál | Come Get It",
     description:
-      "Tervezett 2. fázis: első korty valódi partnerhelyen, egyeztetett ajánlattal és mérhető mérhető beváltással. Early access italmárkáknak.",
+      "Tervezett 2. fázis: első korty valódi partnerhelyen, egyeztetett ajánlattal és mérhető beváltással. Early access italmárkáknak.",
     h1: "Légy ott, amikor inni készülnek.",
     lastmod: "2026-05-06",
     priority: 0.8,
