@@ -16,3 +16,5 @@
 - [x] Replace four standalone feature scenes with a scroll-driven sticky story and four distinct anchors, including reduced-motion fallback.
 - [x] QA both languages and four requested viewports without publishing.
 - [x] Show exactly one LINK phone label during scroll crossfades; verify desktop and mobile preview without publishing.
+- [ ] Install the six supplied Web Experience v3 files verbatim without changing other site content.
+- [ ] Verify the homepage preview and automatic production build without publishing.
