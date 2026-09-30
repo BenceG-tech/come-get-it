@@ -11,3 +11,7 @@
 
 - [x] Correct v2 HU/EN public claims and independent UI-loop fallback.
 - [x] Verify CDN media and HU/EN preview flows across four requested viewports (media HTTP checks and local interactive preview; hosted preview requires Lovable sign-in).
+
+- [ ] Slow hero videos to 0.65 and make the first story continuously scroll-driven.
+- [ ] Replace four standalone feature scenes with a scroll-driven sticky story and four distinct anchors, including reduced-motion fallback.
+- [ ] QA both languages and four requested viewports without publishing.

@@ -5,10 +5,7 @@ import { MibenSegitSection } from '@/components/MibenSegitSection';
 import { PricingSection } from '@/components/PricingSection';
 import { VenuePartnerTeaser } from '@/components/VenuePartnerTeaser';
 import { ScrollStory } from '@/components/ScrollStory';
-import { DrinkSection } from '@/components/DrinkSection';
-import { LinkSection } from '@/components/LinkSection';
-import { EarnSection } from '@/components/EarnSection';
-import { GiveSection } from '@/components/GiveSection';
+import { FeatureScrollStory } from '@/components/FeatureScrollStory';
 import { BenefitsSection } from '@/components/BenefitsSection';
 import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 // FOMOSection removed — duplicated SignupForm CTA
@@ -106,10 +103,7 @@ const Index = () => {
        <ScrollStory />
       <MibenSegitSection />
       {/* QuickAccessChips eltávolítva — a 4 partner-link a /partnerek hub-on érhető el */}
-      <DrinkSection />
-       <LinkSection />
-      <EarnSection />
-      <GiveSection />
+       <FeatureScrollStory />
       <PricingSection />
       <VenuePartnerTeaser />
       <BenefitsSection />
