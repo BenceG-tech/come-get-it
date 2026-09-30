@@ -9,7 +9,7 @@ export const VenueValueSteps: React.FC = () => {
   return (
     <section className="py-14 px-4 bg-nf-background nf-section-glow" aria-label={t('venue_value.title')}>
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-anton uppercase text-nf-foreground text-center mb-9">{t('venue_value.title')}</h2>
+        <h2 className="text-3xl md:text-4xl font-anton uppercase text-foreground text-center mb-9">{t('venue_value.title')}</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {icons.map((Icon, index) => (
             <div key={index} className="border-t border-nf-primary/50 pt-5">

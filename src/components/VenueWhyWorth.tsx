@@ -6,6 +6,7 @@ import bgTeDontod from '@/assets/venue-why/te-dontod.jpg';
 import bgAdatok from '@/assets/venue-why/adatok-insight.jpg';
 import bgLokacio from '@/assets/venue-why/lokacio-push.jpg';
 import bgKilepes from '@/assets/venue-why/kockazatmentes-kilepes.jpg';
+import { useI18n } from '@/hooks/useI18n';
 
 const cards = [
   {
@@ -47,12 +48,13 @@ const cards = [
 ];
 
 export const VenueWhyWorth: React.FC = () => {
+  const { t } = useI18n();
   return (
     <section id="venue-why-worth" className="py-20 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight">
-            Miért éri meg neked?
+            {t('venue_details.why_title')}
           </h2>
         </div>
 
@@ -84,10 +86,10 @@ export const VenueWhyWorth: React.FC = () => {
               {/* Text block BELOW the image */}
               <div className="px-5 pt-4 pb-5 md:pt-5 md:pb-6 border-t border-nf-primary/20 flex-1 flex flex-col">
                 <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">
-                  {card.title}
+                    {t(`venue_details.cards.${idx + 1}.title`)}
                 </h3>
                 <p className="text-sm md:text-base text-white/65 leading-relaxed">
-                  {card.description}
+                    {t(`venue_details.cards.${idx + 1}.description`)}
                 </p>
               </div>
             </article>
