@@ -19,7 +19,6 @@
 .story-content { position:relative; z-index:2; height:100%; width:var(--experience-container); margin:0 auto; display:grid; grid-template-columns:var(--experience-text) auto; justify-content:center; align-items:center; column-gap:var(--experience-gap); }
 .story-steps { position:relative; min-height:300px; }
 .story-step { position:absolute; inset:0; opacity:0; will-change:opacity,transform; }
-.story-step.is-active { opacity:1; visibility:visible; transform:none; }
 .story-step h2 { font-size:clamp(44px,4.6vw,80px); line-height:1; }
 .story-progress { display:flex; gap:10px; margin-top:22px; }
 .story-progress-track { display:block; width:34px; height:3px; overflow:hidden; background:hsl(var(--foreground) / .2); }
@@ -30,7 +29,6 @@
 .story-phone::after { content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background:linear-gradient(115deg,hsl(var(--foreground) / .16),transparent 28%,transparent 70%,hsl(var(--primary) / .16)); }
 .story-screen { position:relative; height:100%; width:100%; overflow:hidden; border-radius:12% / 5.6%; background:hsl(var(--background)); }
 .story-screen img { position:absolute; inset:0; height:100%; width:100%; object-fit:cover; opacity:0; will-change:opacity; }
-.story-screen img.is-active { opacity:1; }
 .story-ui-loop { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; pointer-events:none; }
 .story-pins span { position:absolute; top:22%; left:50%; width:12%; aspect-ratio:1; border:2px solid hsl(var(--primary)); border-radius:50%; animation:story-ping 2.2s infinite; }
 .story-pins span:nth-child(2) { top:38%; left:40%; animation-delay:.5s; }.story-pins span:nth-child(3) { top:26%; left:57%; animation-delay:1s; }
@@ -50,7 +48,9 @@
 .feature-scroll-story .feature-scene { position:absolute; inset:0; height:100%; display:flex; align-items:center; padding:0; will-change:opacity,transform; }
 .feature-anchor { position:absolute; left:0; width:1px; height:1px; pointer-events:none; }
 .feature-anchor:nth-child(1) { top:0; }.feature-anchor:nth-child(2) { top:121.5vh; }.feature-anchor:nth-child(3) { top:243vh; }.feature-anchor:nth-child(4) { top:364.5vh; }
-.feature-scroll-story .feature-link .feature-phone { transition:none; will-change:opacity; }
+.feature-scroll-story .feature-link .feature-visual { display:block; }
+.feature-scroll-story .feature-link .feature-phone { position:absolute; left:50%; top:50%; width:min(46%,260px); transform:translate(-50%,-50%); filter:none; transition:none; will-change:opacity; }
+.feature-scroll-story .feature-link .feature-phone.is-active { transform:translate(-50%,-50%); }
 .experience-feature { position:relative; overflow:hidden; padding:14vh 0; background:hsl(var(--background)); }
 .feature-background { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.9; }
 .feature-shade { position:absolute; inset:0; background:linear-gradient(90deg,hsl(var(--background) / .9),hsl(var(--background) / .55) 50%,hsl(var(--background) / .8)); }
@@ -100,7 +100,7 @@
   .feature-scroll-story .feature-lead { font-size:clamp(20px,5.6vw,26px); margin:4px 0 8px; }
   .feature-scroll-story .feature-copy > p:not(.feature-lead) { font-size:14px; line-height:1.35; }
   .feature-scroll-story .feature-link .feature-visual { height:min(40svh,335px); }
-  .feature-scroll-story .feature-link .feature-phone { width:23%; }
+  .feature-scroll-story .feature-link .feature-phone { width:min(45%,180px); }
   .feature-scroll-story .feature-link ol { margin-top:10px; gap:4px; }
   .feature-scroll-story .feature-link li { font-size:12px; }
   .feature-scroll-story .feature-roadmap { gap:6px; margin-top:12px; }
@@ -137,6 +137,9 @@
   .feature-story-static .feature-anchor { display:none; }
   .feature-story-static .feature-scene { scroll-margin-top:80px; }
   .feature-story-static .feature-link .feature-phone { opacity:1; filter:none; }
+  .feature-story-static .feature-link .feature-visual { display:flex; align-items:center; justify-content:center; gap:2%; }
+  .feature-story-static .feature-link .feature-phone { position:relative; top:auto; left:auto; width:23%; transform:none; }
+  .feature-story-static .feature-link .feature-phone.is-active { transform:none; }
 }
 
 @media (max-width:390px) { .feature-link .feature-phone span { font-size:10px; } .feature-link li { font-size:14px; } }
