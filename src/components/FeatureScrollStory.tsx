@@ -83,8 +83,8 @@ export const FeatureScrollStory: React.FC = () => {
   const give = <div className="feature-inner"><div className="feature-copy"><h2 className="font-anton uppercase">GIVE<span className="text-primary">.</span></h2><p className="feature-lead">{t('give.subtitle')}</p><p className="text-foreground/80">{t('give.body')}</p><div className="feature-roadmap">{[1, 2, 3].map(n => <div key={n}><b>{t('give.planned')}</b><span>{t(`give.roadmap.${n}`)}</span></div>)}</div></div><div className="feature-visual" aria-hidden="true" /></div>;
   const content = [drink, link, earn, give];
   return <section ref={sectionRef} className={`feature-scroll-story text-foreground ${reduced ? 'feature-story-static' : ''}`} aria-label={t('experience.story_label')}>
-    {ids.map((id, i) => <span key={id} id={id} className="feature-anchor" aria-hidden="true" />)}
-    <div className="feature-scroll-stage">{ids.map((id, i) => <div key={id} className={`experience-feature feature-${id} ${id === 'link' || id === 'give' ? 'feature-reverse' : ''} feature-scene`} style={sceneStyle(i)} aria-hidden={!reduced && Math.round(position) !== i}>
+    {!reduced && ids.map(id => <span key={id} id={id} className="feature-anchor" aria-hidden="true" />)}
+    <div className="feature-scroll-stage">{ids.map((id, i) => <div key={id} id={reduced ? id : undefined} className={`experience-feature feature-${id} ${id === 'link' || id === 'give' ? 'feature-reverse' : ''} feature-scene`} style={sceneStyle(i)} aria-hidden={!reduced && Math.round(position) !== i}>
       {(id === 'drink' || id === 'give') && <picture><source media="(max-width:900px)" srcSet={v2[`feat-${id}-bg-mobile.webp`]} /><img className="feature-background" src={v2[`feat-${id}-bg-desktop.webp`]} alt="" loading="lazy" /></picture>}
       {(id === 'drink' || id === 'give') && <div className="feature-shade" />}
       {id === 'give' && <div className="feature-give-outline" aria-hidden="true">GIVE</div>}
