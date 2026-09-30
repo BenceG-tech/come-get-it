@@ -18,10 +18,10 @@ const Italmarkak = () => {
   const { t } = useI18n();
 
   const valueProps = [
-    { icon: Target, title: "PRECÍZ CÉLZÁS", description: "A Come Get It közössége budapesti, vendéglátóhelyekre járó fiatal felnőtt." },
-    { icon: MapPin, title: "VALÓDI HELYZET", description: "A márkád ott van, ahol a fogyasztó épp dönt — nem hirdetésen, hanem a kezében." },
-    { icon: BarChart3, title: "MÉRHETŐ HATÁS", description: "Beváltások, ízlésvisszajelzések, demográfia — minden adatot megosztunk." },
-    { icon: Rocket, title: "RUGALMAS KAMPÁNY", description: "Egy hetes kóstoltatástól országos launch-ig — együtt szabjuk a méretet." }
+    { icon: Target, title: t('brands_page.value_props.1.title'), description: t('brands_page.value_props.1.description') },
+    { icon: MapPin, title: t('brands_page.value_props.2.title'), description: t('brands_page.value_props.2.description') },
+    { icon: BarChart3, title: t('brands_page.value_props.3.title'), description: t('brands_page.value_props.3.description') },
+    { icon: Rocket, title: t('brands_page.value_props.4.title'), description: t('brands_page.value_props.4.description') }
   ];
 
   const howItWorksSteps = [
@@ -52,8 +52,8 @@ const Italmarkak = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Italmárkáknak — Digitális sampling Budapesten | Come Get It"
-        description="Mérhető brand-aktiváció valódi fogyasztási helyzetben. Az italmárka-program a 2. fázisban indul."
+        title="Italmárkáknak — Az első korty a partnerhelyen | Come Get It"
+        description="A 2. fázisban valós helyszíni kóstoltatást tervezünk: az első korty a választás pillanatában, mérhető QR-beváltással. Early access."
         canonical="/italmarkak"
         jsonLd={{
           '@context': 'https://schema.org',

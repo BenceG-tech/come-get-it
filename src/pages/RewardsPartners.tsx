@@ -88,10 +88,10 @@ const RewardsPartners = () => {
   ];
 
   const valueProps = [
-    { icon: Users, title: 'ÚJ KÖZÖNSÉG', description: 'Olyan emberekhez jutsz el, akik aktívan keresnek élményt a városban.' },
-    { icon: Gift, title: 'POZITÍV BRAND-ÉLMÉNY', description: 'A jutalom egy boldog pillanatban kapcsolódik a márkádhoz — ez a legjobb fajta marketing.' },
-    { icon: BarChart3, title: 'MÉRHETŐ BEVÁLTÁS', description: 'Pontosan látod, hányan aktiválták és használták az ajánlatodat.' },
-    { icon: Handshake, title: 'KÖZÖS KAMPÁNYOK', description: 'Hírlevél, app highlight, social media — együtt erősítjük a kampányt.' }
+    { icon: Users, title: t('rewards_page.value_props.1.title'), description: t('rewards_page.value_props.1.description') },
+    { icon: Gift, title: t('rewards_page.value_props.2.title'), description: t('rewards_page.value_props.2.description') },
+    { icon: BarChart3, title: t('rewards_page.value_props.3.title'), description: t('rewards_page.value_props.3.description') },
+    { icon: Handshake, title: t('rewards_page.value_props.4.title'), description: t('rewards_page.value_props.4.description') }
   ];
 
   const cardCls = "group relative h-full flex flex-col items-center text-center p-6 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]";
@@ -101,8 +101,8 @@ const RewardsPartners = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Rewards Partnereknek — Legyél beváltható jutalom | Come Get It"
-        description="Add a saját termékedet a Come Get It közösségnek. A rewards-program a 2. fázisban indul."
+        title="Jutalompartnereknek — Kapcsolat a látogatás után | Come Get It"
+        description="A 2. fázisban a jutalom továbbviheti a helyszíni élményt. Egyeztetett ajánlat, mérhető beváltás, garantált forgalom nélkül."
         canonical="/rewards-partners"
         jsonLd={{
           '@context': 'https://schema.org',
@@ -279,7 +279,7 @@ const RewardsPartners = () => {
       {/* Value props */}
       <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className={`${sectionTitle} mb-10`}>A jutalom-partnerség előnyei</h2>
+          <h2 className={`${sectionTitle} mb-10`}>{t('rewards_page.value_props.title')}</h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 auto-rows-fr">
             {valueProps.map((item, index) => (
