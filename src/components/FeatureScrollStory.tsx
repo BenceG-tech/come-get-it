@@ -54,9 +54,9 @@ export const FeatureScrollStory: React.FC = () => {
       const unit = (mobile.matches ? probe.getBoundingClientRect().height : innerHeight) / 100;
       const u = Math.max(0, Math.min(config.height - 100, -rect.top / unit));
       setPosition(scenePosition(u, config.hold, config.transition));
-      // The four redemption screens occupy the LINK hold and its exit transition.
+      // Reach the final redemption screen before LINK starts to fade into EARN.
       const linkStart = config.hold + config.transition;
-      setLinkPosition(clamp((u - linkStart) / (config.hold + config.transition)) * 3);
+      setLinkPosition(clamp((u - linkStart) / (config.hold * .85)) * 3);
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     window.addEventListener('scroll', schedule, { passive: true });
