@@ -34,13 +34,30 @@ export const HeroSection: React.FC = () => {
     video.play().catch(() => setPlaying(false));
   }, [videoChoice]);
 
+  // Scroll-linked hand-over into the story below: 0 at the top, 1 once the hero has scrolled away.
+  const heroRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const h = el.offsetHeight || 1;
+      el.style.setProperty('--hx', String(Math.min(1, Math.max(0, window.scrollY / h))));
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    return () => { window.removeEventListener('scroll', schedule); cancelAnimationFrame(frame); };
+  }, []);
+
   const scrollTo = (id: string, location: string, label: string) => {
     analytics.ctaClick(location, label);
     document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   };
 
   return (
-    <section className="experience-hero" aria-label={t('experience.hero_label')}>
+    <section ref={heroRef} className="experience-hero" aria-label={t('experience.hero_label')}>
       <MobileNavigation />
       <picture>
         <source media="(max-aspect-ratio: 1/1)" srcSet={v2['hero-mobile-poster.webp']} />
