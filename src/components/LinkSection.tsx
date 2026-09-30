@@ -8,17 +8,19 @@ export const LinkSection: React.FC = () => {
   const { t } = useI18n();
   const ref = useRef<HTMLElement>(null);
   const [step, setStep] = useState(0);
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => { const mq = matchMedia('(prefers-reduced-motion: reduce)'); const update = () => { setReduced(mq.matches); if (mq.matches) setStep(0); }; update(); mq.addEventListener('change',update); return () => mq.removeEventListener('change',update); }, []);
   useEffect(() => {
     const section = ref.current;
     if (!section) return;
     let timer: ReturnType<typeof setInterval> | undefined;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !matchMedia('(prefers-reduced-motion: reduce)').matches && !timer) timer = setInterval(() => setStep(n => (n+1)%4), 2200);
+      if (entry.isIntersecting && !reduced && !timer) timer = setInterval(() => setStep(n => (n+1)%4), 2200);
       else if (!entry.isIntersecting && timer) { clearInterval(timer); timer = undefined; }
     }, { threshold:.4 });
     observer.observe(section);
     return () => { observer.disconnect(); if (timer) clearInterval(timer); };
-  }, []);
+  }, [reduced]);
   return <section id="link" ref={ref} className="experience-feature feature-link feature-reverse text-foreground">
     <div className="feature-inner">
       <div className="feature-copy">
