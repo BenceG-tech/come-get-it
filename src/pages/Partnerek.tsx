@@ -77,8 +77,8 @@ const Partnerek = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Partnerek — Vendéglátóhely, italmárka, rewards | Come Get It"
-        description="Három mód, ahogyan csatlakozhatsz a Come Get It-hez: vendéglátóhelyként, italmárkaként vagy rewards-partnerként."
+        title="Partnerek — A választástól a következő élményig | Come Get It"
+        description="Időzített helyszíni ajánlat a döntés pillanatában, mérhető QR-beváltás. A 2. fázisban márkák és jutalompartnerek is csatlakozhatnak."
         canonical="/partnerek"
         jsonLd={{
           '@context': 'https://schema.org',
