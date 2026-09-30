@@ -99,7 +99,7 @@ export const ROUTES: RouteSEO[] = [
 
   <section>
     <h2>Founding Partner Program</h2>
-    <p>Az első partner vendéglátóhelyeknek külön Founding Partner Program: kedvezőbb feltételek, kiemelt megjelenés, közös PR és hosszú távú elköteleződés. A program nyitva áll bárok, kávézók és éttermek számára Budapesten. Részletek: <a href="/partnerek">/partnerek</a>.</p>
+    <p>Az ital a meghívó: a partner maga szabja meg az ajánlatot, készletet és időablakot, a Come Get It pedig a választás pillanatában segít megtalálni a helyét. A QR-beváltást mérjük; az utóköltést és visszatérést csak külön egyeztetett pilotban vizsgáljuk. A folytatás külön írásos megállapodás kérdése. Részletek: <a href="/partnerek">/partnerek</a>.</p>
   </section>
 
   <section>
@@ -183,10 +183,10 @@ export const ROUTES: RouteSEO[] = [
   {
     path: "/vendeglatohelyek",
     distDir: "vendeglatohelyek",
-    title: "Vendéglátóhelyeknek – Több vendég | Come Get It",
+    title: "Vendéglátóhelyeknek – Az ital a meghívó | Come Get It",
     description:
-      "A Come Get It segít, hogy azok találjanak rád, akik épp helyet keresnek Budapesten — az ingyen ital pedig segít, hogy téged válasszanak.",
-    h1: "Több vendég. Egyszerűbben.",
+      "Te szabod meg az ajánlatot és az időablakot; a Come Get It segít a helyválasztás pillanatában. Mérhető QR-beváltás, garantált forgalom nélkül.",
+    h1: "Az ital a meghívó. Az élményből lehet törzsvendég.",
     lastmod: "2026-05-06",
     priority: 0.8,
     changefreq: "monthly",
@@ -194,7 +194,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Vendéglátóhelyeknek – Csatlakozz a Come Get It hálózathoz</h1>
-    <p>A Come Get It jelenleg korlátozott, ingyenes bétát készít magyarországi vendéglátóhelyekkel. A partner maga állítja be az ajánlatot, készletet és időablakot; a pilot a QR-beváltásokat méri, és eredményt nem ígér előre.</p>
+     <p>Az ital a meghívó. A Come Get It segít a vendégnek a döntés pillanatában rátalálni a helyedre. A partner maga állítja be az ajánlatot, készletet, napot és időablakot; a pilot a QR-beváltásokat méri, és eredményt nem ígér előre.</p>
   </header>
 
   <section>
@@ -211,10 +211,10 @@ export const ROUTES: RouteSEO[] = [
     <h2>Miért éri meg csatlakozni</h2>
     <ul>
       <li><strong>Felfedezhetőség:</strong> a bétafelhasználók az appban láthatják az aktív partnerhelyet és ajánlatot.</li>
-      <li><strong>Hűségrendszer dobozból:</strong> nincs külön kártya vagy bélyegző, az app intézi a pontgyűjtést.</li>
+       <li><strong>Helyszíni élmény:</strong> a kiszolgálás, hangulat és további kínálat a partner kezében marad.</li>
       <li><strong>Mért beváltás:</strong> a sikeres QR-beváltások megjelennek a partner riportjában.</li>
       <li><strong>Pilotértékelés:</strong> a visszatérést és az utóköltést csak külön, előre egyeztetett módszerrel vizsgáljuk.</li>
-      <li><strong>Felfedezhetőség:</strong> kiemelt megjelenés az in-app térképen és „mit egyek/igyak ma" felfedezőben.</li>
+       <li><strong>Időzítés:</strong> az ajánlat csak az előre egyeztetett készlet és időablak szerint jelenik meg.</li>
     </ul>
   </section>
 
@@ -240,7 +240,7 @@ export const ROUTES: RouteSEO[] = [
 
   <section>
     <h2>Founding Partner Program</h2>
-    <p>Az első csatlakozó vendéglátóhelyek Founding Partner státuszt kapnak: kedvezőbb hosszú távú feltételek, kiemelt megjelenés a launchnél, közös PR és személyes account manager. Korlátozott helyek Budapesten.</p>
+     <p>Kis létszámú budapesti pilot: az ajánlatot és mérési feltételeket előre rögzítjük, a QR-beváltásokat közösen értékeljük. Hosszú távú kapcsolat csak külön írásos megállapodással jöhet létre.</p>
   </section>
 
   <section>
@@ -257,7 +257,7 @@ export const ROUTES: RouteSEO[] = [
         provider: { "@type": "Organization", name: "Come Get It" },
         areaServed: { "@type": "City", name: "Budapest" },
         description:
-          "Hűségrendszer, új vendégek és mérhető forgalom vendéglátóhelyek számára.",
+          "Időzíthető partnerajánlat a helyválasztás pillanatában és mérhető QR-beváltás; forgalmi eredmény nem garantált.",
       },
     ],
   },
@@ -267,7 +267,7 @@ export const ROUTES: RouteSEO[] = [
     distDir: "italmarkak",
     title: "Italmárkáknak – Légy ott a fogyasztásnál | Come Get It",
     description:
-      "Juttasd el az italodat azokhoz, akik épp helyet választanak Budapesten — kóstolás valódi helyzetben, mérhető eredményekkel.",
+      "Tervezett 2. fázis: első korty valódi partnerhelyen, egyeztetett ajánlattal és mérhető QR-beváltással. Early access italmárkáknak.",
     h1: "Légy ott, amikor inni készülnek.",
     lastmod: "2026-05-06",
     priority: 0.8,
@@ -276,22 +276,22 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Italmárkáknak – Mérhető fogyasztói aktiváció</h1>
-    <p>A Come Get It közvetlen csatornát ad italmárkáknak a fogyasztókhoz a fogyasztás pillanatában. Aktivációk, sponsorship és kampánymérés egy helyen.</p>
+     <p>Ne csak mutasd meg: add az első kortyot. A 2. fázisra tervezett italmárka-pilot valós partnerhelyen, a választás pillanatában mutathatja be az italt. A QR-beváltás mérhető, más eredményt előre nem ígérünk.</p>
   </header>
   <section>
     <h2>Brand aktivációs lehetőségek</h2>
     <ul>
       <li>Termékfókuszú kampányok partnerhelyeken (kóstoltatás, double points, free pour).</li>
       <li>Tervezett csomagajánlatok – a partnerhelyen elérhető ingyen ital lehet a te márkád.</li>
-      <li>In-app megjelenések, push és tematikus jutalmak.</li>
+       <li>Az appban tervezett időzített megjelenések; lokációs push jelenleg nem működik.</li>
     </ul>
   </section>
   <section>
     <h2>Kampánymérés</h2>
     <ul>
-      <li>Valós idejű adat a beváltásokról, helyszínekről, időpontokról.</li>
-      <li>Demográfiai és viselkedési insightok (anonimizálva, GDPR-konform).</li>
-      <li>Konverziós tölcsér: megjelenés → érdeklődés → beváltás.</li>
+       <li>Sikeres QR-beváltások a jóváhagyott helyszíni pilotban.</li>
+       <li>Fogyasztói visszajelzés csak külön elindított, megfelelően kezelt kampányban.</li>
+       <li>Nincs igazolt közönségarány vagy garantált kampányeredmény.</li>
     </ul>
   </section>
   <section>
@@ -316,7 +316,7 @@ export const ROUTES: RouteSEO[] = [
         provider: { "@type": "Organization", name: "Come Get It" },
         areaServed: { "@type": "Country", name: "Hungary" },
         description:
-          "Mérhető fogyasztói aktiváció és kampánymérés italmárkák számára.",
+          "Tervezett helyszíni kóstoltatási pilot italmárkáknak; QR-beváltások mérésével, garantált elérés nélkül.",
       },
     ],
   },
@@ -326,7 +326,7 @@ export const ROUTES: RouteSEO[] = [
     distDir: "rewards-partners",
     title: "Rewards Partnerek – Új közönség | Come Get It",
     description:
-      "Ajánlj jutalmat azoknak, akik Budapesten keresnek programot vagy új élményt — érj el új közönséget a Come Get It-en keresztül.",
+      "A 2. fázisban a jutalom továbbviheti a helyszíni élményt. Egyeztetett ajánlat és mérhető beváltás, garantált forgalom nélkül.",
     h1: "Legyél a következő program, amit választanak.",
     lastmod: "2026-05-06",
     priority: 0.8,
@@ -335,7 +335,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Rewards Partnerek – Kínálj jutalmat, érj el új közönséget</h1>
-    <p>A Rewards Partnerek olyan márkák, szolgáltatók és élményszolgáltatók, akik jutalmakat kínálnak a Come Get It közösségének. Cserébe új vásárlókat, márkaismertséget és mérhető beváltást kapnak.</p>
+     <p>Az ital elindíthatja a látogatást, a jutalom továbbviheti a kapcsolatot. A 2. fázisban a partner egyeztetett jutalmat kínálhat a pozitív helyszíni élmény után; a beváltás mérhető, új vásárló vagy forgalom nem garantált. A jelenlegi béta nem kapcsol bankkártyát.</p>
   </header>
   <section>
     <h2>Mit adnak a partnerek</h2>
@@ -349,7 +349,7 @@ export const ROUTES: RouteSEO[] = [
     <h2>Miért éri meg</h2>
     <ul>
       <li>Új, célzott közönség elérése extra hirdetési költség nélkül.</li>
-      <li>Mérhető beváltás: pontosan látod, ki és mikor váltotta be a jutalmat.</li>
+       <li>Mérhető beváltás a külön elindított rewards-pilotban, előre egyeztetett feltételekkel.</li>
       <li>Korlátozott, előre egyeztetett pilot valós beváltási adatokkal.</li>
     </ul>
   </section>
@@ -384,7 +384,7 @@ export const ROUTES: RouteSEO[] = [
     distDir: "partnerek",
     title: "Partnerek – Csatlakozz a Come Get It hálózathoz",
     description:
-      "Vendéglátóhelyek, italmárkák és rewards-partnerek hub: nézd meg, hogyan dolgozhatsz együtt a Come Get It-tel és kik a már csatlakozott partnerek.",
+      "A vendéglátóhely időzített ajánlata segíti a döntést, a márka első kortyot adhat, a jutalom továbbviheti a kapcsolatot. Mérhető QR-beváltás.",
     h1: "Partnerek",
     lastmod: "2026-05-06",
     priority: 0.7,
@@ -393,7 +393,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Partnerek – Dolgozz együtt a Come Get It-tel</h1>
-    <p>A Come Get It három partnertípussal dolgozik: vendéglátóhelyek, italmárkák és rewards-partnerek. Ezen az oldalon megtalálod, melyik program neked való.</p>
+     <p>Az ital a meghívó: a hely szabja meg az ajánlatot, készletet és időablakot; a Come Get It segít a helyválasztás pillanatában. A QR-beváltás mérhető, a helyszíni élményből lehet visszatérés. Italmárkák és jutalompartnerek a 2. fázisban kapcsolódhatnak be.</p>
   </header>
   <section>
     <h2>Partnertípusok</h2>
@@ -415,10 +415,10 @@ export const ROUTES: RouteSEO[] = [
   {
     path: "/come-get-it-accelerator",
     distDir: "come-get-it-accelerator",
-    title: "Come Get It Accelerator – Nőj a hálózatunkkal",
+    title: "Founding Partner Program – Teszteljük együtt | Come Get It",
     description:
-      "Az Accelerator induló vendéglátóhelyeknek és italmárkáknak: mentorálás, közös marketing, beta hozzáférés és kiemelt pozíció a Come Get It-ben.",
-    h1: "Come Get It Accelerator – Nőj a hálózatunkkal",
+      "Kis létszámú kontrollált pilot: időzített ajánlat, mérhető QR-beváltás és közös kiértékelés. Nincs garantált eredmény vagy automatikus folytatás.",
+    h1: "Ne higgy nekünk vakon. Teszteljük le együtt.",
     lastmod: "2026-05-06",
     priority: 0.7,
     changefreq: "monthly",
@@ -426,7 +426,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Come Get It Accelerator – Nőj a hálózatunkkal</h1>
-    <p>A Come Get It Accelerator egy célzott program induló és növekedési fázisban lévő vendéglátóhelyeknek és italmárkáknak. Mentorálást, közös marketinget, beta hozzáférést és kiemelt pozíciót adunk a Come Get It hálózatban.</p>
+     <p>A Founding Partner Program kis létszámú, kontrollált pilot. Nem feltételezzük, hogy az ingyen ital működik: helyenként rögzítjük az ajánlatot, készletet és időablakot, mérjük a QR-beváltást, majd közösen értékelünk. Nincs automatikus hosszú távú elköteleződés.</p>
   </header>
   <section>
     <h2>Kinek szól</h2>
@@ -439,10 +439,10 @@ export const ROUTES: RouteSEO[] = [
   <section>
     <h2>Mit adunk</h2>
     <ul>
-      <li>Személyes mentorálás vendéglátós és marketing szakértőktől.</li>
-      <li>Közös kampányok és médiamegjelenések.</li>
-      <li>Beta hozzáférés új app-funkciókhoz és adathoz.</li>
-      <li>Kiemelt pozíció a Come Get It in-app felfedezőjében.</li>
+       <li>Előre egyeztetett ajánlat, készlet, időablak és leállítási feltételek.</li>
+       <li>Helyszíni folyamat és QR-próba az indulás előtt.</li>
+       <li>Saját helyed sikeres QR-beváltásainak közös értékelése.</li>
+       <li>Utóköltés és visszatérés csak külön előre egyeztetett mérésben.</li>
     </ul>
   </section>
   <section>
