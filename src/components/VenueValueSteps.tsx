@@ -1,8 +1,8 @@
 import React from 'react';
-import { ArrowRight, HeartHandshake, ScanLine } from 'lucide-react';
+import { ArrowRight, HeartHandshake, CheckCircle2 } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
 
-const icons = [ArrowRight, HeartHandshake, ScanLine];
+const icons = [ArrowRight, HeartHandshake, CheckCircle2];
 
 export const VenueValueSteps: React.FC = () => {
   const { t } = useI18n();
