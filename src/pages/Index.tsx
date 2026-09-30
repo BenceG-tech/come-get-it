@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { MibenSegitSection } from '@/components/MibenSegitSection';
@@ -22,20 +22,7 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
-const consumerList = '/app-screens-v2/consumer/consumer-list.webp';
-const venueDetail = '/app-screens-v2/consumer/venue-detail.webp';
-const venueOffer = '/app-screens-v2/consumer/venue-offer.webp';
-const redeemArrival = '/app-screens-v2/consumer/redeem-arrival.webp';
-const redeemShow = '/app-screens-v2/consumer/redeem-show.webp';
-const redeemConfirm = '/app-screens-v2/consumer/redeem-confirm.webp';
-const rewardsList = '/app-screens-v2/rewards/rewards-list.webp';
-const rewardDetail = '/app-screens-v2/rewards/reward-detail.webp';
-const rewardsExperiences = '/app-screens-v2/rewards/rewards-experiences.webp';
-// QuickAccessChips removed from homepage — partner-link cards moved to /partnerek hub
- 
 const Index = () => {
-  const [drinkImageIndex, setDrinkImageIndex] = useState(0);
-  const [earnImageIndex, setEarnImageIndex] = useState(0);
   const { showExitIntent, hideExitIntent } = useExitIntent();
   const { toast } = useToast();
 
@@ -43,30 +30,6 @@ const Index = () => {
   useEffect(() => {
     analytics.pageView('index');
   }, []);
-
-  const drinkImages = [consumerList, venueDetail, venueOffer];
-  const linkImages = [redeemArrival, redeemShow, redeemConfirm];
-  const earnImages = [rewardsList, rewardDetail, rewardsExperiences];
-
-  useEffect(() => {
-    const drinkInterval = setInterval(() => {
-      setDrinkImageIndex((prevIndex) => 
-        (prevIndex + 1) % drinkImages.length
-      );
-    }, 4000);
-
-    return () => clearInterval(drinkInterval);
-  }, [drinkImages.length]);
-
-  useEffect(() => {
-    const earnInterval = setInterval(() => {
-      setEarnImageIndex((prevIndex) => 
-        (prevIndex + 1) % earnImages.length
-      );
-    }, 4000);
-
-    return () => clearInterval(earnInterval);
-  }, [earnImages.length]);
 
   const handleExitIntentSignup = async (email: string) => {
     const supabase = getSupabaseClient();
@@ -143,9 +106,9 @@ const Index = () => {
        <ScrollStory />
       <MibenSegitSection />
       {/* QuickAccessChips eltávolítva — a 4 partner-link a /partnerek hub-on érhető el */}
-      <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
-       <LinkSection linkImage={linkImages} />
-      <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
+      <DrinkSection />
+       <LinkSection />
+      <EarnSection />
       <GiveSection />
       <PricingSection />
       <VenuePartnerTeaser />

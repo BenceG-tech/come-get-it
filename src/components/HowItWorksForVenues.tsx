@@ -25,7 +25,7 @@ const steps = [
     number: '4',
     icon: Rocket,
     title: 'Korlátozott teszttel indulunk',
-    description: 'Az ajánlat csak a partnerprofil, személyzeti folyamat és sikeres QR-próba után jelenik meg.',
+    description: 'Az ajánlat csak a partnerprofil, személyzeti folyamat és sikeres helyszíni beváltási próba után jelenik meg.',
   },
   {
     number: '5',

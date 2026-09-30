@@ -30,7 +30,7 @@ const cards = [
   {
     icon: BarChart3,
     title: 'A beváltás a biztos adat',
-    description: 'A saját helyed sikeres QR-beváltásait látod. Utóköltést, átlagos költést és visszatérést csak külön, előre egyeztetett pilotméréssel vizsgálunk.',
+    description: 'A saját helyed sikeres beváltásait látod. Utóköltést, átlagos költést és visszatérést csak külön, előre egyeztetett pilotméréssel vizsgálunk.',
     bg: bgAdatok,
   },
   {

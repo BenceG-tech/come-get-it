@@ -44,10 +44,10 @@
     "step1_description": "Browse nearby partner venues on the map and find your next stop.",
     "step2_title": "See what's available",
     "step2_highlight": "right now.",
-    "step2_description": "Come Get It Bistro · Azure Garden Spritz · Check availability in the app.",
+    "step2_description": "Come Get It Bistro · Azure Garden Spritz · Available all day; check current stock in the app.",
     "step3_title": "Redeem it",
     "step3_highlight": "at the venue.",
-    "step3_description": "Select the offer when you arrive – venue staff scan and approve your QR code.",
+    "step3_description": "At the venue, tap “I’m here”, show the screen to staff, and they tap REDEEM on your phone.",
     "step4_title": "Stay for",
     "step4_highlight": "the experience.",
     "step4_description": "Azure Garden Spritz is just the beginning. The atmosphere is theirs.",
@@ -83,23 +83,44 @@
     "title": "DRINK.",
     "subtitle": "The first glass opens the night",
     "body": "Pick a partner venue and check which limited offers are active. Availability depends on the venue, stock and the offer window.",
-    "button": "Start tonight!"
+    "button": "Start tonight!",
+    "visual_alt": "Venue list, Bistro offer and Azure Garden Spritz"
   },
   "link": {
     "title": "LINK.",
-    "subtitle": "Secure QR redemption at the venue",
-    "body": "Select an active offer in the app. A short-lived QR code appears at the venue; staff scan and approve it in the partner portal. Payment-card linking is not part of the current beta."
+    "subtitle": "Redeem at the venue with staff approval.",
+    "body": "At the venue tap “I’m here”, show your phone to staff, and they tap REDEEM on your phone. No payment-card linking is needed.",
+    "steps": {
+      "1": "I’m here",
+      "2": "Show staff",
+      "3": "Staff tap REDEEM on your phone",
+      "4": "Cheers!"
+    },
+    "labels": {
+      "1": "Arrival",
+      "2": "Show",
+      "3": "Redeem",
+      "4": "Success"
+    },
+    "visual_alt": "Four on-site redemption steps on the guest’s phone"
   },
   "earn": {
     "title": "EARN.",
     "subtitle": "Points into experiences",
-    "body": "See points actually credited in the app and browse currently available rewards. Availability, point values and stock may vary by partner."
+    "body": "See points actually credited in the app and browse currently available rewards. Availability, point values and stock may vary by partner.",
+    "visual_alt": "Available rewards, their details and points balance"
   },
   "give": {
     "title": "GIVE.",
     "subtitle": "What we plan next.",
     "body": "We want Come Get It to give something back to the community, so a social-impact programme is on our roadmap. It is a plan for now — until it launches we promise no donation or impact.",
-    "quote": "Social responsibility matters to us, and we will only claim impact once the programme is live."
+    "quote": "Social responsibility matters to us, and we will only claim impact once the programme is live.",
+    "planned": "Planned",
+    "roadmap": {
+      "1": "A community-focused programme",
+      "2": "Joint initiatives with partner venues",
+      "3": "We will announce it here if it launches"
+    }
   },
   "pricing": {
     "title": "Free beta. Zero forints.",
@@ -111,7 +132,7 @@
       "b2": "Redeem currently available free-drink offers on site",
       "b3": "Account with email address and password",
       "b4": "View credited points and claim active rewards",
-      "b5": "Short-lived QR redemption confirmed by venue staff",
+      "b5": "On-site redemption confirmed by staff on your phone",
       "b6": "No hidden fee and no payment-card data",
       "cta": "Join the free beta"
     },
@@ -134,7 +155,7 @@
   },
   "venue_teaser": {
     "title": "The drink is the invitation. The experience can bring guests back.",
-    "subtitle": "You set the offer, stock, day and time window. Come Get It helps guests discover your venue when they decide where to go; we measure QR redemptions. What happens next depends on your venue.",
+    "subtitle": "You set the offer, stock, day and time window. Come Get It helps guests discover your venue when they decide where to go; we measure redemptions. What happens next depends on your venue.",
     "cards": {
       "1": {
         "title": "THE MOMENT OF CHOICE",
@@ -146,7 +167,7 @@
       },
       "3": {
         "title": "MEASURED REDEMPTIONS",
-        "description": "We measure successful QR redemptions. Follow-up spend and return visits require a separate agreed pilot measurement."
+        "description": "We measure successful redemptions. Follow-up spend and return visits require a separate agreed pilot measurement."
       }
     },
     "cta": "Apply for the pilot →"
@@ -193,8 +214,8 @@
         "description": "See which partner venue has an active offer."
       },
       "3": {
-        "title": "SHOW THE QR",
-        "description": "Venue staff scan and approve the short-lived QR code."
+        "title": "SHOW STAFF",
+        "description": "Venue staff scan and approve the short-lived redemption."
       },
       "4": {
         "title": "DISCOVER REWARDS",
@@ -212,7 +233,7 @@
       },
       "3": {
         "title": "REDEEM",
-        "description": "Venue staff scan the QR code shown in the app"
+        "description": "Venue staff scan the redemption shown in the app"
       },
       "4": {
         "title": "DISCOVER",
@@ -249,7 +270,7 @@
     },
     "venue": {
       "title": "VENUES",
-      "desc": "Set the offer and timing; be there when guests choose, with measurable QR redemptions."
+      "desc": "Set the offer and timing; be there when guests choose, with measurable redemptions."
     },
     "brand": {
       "title": "DRINK BRANDS",
@@ -273,7 +294,7 @@
     "link": {
       "1": "Arriving at the venue to redeem an offer",
       "2": "Showing the redemption to staff",
-      "3": "Confirming the Azure Garden Spritz QR redemption"
+      "3": "Azure Garden Spritz redemption on the guest’s phone"
     },
     "earn": {
       "1": "Available drink and experience rewards",
@@ -283,7 +304,8 @@
     "venue_offer": "Azure Garden Spritz offer and venue on the partner profile",
     "venue_detail": "Come Get It Bistro venue details",
     "redeem_confirm": "Confirming an Azure Garden Spritz redemption",
-    "rewards_list": "Available drink and experience rewards"
+    "rewards_list": "Available drink and experience rewards",
+    "guest_label": "How guests see you"
   },
   "venue_details": {
     "cards": {
@@ -301,7 +323,7 @@
       },
       "4": {
         "title": "Redemption is the reliable metric",
-        "description": "You see successful QR redemptions at your venue. Spend, average spend and return visits need a separately agreed pilot measurement."
+        "description": "You see successful redemptions at your venue. Spend, average spend and return visits need a separately agreed pilot measurement."
       },
       "5": {
         "title": "PLANNED — Nearby notifications",
@@ -327,7 +349,7 @@
       },
       "4": {
         "title": "Actual results",
-        "description": "We review actual QR redemptions rather than assuming an audience in advance."
+        "description": "We review actual redemptions rather than assuming an audience in advance."
       }
     },
     "join": {
@@ -345,16 +367,16 @@
       },
       "4": {
         "title": "We launch carefully",
-        "description": "The offer can go live after a staff walkthrough and QR test."
+        "description": "The offer can go live after a staff walkthrough and on-site redemption test."
       },
       "5": {
         "title": "We review together",
-        "description": "We assess QR redemptions; continuing requires a separate agreement."
+        "description": "We assess redemptions; continuing requires a separate agreement."
       }
     },
     "why_title": "Why partner with us?",
     "roi_title": "Let's look at the numbers",
-    "roi_body": "Before the pilot, we review the cost and limit of your offer together. The app records QR redemptions; further orders, average spend and return visits require a separate agreed measurement method. Decisions should rest on real evidence, not assumed revenue.",
+    "roi_body": "Before the pilot, we review the cost and limit of your offer together. The app records redemptions; further orders, average spend and return visits require a separate agreed measurement method. Decisions should rest on real evidence, not assumed revenue.",
     "roi_closing": "Redemptions are facts. We assess value together.",
     "audience_title": "Who we aim to reach",
     "perks_title": "Terms of the limited partner pilot",
@@ -363,7 +385,7 @@
     "perks": {
       "1": "No Come Get It platform fee during the limited pilot",
       "2": "You set the offer, stock and time window",
-      "3": "The partner view shows QR redemptions for your venue only",
+      "3": "The partner view shows redemptions for your venue only",
       "4": "We test the staff process together before launch",
       "5": "We review the pilot against agreed criteria",
       "6": "Joint communications or campaigns need separate approval",
@@ -383,7 +405,7 @@
       },
       "3": {
         "title": "Evidence",
-        "body": "QR redemptions are measured; spend and return visits need a separate pilot measurement."
+        "body": "redemptions are measured; spend and return visits need a separate pilot measurement."
       }
     }
   },
@@ -392,7 +414,7 @@
       "badge": "FOUNDING PARTNER PROGRAM — 15 SPOTS",
       "line1": "THE DRINK IS THE INVITATION.",
       "line2": "THE EXPERIENCE CAN BRING THEM BACK.",
-      "subtitle": "Come Get It shows your venue when someone is asking: where should we go? You decide what to offer, when and to how many guests. We measure QR redemptions; whether guests stay or return depends on the experience you create.",
+      "subtitle": "Come Get It shows your venue when someone is asking: where should we go? You decide what to offer, when and to how many guests. We measure redemptions; whether guests stay or return depends on the experience you create.",
       "cta": "Become a Founding Partner",
       "cta_secondary": "How it works"
     },
@@ -413,7 +435,7 @@
         },
         "4": {
           "title": "TRACK RESULTS",
-          "description": "We measure QR redemptions for your venue; spending needs a separate pilot measurement."
+          "description": "We measure redemptions for your venue; spending needs a separate pilot measurement."
         }
       }
     },
@@ -426,7 +448,7 @@
         },
         "2": {
           "title": "MEASURED REDEMPTIONS",
-          "description": "Successful QR redemptions appear in the partner report; optional follow-up spend is measured separately during the pilot."
+          "description": "Actual redemptions are measurable; follow-up spend needs a separately agreed pilot measurement."
         },
         "3": {
           "title": "NO DISCOUNTING",
@@ -434,7 +456,7 @@
         },
         "4": {
           "title": "REDEMPTIONS / TRAFFIC REPORTS",
-          "description": "Clear QR redemption reports; spending and return visits require a separately agreed pilot."
+          "description": "Clear measured redemption reports; spending and return visits require a separately agreed pilot."
         },
         "5": {
           "title": "BE THERE WHEN PEOPLE PICK A PLACE",
@@ -475,7 +497,7 @@
       },
       "3": {
         "title": "MEASURED REDEMPTION",
-        "description": "We measure QR redemption; feedback requires a separately managed campaign."
+        "description": "We measure measured redemption; feedback requires a separately managed campaign."
       },
       "4": {
         "title": "JOINT PLANNING",
@@ -485,7 +507,7 @@
     "hero": {
       "line1": "DON'T JUST SHOW IT.",
       "line2": "OFFER THE FIRST SIP.",
-      "subtitle": "In phase 2, your brand can appear at a real partner venue when guests make a real choice. QR redemptions are measurable; consumer feedback requires a separately launched, appropriately managed campaign.",
+      "subtitle": "In phase 2, your brand can appear at a real partner venue when guests make a real choice. redemptions are measurable; consumer feedback requires a separately launched, appropriately managed campaign.",
       "phase_note": "Phase 2 — early access. Drink-brand activations are planned after venue pilots as individually agreed campaigns. No ready-made campaign audience or guaranteed reach.",
       "cta": "Let's talk"
     },
@@ -506,7 +528,7 @@
         },
         "4": {
           "title": "REVIEW TOGETHER",
-          "description": "Decide whether to continue together after real QR results."
+          "description": "Decide whether to continue together after measured redemption results."
         }
       }
     },
@@ -526,8 +548,8 @@
           "description": "Custom tastings and timed placements require a separate agreement."
         },
         "4": {
-          "title": "QR REDEMPTION MEASUREMENT",
-          "description": "We measure QR redemptions. Other outcomes require a separate agreed pilot method."
+          "title": "MEASURED REDEMPTIONS",
+          "description": "We measure redemptions. Other outcomes require a separate agreed pilot method."
         },
         "5": {
           "title": "TASTING IN A REAL SITUATION",
@@ -684,7 +706,7 @@
       },
       "3": {
         "title": "We prepare the test",
-        "description": "We check the staff process and QR flow together."
+        "description": "We check the staff process and on-site redemption flow together."
       },
       "4": {
         "title": "We launch carefully",
@@ -692,7 +714,7 @@
       },
       "5": {
         "title": "We review the results",
-        "description": "We assess QR redemptions together; other business measurements need a separate agreement."
+        "description": "We assess redemptions together; other business measurements need a separate agreement."
       }
     },
     "pilot_labels": {
@@ -700,12 +722,12 @@
       "why": "What a controlled pilot means",
       "join1": "Test with us",
       "join2": "on a small scale",
-      "join_body": "We measure QR redemptions per venue and decide together whether to continue."
+      "join_body": "We measure redemptions per venue and decide together whether to continue."
     },
     "hero": {
       "line1": "DON'T TAKE OUR WORD FOR IT.",
       "line2": "LET'S TEST IT TOGETHER.",
-      "subtitle": "The Founding Partner Program is a small, controlled test, not an assumption that a free drink works. We agree on the offer and time window, measure QR redemptions per venue and review results together. No automatic long-term commitment.",
+      "subtitle": "The Founding Partner Program is a small, controlled test, not an assumption that a free drink works. We agree on the offer and time window, measure redemptions per venue and review results together. No automatic long-term commitment.",
       "cta": "Apply now!"
     },
     "how_it_works": {
@@ -810,10 +832,10 @@
       "venues": {
         "phase": "PHASE 1 — LAUNCH",
         "title": "Are you a venue?",
-        "description": "The drink is the invitation: your venue can appear when guests choose where to go. You set the offer, stock and time window; we measure QR redemptions. The experience is yours to deliver.",
+        "description": "The drink is the invitation: your venue can appear when guests choose where to go. You set the offer, stock and time window; we measure redemptions. The experience is yours to deliver.",
         "bullets": {
           "1": "You decide the offer, stock and timing",
-          "2": "QR redemptions for your venue are measurable",
+          "2": "redemptions for your venue are measurable",
           "3": "Spend and return visits only in a separate agreed pilot"
         },
         "cta": "Details"
@@ -824,7 +846,7 @@
         "description": "A first sip instead of an ad: in phase 2, your brand could appear at a partner venue when guests choose and consume.",
         "bullets": {
           "1": "Limited tasting pilot agreed in advance",
-          "2": "Trial measured through QR redemptions",
+          "2": "Trial measured through redemptions",
           "3": "Feedback only from a separately launched campaign"
         },
         "cta": "Details"
@@ -950,7 +972,7 @@
           },
           "hogyan_juthatsz": {
             "title": "How to claim a free drink?",
-            "content": "Check the partner venues and active offers in the app. Offers depend on stock, opening hours and the configured time window.\n\nAt the venue, select the offer. The app shows a short-lived QR code; staff scan and approve it in the partner portal. The app then confirms a successful redemption.\n\nNever send or publicly share the full QR code or redemption secret."
+            "content": "Check the partner venues and active offers in the app. Offers depend on stock, opening hours and the configured time window.\n\nAt the venue, select the offer. The app shows a short-lived redemption; staff scan and approve it in the partner portal. The app then confirms a successful redemption.\n\nNever send or publicly share the full redemption or redemption secret."
           },
           "miert_nem_latok": {
             "title": "Why don’t I see offers right now?",
@@ -995,7 +1017,7 @@
           },
           "biztonsag": {
             "title": "Is my data secure?",
-            "content": "Authentication and app data are protected with access controls and encrypted transport. The current beta does not collect payment-card data. Never send your password, complete QR code or redemption secret by email or chat."
+            "content": "Authentication and app data are protected with access controls and encrypted transport. The current beta does not collect payment-card data. Never send your password, complete redemption or redemption secret by email or chat."
           },
           "kartya_frissitese": {
             "title": "How can I update my card details?",
@@ -1015,7 +1037,7 @@
           },
           "miert_nem_kaptam_pontot": {
             "title": "Why didn’t I receive points for a transaction?",
-            "content": "The current beta does not automatically award points for payment-card transactions. If an already credited balance or reward appears incorrectly, email gataibence@gmail.com and never send full QR codes or card details."
+            "content": "The current beta does not automatically award points for payment-card transactions. If an already credited balance or reward appears incorrectly, email gataibence@gmail.com and never send full redemptions or card details."
           }
         }
       },

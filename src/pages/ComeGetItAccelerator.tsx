@@ -4,14 +4,12 @@ import { Footer } from '@/components/Footer';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
-import { PhoneMockup } from '@/components/PhoneMockup';
-import { HeroBackground, PhoneGlowWrapper } from '@/components/HeroBackground';
+import { HeroBackground } from '@/components/HeroBackground';
 import { ArrowRight, MessageCircle, Rocket, FileSignature, UserCog, Gift, Award, Wallet, Megaphone, Handshake } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
-const redeemConfirm = '/app-screens-v2/consumer/redeem-confirm.webp';
 
 const ComeGetItAccelerator = () => {
   const { t } = useI18n();
@@ -80,7 +78,7 @@ const ComeGetItAccelerator = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Founding Partner Program — Teszteljük együtt | Come Get It"
-        description="Kis létszámú, kontrollált pilot: időzített ajánlat, mérhető QR-beváltás és közös kiértékelés. Automatikus hosszú távú elköteleződés nélkül."
+        description="Kis létszámú, kontrollált pilot: időzített ajánlat, mérhető beváltás és közös kiértékelés. Automatikus hosszú távú elköteleződés nélkül."
         canonical="/come-get-it-accelerator"
         jsonLd={{
           '@context': 'https://schema.org',
@@ -130,9 +128,12 @@ const ComeGetItAccelerator = () => {
               </Button>
             </div>
 
-            <PhoneGlowWrapper>
-              <PhoneMockup imageUrl={redeemConfirm} alt={t('screens.redeem_confirm')} fit="contain" />
-            </PhoneGlowWrapper>
+            <div className="relative border-l border-nf-primary/40 pl-8 md:pl-12 py-8 space-y-6">
+              {howItWorksSteps.map((step) => <div key={step.number} className="flex gap-5 items-start">
+                <span className="font-anton text-4xl text-nf-primary">{step.number.padStart(2, '0')}</span>
+                <div><h2 className="font-anton uppercase text-xl md:text-2xl">{step.title}</h2><p className="text-sm text-white/65 mt-1">{step.description}</p></div>
+              </div>)}
+            </div>
           </div>
         </div>
       </section>

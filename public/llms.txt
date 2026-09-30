@@ -8,7 +8,7 @@ A Come Get It egy magyar fejlesztésű mobilalkalmazás, amely segít a felhaszn
 
 Az indulás Budapesten kezdődik, később országos terjeszkedés Magyarországon. Célközönség: 18–45 éves városi, vendéglátó-aktív közönség. Státusz: ingyenes bétaverzió; a weboldalon várólista (waitlist) is nyitva.
 
-A partnerérték lényege: az ital a meghívó. A vendéglátóhely az ajánlatot, készletet, napot és időablakot maga szabja meg; a Come Get It a helyválasztás pillanatában segít a vendéget a helyhez terelni, és a sikeres QR-beváltást méri. Az utóköltés, átlagos költés és visszatérés csak külön egyeztetett pilotméréssel vizsgálható; vendégszámot és bevételt nem garantálunk. A helyszíni élmény a partner kezében van.
+A partnerérték lényege: az ital a meghívó. A vendéglátóhely az ajánlatot, készletet, napot és időablakot maga szabja meg; a Come Get It a helyválasztás pillanatában segít a vendéget a helyhez terelni, és a sikeres beváltást méri. Az utóköltés, átlagos költés és visszatérés csak külön egyeztetett pilotméréssel vizsgálható; vendégszámot és bevételt nem garantálunk. A helyszíni élmény a partner kezében van.
 
 Az 1. fázis a korlátozott vendéglátóhely-pilot. A 2. fázisra tervezett italmárka-aktiváció valós helyszínen adhat első kortyot; a jutalompartner ajánlata a látogatás után folytathatja a márkakapcsolatot. Ezekre most early access jelentkezés lehetséges, nem működő kampányként hirdetjük őket. A béta nem kapcsol bankkártyát. Alkoholos ajánlatok: 18+, felelős fogyasztás.
 

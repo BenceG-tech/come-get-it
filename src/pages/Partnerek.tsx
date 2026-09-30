@@ -6,6 +6,7 @@ import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
 import { HeroBackground } from '@/components/HeroBackground';
+import { v2 } from '@/lib/web-experience-v2';
 import { ArrowRight, Check, Store, Wine, Gift, Rocket, type LucideIcon } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
@@ -78,7 +79,7 @@ const Partnerek = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Partnerek — A választástól a következő élményig | Come Get It"
-        description="Időzített helyszíni ajánlat a döntés pillanatában, mérhető QR-beváltás. A 2. fázisban márkák és jutalompartnerek is csatlakozhatnak."
+        description="Időzített helyszíni ajánlat a döntés pillanatában, mérhető beváltás. A 2. fázisban márkák és jutalompartnerek is csatlakozhatnak."
         canonical="/partnerek"
         jsonLd={{
           '@context': 'https://schema.org',
@@ -149,6 +150,10 @@ const Partnerek = () => {
                         ))}
                       </ul>
 
+                      {s.key !== 'brands' && <figure className="mb-6 flex flex-col items-center md:items-start gap-2">
+                        <figcaption className="text-xs uppercase text-nf-primary">{s.key === 'venues' ? t('screens.guest_label') : t('screens.earn.2')}</figcaption>
+                        <img src={s.key === 'venues' ? v2['venue-detail.webp'] : v2['reward-detail.webp']} alt={s.key === 'venues' ? `${t('screens.guest_label')} — ${t('screens.venue_detail')}` : t('screens.earn.2')} className="w-28 sm:w-32 aspect-[920/2000] object-contain rounded-2xl border border-nf-primary/30" loading="lazy" width={920} height={2000} />
+                      </figure>}
                       <div>
                         <Button
                           variant="neon"

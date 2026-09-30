@@ -44,10 +44,10 @@
     "step1_description": "Térkép a közeli partnerhelyekkel – egy pillantás, és látod, hova érdemes menni.",
     "step2_title": "Lásd, mi érhető el",
     "step2_highlight": "most.",
-    "step2_description": "Come Get It Bistro · Azure Garden Spritz · Az ajánlat elérhetősége az appban látható.",
+    "step2_description": "Come Get It Bistro · Azure Garden Spritz · Egész nap elérhető; nézd meg az appban az aktuális készletet.",
     "step3_title": "Váltsd be",
     "step3_highlight": "a helyszínen.",
-    "step3_description": "Ha ott vagy, válaszd ki az ajánlatot – a pultos beolvassa és jóváhagyja a QR-kódot.",
+    "step3_description": "Ha ott vagy: „Itt vagyok”, mutasd meg a pultosnak, és ő a telefonodon megnyomja a BEVÁLTOM gombot.",
     "step4_title": "Maradj",
     "step4_highlight": "az élményért.",
     "step4_description": "Az Azure Garden Spritz csak a kezdet. A hangulat a helyé.",
@@ -83,23 +83,44 @@
     "title": "DRINK.",
     "subtitle": "Az első pohár nyitja az estét.",
     "body": "Válassz egy helyet, nézd meg, van-e ott épp elérhető ingyen ital, és tedd emlékezetessé a nap első körét. Az ajánlatok helyenként és naponta változnak.",
-    "button": "Jövök a körre! 🍻"
+    "button": "Jövök a körre! 🍻",
+    "visual_alt": "Partnerhelylista, Bistro-ajánlat és Azure Garden Spritz"
   },
   "link": {
     "title": "LINK.",
-    "subtitle": "Biztonságos QR-beváltás a helyszínen.",
-    "body": "Válaszd ki az elérhető ajánlatot az appban. A helyszínen egy rövid ideig érvényes QR-kód jelenik meg, amelyet a pultos a partnerfelületen beolvas és jóváhagy. Bankkártya-összekapcsolás nincs a jelenlegi bétában."
+    "subtitle": "Beváltás a helyszínen, a pultos jóváhagyásával.",
+    "body": "A helyszínen nyomd meg az „Itt vagyok” gombot, mutasd meg a telefonodat a pultosnak, és ő a telefonodon megnyomja a BEVÁLTOM gombot. Nincs bankkártya-összekapcsolás.",
+    "steps": {
+      "1": "Itt vagyok",
+      "2": "Mutasd a pultosnak",
+      "3": "A pultos megnyomja a BEVÁLTOM gombot",
+      "4": "Egészségedre!"
+    },
+    "labels": {
+      "1": "Érkezés",
+      "2": "Mutasd",
+      "3": "Beváltás",
+      "4": "Siker"
+    },
+    "visual_alt": "Helyszíni beváltás négy lépésben a vendég telefonján"
   },
   "earn": {
     "title": "EARN.",
     "subtitle": "Pontokból élmények.",
-    "body": "Nézd meg az appban jóváírt pontjaidat és az éppen elérhető jutalmakat. A kínálat, a pontérték és a készlet partnerenként változhat."
+    "body": "Nézd meg az appban jóváírt pontjaidat és az éppen elérhető jutalmakat. A kínálat, a pontérték és a készlet partnerenként változhat.",
+    "visual_alt": "Elérhető jutalmak, részleteik és pontegyenleg"
   },
   "give": {
     "title": "GIVE.",
     "subtitle": "Amit hosszú távon tervezünk.",
     "body": "Célunk, hogy a Come Get It a közösségnek is visszaadjon: társadalmi célú programot tervezünk a jövőre. Ez jelenleg terv — amíg nem indul el, nem ígérünk hozzá kapcsolódó hatást vagy adományt.",
-    "quote": ""
+    "quote": "",
+    "planned": "Terv",
+    "roadmap": {
+      "1": "Közösségi, társadalmi célú program",
+      "2": "Közös kezdeményezések a partnerhelyekkel",
+      "3": "Ha elindul, itt szólunk először"
+    }
   },
   "pricing": {
     "title": "Ingyenes béta. Nulla forint.",
@@ -111,7 +132,7 @@
       "b2": "Épp elérhető ingyen italok beváltása a helyszínen",
       "b3": "Fiók e-mail címmel és jelszóval",
       "b4": "Pontgyűjtés és jutalmak igénylése",
-      "b5": "Küldetések és új helyek felfedezése",
+      "b5": "Helyszíni beváltás a pultos jóváhagyásával",
       "b6": "Nincs rejtett költség, nincs bankkártya",
       "cta": "Regisztrálok ingyen"
     },
@@ -134,7 +155,7 @@
   },
   "venue_teaser": {
     "title": "Az ital a meghívó. Az élményből lehet törzsvendég.",
-    "subtitle": "Te szabod meg az ajánlatot, a készletet, a napot és az időablakot. A Come Get It a döntés pillanatában segít hozzád terelni a vendéget; a QR-beváltást mérjük. A folytatás a helyed élményén múlik.",
+    "subtitle": "Te szabod meg az ajánlatot, a készletet, a napot és az időablakot. A Come Get It a döntés pillanatában segít hozzád terelni a vendéget; a beváltást mérjük. A folytatás a helyed élményén múlik.",
     "cards": {
       "1": {
         "title": "A DÖNTÉS PILLANATA",
@@ -146,7 +167,7 @@
       },
       "3": {
         "title": "MÉRHETŐ BEVÁLTÁS",
-        "description": "A sikeres QR-beváltásokat mérjük. Utóköltést és visszatérést csak külön, egyeztetett pilotmérésben vizsgálunk."
+        "description": "A sikeres beváltásokat mérjük. Utóköltést és visszatérést csak külön, egyeztetett pilotmérésben vizsgálunk."
       }
     },
     "cta": "Jelentkezem a pilotra →"
@@ -193,8 +214,8 @@
         "description": "Lásd, melyik partnerhelyen vár ma ingyen ital."
       },
       "3": {
-        "title": "MUTASD A QR-T",
-        "description": "A rövid ideig érvényes QR-kódot a pultos olvassa be és hagyja jóvá."
+        "title": "MUTASD A PULTOSNAK",
+        "description": "A rövid ideig érvényes beváltást a pultos olvassa be és hagyja jóvá."
       },
       "4": {
         "title": "FEDEZD FEL A JUTALMAKAT",
@@ -212,7 +233,7 @@
       },
       "3": {
         "title": "VÁLTSD BE",
-        "description": "A pultos beolvassa az appban megjelenő QR-kódot"
+        "description": "A pultos beolvassa az appban megjelenő beváltást"
       },
       "4": {
         "title": "FEDEZD FEL",
@@ -249,7 +270,7 @@
     },
     "venue": {
       "title": "VENDÉGLÁTÓHELYEK",
-      "desc": "Te időzíted az ajánlatot; a döntés pillanatában megjelenhetsz, a QR-beváltás mérhető."
+      "desc": "Te időzíted az ajánlatot; a döntés pillanatában megjelenhetsz, a beváltás mérhető."
     },
     "brand": {
       "title": "ITALMÁRKÁK",
@@ -273,7 +294,7 @@
     "link": {
       "1": "Helyszínre érkezés a beváltás első lépéseként",
       "2": "Beváltás bemutatása a pultosnak",
-      "3": "Azure Garden Spritz QR-beváltás megerősítése"
+      "3": "Azure Garden Spritz beváltás a vendég telefonján"
     },
     "earn": {
       "1": "Elérhető ital- és élményjutalmak",
@@ -283,7 +304,8 @@
     "venue_offer": "Azure Garden Spritz ajánlat és helyszín a partnerprofilon",
     "venue_detail": "Come Get It Bistro partnerhely részletei",
     "redeem_confirm": "Azure Garden Spritz beváltásának megerősítése",
-    "rewards_list": "Elérhető ital- és élményjutalmak"
+    "rewards_list": "Elérhető ital- és élményjutalmak",
+    "guest_label": "Így látják a vendégeid"
   },
   "venue_details": {
     "cards": {
@@ -301,7 +323,7 @@
       },
       "4": {
         "title": "A beváltás a biztos adat",
-        "description": "A saját helyed sikeres QR-beváltásait látod. Utóköltést, átlagos költést és visszatérést csak külön, előre egyeztetett pilotméréssel vizsgálunk."
+        "description": "A saját helyed sikeres beváltásait látod. Utóköltést, átlagos költést és visszatérést csak külön, előre egyeztetett pilotméréssel vizsgálunk."
       },
       "5": {
         "title": "HAMAROSAN — Lokáció-alapú push",
@@ -327,7 +349,7 @@
       },
       "4": {
         "title": "Tényleges eredmények",
-        "description": "A pilot eredményét valós QR-beváltásokon ellenőrizzük, nem előre feltételezett közönségen."
+        "description": "A pilot eredményét valós beváltásokon ellenőrizzük, nem előre feltételezett közönségen."
       }
     },
     "join": {
@@ -345,16 +367,16 @@
       },
       "4": {
         "title": "Korlátozott teszttel indulunk",
-        "description": "A pultos folyamat és a QR-próba után indulhat az ajánlat."
+        "description": "A pultos folyamat és a helyszíni beváltási próba után indulhat az ajánlat."
       },
       "5": {
         "title": "Közösen kiértékeljük",
-        "description": "A QR-beváltásokat együtt nézzük meg; a folytatáshoz külön megállapodás kell."
+        "description": "A beváltásokat együtt nézzük meg; a folytatáshoz külön megállapodás kell."
       }
     },
     "why_title": "Miért éri meg neked?",
     "roi_title": "Számoljunk együtt",
-    "roi_body": "A pilot előtt együtt végignézzük az ajánlat önköltségét és az általad vállalt keretet. A rendszer a QR-beváltást rögzíti; az esetleges további rendelést, átlagos költést és visszatérést csak külön, előre egyeztetett mérési módszerrel vizsgáljuk. Így a döntésed valós adatokon alapulhat, nem feltételezett bevételen.",
+    "roi_body": "A pilot előtt együtt végignézzük az ajánlat önköltségét és az általad vállalt keretet. A rendszer a beváltást rögzíti; az esetleges további rendelést, átlagos költést és visszatérést csak külön, előre egyeztetett mérési módszerrel vizsgáljuk. Így a döntésed valós adatokon alapulhat, nem feltételezett bevételen.",
     "roi_closing": "A beváltás tény. A megtérülést együtt vizsgáljuk.",
     "audience_title": "Kit célzunk",
     "perks_title": "A korlátozott partnerpilot feltételei",
@@ -363,7 +385,7 @@
     "perks": {
       "1": "A korlátozott pilot alatt nincs Come Get It platformdíj",
       "2": "Te állítod be az ajánlatot, a készletet és az időablakot",
-      "3": "A partnerfelület csak a saját helyed QR-beváltásait mutatja",
+      "3": "A partnerfelület csak a saját helyed beváltásait mutatja",
       "4": "A pultos folyamatot indulás előtt együtt teszteljük",
       "5": "A pilot eredményeit közösen, előre rögzített szempontok szerint értékeljük",
       "6": "Közös kommunikáció vagy kampány csak külön jóváhagyással indul",
@@ -383,7 +405,7 @@
       },
       "3": {
         "title": "Bizonyíték",
-        "body": "A QR-beváltás mérhető; utóköltés és visszatérés csak külön pilotméréssel."
+        "body": "A beváltás mérhető; utóköltés és visszatérés csak külön pilotméréssel."
       }
     }
   },
@@ -392,7 +414,7 @@
       "badge": "FOUNDING PARTNER PROGRAM — 15 HELY",
       "line1": "AZ ITAL A MEGHÍVÓ.",
       "line2": "AZ ÉLMÉNYBŐL LEHET TÖRZSVENDÉG.",
-      "subtitle": "A Come Get It akkor mutatja meg a helyedet, amikor valaki éppen azt kérdezi: hova menjünk? Te döntöd el, mit, mikor és hány embernek ajánlasz fel. Mi mérjük a QR-beváltást; hogy a vendég marad-e és visszatér-e, azt a helyed élménye dönti el.",
+      "subtitle": "A Come Get It akkor mutatja meg a helyedet, amikor valaki éppen azt kérdezi: hova menjünk? Te döntöd el, mit, mikor és hány embernek ajánlasz fel. Mi mérjük a beváltást; hogy a vendég marad-e és visszatér-e, azt a helyed élménye dönti el.",
       "cta": "Jelentkezem a pilotra",
       "cta_secondary": "Hogyan működik?"
     },
@@ -413,7 +435,7 @@
         },
         "4": {
           "title": "KÖVESD AZ EREDMÉNYEKET",
-          "description": "A saját helyed QR-beváltásait mérjük; utóköltéshez külön pilotmérés kell."
+          "description": "A saját helyed beváltásait mérjük; utóköltéshez külön pilotmérés kell."
         }
       }
     },
@@ -426,7 +448,7 @@
         },
         "2": {
           "title": "MÉRT BEVÁLTÁS",
-          "description": "Minden sikeres beváltás rögzül a partnerriportban. Az utóköltést a pilotban külön, egyeztetett módszerrel mérjük."
+          "description": "A tényleges beváltások mérhetők; az utóköltés külön, előre egyeztetett pilotmérés."
         },
         "3": {
           "title": "ÉLMÉNYKERESŐ KÖZÖNSÉG",
@@ -434,7 +456,7 @@
         },
         "4": {
           "title": "BEVÁLTÁS/ FORGALOM RIPORTOK",
-          "description": "Átlátható jelentés a QR-beváltásokról; forgalom és visszatérés csak külön egyeztetett pilotban vizsgálható."
+          "description": "Átlátható jelentés a beváltásokról; forgalom és visszatérés csak külön egyeztetett pilotban vizsgálható."
         },
         "5": {
           "title": "LEGYÉL OTT, AMIKOR HELYET KERESNEK",
@@ -475,7 +497,7 @@
       },
       "3": {
         "title": "MÉRHETŐ BEVÁLTÁS",
-        "description": "A QR-beváltást mérjük; visszajelzés csak külön kezelt kampányban gyűjthető."
+        "description": "A beváltást mérjük; visszajelzés csak külön kezelt kampányban gyűjthető."
       },
       "4": {
         "title": "KÖZÖS TERVEZÉS",
@@ -485,7 +507,7 @@
     "hero": {
       "line1": "NE CSAK MUTASD MEG.",
       "line2": "ADD AZ ELSŐ KORTYOT.",
-      "subtitle": "A 2. fázisban márkád valódi partnerhelyen, valós választási és fogyasztási pillanatban mutatkozhat be. A QR-beváltás mérhető; fogyasztói visszajelzést csak külön elindított, megfelelően kezelt kampányban vizsgálunk.",
+      "subtitle": "A 2. fázisban márkád valódi partnerhelyen, valós választási és fogyasztási pillanatban mutatkozhat be. A beváltás mérhető; fogyasztói visszajelzést csak külön elindított, megfelelően kezelt kampányban vizsgálunk.",
       "phase_note": "2. fázis — early access. Az italmárka-aktivációkat a helyszíni pilotok után, előre egyeztetett kampányként tervezzük. Nincs kész kampányadatbázis vagy garantált elérés.",
       "cta": "Beszéljünk"
     },
@@ -506,7 +528,7 @@
         },
         "4": {
           "title": "ÉRTÉKELJÜK EGYÜTT",
-          "description": "A folytatásról a valós QR-beváltások után közösen döntünk."
+          "description": "A folytatásról a valós beváltások után közösen döntünk."
         }
       }
     },
@@ -526,8 +548,8 @@
           "description": "Egyedi kóstoltatást és időzített megjelenést csak külön egyeztetés után indítunk."
         },
         "4": {
-          "title": "QR-BEVÁLTÁS MÉRÉSE",
-          "description": "A QR-beváltásokat mérjük. Más hatást csak külön megállapított pilotmódszerrel vizsgálunk."
+          "title": "MÉRHETŐ BEVÁLTÁS",
+          "description": "A beváltásokat mérjük. Más hatást csak külön megállapított pilotmódszerrel vizsgálunk."
         },
         "5": {
           "title": "KÓSTOLÁS VALÓDI HELYZETBEN",
@@ -684,7 +706,7 @@
       },
       "3": {
         "title": "Előkészítjük a tesztet",
-        "description": "A helyszíni folyamatot és a személyzeti QR-próbát együtt ellenőrizzük."
+        "description": "A helyszíni folyamatot és a helyszíni beváltási próbát együtt ellenőrizzük."
       },
       "4": {
         "title": "Korlátozottan indulunk",
@@ -692,7 +714,7 @@
       },
       "5": {
         "title": "Kiértékeljük",
-        "description": "A QR-beváltást közösen vizsgáljuk; további üzleti mérést külön egyeztetünk."
+        "description": "A beváltást közösen vizsgáljuk; további üzleti mérést külön egyeztetünk."
       }
     },
     "pilot_labels": {
@@ -700,12 +722,12 @@
       "why": "Mit jelent a kontrollált pilot?",
       "join1": "Tesztelj velünk",
       "join2": "kis léptékben",
-      "join_body": "Helyenként mérjük a QR-beváltást; a folytatásról együtt döntünk."
+      "join_body": "Helyenként mérjük a beváltást; a folytatásról együtt döntünk."
     },
     "hero": {
       "line1": "NE HIGGY NEKÜNK VAKON.",
       "line2": "TESZTELJÜK LE EGYÜTT.",
-      "subtitle": "A Founding Partner Program kis létszámú bizonyítás, nem ígéret az ingyen ital sikerére. Helyenként egyeztetjük az ajánlatot és időablakot, mérjük a QR-beváltást, majd közösen értékelünk. Nincs automatikus hosszú távú elköteleződés.",
+      "subtitle": "A Founding Partner Program kis létszámú bizonyítás, nem ígéret az ingyen ital sikerére. Helyenként egyeztetjük az ajánlatot és időablakot, mérjük a beváltást, majd közösen értékelünk. Nincs automatikus hosszú távú elköteleződés.",
       "cta": "Jelentkezz most!"
     },
     "how_it_works": {
@@ -810,10 +832,10 @@
       "venues": {
         "phase": "1. FÁZIS — INDULÁS",
         "title": "Vendéglátóhely vagy?",
-        "description": "Az ital a meghívó: a helyed a döntés pillanatában jelenhet meg. Te szabod meg az ajánlatot, készletet és időablakot; mi mérjük a QR-beváltást. Az élmény a te kezedben van.",
+        "description": "Az ital a meghívó: a helyed a döntés pillanatában jelenhet meg. Te szabod meg az ajánlatot, készletet és időablakot; mi mérjük a beváltást. Az élmény a te kezedben van.",
         "bullets": {
           "1": "Te döntesz az ajánlatról, a készletről és az időzítésről",
-          "2": "Saját helyed QR-beváltásai mérhetők",
+          "2": "Saját helyed beváltásai mérhetők",
           "3": "Utóköltés és visszatérés csak külön pilotmérésben"
         },
         "cta": "Részletek"
@@ -824,7 +846,7 @@
         "description": "Reklám helyett első korty: a 2. fázisban márkád partnerhelyen, valódi választási és fogyasztási helyzetben jelenhet meg.",
         "bullets": {
           "1": "Egyeztetett, korlátozott kóstoltatási pilot",
-          "2": "QR-beváltás alapján mérhető kipróbálás",
+          "2": "beváltás alapján mérhető kipróbálás",
           "3": "Visszajelzés csak külön elindított kampányban"
         },
         "cta": "Részletek"
@@ -950,7 +972,7 @@
           },
           "hogyan_juthatsz": {
             "title": "Hogyan juthatsz hozzá egy ingyen italhoz?",
-            "content": "Nézd meg az appban a partnerhelyeket és az éppen aktív ajánlatokat. Az ajánlatok készlettől, időablaktól és nyitvatartástól függnek.\n\nA helyszínen válaszd ki az ajánlatot. Az app rövid ideig érvényes QR-kódot mutat; ezt a pultos a partnerfelületen beolvassa és jóváhagyja. A sikeres beváltást az app visszaigazolja.\n\nA teljes QR-kódot vagy beváltási titkot ne küldd el másnak, és ne oszd meg képernyőképen."
+            "content": "Nézd meg az appban a partnerhelyeket és az éppen aktív ajánlatokat. Az ajánlatok készlettől, időablaktól és nyitvatartástól függnek.\n\nA helyszínen válaszd ki az ajánlatot. Az app rövid ideig érvényes beváltást mutat; ezt a pultos a partnerfelületen beolvassa és jóváhagyja. A sikeres beváltást az app visszaigazolja.\n\nA teljes beváltást vagy beváltási titkot ne küldd el másnak, és ne oszd meg képernyőképen."
           },
           "miert_nem_latok": {
             "title": "Miért nem látok most ital ajánlatokat?",
@@ -995,7 +1017,7 @@
           },
           "biztonsag": {
             "title": "Biztonságosak az adataim?",
-            "content": "A bejelentkezést és az alkalmazás adatait jogosultság-ellenőrzéssel és titkosított adatátvitellel védjük. A jelenlegi béta nem kér bankkártyaadatot. Jelszót, teljes QR-kódot vagy beváltási titkot soha ne küldj el e-mailben vagy chatben."
+            "content": "A bejelentkezést és az alkalmazás adatait jogosultság-ellenőrzéssel és titkosított adatátvitellel védjük. A jelenlegi béta nem kér bankkártyaadatot. Jelszót, teljes beváltást vagy beváltási titkot soha ne küldj el e-mailben vagy chatben."
           },
           "kartya_frissitese": {
             "title": "Hogyan frissíthetem a kártyaadataimat?",
@@ -1015,7 +1037,7 @@
           },
           "miert_nem_kaptam_pontot": {
             "title": "Miért nem kaptam pontot egy tranzakció után?",
-            "content": "A jelenlegi béta nem ír jóvá automatikusan pontot bankkártyás tranzakció után. Ha az appban egy már jóváírt egyenleg vagy jutalom hibásan jelenik meg, írj a gataibence@gmail.com címre, és ne küldj teljes QR-kódot vagy kártyaadatot."
+            "content": "A jelenlegi béta nem ír jóvá automatikusan pontot bankkártyás tranzakció után. Ha az appban egy már jóváírt egyenleg vagy jutalom hibásan jelenik meg, írj a gataibence@gmail.com címre, és ne küldj teljes beváltást vagy kártyaadatot."
           }
         }
       },

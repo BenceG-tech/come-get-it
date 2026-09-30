@@ -4,7 +4,7 @@ import { GlassWater, Star, CheckCircle, Footprints, Compass } from 'lucide-react
 import { useI18n } from '@/hooks/useI18n';
 
 export const VenueKeyFeatures: React.FC = () => {
-  const venueDetailImage = "/lovable-uploads/306d0815-37a6-4087-8408-3986c94eb037.png";
+  const venueDetailImage = "/app-screens-v2/consumer/venue-detail.webp";
   const { t } = useI18n();
 
   const features = [
@@ -30,7 +30,7 @@ export const VenueKeyFeatures: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left side - Phone Mockup */}
           <div className="flex justify-center">
-            <PhoneMockup imageUrl={venueDetailImage} className="scale-110" />
+            <div><p className="mb-4 text-center text-sm uppercase font-semibold text-nf-primary">{t('screens.guest_label')}</p><PhoneMockup imageUrl={venueDetailImage} alt={`${t('screens.guest_label')} — ${t('screens.venue_detail')}`} className="scale-110" fit="contain" /></div>
           </div>
 
           {/* Right side - Features */}
