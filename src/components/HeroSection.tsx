@@ -1,135 +1,68 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { PhoneMockup } from './PhoneMockup';
-import { MobileNavigation } from './MobileNavigation';
-
+import { MobileNavigation } from '@/components/MobileNavigation';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
-import budapestNight from '@/assets/budapest-night-hero.jpg';
+import desktopWebm from '@/assets/web-experience/hero-desktop.webm.asset.json';
+import desktopMp4 from '@/assets/web-experience/hero-desktop.mp4.asset.json';
+import desktopPoster from '@/assets/web-experience/hero-desktop-poster.webp.asset.json';
+import mobileWebm from '@/assets/web-experience/hero-mobile.webm.asset.json';
+import mobileMp4 from '@/assets/web-experience/hero-mobile.mp4.asset.json';
+import mobilePoster from '@/assets/web-experience/hero-mobile-poster.webp.asset.json';
+import './WebExperience.css';
 
-interface HeroSectionProps {
-  currentImageIndex: number;
-  appImages: string[];
-}
-
-export const HeroSection: React.FC<HeroSectionProps> = ({ currentImageIndex, appImages }) => {
+export const HeroSection: React.FC = () => {
   const { t } = useI18n();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoChoice, setVideoChoice] = useState<'desktop' | 'mobile' | null>(null);
+  const [playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+    const portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => {
+      setPlaying(false);
+      setVideoChoice(reduced.matches ? null : portrait.matches ? 'mobile' : 'desktop');
+    };
+    update();
+    portrait.addEventListener('change', update);
+    reduced.addEventListener('change', update);
+    return () => { portrait.removeEventListener('change', update); reduced.removeEventListener('change', update); };
+  }, []);
+
+  useEffect(() => {
+    videoRef.current?.load();
+    videoRef.current?.play().catch(() => setPlaying(false));
+  }, [videoChoice]);
+
+  const scrollTo = (id: string, location: string, label: string) => {
+    analytics.ctaClick(location, label);
+    document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+  };
+
   return (
-    <section className="relative pt-28 md:pt-32 pb-16 px-4 overflow-hidden bg-nf-background">
-      {/* Mobile Navigation */}
+    <section className="experience-hero" aria-label={t('experience.hero_label')}>
       <MobileNavigation />
-
-      {/* Background layers */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Parliament image — confined to middle band, faded top & bottom */}
-        <div
-          className="absolute inset-x-0"
-          style={{
-            top: '30%',
-            bottom: '20%',
-            WebkitMaskImage:
-              'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
-            maskImage:
-              'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
-          }}
-        >
-          <img
-            src={budapestNight}
-            alt=""
-            aria-hidden="true"
-            className="w-full h-full object-cover opacity-55"
-            style={{ objectPosition: 'center 55%' }}
-            width={1920}
-            height={1080}
-            {...({ fetchpriority: "high" } as any)}
-            decoding="async"
-          />
-        </div>
-
-        {/* Top dark fade — clean background behind headline */}
-        <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-nf-background via-nf-background/85 to-transparent" />
-        {/* Bottom dark fade — clean background under CTA */}
-        <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-nf-background via-nf-background/85 to-transparent" />
-
-        {/* Cyan radial glow accents focused on the middle band */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 55% 40% at 75% 50%, rgba(0,188,212,0.20) 0%, transparent 65%), radial-gradient(ellipse 45% 35% at 20% 55%, rgba(0,151,167,0.10) 0%, transparent 65%)',
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-5 lg:gap-16 lg:items-center">
-          {/* 1. Headline block (badge + H1 + subtitle) */}
-          <div className="text-center lg:text-left order-1 lg:order-1 lg:col-start-1 lg:row-start-1">
-            {/* Launch badge */}
-            <div className="mb-5 flex justify-center lg:justify-start">
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold tracking-wide border border-nf-primary/40 bg-nf-primary/10 text-nf-primary">
-                {t('hero.badge')}
-              </span>
-            </div>
-
-            {/* Main Title */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-anton leading-[0.9] tracking-tight uppercase">
-              <span className="block text-white mb-2">{t('hero.title_line1')}</span>
-              <span className="block text-nf-primary drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">
-                {t('hero.title_line2')}
-              </span>
-            </h1>
-
-            {/* Subtitle */}
-            <div className="max-w-2xl lg:max-w-none">
-              <p className="text-base md:text-lg text-white/75 font-medium leading-snug mt-6">
-                {t('hero.subtitle')}
-              </p>
-            </div>
-          </div>
-
-          {/* 2. CTA Buttons */}
-          <div className="order-2 lg:order-3 lg:col-start-1 lg:row-start-2 pt-2 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center lg:justify-start">
-            <Button
-              variant="neon"
-              size="lg"
-              className=""
-              onClick={() => {
-                analytics.ctaClick('hero_primary', t('hero.cta'));
-                document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              {t('hero.cta')}
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-nf-primary/60 text-nf-primary hover:bg-nf-primary/10 hover:text-nf-primary"
-              onClick={() => {
-                analytics.ctaClick('hero_secondary', t('hero.cta_secondary'));
-                document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              {t('hero.cta_secondary')}
-            </Button>
-          </div>
-
-          {/* 3. Phone mockup — between CTAs and founding note on mobile, right column on desktop */}
-          <div className="order-3 lg:order-2 lg:col-start-2 lg:row-start-1 lg:row-span-3 relative flex justify-center items-center min-h-[390px] sm:min-h-[480px] lg:min-h-[580px] py-2 sm:py-4">
-            <div className="relative z-20">
-              <PhoneMockup
-                imageUrl={appImages[currentImageIndex]}
-                widthClassName="w-[160px] min-[390px]:w-[170px] sm:w-[210px] md:w-[236px]"
-              />
-            </div>
-          </div>
-
-          {/* 4. Founding member note */}
-          <p className="order-4 lg:order-4 lg:col-start-1 lg:row-start-3 pt-1 text-xs md:text-sm text-white/55 max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
-            {t('hero.founding_note')}
-          </p>
+      <picture>
+        <source media="(max-aspect-ratio: 1/1)" srcSet={mobilePoster.url} />
+        <img className="experience-poster" src={desktopPoster.url} alt="" aria-hidden="true" width={1920} height={1080} fetchPriority="high" />
+      </picture>
+      {videoChoice && (
+        <video ref={videoRef} key={videoChoice} className={playing ? 'is-playing' : ''} autoPlay muted loop playsInline preload="metadata" poster={videoChoice === 'mobile' ? mobilePoster.url : desktopPoster.url} aria-hidden="true" onPlaying={() => setPlaying(true)} onError={() => setPlaying(false)}>
+          <source src={videoChoice === 'mobile' ? mobileWebm.url : desktopWebm.url} type="video/webm" />
+          <source src={videoChoice === 'mobile' ? mobileMp4.url : desktopMp4.url} type="video/mp4" />
+        </video>
+      )}
+      <div className="experience-hero-copy text-foreground">
+        <p className="text-primary text-sm font-semibold uppercase mb-4">{t('experience.eyebrow')}</p>
+        <h1 className="font-anton uppercase font-normal max-w-[850px]">{t('experience.hero_title')}<br /><span className="text-primary">{t('experience.hero_highlight')}</span></h1>
+        <p className="text-foreground/85 text-base md:text-xl leading-relaxed max-w-[520px] mt-4 md:mt-6 mb-5 md:mb-8">{t('experience.hero_description')}</p>
+        <div className="flex gap-3 flex-wrap">
+          <Button variant="neon" size="lg" onClick={() => scrollTo('signup', 'hero_primary', t('experience.join'))}>{t('experience.join')}</Button>
+          <Button variant="outline" size="lg" className="border-foreground/50 text-foreground hover:border-primary hover:text-primary" onClick={() => scrollTo('how-it-works', 'hero_secondary', t('experience.how'))}>{t('experience.how')} ↓</Button>
         </div>
       </div>
+      <div className="experience-scroll-hint text-xs uppercase text-foreground/70" aria-hidden="true">{t('experience.scroll')}</div>
     </section>
   );
 };
