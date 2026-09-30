@@ -4,7 +4,7 @@ import { HeroSection } from '@/components/HeroSection';
 import { MibenSegitSection } from '@/components/MibenSegitSection';
 import { PricingSection } from '@/components/PricingSection';
 import { VenuePartnerTeaser } from '@/components/VenuePartnerTeaser';
-import { HowItWorks } from '@/components/HowItWorks';
+import { ScrollStory } from '@/components/ScrollStory';
 import { DrinkSection } from '@/components/DrinkSection';
 import { LinkSection } from '@/components/LinkSection';
 import { EarnSection } from '@/components/EarnSection';
@@ -22,8 +22,6 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
-import heroMapAsset from '@/assets/IMG_hero_map.png.asset.json';
-import heroFeedAsset from '@/assets/IMG_9861.png.asset.json';
 import linkRewardsAsset from '@/assets/IMG_9931.png.asset.json';
 import drink1Asset from '@/assets/IMG_9965.png.asset.json';
 import drink2Asset from '@/assets/IMG_9964.png.asset.json';
@@ -33,7 +31,6 @@ import earnRewardsListAsset from '@/assets/IMG_9968.png.asset.json';
 // QuickAccessChips removed from homepage — partner-link cards moved to /partnerek hub
  
 const Index = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [drinkImageIndex, setDrinkImageIndex] = useState(0);
   const [earnImageIndex, setEarnImageIndex] = useState(0);
   const { showExitIntent, hideExitIntent } = useExitIntent();
@@ -43,11 +40,6 @@ const Index = () => {
   useEffect(() => {
     analytics.pageView('index');
   }, []);
-
-  const appImages = [
-    heroFeedAsset.url,
-    heroMapAsset.url,
-  ];
 
   // Drink section uses these two images alternating
   const drinkImages = [
@@ -64,16 +56,6 @@ const Index = () => {
     earnQuestsAsset.url,
     earnRewardsListAsset.url,
   ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        (prevIndex + 1) % appImages.length
-      );
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [appImages.length]);
 
   useEffect(() => {
     const drinkInterval = setInterval(() => {
@@ -166,10 +148,10 @@ const Index = () => {
       />
       <Navigation />
       <main>
-      <HeroSection currentImageIndex={currentImageIndex} appImages={appImages} />
+       <HeroSection />
+       <ScrollStory />
       <MibenSegitSection />
       {/* QuickAccessChips eltávolítva — a 4 partner-link a /partnerek hub-on érhető el */}
-      <HowItWorks />
       <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
       <LinkSection linkImage={linkImage} />
       <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
