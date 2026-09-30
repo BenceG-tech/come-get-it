@@ -4,7 +4,6 @@ import { Footer } from '@/components/Footer';
 import { Navigation } from '@/components/Navigation';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { Button } from '@/components/ui/button';
-import { PhoneMockup } from '@/components/PhoneMockup';
 import { HeroBackground, PhoneGlowWrapper } from '@/components/HeroBackground';
 import { ArrowRight, Compass, CreditCard, Wine, Gift, Rocket, Target, MapPin, BarChart3 } from 'lucide-react';
 import { CustomerSupport } from '@/components/CustomerSupport';
@@ -12,7 +11,6 @@ import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNightHero from '@/assets/budapest-night-hero.jpg';
-const venueDetail = '/app-screens-v2/consumer/venue-detail.webp';
 
 const Italmarkak = () => {
   const { t } = useI18n();
@@ -53,7 +51,7 @@ const Italmarkak = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Italmárkáknak — Az első korty a partnerhelyen | Come Get It"
-        description="A 2. fázisban valós helyszíni kóstoltatást tervezünk: az első korty a választás pillanatában, mérhető QR-beváltással. Early access."
+        description="A 2. fázisban valós helyszíni kóstoltatást tervezünk: az első korty a választás pillanatában, mérhető mérhető beváltással. Early access."
         canonical="/italmarkak"
         jsonLd={{
           '@context': 'https://schema.org',
@@ -111,32 +109,12 @@ const Italmarkak = () => {
               </Button>
             </div>
 
-            {/* Phone + cocktail composition */}
-            <div className="relative flex justify-center items-center min-h-[480px] lg:min-h-[640px]">
-              {/* Dark shadow halo */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    'radial-gradient(ellipse 55% 60% at 50% 55%, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.45) 35%, transparent 70%)',
-                  filter: 'blur(40px)',
-                }}
-              />
-              {/* Stronger cyan glow */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    'radial-gradient(ellipse 55% 55% at 50% 50%, rgba(0,188,212,0.55) 0%, rgba(0,188,212,0.22) 45%, transparent 75%)',
-                  filter: 'blur(28px)',
-                }}
-              />
-              {/* Phone */}
-              <div className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
-                <PhoneMockup imageUrl={venueDetail} alt={t('screens.venue_detail')} fit="contain" />
-              </div>
+            {/* Brand activation is planned; no invented brand application screen. */}
+            <div className="relative min-h-[300px] lg:min-h-[510px] flex flex-col justify-center items-center text-center border-y border-nf-primary/30">
+              <span className="font-anton text-nf-primary text-7xl md:text-9xl">01</span>
+              <div className="h-px w-28 bg-nf-primary/50 my-7" />
+              <p className="text-2xl md:text-4xl font-anton uppercase max-w-sm">{t('brands_page.hero.line2')}</p>
+              <p className="text-sm text-white/65 mt-6 max-w-sm">{t('brands_page.hero.phase_note')}</p>
             </div>
           </div>
         </div>

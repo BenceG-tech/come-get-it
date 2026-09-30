@@ -3,12 +3,7 @@ import { Button } from '@/components/ui/button';
 import { MobileNavigation } from '@/components/MobileNavigation';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
-import desktopWebm from '@/assets/web-experience/hero-desktop.webm.asset.json';
-import desktopMp4 from '@/assets/web-experience/hero-desktop.mp4.asset.json';
-import desktopPoster from '@/assets/web-experience/hero-desktop-poster.webp.asset.json';
-import mobileWebm from '@/assets/web-experience/hero-mobile.webm.asset.json';
-import mobileMp4 from '@/assets/web-experience/hero-mobile.mp4.asset.json';
-import mobilePoster from '@/assets/web-experience/hero-mobile-poster.webp.asset.json';
+import { v2 } from '@/lib/web-experience-v2';
 import './WebExperience.css';
 
 export const HeroSection: React.FC = () => {
@@ -31,6 +26,7 @@ export const HeroSection: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (!videoChoice) return;
     videoRef.current?.load();
     videoRef.current?.play().catch(() => setPlaying(false));
   }, [videoChoice]);
@@ -44,13 +40,13 @@ export const HeroSection: React.FC = () => {
     <section className="experience-hero" aria-label={t('experience.hero_label')}>
       <MobileNavigation />
       <picture>
-        <source media="(max-aspect-ratio: 1/1)" srcSet={mobilePoster.url} />
-        <img className="experience-poster" src={desktopPoster.url} alt="" aria-hidden="true" width={1920} height={1080} fetchPriority="high" />
+        <source media="(max-aspect-ratio: 1/1)" srcSet={v2['hero-mobile-poster.webp']} />
+        <img className="experience-poster" src={v2['hero-desktop-poster.webp']} alt="" aria-hidden="true" width={1920} height={1080} fetchPriority="high" />
       </picture>
       {videoChoice && (
-        <video ref={videoRef} key={videoChoice} className={playing ? 'is-playing' : ''} autoPlay muted loop playsInline preload="metadata" poster={videoChoice === 'mobile' ? mobilePoster.url : desktopPoster.url} aria-hidden="true" onPlaying={() => setPlaying(true)} onError={() => setPlaying(false)}>
-          <source src={videoChoice === 'mobile' ? mobileWebm.url : desktopWebm.url} type="video/webm" />
-          <source src={videoChoice === 'mobile' ? mobileMp4.url : desktopMp4.url} type="video/mp4" />
+        <video ref={videoRef} key={videoChoice} className={playing ? 'is-playing' : ''} autoPlay muted loop playsInline preload="auto" poster={videoChoice === 'mobile' ? v2['hero-mobile-poster.webp'] : v2['hero-desktop-poster.webp']} aria-hidden="true" onPlaying={() => setPlaying(true)} onError={() => setPlaying(false)}>
+          <source src={videoChoice === 'mobile' ? v2['hero-mobile.webm'] : v2['hero-desktop.webm']} type="video/webm" />
+          <source src={videoChoice === 'mobile' ? v2['hero-mobile.mp4'] : v2['hero-desktop.mp4']} type="video/mp4" />
         </video>
       )}
       <div className="experience-hero-copy text-foreground">

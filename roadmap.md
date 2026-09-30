@@ -4,3 +4,7 @@
 - [x] Align public partner messaging and SEO/AI summaries with the controlled-pilot value proposition in HU/EN.
 - [x] Replace marketing phone screenshots with supplied fresh-screens imagery, preserving web-experience media.
 - [x] Verify production preview and desktop/mobile screenshots, claims, and translation coverage.
+
+- [x] Integrate v2 hero and four-state story with supplied CDN media and responsive timing.
+- [x] Rebuild DRINK/LINK/EARN/GIVE scenes and correct subpage screenshot mapping.
+- [x] Correct public HU/EN redemption claims and verify preview across requested viewports.

@@ -5,7 +5,7 @@ import { useI18n } from '@/hooks/useI18n';
 const perks = [
   'A korlátozott pilot alatt nincs Come Get It platformdíj',
   'Te állítod be az ajánlatot, a készletet és az időablakot',
-  'A partnerfelület csak a saját helyed QR-beváltásait mutatja',
+  'A saját helyed sikeres beváltásait mérjük',
   'A pultos folyamatot indulás előtt együtt teszteljük',
   'A pilot eredményeit közösen, előre rögzített szempontok szerint értékeljük',
   'Közös kommunikáció vagy kampány csak külön jóváhagyással indul',

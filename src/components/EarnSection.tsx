@@ -1,37 +1,19 @@
 import React from 'react';
-import { PhoneMockup } from './PhoneMockup';
 import { useI18n } from '@/hooks/useI18n';
+import { v2 } from '@/lib/web-experience-v2';
+import './WebExperience.css';
 
-interface EarnSectionProps {
-  earnImageIndex: number;
-  earnImages: string[];
-}
-
-export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnImages }) => {
+export const EarnSection: React.FC = () => {
   const { t } = useI18n();
-  return (
-    <section id="earn" className="py-20 px-4 relative bg-nf-background nf-section-glow">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left - Content */}
-          <div className="text-center lg:text-left">
-            <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-none tracking-tight">
-              EARN.
-            </h2>
-            <p className="text-2xl md:text-3xl text-white mb-6 font-medium">
-              {t('earn.subtitle')}
-            </p>
-            <p className="text-lg text-nf-text-muted max-w-lg">
-              {t('earn.body')}
-            </p>
-          </div>
-          
-          {/* Right - Phone Mockup */}
-          <div className="flex justify-center lg:justify-start relative">
-            <PhoneMockup imageUrl={earnImages[earnImageIndex]} alt={t(`screens.earn.${earnImageIndex + 1}`)} fit="contain" />
-          </div>
-        </div>
+  return <section id="earn" className="experience-feature feature-earn text-foreground">
+    <div className="feature-inner">
+      <div className="feature-copy"><h2 className="font-anton uppercase">EARN<span className="text-primary">.</span></h2><p className="feature-lead">{t('earn.subtitle')}</p><p className="text-foreground/80">{t('earn.body')}</p></div>
+      <div className="feature-visual" role="img" aria-label={t('earn.visual_alt')}>
+        <div className="feature-phone feature-phone-third"><img src={v2['rewards-experiences.webp']} alt="" loading="lazy" width={920} height={2000} /></div>
+        <div className="feature-phone feature-phone-back"><img src={v2['rewards-list.webp']} alt="" loading="lazy" width={920} height={2000} /></div>
+        <div className="feature-phone feature-phone-front"><img src={v2['reward-detail.webp']} alt="" loading="lazy" width={920} height={2000} /></div>
+        <img className="feature-balance" src={v2['earn-balance.webp']} alt="" loading="lazy" />
       </div>
-    </section>
-  );
+    </div>
+  </section>;
 };

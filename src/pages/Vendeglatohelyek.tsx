@@ -81,7 +81,7 @@ const Vendeglatohelyek = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Vendéglátóhelyeknek — Founding Partner Program | Come Get It"
-         description="Az ital a meghívó, az élményből lehet törzsvendég. Te szabod meg az ajánlatot és az időablakot; a QR-beváltás mérhető a korlátozott pilotban."
+         description="Az ital a meghívó, az élményből lehet törzsvendég. Te szabod meg az ajánlatot és az időablakot; a beváltás mérhető a korlátozott pilotban."
         canonical="/vendeglatohelyek"
         jsonLd={{
           '@context': 'https://schema.org',

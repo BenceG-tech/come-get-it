@@ -99,7 +99,7 @@ export const ROUTES: RouteSEO[] = [
 
   <section>
     <h2>Founding Partner Program</h2>
-    <p>Az ital a meghívó: a partner maga szabja meg az ajánlatot, készletet és időablakot, a Come Get It pedig a választás pillanatában segít megtalálni a helyét. A QR-beváltást mérjük; az utóköltést és visszatérést csak külön egyeztetett pilotban vizsgáljuk. A folytatás külön írásos megállapodás kérdése. Részletek: <a href="/partnerek">/partnerek</a>.</p>
+    <p>Az ital a meghívó: a partner maga szabja meg az ajánlatot, készletet és időablakot, a Come Get It pedig a választás pillanatában segít megtalálni a helyét. A beváltást mérjük; az utóköltést és visszatérést csak külön egyeztetett pilotban vizsgáljuk. A folytatás külön írásos megállapodás kérdése. Részletek: <a href="/partnerek">/partnerek</a>.</p>
   </section>
 
   <section>
@@ -185,7 +185,7 @@ export const ROUTES: RouteSEO[] = [
     distDir: "vendeglatohelyek",
     title: "Vendéglátóhelyeknek – Az ital a meghívó | Come Get It",
     description:
-      "Te szabod meg az ajánlatot és az időablakot; a Come Get It segít a helyválasztás pillanatában. Mérhető QR-beváltás, garantált forgalom nélkül.",
+      "Te szabod meg az ajánlatot és az időablakot; a Come Get It segít a helyválasztás pillanatában. Mérhető beváltás, garantált forgalom nélkül.",
     h1: "Az ital a meghívó. Az élményből lehet törzsvendég.",
     lastmod: "2026-05-06",
     priority: 0.8,
@@ -194,7 +194,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Vendéglátóhelyeknek – Csatlakozz a Come Get It hálózathoz</h1>
-     <p>Az ital a meghívó. A Come Get It segít a vendégnek a döntés pillanatában rátalálni a helyedre. A partner maga állítja be az ajánlatot, készletet, napot és időablakot; a pilot a QR-beváltásokat méri, és eredményt nem ígér előre.</p>
+     <p>Az ital a meghívó. A Come Get It segít a vendégnek a döntés pillanatában rátalálni a helyedre. A partner maga állítja be az ajánlatot, készletet, napot és időablakot; a pilot a beváltásokat méri, és eredményt nem ígér előre.</p>
   </header>
 
   <section>
@@ -212,7 +212,7 @@ export const ROUTES: RouteSEO[] = [
     <ul>
       <li><strong>Felfedezhetőség:</strong> a bétafelhasználók az appban láthatják az aktív partnerhelyet és ajánlatot.</li>
        <li><strong>Helyszíni élmény:</strong> a kiszolgálás, hangulat és további kínálat a partner kezében marad.</li>
-      <li><strong>Mért beváltás:</strong> a sikeres QR-beváltások megjelennek a partner riportjában.</li>
+      <li><strong>Mért beváltás:</strong> a sikeres beváltások megjelennek a partner riportjában.</li>
       <li><strong>Pilotértékelés:</strong> a visszatérést és az utóköltést csak külön, előre egyeztetett módszerrel vizsgáljuk.</li>
        <li><strong>Időzítés:</strong> az ajánlat csak az előre egyeztetett készlet és időablak szerint jelenik meg.</li>
     </ul>
@@ -222,7 +222,7 @@ export const ROUTES: RouteSEO[] = [
     <h2>Hogyan működik a beváltás</h2>
     <ol>
       <li>A vendég megrendel a kasszánál.</li>
-      <li>Az app rövid ideig érvényes QR-kódot jelenít meg.</li>
+      <li>A vendég az „Itt vagyok” gombbal jelzi, hogy megérkezett.</li>
       <li>A pultos beolvassa és visszaigazolja a beváltást a partnerfelületen.</li>
       <li>A sikeres beváltás megjelenik a partner riportjában. A rendszer nem kapcsolódik a vendég bankkártyájához.</li>
     </ol>
@@ -233,14 +233,14 @@ export const ROUTES: RouteSEO[] = [
     <ol>
       <li>Jelentkezés a partneri űrlapon.</li>
       <li>20 perces egyeztetés az ajánlatról és a beváltási mechanizmusról.</li>
-      <li>QR-kód, partnerprofil és kasszás kisokos.</li>
+      <li>Partnerprofil és a helyszíni, vendégtelefonos beváltás bemutatása.</li>
       <li>Élesedés az appban + első kampány mérése.</li>
     </ol>
   </section>
 
   <section>
     <h2>Founding Partner Program</h2>
-     <p>Kis létszámú budapesti pilot: az ajánlatot és mérési feltételeket előre rögzítjük, a QR-beváltásokat közösen értékeljük. Hosszú távú kapcsolat csak külön írásos megállapodással jöhet létre.</p>
+     <p>Kis létszámú budapesti pilot: az ajánlatot és mérési feltételeket előre rögzítjük, a beváltásokat közösen értékeljük. Hosszú távú kapcsolat csak külön írásos megállapodással jöhet létre.</p>
   </section>
 
   <section>
@@ -257,7 +257,7 @@ export const ROUTES: RouteSEO[] = [
         provider: { "@type": "Organization", name: "Come Get It" },
         areaServed: { "@type": "City", name: "Budapest" },
         description:
-          "Időzíthető partnerajánlat a helyválasztás pillanatában és mérhető QR-beváltás; forgalmi eredmény nem garantált.",
+          "Időzíthető partnerajánlat a helyválasztás pillanatában és mérhető beváltás; forgalmi eredmény nem garantált.",
       },
     ],
   },
@@ -267,7 +267,7 @@ export const ROUTES: RouteSEO[] = [
     distDir: "italmarkak",
     title: "Italmárkáknak – Légy ott a fogyasztásnál | Come Get It",
     description:
-      "Tervezett 2. fázis: első korty valódi partnerhelyen, egyeztetett ajánlattal és mérhető QR-beváltással. Early access italmárkáknak.",
+      "Tervezett 2. fázis: első korty valódi partnerhelyen, egyeztetett ajánlattal és mérhető mérhető beváltással. Early access italmárkáknak.",
     h1: "Légy ott, amikor inni készülnek.",
     lastmod: "2026-05-06",
     priority: 0.8,
@@ -276,7 +276,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Italmárkáknak – Mérhető fogyasztói aktiváció</h1>
-     <p>Ne csak mutasd meg: add az első kortyot. A 2. fázisra tervezett italmárka-pilot valós partnerhelyen, a választás pillanatában mutathatja be az italt. A QR-beváltás mérhető, más eredményt előre nem ígérünk.</p>
+     <p>Ne csak mutasd meg: add az első kortyot. A 2. fázisra tervezett italmárka-pilot valós partnerhelyen, a választás pillanatában mutathatja be az italt. A beváltás mérhető, más eredményt előre nem ígérünk.</p>
   </header>
   <section>
     <h2>Brand aktivációs lehetőségek</h2>
@@ -289,7 +289,7 @@ export const ROUTES: RouteSEO[] = [
   <section>
     <h2>Kampánymérés</h2>
     <ul>
-       <li>Sikeres QR-beváltások a jóváhagyott helyszíni pilotban.</li>
+       <li>Sikeres beváltások a jóváhagyott helyszíni pilotban.</li>
        <li>Fogyasztói visszajelzés csak külön elindított, megfelelően kezelt kampányban.</li>
        <li>Nincs igazolt közönségarány vagy garantált kampányeredmény.</li>
     </ul>
@@ -316,7 +316,7 @@ export const ROUTES: RouteSEO[] = [
         provider: { "@type": "Organization", name: "Come Get It" },
         areaServed: { "@type": "Country", name: "Hungary" },
         description:
-          "Tervezett helyszíni kóstoltatási pilot italmárkáknak; QR-beváltások mérésével, garantált elérés nélkül.",
+          "Tervezett helyszíni kóstoltatási pilot italmárkáknak; beváltások mérésével, garantált elérés nélkül.",
       },
     ],
   },
@@ -357,8 +357,8 @@ export const ROUTES: RouteSEO[] = [
     <h2>Hogyan váltják be a felhasználók</h2>
     <ol>
       <li>A user a pontjaiból „kiválasztja” a te jutalmadat az appban.</li>
-      <li>Egyedi QR-kódot kap.</li>
-      <li>A helyszínen bemutatja a QR-kódot; a partner beolvassa és jóváhagyja a beváltást.</li>
+      <li>A megérkezést az appban jelzi.</li>
+      <li>A telefonját megmutatja a pultosnak; a pultos a vendég telefonján jóváhagyja a beváltást.</li>
     </ol>
   </section>
   <section>
@@ -384,7 +384,7 @@ export const ROUTES: RouteSEO[] = [
     distDir: "partnerek",
     title: "Partnerek – Csatlakozz a Come Get It hálózathoz",
     description:
-      "A vendéglátóhely időzített ajánlata segíti a döntést, a márka első kortyot adhat, a jutalom továbbviheti a kapcsolatot. Mérhető QR-beváltás.",
+      "A vendéglátóhely időzített ajánlata segíti a döntést, a márka első kortyot adhat, a jutalom továbbviheti a kapcsolatot. Mérhető beváltás.",
     h1: "Partnerek",
     lastmod: "2026-05-06",
     priority: 0.7,
@@ -393,7 +393,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Partnerek – Dolgozz együtt a Come Get It-tel</h1>
-     <p>Az ital a meghívó: a hely szabja meg az ajánlatot, készletet és időablakot; a Come Get It segít a helyválasztás pillanatában. A QR-beváltás mérhető, a helyszíni élményből lehet visszatérés. Italmárkák és jutalompartnerek a 2. fázisban kapcsolódhatnak be.</p>
+     <p>Az ital a meghívó: a hely szabja meg az ajánlatot, készletet és időablakot; a Come Get It segít a helyválasztás pillanatában. A beváltás mérhető, a helyszíni élményből lehet visszatérés. Italmárkák és jutalompartnerek a 2. fázisban kapcsolódhatnak be.</p>
   </header>
   <section>
     <h2>Partnertípusok</h2>
@@ -417,7 +417,7 @@ export const ROUTES: RouteSEO[] = [
     distDir: "come-get-it-accelerator",
     title: "Founding Partner Program – Teszteljük együtt | Come Get It",
     description:
-      "Kis létszámú kontrollált pilot: időzített ajánlat, mérhető QR-beváltás és közös kiértékelés. Nincs garantált eredmény vagy automatikus folytatás.",
+      "Kis létszámú kontrollált pilot: időzített ajánlat, mérhető beváltás és közös kiértékelés. Nincs garantált eredmény vagy automatikus folytatás.",
     h1: "Ne higgy nekünk vakon. Teszteljük le együtt.",
     lastmod: "2026-05-06",
     priority: 0.7,
@@ -426,7 +426,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <header>
     <h1>Come Get It Accelerator – Nőj a hálózatunkkal</h1>
-     <p>A Founding Partner Program kis létszámú, kontrollált pilot. Nem feltételezzük, hogy az ingyen ital működik: helyenként rögzítjük az ajánlatot, készletet és időablakot, mérjük a QR-beváltást, majd közösen értékelünk. Nincs automatikus hosszú távú elköteleződés.</p>
+     <p>A Founding Partner Program kis létszámú, kontrollált pilot. Nem feltételezzük, hogy az ingyen ital működik: helyenként rögzítjük az ajánlatot, készletet és időablakot, mérjük a beváltást, majd közösen értékelünk. Nincs automatikus hosszú távú elköteleződés.</p>
   </header>
   <section>
     <h2>Kinek szól</h2>
@@ -440,8 +440,8 @@ export const ROUTES: RouteSEO[] = [
     <h2>Mit adunk</h2>
     <ul>
        <li>Előre egyeztetett ajánlat, készlet, időablak és leállítási feltételek.</li>
-       <li>Helyszíni folyamat és QR-próba az indulás előtt.</li>
-       <li>Saját helyed sikeres QR-beváltásainak közös értékelése.</li>
+       <li>Helyszíni folyamat és helyszíni beváltási próba az indulás előtt.</li>
+       <li>Saját helyed sikeres beváltásainak közös értékelése.</li>
        <li>Utóköltés és visszatérés csak külön előre egyeztetett mérésben.</li>
     </ul>
   </section>

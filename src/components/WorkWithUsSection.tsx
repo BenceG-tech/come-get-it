@@ -6,12 +6,12 @@ import { ArrowRight, Plus, Star, CheckCircle, TrendingUp, Building, Heart, Users
 
 export const WorkWithUsSection: React.FC = () => {
   // Using one of the existing app images for the phone mockup
-  const businessImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.webp";
+  const businessImage = "/app-screens-v2/consumer/consumer-list.webp";
 
   const keyFeatures = [
     {
       icon: Plus,
-      title: "Mérhető QR-beváltás",
+      title: "Mérhető beváltás",
       description: "A partnerfelületen a saját helyed sikeres beváltásait látod.",
       iconColor: "text-electric-300"
     },
@@ -94,7 +94,7 @@ export const WorkWithUsSection: React.FC = () => {
           
           {/* Right side - Phone Mockup */}
           <div className="flex justify-center">
-            <PhoneMockup imageUrl={businessImage} className="animate-glow-pulse" />
+            <PhoneMockup imageUrl={businessImage} alt="Come Get It partnerhelyek a vendégek telefonján" className="animate-glow-pulse" />
           </div>
         </div>
 
