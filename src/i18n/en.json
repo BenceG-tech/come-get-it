@@ -133,20 +133,20 @@
     }
   },
   "venue_teaser": {
-    "title": "Do you run a venue?",
-    "subtitle": "With the first Budapest pilot venues, we measure whether a limited offer brings useful visits during quieter periods. The pilot records QR redemptions; any follow-up spend is measured separately with the venue.",
+    "title": "The drink is the invitation. The experience can bring guests back.",
+    "subtitle": "You set the offer, stock, day and time window. Come Get It helps guests discover your venue when they decide where to go; we measure QR redemptions. What happens next depends on your venue.",
     "cards": {
       "1": {
-        "title": "NEW VISITS",
-        "description": "No invented numbers: we measure redemptions and agreed pilot outcomes together."
+        "title": "THE MOMENT OF CHOICE",
+        "description": "Guests find your venue when they are choosing where to go. The offer gives them a reason to try it."
       },
       "2": {
-        "title": "LIMITED PILOT",
-        "description": "You control the offer, stock and time window, with clear stop conditions."
+        "title": "YOU SET THE TERMS",
+        "description": "The offer, stock, day and time window are yours to decide. Pilot terms are agreed in advance."
       },
       "3": {
-        "title": "REAL EVIDENCE",
-        "description": "The partner portal shows successful QR redemptions for your own venue."
+        "title": "MEASURED REDEMPTIONS",
+        "description": "We measure successful QR redemptions. Follow-up spend and return visits require a separate agreed pilot measurement."
       }
     },
     "cta": "Apply for the pilot →"
@@ -249,27 +249,44 @@
     },
     "venue": {
       "title": "VENUES",
-      "desc": "Higher traffic, more loyal guests, a stronger brand."
+      "desc": "Set the offer and timing; be there when guests choose, with measurable QR redemptions."
     },
     "brand": {
       "title": "DRINK BRANDS",
-      "desc": "Greater visibility, real consumer connections, measurable results."
+      "desc": "Phase 2: a first sip at a real venue, through an agreed campaign."
     },
     "rewards": {
       "title": "REWARDS PARTNERS",
-      "desc": "Exclusive partnership, shared growth and long-term collaborations."
+      "desc": "Phase 2: a redeemable reward can extend the connection after the venue visit."
     },
     "community": {
       "title": "COMMUNITY",
       "desc": "A stronger, more connected venue and consumer community."
     }
   },
+  "venue_value": {
+    "title": "From invitation to evidence",
+    "steps": {
+      "1": {
+        "title": "Invitation",
+        "body": "A timed offer helps guests decide where to go."
+      },
+      "2": {
+        "title": "Experience",
+        "body": "Service, atmosphere and the rest of the menu are in your hands."
+      },
+      "3": {
+        "title": "Evidence",
+        "body": "QR redemptions are measured; spend and return visits need a separate pilot measurement."
+      }
+    }
+  },
   "venues": {
     "hero": {
       "badge": "FOUNDING PARTNER PROGRAM — 15 SPOTS",
-      "line1": "MORE GUESTS.",
-      "line2": "FEWER EMPTY TABLES.",
-      "subtitle": "You choose a limited offer, stock and time window. The pilot records QR redemptions and tests whether the offer brings useful visits during quieter periods — without promising results in advance.",
+      "line1": "THE DRINK IS THE INVITATION.",
+      "line2": "THE EXPERIENCE CAN BRING THEM BACK.",
+      "subtitle": "Come Get It shows your venue when someone is asking: where should we go? You decide what to offer, when and to how many guests. We measure QR redemptions; whether guests stay or return depends on the experience you create.",
       "cta": "Become a Founding Partner",
       "cta_secondary": "How it works"
     },
@@ -342,10 +359,10 @@
   },
   "brands_page": {
     "hero": {
-      "line1": "WE'LL MEET",
-      "line2": "AT THE FIRST SIP.",
-      "subtitle": "Show your drink to the people who are deciding right now what to drink. Not as an ad — as a first sip. Sampling at scale, with measurable results.",
-      "phase_note": "Drink-brand activations launch after the Founding Partner venues sign on. You can apply now for early access — the target audience and the first campaign blueprints are ready, waiting to be rolled out together.",
+      "line1": "DON'T JUST SHOW IT.",
+      "line2": "OFFER THE FIRST SIP.",
+      "subtitle": "In phase 2, your brand can appear at a real partner venue when guests make a real choice. QR redemptions are measurable; consumer feedback requires a separately launched, appropriately managed campaign.",
+      "phase_note": "Phase 2 — early access. Drink-brand activations are planned after venue pilots as individually agreed campaigns. No ready-made campaign audience or guaranteed reach.",
       "cta": "Let's talk"
     },
     "how_it_works": {
@@ -353,19 +370,19 @@
       "steps": {
         "1": {
           "title": "SHOWCASE",
-          "description": "Upload your drink to Come Get It and show it to Budapest's crowd!"
+          "description": "Discuss a potential venue and offer for phase 2."
         },
         "2": {
           "title": "TEST",
-          "description": "The community tries it, rates it, and gives instant feedback."
+          "description": "A limited tasting pilot can begin with the venue’s approval."
         },
         "3": {
           "title": "COLLECT FEEDBACK",
-          "description": "Optimize based on real opinions and data."
+          "description": "Feedback is collected only in a separately launched and appropriately managed campaign."
         },
         "4": {
           "title": "SCALE UP",
-          "description": "Get your drink to more venues, grow awareness and sales!"
+          "description": "Decide whether to continue together after real QR results."
         }
       }
     },
@@ -374,23 +391,23 @@
       "items": {
         "1": {
           "title": "BUILT-IN DISCOVERY & TASTING",
-          "description": "People naturally meet your brand and taste it."
+          "description": "A planned activation can reach people where they choose and enjoy a drink."
         },
         "2": {
           "title": "TARGETED REACH",
-          "description": "A Budapest pilot audience is measured from real sign-ups and redemptions; no demographic percentage is claimed yet."
+          "description": "We aim for Budapest adults exploring venues and new flavours; no verified audience ratios yet."
         },
         "3": {
           "title": "CREATIVE EXPERIENCE PACKS",
-          "description": "Takeover weeks, limited editions, AR filters — memorable activations."
+          "description": "Custom tastings and timed placements require a separate agreement."
         },
         "4": {
           "title": "PERFORMANCE MEASUREMENT",
-          "description": "Measured QR redemptions and campaign reporting from the pilot."
+          "description": "We measure QR redemptions. Other outcomes require a separate agreed pilot method."
         },
         "5": {
           "title": "TASTING IN A REAL SITUATION",
-          "description": "Users don't just see your brand — they can actually taste it at a partner venue."
+          "description": "An offer can provide a real first sip at a venue, with 18+ and responsible consumption."
         }
       }
     },
@@ -420,17 +437,17 @@
       }
     },
     "final_cta": {
-      "title_line1": "LAUNCH YOUR",
-      "title_line2": "EXPERIENCE CAMPAIGN!",
+      "title_line1": "LET'S PLAN",
+      "title_line2": "THE FIRST TASTING!",
       "subtitle": "Message us and join early!",
       "cta": "Contact us"
     }
   },
   "rewards_page": {
     "hero": {
-      "line1": "BE THERE WHEN",
-      "line2": "REWARDS GET REDEEMED.",
-      "subtitle": "Offer a limited, agreed reward that can appear in the app. The current beta is not connected to payment-card spending; only points actually credited in the app and approved rewards can be used.",
+      "line1": "THE DRINK STARTS THE VISIT.",
+      "line2": "THE REWARD EXTENDS THE CONNECTION.",
+      "subtitle": "After a good venue experience, a reward may start a new relationship with your brand. In phase 2, we can measure redemptions of agreed rewards, without guaranteeing traffic. The current beta has no payment-card linking.",
       "phase_note": "The rewards-partner program launches in phase 2, after the user base is established. You can apply now for early access so you're among the first listed in the redemption menu when we go live.",
       "cta": "Become a rewards partner"
     },
@@ -451,7 +468,7 @@
         },
         "4": {
           "title": "TRACK RESULTS",
-          "description": "See live stats."
+          "description": "Review real reward redemptions from a launched pilot."
         }
       }
     },
@@ -463,8 +480,8 @@
           "description": "The pilot measures real reward redemptions without promising traffic or conversion results in advance."
         },
         "2": {
-          "title": "Young, evening-active base",
-          "description": "The Budapest pilot audience is measured from real sign-ups and redemptions; no demographic percentage is claimed yet."
+          "title": "A CHANCE FOR A NEW BRAND CONNECTION",
+          "description": "After a positive venue experience, a reward can introduce your brand; reach is not guaranteed."
         },
         "3": {
           "title": "Collaboration packages",
@@ -496,9 +513,9 @@
   },
   "accelerator_page": {
     "hero": {
-      "line1": "BE THERE,",
-      "line2": "AMONG THE FIRST.",
-      "subtitle": "A small Budapest pilot for venues, drink brands and reward partners. Offer terms, QR redemption, owners and evaluation are agreed in advance, with no lifetime or automatic commercial promise.",
+      "line1": "DON'T TAKE OUR WORD FOR IT.",
+      "line2": "LET'S TEST IT TOGETHER.",
+      "subtitle": "The Founding Partner Program is a small, controlled test, not an assumption that a free drink works. We agree on the offer and time window, measure QR redemptions per venue and review results together. No automatic long-term commitment.",
       "cta": "Apply now!"
     },
     "how_it_works": {
@@ -595,41 +612,41 @@
   "partners_page": {
     "hero": {
       "badge": "PARTNER PROGRAM — 2026",
-      "line1": "LET'S BUILD",
-      "line2": "BUDAPEST'S NIGHTLIFE TOGETHER.",
-      "subtitle": "Three different ways to join Come Get It. Find the one that fits you."
+      "line1": "FROM THE FIRST CHOICE",
+      "line2": "TO THE NEXT EXPERIENCE.",
+      "subtitle": "A timed venue offer helps guests choose; a brand can offer a first sip; a reward can continue the connection. Venue pilots come first; brand and reward programs are planned for phase 2."
     },
     "sections": {
       "venues": {
         "phase": "PHASE 1 — LAUNCH",
         "title": "Are you a venue?",
-        "description": "You choose a limited offer and time window; the pilot measures whether it brings useful new visits during quieter periods.",
+        "description": "The drink is the invitation: your venue can appear when guests choose where to go. You set the offer, stock and time window; we measure QR redemptions. The experience is yours to deliver.",
         "bullets": {
-          "1": "No Come Get It platform fee during the pilot",
-          "2": "QR redemptions for your own venue",
-          "3": "No promised outcome before evidence"
+          "1": "You decide the offer, stock and timing",
+          "2": "QR redemptions for your venue are measurable",
+          "3": "Spend and return visits only in a separate agreed pilot"
         },
         "cta": "Details"
       },
       "brands": {
         "phase": "PHASE 2 — POST LAUNCH",
         "title": "Are you a drink brand?",
-        "description": "Show your drink to the people who are deciding right now what to drink. Not as an ad — as a first sip. Sampling at scale, with measurable results.",
+        "description": "A first sip instead of an ad: in phase 2, your brand could appear at a partner venue when guests choose and consume.",
         "bullets": {
-          "1": "A limited audience agreed in advance",
-          "2": "Real redemption data",
-          "3": "A measurable pilot activation"
+          "1": "Limited tasting pilot agreed in advance",
+          "2": "Trial measured through QR redemptions",
+          "3": "Feedback only from a separately launched campaign"
         },
         "cta": "Details"
       },
       "rewards": {
         "phase": "PHASE 2 — POST LAUNCH",
         "title": "Are you a rewards partner?",
-        "description": "Offer a limited reward that can appear in the app. Availability and redemption rules are agreed before the pilot; automatic card-linked earning is not part of the current beta.",
+        "description": "The drink can start a visit; after a good experience, a reward may open a new connection with your brand. Planned for phase 2.",
         "bullets": {
-          "1": "Reach a new audience",
-          "2": "Positive brand experience",
-          "3": "Measurable redemption"
+          "1": "Agreed reward and redemption terms",
+          "2": "Redemptions measurable; traffic not guaranteed",
+          "3": "No payment-card linking in the current beta"
         },
         "cta": "Details"
       }
