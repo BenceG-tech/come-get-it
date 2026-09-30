@@ -285,6 +285,91 @@
     "redeem_confirm": "Azure Garden Spritz beváltásának megerősítése",
     "rewards_list": "Elérhető ital- és élményjutalmak"
   },
+  "venue_details": {
+    "cards": {
+      "1": {
+        "title": "Vendég a döntés pillanatában",
+        "description": "A vendég akkor találkozhat a helyeddel, amikor azt keresi, hova menjen. Az ajánlat segít a választásban; a további élményt te adod."
+      },
+      "2": {
+        "title": "Előre tisztázott pilotköltség",
+        "description": "A korlátozott pilotban nincs Come Get It platformdíj. Az ajánlat költségét és keretét előre rögzítjük; eredményt nem ígérünk."
+      },
+      "3": {
+        "title": "A keret a te kezedben van",
+        "description": "Te választod ki az ajánlatot, a készletet, a napokat és az időablakot. A próba feltételeit együtt rögzítjük."
+      },
+      "4": {
+        "title": "A beváltás a biztos adat",
+        "description": "A saját helyed sikeres QR-beváltásait látod. Utóköltést, átlagos költést és visszatérést csak külön, előre egyeztetett pilotméréssel vizsgálunk."
+      },
+      "5": {
+        "title": "HAMAROSAN — Lokáció-alapú push",
+        "description": "A közelben járóknak szóló értesítés egy lehetséges későbbi fejlesztés. A jelenlegi bétában nem működő funkció."
+      },
+      "6": {
+        "title": "Közös értékelés, külön folytatás",
+        "description": "A pilotot egyeztetett ciklusokban értékeljük. Hosszú távú együttműködés csak külön írásos megállapodással jöhet létre."
+      }
+    },
+    "audience": {
+      "1": {
+        "title": "Budapesti felnőtt közönség",
+        "description": "A helyet és új élményeket kereső vendégeket célozzuk; pontos arányt nem állítunk."
+      },
+      "2": {
+        "title": "Helyválasztási pillanat",
+        "description": "A vendégek ekkor találkozhatnak az ajánlatoddal."
+      },
+      "3": {
+        "title": "Általad választott idősáv",
+        "description": "A pilotban a kijelölt napokon és időablakban próbálunk elérni vendégeket."
+      },
+      "4": {
+        "title": "Tényleges eredmények",
+        "description": "A pilot eredményét valós QR-beváltásokon ellenőrizzük, nem előre feltételezett közönségen."
+      }
+    },
+    "join": {
+      "1": {
+        "title": "Beszélgetünk",
+        "description": "Megismerjük a helyedet és a pilot célját."
+      },
+      "2": {
+        "title": "Rögzítjük a feltételeket",
+        "description": "Egyeztetjük az ajánlatot, készletet, időablakot és leállítás feltételeit."
+      },
+      "3": {
+        "title": "Beállítjuk a helyedet",
+        "description": "A jóváhagyott ajánlatot és időablakot rögzítjük."
+      },
+      "4": {
+        "title": "Korlátozott teszttel indulunk",
+        "description": "A pultos folyamat és a QR-próba után indulhat az ajánlat."
+      },
+      "5": {
+        "title": "Közösen kiértékeljük",
+        "description": "A QR-beváltásokat együtt nézzük meg; a folytatáshoz külön megállapodás kell."
+      }
+    },
+    "why_title": "Miért éri meg neked?",
+    "roi_title": "Számoljunk együtt",
+    "roi_body": "A pilot előtt együtt végignézzük az ajánlat önköltségét és az általad vállalt keretet. A rendszer a QR-beváltást rögzíti; az esetleges további rendelést, átlagos költést és visszatérést csak külön, előre egyeztetett mérési módszerrel vizsgáljuk. Így a döntésed valós adatokon alapulhat, nem feltételezett bevételen.",
+    "roi_closing": "A beváltás tény. A megtérülést együtt vizsgáljuk.",
+    "audience_title": "Kit célzunk",
+    "perks_title": "A korlátozott partnerpilot feltételei",
+    "perks_closing": "Kis létszámú budapesti pilot, ellenőrzött kapacitással.",
+    "join_title": "Csatlakozás 5 lépésben",
+    "perks": {
+      "1": "A korlátozott pilot alatt nincs Come Get It platformdíj",
+      "2": "Te állítod be az ajánlatot, a készletet és az időablakot",
+      "3": "A partnerfelület csak a saját helyed QR-beváltásait mutatja",
+      "4": "A pultos folyamatot indulás előtt együtt teszteljük",
+      "5": "A pilot eredményeit közösen, előre rögzített szempontok szerint értékeljük",
+      "6": "Közös kommunikáció vagy kampány csak külön jóváhagyással indul",
+      "7": "A későbbi kereskedelmi feltételekhez külön írásos megállapodás szükséges"
+    }
+  },
   "venue_value": {
     "title": "A meghívótól a bizonyítékig",
     "steps": {

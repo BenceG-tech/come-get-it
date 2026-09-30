@@ -285,6 +285,91 @@
     "redeem_confirm": "Confirming an Azure Garden Spritz redemption",
     "rewards_list": "Available drink and experience rewards"
   },
+  "venue_details": {
+    "cards": {
+      "1": {
+        "title": "Guests at the moment of choice",
+        "description": "Guests can find your venue while deciding where to go. The offer invites them in; you create the rest of the experience."
+      },
+      "2": {
+        "title": "Agreed pilot costs",
+        "description": "There is no Come Get It platform fee in the limited pilot. We agree the offer budget and terms in advance, without promising results."
+      },
+      "3": {
+        "title": "The terms are yours",
+        "description": "You choose the offer, stock, days and time window. We document the pilot terms together."
+      },
+      "4": {
+        "title": "Redemption is the reliable metric",
+        "description": "You see successful QR redemptions at your venue. Spend, average spend and return visits need a separately agreed pilot measurement."
+      },
+      "5": {
+        "title": "PLANNED — Nearby notifications",
+        "description": "Notifications for nearby guests are a possible future feature, not available in the current beta."
+      },
+      "6": {
+        "title": "Review together, decide separately",
+        "description": "We review the pilot at agreed intervals. A longer relationship requires a separate written agreement."
+      }
+    },
+    "audience": {
+      "1": {
+        "title": "Budapest adults",
+        "description": "We aim to reach guests exploring venues and experiences; no unverified audience ratios."
+      },
+      "2": {
+        "title": "The moment of choice",
+        "description": "Guests can encounter your offer when choosing where to go."
+      },
+      "3": {
+        "title": "Your chosen time window",
+        "description": "The pilot can reach guests during the days and hours you choose."
+      },
+      "4": {
+        "title": "Actual results",
+        "description": "We review actual QR redemptions rather than assuming an audience in advance."
+      }
+    },
+    "join": {
+      "1": {
+        "title": "We talk",
+        "description": "We learn about your venue and goals for the pilot."
+      },
+      "2": {
+        "title": "We agree on terms",
+        "description": "We set the offer, stock, time window and stop conditions."
+      },
+      "3": {
+        "title": "We set up the venue",
+        "description": "We add your approved offer and time window."
+      },
+      "4": {
+        "title": "We launch carefully",
+        "description": "The offer can go live after a staff walkthrough and QR test."
+      },
+      "5": {
+        "title": "We review together",
+        "description": "We assess QR redemptions; continuing requires a separate agreement."
+      }
+    },
+    "why_title": "Why partner with us?",
+    "roi_title": "Let's look at the numbers",
+    "roi_body": "Before the pilot, we review the cost and limit of your offer together. The app records QR redemptions; further orders, average spend and return visits require a separate agreed measurement method. Decisions should rest on real evidence, not assumed revenue.",
+    "roi_closing": "Redemptions are facts. We assess value together.",
+    "audience_title": "Who we aim to reach",
+    "perks_title": "Terms of the limited partner pilot",
+    "perks_closing": "A small Budapest pilot with controlled capacity.",
+    "join_title": "Joining in 5 steps",
+    "perks": {
+      "1": "No Come Get It platform fee during the limited pilot",
+      "2": "You set the offer, stock and time window",
+      "3": "The partner view shows QR redemptions for your venue only",
+      "4": "We test the staff process together before launch",
+      "5": "We review the pilot against agreed criteria",
+      "6": "Joint communications or campaigns need separate approval",
+      "7": "Later commercial terms require a separate written agreement"
+    }
+  },
   "venue_value": {
     "title": "From invitation to evidence",
     "steps": {
