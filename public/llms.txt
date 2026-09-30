@@ -8,7 +8,9 @@ A Come Get It egy magyar fejlesztésű mobilalkalmazás, amely segít a felhaszn
 
 Az indulás Budapesten kezdődik, később országos terjeszkedés Magyarországon. Célközönség: 18–45 éves városi, vendéglátó-aktív közönség. Státusz: ingyenes bétaverzió; a weboldalon várólista (waitlist) is nyitva.
 
-A platform három partnertípussal dolgozik: vendéglátóhelyek (bárok, kávézók, éttermek), italmárkák (brand aktiváció, kampánymérés) és rewards-partnerek (jutalom-katalógus). Az első csatlakozók Founding Partner Programba kerülnek kedvezőbb feltételekkel.
+A partnerérték lényege: az ital a meghívó. A vendéglátóhely az ajánlatot, készletet, napot és időablakot maga szabja meg; a Come Get It a helyválasztás pillanatában segít a vendéget a helyhez terelni, és a sikeres QR-beváltást méri. Az utóköltés, átlagos költés és visszatérés csak külön egyeztetett pilotméréssel vizsgálható; vendégszámot és bevételt nem garantálunk. A helyszíni élmény a partner kezében van.
+
+Az 1. fázis a korlátozott vendéglátóhely-pilot. A 2. fázisra tervezett italmárka-aktiváció valós helyszínen adhat első kortyot; a jutalompartner ajánlata a látogatás után folytathatja a márkakapcsolatot. Ezekre most early access jelentkezés lehetséges, nem működő kampányként hirdetjük őket. A béta nem kapcsol bankkártyát. Alkoholos ajánlatok: 18+, felelős fogyasztás.
 
 ## Kulcsadatok
 
@@ -28,7 +30,7 @@ A platform három partnertípussal dolgozik: vendéglátóhelyek (bárok, kávé
 - [Italmárkáknak](/italmarkak): Brand aktivációk és kampánymérés italmárkáknak.
 - [Rewards Partnerek](/rewards-partners): Jutalom-katalógus partnerprogram márkáknak.
 - [Partnerek](/partnerek): Partnertípusok áttekintése.
-- [Come Get It Accelerator](/come-get-it-accelerator): Gyorsítóprogram induló partnereknek.
+- [Founding Partner Program](/come-get-it-accelerator): Kis létszámú, kontrollált pilot közös kiértékeléssel.
 - [Támogatás](/support): Kapcsolat, gyakori témák, fióktörlés.
 - [Felhasználási feltételek](/felhasznalasi-feltetelek): A béta használatának feltételei.
 - [Adatvédelmi szabályzat](/adatvedelmi-szabalyzat): GDPR és adatkezelés.

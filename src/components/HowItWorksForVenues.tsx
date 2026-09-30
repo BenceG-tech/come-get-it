@@ -1,5 +1,6 @@
 import React from 'react';
 import { MessageCircle, FileSignature, Settings, Rocket, ShieldCheck } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
 const steps = [
   {
@@ -35,12 +36,13 @@ const steps = [
 ];
 
 export const HowItWorksForVenues: React.FC = () => {
+  const { t } = useI18n();
   return (
     <section id="how-it-works-venues" className="py-16 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight">
-            Csatlakozás 5 lépésben
+            {t('venue_details.join_title')}
           </h2>
         </div>
 
@@ -62,10 +64,10 @@ export const HowItWorksForVenues: React.FC = () => {
                 <step.icon className="w-6 h-6 md:w-7 md:h-7 text-nf-primary" strokeWidth={1.5} />
               </div>
               <h4 className="text-sm md:text-base font-bold text-white mb-2 group-hover:text-nf-primary transition-colors">
-                {step.title}
+                 {t(`venue_details.join.${index + 1}.title`)}
               </h4>
               <p className="text-xs md:text-sm text-white/60 leading-snug">
-                {step.description}
+                 {t(`venue_details.join.${index + 1}.description`)}
               </p>
             </div>
           ))}

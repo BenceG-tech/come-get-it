@@ -5,6 +5,7 @@ import { MobileNavigation } from '@/components/MobileNavigation';
 import { VenueHeroSection } from '@/components/VenueHeroSection';
 import { HowItWorksForVenues } from '@/components/HowItWorksForVenues';
 import { VenueWhyWorth } from '@/components/VenueWhyWorth';
+import { VenueValueSteps } from '@/components/VenueValueSteps';
 import { FoundingPartnerPerks } from '@/components/FoundingPartnerPerks';
 import { VenueROI } from '@/components/VenueROI';
 import { VenueStats } from '@/components/VenueStats';
@@ -80,7 +81,7 @@ const Vendeglatohelyek = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Vendéglátóhelyeknek — Founding Partner Program | Come Get It"
-        description="Az első 15 budapesti hely. 6 hónap jutalékmentes pilot: QR-beváltások mérése, az utóköltés és visszatérés külön, közösen egyeztetett vizsgálatával."
+         description="Az ital a meghívó, az élményből lehet törzsvendég. Te szabod meg az ajánlatot és az időablakot; a QR-beváltás mérhető a korlátozott pilotban."
         canonical="/vendeglatohelyek"
         jsonLd={{
           '@context': 'https://schema.org',
@@ -95,6 +96,7 @@ const Vendeglatohelyek = () => {
       <Navigation />
       <main>
         <VenueHeroSection />
+         <VenueValueSteps />
         <VenueWhyWorth />
         <FoundingPartnerPerks />
         <VenueROI />

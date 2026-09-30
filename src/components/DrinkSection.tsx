@@ -64,7 +64,7 @@ export const DrinkSection: React.FC<DrinkSectionProps> = ({ currentImageIndex, d
               }}
             />
             <div className="relative scale-90 sm:scale-100">
-              <PhoneMockup imageUrl={drinkImages[currentImageIndex]} />
+              <PhoneMockup imageUrl={drinkImages[currentImageIndex]} alt={t(`screens.drink.${currentImageIndex + 1}`)} fit="contain" />
             </div>
           </div>
         </div>

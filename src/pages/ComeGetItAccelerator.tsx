@@ -11,10 +11,10 @@ import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
+const redeemConfirm = '/app-screens-v2/consumer/redeem-confirm.webp';
 
 const ComeGetItAccelerator = () => {
   const { t } = useI18n();
-  const acceleratorImage = "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.webp";
 
   useEffect(() => {
     analytics.acceleratorPageView();
@@ -58,18 +58,18 @@ const ComeGetItAccelerator = () => {
   }, []);
 
   const howItWorksSteps = [
-    { number: "1", title: "Beszélgetünk", description: "Online vagy személyesen találkozunk. Megmutatjuk az appot és válaszolunk minden kérdésedre.", icon: MessageCircle },
-    { number: "2", title: "Rögzítjük a pilot feltételeit", description: "Írásban tisztázzuk az ajánlatot, készletet, időablakot, felelősöket és leállítási feltételeket.", icon: FileSignature },
-    { number: "3", title: "Beállítjuk a profilodat", description: "Felvesszük az adataidat, ajánlataidat, időablakaidat. Te döntöd el, mit, mikor és kinek.", icon: UserCog },
-    { number: "4", title: "Korlátozott teszttel indulunk", description: "Csak akkor jelenik meg az ajánlat, ha a partnerprofil, a személyzeti folyamat és a QR-próba készen áll.", icon: Rocket },
-    { number: "5", title: "Közösen kiértékeljük", description: "A pilotban nincs Come Get It platformdíj. Bármilyen későbbi kereskedelmi feltétel csak külön írásos megállapodással léphet életbe.", icon: Gift }
+    { number: "1", title: t('accelerator_page.pilot_steps.1.title'), description: t('accelerator_page.pilot_steps.1.description'), icon: MessageCircle },
+    { number: "2", title: t('accelerator_page.pilot_steps.2.title'), description: t('accelerator_page.pilot_steps.2.description'), icon: FileSignature },
+    { number: "3", title: t('accelerator_page.pilot_steps.3.title'), description: t('accelerator_page.pilot_steps.3.description'), icon: UserCog },
+    { number: "4", title: t('accelerator_page.pilot_steps.4.title'), description: t('accelerator_page.pilot_steps.4.description'), icon: Rocket },
+    { number: "5", title: t('accelerator_page.pilot_steps.5.title'), description: t('accelerator_page.pilot_steps.5.description'), icon: Gift }
   ];
 
   const benefits = [
-    { icon: Award, title: "KORAI PILOT", description: "A partner a valós tesztben segít kialakítani az ajánlatot és a pultos folyamatot." },
-    { icon: Wallet, title: "NINCS PLATFORMDÍJ A TESZTBEN", description: "A Come Get It a korlátozott pilotért nem számít fel díjat; az ajánlat költségét és keretét előre egyeztetjük." },
-    { icon: Megaphone, title: "EGYEZTETETT KOMMUNIKÁCIÓ", description: "Közös tartalom vagy PR csak külön jóváhagyással és igazolt állításokkal készül." },
-    { icon: Handshake, title: "KÜLÖN KÉSŐBBI DÖNTÉS", description: "Nincs automatikus hosszú távú vagy lifetime ígéret; a folytatásról a pilot bizonyítékai alapján, írásban döntünk." }
+    { icon: Award, title: t('accelerator_page.pilot_benefits.1.title'), description: t('accelerator_page.pilot_benefits.1.description') },
+    { icon: Wallet, title: t('accelerator_page.pilot_benefits.2.title'), description: t('accelerator_page.pilot_benefits.2.description') },
+    { icon: Megaphone, title: t('accelerator_page.pilot_benefits.3.title'), description: t('accelerator_page.pilot_benefits.3.description') },
+    { icon: Handshake, title: t('accelerator_page.pilot_benefits.4.title'), description: t('accelerator_page.pilot_benefits.4.description') }
   ];
 
   const cardCls = "group relative h-full flex flex-col items-center text-center p-6 md:p-7 rounded-2xl border border-nf-primary/20 bg-white/[0.03] backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-nf-primary/60 hover:shadow-[0_20px_60px_-10px_rgba(0,188,212,0.45)]";
@@ -79,8 +79,8 @@ const ComeGetItAccelerator = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO
-        title="Founding Partner Program — Csatlakozz korán | Come Get It"
-        description="A Come Get It korlátozott pilotprogramja vendéglátóknak, italmárkáknak és jutalompartnereknek: előre rögzített ajánlat, QR-beváltás és közös kiértékelés."
+        title="Founding Partner Program — Teszteljük együtt | Come Get It"
+        description="Kis létszámú, kontrollált pilot: időzített ajánlat, mérhető QR-beváltás és közös kiértékelés. Automatikus hosszú távú elköteleződés nélkül."
         canonical="/come-get-it-accelerator"
         jsonLd={{
           '@context': 'https://schema.org',
@@ -131,17 +131,17 @@ const ComeGetItAccelerator = () => {
             </div>
 
             <PhoneGlowWrapper>
-              <PhoneMockup imageUrl={acceleratorImage} />
+              <PhoneMockup imageUrl={redeemConfirm} alt={t('screens.redeem_confirm')} fit="contain" />
             </PhoneGlowWrapper>
           </div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-4 bg-nf-background nf-section-glow" lang="hu">
+      <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className={sectionTitle}>Hogyan működik?</h2>
+            <h2 className={sectionTitle}>{t('accelerator_page.pilot_labels.how')}</h2>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 max-w-6xl mx-auto">
@@ -163,7 +163,7 @@ const ComeGetItAccelerator = () => {
       <section className="py-16 px-4 bg-nf-background nf-section-glow">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className={sectionTitle}>Miért válassz minket?</h2>
+            <h2 className={sectionTitle}>{t('accelerator_page.pilot_labels.why')}</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
@@ -184,11 +184,11 @@ const ComeGetItAccelerator = () => {
       <section className="py-20 px-4 bg-nf-background nf-section-glow text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-anton uppercase leading-[0.9] tracking-tight">
-            <span className="block text-white">Csatlakozz</span>
-            <span className="block text-nf-primary mt-2 drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">az elsők közé</span>
+            <span className="block text-white">{t('accelerator_page.pilot_labels.join1')}</span>
+            <span className="block text-nf-primary mt-2 drop-shadow-[0_0_30px_rgba(0,188,212,0.45)]">{t('accelerator_page.pilot_labels.join2')}</span>
           </h2>
           <p className="text-base md:text-lg text-white/70 mb-10 mt-6 leading-relaxed">
-            Légy te az egyik első Founding Partner — vendéglátóhelyként, italmárkaként vagy rewards-partnerként.
+            {t('accelerator_page.pilot_labels.join_body')}
           </p>
 
           <Button
@@ -206,7 +206,7 @@ const ComeGetItAccelerator = () => {
               }
             }}
           >
-            Jelentkezem most
+            {t('accelerator_page.hero.cta')}
             <ArrowRight className="ml-3 h-5 w-5" />
           </Button>
         </div>

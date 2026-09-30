@@ -1,12 +1,14 @@
 import React from 'react';
+import { useI18n } from '@/hooks/useI18n';
 
 export const VenueROI: React.FC = () => {
+  const { t } = useI18n();
   return (
     <section id="venue-roi" className="py-20 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight">
-            Számoljunk együtt
+            {t('venue_details.roi_title')}
           </h2>
         </div>
 
@@ -15,12 +17,12 @@ export const VenueROI: React.FC = () => {
 
           <div className="relative z-10">
             <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto text-center md:text-left">
-              Egy példa — az első beszélgetésen a te számaiddal számoljuk végig: mondjuk a free drink önköltsége 400 Ft. Ha a beváltó vendég rendel mellé még egy kört vagy egy ételt — mondjuk 3 000 Ft értékben —, egyetlen új vendég többszörösen fedezheti az ital költségét. A QR-beváltást a rendszer rögzíti; az utóköltést és visszatérést csak külön, veled egyeztetett pilotméréssel állítjuk, 30 naponta közösen kiértékelve.
+              {t('venue_details.roi_body')}
             </p>
 
             <div className="border-t border-nf-primary/20 pt-8 mt-8 text-center">
               <div className="text-2xl md:text-4xl lg:text-5xl font-anton text-nf-primary tracking-tight uppercase leading-[1.05] [text-shadow:0_0_35px_rgba(0,188,212,0.55)]">
-                Nem mi mondjuk meg, hogy megéri. Az adataid fogják.
+                {t('venue_details.roi_closing')}
               </div>
             </div>
           </div>

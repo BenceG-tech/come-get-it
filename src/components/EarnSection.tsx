@@ -28,7 +28,7 @@ export const EarnSection: React.FC<EarnSectionProps> = ({ earnImageIndex, earnIm
           
           {/* Right - Phone Mockup */}
           <div className="flex justify-center lg:justify-start relative">
-            <PhoneMockup imageUrl={earnImages[earnImageIndex]} />
+            <PhoneMockup imageUrl={earnImages[earnImageIndex]} alt={t(`screens.earn.${earnImageIndex + 1}`)} fit="contain" />
           </div>
         </div>
       </div>

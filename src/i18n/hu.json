@@ -133,20 +133,20 @@
     }
   },
   "venue_teaser": {
-    "title": "Vendéglátóhely vagy?",
-    "subtitle": "Az első 15 budapesti Founding Partnerrel közösen bizonyítjuk be, hogy a rendszer a gyengébb időszakokban is mérhető forgalmat hoz. 6 hónap jutalékmentesen — az appban elérhető ajánlat ad okot a vendégnek, hogy ma este hozzád jöjjön.",
+    "title": "Az ital a meghívó. Az élményből lehet törzsvendég.",
+    "subtitle": "Te szabod meg az ajánlatot, a készletet, a napot és az időablakot. A Come Get It a döntés pillanatában segít hozzád terelni a vendéget; a QR-beváltást mérjük. A folytatás a helyed élményén múlik.",
     "cards": {
       "1": {
-        "title": "ÚJ VENDÉGEK",
-        "description": "Nem ígérünk számokat — a QR-beváltásokat automatikusan mérjük, az utóköltést és visszatérést pedig külön, egyeztetett pilotmódszerrel vizsgáljuk."
+        "title": "A DÖNTÉS PILLANATA",
+        "description": "A vendég akkor találkozik a helyeddel, amikor épp azt keresi, hova menjen. Az ital okot ad a kipróbálásra."
       },
       "2": {
-        "title": "NULLA RIZIKÓ",
-        "description": "6 hónap jutalékmentes. Nincs setup-fee, nincs hosszú szerződés — a 30 napos közös kiértékelés után bármikor kilépsz."
+        "title": "TE IRÁNYÍTASZ",
+        "description": "Az ajánlat, a készlet, a nap és az időablak a te döntésed. A korlátozott pilot feltételeit előre rögzítjük."
       },
       "3": {
-        "title": "VALÓDI INSIGHT",
-        "description": "Adatokat kapsz arról, ki mikor jön, melyik italra reagálnak — A/B tesztelheted az ajánlataidat."
+        "title": "MÉRHETŐ BEVÁLTÁS",
+        "description": "A sikeres QR-beváltásokat mérjük. Utóköltést és visszatérést csak külön, egyeztetett pilotmérésben vizsgálunk."
       }
     },
     "cta": "Jelentkezem a pilotra →"
@@ -249,27 +249,150 @@
     },
     "venue": {
       "title": "VENDÉGLÁTÓHELYEK",
-      "desc": "Nagyobb forgalom, hűségesebb vendégek, erősebb márka."
+      "desc": "Te időzíted az ajánlatot; a döntés pillanatában megjelenhetsz, a QR-beváltás mérhető."
     },
     "brand": {
       "title": "ITALMÁRKÁK",
-      "desc": "Nagyobb láthatóság, valós fogyasztói kapcsolódás, mérhető eredmények."
+      "desc": "A 2. fázisban: első korty valós partnerhelyen, egyeztetett kampányban."
     },
     "rewards": {
       "title": "REWARDS PARTNEREK",
-      "desc": "Exkluzív partnerség, közös növekedés és hosszú távú együttműködések."
+      "desc": "A 2. fázisban: a helyszíni élmény után beváltható jutalommal épülhet új kapcsolat."
     },
     "community": {
       "title": "KÖZÖSSÉG",
       "desc": "Egy erősebb, összetartóbb vendéglátó és fogyasztói közösség."
     }
   },
+  "screens": {
+    "drink": {
+      "1": "Come Get It partnerhelyek listája",
+      "2": "Come Get It Bistro részletei és italajánlata",
+      "3": "Azure Garden Spritz ajánlat és helyszín"
+    },
+    "link": {
+      "1": "Helyszínre érkezés a beváltás első lépéseként",
+      "2": "Beváltás bemutatása a pultosnak",
+      "3": "Azure Garden Spritz QR-beváltás megerősítése"
+    },
+    "earn": {
+      "1": "Elérhető ital- és élményjutalmak",
+      "2": "Jutalom részletei és pontigénye",
+      "3": "Élményjutalmak listája"
+    },
+    "venue_offer": "Azure Garden Spritz ajánlat és helyszín a partnerprofilon",
+    "venue_detail": "Come Get It Bistro partnerhely részletei",
+    "redeem_confirm": "Azure Garden Spritz beváltásának megerősítése",
+    "rewards_list": "Elérhető ital- és élményjutalmak"
+  },
+  "venue_details": {
+    "cards": {
+      "1": {
+        "title": "Vendég a döntés pillanatában",
+        "description": "A vendég akkor találkozhat a helyeddel, amikor azt keresi, hova menjen. Az ajánlat segít a választásban; a további élményt te adod."
+      },
+      "2": {
+        "title": "Előre tisztázott pilotköltség",
+        "description": "A korlátozott pilotban nincs Come Get It platformdíj. Az ajánlat költségét és keretét előre rögzítjük; eredményt nem ígérünk."
+      },
+      "3": {
+        "title": "A keret a te kezedben van",
+        "description": "Te választod ki az ajánlatot, a készletet, a napokat és az időablakot. A próba feltételeit együtt rögzítjük."
+      },
+      "4": {
+        "title": "A beváltás a biztos adat",
+        "description": "A saját helyed sikeres QR-beváltásait látod. Utóköltést, átlagos költést és visszatérést csak külön, előre egyeztetett pilotméréssel vizsgálunk."
+      },
+      "5": {
+        "title": "HAMAROSAN — Lokáció-alapú push",
+        "description": "A közelben járóknak szóló értesítés egy lehetséges későbbi fejlesztés. A jelenlegi bétában nem működő funkció."
+      },
+      "6": {
+        "title": "Közös értékelés, külön folytatás",
+        "description": "A pilotot egyeztetett ciklusokban értékeljük. Hosszú távú együttműködés csak külön írásos megállapodással jöhet létre."
+      }
+    },
+    "audience": {
+      "1": {
+        "title": "Budapesti felnőtt közönség",
+        "description": "A helyet és új élményeket kereső vendégeket célozzuk; pontos arányt nem állítunk."
+      },
+      "2": {
+        "title": "Helyválasztási pillanat",
+        "description": "A vendégek ekkor találkozhatnak az ajánlatoddal."
+      },
+      "3": {
+        "title": "Általad választott idősáv",
+        "description": "A pilotban a kijelölt napokon és időablakban próbálunk elérni vendégeket."
+      },
+      "4": {
+        "title": "Tényleges eredmények",
+        "description": "A pilot eredményét valós QR-beváltásokon ellenőrizzük, nem előre feltételezett közönségen."
+      }
+    },
+    "join": {
+      "1": {
+        "title": "Beszélgetünk",
+        "description": "Megismerjük a helyedet és a pilot célját."
+      },
+      "2": {
+        "title": "Rögzítjük a feltételeket",
+        "description": "Egyeztetjük az ajánlatot, készletet, időablakot és leállítás feltételeit."
+      },
+      "3": {
+        "title": "Beállítjuk a helyedet",
+        "description": "A jóváhagyott ajánlatot és időablakot rögzítjük."
+      },
+      "4": {
+        "title": "Korlátozott teszttel indulunk",
+        "description": "A pultos folyamat és a QR-próba után indulhat az ajánlat."
+      },
+      "5": {
+        "title": "Közösen kiértékeljük",
+        "description": "A QR-beváltásokat együtt nézzük meg; a folytatáshoz külön megállapodás kell."
+      }
+    },
+    "why_title": "Miért éri meg neked?",
+    "roi_title": "Számoljunk együtt",
+    "roi_body": "A pilot előtt együtt végignézzük az ajánlat önköltségét és az általad vállalt keretet. A rendszer a QR-beváltást rögzíti; az esetleges további rendelést, átlagos költést és visszatérést csak külön, előre egyeztetett mérési módszerrel vizsgáljuk. Így a döntésed valós adatokon alapulhat, nem feltételezett bevételen.",
+    "roi_closing": "A beváltás tény. A megtérülést együtt vizsgáljuk.",
+    "audience_title": "Kit célzunk",
+    "perks_title": "A korlátozott partnerpilot feltételei",
+    "perks_closing": "Kis létszámú budapesti pilot, ellenőrzött kapacitással.",
+    "join_title": "Csatlakozás 5 lépésben",
+    "perks": {
+      "1": "A korlátozott pilot alatt nincs Come Get It platformdíj",
+      "2": "Te állítod be az ajánlatot, a készletet és az időablakot",
+      "3": "A partnerfelület csak a saját helyed QR-beváltásait mutatja",
+      "4": "A pultos folyamatot indulás előtt együtt teszteljük",
+      "5": "A pilot eredményeit közösen, előre rögzített szempontok szerint értékeljük",
+      "6": "Közös kommunikáció vagy kampány csak külön jóváhagyással indul",
+      "7": "A későbbi kereskedelmi feltételekhez külön írásos megállapodás szükséges"
+    }
+  },
+  "venue_value": {
+    "title": "A meghívótól a bizonyítékig",
+    "steps": {
+      "1": {
+        "title": "Meghívó",
+        "body": "Az időzített ajánlat segít eldönteni, hova menjen a vendég."
+      },
+      "2": {
+        "title": "Élmény",
+        "body": "A kiszolgálás, atmoszféra és további kínálat a te kezedben van."
+      },
+      "3": {
+        "title": "Bizonyíték",
+        "body": "A QR-beváltás mérhető; utóköltés és visszatérés csak külön pilotméréssel."
+      }
+    }
+  },
   "venues": {
     "hero": {
       "badge": "FOUNDING PARTNER PROGRAM — 15 HELY",
-      "line1": "TÖBB VENDÉG.",
-      "line2": "KEVESEBB ÜRES ASZTAL.",
-      "subtitle": "A Come Get It a gyengébb időszakaidban terel hozzád új vendéget — az általad kínált ajánlat ad nekik konkrét okot, hogy ma hozzád jöjjenek. Nem ígérünk számokat: 30 naponta együtt nézzük meg az adatokból, hogy nálad működik-e.",
+      "line1": "AZ ITAL A MEGHÍVÓ.",
+      "line2": "AZ ÉLMÉNYBŐL LEHET TÖRZSVENDÉG.",
+      "subtitle": "A Come Get It akkor mutatja meg a helyedet, amikor valaki éppen azt kérdezi: hova menjünk? Te döntöd el, mit, mikor és hány embernek ajánlasz fel. Mi mérjük a QR-beváltást; hogy a vendég marad-e és visszatér-e, azt a helyed élménye dönti el.",
       "cta": "Jelentkezem a pilotra",
       "cta_secondary": "Hogyan működik?"
     },
@@ -286,11 +409,11 @@
         },
         "3": {
           "title": "FOGADJ VENDÉGEKET",
-          "description": "Növeld a forgalmat, érkeznek az új vendégek."
+          "description": "A jóváhagyott ajánlat megjelenhet a választás pillanatában."
         },
         "4": {
           "title": "KÖVESD AZ EREDMÉNYEKET",
-          "description": "Riportok és statisztikák élőben."
+          "description": "A saját helyed QR-beváltásait mérjük; utóköltéshez külön pilotmérés kell."
         }
       }
     },
@@ -311,11 +434,11 @@
         },
         "4": {
           "title": "BEVÁLTÁS/ FORGALOM RIPORTOK",
-          "description": "Átlátható jelentések a beváltásról és a forgalomról."
+          "description": "Átlátható jelentés a QR-beváltásokról; forgalom és visszatérés csak külön egyeztetett pilotban vizsgálható."
         },
         "5": {
           "title": "LEGYÉL OTT, AMIKOR HELYET KERESNEK",
-          "description": "Ha valaki nem tudja, hova menjen, az app ajánlhatja a helyedet — az ingyen ital pedig segít, hogy téged válasszon."
+          "description": "Az időzített ajánlat segít a helyválasztásban; nem garantálunk látogatást."
         }
       }
     },
@@ -323,29 +446,47 @@
       "items": {
         "1": {
           "label": "ÁTLAG ÉLETKOR",
-          "description": "Fiatal, aktív korosztály"
+          "description": "Budapesti felnőtt vendégeket célzunk; arányokat nem állítunk."
         },
         "2": {
           "label": "MILLENNIÁL & GEN Z ADATBÁZIS",
-          "description": "Célzott demográfia"
+          "description": "A helyválasztás pillanatában jelenhet meg az ajánlat."
         },
         "3": {
           "label": "NŐI KÖZÖNSÉG",
-          "description": "Kiegyensúlyozott arány"
+          "description": "Nem állítunk igazolatlan közönségösszetételt."
         },
         "4": {
           "label": "ESTE/HÉTVÉGÉN AKTÍV",
-          "description": "Rendszeres látogatók"
+          "description": "Az időablakot a partner szabja meg."
         }
       }
     }
   },
   "brands_page": {
+    "value_props": {
+      "1": {
+        "title": "CÉLZOTT PILOT",
+        "description": "Budapesti, helyeket kereső felnőtteknek tervezett aktiváció; igazolt elérést nem állítunk."
+      },
+      "2": {
+        "title": "VALÓDI HELYZET",
+        "description": "Az első korty egy partnerhelyen, valódi választási helyzetben jöhet létre."
+      },
+      "3": {
+        "title": "MÉRHETŐ BEVÁLTÁS",
+        "description": "A QR-beváltást mérjük; visszajelzés csak külön kezelt kampányban gyűjthető."
+      },
+      "4": {
+        "title": "KÖZÖS TERVEZÉS",
+        "description": "A kampány méretét és feltételeit a partnerrel előre egyeztetjük."
+      }
+    },
     "hero": {
-      "line1": "AZ ELSŐ KORTYNÁL",
-      "line2": "TALÁLKOZUNK.",
-      "subtitle": "Mutasd meg az italodat azoknak, akik most döntenek arról, mit isznak. Nem reklámként — első kortyként. Sampling at scale, mérhető eredménnyel.",
-      "phase_note": "Az italmárka-aktivációkat a Founding Partner-vendéglátóhelyek aláírása után indítjuk. Most jelentkezhetsz early access-szel — a célközönség és az első kampánytervek nálunk vannak, készen várjuk, hogy közösen bemutassuk.",
+      "line1": "NE CSAK MUTASD MEG.",
+      "line2": "ADD AZ ELSŐ KORTYOT.",
+      "subtitle": "A 2. fázisban márkád valódi partnerhelyen, valós választási és fogyasztási pillanatban mutatkozhat be. A QR-beváltás mérhető; fogyasztói visszajelzést csak külön elindított, megfelelően kezelt kampányban vizsgálunk.",
+      "phase_note": "2. fázis — early access. Az italmárka-aktivációkat a helyszíni pilotok után, előre egyeztetett kampányként tervezzük. Nincs kész kampányadatbázis vagy garantált elérés.",
       "cta": "Beszéljünk"
     },
     "how_it_works": {
@@ -353,19 +494,19 @@
       "steps": {
         "1": {
           "title": "MUTASD BE",
-          "description": "Töltsd fel italodat a Come Get It platformra, és mutasd meg a budapesti közönségnek!"
+          "description": "Egyeztessünk a lehetséges helyszínről és ajánlatról a 2. fázisra."
         },
         "2": {
           "title": "TESZTELD",
-          "description": "A közösség kipróbálja, értékeli, és azonnal visszajelzést ad."
+          "description": "Korlátozott kóstoltatási pilot indulhat a partnerhely jóváhagyásával."
         },
         "3": {
           "title": "GYŰJTS VISSZAJELZÉST",
-          "description": "Valódi, őszinte vélemények és adatok alapján optimalizálhatsz."
+          "description": "Visszajelzést csak külön elindított és megfelelően kezelt kampányban gyűjtünk."
         },
         "4": {
-          "title": "SKÁLÁZD FEL",
-          "description": "Jusson el italod több helyre, növeld a márkaismertséget és az eladásokat!"
+          "title": "ÉRTÉKELJÜK EGYÜTT",
+          "description": "A folytatásról a valós QR-beváltások után közösen döntünk."
         }
       }
     },
@@ -374,23 +515,23 @@
       "items": {
         "1": {
           "title": "BEÉPÍTETT FELFEDEZÉS ÉS KÓSTOLÁS",
-          "description": "A közönség természetesen találkozik a márkáddal és kóstolja meg."
+          "description": "A tervezett aktiváció a választás és a fogyasztás helyszínén találhat közönségre."
         },
         "2": {
           "title": "CÉLZOTT ELÉRÉS",
-          "description": "18–35 éves budapesti fiatalok — pontos, értékes közönség."
+          "description": "Budapesti, helyeket és új ízeket kereső felnőtteket célzunk; igazolt közönségarányunk még nincs."
         },
         "3": {
           "title": "KREATÍV ÉLMÉNYCSOMAGOK",
-          "description": "Takeover hetek, limited kiadások, AR filter – emlékezetes aktivációk."
+          "description": "Egyedi kóstoltatást és időzített megjelenést csak külön egyeztetés után indítunk."
         },
         "4": {
-          "title": "TELJESÍTMÉNYMÉRÉS",
-          "description": "Beváltás-szintű adatok: hol, mikor, melyik italod fogyott — és mi történt utána."
+          "title": "QR-BEVÁLTÁS MÉRÉSE",
+          "description": "A QR-beváltásokat mérjük. Más hatást csak külön megállapított pilotmódszerrel vizsgálunk."
         },
         "5": {
           "title": "KÓSTOLÁS VALÓDI HELYZETBEN",
-          "description": "A felhasználó nem csak látja a márkád, hanem egy partnerhelyen meg is kóstolhatja."
+          "description": "A partnerhelyen az ajánlat valódi első kortyot adhat, 18+ és felelős fogyasztás mellett."
         }
       }
     },
@@ -420,38 +561,57 @@
       }
     },
     "final_cta": {
-      "title_line1": "INDÍTSD EL AZ",
-      "title_line2": "ÉLMÉNYKAMPÁNYT!",
+      "title_line1": "TERVEZZÜK MEG",
+      "title_line2": "AZ ELSŐ KÓSTOLÁST!",
       "subtitle": "Írj nekünk, csatlakozz az elsők között!",
       "cta": "Early access-t kérek"
     }
   },
   "rewards_page": {
+    "value_props": {
+      "title": "A jutalompartnerek lehetőségei",
+      "1": {
+        "title": "ÚJ KAPCSOLAT",
+        "description": "A helyszíni élmény után a jutalom bemutathatja a márkádat."
+      },
+      "2": {
+        "title": "EGYEZTETETT JUTALOM",
+        "description": "Előre rögzítjük a kínálatot, a készletet és a beváltás módját."
+      },
+      "3": {
+        "title": "MÉRHETŐ BEVÁLTÁS",
+        "description": "A pilotban a tényleges jutalombeváltást értékeljük, nem ígérünk forgalmat."
+      },
+      "4": {
+        "title": "KÜLÖN MEGÁLLAPODÁS",
+        "description": "Közös kampány csak egyeztetett feltételekkel indul."
+      }
+    },
     "hero": {
-      "line1": "LEGYÉL OTT, AMIKOR",
-      "line2": "JUTALMAT VÁLTANAK BE.",
-      "subtitle": "Adj korlátozott, előre egyeztetett jutalmat, amely megjelenhet az appban. A jelenlegi béta nem kapcsolódik bankkártyás költésekhez; csak a ténylegesen jóváírt pontok és jóváhagyott jutalmak használhatók.",
-      "phase_note": "A rewards-partnerprogram a felhasználói bázis kialakulása után, a 2. fázisban indul el. Most jelentkezhetsz early access-szel, hogy a beváltási menüben az elsők között szerepelj, amikor a programot elindítjuk.",
+      "line1": "AZ ITAL ELINDÍTJA A LÁTOGATÁST.",
+      "line2": "A JUTALOM TOVÁBBVISZI A KAPCSOLATOT.",
+      "subtitle": "Egy jó helyszíni élmény után a jutalom új kapcsolatot teremthet a márkáddal. A 2. fázisban előre egyeztetett jutalmak beváltását mérhetjük; forgalmat nem garantálunk. A jelenlegi béta nem kapcsol bankkártyát.",
+      "phase_note": "A rewards-partnerprogram a 2. fázisra tervezett. Most jelezheted az érdeklődésed; a megjelenés, a készlet és a beváltás feltételei csak külön egyeztetés után dőlnek el.",
       "cta": "Early access-t kérek"
     },
     "how_it_works": {
       "title": "HOGYAN MŰKÖDIK?",
       "steps": {
         "1": {
-          "title": "REGISZTRÁLJ",
-          "description": "Lépj be a programba!"
+          "title": "JELEZD AZ ÉRDEKLŐDÉSED",
+          "description": "Most a 2. fázisra tervezett pilothoz jelentkezhetsz."
         },
         "2": {
-          "title": "HOZZ LÉTRE AJÁNLATOT",
-          "description": "Adj exkluzív kedvezményt vagy jutalmat."
+          "title": "EGYEZTESSÜK AZ AJÁNLATOT",
+          "description": "Együtt rögzítjük a jutalmat, készletet és a beváltás feltételeit."
         },
         "3": {
-          "title": "AKTIVÁLD",
-          "description": "Jóváhagyás után megjelenik az appban."
+          "title": "INDULHAT A PILOT",
+          "description": "Jóváhagyás és a 2. fázis elindítása után jelenhet meg az ajánlat."
         },
         "4": {
           "title": "KÖVESD EREDMÉNYEKET",
-          "description": "Láss élő statisztikákat."
+          "description": "Az elindított pilot tényleges jutalombeváltásait értékeljük."
         }
       }
     },
@@ -463,12 +623,12 @@
           "description": "A pilot a tényleges jutalombeváltásokat méri; forgalmi eredményt előre nem ígérünk."
         },
         "2": {
-          "title": "Fiatal, esti-aktív bázis",
-          "description": "18–35 éves, esténként aktív budapesti közönség."
+          "title": "ÚJ BRANDKAPCSOLAT LEHETŐSÉGE",
+          "description": "A pozitív helyszíni élmény után a jutalom bemutathatja a márkádat; elérést nem garantálunk."
         },
         "3": {
           "title": "Együttműködési csomagok",
-          "description": "Kóstolótól a VIP-ig: rugalmas integrációk a céljaidhoz."
+          "description": "Közös kampány csak külön megállapodással és a 2. fázis elindítása után lehetséges."
         }
       }
     },
@@ -495,10 +655,57 @@
     }
   },
   "accelerator_page": {
+    "pilot_benefits": {
+      "1": {
+        "title": "KORAI PILOT",
+        "description": "Helyenként teszteljük, hogy az ajánlat segít-e a választásban."
+      },
+      "2": {
+        "title": "NINCS PLATFORMDÍJ A TESZTBEN",
+        "description": "A korlátozott pilotért nem számítunk fel díjat; az ajánlat költségét előre egyeztetjük."
+      },
+      "3": {
+        "title": "EGYEZTETETT KOMMUNIKÁCIÓ",
+        "description": "Közös tartalom vagy PR csak külön jóváhagyással és igazolt állításokkal készül."
+      },
+      "4": {
+        "title": "KÜLÖN KÉSŐBBI DÖNTÉS",
+        "description": "A pilot nem jelent automatikus hosszú távú kötelezettséget; a folytatás írásos megállapodás kérdése."
+      }
+    },
+    "pilot_steps": {
+      "1": {
+        "title": "Beszélgetünk",
+        "description": "Megismerjük a helyed céljait és tisztázzuk, mit szeretnénk bizonyítani."
+      },
+      "2": {
+        "title": "Rögzítjük a feltételeket",
+        "description": "Írásban egyeztetjük az ajánlatot, készletet, időablakot és leállítás feltételeit."
+      },
+      "3": {
+        "title": "Előkészítjük a tesztet",
+        "description": "A helyszíni folyamatot és a személyzeti QR-próbát együtt ellenőrizzük."
+      },
+      "4": {
+        "title": "Korlátozottan indulunk",
+        "description": "A megállapodott ajánlat a jóváhagyott időablakban jelenhet meg."
+      },
+      "5": {
+        "title": "Kiértékeljük",
+        "description": "A QR-beváltást közösen vizsgáljuk; további üzleti mérést külön egyeztetünk."
+      }
+    },
+    "pilot_labels": {
+      "how": "Hogyan tesztelünk?",
+      "why": "Mit jelent a kontrollált pilot?",
+      "join1": "Tesztelj velünk",
+      "join2": "kis léptékben",
+      "join_body": "Helyenként mérjük a QR-beváltást; a folytatásról együtt döntünk."
+    },
     "hero": {
-      "line1": "LÉGY OTT,",
-      "line2": "AZ ELSŐK KÖZÖTT.",
-      "subtitle": "Kis létszámú budapesti pilot vendéglátóhelyeknek, italmárkáknak és jutalompartnereknek. Előre rögzített ajánlat, QR-beváltás, felelősök és közös kiértékelés — lifetime vagy automatikus kereskedelmi ígéret nélkül.",
+      "line1": "NE HIGGY NEKÜNK VAKON.",
+      "line2": "TESZTELJÜK LE EGYÜTT.",
+      "subtitle": "A Founding Partner Program kis létszámú bizonyítás, nem ígéret az ingyen ital sikerére. Helyenként egyeztetjük az ajánlatot és időablakot, mérjük a QR-beváltást, majd közösen értékelünk. Nincs automatikus hosszú távú elköteleződés.",
       "cta": "Jelentkezz most!"
     },
     "how_it_works": {
@@ -595,41 +802,41 @@
   "partners_page": {
     "hero": {
       "badge": "PARTNERPROGRAM — 2026",
-      "line1": "ÉPÍTSÜK KÖZÖSEN",
-      "line2": "BUDAPEST ÉJSZAKAI ÉLETÉT.",
-      "subtitle": "Három különböző módon csatlakozhatsz a Come Get It-hez. Az indulást a vendéglátóhely-pilotokkal kezdjük — az italmárka- és rewards-programok erre épülnek a 2. fázisban."
+      "line1": "A VÁLASZTÁSTÓL",
+      "line2": "A KÖVETKEZŐ ÉLMÉNYIG.",
+      "subtitle": "A hely időzített ajánlata segít a döntésben; a márka első kortya kipróbálást adhat; a jutalom továbbviheti a kapcsolatot. A vendéglátóhely-pilot az 1., a márka- és jutalomprogram a 2. fázis."
     },
     "sections": {
       "venues": {
         "phase": "1. FÁZIS — INDULÁS",
         "title": "Vendéglátóhely vagy?",
-        "description": "Te adod meg a korlátozott ajánlatot, készletet és időablakot; a pilot méri, hogy ez hoz-e hasznos új látogatást a gyengébb időszakokban.",
+        "description": "Az ital a meghívó: a helyed a döntés pillanatában jelenhet meg. Te szabod meg az ajánlatot, készletet és időablakot; mi mérjük a QR-beváltást. Az élmény a te kezedben van.",
         "bullets": {
-          "1": "Nincs Come Get It platformdíj a pilotban",
-          "2": "QR-beváltások a saját helyedről",
-          "3": "Eredmények előzetes ígéret nélkül"
+          "1": "Te döntesz az ajánlatról, a készletről és az időzítésről",
+          "2": "Saját helyed QR-beváltásai mérhetők",
+          "3": "Utóköltés és visszatérés csak külön pilotmérésben"
         },
         "cta": "Részletek"
       },
       "brands": {
         "phase": "2. FÁZIS — INDULÁS UTÁN",
         "title": "Italmárka vagy?",
-        "description": "Mutasd meg az italodat azoknak, akik most döntenek arról, mit isznak. Nem reklámként — első kortyként. Sampling at scale, mérhető eredménnyel.",
+        "description": "Reklám helyett első korty: a 2. fázisban márkád partnerhelyen, valódi választási és fogyasztási helyzetben jelenhet meg.",
         "bullets": {
-          "1": "Korlátozott, előre egyeztetett célcsoport",
-          "2": "Valós beváltási adatok",
-          "3": "Mérhető pilotaktiváció"
+          "1": "Egyeztetett, korlátozott kóstoltatási pilot",
+          "2": "QR-beváltás alapján mérhető kipróbálás",
+          "3": "Visszajelzés csak külön elindított kampányban"
         },
         "cta": "Részletek"
       },
       "rewards": {
         "phase": "2. FÁZIS — INDULÁS UTÁN",
         "title": "Rewards-partner vagy?",
-        "description": "Adj korlátozott, előre egyeztetett jutalmat, amely megjelenhet az appban. A jelenlegi béta nem kapcsolódik bankkártyás költésekhez.",
+        "description": "Az ital elindíthatja a látogatást; a jutalom a jó élmény után új kapcsolatot teremthet a márkáddal. A rewards-program a 2. fázisra tervezett.",
         "bullets": {
-          "1": "Új közönség elérése",
-          "2": "Pozitív brand-élmény",
-          "3": "Mérhető beváltás"
+          "1": "Előre egyeztetett jutalom és beváltási feltételek",
+          "2": "Beváltás mérhető, forgalom nem garantált",
+          "3": "A jelenlegi béta nem kapcsol bankkártyát"
         },
         "cta": "Részletek"
       }

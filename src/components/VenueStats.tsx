@@ -1,36 +1,38 @@
 import React from 'react';
 import { Users, Smartphone, MoonStar, ListChecks } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
 const items = [
   {
     icon: Users,
-    title: '18–35 ÉVES BUDAPESTI KÖZÖNSÉG',
-    description: 'A közönség, amit a legnehezebb hagyományos reklámmal elérni.',
+    title: 'BUDAPESTI FELNŐTT KÖZÖNSÉG',
+    description: 'A helyet és új élményeket kereső vendégeket célozzuk; pontos arányt nem állítunk.',
   },
   {
     icon: Smartphone,
     title: 'MOBILE-FIRST GENERÁCIÓ',
-    description: 'Az appban dől el a döntés: hova menjenek ma este.',
+    description: 'A helyválasztás pillanatában találkozhatnak az ajánlatoddal.',
   },
   {
     icon: MoonStar,
     title: 'ESTI ÉS AFTERWORK-AKTÍV',
-    description: 'Akkor keresnek helyet, amikor nálad a legnagyobb szükség van a forgalomra.',
+    description: 'A pilotban az általad kijelölt napokon és idősávokban próbálunk elérni vendégeket.',
   },
   {
     icon: ListChecks,
     title: 'A WAITLISTÜNKRŐL INDUL AZ ELSŐ KÖR',
-    description: 'A launch-ra már elköteleződött korai bázisunk vesz részt.',
+    description: 'A pilot eredményét valós beváltásokon ellenőrizzük, nem előre feltételezett közönségen.',
   },
 ];
 
 export const VenueStats: React.FC = () => {
+  const { t } = useI18n();
   return (
     <section className="py-20 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
           <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-nf-primary/80">
-            Kit célzunk
+            {t('venue_details.audience_title')}
           </p>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
@@ -42,10 +44,10 @@ export const VenueStats: React.FC = () => {
                 </div>
               </div>
               <div className="text-sm md:text-base font-bold text-white mb-2 tracking-wide group-hover:text-nf-primary transition-colors duration-300">
-                {item.title}
+                 {t(`venue_details.audience.${index + 1}.title`)}
               </div>
               <div className="text-xs md:text-sm text-white/60 leading-snug">
-                {item.description}
+                 {t(`venue_details.audience.${index + 1}.description`)}
               </div>
             </div>
           ))}

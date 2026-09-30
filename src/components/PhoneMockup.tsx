@@ -3,16 +3,18 @@ import React, { useState } from 'react';
 
 interface PhoneMockupProps {
   imageUrl: string;
+  alt?: string;
   className?: string;
   fit?: 'cover' | 'contain' | 'auto';
   widthClassName?: string;
 }
 
-// iPhone 17 Pro screenshot ratio: 1206 × 2622
-const FRAME_RATIO = 1206 / 2622;
+// Screenshot aspect ratio; the frame follows the supplied 920 × 2000 screens.
+const FRAME_RATIO = 920 / 2000;
 
 export const PhoneMockup: React.FC<PhoneMockupProps> = ({
   imageUrl,
+  alt = 'Come Get It alkalmazás képernyője',
   className = "",
   fit = 'auto',
   widthClassName = "w-[176px] sm:w-[206px] md:w-[232px]",
@@ -61,15 +63,15 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
         className="absolute left-1/2 top-1/2 h-[78%] w-[118%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-nf-primary/25 blur-3xl opacity-80"
       />
 
-      {/* iPhone 17 Pro screenshot frame */}
+      {/* Phone frame matching the supplied app screens */}
       <div
-        className={`relative ${widthClassName} aspect-[1206/2622] rounded-[2.15rem] sm:rounded-[2.45rem] bg-nf-surface-alt p-[4px] shadow-[0_24px_80px_rgba(0,0,0,0.65)] ring-1 ring-nf-border`}
+        className={`relative ${widthClassName} aspect-[920/2000] rounded-[2.15rem] sm:rounded-[2.45rem] bg-nf-surface-alt p-[4px] shadow-[0_24px_80px_rgba(0,0,0,0.65)] ring-1 ring-nf-border`}
       >
         <div className="absolute inset-[2px] rounded-[2rem] sm:rounded-[2.32rem] border border-nf-primary/15 pointer-events-none" />
         <div className="relative h-full w-full overflow-hidden rounded-[1.85rem] sm:rounded-[2.15rem] bg-black">
           <img
             src={imageUrl}
-            alt="Come Get It app képernyőkép"
+            alt={alt}
             onLoad={handleImgLoad}
             className={`h-full w-full ${resolvedFit === 'cover' ? 'object-cover object-center' : 'object-contain object-center'}`}
             loading="lazy"

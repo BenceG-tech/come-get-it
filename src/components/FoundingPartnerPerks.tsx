@@ -1,5 +1,6 @@
 import React from 'react';
 import { Check } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
 const perks = [
   'A korlátozott pilot alatt nincs Come Get It platformdíj',
@@ -12,6 +13,7 @@ const perks = [
 ];
 
 export const FoundingPartnerPerks: React.FC = () => {
+  const { t } = useI18n();
   return (
     <section id="founding-partner-perks" className="py-20 px-4 bg-nf-background nf-section-glow">
       <div className="max-w-4xl mx-auto">
@@ -37,7 +39,7 @@ export const FoundingPartnerPerks: React.FC = () => {
 
           <div className="relative z-10">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-anton uppercase text-white tracking-tight text-center mb-8">
-              A korlátozott partnerpilot feltételei
+              {t('venue_details.perks_title')}
             </h2>
 
             <ul className="space-y-4 max-w-2xl mx-auto mb-10">
@@ -46,14 +48,14 @@ export const FoundingPartnerPerks: React.FC = () => {
                   <span className="shrink-0 mt-0.5 w-7 h-7 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] flex items-center justify-center">
                     <Check className="w-4 h-4 text-nf-primary" strokeWidth={2} />
                   </span>
-                  <span className="text-base md:text-lg text-white/85 leading-relaxed">{perk}</span>
+                   <span className="text-base md:text-lg text-white/85 leading-relaxed">{t(`venue_details.perks.${idx + 1}`)}</span>
                 </li>
               ))}
             </ul>
 
             <div className="text-center">
               <span className="inline-block px-6 py-3 rounded-full border border-nf-primary/40 bg-nf-primary/10 text-xl md:text-2xl lg:text-3xl font-anton uppercase tracking-tight text-nf-primary drop-shadow-[0_0_25px_rgba(0,188,212,0.45)]">
-                Kis létszámú budapesti pilot, ellenőrzött kapacitással.
+                 {t('venue_details.perks_closing')}
               </span>
             </div>
           </div>
