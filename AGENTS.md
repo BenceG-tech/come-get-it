@@ -1,0 +1,2 @@
+- Keep the supplied web-experience media as immutable CDN asset pointers under src/assets/web-experience, because the prototype binaries must remain exact without bloating the repository.
+- Scope the supplied hero and scroll-story presentation to WebExperience.css and keep scroll state inside ScrollStory, because the rest of the public site and admin must remain unchanged.
