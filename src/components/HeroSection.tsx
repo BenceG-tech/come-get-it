@@ -41,7 +41,7 @@ export const HeroSection: React.FC = () => {
       <MobileNavigation />
       <picture>
         <source media="(max-aspect-ratio: 1/1)" srcSet={v2['hero-mobile-poster.webp']} />
-        <img className="experience-poster" src={v2['hero-desktop-poster.webp']} alt="" aria-hidden="true" width={1920} height={1080} fetchPriority="high" />
+        <img className="experience-poster" src={v2['hero-desktop-poster.webp']} alt="" aria-hidden="true" width={1920} height={1080} />
       </picture>
       {videoChoice && (
         <video ref={videoRef} key={videoChoice} className={playing ? 'is-playing' : ''} autoPlay muted loop playsInline preload="auto" poster={videoChoice === 'mobile' ? v2['hero-mobile-poster.webp'] : v2['hero-desktop-poster.webp']} aria-hidden="true" onPlaying={() => setPlaying(true)} onError={() => setPlaying(false)}>

@@ -8,3 +8,6 @@
 - [x] Integrate v2 hero and four-state story with supplied CDN media and responsive timing.
 - [x] Rebuild DRINK/LINK/EARN/GIVE scenes and correct subpage screenshot mapping.
 - [x] Correct public HU/EN redemption claims and verify preview across requested viewports.
+
+- [x] Correct v2 HU/EN public claims and independent UI-loop fallback.
+- [x] Verify CDN media and HU/EN preview flows across four requested viewports (media HTTP checks and local interactive preview; hosted preview requires Lovable sign-in).

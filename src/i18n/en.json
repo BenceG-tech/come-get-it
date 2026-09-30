@@ -215,7 +215,7 @@
       },
       "3": {
         "title": "SHOW STAFF",
-        "description": "Venue staff scan and approve the short-lived redemption."
+        "description": "At the venue tap “I’m here”, show your phone to staff, and they tap REDEEM on your phone."
       },
       "4": {
         "title": "DISCOVER REWARDS",
@@ -233,7 +233,7 @@
       },
       "3": {
         "title": "REDEEM",
-        "description": "Venue staff scan the redemption shown in the app"
+        "description": "“I’m here” → “Show staff” → staff tap REDEEM on your phone."
       },
       "4": {
         "title": "DISCOVER",
@@ -385,7 +385,7 @@
     "perks": {
       "1": "No Come Get It platform fee during the limited pilot",
       "2": "You set the offer, stock and time window",
-      "3": "The partner view shows redemptions for your venue only",
+      "3": "We measure successful redemptions in the jointly reviewed pilot summary.",
       "4": "We test the staff process together before launch",
       "5": "We review the pilot against agreed criteria",
       "6": "Joint communications or campaigns need separate approval",
@@ -471,11 +471,11 @@
           "description": "We aim to reach Budapest adults without inventing audience ratios."
         },
         "2": {
-          "label": "MILLENNIAL & GEN Z DATABASE",
+          "label": "MOMENT OF CHOICE",
           "description": "Your offer can appear when people choose where to go."
         },
         "3": {
-          "label": "FEMALE AUDIENCE",
+          "label": "CONTROLLED PILOT",
           "description": "No unverified audience composition is claimed."
         },
         "4": {
@@ -747,7 +747,7 @@
         },
         "4": {
           "title": "SCALE UP",
-          "description": "Launch in more places — grow sales!"
+          "description": "We review the pilot together and make a separate decision about what comes next."
         }
       }
     },
@@ -785,7 +785,7 @@
         },
         "2": {
           "title": "TARGETED AUDIENCE",
-          "description": "Active 18–34 audience"
+          "description": "We aim to reach Budapest adults exploring venues; we do not claim measured audience ratios."
         },
         "3": {
           "title": "REAL CONSUMER DATA",
@@ -798,19 +798,19 @@
       }
     },
     "demo_stats": {
-      "title": "USER DEMO DATA",
+      "title": "PILOT REVIEW CRITERIA",
       "items": {
         "1": {
-          "label": "AVERAGE AGE"
+          "label": "OFFER AND TIME WINDOW"
         },
         "2": {
-          "label": "GEN Z/MILLENNIAL"
+          "label": "REDEMPTION RESULTS"
         },
         "3": {
-          "label": "FEMALE AUDIENCE"
+          "label": "ON-SITE EXPERIENCE"
         },
         "4": {
-          "label": "ACTIVE APP USERS"
+          "label": "JOINT REVIEW"
         }
       }
     },
@@ -972,7 +972,7 @@
           },
           "hogyan_juthatsz": {
             "title": "How to claim a free drink?",
-            "content": "Check the partner venues and active offers in the app. Offers depend on stock, opening hours and the configured time window.\n\nAt the venue, select the offer. The app shows a short-lived redemption; staff scan and approve it in the partner portal. The app then confirms a successful redemption.\n\nNever send or publicly share the full redemption or redemption secret."
+            "content": "Check partner venues and active offers in the app. Availability depends on stock, opening hours and the time window.\n\nAt the venue, select the offer and tap “I’m here”. Show your phone to staff; they tap REDEEM on your phone. The app confirms the successful redemption.\n\nShow the screen to staff in person; do not share screenshots of a redemption with anyone else."
           },
           "miert_nem_latok": {
             "title": "Why don’t I see offers right now?",
@@ -1129,7 +1129,7 @@
     "header": {
       "heading": "Are you a venue owner?",
       "sub1": "Join our partners!",
-      "sub2": "Grow guest count, build loyalty and get new customers with our free promotions."
+      "sub2": "You set the offer and time window; we measure redemptions and review the results in the pilot."
     },
     "demo_banner": "⚠️ Demo Mode: Email sending is currently unavailable",
     "form": {
@@ -1139,7 +1139,7 @@
       "sending": "Sending...",
       "submit": "Send application"
     },
-    "benefits_line": "🎯 Free promotion • 📈 Growing traffic • 👥 Loyal guests • 📊 Measurable results"
+    "benefits_line": "Timed offers • measured redemptions • controlled pilot"
   },
   "partner_app": {
     "toasts": {
