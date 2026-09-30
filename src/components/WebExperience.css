@@ -51,6 +51,7 @@
 .feature-scroll-story .feature-link .feature-visual { display:block; }
 .feature-scroll-story .feature-link .feature-phone { position:absolute; left:50%; top:50%; width:min(46%,260px); transform:translate(-50%,-50%); filter:none; transition:none; will-change:opacity; }
 .feature-scroll-story .feature-link .feature-phone.is-active { transform:translate(-50%,-50%); }
+.feature-scroll-story .feature-link .feature-label { position:absolute; bottom:24px; left:0; width:100%; text-align:center; font-size:12px; line-height:1.25; }
 .experience-feature { position:relative; overflow:hidden; padding:14vh 0; background:hsl(var(--background)); }
 .feature-background { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.9; }
 .feature-shade { position:absolute; inset:0; background:linear-gradient(90deg,hsl(var(--background) / .9),hsl(var(--background) / .55) 50%,hsl(var(--background) / .8)); }
@@ -100,7 +101,8 @@
   .feature-scroll-story .feature-lead { font-size:clamp(20px,5.6vw,26px); margin:4px 0 8px; }
   .feature-scroll-story .feature-copy > p:not(.feature-lead) { font-size:14px; line-height:1.35; }
   .feature-scroll-story .feature-link .feature-visual { height:min(40svh,335px); }
-  .feature-scroll-story .feature-link .feature-phone { width:min(45%,180px); }
+  .feature-scroll-story .feature-link .feature-phone { width:min(40%,150px); top:calc(50% - 16px); }
+  .feature-scroll-story .feature-link .feature-label { bottom:0; }
   .feature-scroll-story .feature-link ol { margin-top:10px; gap:4px; }
   .feature-scroll-story .feature-link li { font-size:12px; }
   .feature-scroll-story .feature-roadmap { gap:6px; margin-top:12px; }

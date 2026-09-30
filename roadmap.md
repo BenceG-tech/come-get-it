@@ -15,3 +15,4 @@
 - [x] Slow hero videos to 0.65 and make the first story continuously scroll-driven.
 - [x] Replace four standalone feature scenes with a scroll-driven sticky story and four distinct anchors, including reduced-motion fallback.
 - [x] QA both languages and four requested viewports without publishing.
+- [x] Show exactly one LINK phone label during scroll crossfades; verify desktop and mobile preview without publishing.
