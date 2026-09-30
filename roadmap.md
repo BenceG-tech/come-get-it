@@ -1,2 +1,2 @@
-- [ ] Integrate supplied responsive video hero and four-phase scroll story on homepage.
-- [ ] Preserve existing sections and localization; verify desktop/mobile preview and interaction.
+- [x] Integrate supplied responsive video hero and four-phase scroll story on homepage.
+- [x] Preserve existing sections and localization; verify desktop/mobile preview and interaction.
