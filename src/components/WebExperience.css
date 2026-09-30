@@ -2,6 +2,8 @@
 .experience-hero, .experience-story, .experience-feature { --experience-container: min(92vw, 1380px); --experience-text: minmax(460px, 560px); --experience-gap: clamp(60px, 5.6vw, 104px); --experience-phone: min(clamp(330px,24vw,390px),calc(78svh * .475)); }
 .experience-hero { position:relative; height:100svh; min-height:640px; overflow:hidden; background:hsl(var(--background)); }
 .experience-hero picture, .experience-hero video, .experience-hero .experience-poster { position:absolute; inset:0; width:100%; height:100%; }
+.experience-hero picture { z-index:1; }
+.experience-hero video { z-index:1; }
 .experience-hero .experience-poster, .experience-hero video { object-fit:cover; object-position:70% 50%; }
 .experience-hero video { opacity:0; transition:opacity .4s ease; }
 .experience-hero video.is-playing { opacity:1; }
@@ -111,3 +113,5 @@
 }
 
 @media (max-width:390px) { .feature-link .feature-phone span { font-size:10px; } .feature-link li { font-size:14px; } }
+
+@media (max-width:760px) { .feature-link .feature-phone span { left:-4%; right:-4%; overflow-wrap:anywhere; } .feature-give .feature-visual { display:none; } }
