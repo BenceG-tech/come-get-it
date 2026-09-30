@@ -27,8 +27,11 @@ export const HeroSection: React.FC = () => {
 
   useEffect(() => {
     if (!videoChoice) return;
-    videoRef.current?.load();
-    videoRef.current?.play().catch(() => setPlaying(false));
+    const video = videoRef.current;
+    if (!video) return;
+    video.playbackRate = 0.65;
+    video.load();
+    video.play().catch(() => setPlaying(false));
   }, [videoChoice]);
 
   const scrollTo = (id: string, location: string, label: string) => {
@@ -44,7 +47,7 @@ export const HeroSection: React.FC = () => {
         <img className="experience-poster" src={v2['hero-desktop-poster.webp']} alt="" aria-hidden="true" width={1920} height={1080} />
       </picture>
       {videoChoice && (
-        <video ref={videoRef} key={videoChoice} className={playing ? 'is-playing' : ''} autoPlay muted loop playsInline preload="auto" poster={videoChoice === 'mobile' ? v2['hero-mobile-poster.webp'] : v2['hero-desktop-poster.webp']} aria-hidden="true" onPlaying={() => setPlaying(true)} onError={() => setPlaying(false)}>
+        <video ref={videoRef} key={videoChoice} className={playing ? 'is-playing' : ''} autoPlay muted loop playsInline preload="metadata" poster={videoChoice === 'mobile' ? v2['hero-mobile-poster.webp'] : v2['hero-desktop-poster.webp']} aria-hidden="true" onLoadedMetadata={event => { event.currentTarget.playbackRate = 0.65; }} onCanPlay={event => { event.currentTarget.playbackRate = 0.65; }} onPlaying={() => setPlaying(true)} onError={() => setPlaying(false)}>
           <source src={videoChoice === 'mobile' ? v2['hero-mobile.webm'] : v2['hero-desktop.webm']} type="video/webm" />
           <source src={videoChoice === 'mobile' ? v2['hero-mobile.mp4'] : v2['hero-desktop.mp4']} type="video/mp4" />
         </video>
