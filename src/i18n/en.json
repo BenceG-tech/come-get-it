@@ -409,11 +409,11 @@
         },
         "3": {
           "title": "WELCOME GUESTS",
-          "description": "Grow traffic as new guests arrive."
+          "description": "The approved offer can appear when guests are choosing a venue."
         },
         "4": {
           "title": "TRACK RESULTS",
-          "description": "Live reports and stats."
+          "description": "We measure QR redemptions for your venue; spending needs a separate pilot measurement."
         }
       }
     },
@@ -434,11 +434,11 @@
         },
         "4": {
           "title": "REDEMPTIONS / TRAFFIC REPORTS",
-          "description": "Transparent reports on redemptions and traffic."
+          "description": "Clear QR redemption reports; spending and return visits require a separately agreed pilot."
         },
         "5": {
           "title": "BE THERE WHEN PEOPLE PICK A PLACE",
-          "description": "When someone doesn't know where to go, the app can recommend your venue — and the free drink helps them choose you."
+          "description": "A timed offer can help guests choose; visits are not guaranteed."
         }
       }
     },
@@ -446,19 +446,19 @@
       "items": {
         "1": {
           "label": "AVG AGE",
-          "description": "Young, active audience"
+          "description": "We aim to reach Budapest adults without inventing audience ratios."
         },
         "2": {
           "label": "MILLENNIAL & GEN Z DATABASE",
-          "description": "Targeted demographics"
+          "description": "Your offer can appear when people choose where to go."
         },
         "3": {
           "label": "FEMALE AUDIENCE",
-          "description": "Balanced ratio"
+          "description": "No unverified audience composition is claimed."
         },
         "4": {
           "label": "ACTIVE EVENINGS/WEEKENDS",
-          "description": "Regular visitors"
+          "description": "You choose the time window."
         }
       }
     }
@@ -505,7 +505,7 @@
           "description": "Feedback is collected only in a separately launched and appropriately managed campaign."
         },
         "4": {
-          "title": "SCALE UP",
+          "title": "REVIEW TOGETHER",
           "description": "Decide whether to continue together after real QR results."
         }
       }
@@ -526,7 +526,7 @@
           "description": "Custom tastings and timed placements require a separate agreement."
         },
         "4": {
-          "title": "PERFORMANCE MEASUREMENT",
+          "title": "QR REDEMPTION MEASUREMENT",
           "description": "We measure QR redemptions. Other outcomes require a separate agreed pilot method."
         },
         "5": {
@@ -591,23 +591,23 @@
       "line1": "THE DRINK STARTS THE VISIT.",
       "line2": "THE REWARD EXTENDS THE CONNECTION.",
       "subtitle": "After a good venue experience, a reward may start a new relationship with your brand. In phase 2, we can measure redemptions of agreed rewards, without guaranteeing traffic. The current beta has no payment-card linking.",
-      "phase_note": "The rewards-partner program launches in phase 2, after the user base is established. You can apply now for early access so you're among the first listed in the redemption menu when we go live.",
-      "cta": "Become a rewards partner"
+      "phase_note": "The rewards partner program is planned for phase 2. You can express interest now; listings, stock and redemption terms are subject to a separate agreement.",
+      "cta": "Request early access"
     },
     "how_it_works": {
       "title": "HOW IT WORKS?",
       "steps": {
         "1": {
-          "title": "SIGN UP",
-          "description": "Join the program!"
+          "title": "EXPRESS INTEREST",
+          "description": "Apply now for a pilot planned for phase 2."
         },
         "2": {
-          "title": "CREATE AN OFFER",
-          "description": "Give an exclusive discount or reward."
+          "title": "AGREE ON AN OFFER",
+          "description": "We agree on the reward, stock and redemption terms together."
         },
         "3": {
-          "title": "ACTIVATE",
-          "description": "The approved reward appears in the app."
+          "title": "LAUNCH A PILOT",
+          "description": "The offer may appear once approved and phase 2 has launched."
         },
         "4": {
           "title": "TRACK RESULTS",
@@ -628,7 +628,7 @@
         },
         "3": {
           "title": "Collaboration packages",
-          "description": "From tasting to VIP: flexible integrations for your goals."
+          "description": "A joint campaign requires a separate agreement and phase 2 launch."
         }
       }
     },

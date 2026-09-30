@@ -409,11 +409,11 @@
         },
         "3": {
           "title": "FOGADJ VENDÉGEKET",
-          "description": "Növeld a forgalmat, érkeznek az új vendégek."
+          "description": "A jóváhagyott ajánlat megjelenhet a választás pillanatában."
         },
         "4": {
           "title": "KÖVESD AZ EREDMÉNYEKET",
-          "description": "Riportok és statisztikák élőben."
+          "description": "A saját helyed QR-beváltásait mérjük; utóköltéshez külön pilotmérés kell."
         }
       }
     },
@@ -434,11 +434,11 @@
         },
         "4": {
           "title": "BEVÁLTÁS/ FORGALOM RIPORTOK",
-          "description": "Átlátható jelentések a beváltásról és a forgalomról."
+          "description": "Átlátható jelentés a QR-beváltásokról; forgalom és visszatérés csak külön egyeztetett pilotban vizsgálható."
         },
         "5": {
           "title": "LEGYÉL OTT, AMIKOR HELYET KERESNEK",
-          "description": "Ha valaki nem tudja, hova menjen, az app ajánlhatja a helyedet — az ingyen ital pedig segít, hogy téged válasszon."
+          "description": "Az időzített ajánlat segít a helyválasztásban; nem garantálunk látogatást."
         }
       }
     },
@@ -446,19 +446,19 @@
       "items": {
         "1": {
           "label": "ÁTLAG ÉLETKOR",
-          "description": "Fiatal, aktív korosztály"
+          "description": "Budapesti felnőtt vendégeket célzunk; arányokat nem állítunk."
         },
         "2": {
           "label": "MILLENNIÁL & GEN Z ADATBÁZIS",
-          "description": "Célzott demográfia"
+          "description": "A helyválasztás pillanatában jelenhet meg az ajánlat."
         },
         "3": {
           "label": "NŐI KÖZÖNSÉG",
-          "description": "Kiegyensúlyozott arány"
+          "description": "Nem állítunk igazolatlan közönségösszetételt."
         },
         "4": {
           "label": "ESTE/HÉTVÉGÉN AKTÍV",
-          "description": "Rendszeres látogatók"
+          "description": "Az időablakot a partner szabja meg."
         }
       }
     }
@@ -505,7 +505,7 @@
           "description": "Visszajelzést csak külön elindított és megfelelően kezelt kampányban gyűjtünk."
         },
         "4": {
-          "title": "SKÁLÁZD FEL",
+          "title": "ÉRTÉKELJÜK EGYÜTT",
           "description": "A folytatásról a valós QR-beváltások után közösen döntünk."
         }
       }
@@ -526,7 +526,7 @@
           "description": "Egyedi kóstoltatást és időzített megjelenést csak külön egyeztetés után indítunk."
         },
         "4": {
-          "title": "TELJESÍTMÉNYMÉRÉS",
+          "title": "QR-BEVÁLTÁS MÉRÉSE",
           "description": "A QR-beváltásokat mérjük. Más hatást csak külön megállapított pilotmódszerrel vizsgálunk."
         },
         "5": {
@@ -591,23 +591,23 @@
       "line1": "AZ ITAL ELINDÍTJA A LÁTOGATÁST.",
       "line2": "A JUTALOM TOVÁBBVISZI A KAPCSOLATOT.",
       "subtitle": "Egy jó helyszíni élmény után a jutalom új kapcsolatot teremthet a márkáddal. A 2. fázisban előre egyeztetett jutalmak beváltását mérhetjük; forgalmat nem garantálunk. A jelenlegi béta nem kapcsol bankkártyát.",
-      "phase_note": "A rewards-partnerprogram a felhasználói bázis kialakulása után, a 2. fázisban indul el. Most jelentkezhetsz early access-szel, hogy a beváltási menüben az elsők között szerepelj, amikor a programot elindítjuk.",
+      "phase_note": "A rewards-partnerprogram a 2. fázisra tervezett. Most jelezheted az érdeklődésed; a megjelenés, a készlet és a beváltás feltételei csak külön egyeztetés után dőlnek el.",
       "cta": "Early access-t kérek"
     },
     "how_it_works": {
       "title": "HOGYAN MŰKÖDIK?",
       "steps": {
         "1": {
-          "title": "REGISZTRÁLJ",
-          "description": "Lépj be a programba!"
+          "title": "JELEZD AZ ÉRDEKLŐDÉSED",
+          "description": "Most a 2. fázisra tervezett pilothoz jelentkezhetsz."
         },
         "2": {
-          "title": "HOZZ LÉTRE AJÁNLATOT",
-          "description": "Adj exkluzív kedvezményt vagy jutalmat."
+          "title": "EGYEZTESSÜK AZ AJÁNLATOT",
+          "description": "Együtt rögzítjük a jutalmat, készletet és a beváltás feltételeit."
         },
         "3": {
-          "title": "AKTIVÁLD",
-          "description": "Jóváhagyás után megjelenik az appban."
+          "title": "INDULHAT A PILOT",
+          "description": "Jóváhagyás és a 2. fázis elindítása után jelenhet meg az ajánlat."
         },
         "4": {
           "title": "KÖVESD EREDMÉNYEKET",
@@ -628,7 +628,7 @@
         },
         "3": {
           "title": "Együttműködési csomagok",
-          "description": "Kóstolótól a VIP-ig: rugalmas integrációk a céljaidhoz."
+          "description": "Közös kampány csak külön megállapodással és a 2. fázis elindítása után lehetséges."
         }
       }
     },
