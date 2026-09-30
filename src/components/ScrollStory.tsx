@@ -4,10 +4,10 @@ import { v2 } from '@/lib/web-experience-v2';
 import './WebExperience.css';
 
 const TIMING = {
-  desktop: { storyHeight: 440, holds: [70, 70, 70, 70], transitions: [20, 20, 20] },
-  mobile: { storyHeight: 640, holds: [121.5, 121.5, 121.5, 121.5], transitions: [18, 18, 18] },
+  desktop: { storyHeight: 440, holds: [58.75, 58.75, 58.75, 58.75], transitions: [35, 35, 35] },
+  mobile: { storyHeight: 640, holds: [104.25, 104.25, 104.25, 104.25], transitions: [41, 41, 41] },
 } as const;
-const tilts = [[8, -18, 2], [4, -6, 0], [2, 10, -1], [6, 16, -2]];
+const tilts = [[3, -8, 1], [2, -3, 0], [1, 5, -1], [2, 7, -1]];
 const clamp = (n: number) => Math.max(0, Math.min(1, n));
 function stateAt(u: number, config: typeof TIMING.desktop | typeof TIMING.mobile): number {
   let pos = 0;
@@ -84,7 +84,7 @@ export const ScrollStory: React.FC = () => {
     title: t(`experience.step${n}_title`), highlight: t(`experience.step${n}_highlight`), description: t(`experience.step${n}_description`),
   }));
   return <section id="how-it-works" ref={storyRef} className="experience-story text-foreground" aria-label={t('experience.story_label')}>
-    <div className={`experience-stage ${phase === 3 ? 'story-four' : ''}`}>
+      <div className="experience-stage">
       {backgrounds.map((n, i) => <div key={n} className="experience-bg" style={{ opacity: clamp(1 - Math.abs(position - i)) }} aria-hidden="true">
         <picture><source media="(max-aspect-ratio: 1/1)" srcSet={v2[`bg-${n}-mobile.webp` as keyof typeof v2]} /><img src={v2[`bg-${n}-desktop.webp` as keyof typeof v2]} alt="" loading="lazy" /></picture>
       </div>)}
@@ -92,7 +92,7 @@ export const ScrollStory: React.FC = () => {
       <div className="story-content">
         <div className="story-copy">
           <p className="text-primary text-xs md:text-sm uppercase font-semibold mb-3" aria-live="polite">{t('experience.kicker')} · {phase + 1}/4</p>
-          <div className="story-steps">{steps.map((step, i) => <div key={i} className={`story-step ${phase === i ? 'is-active' : ''}`} aria-hidden={phase !== i}>
+          <div className="story-steps">{steps.map((step, i) => <div key={i} className="story-step" style={{ opacity: clamp(1 - Math.abs(position - i)), transform: `translateY(${(i - position) * 16}px)`, pointerEvents: phase === i ? 'auto' : 'none' }} aria-hidden={phase !== i}>
             <h2 className="font-anton uppercase font-normal">{step.title} <span className="text-primary">{step.highlight}</span></h2>
             <p className="text-foreground/85 text-sm md:text-lg leading-relaxed mt-3 md:mt-5 max-w-md">{step.description}</p>
           </div>)}</div>
@@ -102,12 +102,12 @@ export const ScrollStory: React.FC = () => {
         </div>
         <div className="phone-col">
           <div className="story-phone-wrap"><div className="story-phone" ref={phoneRef}><div className="story-screen">
-            {screens.map((screen, i) => <div key={screen}><img src={screen} alt={phase === i ? t(`experience.screen${i + 1}_alt`) : ''} aria-hidden={phase !== i} className={phase === i ? 'is-active' : ''} width={920} height={2000} loading="lazy" />{visible && !reduced && (i === 0 || i === 2) && phase === i && !failedLoops[i] && <video className="story-ui-loop" src={v2[i === 0 ? 'ui-phone-step-1-map-v2.mp4' : 'ui-phone-step-3-redeem-v2.mp4']} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" onError={() => setFailedLoops(previous => ({ ...previous, [i]: true }))} />}</div>)}
-            {phase === 0 && !reduced && <div className="story-pins" aria-hidden="true"><span /><span /><span /></div>}
+            {screens.map((screen, i) => <div key={screen}><img src={screen} style={{ opacity: clamp(1 - Math.abs(position - i)) }} alt={phase === i ? t(`experience.screen${i + 1}_alt`) : ''} aria-hidden={phase !== i} width={920} height={2000} loading="lazy" />{visible && !reduced && (i === 0 || i === 2) && phase === i && !failedLoops[i] && <video className="story-ui-loop" style={{ opacity: clamp(1 - Math.abs(position - i)) }} src={v2[i === 0 ? 'ui-phone-step-1-map-v2.mp4' : 'ui-phone-step-3-redeem-v2.mp4']} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" onError={() => setFailedLoops(previous => ({ ...previous, [i]: true }))} />}</div>)}
+            {phase === 0 && !reduced && <div className="story-pins" style={{ opacity: clamp(1 - position) }} aria-hidden="true"><span /><span /><span /></div>}
           </div></div></div>
-          <div className="story-float story-venue" style={{ opacity: clamp(1 - Math.abs(position - 1) * 1.8) }} aria-hidden="true"><img src={v2['fg-offer-venue.webp']} alt="" loading="lazy" /></div>
-          <div className="story-float story-redeem" style={{ opacity: clamp(1 - Math.abs(position - 2) * 1.8) }} aria-hidden="true"><img src={v2['fg-redeem-steps.webp']} alt="" loading="lazy" /></div>
-          <div className="story-float story-drink" style={{ opacity: clamp(1 - Math.abs(position - 3) * 1.8) }} aria-hidden="true"><img className="story-drink-glass" src={v2['drink-isolated.webp']} alt="" loading="lazy" /><img className="story-drink-shadow" src={v2['drink-shadow.webp']} alt="" loading="lazy" /></div>
+          <div className="story-float story-venue" style={{ opacity: clamp(1 - Math.abs(position - 1)), transform: `translateY(${(1 - position) * 16}px)` }} aria-hidden="true"><img src={v2['fg-offer-venue.webp']} alt="" loading="lazy" /></div>
+          <div className="story-float story-redeem" style={{ opacity: clamp(1 - Math.abs(position - 2)), transform: `translateY(${(2 - position) * 16}px)` }} aria-hidden="true"><img src={v2['fg-redeem-steps.webp']} alt="" loading="lazy" /></div>
+          <div className="story-float story-drink" style={{ opacity: clamp(1 - Math.abs(position - 3)), transform: `translateY(${(3 - position) * 16}px)` }} aria-hidden="true"><img className="story-drink-glass" src={v2['drink-isolated.webp']} alt="" loading="lazy" /><img className="story-drink-shadow" src={v2['drink-shadow.webp']} alt="" loading="lazy" /></div>
         </div>
       </div>
       <p className="story-note text-[10px] md:text-xs text-foreground/70">{t('experience.disclaimer')}</p>
