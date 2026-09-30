@@ -22,12 +22,15 @@ import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
-import linkRewardsAsset from '@/assets/IMG_9931.png.asset.json';
-import drink1Asset from '@/assets/IMG_9965.png.asset.json';
-import drink2Asset from '@/assets/IMG_9964.png.asset.json';
-import drink3Asset from '@/assets/IMG_9966.png.asset.json';
-import earnQuestsAsset from '@/assets/IMG_9967.png.asset.json';
-import earnRewardsListAsset from '@/assets/IMG_9968.png.asset.json';
+import consumerList from '@/assets/app-screens-v2/consumer/consumer-list.webp.asset.json';
+import venueDetail from '@/assets/app-screens-v2/consumer/venue-detail.webp.asset.json';
+import venueOffer from '@/assets/app-screens-v2/consumer/venue-offer.webp.asset.json';
+import redeemArrival from '@/assets/app-screens-v2/consumer/redeem-arrival.webp.asset.json';
+import redeemShow from '@/assets/app-screens-v2/consumer/redeem-show.webp.asset.json';
+import redeemConfirm from '@/assets/app-screens-v2/consumer/redeem-confirm.webp.asset.json';
+import rewardsList from '@/assets/app-screens-v2/rewards/rewards-list.webp.asset.json';
+import rewardDetail from '@/assets/app-screens-v2/rewards/reward-detail.webp.asset.json';
+import rewardsExperiences from '@/assets/app-screens-v2/rewards/rewards-experiences.webp.asset.json';
 // QuickAccessChips removed from homepage — partner-link cards moved to /partnerek hub
  
 const Index = () => {
@@ -41,21 +44,9 @@ const Index = () => {
     analytics.pageView('index');
   }, []);
 
-  // Drink section uses these two images alternating
-  const drinkImages = [
-    drink1Asset.url,
-    drink2Asset.url,
-    drink3Asset.url,
-  ];
-
-  // Link section uses a single screenshot
-  const linkImage = linkRewardsAsset.url;
-
-  // Earn section uses these two images alternating
-  const earnImages = [
-    earnQuestsAsset.url,
-    earnRewardsListAsset.url,
-  ];
+  const drinkImages = [consumerList.url, venueDetail.url, venueOffer.url];
+  const linkImages = [redeemArrival.url, redeemShow.url, redeemConfirm.url];
+  const earnImages = [rewardsList.url, rewardDetail.url, rewardsExperiences.url];
 
   useEffect(() => {
     const drinkInterval = setInterval(() => {
@@ -153,7 +144,7 @@ const Index = () => {
       <MibenSegitSection />
       {/* QuickAccessChips eltávolítva — a 4 partner-link a /partnerek hub-on érhető el */}
       <DrinkSection currentImageIndex={drinkImageIndex} drinkImages={drinkImages} />
-      <LinkSection linkImage={linkImage} />
+       <LinkSection linkImage={linkImages} />
       <EarnSection earnImageIndex={earnImageIndex} earnImages={earnImages} />
       <GiveSection />
       <PricingSection />

@@ -12,10 +12,10 @@ import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNightHero from '@/assets/budapest-night-hero.jpg';
+import venueDetail from '@/assets/app-screens-v2/consumer/venue-detail.webp.asset.json';
 
 const Italmarkak = () => {
   const { t } = useI18n();
-  const brandImage = "/lovable-uploads/cb1f8184-6bb7-49c6-a584-71e3e7223c07.webp";
 
   const valueProps = [
     { icon: Target, title: "PRECÍZ CÉLZÁS", description: "A Come Get It közössége budapesti, vendéglátóhelyekre járó fiatal felnőtt." },
@@ -135,7 +135,7 @@ const Italmarkak = () => {
               />
               {/* Phone */}
               <div className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
-                <PhoneMockup imageUrl={brandImage} />
+                <PhoneMockup imageUrl={venueDetail.url} alt={t('screens.venue_detail')} fit="contain" />
               </div>
             </div>
           </div>

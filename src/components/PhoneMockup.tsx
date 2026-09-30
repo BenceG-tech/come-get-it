@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 interface PhoneMockupProps {
   imageUrl: string;
+  alt?: string;
   className?: string;
   fit?: 'cover' | 'contain' | 'auto';
   widthClassName?: string;
@@ -13,6 +14,7 @@ const FRAME_RATIO = 1206 / 2622;
 
 export const PhoneMockup: React.FC<PhoneMockupProps> = ({
   imageUrl,
+  alt = 'Come Get It alkalmazás képernyője',
   className = "",
   fit = 'auto',
   widthClassName = "w-[176px] sm:w-[206px] md:w-[232px]",
@@ -69,7 +71,7 @@ export const PhoneMockup: React.FC<PhoneMockupProps> = ({
         <div className="relative h-full w-full overflow-hidden rounded-[1.85rem] sm:rounded-[2.15rem] bg-black">
           <img
             src={imageUrl}
-            alt="Come Get It app képernyőkép"
+            alt={alt}
             onLoad={handleImgLoad}
             className={`h-full w-full ${resolvedFit === 'cover' ? 'object-cover object-center' : 'object-contain object-center'}`}
             loading="lazy"

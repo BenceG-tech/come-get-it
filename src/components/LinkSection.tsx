@@ -23,7 +23,7 @@ export const LinkSection: React.FC<LinkSectionProps> = ({ linkImage }) => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Phone Mockup */}
           <div className="flex justify-center lg:justify-end order-2 lg:order-1 relative">
-            <PhoneMockup imageUrl={images[idx]} />
+            <PhoneMockup imageUrl={images[idx]} alt={t(`screens.link.${idx + 1}`)} fit="contain" />
           </div>
           
           {/* Right - Content */}

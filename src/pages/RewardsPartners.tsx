@@ -12,10 +12,10 @@ import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
 import budapestNightHero from '@/assets/budapest-night-hero.jpg';
+import rewardsList from '@/assets/app-screens-v2/rewards/rewards-list.webp.asset.json';
 
 const RewardsPartners = () => {
   const { t } = useI18n();
-  const rewardsImage = "/lovable-uploads/979f31e4-e452-4696-b8ae-b6de91420066.webp";
 
   useEffect(() => {
     analytics.rewardsPageView();
@@ -201,7 +201,7 @@ const RewardsPartners = () => {
                 </svg>
               </div>
               <div className="relative z-10 origin-center [filter:drop-shadow(0_30px_70px_rgba(0,0,0,0.75))_drop-shadow(0_0_45px_rgba(0,188,212,0.35))]">
-                <PhoneMockup imageUrl={rewardsImage} />
+                <PhoneMockup imageUrl={rewardsList.url} alt={t('screens.rewards_list')} fit="contain" />
               </div>
             </div>
           </div>

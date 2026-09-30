@@ -11,10 +11,10 @@ import { CustomerSupport } from '@/components/CustomerSupport';
 import { analytics } from '@/lib/analytics';
 import PartnerApplicationSection from '@/components/PartnerApplicationSection';
 import { useI18n } from '@/hooks/useI18n';
+import redeemConfirm from '@/assets/app-screens-v2/consumer/redeem-confirm.webp.asset.json';
 
 const ComeGetItAccelerator = () => {
   const { t } = useI18n();
-  const acceleratorImage = "/lovable-uploads/15d3c320-446b-4d7c-87b4-8a214e9d2546.webp";
 
   useEffect(() => {
     analytics.acceleratorPageView();
@@ -131,7 +131,7 @@ const ComeGetItAccelerator = () => {
             </div>
 
             <PhoneGlowWrapper>
-              <PhoneMockup imageUrl={acceleratorImage} />
+              <PhoneMockup imageUrl={redeemConfirm.url} alt={t('screens.redeem_confirm')} fit="contain" />
             </PhoneGlowWrapper>
           </div>
         </div>
