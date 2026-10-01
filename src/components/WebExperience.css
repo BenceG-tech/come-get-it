@@ -92,7 +92,6 @@
 .feature-scroll-story { position:relative; height:540vh; background:hsl(var(--background)); }
 .feature-scroll-stage { position:sticky; top:0; height:100svh; overflow:hidden; isolation:isolate; }
 .feature-anchor { position:absolute; left:0; width:1px; height:1px; pointer-events:none; }
-.feature-anchor:nth-child(1) { top:1px; }.feature-anchor:nth-child(2) { top:110vh; }.feature-anchor:nth-child(3) { top:220vh; }.feature-anchor:nth-child(4) { top:330vh; }
 .feature-scroll-story .feature-scene { position:absolute; inset:0; height:100%; display:flex; align-items:center; padding:0;
   opacity:0; visibility:hidden; transform:translate3d(0,56px,0); transition:opacity .34s ease-in,transform .6s var(--ease-soft),visibility 0s linear .34s; }
 .feature-scroll-story .feature-scene.is-past { transform:translate3d(0,-56px,0); }
@@ -155,8 +154,14 @@
 }
 @media (max-width:760px) {
   .experience-story { height:640svh; }
-  .feature-scroll-story { height:700svh; }
-  .feature-anchor:nth-child(2) { top:150svh; }.feature-anchor:nth-child(3) { top:300svh; }.feature-anchor:nth-child(4) { top:450svh; }
+  .feature-scroll-story { height:780svh; }
+  /* phones: drop the full-screen blend layers so the scene hand-over stays at 60 fps */
+  .feature-scroll-stage .experience-grain { display:none; }
+  /* shorter hand-over so every scene has settled within its minimum on-screen time */
+  .feature-scroll-story .feature-scene.is-active { transition:opacity .5s var(--ease-soft) .12s,transform .8s var(--ease-out) .12s,visibility 0s linear 0s; }
+  .feature-scroll-story .is-active .feature-copy > * { transition-delay:.14s; }
+  .feature-scroll-story .is-active .device-feature { transition-delay:.18s; }
+  .feature-scroll-story .device-glare { mix-blend-mode:normal; opacity:.6; }
   .feature-scroll-story .feature-scene .feature-inner { display:flex; flex-direction:column; justify-content:flex-start; gap:10px; height:100%; padding-top:64px; }
   .feature-scroll-story .feature-scene .feature-visual { --fw:clamp(140px,38vw,176px); order:-1; flex:none; width:100%; height:min(46svh,390px); }
   .feature-scroll-story .feature-scene .feature-copy { order:0; width:100%; }
