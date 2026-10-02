@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { Instagram, Music2, Mail } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 import { useSecretAdminEntry } from '@/hooks/useSecretAdminEntry';
+import { setConsent } from '@/lib/consent';
+import { metaPixelEnabled } from '@/lib/metaPixel';
+import { INSTAGRAM_URL, TIKTOK_URL } from '@/lib/social';
 
 export const Footer: React.FC = () => {
   const headingCls = 'text-white/90 font-anton uppercase tracking-wider text-xs mb-3';
@@ -34,6 +37,9 @@ export const Footer: React.FC = () => {
           <ul className="space-y-2 text-sm">
             <li><Link to="/adatvedelmi-szabalyzat" className={linkCls}>Adatvédelmi szabályzat</Link></li>
             <li><Link to="/felhasznalasi-feltetelek" className={linkCls}>Felhasználási feltételek</Link></li>
+            {metaPixelEnabled && (
+              <li><button type="button" onClick={() => setConsent(null)} className={linkCls}>Sütibeállítások</button></li>
+            )}
             <li><Link to="/support" className={linkCls}>Támogatás</Link></li>
             <li><a href="/llm.html" className={linkCls}>AI/LLM összefoglaló</a></li>
             <li><a href="/sitemap.xml" className={linkCls}>Sitemap</a></li>
@@ -44,7 +50,7 @@ export const Footer: React.FC = () => {
           <h4 className={headingCls}>Kapcsolat</h4>
           <div className="flex items-center gap-3 mb-4">
             <a
-              href="https://instagram.com/comegetit_app"
+              href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -52,15 +58,17 @@ export const Footer: React.FC = () => {
             >
               <Instagram className="w-4 h-4" strokeWidth={1.5} />
             </a>
-            <a
-              href="https://tiktok.com/@comegetit_app"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="TikTok"
-              className="w-9 h-9 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] flex items-center justify-center text-nf-primary hover:border-nf-primary hover:shadow-[0_0_20px_rgba(0,188,212,0.5)] transition-all"
-            >
-              <Music2 className="w-4 h-4" strokeWidth={1.5} />
-            </a>
+            {TIKTOK_URL && (
+              <a
+                href={TIKTOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="w-9 h-9 rounded-full border border-nf-primary/40 bg-nf-primary/[0.06] flex items-center justify-center text-nf-primary hover:border-nf-primary hover:shadow-[0_0_20px_rgba(0,188,212,0.5)] transition-all"
+              >
+                <Music2 className="w-4 h-4" strokeWidth={1.5} />
+              </a>
+            )}
             <a
               href="mailto:gataibence@gmail.com"
               aria-label="Email"
@@ -72,8 +80,8 @@ export const Footer: React.FC = () => {
           <ul className="space-y-2 text-sm">
             <li><a href="mailto:gataibence@gmail.com" className={linkCls}>gataibence@gmail.com</a></li>
             <li><Link to="/support" className={linkCls}>Támogatás</Link></li>
-            <li><a href="https://instagram.com/comegetit_app" target="_blank" rel="noopener noreferrer" className={linkCls}>Instagram</a></li>
-            <li><a href="https://tiktok.com/@comegetit_app" target="_blank" rel="noopener noreferrer" className={linkCls}>TikTok</a></li>
+            <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className={linkCls}>Instagram</a></li>
+            {TIKTOK_URL && <li><a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className={linkCls}>TikTok</a></li>}
           </ul>
         </div>
       </div>

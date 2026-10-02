@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Handshake, Mail, Phone, User, Store } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { analytics } from '@/lib/analytics';
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
 import { useI18n } from '@/hooks/useI18n';
 
@@ -126,6 +127,7 @@ export const PartnerApplicationSection: React.FC<PartnerApplicationSectionProps>
             return;
           }
 
+          analytics.partnerApplicationSuccess('marka');
           setIsSubmitted(true);
           toast({
             title: t('partner_app.toasts.success_title'),

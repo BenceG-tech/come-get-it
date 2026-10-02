@@ -10,6 +10,9 @@ import '@fontsource/manrope/400.css'
 import '@fontsource/manrope/500.css'
 import '@fontsource/manrope/600.css'
 import { LocaleProvider } from './contexts/LocaleContext'
+import { initMetaPixel } from './lib/metaPixel'
+
+initMetaPixel();
 
 createRoot(document.getElementById("root")!).render(
   <LocaleProvider>

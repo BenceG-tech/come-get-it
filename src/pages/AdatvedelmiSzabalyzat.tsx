@@ -19,7 +19,7 @@ export default function AdatvedelmiSzabalyzat() {
       <article className="max-w-3xl mx-auto px-4 py-16">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Adatvédelmi szabályzat</h1>
-          <p className="text-muted-foreground mt-2">Hatályos: 2026-09-28</p>
+          <p className="text-muted-foreground mt-2">Hatályos: 2026-10-02</p>
         </header>
 
         <section className="space-y-8 leading-relaxed text-sm md:text-base">
@@ -77,6 +77,7 @@ export default function AdatvedelmiSzabalyzat() {
               <li>Resend (tranzakciós és értesítő e‑mailek küldése).</li>
               <li>Expo/EAS és az alkalmazás-áruházak (alkalmazás-összeállítás és terjesztés).</li>
               <li>Hoszting- és infrastruktúra-szolgáltatók a weboldal és az alkalmazás üzemeltetéséhez.</li>
+              <li>Meta Platforms Ireland Ltd. (hirdetésmérés a weboldalon, csak a hozzájárulásoddal, lásd: Sütik).</li>
             </ul>
             <p className="text-muted-foreground mt-2">
               A partnereink csak a szolgáltatás nyújtásához szükséges mértékben férnek
@@ -84,12 +85,20 @@ export default function AdatvedelmiSzabalyzat() {
             </p>
           </section>
 
-          <section>
+          <section id="sutik">
             <h2 className="text-xl md:text-2xl font-semibold mb-2">Sütik (cookie‑k)</h2>
             <p>
-              A weboldalon jelenleg csak a működéshez szükséges tárolást használjuk (pl. bejelentkezési
-              munkamenet). Külső analitikai vagy marketing követőkódot nem futtatunk. A böngésződ
-              beállításaiban bármikor törölheted a tárolt adatokat.
+              A működéshez szükséges tárolást (pl. bejelentkezési munkamenet, a sütiválasztásod megjegyzése)
+              hozzájárulás nélkül használjuk. A böngésződ beállításaiban bármikor törölheted a tárolt adatokat.
+            </p>
+            <p className="mt-2">
+              Hirdetésmérés (Meta Pixel): csak akkor töltjük be, ha a sütisávban elfogadod. Ilyenkor a Meta
+              Platforms Ireland Ltd. sütiket helyez el (pl. _fbp), és megkapja, hogy megnyitottál egy oldalt,
+              illetve hogy sikeres volt-e az előregisztrációd vagy a partnerjelentkezésed. Ebből látjuk, melyik
+              hirdetésünk működik. A nevedet, az e-mail címedet és a telefonszámodat nem adjuk át. Jogalap: a
+              hozzájárulásod (GDPR 6. cikk (1) a)), amelyet bármikor visszavonhatsz a lábléc
+              „Sütibeállítások” linkjével. A Meta adatkezeléséről:{' '}
+              <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer" className="underline">facebook.com/privacy/policy</a>.
             </p>
           </section>
 
