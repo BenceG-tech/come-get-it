@@ -47,7 +47,14 @@ export default function AdatvedelmiSzabalyzat() {
               <li>Hozzájárulások: marketing és kommunikációs beállítások.</li>
               <li>Mobilalkalmazás-fiók: felhasználói azonosító, e‑mail cím, megjelenített név, opcionális telefonszám és a fiók létrehozásának ideje.</li>
               <li>Bejelentkezési adatok: a Supabase által kezelt hitelesítési adatok; választható külső belépésnél a szolgáltató által átadott azonosító és engedélyezett profiladatok. A Google- vagy Apple-jelszót nem kapjuk meg.</li>
-              <li>Pontos helyadat: csak külön engedéllyel, az app használata közben, közeli helyek megjelenítéséhez és a helyszíni beváltás ellenőrzéséhez. Háttérbeli helymeghatározást nem végzünk, és a beváltási koordinátát nem mentjük el a beváltási rekord részeként.</li>
+              <li>
+                Pontos helyadat: csak külön engedéllyel, közeli helyek megjelenítéséhez és a helyszíni
+                beváltás ellenőrzéséhez. Ha a Profilban külön bekapcsolod a „Közeli ingyen ital”
+                értesítést, az alkalmazás „Mindig” helyengedélyt kérhet, és a háttérben is észlelheti,
+                amikor egy részt vevő hely közelébe érsz. A háttérben észlelt helyzetet az eszköz dolgozza
+                fel; azt nem továbbítjuk a szerverünkre, és a beváltási koordinátát sem mentjük el a
+                beváltási rekord részeként.
+              </li>
               <li>Használati adatok: kedvencek, pontok, jutalmak, partnerhely, kiválasztott ital, beváltási időpont, egyszer használatos beváltási token és annak állapota.</li>
               <li>Technikai és biztonsági adatok: IP-cím, munkamenet-azonosítók, kérés-, hiba- és visszaélés-megelőzési naplók.</li>
             </ul>
@@ -63,7 +70,11 @@ export default function AdatvedelmiSzabalyzat() {
             <ul className="list-disc pl-6 space-y-2">
               <li>Várólista és kapcsolatfelvétel: hozzájárulásod alapján (GDPR 6. cikk (1) a)).</li>
               <li>Fiók, partnerhelyek, jutalmak és beváltások biztosítása: szerződés teljesítése vagy szerződéskötést megelőző lépések (GDPR 6. cikk (1) b)).</li>
-              <li>Pontos helyadat: külön hozzájárulásod alapján (GDPR 6. cikk (1) a)); az engedély az eszköz beállításaiban bármikor visszavonható.</li>
+              <li>
+                Pontos helyadat és az opcionális közelségi értesítés: külön hozzájárulásod alapján
+                (GDPR 6. cikk (1) a)); a funkció az alkalmazásban kikapcsolható, az engedély pedig az
+                eszköz beállításaiban bármikor visszavonható.
+              </li>
               <li>Szolgáltatás fejlesztése, biztonság, csalás- és visszaélés-megelőzés: jogos érdekünk (GDPR 6. cikk (1) f)).</li>
               <li>Jogszabályi vagy hatósági kötelezettségek: jogi kötelezettség (GDPR 6. cikk (1) c)).</li>
               <li>Marketing kommunikáció: csak hozzájárulással (bármikor visszavonható).</li>
