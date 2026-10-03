@@ -1,3 +1,4 @@
+// MÁSOLAT: src/lib/lead-score-rubric.ts — a két fájl tartalma legyen azonos (ezt használja a score-lead Edge Function).
 // Átlátható Come Get It lead-pontozás (0–100) és grade (A–D).
 // Ugyanezt a képletet használja a `score-lead` Edge Function a másolatból:
 // supabase/functions/_shared/lead-score-rubric.ts — ha itt változtatsz, azt is frissítsd (cp).
