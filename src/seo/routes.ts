@@ -129,7 +129,7 @@ export const ROUTES: RouteSEO[] = [
 
   <section>
     <h2>Kapcsolat</h2>
-    <p>E-mail: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a><br/>Alapító: Bence Gátai, +36 70 585 2053<br/>Közösségi média: @comegetit_app (Instagram, TikTok)</p>
+    <p>E-mail: <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a><br/>Alapító: Bence Gátai, +36 70 585 2053<br/>Instagram: <a href="https://instagram.com/come.get.it.app">@come.get.it.app</a></p>
   </section>
 
   <nav aria-label="További oldalak">
@@ -465,14 +465,14 @@ export const ROUTES: RouteSEO[] = [
     description:
       "A Come Get It adatvédelmi szabályzata: milyen adatokat kezelünk, milyen célból, milyen jogalapon, meddig őrizzük, és milyen jogaid vannak.",
     h1: "Adatvédelmi szabályzat",
-    lastmod: "2026-09-28",
+    lastmod: "2026-10-02",
     priority: 0.3,
     changefreq: "yearly",
     bodyHtml: `
 <main data-prerender="true">
   <article>
     <h1>Adatvédelmi szabályzat</h1>
-    <p>Hatályos: 2026-09-28</p>
+    <p>Hatályos: 2026-10-02</p>
     <p>A Come Get It alkalmazás és weboldal (come-get-it.app) üzemeltetőjeként elkötelezettek vagyunk a személyes adatok védelme mellett. Ez a szabályzat összefoglalja, milyen adatokat kezelünk, milyen célból, milyen jogalapon, meddig őrizzük meg azokat, és milyen jogaid vannak.</p>
 
     <h2>Adatkezelő</h2>
@@ -507,10 +507,12 @@ export const ROUTES: RouteSEO[] = [
       <li>Resend (tranzakciós és értesítő e‑mailek küldése).</li>
       <li>Expo/EAS és az alkalmazás-áruházak (alkalmazás-összeállítás és terjesztés).</li>
       <li>Hoszting- és infrastruktúra-szolgáltatók a weboldal és az alkalmazás üzemeltetéséhez.</li>
+      <li>Meta Platforms Ireland Ltd. (hirdetésmérés a weboldalon, csak a hozzájárulásoddal, lásd: Sütik).</li>
     </ul>
 
-    <h2>Sütik (cookie‑k)</h2>
-    <p>Csak a működéshez szükséges tárolást használjuk (pl. bejelentkezési munkamenet). Külső analitikai vagy marketing követőkódot nem futtatunk.</p>
+    <h2 id="sutik">Sütik (cookie‑k)</h2>
+    <p>A működéshez szükséges tárolást (pl. bejelentkezési munkamenet, a sütiválasztásod megjegyzése) hozzájárulás nélkül használjuk.</p>
+    <p>Hirdetésmérés (Meta Pixel): csak akkor töltjük be, ha a sütisávban elfogadod. Ilyenkor a Meta Platforms Ireland Ltd. sütiket helyez el (pl. _fbp), és megkapja, hogy megnyitottál egy oldalt, illetve hogy sikeres volt-e az előregisztrációd vagy a partnerjelentkezésed. A nevedet, az e-mail címedet és a telefonszámodat nem adjuk át. Jogalap: a hozzájárulásod (GDPR 6. cikk (1) a)), amelyet bármikor visszavonhatsz a lábléc „Sütibeállítások” linkjével. A Meta adatkezeléséről: <a href="https://www.facebook.com/privacy/policy">facebook.com/privacy/policy</a>.</p>
 
     <h2>Fiók és adatok törlése</h2>
     <p>A mobilalkalmazásban: Profil &gt; Fiók &gt; Fiók törlése. Ha nem tudsz belépni, írj a <a href="mailto:gataibence@gmail.com">gataibence@gmail.com</a> címre a regisztrált e‑mail címedről.</p>

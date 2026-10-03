@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Building2, Handshake, Mail, Phone, User, Store, ShieldCheck } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { analytics } from '@/lib/analytics';
 import { getSupabaseClient, isSupabaseConfigured } from '@/lib/supabase';
 import { useI18n } from '@/hooks/useI18n';
 
@@ -100,6 +101,7 @@ export const VenueApplicationSection: React.FC = () => {
           return;
         }
 
+        analytics.partnerApplicationSuccess('vendeglatohely');
         toast({ title: t('venue_app.toasts.success_title'), description: t('venue_app.toasts.success_desc') });
         setIsSubmitted(true);
 

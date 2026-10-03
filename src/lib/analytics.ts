@@ -1,3 +1,5 @@
+import { trackMetaLead } from './metaPixel';
+
 // Google Analytics 4 Event Tracking
 declare global {
   interface Window {
@@ -29,9 +31,12 @@ export const analytics = {
     user_email_domain: email.split('@')[1],
     event_category: 'conversion'
   }),
-  signupSuccess: () => trackEvent('signup_success', {
-    event_category: 'conversion'
-  }),
+  signupSuccess: () => {
+    trackEvent('signup_success', {
+      event_category: 'conversion'
+    });
+    trackMetaLead('eloregisztracio');
+  },
   
   // Partner interest events
   partnerFormView: () => trackEvent('partner_form_view'),
@@ -39,6 +44,14 @@ export const analytics = {
     partner_type: type,
     event_category: 'partner_conversion'
   }),
+  // Sikeres jelentkezés (vendéglátóhely: Founding Partner; márka: italmárka vagy rewards partner)
+  partnerApplicationSuccess: (type: 'vendeglatohely' | 'marka') => {
+    trackEvent('partner_application_success', {
+      partner_type: type,
+      event_category: 'partner_conversion'
+    });
+    trackMetaLead(type === 'vendeglatohely' ? 'partnerhely' : 'marka-partner');
+  },
   
   // Navigation events
   pageView: (pageName: string) => trackEvent('page_view', {
