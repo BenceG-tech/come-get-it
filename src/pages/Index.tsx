@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
+import { PublicVenuesSection } from '@/components/PublicVenuesSection';
 import { MibenSegitSection } from '@/components/MibenSegitSection';
 import { PricingSection } from '@/components/PricingSection';
 import { VenuePartnerTeaser } from '@/components/VenuePartnerTeaser';
@@ -77,14 +78,14 @@ const Index = () => {
       analytics.signupSuccess();
 
       toast({
-        title: "🎉 Sikeres regisztráció!",
-        description: "Köszönjük! Hamarosan jelentkezünk az indulással kapcsolatos részletekkel.",
+        title: "Sikeresen feliratkoztál.",
+        description: "Köszönjük! E-mailben szólunk a nyilvános indulásról.",
       });
     } catch (error) {
       console.error('Error in exit intent signup:', error);
       toast({
         title: "Hiba történt",
-        description: "Kérjük, próbálja újra később.",
+        description: "Kérjük, próbáld újra később.",
         variant: "destructive",
       });
     }
@@ -94,13 +95,14 @@ const Index = () => {
     <div className="min-h-screen bg-black text-white">
       <SEO
         title="Come Get It — Találd meg, hova menj ma Budapesten"
-        description="Ingyenes béta: találd meg a budapesti partnerhelyeket, válts be épp elérhető ingyen italokat, gyűjts pontokat és igényelj jutalmakat. Előfizetés nincs."
+        description="Fedezz fel budapesti helyeket, és ismerd meg a Come Get It appot. Az app zárt bétában készül; kérj e-mailes értesítést a nyilvános indulásról."
         canonical="/"
       />
       <Navigation />
       <main>
        <HeroSection />
        <ScrollStory />
+       <PublicVenuesSection />
       <MibenSegitSection />
       {/* QuickAccessChips eltávolítva — a 4 partner-link a /partnerek hub-on érhető el */}
        <FeatureScrollStory />
