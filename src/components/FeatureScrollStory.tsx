@@ -67,7 +67,7 @@ export const FeatureScrollStory: React.FC = () => {
   const scene = (i: number) => reduced ? '' : scenePhase === i ? 'is-active' : i < scenePhase ? 'is-past' : '';
 
   const drink = <div className="feature-inner">
-    <div className="feature-copy"><h2 className="font-anton uppercase">DRINK<span className="text-primary">.</span></h2><p className="feature-lead">{t('drink.subtitle')}</p><p className="text-foreground/80">{t('drink.body')}</p><Button variant="neon" size="lg" className="mt-8" onClick={() => { analytics.ctaClick('drink_section', t('drink.button')); document.querySelector('#signup')?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth' }); }}>{t('drink.button')}</Button></div>
+    <div className="feature-copy"><h2 className="font-anton uppercase">DRINK<span className="text-primary">.</span></h2><p className="feature-lead">{t('drink.subtitle')}</p><p className="text-foreground/80">{t('drink.body')}</p><Button variant="neon" size="lg" className="mt-8" onClick={() => { analytics.ctaClick('drink_section', t('drink.button')); document.querySelector('#helyek')?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth' }); }}>{t('drink.button')}</Button></div>
     <div className="feature-visual" role="img" aria-label={t('drink.visual_alt')}>
       {device('fx-drink-back', [v2['venue-detail.webp']])}
       {device('fx-drink-front', [v2['venue-offer.webp']])}
@@ -75,7 +75,7 @@ export const FeatureScrollStory: React.FC = () => {
     </div>
   </div>;
   const link = <div className="feature-inner">
-    <div className="feature-copy"><h2 className="font-anton uppercase">LINK<span className="text-primary">.</span></h2><p className="feature-lead">{t('link.subtitle')}</p><p className="text-foreground/80">{t('link.body')}</p>
+    <div className="feature-copy"><h2 className="font-anton uppercase">LINK<span className="text-primary">.</span></h2><p className="feature-lead">{t('link.subtitle')}</p><p className="text-foreground/80">{t('link.body')}</p><p className="text-xs text-foreground/55 mt-4">{t('experience.disclaimer')}</p>
       <ol className="feature-steps">{linkImages.map((image, i) => <li key={image} className={reduced ? '' : linkShown === i ? 'is-active' : i < linkShown ? 'is-done' : ''}><span>{i + 1}</span>{t(`link.steps.${i + 1}`)}</li>)}</ol></div>
     <div className="feature-visual" role="img" aria-label={t('link.visual_alt')}>
       {device('fx-link', linkImages.map(image => v2[image]), reduced ? 0 : linkShown)}

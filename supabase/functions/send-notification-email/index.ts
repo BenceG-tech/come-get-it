@@ -195,7 +195,7 @@ const handler = async (req: Request): Promise<Response> => {
               </h2>
               
               <p style="color: #4a5568; font-size: 18px; margin: 20px 0; line-height: 1.6;">
-                Szuper, hogy csatlakoztál! Hamarosan értesítünk, amikor elindítjuk az appot és te is elkezdheted gyűjteni a pontokat minden nap ingyen italokért! 🚀
+                Köszönjük, hogy feliratkoztál! E-mailben szólunk, amikor nyilvánosan elérhető a Come Get It. Az appban budapesti partnerhelyeket és az aktuális ajánlataikat fedezheted fel.
               </p>
               
               <div style="background-color: #f0f9ff; border-left: 4px solid #00D4FF; padding: 20px; margin: 30px 0; text-align: left; border-radius: 8px;">
@@ -203,10 +203,10 @@ const handler = async (req: Request): Promise<Response> => {
                   Mi vár rád? ✨
                 </h3>
                 <ul style="color: #4a5568; font-size: 16px; margin: 0; padding-left: 20px;">
-                  <li style="margin-bottom: 10px;">🎯 Napi pontgyűjtés egyszerű feladatokkal</li>
-                  <li style="margin-bottom: 10px;">🍹 Ingyen italok a kedvenc helyeidről</li>
-                  <li style="margin-bottom: 10px;">🎁 Exkluzív ajánlatok és meglepetések</li>
-                  <li style="margin-bottom: 10px;">🌟 Közösségi kihívások és versenyek</li>
+                  <li style="margin-bottom: 10px;">📍 Budapesti partnerhelyek felfedezése</li>
+                  <li style="margin-bottom: 10px;">🍹 Aktuális ajánlatok és beváltási feltételek</li>
+                  <li style="margin-bottom: 10px;">🎁 Az appban elérhető jutalmak</li>
+                  <li style="margin-bottom: 10px;">ℹ️ Helyenként eltérő kínálat és elérhetőség</li>
                 </ul>
               </div>
               
@@ -233,7 +233,7 @@ const handler = async (req: Request): Promise<Response> => {
             <div style="text-align: center; margin-top: 20px;">
               <p style="color: #718096; font-size: 12px; margin: 0;" class="text-muted">
                 Ez az email azért érkezett, mert feliratkoztál a Come Get It várólistájára.<br>
-                Ha nem szeretnél több emailt kapni, <a href="#" style="color: #00D4FF; text-decoration: none;">leiratkozhatsz itt</a>.
+                Ha nem szeretnél több e-mailt kapni, <a href="mailto:gataibence@gmail.com?subject=Leiratkoz%C3%A1si%20k%C3%A9r%C3%A9s" style="color: #00D4FF; text-decoration: none;">e-mailben kérheted a leiratkozást</a>.
               </p>
             </div>
           </div>
@@ -244,15 +244,17 @@ const handler = async (req: Request): Promise<Response> => {
       textContent = `
 Üdvözlünk a Come Get It közösségében!
 
-Szuper, hogy csatlakoztál! Hamarosan értesítünk, amikor elindítjuk az appot és te is elkezdheted gyűjteni a pontokat minden nap ingyen italokért!
+Köszönjük, hogy feliratkoztál! E-mailben szólunk, amikor nyilvánosan elérhető a Come Get It. Az appban budapesti partnerhelyeket és az aktuális ajánlataikat fedezheted fel.
 
 Mi vár rád?
-• Napi pontgyűjtés egyszerű feladatokkal
-• Ingyen italok a kedvenc helyeidről  
-• Exkluzív ajánlatok és meglepetések
-• Közösségi kihívások és versenyek
+• Budapesti partnerhelyek felfedezése
+• Aktuális ajánlatok és beváltási feltételek
+• Az appban elérhető jutalmak
+• Helyenként eltérő kínálat és elérhetőség
 
 Addig is kövesd a fejlesztéseket: https://come-get-it.app
+
+Leiratkozást e-mailben kérhetsz: gataibence@gmail.com (tárgy: Leiratkozási kérés).
 
 Izgalmas időszak következik!
 A Come Get It csapata

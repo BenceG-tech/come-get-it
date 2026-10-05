@@ -31,7 +31,7 @@ export const StickyCallToAction: React.FC = () => {
         className=""
         onClick={() => {
           analytics.ctaClick('sticky_cta', t('cta.sticky_join_round'));
-          document.querySelector('#signup')?.scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#helyek')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
         }}
       >
         {t('cta.sticky_join_round')}

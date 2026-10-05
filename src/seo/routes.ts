@@ -50,17 +50,17 @@ export const ROUTES: RouteSEO[] = [
     distDir: "",
     title: "Come Get It – Találd meg, hova menj ma Budapesten",
     description:
-      "Ingyenes béta: mutatjuk Budapest partnerhelyeit, ahol elérhető ingyen italokat válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz.",
-    h1: "Nem tudod, hova menj ma?",
-    lastmod: "2026-09-28",
+      "Fedezz fel budapesti helyeket, és ismerd meg a Come Get It appot. Az app zárt bétában készül; kérj e-mailes értesítést a nyilvános indulásról.",
+    h1: "A következő jó helyed itt kezdődik.",
+    lastmod: "2026-10-04",
     priority: 1.0,
     changefreq: "weekly",
     bodyHtml: `
 <main data-prerender="true">
   <header>
-    <h1>Nem tudod, hova menj ma?</h1>
+    <h1>A következő jó helyed itt kezdődik.</h1>
     <p>A <strong>Come Get It</strong> segít eldönteni, hova menj Budapesten. Megmutatja azokat a partner vendéglátóhelyeket, ahol <strong>éppen elérhető ingyen italt</strong> válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz — így könnyebb választani, hol reggelizz, ebédelj, igyál vagy bulizz.</p>
-    <p>Státusz: <strong>ingyenes bétaverzió</strong>. Fizetős előfizetés nincs. Az elérhető ajánlatok a partnerhelyek aktuális készletétől és nyitvatartásától függnek. Indulás Budapesten, magyar nyelvű app.</p>
+    <p>Státusz: <strong>zárt béta</strong>. A nyilvános indulásról e-mailes értesítést kérhetsz. Fizetős előfizetés nincs. Az elérhető ajánlatok a partnerhelyek aktuális készletétől és nyitvatartásától függnek. Indulás Budapesten, magyar nyelvű app.</p>
   </header>
 
   <section>
@@ -76,9 +76,9 @@ export const ROUTES: RouteSEO[] = [
   <section>
     <h2>Hogyan működik</h2>
     <ol>
-      <li><strong>Regisztrálj</strong> – e-mail címmel és jelszóval, ingyenesen.</li>
+      <li><strong>Kérj értesítést</strong> – iratkozz fel, és szólunk a nyilvános indulásról.</li>
       <li><strong>Fedezd fel</strong> – nézd meg a térképen és a listán a partner vendéglátóhelyeket.</li>
-      <li><strong>Váltsd be</strong> – ha épp van elérhető ajánlat, a helyszínen a pultos igazolja vissza a beváltást.</li>
+      <li><strong>Váltsd be</strong> – ha épp van elérhető ajánlat, a helyszínen mutasd meg az app QR-kódját a pultosnak, aki beolvassa és jóváhagyja a beváltást.</li>
       <li><strong>Gyűjts</strong> – pontokat kapsz, amiket az appban elérhető jutalmakra válthatsz.</li>
     </ol>
   </section>
@@ -106,7 +106,7 @@ export const ROUTES: RouteSEO[] = [
     <h2>Gyakori kérdések</h2>
     <dl>
       <dt>Mennyibe kerül a Come Get It?</dt>
-      <dd>Az app jelenleg ingyenes bétaverzióban érhető el. Fizetős előfizetés nincs.</dd>
+      <dd>Az appot zárt bétában teszteljük. A béta használata ingyenes. Fizetős előfizetés nincs.</dd>
       <dt>Hol érhető el?</dt>
       <dd>Budapesti partnerhelyeken, folyamatosan bővülő listával.</dd>
       <dt>Garantált a napi ingyen ital?</dt>
@@ -156,7 +156,7 @@ export const ROUTES: RouteSEO[] = [
             name: "Mennyibe kerül a Come Get It?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Az app jelenleg ingyenes bétaverzióban érhető el. Fizetős előfizetés nincs.",
+              text: "Az appot zárt bétában teszteljük. A béta használata ingyenes. Fizetős előfizetés nincs.",
             },
           },
           {

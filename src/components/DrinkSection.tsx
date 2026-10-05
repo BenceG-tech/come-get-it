@@ -15,7 +15,7 @@ export const DrinkSection: React.FC = () => {
         <h2 className="font-anton uppercase">DRINK<span className="text-primary">.</span></h2>
         <p className="feature-lead">{t('drink.subtitle')}</p>
         <p className="text-foreground/80">{t('drink.body')}</p>
-        <Button variant="neon" size="lg" className="mt-8" onClick={() => { analytics.ctaClick('drink_section', t('drink.button')); document.querySelector('#signup')?.scrollIntoView({ behavior:'smooth' }); }}>{t('drink.button')}</Button>
+        <Button variant="neon" size="lg" className="mt-8" onClick={() => { analytics.ctaClick('drink_section', t('drink.button')); document.querySelector('#helyek')?.scrollIntoView({ behavior:'smooth' }); }}>{t('drink.button')}</Button>
       </div>
       <div className="feature-visual" aria-label={t('drink.visual_alt')} role="img">
         <div className="feature-phone feature-phone-third"><img src={v2['consumer-list.webp']} alt="" loading="lazy" width={920} height={2000} /></div>

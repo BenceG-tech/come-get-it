@@ -11,7 +11,7 @@
     "brands": "Drink Brands",
     "rewards": "Rewards-partners",
     "accelerator": "Founding Partner Program",
-    "signup": "Sign up",
+    "signup": "Get launch updates",
     "login": "Log in",
     "menu": "MENU",
     "support": "Support",
@@ -24,17 +24,17 @@
     "title_line1": "DON'T KNOW",
     "title_line2": "WHERE TO GO TODAY?",
     "subtitle": "Partner venues in Budapest. Check the app to see where a free drink or reward is available right now. Free beta.",
-    "cta": "Join as a founding member",
+    "cta": "Show me the venues",
     "cta_secondary": "How it works",
     "founding_note": "The app is free during the beta. New venues and rewards become available gradually and may be limited."
   },
   "experience": {
     "hero_label": "Come Get It – discover Budapest",
-    "eyebrow": "Budapest · free beta",
-    "hero_title": "Not sure where to go tonight?",
-    "hero_highlight": "Go where something is waiting for you.",
-    "hero_description": "Explore nearby partner venues, see what's available now, and redeem your offer on site.",
-    "join": "I'm in for a round",
+    "eyebrow": "Budapest · app in closed beta",
+    "hero_title": "Your next great place",
+    "hero_highlight": "starts here.",
+    "hero_description": "Explore venues in Budapest. In the app, you can also check current offers and their redemption conditions.",
+    "join": "Show me the venues",
     "how": "How it works",
     "scroll": "Scroll",
     "story_label": "How Come Get It works",
@@ -44,10 +44,10 @@
     "step1_description": "Browse nearby partner venues on the map and find your next stop.",
     "step2_title": "See what's available",
     "step2_highlight": "right now.",
-    "step2_description": "Come Get It Bistro · Azure Garden Spritz · Available all day; check current stock in the app.",
+    "step2_description": "The app shows when each offer can be redeemed. The venue and drink on this screen are demo data.",
     "step3_title": "Redeem it",
     "step3_highlight": "at the venue.",
-    "step3_description": "At the venue, tap “I’m here”, show the screen to staff, and they tap REDEEM on your phone.",
+    "step3_description": "At the venue, start redemption and show the QR code in the app to staff. They scan it and approve the redemption.",
     "step4_title": "Stay for",
     "step4_highlight": "the experience.",
     "step4_description": "Azure Garden Spritz is just the beginning. The atmosphere is theirs.",
@@ -55,7 +55,8 @@
     "screen2_alt": "Come Get It Bistro and its Azure Garden Spritz offer",
     "screen3_alt": "Redeeming Azure Garden Spritz at the venue",
     "screen4_alt": "Successful Azure Garden Spritz redemption",
-    "disclaimer": "Illustration · demo data · 18+ · Drink responsibly"
+    "disclaimer": "Illustration · demo data · screens may differ from the current app · 18+ · Drink responsibly",
+    "notify": "Notify me at launch"
   },
   "miben_segit": {
     "title": "How does it help?",
@@ -81,19 +82,19 @@
   },
   "drink": {
     "title": "DRINK.",
-    "subtitle": "The first glass opens the night",
-    "body": "Pick a partner venue and check which limited offers are active. Availability depends on the venue, stock and the offer window.",
-    "button": "Start tonight!",
+    "subtitle": "A great place is a good start.",
+    "body": "Discover partner venues and check their current offers in the app. Drinks and redemption conditions vary by venue.",
+    "button": "Show me the venues",
     "visual_alt": "Venue list, Bistro offer and Azure Garden Spritz"
   },
   "link": {
     "title": "LINK.",
     "subtitle": "Redeem at the venue with staff approval.",
-    "body": "At the venue tap “I’m here”, show your phone to staff, and they tap REDEEM on your phone. No payment-card linking is needed.",
+    "body": "At the venue, select an available offer, start redemption and show the QR code to staff. After they scan it, the app confirms a successful redemption.",
     "steps": {
-      "1": "I’m here",
-      "2": "Show staff",
-      "3": "Staff tap REDEEM on your phone",
+      "1": "Start redemption",
+      "2": "Show the QR code",
+      "3": "Staff scan and approve it",
       "4": "Cheers!"
     },
     "labels": {
@@ -102,7 +103,7 @@
       "3": "Redeem",
       "4": "Success"
     },
-    "visual_alt": "Four on-site redemption steps on the guest’s phone"
+    "visual_alt": "An illustration of on-site redemption using demo screens"
   },
   "earn": {
     "title": "EARN.",
@@ -124,17 +125,17 @@
   },
   "pricing": {
     "title": "Free beta. Zero forints.",
-    "subtitle": "Come Get It is currently available as a free beta. There is no subscription or in-app purchase. Offers and rewards depend on each partner venue's current stock and opening hours.",
+    "subtitle": "The app is currently being tested in closed beta. Beta access is free, with no subscription or in-app purchases. Sign up for an email when the public launch is ready.",
     "free": {
-      "label": "AVAILABLE NOW — FREE BETA",
+      "label": "CLOSED BETA — FREE TESTING",
       "price": "0 HUF",
       "b1": "Discover partner venues on a map and list",
       "b2": "Redeem currently available free-drink offers on site",
       "b3": "Account with email address and password",
       "b4": "View credited points and claim active rewards",
-      "b5": "On-site redemption confirmed by staff on your phone",
+      "b5": "On-site QR redemption confirmed by staff",
       "b6": "No hidden fee and no payment-card data",
-      "cta": "Join the free beta"
+      "cta": "Notify me at launch"
     },
     "plus": {
       "label": "PLANNED FEATURES",
@@ -150,7 +151,7 @@
     "info": "Partner venues choose which offers to make available. Stock, opening hours and time windows vary, so we do not promise a guaranteed daily free drink — check the app for what is active now.",
     "promo": {
       "label": "🎁 BETA",
-      "body": "All currently enabled beta features are free. Early users will be the first to hear about new venues and rewards."
+      "body": "Beta access is free. Join the email list and we will let you know about the public launch."
     }
   },
   "venue_teaser": {
@@ -176,10 +177,10 @@
     "title": "Become a founding member",
     "p1": "Join the early beta and help shape the app with real feedback.",
     "p2": "Budapest’s nightlife is being written now — with us.",
-    "button": "I’m in for a round"
+    "button": "Notify me at launch"
   },
   "cta": {
-    "sticky_join_round": "I'm in for a round! 🍻"
+    "sticky_join_round": "Show me the venues"
   },
   "social": {
     "early_users_waiting": "early users are waiting for launch"
@@ -206,16 +207,16 @@
     "subheadline": "A few steps and you know where to go today.",
     "cards": {
       "1": {
-        "title": "DOWNLOAD",
-        "description": "Download the app and create an account."
+        "title": "MEET THE APP",
+        "description": "The app is in closed beta. Sign up for an email when it launches publicly."
       },
       "2": {
         "title": "BROWSE",
-        "description": "See which partner venue has an active offer."
+        "description": "Explore partner venues and their current offers."
       },
       "3": {
         "title": "SHOW STAFF",
-        "description": "At the venue tap “I’m here”, show your phone to staff, and they tap REDEEM on your phone."
+        "description": "At the venue, start redemption and show the QR code to staff. They scan it and approve the redemption."
       },
       "4": {
         "title": "DISCOVER REWARDS",
@@ -224,16 +225,16 @@
     },
     "steps": {
       "1": {
-        "title": "DOWNLOAD",
-        "description": "Download the app"
+        "title": "MEET THE APP",
+        "description": "Explore what the app, currently in closed beta, can help you do."
       },
       "2": {
-        "title": "SIGN UP",
-        "description": "Sign up with your email address and password"
+        "title": "GET LAUNCH UPDATES",
+        "description": "Leave your email and we will let you know about the public launch."
       },
       "3": {
         "title": "REDEEM",
-        "description": "“I’m here” → “Show staff” → staff tap REDEEM on your phone."
+        "description": "Staff at the venue scan the QR code created when you start redemption in the app."
       },
       "4": {
         "title": "DISCOVER",
@@ -905,12 +906,12 @@
     }
   },
   "exit_intent": {
-    "title": "Don't miss out! 🍻",
+    "title": "Want to hear when we launch?",
     "subtitle": "Be among the first to get notified at launch",
     "placeholder": "Your email",
-    "submit": "Sign me up for updates",
+    "submit": "Notify me at launch",
     "submitting": "⏳ Sending...",
-    "footer": "Early access to the Budapest beta",
+    "footer": "Email updates about the public launch",
     "toasts": {
       "error_title": "Error",
       "error_desc": "Please try again later."
@@ -972,7 +973,7 @@
           },
           "hogyan_juthatsz": {
             "title": "How to claim a free drink?",
-            "content": "Check partner venues and active offers in the app. Availability depends on stock, opening hours and the time window.\n\nAt the venue, select the offer and tap “I’m here”. Show your phone to staff; they tap REDEEM on your phone. The app confirms the successful redemption.\n\nShow the screen to staff in person; do not share screenshots of a redemption with anyone else."
+            "content": "Check partner venues and active offers in the app. Availability depends on the offer conditions and opening hours.\n\nAt the venue, select an offer, start redemption and show the QR code to staff. They scan it and approve the redemption; the app confirms success.\n\nShow the code to staff in person. Do not share screenshots of a redemption with anyone else."
           },
           "miert_nem_latok": {
             "title": "Why don’t I see offers right now?",
@@ -1046,7 +1047,7 @@
         "items": {
           "1": {
             "q": "How can I sign up?",
-            "a": "Download the app and sign up with an email address and password. A phone number is optional."
+            "a": "The app is currently in closed beta. You can sign up on the website for an email about the public launch. If you already have access to the app, create your account there."
           },
           "2": {
             "q": "How can I change my details?",
@@ -1093,19 +1094,19 @@
       "resend_success_desc": "Check your inbox, Promotions, or Spam folders."
     },
     "logged_in_title": "WELCOME!",
-    "logged_in_desc": "✅ You're already registered! We'll notify you when the app is available.",
+    "logged_in_desc": "You are signed in. We will also announce the public app launch on this website.",
     "thanks_title": "THANK YOU FOR SIGNING UP!",
     "success_line": "✅ Signup successful! We'll reach out soon with launch details.",
     "check_spam": "If you don't see the welcome email, check Promotions or Spam.",
     "resend_loading": "Resending...",
     "resend_button": "Resend welcome email",
     "main_title": "BE AMONG THE FIRST!",
-    "subtitle": "Join our waitlist and be the first to know when we launch!",
+    "subtitle": "Leave your email address and we will let you know when the app is publicly available.",
     "placeholder_email": "Enter your email",
     "gdpr_label_prefix": "I accept the",
     "privacy_policy": "privacy policy",
     "button_loading": "SIGNING UP...",
-    "button": "Sign me up",
+    "button": "Notify me at launch",
     "or": "Or",
     "full_registration_google": "Full registration with Google"
   },
@@ -1184,5 +1185,19 @@
       "company": "Brand / Company name *"
     },
     "benefits_line": "🎯 Measurable results • 🚀 Fast start • 👥 Engaged audience"
+  },
+  "places": {
+    "eyebrow": "Budapest · preview",
+    "title": "Venues in the beta",
+    "description": "Explore venues listed in the app beta. Current offers and redemption conditions are shown in the app.",
+    "loading": "Loading venues…",
+    "error": "We could not load the venues right now. Please try again shortly.",
+    "refresh_error": "The list could not be refreshed. You are seeing the last loaded venues.",
+    "retry": "Try again",
+    "empty": "There are currently no venues to show in this preview.",
+    "no_address": "No address provided yet.",
+    "show_all": "More venues",
+    "show_less": "Fewer venues",
+    "note": "Beta data: this list may change and may include venue information that is still being checked. Known demo venues are excluded. A listing does not mean the venue is open or has an available offer."
   }
 }

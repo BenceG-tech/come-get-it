@@ -9,9 +9,9 @@
     "partners_link": "Partnerek",
     "venues": "Vendéglátóhelyek",
     "brands": "Italmárkák",
-    "rewards": "Rewards-partnerek",
+    "rewards": "Jutalompartnerek",
     "accelerator": "Founding Partner Program",
-    "signup": "Regisztrálj",
+    "signup": "Értesítést kérek",
     "login": "Bejelentkezés",
     "menu": "MENÜ",
     "support": "Támogatás",
@@ -24,17 +24,17 @@
     "title_line1": "NEM TUDOD,",
     "title_line2": "HOVA MENJ MA?",
     "subtitle": "Válassz egy helyet, és nézd meg, hol vár rád épp elérhető ingyen ital vagy jutalom. Az app ingyenes bétaverzióban fut.",
-    "cta": "Jövök a körre! 🍻",
+    "cta": "Mutasd a helyeket",
     "cta_secondary": "Hogyan működik?",
     "founding_note": "Az app használata a béta alatt ingyenes. Az új helyek és jutalmak korlátozottan, fokozatosan válnak elérhetővé."
   },
   "experience": {
     "hero_label": "Come Get It – fedezd fel Budapestet",
-    "eyebrow": "Budapest · ingyenes béta",
-    "hero_title": "Nem tudod, hova menj ma?",
-    "hero_highlight": "Menj oda, ahol már vár valami.",
-    "hero_description": "Fedezd fel a közeli partnerhelyeket, nézd meg, mi érhető el most, és váltsd be a helyszínen.",
-    "join": "Jövök a körre",
+    "eyebrow": "Budapest · az app zárt bétában tesztelhető",
+    "hero_title": "A következő jó helyed",
+    "hero_highlight": "itt kezdődik.",
+    "hero_description": "Nézz körül a budapesti helyek között. Az appban az aktuális ajánlatokat és a beváltás feltételeit is megtalálod.",
+    "join": "Mutasd a helyeket",
     "how": "Így működik",
     "scroll": "Görgess",
     "story_label": "Így működik a Come Get It",
@@ -44,10 +44,10 @@
     "step1_description": "Térkép a közeli partnerhelyekkel – egy pillantás, és látod, hova érdemes menni.",
     "step2_title": "Lásd, mi érhető el",
     "step2_highlight": "most.",
-    "step2_description": "Come Get It Bistro · Azure Garden Spritz · Egész nap elérhető; nézd meg az appban az aktuális készletet.",
+    "step2_description": "Az appban az ajánlat mellett látod, mikor váltható be. A képernyőn bemutatott hely és ital demóadat.",
     "step3_title": "Váltsd be",
     "step3_highlight": "a helyszínen.",
-    "step3_description": "Ha ott vagy: „Itt vagyok”, mutasd meg a pultosnak, és ő a telefonodon megnyomja a BEVÁLTOM gombot.",
+    "step3_description": "A helyszínen indítsd el a beváltást, és mutasd meg az appban megjelenő QR-kódot a pultosnak. Ő beolvassa és jóváhagyja a beváltást.",
     "step4_title": "Maradj",
     "step4_highlight": "az élményért.",
     "step4_description": "Az Azure Garden Spritz csak a kezdet. A hangulat a helyé.",
@@ -55,7 +55,8 @@
     "screen2_alt": "Come Get It Bistro és az Azure Garden Spritz ajánlata",
     "screen3_alt": "Azure Garden Spritz beváltása a helyszínen",
     "screen4_alt": "Sikeres Azure Garden Spritz beváltás",
-    "disclaimer": "Illusztráció · demóadatok · 18+ · Fogyassz felelősséggel"
+    "disclaimer": "Illusztráció · demóadatok · a képernyők eltérhetnek az aktuális appverziótól · 18+ · Fogyassz felelősséggel",
+    "notify": "Értesítést kérek az indulásról"
   },
   "miben_segit": {
     "title": "Miben segít?",
@@ -81,19 +82,19 @@
   },
   "drink": {
     "title": "DRINK.",
-    "subtitle": "Az első pohár nyitja az estét.",
-    "body": "Válassz egy helyet, nézd meg, van-e ott épp elérhető ingyen ital, és tedd emlékezetessé a nap első körét. Az ajánlatok helyenként és naponta változnak.",
-    "button": "Jövök a körre! 🍻",
+    "subtitle": "Egy jó hely jó kezdet.",
+    "body": "Fedezd fel a partnerhelyeket, az appban pedig nézd meg az aktuális ajánlataikat. Az italok és a beváltás feltételei helyenként eltérhetnek.",
+    "button": "Mutasd a helyeket",
     "visual_alt": "Partnerhelylista, Bistro-ajánlat és Azure Garden Spritz"
   },
   "link": {
     "title": "LINK.",
     "subtitle": "Beváltás a helyszínen, a pultos jóváhagyásával.",
-    "body": "A helyszínen nyomd meg az „Itt vagyok” gombot, mutasd meg a telefonodat a pultosnak, és ő a telefonodon megnyomja a BEVÁLTOM gombot. Nincs bankkártya-összekapcsolás.",
+    "body": "A helyszínen válaszd ki az elérhető ajánlatot, indítsd el a beváltást, majd mutasd meg a QR-kódot a pultosnak. A kód beolvasása után az app visszaigazolja a sikeres beváltást.",
     "steps": {
-      "1": "Itt vagyok",
-      "2": "Mutasd a pultosnak",
-      "3": "A pultos megnyomja a BEVÁLTOM gombot",
+      "1": "Indítsd el a beváltást",
+      "2": "Mutasd meg a QR-kódot",
+      "3": "A pultos beolvassa és jóváhagyja",
       "4": "Egészségedre!"
     },
     "labels": {
@@ -102,7 +103,7 @@
       "3": "Beváltás",
       "4": "Siker"
     },
-    "visual_alt": "Helyszíni beváltás négy lépésben a vendég telefonján"
+    "visual_alt": "A helyszíni beváltás szemléltetése, demóképernyőkkel"
   },
   "earn": {
     "title": "EARN.",
@@ -124,9 +125,9 @@
   },
   "pricing": {
     "title": "Ingyenes béta. Nulla forint.",
-    "subtitle": "A Come Get It jelenleg ingyenes bétaverzióban érhető el. Nincs előfizetés, nincs appon belüli vásárlás. Az elérhető italok és jutalmak a partnerhelyek aktuális készletétől függnek.",
+    "subtitle": "Az appot jelenleg zárt bétában teszteljük. A béta használata ingyenes; nincs előfizetés vagy appon belüli vásárlás. E-mailben szólunk a nyilvános indulásról.",
     "free": {
-      "label": "MOST ELÉRHETŐ — INGYENES BÉTA",
+      "label": "ZÁRT BÉTA — INGYENES TESZTELÉS",
       "price": "0 Ft",
       "b1": "Partnerhelyek felfedezése térképen és listán",
       "b2": "Épp elérhető ingyen italok beváltása a helyszínen",
@@ -134,7 +135,7 @@
       "b4": "Pontgyűjtés és jutalmak igénylése",
       "b5": "Helyszíni beváltás a pultos jóváhagyásával",
       "b6": "Nincs rejtett költség, nincs bankkártya",
-      "cta": "Regisztrálok ingyen"
+      "cta": "Értesítést kérek az indulásról"
     },
     "plus": {
       "label": "TERVEZETT FUNKCIÓK",
@@ -150,12 +151,12 @@
     "info": "A partnerhelyek maguk választják ki, milyen italokat ajánlanak ingyen, és az ajánlatok készlet, nyitvatartás és időszak szerint változnak. Ezért nem ígérünk garantált vagy napi ingyen italt — nézd meg az appban, mi érhető el ma.",
     "promo": {
       "label": "🎁 BÉTA",
-      "body": "A jelenleg engedélyezett bétafunkciók ingyenesek. A regisztrálók elsőként értesülnek az új helyekről és jutalmakról."
+      "body": "A béta használata ingyenes. Iratkozz fel, és e-mailben szólunk a nyilvános indulásról."
     }
   },
   "venue_teaser": {
     "title": "Az ital a meghívó. Az élményből lehet törzsvendég.",
-    "subtitle": "Te szabod meg az ajánlatot, a készletet, a napot és az időablakot. A Come Get It a döntés pillanatában segít hozzád terelni a vendéget; a beváltást mérjük. A folytatás a helyed élményén múlik.",
+    "subtitle": "Te szabod meg az ajánlatot, a készletet, a napot és az idősávot. A Come Get It a döntés pillanatában segít hozzád terelni a vendéget; a beváltást mérjük. A folytatás a helyed élményén múlik.",
     "cards": {
       "1": {
         "title": "A DÖNTÉS PILLANATA",
@@ -163,7 +164,7 @@
       },
       "2": {
         "title": "TE IRÁNYÍTASZ",
-        "description": "Az ajánlat, a készlet, a nap és az időablak a te döntésed. A korlátozott pilot feltételeit előre rögzítjük."
+        "description": "Az ajánlat, a készlet, a nap és az idősáv a te döntésed. A korlátozott pilot feltételeit előre rögzítjük."
       },
       "3": {
         "title": "MÉRHETŐ BEVÁLTÁS",
@@ -176,10 +177,10 @@
     "title": "Legyél alapító tag",
     "p1": "Csatlakozz a korai bétafelhasználókhoz, és segíts valós visszajelzéssel formálni az appot.",
     "p2": "Budapest éjszakája most íródik — velünk.",
-    "button": "Jövök a körre"
+    "button": "Értesítést kérek"
   },
   "cta": {
-    "sticky_join_round": "Jövök a körre! 🍻"
+    "sticky_join_round": "Mutasd a helyeket"
   },
   "social": {
     "early_users_waiting": "korai felhasználó várja az indulást"
@@ -193,10 +194,10 @@
     "partners_desc": "3 mód a csatlakozásra",
     "brands": "Italmárkák",
     "brands_desc": "Együttműködés márkáknak",
-    "rewards": "Rewards-partnerek",
+    "rewards": "Jutalompartnerek",
     "rewards_desc": "Ajánlatok és integráció",
     "accelerator": "Founding Partner Program",
-    "accelerator_desc": "Exkluzív launch előtti program",
+    "accelerator_desc": "Partnerprogram az indulás előtt",
     "support": "Támogatás",
     "support_desc": "Kérdésed van? Írj nekünk"
   },
@@ -206,16 +207,16 @@
     "subheadline": "Pár lépés, és tudod, hova menj ma.",
     "cards": {
       "1": {
-        "title": "TÖLTSD LE",
-        "description": "Töltsd le az appot."
+        "title": "FEDEZD FEL AZ APPOT",
+        "description": "Az app zárt bétában készül. Iratkozz fel, és szólunk a nyilvános indulásról."
       },
       "2": {
         "title": "NÉZZ KÖRÜL",
-        "description": "Lásd, melyik partnerhelyen vár ma ingyen ital."
+        "description": "Nézd meg a partnerhelyeket és az aktuális ajánlataikat."
       },
       "3": {
         "title": "MUTASD A PULTOSNAK",
-        "description": "A helyszínen nyomd meg az „Itt vagyok” gombot, mutasd meg a pultosnak, majd ő a telefonodon megnyomja a BEVÁLTOM gombot."
+        "description": "A helyszínen indítsd el a beváltást, és mutasd meg a QR-kódot a pultosnak. Ő beolvassa és jóváhagyja."
       },
       "4": {
         "title": "FEDEZD FEL A JUTALMAKAT",
@@ -224,16 +225,16 @@
     },
     "steps": {
       "1": {
-        "title": "TÖLTSD LE",
-        "description": "Töltsd le az appot"
+        "title": "ISMERD MEG AZ APPOT",
+        "description": "Nézd meg, mire használhatod a zárt bétában készülő appot."
       },
       "2": {
-        "title": "REGISZTRÁLJ",
-        "description": "Regisztrálj e-mail címmel és jelszóval"
+        "title": "KÉRJ ÉRTESÍTÉST",
+        "description": "Iratkozz fel e-mailben, és szólunk a nyilvános indulásról."
       },
       "3": {
         "title": "VÁLTSD BE",
-        "description": "„Itt vagyok” → „Mutasd a pultosnak” → a pultos a telefonodon megnyomja a BEVÁLTOM gombot."
+        "description": "Az appban elindított beváltás QR-kódját a helyszínen a pultos olvassa be."
       },
       "4": {
         "title": "FEDEZD FEL",
@@ -319,7 +320,7 @@
       },
       "3": {
         "title": "A keret a te kezedben van",
-        "description": "Te választod ki az ajánlatot, a készletet, a napokat és az időablakot. A próba feltételeit együtt rögzítjük."
+        "description": "Te választod ki az ajánlatot, a készletet, a napokat és az idősávot. A próba feltételeit együtt rögzítjük."
       },
       "4": {
         "title": "A beváltás a biztos adat",
@@ -345,7 +346,7 @@
       },
       "3": {
         "title": "Általad választott idősáv",
-        "description": "A pilotban a kijelölt napokon és időablakban próbálunk elérni vendégeket."
+        "description": "A pilotban a kijelölt napokon és idősávban próbálunk elérni vendégeket."
       },
       "4": {
         "title": "Tényleges eredmények",
@@ -359,15 +360,15 @@
       },
       "2": {
         "title": "Rögzítjük a feltételeket",
-        "description": "Egyeztetjük az ajánlatot, készletet, időablakot és leállítás feltételeit."
+        "description": "Egyeztetjük az ajánlatot, készletet, idősávot és leállítás feltételeit."
       },
       "3": {
         "title": "Beállítjuk a helyedet",
-        "description": "A jóváhagyott ajánlatot és időablakot rögzítjük."
+        "description": "A jóváhagyott ajánlatot és idősávot rögzítjük."
       },
       "4": {
         "title": "Korlátozott teszttel indulunk",
-        "description": "A pultos folyamat és a helyszíni beváltási próba után indulhat az ajánlat."
+        "description": "Az ajánlat akkor indulhat el, ha a pultosokkal sikeresen kipróbáltuk a helyszíni beváltást."
       },
       "5": {
         "title": "Közösen kiértékeljük",
@@ -384,9 +385,9 @@
     "join_title": "Csatlakozás 5 lépésben",
     "perks": {
       "1": "A korlátozott pilot alatt nincs Come Get It platformdíj",
-      "2": "Te állítod be az ajánlatot, a készletet és az időablakot",
+      "2": "Te állítod be az ajánlatot, a készletet és az idősávot",
       "3": "A sikeres beváltásokat a pilot közös összesítőjében mérjük.",
-      "4": "A pultos folyamatot indulás előtt együtt teszteljük",
+      "4": "A pultosokkal indulás előtt kipróbáljuk a beváltást",
       "5": "A pilot eredményeit közösen, előre rögzített szempontok szerint értékeljük",
       "6": "Közös kommunikáció vagy kampány csak külön jóváhagyással indul",
       "7": "A későbbi kereskedelmi feltételekhez külön írásos megállapodás szükséges"
@@ -440,10 +441,10 @@
       }
     },
     "key_features": {
-      "title": "KULCS FUNKCIÓK",
+      "title": "Miben segít a Come Get It?",
       "items": {
         "1": {
-          "title": "MINŐSÉGI FOOTFALL",
+          "title": "Vendégszerzés a csendesebb órákban",
           "description": "A pilot azt méri, hogy a korlátozott ajánlat hoz-e új, releváns vendéget a gyengébb idősávokban."
         },
         "2": {
@@ -455,7 +456,7 @@
           "description": "A rendszert úgy építjük, hogy ne a kuponvadászokat, hanem a visszatérő vendégeket jutalmazza — a pilot pontosan azt méri, sikerül-e."
         },
         "4": {
-          "title": "BEVÁLTÁS/ FORGALOM RIPORTOK",
+          "title": "Beváltási kimutatások",
           "description": "Átlátható jelentés a beváltásokról; forgalom és visszatérés csak külön egyeztetett pilotban vizsgálható."
         },
         "5": {
@@ -480,7 +481,7 @@
         },
         "4": {
           "label": "ESTE/HÉTVÉGÉN AKTÍV",
-          "description": "Az időablakot a partner szabja meg."
+          "description": "Az idősávot a partner szabja meg."
         }
       }
     }
@@ -508,7 +509,7 @@
       "line1": "NE CSAK MUTASD MEG.",
       "line2": "ADD AZ ELSŐ KORTYOT.",
       "subtitle": "A 2. fázisban márkád valódi partnerhelyen, valós választási és fogyasztási pillanatban mutatkozhat be. A beváltás mérhető; fogyasztói visszajelzést csak külön elindított, megfelelően kezelt kampányban vizsgálunk.",
-      "phase_note": "2. fázis — early access. Az italmárka-aktivációkat a helyszíni pilotok után, előre egyeztetett kampányként tervezzük. Nincs kész kampányadatbázis vagy garantált elérés.",
+      "phase_note": "Következő szakasz — jelentkezés márkáknak. Az italmárkák kampányait a helyszíni próbák után, előre egyeztetett feltételekkel tervezzük. Nincs kész kampányadatbázis vagy garantált elérés.",
       "cta": "Beszéljünk"
     },
     "how_it_works": {
@@ -562,7 +563,7 @@
       "items": {
         "1": {
           "title": "ÚJ MÁRKÁK",
-          "description": "Boutique, craft brandek"
+          "description": "Kisebb, független és kézműves márkák"
         },
         "2": {
           "title": "NAGY BRANDEK",
@@ -570,7 +571,7 @@
         },
         "3": {
           "title": "ALKOHOLMENTES",
-          "description": "Innovatív healthy opciók"
+          "description": "Új alkoholmentes italok"
         }
       }
     },
@@ -586,7 +587,7 @@
       "title_line1": "TERVEZZÜK MEG",
       "title_line2": "AZ ELSŐ KÓSTOLÁST!",
       "subtitle": "Írj nekünk, csatlakozz az elsők között!",
-      "cta": "Early access-t kérek"
+      "cta": "Érdekel a partnerprogram"
     }
   },
   "rewards_page": {
@@ -614,7 +615,7 @@
       "line2": "A JUTALOM TOVÁBBVISZI A KAPCSOLATOT.",
       "subtitle": "Egy jó helyszíni élmény után a jutalom új kapcsolatot teremthet a márkáddal. A 2. fázisban előre egyeztetett jutalmak beváltását mérhetjük; forgalmat nem garantálunk. A jelenlegi béta nem kapcsol bankkártyát.",
       "phase_note": "A rewards-partnerprogram a 2. fázisra tervezett. Most jelezheted az érdeklődésed; a megjelenés, a készlet és a beváltás feltételei csak külön egyeztetés után dőlnek el.",
-      "cta": "Early access-t kérek"
+      "cta": "Érdekel a partnerprogram"
     },
     "how_it_works": {
       "title": "HOGYAN MŰKÖDIK?",
@@ -632,16 +633,16 @@
           "description": "Jóváhagyás és a 2. fázis elindítása után jelenhet meg az ajánlat."
         },
         "4": {
-          "title": "KÖVESD EREDMÉNYEKET",
+          "title": "Kövesd az eredményeket",
           "description": "Az elindított pilot tényleges jutalombeváltásait értékeljük."
         }
       }
     },
     "features": {
-      "title": "Jutalom rendszer előnyei",
+      "title": "A jutalomprogram előnyei",
       "items": {
         "1": {
-          "title": "Közvetlen beváltás-meghajtás",
+          "title": "Mérhető jutalombeváltás",
           "description": "A pilot a tényleges jutalombeváltásokat méri; forgalmi eredményt előre nem ígérünk."
         },
         "2": {
@@ -702,7 +703,7 @@
       },
       "2": {
         "title": "Rögzítjük a feltételeket",
-        "description": "Írásban egyeztetjük az ajánlatot, készletet, időablakot és leállítás feltételeit."
+        "description": "Írásban egyeztetjük az ajánlatot, készletet, idősávot és leállítás feltételeit."
       },
       "3": {
         "title": "Előkészítjük a tesztet",
@@ -710,7 +711,7 @@
       },
       "4": {
         "title": "Korlátozottan indulunk",
-        "description": "A megállapodott ajánlat a jóváhagyott időablakban jelenhet meg."
+        "description": "A megállapodott ajánlat a jóváhagyott idősávban jelenhet meg."
       },
       "5": {
         "title": "Kiértékeljük",
@@ -727,7 +728,7 @@
     "hero": {
       "line1": "NE HIGGY NEKÜNK VAKON.",
       "line2": "TESZTELJÜK LE EGYÜTT.",
-      "subtitle": "A Founding Partner Program kis létszámú bizonyítás, nem ígéret az ingyen ital sikerére. Helyenként egyeztetjük az ajánlatot és időablakot, mérjük a beváltást, majd közösen értékelünk. Nincs automatikus hosszú távú elköteleződés.",
+      "subtitle": "A partnerprogramot néhány budapesti hellyel teszteljük. Együtt egyeztetjük az ajánlatot és az idősávot, mérjük a beváltásokat, majd közösen értékeljük az eredményeket. A folytatásról külön döntünk.",
       "cta": "Jelentkezz most!"
     },
     "how_it_works": {
@@ -826,13 +827,13 @@
       "badge": "PARTNERPROGRAM — 2026",
       "line1": "A VÁLASZTÁSTÓL",
       "line2": "A KÖVETKEZŐ ÉLMÉNYIG.",
-      "subtitle": "A hely időzített ajánlata segít a döntésben; a márka első kortya kipróbálást adhat; a jutalom továbbviheti a kapcsolatot. A vendéglátóhely-pilot az 1., a márka- és jutalomprogram a 2. fázis."
+      "subtitle": "Egy jól időzített ajánlat segíthet a helyválasztásban, egy kóstolóval a vendég megismerheti a márkád italát, egy jutalom pedig újabb látogatásra ösztönözheti. Először a vendéglátóhelyekkel tesztelünk; a márka- és jutalomprogramot a következő szakaszra tervezzük."
     },
     "sections": {
       "venues": {
         "phase": "1. FÁZIS — INDULÁS",
         "title": "Vendéglátóhely vagy?",
-        "description": "Az ital a meghívó: a helyed a döntés pillanatában jelenhet meg. Te szabod meg az ajánlatot, készletet és időablakot; mi mérjük a beváltást. Az élmény a te kezedben van.",
+        "description": "Az ital a meghívó: a helyed a döntés pillanatában jelenhet meg. Te szabod meg az ajánlatot, készletet és idősávot; mi mérjük a beváltást. Az élmény a te kezedben van.",
         "bullets": {
           "1": "Te döntesz az ajánlatról, a készletről és az időzítésről",
           "2": "Saját helyed beváltásai mérhetők",
@@ -866,7 +867,7 @@
     "founding": {
       "title_line1": "Founding Partner státusz",
       "title_line2": "minden kategóriában",
-      "body": "A kiválasztott pilotpartnerekkel előre rögzítjük az ajánlatot, a készletet, az időablakot és a mérési feltételeket. Bármilyen későbbi kereskedelmi kapcsolat külön írásos megállapodást igényel.",
+      "body": "A kiválasztott pilotpartnerekkel előre rögzítjük az ajánlatot, a készletet, az idősávot és a mérési feltételeket. Bármilyen későbbi kereskedelmi kapcsolat külön írásos megállapodást igényel.",
       "cta": "Founding Partner Program"
     }
   },
@@ -905,12 +906,12 @@
     }
   },
   "exit_intent": {
-    "title": "Ne maradj le! 🍻",
+    "title": "Szóljunk, amikor indulunk?",
     "subtitle": "Légy az elsők között, akik megkapják az értesítést az induláskor",
-    "placeholder": "Email címed",
-    "submit": "Regisztrálok az értesítésre",
+    "placeholder": "E-mail-címed",
+    "submit": "Értesítést kérek",
     "submitting": "⏳ Küldés...",
-    "footer": "Korai hozzáférés a budapesti bétához",
+    "footer": "E-mailes értesítés a nyilvános indulásról",
     "toasts": {
       "error_title": "Hiba történt",
       "error_desc": "Kérjük, próbálja újra később."
@@ -972,7 +973,7 @@
           },
           "hogyan_juthatsz": {
             "title": "Hogyan juthatsz hozzá egy ingyen italhoz?",
-            "content": "Nézd meg az appban a partnerhelyeket és az éppen aktív ajánlatokat. Az ajánlatok készlettől, időablaktól és nyitvatartástól függnek.\n\nA helyszínen válaszd ki az ajánlatot, majd nyomd meg az „Itt vagyok” gombot. Mutasd meg a telefonodat a pultosnak; ő a te telefonodon megnyomja a BEVÁLTOM gombot. A sikeres beváltást az app visszaigazolja.\n\nA telefonodat a helyszínen mutasd meg a személyzetnek; ne oszd meg másokkal a beváltás képernyőképét."
+            "content": "Nézd meg az appban a partnerhelyeket és az éppen aktív ajánlatokat. Az elérhetőség az ajánlat feltételeitől és a nyitvatartástól függ.\n\nA helyszínen válaszd ki az ajánlatot, indítsd el a beváltást, majd mutasd meg a QR-kódot a pultosnak. Ő beolvassa és jóváhagyja a beváltást; a sikert az app visszaigazolja.\n\nA kódot a helyszínen mutasd meg a személyzetnek. Ne oszd meg másokkal a beváltás képernyőképét."
           },
           "miert_nem_latok": {
             "title": "Miért nem látok most ital ajánlatokat?",
@@ -980,7 +981,7 @@
           },
           "miert_zarolva": {
             "title": "Miért van zárolva nálam az ingyen ital lehetőség?",
-            "content": "A beváltáshoz bejelentkezett fiók, helyengedély és az szükséges, hogy az aktív ajánlat időablakában a partnerhely közelében legyél. Az elfogyott, lejárt vagy szüneteltetett ajánlat nem váltható be. Bankkártya-összekapcsolás nincs a jelenlegi bétában."
+            "content": "A beváltáshoz bejelentkezett fiók, helyengedély és az szükséges, hogy az aktív ajánlat idősávjában a partnerhely közelében legyél. Az elfogyott, lejárt vagy szüneteltetett ajánlat nem váltható be. Bankkártya-összekapcsolás nincs a jelenlegi bétában."
           },
           "van_limit": {
             "title": "Van valamilyen limit?",
@@ -1046,7 +1047,7 @@
         "items": {
           "1": {
             "q": "Hogyan regisztrálhatok?",
-            "a": "Töltsd le az appot, majd regisztrálj e-mail címmel és jelszóval. Telefonszám megadása nem kötelező."
+            "a": "Az app jelenleg zárt bétában tesztelhető. A weboldalon e-mailes értesítést kérhetsz a nyilvános indulásról. Ha már van hozzáférésed az apphoz, ott tudsz fiókot létrehozni."
           },
           "2": {
             "q": "Hogyan változtathatom meg az adataimat?",
@@ -1080,32 +1081,32 @@
   "signup": {
     "toasts": {
       "error_title": "Hiba",
-      "missing_email": "Kérjük, add meg az email címed.",
+      "missing_email": "Kérjük, add meg az e-mail-címed.",
       "gdpr_required": "Kérjük, fogadd el az adatvédelmi szabályzatot a folytatáshoz.",
-      "success_title": "Sikeres regisztráció!",
-      "success_desc": "Köszönjük a regisztrációt! Hamarosan jelentkezünk az indulás részleteivel.",
+      "success_title": "Sikeresen feliratkoztál.",
+      "success_desc": "Köszönjük! E-mailben szólunk a nyilvános indulásról.",
       "error_generic_title": "Hiba történt",
       "error_generic_desc": "Kérjük, próbáld meg később újra.",
       "resend_missing_title": "Hiányzó email",
-      "resend_missing_desc": "Nincs elmentett email cím az újraküldéshez.",
-      "resend_failed_desc": "Az üdvözlő email újraküldése nem sikerült.",
+      "resend_missing_desc": "Nincs elmentett e-mail-cím az újraküldéshez.",
+      "resend_failed_desc": "Az üdvözlő e-mail újraküldése nem sikerült.",
       "resend_success_title": "Email újraküldve",
       "resend_success_desc": "Ellenőrizd a beérkező, Promóciók vagy Spam mappát is."
     },
     "logged_in_title": "ÜDVÖZLÜNK!",
-    "logged_in_desc": "✅ Már regisztráltál! Értesítünk, amikor az alkalmazás elérhető.",
-    "thanks_title": "KÖSZÖNJÜK A REGISZTRÁCIÓT!",
-    "success_line": "✅ Sikeres regisztráció! Hamarosan jelentkezünk az indulás részleteivel.",
-    "check_spam": "Ha nem látod az üdvözlő emailt, nézd meg a Promóciók vagy Spam mappát.",
+    "logged_in_desc": "Be vagy jelentkezve. Az app nyilvános indulásáról itt, a weboldalon is hírt adunk.",
+    "thanks_title": "KÖSZÖNJÜK A FELIRATKOZÁST!",
+    "success_line": "Sikeresen feliratkoztál. E-mailben szólunk a nyilvános indulásról.",
+    "check_spam": "Ha nem látod az üdvözlő e-mailt, nézd meg a Promóciók vagy Spam mappát.",
     "resend_loading": "Újraküldés...",
-    "resend_button": "Üdvözlő email újraküldése",
-    "main_title": "Legyél az alapító tagok között.",
-    "subtitle": "Iratkozz fel a budapesti ingyenes béta híreire. Fizetős Plus csomag és életre szóló státusz jelenleg nincs.",
-    "placeholder_email": "Add meg az email címed",
+    "resend_button": "Üdvözlő e-mail újraküldése",
+    "main_title": "Szólunk, amikor indulunk.",
+    "subtitle": "Add meg az e-mail-címed, és értesítünk, amikor nyilvánosan elérhető az app.",
+    "placeholder_email": "Add meg az e-mail-címed",
     "gdpr_label_prefix": "Elfogadom az",
     "privacy_policy": "adatvédelmi szabályzatot",
-    "button_loading": "REGISZTRÁCIÓ...",
-    "button": "Regisztrálok",
+    "button_loading": "Feliratkozás…",
+    "button": "Értesítést kérek",
     "or": "Vagy",
     "full_registration_google": "Teljes regisztráció Google‑lel"
   },
@@ -1129,7 +1130,7 @@
     "header": {
       "heading": "Üzlettulajdonos vagy?",
       "sub1": "Csatlakozz partnereink közé!",
-      "sub2": "Te szabod meg az ajánlatot és az időablakot; a beváltást mérjük, az eredményeket a pilotban értékeljük."
+      "sub2": "Te szabod meg az ajánlatot és az idősávot; a beváltást mérjük, az eredményeket a pilotban értékeljük."
     },
     "demo_banner": "⚠️ Demo mód: Email küldés jelenleg nem elérhető",
     "form": {
@@ -1166,8 +1167,8 @@
       "company_placeholder": "Márka vagy cég neve"
     },
     "rewards": {
-      "heading": "Jutalom partner lennél?",
-      "sub1": "Csatlakozz a rewards partnerekhez!",
+      "heading": "Jutalompartner lennél?",
+      "sub1": "Csatlakozz a jutalompartnerekhez!",
       "sub2": "Aktiváld az ajánlataidat és hozz új vásárlókat mérhetően.",
       "company": "Márka / Cég neve *"
     },
@@ -1184,5 +1185,19 @@
       "company": "Cég / Vendéglátóhely / Márka neve *"
     },
     "benefits_line": "🎯 Mérhető eredmények • 🚀 Gyors indulás • 👥 Elkötelezett közönség"
+  },
+  "places": {
+    "eyebrow": "Budapest · előnézet",
+    "title": "Helyek a bétában",
+    "description": "Nézz körül az app bétájában szereplő helyek között. Az aktuális ajánlatok és a beváltási feltételek az appban jelennek meg.",
+    "loading": "Helyek betöltése…",
+    "error": "Most nem sikerült betölteni a helyeket. Próbáld újra egy kicsit később.",
+    "refresh_error": "A lista frissítése nem sikerült. Az utoljára betöltött helyeket látod.",
+    "retry": "Újrapróbálom",
+    "empty": "Jelenleg nincs megjeleníthető hely az előnézetben.",
+    "no_address": "Cím még nincs megadva.",
+    "show_all": "További helyek",
+    "show_less": "Kevesebb hely",
+    "note": "Bétaadatok: a lista még változhat, és ellenőrzés alatt álló helyadatot is tartalmazhat. Az ismert bemutatóhelyeket kiszűrjük. A megjelenés önmagában nem jelent nyitvatartást vagy elérhető ajánlatot."
   }
 }
