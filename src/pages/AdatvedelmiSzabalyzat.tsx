@@ -19,7 +19,7 @@ export default function AdatvedelmiSzabalyzat() {
       <article className="max-w-3xl mx-auto px-4 py-16">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Adatvédelmi szabályzat</h1>
-          <p className="text-muted-foreground mt-2">Hatályos: 2026-09-28</p>
+          <p className="text-muted-foreground mt-2">Hatályos: 2026-10-05</p>
         </header>
 
         <section className="space-y-8 leading-relaxed text-sm md:text-base">
@@ -53,9 +53,11 @@ export default function AdatvedelmiSzabalyzat() {
                 értesítést, az alkalmazás „Mindig” helyengedélyt kérhet, és a háttérben is észlelheti,
                 amikor egy részt vevő hely közelébe érsz. A háttérben észlelt helyzetet az eszköz dolgozza
                 fel; azt nem továbbítjuk a szerverünkre, és a beváltási koordinátát sem mentjük el a
-                beváltási rekord részeként.
+                beváltási rekord részeként. A közelségi funkció a telefonon átmenetileg eltárolja a
+                figyelt helyek és a legutóbbi frissítéshez használt helyzet adatait.
               </li>
               <li>Használati adatok: kedvencek, pontok, jutalmak, partnerhely, kiválasztott ital, beváltási időpont, egyszer használatos beváltási token és annak állapota.</li>
+              <li>Opcionális marketingértesítések: eszköz push-azonosítója, platform, felhasználói azonosító, hozzájárulási időpont, valamint a küldés és hibák állapota. A javasolt célközönséghez a regisztráció idejét, az utolsó ismert aktivitást és a pontegyenleget is figyelembe vehetjük.</li>
               <li>Technikai és biztonsági adatok: IP-cím, munkamenet-azonosítók, kérés-, hiba- és visszaélés-megelőzési naplók.</li>
             </ul>
             <p className="text-muted-foreground mt-2">
@@ -77,7 +79,7 @@ export default function AdatvedelmiSzabalyzat() {
               </li>
               <li>Szolgáltatás fejlesztése, biztonság, csalás- és visszaélés-megelőzés: jogos érdekünk (GDPR 6. cikk (1) f)).</li>
               <li>Jogszabályi vagy hatósági kötelezettségek: jogi kötelezettség (GDPR 6. cikk (1) c)).</li>
-              <li>Marketing kommunikáció: csak hozzájárulással (bármikor visszavonható).</li>
+              <li>Marketing kommunikáció: csak külön hozzájárulással. A távoli ajánlatértesítéseket a Profil értesítési beállításaiban kapcsolhatod ki; ez külön beállítás a telefonon működő közelségi értesítéstől. A visszavonás nem akadályozza az app alapfunkcióinak használatát.</li>
             </ul>
           </section>
 
@@ -86,7 +88,7 @@ export default function AdatvedelmiSzabalyzat() {
             <ul className="list-disc pl-6 space-y-2">
               <li>Supabase (adatbázis, hitelesítés, Edge Functions).</li>
               <li>Resend (tranzakciós és értesítő e‑mailek küldése).</li>
-              <li>Expo/EAS és az alkalmazás-áruházak (alkalmazás-összeállítás és terjesztés).</li>
+              <li>Expo/EAS és az alkalmazás-áruházak (alkalmazás-összeállítás és terjesztés). A külön engedélyezett távoli értesítések címzését és tartalmát az Expo Push Service, majd iOS-en az Apple Push Notification service kezeli a kézbesítéshez.</li>
               <li>Hoszting- és infrastruktúra-szolgáltatók a weboldal és az alkalmazás üzemeltetéséhez.</li>
             </ul>
             <p className="text-muted-foreground mt-2">
@@ -176,7 +178,7 @@ export default function AdatvedelmiSzabalyzat() {
             </p>
           </section>
 
-          <p className="text-muted-foreground">Utolsó frissítés: 2026-09-28</p>
+          <p className="text-muted-foreground">Utolsó frissítés: 2026-10-05</p>
         </section>
       </article>
     </main>

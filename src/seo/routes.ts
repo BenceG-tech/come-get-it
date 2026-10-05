@@ -51,14 +51,14 @@ export const ROUTES: RouteSEO[] = [
     title: "Come Get It – Találd meg, hova menj ma Budapesten",
     description:
       "Fedezz fel budapesti helyeket, és ismerd meg a Come Get It appot. Az app zárt bétában készül; kérj e-mailes értesítést a nyilvános indulásról.",
-    h1: "A következő jó helyed itt kezdődik.",
+    h1: "Nem tudod, hova menj ma? Menj oda, ahol már vár valami.",
     lastmod: "2026-10-04",
     priority: 1.0,
     changefreq: "weekly",
     bodyHtml: `
 <main data-prerender="true">
   <header>
-    <h1>A következő jó helyed itt kezdődik.</h1>
+    <h1>Nem tudod, hova menj ma? Menj oda, ahol már vár valami.</h1>
     <p>A <strong>Come Get It</strong> segít eldönteni, hova menj Budapesten. Megmutatja azokat a partner vendéglátóhelyeket, ahol <strong>éppen elérhető ingyen italt</strong> válthatsz be, pontokat gyűjthetsz és jutalmakat igényelhetsz — így könnyebb választani, hol reggelizz, ebédelj, igyál vagy bulizz.</p>
     <p>Státusz: <strong>zárt béta</strong>. A nyilvános indulásról e-mailes értesítést kérhetsz. Fizetős előfizetés nincs. Az elérhető ajánlatok a partnerhelyek aktuális készletétől és nyitvatartásától függnek. Indulás Budapesten, magyar nyelvű app.</p>
   </header>
@@ -472,7 +472,7 @@ export const ROUTES: RouteSEO[] = [
 <main data-prerender="true">
   <article>
     <h1>Adatvédelmi szabályzat</h1>
-    <p>Hatályos: 2026-09-28</p>
+    <p>Hatályos: 2026-10-05</p>
     <p>A Come Get It alkalmazás és weboldal (come-get-it.app) üzemeltetőjeként elkötelezettek vagyunk a személyes adatok védelme mellett. Ez a szabályzat összefoglalja, milyen adatokat kezelünk, milyen célból, milyen jogalapon, meddig őrizzük meg azokat, és milyen jogaid vannak.</p>
 
     <h2>Adatkezelő</h2>
@@ -485,8 +485,9 @@ export const ROUTES: RouteSEO[] = [
       <li>Hozzájárulások: marketing és kommunikációs beállítások.</li>
       <li>Mobilalkalmazás-fiók: felhasználói azonosító, e‑mail cím, megjelenített név, opcionális telefonszám és fióklétrehozási idő.</li>
       <li>Bejelentkezési adatok: a Supabase által kezelt hitelesítési adatok; választható külső belépésnél a szolgáltató által átadott azonosító és engedélyezett profiladatok.</li>
-      <li>Pontos helyadat: csak külön engedéllyel, közeli helyek megjelenítéséhez és a helyszíni beváltás ellenőrzéséhez. Ha a Profilban külön bekapcsolod a „Közeli ingyen ital” értesítést, az alkalmazás „Mindig” helyengedélyt kérhet, és a háttérben is észlelheti, amikor egy részt vevő hely közelébe érsz. A háttérben észlelt helyzetet az eszköz dolgozza fel; azt nem továbbítjuk a szerverünkre, és a beváltási koordinátát sem mentjük el a beváltási rekord részeként.</li>
+      <li>Pontos helyadat: csak külön engedéllyel, közeli helyek megjelenítéséhez és a helyszíni beváltás ellenőrzéséhez. Ha a Profilban külön bekapcsolod a „Közeli ingyen ital” értesítést, az alkalmazás „Mindig” helyengedélyt kérhet, és a háttérben is észlelheti, amikor egy részt vevő hely közelébe érsz. A háttérben észlelt helyzetet az eszköz dolgozza fel; azt nem továbbítjuk a szerverünkre, és a beváltási koordinátát sem mentjük el a beváltási rekord részeként. A közelségi funkció a telefonon átmenetileg eltárolja a figyelt helyek és a legutóbbi frissítéshez használt helyzet adatait.</li>
       <li>Használati adatok: kedvencek, pontok, jutalmak, partnerhely, kiválasztott ital, beváltási időpont és az egyszer használatos token állapota.</li>
+      <li>Opcionális marketingértesítések: eszköz push-azonosítója, platform, felhasználói azonosító, hozzájárulási időpont, valamint a küldés és hibák állapota. A javasolt célközönséghez a regisztráció idejét, az utolsó ismert aktivitást és a pontegyenleget is figyelembe vehetjük.</li>
       <li>Technikai és biztonsági adatok: IP-cím, munkamenet-azonosítók, kérés-, hiba- és visszaélés-megelőzési naplók.</li>
     </ul>
     <p>A jelenlegi ingyenes béta nem kér bankkártyaadatot, nem fér hozzá kártyás tranzakciókhoz, nem tartalmaz appon belüli vásárlást, és nem végez más vállalkozások alkalmazásain vagy weboldalain keresztüli követést.</p>
@@ -498,14 +499,14 @@ export const ROUTES: RouteSEO[] = [
       <li>Pontos helyadat és az opcionális közelségi értesítés: külön hozzájárulásod alapján (GDPR 6. cikk (1) a)); a funkció az alkalmazásban kikapcsolható, az engedély pedig az eszköz beállításaiban bármikor visszavonható.</li>
       <li>Szolgáltatás fejlesztése, biztonság, csalás- és visszaélés-megelőzés: jogos érdekünk (GDPR 6. cikk (1) f)).</li>
       <li>Jogszabályi vagy hatósági kötelezettségek: jogi kötelezettség (GDPR 6. cikk (1) c)).</li>
-      <li>Marketing kommunikáció: csak hozzájárulással (bármikor visszavonható).</li>
+      <li>Marketing kommunikáció: csak külön hozzájárulással. A távoli ajánlatértesítéseket a Profil értesítési beállításaiban kapcsolhatod ki; ez külön beállítás a telefonon működő közelségi értesítéstől. A visszavonás nem akadályozza az app alapfunkcióinak használatát.</li>
     </ul>
 
     <h2>Adatfeldolgozók és címzettek</h2>
     <ul>
       <li>Supabase (adatbázis, hitelesítés, Edge Functions).</li>
       <li>Resend (tranzakciós és értesítő e‑mailek küldése).</li>
-      <li>Expo/EAS és az alkalmazás-áruházak (alkalmazás-összeállítás és terjesztés).</li>
+      <li>Expo/EAS és az alkalmazás-áruházak (alkalmazás-összeállítás és terjesztés). A külön engedélyezett távoli értesítések címzését és tartalmát az Expo Push Service, majd iOS-en az Apple Push Notification service kezeli a kézbesítéshez.</li>
       <li>Hoszting- és infrastruktúra-szolgáltatók a weboldal és az alkalmazás üzemeltetéséhez.</li>
     </ul>
 
