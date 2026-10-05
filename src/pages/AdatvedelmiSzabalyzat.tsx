@@ -57,6 +57,14 @@ export default function AdatvedelmiSzabalyzat() {
                 figyelt helyek és a legutóbbi frissítéshez használt helyzet adatait.
               </li>
               <li>Használati adatok: kedvencek, pontok, jutalmak, partnerhely, kiválasztott ital, beváltási időpont, egyszer használatos beváltási token és annak állapota.</li>
+              <li>
+                Saját használati mérés: bejelentkezés után az app megnyitása, hely- és jutalomoldalak,
+                valamint a profil megtekintése; a QR-kód létrehozásának ideje és időtartama, a beváltási
+                folyamat indítása, bezárása, visszanyitása és eredménye. Az eseményeket a fiókazonosítóval,
+                az érintett hely azonosítójával (ha van), a platformmal és az app verziójával kezeljük
+                a szolgáltatás fejlesztéséhez. Az aktivitási eseményekbe nem mentünk e-mailt, IP-címet,
+                pontos koordinátát vagy QR-titkot.
+              </li>
               <li>Opcionális marketingértesítések: eszköz push-azonosítója, platform, felhasználói azonosító, hozzájárulási időpont, valamint a küldés és hibák állapota. A javasolt célközönséghez a regisztráció idejét, az utolsó ismert aktivitást és a pontegyenleget is figyelembe vehetjük.</li>
               <li>Technikai és biztonsági adatok: IP-cím, munkamenet-azonosítók, kérés-, hiba- és visszaélés-megelőzési naplók.</li>
             </ul>
@@ -77,7 +85,7 @@ export default function AdatvedelmiSzabalyzat() {
                 (GDPR 6. cikk (1) a)); a funkció az alkalmazásban kikapcsolható, az engedély pedig az
                 eszköz beállításaiban bármikor visszavonható.
               </li>
-              <li>Szolgáltatás fejlesztése, biztonság, csalás- és visszaélés-megelőzés: jogos érdekünk (GDPR 6. cikk (1) f)).</li>
+              <li>Szolgáltatás fejlesztése saját használati méréssel, biztonság, csalás- és visszaélés-megelőzés: jogos érdekünk (GDPR 6. cikk (1) f)).</li>
               <li>Jogszabályi vagy hatósági kötelezettségek: jogi kötelezettség (GDPR 6. cikk (1) c)).</li>
               <li>Marketing kommunikáció: csak külön hozzájárulással. A távoli ajánlatértesítéseket a Profil értesítési beállításaiban kapcsolhatod ki; ez külön beállítás a telefonon működő közelségi értesítéstől. A visszavonás nem akadályozza az app alapfunkcióinak használatát.</li>
             </ul>
