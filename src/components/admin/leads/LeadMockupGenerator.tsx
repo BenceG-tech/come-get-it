@@ -10,6 +10,11 @@ const VARIANTS = [
   { id: "dm", label: "💬 DM preview" },
 ];
 
+const VARIANT_LABEL: Record<string, string> = {
+  feed: "AI feed", story: "AI story", dm: "AI DM",
+  csomag_feed: "Csomag · feed 4:5", csomag_story: "Csomag · story 9:16", csomag_video: "Csomag · videó",
+};
+
 export default function LeadMockupGenerator({ partnerId }: { partnerId: string }) {
   const [mockups, setMockups] = useState<any[]>([]);
   const [generating, setGenerating] = useState<string | null>(null);
@@ -53,17 +58,22 @@ export default function LeadMockupGenerator({ partnerId }: { partnerId: string }
       {mockups.length === 0 && (
         <div className="text-xs text-nf-text-muted p-4 text-center border border-dashed border-nf-border rounded">
           Generálj egy mockup-ot ami megmutatja hogy nézne ki ez a hely az appban — erős hook outreach-hez.
+          A márkás feed/story kép és a videó a „Megkeresési csomag” gombbal készül, és itt is megjelenik.
         </div>
       )}
       <div className="grid grid-cols-2 gap-2">
         {mockups.map((m) => (
           <div key={m.id} className="relative group">
-            <img src={m.image_url} alt="" className="w-full rounded border border-nf-border" loading="lazy" />
-            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2 rounded">
+            {m.variant === "csomag_video" ? (
+              <video src={m.image_url} controls playsInline preload="metadata" className="w-full rounded border border-nf-border" />
+            ) : (
+              <img src={m.image_url} alt="" className="w-full rounded border border-nf-border" loading="lazy" />
+            )}
+            <div className={`absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2 rounded ${m.variant === "csomag_video" ? "pointer-events-none group-hover:pointer-events-auto bottom-12" : ""}`}>
               <a href={m.image_url} download target="_blank" rel="noopener"><Button size="sm" variant="secondary"><Download className="w-3 h-3" /></Button></a>
               <Button size="sm" variant="secondary" onClick={() => copyUrl(m.image_url)}><Copy className="w-3 h-3" /></Button>
             </div>
-            <div className="text-[10px] text-nf-text-muted mt-1">{m.variant} · {new Date(m.created_at).toLocaleDateString("hu")}</div>
+            <div className="text-[10px] text-nf-text-muted mt-1">{VARIANT_LABEL[m.variant] ?? m.variant} · {new Date(m.created_at).toLocaleDateString("hu")}</div>
           </div>
         ))}
       </div>
