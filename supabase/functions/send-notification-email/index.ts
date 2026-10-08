@@ -114,6 +114,9 @@ const handler = async (req: Request): Promise<Response> => {
 
     const { type, data }: EmailRequest = await req.json();
     const clientIP = getClientIP(req);
+    if (!['user_signup', 'venue_application'].includes(type) || !data || typeof data.email !== 'string') {
+      return new Response(JSON.stringify({ error: 'Invalid request' }), { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } });
+    }
     
     // Input validation
     if (!data.email || !validateEmail(data.email)) {
@@ -443,15 +446,17 @@ Forrás: ${sanitizedData.source || 'Nincs megadva'}
 
     // Store in database first
     try {
+      let persistenceError = null;
       if (type === 'user_signup') {
-        await supabase
+        const { error } = await supabase
           .from('waitlist_signups')
           .insert({
             email: sanitizedData.email,
             source: sanitizedData.source
           });
+        persistenceError = error;
       } else if (type === 'venue_application') {
-        await supabase
+        const { error } = await supabase
           .from('venue_applications')
           .insert({
             email: sanitizedData.email,
@@ -462,6 +467,13 @@ Forrás: ${sanitizedData.source || 'Nincs megadva'}
             address_city: sanitizedData.addressCity,
             daily_customer_count: sanitizedData.dailyCustomerCount
           });
+        persistenceError = error;
+      }
+      if (persistenceError) {
+        if (persistenceError.code === '23505') {
+          return new Response(JSON.stringify({ error: 'Ezzel az e-mail címmel már jelentkeztél.' }), { status: 409, headers: { 'Content-Type': 'application/json', ...corsHeaders } });
+        }
+        throw persistenceError;
       }
     } catch (dbError) {
       console.error("Database insert failed:", dbError);
@@ -505,7 +517,7 @@ Forrás: ${sanitizedData.source || 'Nincs megadva'}
       console.log("Attempting to send admin notification email");
       adminEmailResponse = await sendEmailWithRetry({
         from: "Come Get It <noreply@come-get-it.app>",
-        to: ["gataibence@gmail.com"],
+        to: ["hello@come-get-it.app"],
         subject: adminSubject,
         html: adminHtmlContent,
         text: adminTextContent,
