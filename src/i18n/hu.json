@@ -24,7 +24,7 @@
     "title_line1": "NEM TUDOD,",
     "title_line2": "HOVA MENJ MA?",
     "subtitle": "Válassz egy helyet, és nézd meg, hol vár rád épp elérhető ingyen ital vagy jutalom. Az app ingyenes bétaverzióban fut.",
-    "cta": "Mutasd a helyeket",
+    "cta": "Iratkozz fel",
     "cta_secondary": "Hogyan működik?",
     "founding_note": "Az app használata a béta alatt ingyenes. Az új helyek és jutalmak korlátozottan, fokozatosan válnak elérhetővé."
   },
@@ -34,7 +34,7 @@
     "hero_title": "Nem tudod, hova menj ma?",
     "hero_highlight": "Menj oda, ahol már vár valami.",
     "hero_description": "Fedezd fel a közeli partnerhelyeket, nézd meg, mi érhető el most, és váltsd be a helyszínen.",
-    "join": "Mutasd a helyeket",
+    "join": "Iratkozz fel",
     "how": "Így működik",
     "scroll": "Görgess",
     "story_label": "Így működik a Come Get It",
@@ -84,7 +84,7 @@
     "title": "DRINK.",
     "subtitle": "Egy jó hely jó kezdet.",
     "body": "Fedezd fel a partnerhelyeket, az appban pedig nézd meg az aktuális ajánlataikat. Az italok és a beváltás feltételei helyenként eltérhetnek.",
-    "button": "Mutasd a helyeket",
+    "button": "Iratkozz fel",
     "visual_alt": "Partnerhelylista, Bistro-ajánlat és Azure Garden Spritz"
   },
   "link": {
@@ -180,7 +180,7 @@
     "button": "Értesítést kérek"
   },
   "cta": {
-    "sticky_join_round": "Mutasd a helyeket"
+    "sticky_join_round": "Iratkozz fel"
   },
   "social": {
     "early_users_waiting": "korai felhasználó várja az indulást"
