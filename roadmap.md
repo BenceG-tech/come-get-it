@@ -18,3 +18,5 @@
 - [x] Show exactly one LINK phone label during scroll crossfades; verify desktop and mobile preview without publishing.
 - [x] Install the six supplied Web Experience v3 files verbatim without changing other site content.
 - [x] Verify the homepage preview and automatic production build without publishing.
+
+- [ ] Replace venue-discovery CTAs with signup links and remove homepage venue previews; verify HU/EN desktop/mobile without publishing.

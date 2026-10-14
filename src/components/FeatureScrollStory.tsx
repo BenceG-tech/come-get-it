@@ -67,7 +67,7 @@ export const FeatureScrollStory: React.FC = () => {
   const scene = (i: number) => reduced ? '' : scenePhase === i ? 'is-active' : i < scenePhase ? 'is-past' : '';
 
   const drink = <div className="feature-inner">
-    <div className="feature-copy"><h2 className="font-anton uppercase">DRINK<span className="text-primary">.</span></h2><p className="feature-lead">{t('drink.subtitle')}</p><p className="text-foreground/80">{t('drink.body')}</p><Button variant="neon" size="lg" className="mt-8" onClick={() => { analytics.ctaClick('drink_section', t('drink.button')); document.querySelector('#helyek')?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth' }); }}>{t('drink.button')}</Button></div>
+    <div className="feature-copy"><h2 className="font-anton uppercase">DRINK<span className="text-primary">.</span></h2><p className="feature-lead">{t('drink.subtitle')}</p><p className="text-foreground/80">{t('drink.body')}</p><Button variant="neon" size="lg" className="mt-8" onClick={() => { analytics.ctaClick('drink_section', t('drink.button')); document.querySelector('#signup')?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth' }); }}>{t('drink.button')}</Button></div>
     <div className="feature-visual" role="img" aria-label={t('drink.visual_alt')}>
       {device('fx-drink-back', [v2['venue-detail.webp']])}
       {device('fx-drink-front', [v2['venue-offer.webp']])}

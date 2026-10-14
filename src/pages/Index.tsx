@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
-import { PublicVenuesSection } from '@/components/PublicVenuesSection';
 import { MibenSegitSection } from '@/components/MibenSegitSection';
 import { PricingSection } from '@/components/PricingSection';
 import { VenuePartnerTeaser } from '@/components/VenuePartnerTeaser';

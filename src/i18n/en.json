@@ -24,7 +24,7 @@
     "title_line1": "DON'T KNOW",
     "title_line2": "WHERE TO GO TODAY?",
     "subtitle": "Partner venues in Budapest. Check the app to see where a free drink or reward is available right now. Free beta.",
-    "cta": "Show me the venues",
+    "cta": "Sign up",
     "cta_secondary": "How it works",
     "founding_note": "The app is free during the beta. New venues and rewards become available gradually and may be limited."
   },
@@ -34,7 +34,7 @@
     "hero_title": "Not sure where to go tonight?",
     "hero_highlight": "Go where something is waiting for you.",
     "hero_description": "Explore nearby partner venues, see what's available now, and redeem your offer on site.",
-    "join": "Show me the venues",
+    "join": "Sign up",
     "how": "How it works",
     "scroll": "Scroll",
     "story_label": "How Come Get It works",
@@ -84,7 +84,7 @@
     "title": "DRINK.",
     "subtitle": "A great place is a good start.",
     "body": "Discover partner venues and check their current offers in the app. Drinks and redemption conditions vary by venue.",
-    "button": "Show me the venues",
+    "button": "Sign up",
     "visual_alt": "Venue list, Bistro offer and Azure Garden Spritz"
   },
   "link": {
@@ -180,7 +180,7 @@
     "button": "Notify me at launch"
   },
   "cta": {
-    "sticky_join_round": "Show me the venues"
+    "sticky_join_round": "Sign up"
   },
   "social": {
     "early_users_waiting": "early users are waiting for launch"
