@@ -101,7 +101,6 @@ const Index = () => {
       <main>
        <HeroSection />
        <ScrollStory />
-       <PublicVenuesSection />
       <MibenSegitSection />
       {/* QuickAccessChips eltávolítva — a 4 partner-link a /partnerek hub-on érhető el */}
        <FeatureScrollStory />
