@@ -43,10 +43,7 @@ export const Navigation: React.FC = () => {
           <Logo />
         </Link>
         <div className="flex space-x-8 items-center">
-          <button onClick={() => handleNavClick('drink')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.drink')}</button>
-          <button onClick={() => handleNavClick('link')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.link')}</button>
-          <button onClick={() => handleNavClick('earn')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.earn')}</button>
-          <button onClick={() => handleNavClick('give')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.give')}</button>
+          <button onClick={() => handleNavClick('how-it-works')} className="text-white hover:text-nf-primary transition-colors duration-300">{t('experience.how')}</button>
 
           <Link to="/vendeglatohelyek" className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.venues')}</Link>
           <Link to="/partnerek" className="text-white hover:text-nf-primary transition-colors duration-300">{t('nav.partners_link')}</Link>

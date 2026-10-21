@@ -203,6 +203,19 @@
   .experience-hero .experience-poster,.experience-hero video { transform:translateY(13svh); height:100%; }
   .experience-hero-copy { padding-top:96px; }
 }
+/* Redemption climax: cyan shockwave around the phone and a short flash on the success screen. */
+.story-shock { position:absolute; z-index:1; left:50%; top:50%; width:0; height:0; pointer-events:none; }
+.story-shock span { position:absolute; left:0; top:0; width:min(70vh,560px); aspect-ratio:1; border:3px solid hsl(var(--primary)); border-radius:50%; opacity:0; transform:translate(-50%,-50%) scale(.3); animation:story-shock 1.4s var(--ease-out) .35s forwards; }
+.story-shock span:nth-child(2) { animation-delay:.55s; }.story-shock span:nth-child(3) { animation-delay:.75s; }
+@keyframes story-shock { 0% { opacity:.9; transform:translate(-50%,-50%) scale(.3) } 100% { opacity:0; transform:translate(-50%,-50%) scale(1.6) } }
+.story-flash { position:absolute; inset:0; z-index:4; pointer-events:none; background:radial-gradient(circle at 50% 55%,hsl(0 0% 100% / .9),hsl(var(--primary) / .45) 40%,transparent 75%); opacity:0; animation:story-flash .7s ease-out .3s; }
+@keyframes story-flash { 0% { opacity:0 } 15% { opacity:1 } 100% { opacity:0 } }
+/* One-shot autoplay on touch / narrow screens: a single screen-high stage, no scroll track. */
+.experience-story.is-autoplay { height:100svh; }
+.story-autoplay-controls { margin-top:14px; }
+.story-autoplay-controls button { font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:hsl(var(--foreground) / .75); border:1px solid hsl(var(--foreground) / .25); border-radius:999px; padding:7px 14px; background:hsl(var(--background) / .5); }
+.story-autoplay-controls button:hover { color:hsl(var(--primary)); border-color:hsl(var(--primary) / .6); }
+
 @media (prefers-reduced-motion:reduce) {
   .experience-hero video { display:none; }
   .experience-hero { --hx:0 !important; }
