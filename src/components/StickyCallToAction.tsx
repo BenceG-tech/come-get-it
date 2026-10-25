@@ -28,10 +28,11 @@ export const StickyCallToAction: React.FC = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center items-center px-4">
-      <Button 
+    // Phones: a full-width bar that ends where the support bubble starts, so the two never overlap.
+    <div className="fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom))] left-4 right-[5.5rem] md:left-0 md:right-0 z-50 flex justify-center items-center md:px-4">
+      <Button
         variant="neon"
-        className=""
+        className="w-full h-14 text-base md:w-auto md:h-10 md:text-sm"
         onClick={() => {
           analytics.ctaClick('sticky_cta', t('cta.sticky_join_round'));
           document.querySelector('#signup')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });

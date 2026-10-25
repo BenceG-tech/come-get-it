@@ -59,7 +59,7 @@ export const BenefitsSection: React.FC = () => {
 
               {/* Text block BELOW the image */}
               <div className="px-4 pt-3.5 pb-4 md:pt-4 md:pb-5 border-t border-nf-primary/20">
-                <h3 className="font-sans font-bold uppercase tracking-wider text-white text-sm sm:text-base leading-tight mb-1.5 group-hover:text-nf-primary transition-colors">
+                <h3 className="font-sans font-bold uppercase text-white text-[12px] tracking-normal sm:text-base sm:tracking-wider leading-tight mb-1.5 break-words hyphens-auto group-hover:text-nf-primary transition-colors">
                   {t(titleKey)}
                 </h3>
                 <p className="text-xs md:text-sm text-white/70 leading-snug">

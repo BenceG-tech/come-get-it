@@ -69,8 +69,6 @@ export const ScrollStory: React.FC = () => {
               {phase === 0 && !reduced && <div className="story-pins" aria-hidden="true"><span /><span /><span /></div>}
             </DevicePhone>
           </div>
-          <div className={`story-float story-venue ${phase === 1 ? 'is-on' : ''}`} aria-hidden="true"><img src={v2['fg-offer-venue.webp']} alt="" loading="lazy" /></div>
-          <div className={`story-float story-redeem ${phase === 2 ? 'is-on' : ''}`} aria-hidden="true"><img src={v2['fg-redeem-steps.webp']} alt="" loading="lazy" /></div>
           <div className={`story-float story-drink ${phase === 3 ? 'is-on' : ''}`} aria-hidden="true"><img className="story-drink-glass" src={v2['drink-isolated.webp']} alt="" loading="lazy" /><img className="story-drink-shadow" src={v2['drink-shadow.webp']} alt="" loading="lazy" /></div>
         </div>
       </div>
