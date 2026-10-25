@@ -5,23 +5,23 @@ import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import { v2 } from '@/lib/web-experience-v2';
 import { DevicePhone } from '@/components/experience/DevicePhone';
-import { CocktailGlass, FULL_COCKTAIL, applyCocktail } from '@/components/experience/CocktailGlass';
+import { CocktailGlass, CocktailState, FULL_COCKTAIL, applyCocktail } from '@/components/experience/CocktailGlass';
 import './WebExperience.css';
 
 export const HeroSection: React.FC = () => {
   const { t } = useI18n();
   // The hero glass builds itself once on load: ice, pour, cucumber ribbon, lime.
   const glassRef = useRef<SVGSVGElement>(null);
+  const portraitGlassRef = useRef<SVGSVGElement>(null);
   useEffect(() => {
-    const svg = glassRef.current;
-    if (!svg) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { applyCocktail(svg, FULL_COCKTAIL); return; }
+    const apply = (state: CocktailState) => [glassRef.current, portraitGlassRef.current].forEach(svg => applyCocktail(svg, state));
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { apply(FULL_COCKTAIL); return; }
     const span = (x: number, a: number, b: number) => Math.min(1, Math.max(0, (x - a) / (b - a)));
     const start = performance.now() + 500, duration = 2600;
     let frame = 0;
     const tick = (now: number) => {
       const k = Math.max(0, (now - start) / duration);
-      applyCocktail(svg, { ice: span(k, 0, 0.2), fill: 0.86 * span(k, 0.15, 0.65), pour: k > 0.15 && k < 0.66 ? 1 : 0, ribbon: span(k, 0.6, 0.82), lime: span(k, 0.78, 1) });
+      apply({ ice: span(k, 0, 0.2), fill: 0.86 * span(k, 0.15, 0.65), pour: k > 0.15 && k < 0.66 ? 1 : 0, ribbon: span(k, 0.6, 0.82), lime: span(k, 0.78, 1) });
       if (k < 1) frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
@@ -69,6 +69,7 @@ export const HeroSection: React.FC = () => {
         <p className="experience-hero-note mt-4 text-sm text-white/70">{t('experience.notify')}</p>
         <div className="experience-hero-device" aria-hidden="true">
           <DevicePhone screens={[v2['venue-offer.webp']]} active={0} className="device-hero" eager />
+          <div className="hero-glass hero-glass-portrait"><CocktailGlass ref={portraitGlassRef} state={{ fill: 0 }} /></div>
         </div>
       </div>
       <div className="experience-hero-stage" aria-hidden="true">

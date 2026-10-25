@@ -203,13 +203,23 @@
   .experience-hero h1 { font-size:clamp(38px,9vw,72px); }
 }
 .experience-hero-device { display:none; }
-/* phones: copy on top, a real device under the buttons (cropped by the fold), still background with a slow drift */
-@media (max-aspect-ratio:1/1) and (max-width:760px) {
+/* portrait (phones and tablets): copy on top, a real device under the buttons (cropped by the fold), still background
+   with a slow drift. The hero video's own phone shows an older app screen and slid under the buttons on portrait screens. */
+@media (max-aspect-ratio:1/1) {
   .experience-hero { min-height:600px; }
   .experience-hero .experience-poster { object-position:50% 40%; animation:hero-drift 26s ease-in-out infinite alternate; }
   .experience-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
     background:linear-gradient(180deg,hsl(var(--background) / .9) 0%,hsl(var(--background) / .74) 42%,hsl(var(--background) / .4) 70%,hsl(var(--background) / .85) 100%); }
-  .experience-hero-copy { width:auto; padding:84px 20px 0; overflow:hidden; }
+  .experience-hero-copy { overflow:hidden; }
+  .experience-hero-note { position:relative; z-index:1; }
+  .experience-scroll-hint { display:none; }
+  .experience-hero-device { display:flex; justify-content:center; flex:1 1 0; min-height:0; margin-top:32px; perspective:1400px;
+    -webkit-mask-image:linear-gradient(180deg,#000 72%,transparent); mask-image:linear-gradient(180deg,#000 72%,transparent); }
+  .device-hero { --rx:6deg; --ry:-12deg; --rz:2deg; flex:none; align-self:flex-start; width:min(44vw,340px); }
+  .device-hero .device-edge { transform:translateZ(-9px); }
+}
+@media (max-aspect-ratio:1/1) and (max-width:760px) {
+  .experience-hero-copy { width:auto; padding:84px 20px 0; }
   .experience-hero-copy > p:first-child { font-size:12px; letter-spacing:.06em; margin-bottom:12px; }
   .experience-hero h1 { font-size:clamp(36px,10.6vw,46px); line-height:.96; }
   .experience-hero h1 + p { font-size:15px; line-height:1.5; max-width:34ch; margin:14px 0 20px; }
@@ -217,11 +227,8 @@
   .experience-hero-ctas > button { width:100%; height:52px; padding:0 12px; font-size:16px; }
   .experience-hero-ctas > button + button { background:hsl(var(--background) / .6); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
   .experience-hero-note { font-size:13px; margin-top:12px; }
-  .experience-scroll-hint { display:none; }
-  .experience-hero-device { display:flex; justify-content:center; flex:1 1 0; min-height:0; margin-top:28px; perspective:1400px;
-    -webkit-mask-image:linear-gradient(180deg,#000 72%,transparent); mask-image:linear-gradient(180deg,#000 72%,transparent); }
-  .device-hero { --rx:6deg; --ry:-12deg; --rz:2deg; flex:none; align-self:flex-start; width:min(60vw,240px); }
-  .device-hero .device-edge { transform:translateZ(-9px); }
+  .experience-hero-device { margin-top:28px; }
+  .device-hero { width:min(60vw,240px); }
 }
 @media (max-aspect-ratio:1/1) and (max-width:760px) and (max-height:720px) {
   .experience-hero-copy { padding-top:74px; }
@@ -236,8 +243,11 @@
 .hero-glass { width:clamp(140px,12vw,210px); margin-left:calc(clamp(140px,12vw,210px) * -.28); margin-bottom:-2%; filter:drop-shadow(0 0 2px hsl(var(--primary) / .55)) drop-shadow(0 0 26px hsl(var(--primary) / .3)); animation:experience-float 6s ease-in-out 3.4s infinite; }
 .experience-hero::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg,hsl(var(--background) / .88) 0%,hsl(var(--background) / .55) 45%,hsl(var(--background) / .2) 100%); }
 @media (max-width:1199px) and (min-aspect-ratio:1/1) { .experience-hero-stage { display:none; } }
-@media (max-aspect-ratio:1/1) { .experience-hero-stage { top:auto; bottom:4svh; right:50%; translate:50% 0; } .device-hero-stage { width:clamp(180px,26vw,240px); } .hero-glass { width:clamp(110px,15vw,150px); margin-left:-36px; } }
-@media (max-aspect-ratio:1/1) and (max-width:760px) { .experience-hero-stage, .experience-hero::before { display:none; } }
+/* portrait screens show the device inside the copy instead (see above), with the glass leaning on it */
+.hero-glass-portrait { display:none; }
+@media (max-aspect-ratio:1/1) { .experience-hero-device { position:relative; } .hero-glass-portrait { display:block; position:absolute; top:12%; left:calc(50% + min(44vw,340px) * .32); width:min(30vw,190px); margin:0; } }
+@media (max-aspect-ratio:1/1) and (max-width:760px) { .hero-glass-portrait { left:calc(50% + min(60vw,240px) * .16); width:min(30vw,116px); top:16%; } }
+@media (max-aspect-ratio:1/1) { .experience-hero-stage, .experience-hero::before { display:none; } }
 @media (prefers-reduced-motion:reduce) { .hero-glass { animation:none; } }
 @keyframes hero-drift { from { transform:scale(1.04) translate3d(0,0,0) } to { transform:scale(1.12) translate3d(-2%,-1.5%,0) } }
 @media (prefers-reduced-motion:reduce) {
