@@ -33,9 +33,9 @@ export const PourThread: React.FC = () => {
       frame = 0;
       if (!target?.isConnected) { target = document.querySelector<HTMLElement>('[data-cocktail-target]'); target?.classList.add('is-poured'); }
       const vh = innerHeight, vw = innerWidth, small = vw < 768;
-      // Phones: bottom-left, clear of the centred sticky CTA. Desktop: right edge, above the support button.
+      // Phones: left edge, above the full-width sticky CTA bar. Desktop: right edge, above the support button.
       const cornerW = small ? 44 : 64, cornerX = small ? 2 : vw - cornerW - 22;
-      const cornerY = vh - cornerW * GLASS_RATIO - (small ? 12 : 96);
+      const cornerY = vh - cornerW * GLASS_RATIO - (small ? 100 : 96);
       const rect = target?.getBoundingClientRect();
       // Page progress until the signup slot enters the viewport, then the docking progress.
       const dockStart = rect ? rect.top + scrollY - vh : document.documentElement.scrollHeight - vh;
