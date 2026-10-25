@@ -11,7 +11,6 @@ import { VenueApplicationSection } from '@/components/VenueApplicationSection';
 // FOMOSection removed — duplicated SignupForm CTA
 import { SignupForm } from '@/components/SignupForm';
 import { StickyCallToAction } from '@/components/StickyCallToAction';
-import { PourThread } from '@/components/experience/PourThread';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { ExitIntentPopup } from '@/components/ExitIntentPopup';
 import { Footer } from '@/components/Footer';
@@ -115,7 +114,6 @@ const Index = () => {
       <VenueApplicationSection />
       </main>
       <Footer />
-      <PourThread />
       <StickyCallToAction />
       <CustomerSupport />
       

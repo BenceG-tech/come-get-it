@@ -4,7 +4,6 @@ import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import { v2 } from '@/lib/web-experience-v2';
 import { DevicePhone } from '@/components/experience/DevicePhone';
-import { CocktailGlass } from '@/components/experience/CocktailGlass';
 import { clamp01, useStickyScroll, usePrefersReducedMotion } from '@/components/experience/useStickyScroll';
 import './WebExperience.css';
 
@@ -74,7 +73,7 @@ export const FeatureScrollStory: React.FC = () => {
     <div className="feature-visual" role="img" aria-label={t('drink.visual_alt')}>
       {device('fx-drink-back', [v2['venue-detail.webp']])}
       {device('fx-drink-front', [v2['venue-offer.webp']])}
-      <div className="feature-glass-wrap" aria-hidden="true"><CocktailGlass className="feature-glass" /></div>
+      <div className="feature-glass-wrap" aria-hidden="true"><img className="feature-glass-shadow" src={v2['drink-shadow.webp']} alt="" loading="lazy" /><img className="feature-glass" src={v2['drink-isolated.webp']} alt="" loading="lazy" /></div>
     </div>
   </div>;
   const link = <div className="feature-inner">
