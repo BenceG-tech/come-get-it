@@ -132,7 +132,7 @@
       "b1": "Discover partner venues on a map and list",
       "b2": "Redeem currently available free-drink offers on site",
       "b3": "Account with email address and password",
-      "b4": "View credited points and claim active rewards",
+      "b4": "One free drink a day at the venue you choose, with a QR code",
       "b5": "On-site QR redemption confirmed by staff",
       "b6": "No hidden fee and no payment-card data",
       "cta": "Notify me at launch"
@@ -148,7 +148,7 @@
       "b5": "These are plans — we will announce them if they launch",
       "cta": "Notify me about updates"
     },
-    "info": "Partner venues choose which offers to make available. Stock, opening hours and time windows vary, so we do not promise a guaranteed daily free drink — check the app for what is active now.",
+    "info": "You can redeem one free drink a day with a QR code at the partner venue you choose. Each venue decides what it offers, and stock, opening hours and time windows vary, so check the app for what is available today.",
     "promo": {
       "label": "🎁 BETA",
       "body": "Beta access is free. Join the email list and we will let you know about the public launch."
