@@ -1091,7 +1091,9 @@
       "resend_missing_desc": "Nincs elmentett e-mail-cím az újraküldéshez.",
       "resend_failed_desc": "Az üdvözlő e-mail újraküldése nem sikerült.",
       "resend_success_title": "Email újraküldve",
-      "resend_success_desc": "Ellenőrizd a beérkező, Promóciók vagy Spam mappát is."
+      "resend_success_desc": "Ellenőrizd a beérkező, Promóciók vagy Spam mappát is.",
+      "already_title": "Már a listán vagy.",
+      "already_desc": "Ezzel az e-mail-címmel már feliratkoztál, szólni fogunk az indulásról."
     },
     "logged_in_title": "ÜDVÖZLÜNK!",
     "logged_in_desc": "Be vagy jelentkezve. Az app nyilvános indulásáról itt, a weboldalon is hírt adunk.",
