@@ -4,7 +4,10 @@ import { MobileNavigation } from '@/components/MobileNavigation';
 import { analytics } from '@/lib/analytics';
 import { useI18n } from '@/hooks/useI18n';
 import { v2 } from '@/lib/web-experience-v2';
+import { DevicePhone } from '@/components/experience/DevicePhone';
 import './WebExperience.css';
+
+const PHONE_QUERY = '(max-aspect-ratio: 1/1) and (max-width: 760px)';
 
 export const HeroSection: React.FC = () => {
   const { t } = useI18n();
@@ -14,15 +17,17 @@ export const HeroSection: React.FC = () => {
 
   useEffect(() => {
     const portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
+    // Phones get a still background and a real device under the buttons instead of the video,
+    // whose baked-in phone sat behind the CTAs on short screens.
+    const phone = window.matchMedia(PHONE_QUERY);
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const update = () => {
       setPlaying(false);
-      setVideoChoice(reduced.matches ? null : portrait.matches ? 'mobile' : 'desktop');
+      setVideoChoice(reduced.matches || phone.matches ? null : portrait.matches ? 'mobile' : 'desktop');
     };
     update();
-    portrait.addEventListener('change', update);
-    reduced.addEventListener('change', update);
-    return () => { portrait.removeEventListener('change', update); reduced.removeEventListener('change', update); };
+    [portrait, phone, reduced].forEach(q => q.addEventListener('change', update));
+    return () => { [portrait, phone, reduced].forEach(q => q.removeEventListener('change', update)); };
   }, []);
 
   useEffect(() => {
@@ -60,6 +65,7 @@ export const HeroSection: React.FC = () => {
     <section ref={heroRef} className="experience-hero" aria-label={t('experience.hero_label')}>
       <MobileNavigation />
       <picture>
+        <source media={PHONE_QUERY} srcSet={v2['bg-1-mobile.webp']} />
         <source media="(max-aspect-ratio: 1/1)" srcSet={v2['hero-mobile-poster.webp']} />
         <img className="experience-poster" src={v2['hero-desktop-poster.webp']} alt="" aria-hidden="true" width={1920} height={1080} />
       </picture>
@@ -73,11 +79,14 @@ export const HeroSection: React.FC = () => {
         <p className="text-primary text-sm font-semibold uppercase mb-4">{t('experience.eyebrow')}</p>
         <h1 className="font-anton uppercase font-normal max-w-[850px]">{t('experience.hero_title')}<br /><span className="text-primary">{t('experience.hero_highlight')}</span></h1>
         <p className="text-foreground/85 text-base md:text-xl leading-relaxed max-w-[520px] mt-4 md:mt-6 mb-5 md:mb-8">{t('experience.hero_description')}</p>
-        <div className="flex gap-3 flex-wrap">
+        <div className="experience-hero-ctas flex gap-3 flex-wrap">
           <Button variant="neon" size="lg" onClick={() => scrollTo('signup', 'hero_primary', t('experience.join'))}>{t('experience.join')}</Button>
           <Button variant="outline" size="lg" className="border-foreground/50 text-foreground hover:border-primary hover:text-primary" onClick={() => scrollTo('how-it-works', 'hero_secondary', t('experience.how'))}>{t('experience.how')} ↓</Button>
         </div>
-        <p className="mt-4 text-sm text-white/70">{t('experience.notify')}</p>
+        <p className="experience-hero-note mt-4 text-sm text-white/70">{t('experience.notify')}</p>
+        <div className="experience-hero-device" aria-hidden="true">
+          <DevicePhone screens={[v2['venue-offer.webp']]} active={0} className="device-hero" eager />
+        </div>
       </div>
       <div className="experience-scroll-hint text-xs uppercase text-foreground/70" aria-hidden="true">{t('experience.scroll')}</div>
     </section>
