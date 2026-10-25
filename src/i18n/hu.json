@@ -132,7 +132,7 @@
       "b1": "Partnerhelyek felfedezése térképen és listán",
       "b2": "Épp elérhető ingyen italok beváltása a helyszínen",
       "b3": "Fiók e-mail címmel és jelszóval",
-      "b4": "Pontgyűjtés és jutalmak igénylése",
+      "b4": "Napi egy ingyen ital a kiválasztott helyen, QR-kóddal",
       "b5": "Helyszíni beváltás a pultos jóváhagyásával",
       "b6": "Nincs rejtett költség, nincs bankkártya",
       "cta": "Értesítést kérek az indulásról"
@@ -148,7 +148,7 @@
       "b5": "Ezek tervek — ha elindulnak, szólunk",
       "cta": "Értesíts az újdonságokról"
     },
-    "info": "A partnerhelyek maguk választják ki, milyen italokat ajánlanak ingyen, és az ajánlatok készlet, nyitvatartás és időszak szerint változnak. Ezért nem ígérünk garantált vagy napi ingyen italt — nézd meg az appban, mi érhető el ma.",
+    "info": "Naponta egy ingyen italt válthatsz be QR-kóddal az általad kiválasztott partnerhelyen. Hogy melyik helyen mi érhető el, azt a helyek maguk döntik el, és készlet, nyitvatartás és időszak szerint változik, ezért nézd meg az appban, mi érhető el ma.",
     "promo": {
       "label": "BÉTA",
       "body": "A béta használata ingyenes. Iratkozz fel, és e-mailben szólunk a nyilvános indulásról."
