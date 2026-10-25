@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { Checkbox } from '@/components/ui/checkbox';
 import { getSupabaseClient } from '@/lib/supabase';
 import { analytics } from '@/lib/analytics';
+import { getLastCta } from '@/lib/funnel';
 import { useAuth } from '@/contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/hooks/useI18n';
@@ -13,7 +13,7 @@ import { useI18n } from '@/hooks/useI18n';
 export const SignupForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [gdprAccepted, setGdprAccepted] = useState(false);
+  const [started, setStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [lastEmail, setLastEmail] = useState<string | null>(null);
   const [isResending, setIsResending] = useState(false);
@@ -21,27 +21,37 @@ export const SignupForm: React.FC = () => {
   const { user } = useAuth();
   const { t } = useI18n();
 
-  useEffect(() => {
-    // Track when signup form is viewed
-    analytics.signupFormView();
-  }, []);
+  // Seeing the form is measured by the funnel's section_view; here we only note that someone started typing.
+  const handleStart = () => {
+    if (started) return;
+    setStarted(true);
+    analytics.signupFormStart();
+  };
+
+  const handleShare = async () => {
+    const shareData = { title: 'Come Get It', text: t('signup.share_text'), url: 'https://come-get-it.app/?utm_source=share&utm_medium=referral&utm_campaign=waitlist' };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        analytics.signupShare('native');
+      } else {
+        await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
+        analytics.signupShare('copy');
+        toast({ title: t('signup.share_copied') });
+      }
+    } catch {
+      /* the visitor closed the share sheet */
+    }
+  };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email) {
+      analytics.signupError('missing_email');
       toast({
         title: t('signup.toasts.error_title'),
         description: t('signup.toasts.missing_email'),
-        variant: 'destructive'
-      });
-      return;
-    }
-
-    if (!gdprAccepted) {
-      toast({
-        title: t('signup.toasts.error_title'), 
-        description: t('signup.toasts.gdpr_required'),
         variant: 'destructive'
       });
       return;
@@ -64,7 +74,8 @@ export const SignupForm: React.FC = () => {
         .join('&');
       const ref = document.referrer ? `ref=${encodeURIComponent(document.referrer)}` : '';
       const path = `path=${encodeURIComponent(window.location.pathname)}`;
-      const source = ['main_signup_form', utmPairs && `utm:${utmPairs}`, ref, path]
+      const cta = getLastCta();
+      const source = ['main_signup_form', cta && `cta:${cta}`, utmPairs && `utm:${utmPairs}`, ref, path]
         .filter(Boolean)
         .join(' | ');
 
@@ -85,6 +96,7 @@ export const SignupForm: React.FC = () => {
 
           if (submitError) {
             console.error('Error submitting signup:', submitError);
+            analytics.signupError(submitError.message?.slice(0, 60) || 'submit_error');
             if (submitError.message?.includes('Too many requests')) {
               toast({
                 title: "Túl sok kérés",
@@ -114,7 +126,6 @@ export const SignupForm: React.FC = () => {
           setLastEmail(email);
           setIsSubmitted(true);
           setEmail('');
-          setGdprAccepted(false);
 
 
 
@@ -125,6 +136,7 @@ export const SignupForm: React.FC = () => {
           });
         } catch (error) {
           console.error('Error calling secure signup function:', error);
+          analytics.signupError('network');
           toast({
             title: t('signup.toasts.error_generic_title'),
             description: t('signup.toasts.error_generic_desc'),
@@ -229,6 +241,10 @@ export const SignupForm: React.FC = () => {
                   {t('signup.success_line')}
                 </p>
                 <p className="text-white/55 text-sm mb-4">{t('signup.check_spam')}</p>
+                <p className="text-white/80 text-base mb-3">{t('signup.share_prompt')}</p>
+                <Button variant="neon" onClick={handleShare} className="mb-6">
+                  {t('signup.share_button')}
+                </Button>
                 <div className="flex justify-center">
                   <Button
                     variant="outline"
@@ -253,27 +269,20 @@ export const SignupForm: React.FC = () => {
               <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto space-y-4">
                 <Input
                   type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  enterKeyHint="send"
+                  required
+                  aria-label={t('signup.placeholder_email')}
                   placeholder={t('signup.placeholder_email')}
                   value={email}
+                  onFocus={handleStart}
                   onChange={(e) => setEmail(e.target.value)}
                   className="text-center bg-[#03070d]/80 border-nf-primary/25 text-white placeholder:text-white/40 focus:border-nf-primary focus:ring-2 focus:ring-nf-primary/30"
                   disabled={isLoading}
                 />
 
-                <div className="flex items-center space-x-2 justify-center">
-                  <Checkbox
-                    id="gdpr"
-                    checked={gdprAccepted}
-                    onCheckedChange={(checked) => setGdprAccepted(checked as boolean)}
-                    className="border-nf-primary/40 data-[state=checked]:bg-nf-primary data-[state=checked]:border-nf-primary"
-                  />
-                  <label htmlFor="gdpr" className="text-sm text-white/60 cursor-pointer">
-                    {t('signup.gdpr_label_prefix')}{' '}
-                    <Link to="/adatvedelmi-szabalyzat" target="_blank" rel="noopener noreferrer" className="text-nf-primary underline focus:outline-none focus:ring-2 focus:ring-nf-primary/50">
-                      {t('signup.privacy_policy')}
-                    </Link>
-                  </label>
-                </div>
+
 
                 <Button
                   type="submit"
@@ -283,7 +292,21 @@ export const SignupForm: React.FC = () => {
                 >
                   {isLoading ? t('signup.button_loading') : t('signup.button')}
                 </Button>
+
+                <p className="text-xs text-white/55 leading-relaxed">
+                  {t('signup.consent_prefix')}{' '}
+                  <Link to="/adatvedelmi-szabalyzat" target="_blank" rel="noopener noreferrer" className="text-nf-primary underline focus:outline-none focus:ring-2 focus:ring-nf-primary/50">
+                    {t('signup.privacy_policy_accusative')}
+                  </Link>
+                  {t('signup.consent_suffix')}
+                </p>
               </form>
+
+              <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/70">
+                <li>✓ {t('signup.trust_free')}</li>
+                <li>✓ {t('signup.trust_no_spam')}</li>
+                <li>✓ {t('signup.trust_unsubscribe')}</li>
+              </ul>
 
             </div>
           )}

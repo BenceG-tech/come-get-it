@@ -17,6 +17,7 @@ import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { useExitIntent } from '@/hooks/useExitIntent';
 import { analytics } from '@/lib/analytics';
+import { startFunnelTracking } from '@/lib/funnel';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabase';
 const Index = () => {
@@ -26,6 +27,7 @@ const Index = () => {
   // Track page view
   useEffect(() => {
     analytics.pageView('index');
+    return startFunnelTracking('index');
   }, []);
 
   const handleExitIntentSignup = async (email: string) => {
@@ -105,11 +107,11 @@ const Index = () => {
       {/* QuickAccessChips eltávolítva — a 4 partner-link a /partnerek hub-on érhető el */}
        <FeatureScrollStory />
       <PricingSection />
+      {/* A vendég-feliratkozás a vendégeknek szóló rész végén van, nem a partneres blokk után (régen az oldal 92%-ánál volt). */}
+      <SignupForm />
       <VenuePartnerTeaser />
       <BenefitsSection />
       <VenueApplicationSection />
-      {/* FOMOSection eltávolítva — a SignupForm már lefedi az alapító tag CTA-t */}
-      <SignupForm />
       </main>
       <Footer />
       <StickyCallToAction />
