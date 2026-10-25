@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useI18n } from '@/hooks/useI18n';
 import { v2 } from '@/lib/web-experience-v2';
 import { DevicePhone } from '@/components/experience/DevicePhone';
+import { CocktailGlass } from '@/components/experience/CocktailGlass';
 import { clamp01, keyed, useStickyScroll, usePrefersReducedMotion } from '@/components/experience/useStickyScroll';
 import './WebExperience.css';
 
@@ -69,7 +70,7 @@ export const ScrollStory: React.FC = () => {
               {phase === 0 && !reduced && <div className="story-pins" aria-hidden="true"><span /><span /><span /></div>}
             </DevicePhone>
           </div>
-          <div className={`story-float story-drink ${phase === 3 ? 'is-on' : ''}`} aria-hidden="true"><img className="story-drink-glass" src={v2['drink-isolated.webp']} alt="" loading="lazy" /><img className="story-drink-shadow" src={v2['drink-shadow.webp']} alt="" loading="lazy" /></div>
+          <div className={`story-float story-drink ${phase === 3 ? 'is-on' : ''}`} aria-hidden="true"><CocktailGlass className="story-drink-glass" /></div>
         </div>
       </div>
       <p className="story-note text-[10px] md:text-xs text-foreground/70">{t('experience.disclaimer')}</p>
