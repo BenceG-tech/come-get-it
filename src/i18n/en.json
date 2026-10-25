@@ -1091,7 +1091,9 @@
       "resend_missing_desc": "No saved email to resend to.",
       "resend_failed_desc": "Failed to resend the welcome email.",
       "resend_success_title": "Email resent",
-      "resend_success_desc": "Check your inbox, Promotions, or Spam folders."
+      "resend_success_desc": "Check your inbox, Promotions, or Spam folders.",
+      "already_title": "You're already on the list.",
+      "already_desc": "This email is already signed up; we'll let you know at launch."
     },
     "logged_in_title": "WELCOME!",
     "logged_in_desc": "You are signed in. We will also announce the public app launch on this website.",

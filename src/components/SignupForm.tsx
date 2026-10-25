@@ -94,6 +94,17 @@ export const SignupForm: React.FC = () => {
             }
           });
 
+          // Already on the list: the server answers 409. Show the thank-you state instead of an error.
+          const status = (submitError as { context?: { status?: number } } | null)?.context?.status;
+          if (status === 409) {
+            analytics.signupError('already_signed_up');
+            setLastEmail(email);
+            setIsSubmitted(true);
+            setEmail('');
+            toast({ title: t('signup.toasts.already_title'), description: t('signup.toasts.already_desc') });
+            return;
+          }
+
           if (submitError) {
             console.error('Error submitting signup:', submitError);
             analytics.signupError(submitError.message?.slice(0, 60) || 'submit_error');
