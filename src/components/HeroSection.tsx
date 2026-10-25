@@ -7,27 +7,26 @@ import { v2 } from '@/lib/web-experience-v2';
 import { DevicePhone } from '@/components/experience/DevicePhone';
 import './WebExperience.css';
 
-const PHONE_QUERY = '(max-aspect-ratio: 1/1) and (max-width: 760px)';
+const PORTRAIT_QUERY = '(max-aspect-ratio: 1/1)';
 
 export const HeroSection: React.FC = () => {
   const { t } = useI18n();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoChoice, setVideoChoice] = useState<'desktop' | 'mobile' | null>(null);
+  const [videoChoice, setVideoChoice] = useState<'desktop' | null>(null);
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
-    // Phones get a still background and a real device under the buttons instead of the video,
-    // whose baked-in phone sat behind the CTAs on short screens.
-    const phone = window.matchMedia(PHONE_QUERY);
+    // Portrait screens get a still background and a real device under the buttons instead of the video,
+    // whose baked-in phone shows an older app screen and sat behind the CTAs.
+    const portrait = window.matchMedia(PORTRAIT_QUERY);
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const update = () => {
       setPlaying(false);
-      setVideoChoice(reduced.matches || phone.matches ? null : portrait.matches ? 'mobile' : 'desktop');
+      setVideoChoice(reduced.matches || portrait.matches ? null : 'desktop');
     };
     update();
-    [portrait, phone, reduced].forEach(q => q.addEventListener('change', update));
-    return () => { [portrait, phone, reduced].forEach(q => q.removeEventListener('change', update)); };
+    [portrait, reduced].forEach(q => q.addEventListener('change', update));
+    return () => { [portrait, reduced].forEach(q => q.removeEventListener('change', update)); };
   }, []);
 
   useEffect(() => {
@@ -65,14 +64,13 @@ export const HeroSection: React.FC = () => {
     <section ref={heroRef} className="experience-hero" aria-label={t('experience.hero_label')}>
       <MobileNavigation />
       <picture>
-        <source media={PHONE_QUERY} srcSet={v2['bg-1-mobile.webp']} />
-        <source media="(max-aspect-ratio: 1/1)" srcSet={v2['hero-mobile-poster.webp']} />
+        <source media={PORTRAIT_QUERY} srcSet={v2['bg-1-mobile.webp']} />
         <img className="experience-poster" src={v2['hero-desktop-poster.webp']} alt="" aria-hidden="true" width={1920} height={1080} />
       </picture>
       {videoChoice && (
-        <video ref={videoRef} key={videoChoice} className={playing ? 'is-playing' : ''} autoPlay muted loop playsInline preload="metadata" poster={videoChoice === 'mobile' ? v2['hero-mobile-poster.webp'] : v2['hero-desktop-poster.webp']} aria-hidden="true" onLoadedMetadata={event => { event.currentTarget.playbackRate = 0.65; }} onCanPlay={event => { event.currentTarget.playbackRate = 0.65; }} onPlaying={() => setPlaying(true)} onError={() => setPlaying(false)}>
-          <source src={videoChoice === 'mobile' ? v2['hero-mobile.webm'] : v2['hero-desktop.webm']} type="video/webm" />
-          <source src={videoChoice === 'mobile' ? v2['hero-mobile.mp4'] : v2['hero-desktop.mp4']} type="video/mp4" />
+        <video ref={videoRef} key={videoChoice} className={playing ? 'is-playing' : ''} autoPlay muted loop playsInline preload="metadata" poster={v2['hero-desktop-poster.webp']} aria-hidden="true" onLoadedMetadata={event => { event.currentTarget.playbackRate = 0.65; }} onCanPlay={event => { event.currentTarget.playbackRate = 0.65; }} onPlaying={() => setPlaying(true)} onError={() => setPlaying(false)}>
+          <source src={v2['hero-desktop.webm']} type="video/webm" />
+          <source src={v2['hero-desktop.mp4']} type="video/mp4" />
         </video>
       )}
       <div className="experience-hero-copy text-foreground">
