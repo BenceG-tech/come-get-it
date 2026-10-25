@@ -6,3 +6,4 @@
 - Share the supplied v2 media map in src/lib/web-experience-v2.ts and scope its homepage scenes to WebExperience.css, so page visuals stay consistent without changing auth or admin.
 - Keep the four homepage feature scenes in one FeatureScrollStory with scroll-linked state and a static reduced-motion fallback, so navigation anchors and visual changes remain synchronized.
 - Keep Web Experience v3 scroll behavior in the shared experience/useStickyScroll hook and phone rendering in experience/DevicePhone, because both sticky stories use the supplied damped movement and device presentation.
+- Keep the homepage cocktail as the vector experience/CocktailGlass (copa glass with stem and foot) and its scroll-linked pour in experience/PourThread, docking into [data-cocktail-target] in the signup form, because the old drink-isolated image had no foot and the pour must follow the form wherever it moves.

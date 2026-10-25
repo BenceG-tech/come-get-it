@@ -9,6 +9,7 @@ import { getLastCta } from '@/lib/funnel';
 import { useAuth } from '@/contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/hooks/useI18n';
+import { CocktailGlass } from '@/components/experience/CocktailGlass';
  
 export const SignupForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -270,6 +271,7 @@ export const SignupForm: React.FC = () => {
             </div>
           ) : (
             <div className="space-y-6 text-center">
+              <div className="cocktail-slot" data-cocktail-target aria-hidden="true"><CocktailGlass /></div>
               <h2 className="text-3xl md:text-4xl font-anton uppercase text-white mb-2 tracking-tight">
                 {t('signup.main_title')}
               </h2>

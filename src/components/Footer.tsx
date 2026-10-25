@@ -10,12 +10,12 @@ export const Footer: React.FC = () => {
   const secretEntry = useSecretAdminEntry();
 
   return (
-    <footer className="relative mt-16 border-t border-nf-primary/20 bg-nf-background text-white/80">
+    <footer className="relative mt-16 pb-24 md:pb-0 border-t border-nf-primary/20 bg-nf-background text-white/80">
       <div className="max-w-7xl mx-auto px-4 py-12 grid gap-10 md:grid-cols-4">
         <div>
           <Logo className="h-9 mb-4" />
           <p className="text-sm text-white/60 leading-relaxed">
-            Találd meg, hova menj ma Budapesten. Ingyenes béta: helyek, jutalmak, pontok.
+            Találd meg, hova menj ma Budapesten. Ingyenes béta: helyek és ingyen italok.
           </p>
         </div>
 

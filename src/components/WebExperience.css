@@ -77,8 +77,6 @@
 .story-float { position:absolute; z-index:3; pointer-events:none; opacity:0; translate:0 26px; scale:.96; transition:opacity .3s ease-in,translate .5s var(--ease-soft),scale .5s var(--ease-soft); }
 .story-float.is-on { opacity:1; translate:0 0; scale:1; transition:opacity .6s var(--ease-soft) .28s,translate 1s var(--ease-out) .28s,scale 1s var(--ease-out) .28s; }
 .story-float img { display:block; width:100%; height:auto; }
-.story-venue { width:96%; left:46%; top:9%; filter:drop-shadow(0 30px 45px hsl(var(--background) / .7)); }
-.story-redeem { width:80%; left:48%; top:8%; filter:drop-shadow(0 30px 45px hsl(var(--background) / .7)); }
 .story-drink { width:52%; left:100%; bottom:4%; filter:drop-shadow(0 0 2px hsl(var(--primary) / .55)) drop-shadow(0 0 26px hsl(var(--primary) / .28)); }
 .story-drink-glass { animation:experience-float 6s ease-in-out infinite; }
 .story-drink .story-drink-shadow { position:absolute; bottom:-9%; left:0; width:100%; }
@@ -86,10 +84,11 @@
 /* state 4: the device steps back so the glass stands on its own, the group stays centred */
 .is-s4 .story-phone-wrap { transform:scale(.9); }
 .is-s4 .story-content { transform:translateX(-40px); }
-.story-note { position:absolute; z-index:3; bottom:3vh; left:max(4vw,calc(50% - 690px)); white-space:nowrap; }
+/* stops short of the centred sticky signup button */
+.story-note { position:absolute; z-index:3; bottom:3vh; left:max(4vw,calc(50% - 690px)); max-width:calc(50vw - max(4vw,calc(50vw - 690px)) - 110px); }
 
 /* ---------- second story: DRINK / LINK / EARN / GIVE ---------- */
-.feature-scroll-story { position:relative; height:540vh; background:hsl(var(--background)); }
+.feature-scroll-story { position:relative; height:300vh; background:hsl(var(--background)); }
 .feature-scroll-stage { position:sticky; top:0; height:100svh; overflow:hidden; isolation:isolate; }
 .feature-anchor { position:absolute; left:0; width:1px; height:1px; pointer-events:none; }
 .feature-scroll-story .feature-scene { position:absolute; inset:0; height:100%; display:flex; align-items:center; padding:0;
@@ -153,8 +152,9 @@
   .feature-give-outline { top:auto; bottom:-4%; left:-2vw; transform:none; font-size:40vw; }
 }
 @media (max-width:760px) {
-  .experience-story { height:640svh; }
-  .feature-scroll-story { height:780svh; }
+  /* a bit less scroll per scene: the stories used to take ~14 screens on a phone */
+  .experience-story { height:540svh; }
+  .feature-scroll-story { height:400svh; }
   /* phones: drop the full-screen blend layers so the scene hand-over stays at 60 fps */
   .feature-scroll-stage .experience-grain { display:none; }
   /* shorter hand-over so every scene has settled within its minimum on-screen time */
@@ -163,7 +163,9 @@
   .feature-scroll-story .is-active .device-feature { transition-delay:.18s; }
   .feature-scroll-story .device-glare { mix-blend-mode:normal; opacity:.6; }
   .feature-scroll-story .feature-scene .feature-inner { display:flex; flex-direction:column; justify-content:flex-start; gap:10px; height:100%; padding-top:64px; }
-  .feature-scroll-story .feature-scene .feature-visual { --fw:clamp(140px,38vw,176px); order:-1; flex:none; width:100%; height:min(46svh,390px); }
+  .feature-scroll-story .feature-scene .feature-visual { --fw:clamp(132px,36vw,170px); order:-1; flex:none; width:100%; height:min(42svh,370px); }
+  /* the same fine print already runs above the first story; here it only pushed the steps under the signup bar */
+  .feature-scroll-story .feature-link .feature-copy > p.text-xs { display:none; }
   .feature-scroll-story .feature-scene .feature-copy { order:0; width:100%; }
   .feature-scroll-story .feature-copy h2 { font-size:clamp(46px,12vw,64px); }
   .feature-scroll-story .feature-lead { font-size:clamp(20px,5.6vw,26px); margin:4px 0 8px; }
@@ -179,19 +181,20 @@
   .feature-scroll-story .feature-roadmap { gap:6px; margin-top:12px; }
   .feature-scroll-story .feature-roadmap > div { padding:8px 10px; font-size:12px; }
   .feature-scroll-story .feature-give .feature-visual { display:none; }
-  .story-content { display:flex; flex-direction:column; justify-content:flex-start; align-items:center; padding-top:84px; width:92vw; }
+  .story-content { display:flex; flex-direction:column; justify-content:flex-start; align-items:center; padding-top:100px; width:92vw; }
   .phone-col { order:-1; margin-bottom:24px; }
-  .device-story { width:min(206px,50vw,calc(46svh * .475)); }
+  .device-story { width:min(184px,46vw,calc((100svh - 450px) * .475)); min-width:120px; }
   .story-copy { width:100%; }
   .story-steps { min-height:200px; }
   .story-step h2 { font-size:clamp(32px,10vw,42px); }
   .story-step p { font-size:15px; margin-top:10px; }
   .story-progress { margin-top:10px; }
-  .story-venue { width:100%; left:28%; top:6%; }.story-redeem { width:92%; left:28%; top:4%; }.story-drink { width:48%; left:72%; bottom:2%; }
+  .story-drink { width:48%; left:72%; bottom:2%; }
   .is-s4 .story-content { transform:none; }
   .is-s4 .story-phone-wrap { transform:translateX(-26%) scale(.88); }
   .experience-vignette { background:linear-gradient(180deg,hsl(var(--background) / .25),hsl(var(--background) / .55) 45%,hsl(var(--background) / .9) 70%); }
-  .story-note { bottom:1.6svh; left:50%; transform:translateX(-50%); }
+  /* the fine print sits under the menu button, clear of the sticky signup bar at the bottom */
+  .story-note { top:62px; bottom:auto; left:50%; transform:translateX(-50%); width:88vw; max-width:none; text-align:center; line-height:1.35; }
   .device-edge { transform:translateZ(-9px); }
 }
 @media (max-aspect-ratio:1/1) {
@@ -199,12 +202,57 @@
   .experience-hero-copy { justify-content:flex-start; padding-top:110px; }
   .experience-hero h1 { font-size:clamp(38px,9vw,72px); }
 }
-@media (max-aspect-ratio:1/1) and (max-width:760px) {
-  .experience-hero .experience-poster,.experience-hero video { transform:translateY(13svh); height:100%; }
-  .experience-hero-copy { padding-top:96px; }
+.experience-hero-device { display:none; }
+/* portrait (phones and tablets): copy on top, a real device under the buttons (cropped by the fold), still background
+   with a slow drift. The hero video's own phone shows an older app screen and slid under the buttons on portrait screens. */
+@media (max-aspect-ratio:1/1) {
+  .experience-hero { min-height:600px; }
+  .experience-hero .experience-poster { object-position:50% 40%; animation:hero-drift 26s ease-in-out infinite alternate; }
+  .experience-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg,hsl(var(--background) / .9) 0%,hsl(var(--background) / .74) 42%,hsl(var(--background) / .4) 70%,hsl(var(--background) / .85) 100%); }
+  .experience-hero-copy { overflow:hidden; }
+  .experience-hero-note { position:relative; z-index:1; }
+  .experience-scroll-hint { display:none; }
+  .experience-hero-device { display:flex; justify-content:center; flex:1 1 0; min-height:0; margin-top:32px; perspective:1400px;
+    -webkit-mask-image:linear-gradient(180deg,#000 72%,transparent); mask-image:linear-gradient(180deg,#000 72%,transparent); }
+  .device-hero { --rx:6deg; --ry:-12deg; --rz:2deg; flex:none; align-self:flex-start; width:min(44vw,340px); }
+  .device-hero .device-edge { transform:translateZ(-9px); }
 }
+@media (max-aspect-ratio:1/1) and (max-width:760px) {
+  .experience-hero-copy { width:auto; padding:84px 20px 0; }
+  .experience-hero-copy > p:first-child { font-size:12px; letter-spacing:.06em; margin-bottom:12px; }
+  .experience-hero h1 { font-size:clamp(36px,10.6vw,46px); line-height:.96; }
+  .experience-hero h1 + p { font-size:15px; line-height:1.5; max-width:34ch; margin:14px 0 20px; }
+  .experience-hero .experience-hero-ctas { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .experience-hero-ctas > button { width:100%; height:52px; padding:0 12px; font-size:16px; }
+  .experience-hero-ctas > button + button { background:hsl(var(--background) / .6); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+  .experience-hero-note { font-size:13px; margin-top:12px; }
+  .experience-hero-device { margin-top:28px; }
+  .device-hero { width:min(60vw,240px); }
+}
+@media (max-aspect-ratio:1/1) and (max-width:760px) and (max-height:720px) {
+  .experience-hero-copy { padding-top:74px; }
+  .experience-hero h1 { font-size:clamp(32px,9.4vw,40px); }
+  .experience-hero h1 + p { font-size:14px; margin:10px 0 16px; }
+  .experience-hero-device { margin-top:20px; }
+}
+/* tablets and desktop: a real device with today's offer and the vector glass building itself beside it */
+.experience-hero-stage { position:absolute; z-index:2; right:max(4vw,calc(50% - 690px)); top:50%; translate:0 -46%; display:flex; align-items:flex-end; perspective:1600px; pointer-events:none;
+  opacity:calc(1 - var(--hx) * 1.6); }
+.device-hero-stage { --rx:4deg; --ry:-16deg; --rz:1deg; width:clamp(230px,19vw,330px); }
+.hero-glass { width:clamp(140px,12vw,210px); margin-left:calc(clamp(140px,12vw,210px) * -.28); margin-bottom:-2%; filter:drop-shadow(0 0 2px hsl(var(--primary) / .55)) drop-shadow(0 0 26px hsl(var(--primary) / .3)); animation:experience-float 6s ease-in-out 3.4s infinite; }
+.experience-hero::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg,hsl(var(--background) / .88) 0%,hsl(var(--background) / .55) 45%,hsl(var(--background) / .2) 100%); }
+@media (max-width:1199px) and (min-aspect-ratio:1/1) { .experience-hero-stage { display:none; } }
+/* portrait screens show the device inside the copy instead (see above), with the glass leaning on it */
+.hero-glass-portrait { display:none; }
+@media (max-aspect-ratio:1/1) { .experience-hero-device { position:relative; } .hero-glass-portrait { display:block; position:absolute; top:12%; left:calc(50% + min(44vw,340px) * .32); width:min(30vw,190px); margin:0; } }
+@media (max-aspect-ratio:1/1) and (max-width:760px) { .hero-glass-portrait { left:calc(50% + min(60vw,240px) * .16); width:min(30vw,116px); top:16%; } }
+@media (max-aspect-ratio:1/1) { .experience-hero-stage, .experience-hero::before { display:none; } }
+@media (prefers-reduced-motion:reduce) { .hero-glass { animation:none; } }
+@keyframes hero-drift { from { transform:scale(1.04) translate3d(0,0,0) } to { transform:scale(1.12) translate3d(-2%,-1.5%,0) } }
 @media (prefers-reduced-motion:reduce) {
   .experience-hero video { display:none; }
+  .experience-hero .experience-poster { animation:none; }
   .experience-hero { --hx:0 !important; }
   .device, .phone-col, .story-content, .story-phone-wrap, .experience-bg { transform:none !important; }
   .story-step, .story-float, .device-screen img, .feature-scroll-story .feature-scene, .feature-scroll-story .feature-copy > *, .feature-scroll-story .device-feature { transition:opacity .3s ease !important; translate:none !important; }
