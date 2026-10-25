@@ -58,6 +58,8 @@ export const PourThread: React.FC = () => {
       bottle.style.left = `${(x + w / 2 - (small ? 22 : 27)).toFixed(1)}px`;
       bottle.style.opacity = String(1 - span(t, 0.4, 0.9));
       bottle.classList.toggle('is-pouring', pouring);
+      // Fades in as the hero leaves, so it never doubles the hero's own glass.
+      root.style.opacity = String(span(scrollY, 0, vh * 0.4));
       root.classList.toggle('is-docked', t >= 1);
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(draw); };

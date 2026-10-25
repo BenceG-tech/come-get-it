@@ -229,6 +229,16 @@
   .experience-hero h1 + p { font-size:14px; margin:10px 0 16px; }
   .experience-hero-device { margin-top:20px; }
 }
+/* tablets and desktop: a real device with today's offer and the vector glass building itself beside it */
+.experience-hero-stage { position:absolute; z-index:2; right:max(4vw,calc(50% - 690px)); top:50%; translate:0 -46%; display:flex; align-items:flex-end; perspective:1600px; pointer-events:none;
+  opacity:calc(1 - var(--hx) * 1.6); }
+.device-hero-stage { --rx:4deg; --ry:-16deg; --rz:1deg; width:clamp(230px,19vw,330px); }
+.hero-glass { width:clamp(140px,12vw,210px); margin-left:calc(clamp(140px,12vw,210px) * -.28); margin-bottom:-2%; filter:drop-shadow(0 0 2px hsl(var(--primary) / .55)) drop-shadow(0 0 26px hsl(var(--primary) / .3)); animation:experience-float 6s ease-in-out 3.4s infinite; }
+.experience-hero::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg,hsl(var(--background) / .88) 0%,hsl(var(--background) / .55) 45%,hsl(var(--background) / .2) 100%); }
+@media (max-width:1199px) and (min-aspect-ratio:1/1) { .experience-hero-stage { display:none; } }
+@media (max-aspect-ratio:1/1) { .experience-hero-stage { top:auto; bottom:4svh; right:50%; translate:50% 0; } .device-hero-stage { width:clamp(180px,26vw,240px); } .hero-glass { width:clamp(110px,15vw,150px); margin-left:-36px; } }
+@media (max-aspect-ratio:1/1) and (max-width:760px) { .experience-hero-stage, .experience-hero::before { display:none; } }
+@media (prefers-reduced-motion:reduce) { .hero-glass { animation:none; } }
 @keyframes hero-drift { from { transform:scale(1.04) translate3d(0,0,0) } to { transform:scale(1.12) translate3d(-2%,-1.5%,0) } }
 @media (prefers-reduced-motion:reduce) {
   .experience-hero video { display:none; }
