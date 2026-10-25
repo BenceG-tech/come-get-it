@@ -1,4 +1,6 @@
-// Google Analytics 4 Event Tracking
+import { funnel, setLastCta } from '@/lib/funnel';
+
+// Google Analytics 4 Event Tracking (only fires if gtag is ever loaded)
 declare global {
   interface Window {
     gtag: (
@@ -9,7 +11,15 @@ declare global {
   }
 }
 
+// Conversion events that also go to our own funnel table, so they are measured
+// even though no GA4 tag is loaded on the site.
+const FUNNEL_EVENTS = new Set(['cta_click', 'signup_form_start', 'signup_submit', 'signup_success', 'signup_error', 'signup_share', 'partner_submit', 'venue_application_submit', 'exit_intent_show', 'exit_intent_convert']);
+
 export const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
+  if (FUNNEL_EVENTS.has(eventName)) {
+    const { user_email_domain: _omit, event_category: _cat, ...props } = parameters ?? {};
+    funnel(eventName, props);
+  }
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', eventName, {
       event_category: 'engagement',
@@ -25,12 +35,21 @@ export const analytics = {
   
   // User registration events
   signupFormView: () => trackEvent('signup_form_view'),
+  signupFormStart: () => trackEvent('signup_form_start', { event_category: 'conversion' }),
   signupSubmit: (email: string) => trackEvent('signup_submit', {
     user_email_domain: email.split('@')[1],
     event_category: 'conversion'
   }),
   signupSuccess: () => trackEvent('signup_success', {
     event_category: 'conversion'
+  }),
+  signupError: (reason: string) => trackEvent('signup_error', {
+    reason,
+    event_category: 'conversion'
+  }),
+  signupShare: (method: string) => trackEvent('signup_share', {
+    method,
+    event_category: 'engagement'
   }),
   
   // Partner interest events
@@ -47,11 +66,11 @@ export const analytics = {
   }),
   
   // CTA interactions
-  ctaClick: (ctaLocation: string, ctaText: string) => trackEvent('cta_click', {
+  ctaClick: (ctaLocation: string, ctaText: string) => { setLastCta(ctaLocation); return trackEvent('cta_click', {
     cta_location: ctaLocation,
     cta_text: ctaText,
     event_category: 'engagement'
-  }),
+  }); },
   
   // Exit intent
   exitIntentShow: () => trackEvent('exit_intent_show'),

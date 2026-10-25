@@ -77,9 +77,7 @@ export const HeroSection: React.FC = () => {
           <Button variant="neon" size="lg" onClick={() => scrollTo('signup', 'hero_primary', t('experience.join'))}>{t('experience.join')}</Button>
           <Button variant="outline" size="lg" className="border-foreground/50 text-foreground hover:border-primary hover:text-primary" onClick={() => scrollTo('how-it-works', 'hero_secondary', t('experience.how'))}>{t('experience.how')} ↓</Button>
         </div>
-        <button className="mt-5 text-sm text-white/75 underline underline-offset-4 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary" onClick={() => scrollTo('signup', 'hero_launch_updates', t('experience.notify'))}>
-          {t('experience.notify')}
-        </button>
+        <p className="mt-4 text-sm text-white/70">{t('experience.notify')}</p>
       </div>
       <div className="experience-scroll-hint text-xs uppercase text-foreground/70" aria-hidden="true">{t('experience.scroll')}</div>
     </section>

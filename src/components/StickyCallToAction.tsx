@@ -8,8 +8,11 @@ export const StickyCallToAction: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Hide the button while the signup form itself is on screen, so it never covers the form.
     const updateVisibility = () => {
-      setIsVisible(window.scrollY > window.innerHeight * 0.72);
+      const form = document.getElementById('signup')?.getBoundingClientRect();
+      const formOnScreen = !!form && form.top < window.innerHeight && form.bottom > 0;
+      setIsVisible(window.scrollY > window.innerHeight * 0.72 && !formOnScreen);
     };
 
     updateVisibility();

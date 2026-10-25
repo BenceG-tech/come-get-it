@@ -33,8 +33,8 @@
     "eyebrow": "Budapest · app in closed beta",
     "hero_title": "Not sure where to go tonight?",
     "hero_highlight": "Go where something is waiting for you.",
-    "hero_description": "Explore nearby partner venues, see what's available now, and redeem your offer on site.",
-    "join": "Sign up",
+    "hero_description": "One free drink a day at Budapest partner venues. See what's available on the map right now and redeem it on site with a QR code.",
+    "join": "Notify me",
     "how": "How it works",
     "scroll": "Scroll",
     "story_label": "How Come Get It works",
@@ -56,7 +56,7 @@
     "screen3_alt": "Redeeming Azure Garden Spritz at the venue",
     "screen4_alt": "Successful Azure Garden Spritz redemption",
     "disclaimer": "Illustration · demo data · screens may differ from the current app · 18+ · Drink responsibly",
-    "notify": "Notify me at launch"
+    "notify": "Free · we only email you about the launch"
   },
   "miben_segit": {
     "title": "How does it help?",
@@ -132,7 +132,7 @@
       "b1": "Discover partner venues on a map and list",
       "b2": "Redeem currently available free-drink offers on site",
       "b3": "Account with email address and password",
-      "b4": "View credited points and claim active rewards",
+      "b4": "One free drink a day at the venue you choose, with a QR code",
       "b5": "On-site QR redemption confirmed by staff",
       "b6": "No hidden fee and no payment-card data",
       "cta": "Notify me at launch"
@@ -148,7 +148,7 @@
       "b5": "These are plans — we will announce them if they launch",
       "cta": "Notify me about updates"
     },
-    "info": "Partner venues choose which offers to make available. Stock, opening hours and time windows vary, so we do not promise a guaranteed daily free drink — check the app for what is active now.",
+    "info": "You can redeem one free drink a day with a QR code at the partner venue you choose. Each venue decides what it offers, and stock, opening hours and time windows vary, so check the app for what is available today.",
     "promo": {
       "label": "🎁 BETA",
       "body": "Beta access is free. Join the email list and we will let you know about the public launch."
@@ -180,7 +180,7 @@
     "button": "Notify me at launch"
   },
   "cta": {
-    "sticky_join_round": "Sign up"
+    "sticky_join_round": "Notify me"
   },
   "social": {
     "early_users_waiting": "early users are waiting for launch"
@@ -1100,15 +1100,25 @@
     "check_spam": "If you don't see the welcome email, check Promotions or Spam.",
     "resend_loading": "Resending...",
     "resend_button": "Resend welcome email",
-    "main_title": "BE AMONG THE FIRST!",
-    "subtitle": "Leave your email address and we will let you know when the app is publicly available.",
+    "main_title": "One free drink a day. We'll tell you when it launches.",
+    "subtitle": "Leave your email and you'll be the first to know when the app is publicly available in Budapest.",
     "placeholder_email": "Enter your email",
     "gdpr_label_prefix": "I accept the",
     "privacy_policy": "privacy policy",
     "button_loading": "SIGNING UP...",
-    "button": "Notify me at launch",
+    "button": "Notify me",
     "or": "Or",
-    "full_registration_google": "Full registration with Google"
+    "full_registration_google": "Full registration with Google",
+    "consent_prefix": "By signing up you accept the",
+    "privacy_policy_accusative": "privacy policy",
+    "consent_suffix": " and agree that we email you about the app launch.",
+    "trust_free": "Free",
+    "trust_no_spam": "No spam, launch news only",
+    "trust_unsubscribe": "Unsubscribe any time",
+    "share_prompt": "Who would you go with first? Send it to them too.",
+    "share_button": "Share with a friend",
+    "share_text": "One free drink a day at Budapest venues. Sign up and they'll tell you when it launches:",
+    "share_copied": "Link copied, just paste it."
   },
   "venue_app": {
     "toasts": {

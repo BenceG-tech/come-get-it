@@ -33,8 +33,8 @@
     "eyebrow": "Budapest · az app zárt bétában tesztelhető",
     "hero_title": "Nem tudod, hova menj ma?",
     "hero_highlight": "Menj oda, ahol már vár valami.",
-    "hero_description": "Fedezd fel a közeli partnerhelyeket, nézd meg, mi érhető el most, és váltsd be a helyszínen.",
-    "join": "Iratkozz fel",
+    "hero_description": "Napi egy ingyen ital a budapesti partnerhelyeken. Nézd meg a térképen, mi érhető el most, és váltsd be QR-kóddal a helyszínen.",
+    "join": "Értesítést kérek",
     "how": "Így működik",
     "scroll": "Görgess",
     "story_label": "Így működik a Come Get It",
@@ -56,7 +56,7 @@
     "screen3_alt": "Azure Garden Spritz beváltása a helyszínen",
     "screen4_alt": "Sikeres Azure Garden Spritz beváltás",
     "disclaimer": "Illusztráció · demóadatok · a képernyők eltérhetnek az aktuális appverziótól · 18+ · Fogyassz felelősséggel",
-    "notify": "Értesítést kérek az indulásról"
+    "notify": "Ingyenes · csak az indulásról írunk"
   },
   "miben_segit": {
     "title": "Miben segít?",
@@ -132,7 +132,7 @@
       "b1": "Partnerhelyek felfedezése térképen és listán",
       "b2": "Épp elérhető ingyen italok beváltása a helyszínen",
       "b3": "Fiók e-mail címmel és jelszóval",
-      "b4": "Pontgyűjtés és jutalmak igénylése",
+      "b4": "Napi egy ingyen ital a kiválasztott helyen, QR-kóddal",
       "b5": "Helyszíni beváltás a pultos jóváhagyásával",
       "b6": "Nincs rejtett költség, nincs bankkártya",
       "cta": "Értesítést kérek az indulásról"
@@ -148,7 +148,7 @@
       "b5": "Ezek tervek — ha elindulnak, szólunk",
       "cta": "Értesíts az újdonságokról"
     },
-    "info": "A partnerhelyek maguk választják ki, milyen italokat ajánlanak ingyen, és az ajánlatok készlet, nyitvatartás és időszak szerint változnak. Ezért nem ígérünk garantált vagy napi ingyen italt — nézd meg az appban, mi érhető el ma.",
+    "info": "Naponta egy ingyen italt válthatsz be QR-kóddal az általad kiválasztott partnerhelyen. Hogy melyik helyen mi érhető el, azt a helyek maguk döntik el, és készlet, nyitvatartás és időszak szerint változik, ezért nézd meg az appban, mi érhető el ma.",
     "promo": {
       "label": "🎁 BÉTA",
       "body": "A béta használata ingyenes. Iratkozz fel, és e-mailben szólunk a nyilvános indulásról."
@@ -180,7 +180,7 @@
     "button": "Értesítést kérek"
   },
   "cta": {
-    "sticky_join_round": "Iratkozz fel"
+    "sticky_join_round": "Értesítést kérek"
   },
   "social": {
     "early_users_waiting": "korai felhasználó várja az indulást"
@@ -1100,15 +1100,25 @@
     "check_spam": "Ha nem látod az üdvözlő e-mailt, nézd meg a Promóciók vagy Spam mappát.",
     "resend_loading": "Újraküldés...",
     "resend_button": "Üdvözlő e-mail újraküldése",
-    "main_title": "Szólunk, amikor indulunk.",
-    "subtitle": "Add meg az e-mail-címed, és értesítünk, amikor nyilvánosan elérhető az app.",
+    "main_title": "Napi egy ingyen ital. Szólunk, amikor indul.",
+    "subtitle": "Add meg az e-mail-címed, és elsőként értesítünk, amikor az app nyilvánosan elérhető Budapesten.",
     "placeholder_email": "Add meg az e-mail-címed",
     "gdpr_label_prefix": "Elfogadom az",
     "privacy_policy": "adatvédelmi szabályzatot",
     "button_loading": "Feliratkozás…",
     "button": "Értesítést kérek",
     "or": "Vagy",
-    "full_registration_google": "Teljes regisztráció Google‑lel"
+    "full_registration_google": "Teljes regisztráció Google‑lel",
+    "consent_prefix": "A feliratkozással elfogadod az",
+    "privacy_policy_accusative": "adatvédelmi szabályzatot",
+    "consent_suffix": ", és hozzájárulsz, hogy e-mailben értesítsünk az app indulásáról.",
+    "trust_free": "Ingyenes",
+    "trust_no_spam": "Nincs spam, csak az indulásról írunk",
+    "trust_unsubscribe": "Bármikor leiratkozhatsz",
+    "share_prompt": "Kivel mennél el elsőként? Küldd el neki is.",
+    "share_button": "Megosztom egy barátommal",
+    "share_text": "Napi egy ingyen ital budapesti helyeken. Iratkozz fel te is, és szólnak, amikor indul:",
+    "share_copied": "Link kimásolva, már csak be kell illesztened."
   },
   "venue_app": {
     "toasts": {
