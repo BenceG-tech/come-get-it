@@ -2,16 +2,24 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { X, Send } from "lucide-react";
+import { Send } from "lucide-react";
 
-export default function EmailComposer({ partnerIds, onClose, onDone }: { partnerIds: string[]; onClose: () => void; onDone: () => void }) {
+// Kézi e-mail küldés a send-partner-email Edge Functionnel. Csak a „Küldés” gombra küld.
+// initialSubject / initialBody: előtöltés (pl. a megkeresési csomagból).
+export default function EmailComposer({ partnerIds, onClose, onDone, initialSubject, initialBody }: {
+  partnerIds: string[];
+  onClose: () => void;
+  onDone: () => void;
+  initialSubject?: string;
+  initialBody?: string;
+}) {
   const [templates, setTemplates] = useState<any[]>([]);
   const [templateId, setTemplateId] = useState<string>("");
-  const [subject, setSubject] = useState("");
-  const [body, setBody] = useState("");
+  const [subject, setSubject] = useState(initialSubject ?? "");
+  const [body, setBody] = useState(initialBody ?? "");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
@@ -40,12 +48,11 @@ export default function EmailComposer({ partnerIds, onClose, onDone }: { partner
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-4 border-electric-300/40">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold">Email küldés ({partnerIds.length} címzett)</h2>
-          <button onClick={onClose} className="text-nf-text-muted hover:text-white"><X className="h-5 w-5" /></button>
-        </div>
+    <Dialog open onOpenChange={(o) => { if (!o) onClose(); }}>
+      <DialogContent className="w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-4 border-electric-300/40">
+        <DialogHeader>
+          <DialogTitle className="text-xl font-bold">Email küldés ({partnerIds.length} címzett)</DialogTitle>
+        </DialogHeader>
 
         <div>
           <label className="text-xs uppercase text-nf-text-muted mb-1 block">Sablon</label>
@@ -71,7 +78,7 @@ export default function EmailComposer({ partnerIds, onClose, onDone }: { partner
             <Send className="h-4 w-4" /> {loading ? "Küldés…" : `Küldés (${partnerIds.length})`}
           </Button>
         </div>
-      </Card>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

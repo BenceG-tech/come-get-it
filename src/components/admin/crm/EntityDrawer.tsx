@@ -18,6 +18,10 @@ import LeadOutreachModal from "@/components/admin/leads/LeadOutreachModal";
 import InlineAIHelper from "@/components/admin/ai/InlineAIHelper";
 import { Image as ImageIcon, Send as SendIcon } from "lucide-react";
 import ReadinessBadge from "@/components/admin/leads/ReadinessBadge";
+import LeadProfileCard from "@/components/admin/leads/LeadProfileCard";
+import OutreachPackageDialog from "@/components/admin/leads/OutreachPackageDialog";
+import { GradeBadge } from "@/components/admin/leads/LeadScoreBadge";
+import { Package } from "lucide-react";
 
 
 interface Props {
@@ -38,6 +42,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
   const [researchLoading, setResearchLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [outreachOpen, setOutreachOpen] = useState(false);
+  const [packageOpen, setPackageOpen] = useState(false);
   const { toast } = useToast();
   const isMobile = useIsMobile();
 
@@ -143,6 +148,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
           <SheetTitle className="text-electric-300 flex items-center gap-2 flex-wrap">
             {entity?.company_name ?? "Betöltés…"}
             {entity?.lead_score != null && <Badge variant="outline">Score: {entity.lead_score}</Badge>}
+            {entity?.lead_grade && <GradeBadge grade={entity.lead_grade} title={entity.lead_grade_source === "ai" ? "AI grade" : "Képlet szerinti grade"} />}
             {entity?.status_changed_at && <SlaWarningBadge updatedAt={entity.status_changed_at} slaDays={7} />}
           </SheetTitle>
           <div className="text-xs text-nf-text-muted">{entity?.city} · {entity?.category} · {entity?.status}</div>
@@ -159,7 +165,10 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
         {/* Quick Action Bar */}
         {entity && (
           <div className="flex flex-wrap gap-2 mt-3 pb-3 border-b border-nf-border">
-            <Button size="sm" variant="neon" onClick={runResearch} disabled={researchLoading} title="AI mélyelemzés: web scrape + Fit/Risk/Talking points">
+            <Button size="sm" variant="neon" onClick={() => setPackageOpen(true)} title="Ajánlat, e-mail, DM, utánkövető, nyitómondat, képek, videó és posztszövegek — generálás és mentés a leadhez">
+              <Package className="w-3 h-3 mr-1" /> Megkeresési csomag
+            </Button>
+            <Button size="sm" variant="outline" onClick={runResearch} disabled={researchLoading} title="AI mélyelemzés: web scrape + Fit/Risk/Talking points">
               {researchLoading ? <Loader2 className="w-3 h-3 mr-1 animate-spin" /> : <Sparkles className="w-3 h-3 mr-1" />} AI Insight
             </Button>
             <Button size="sm" variant="outline" onClick={() => setOutreachOpen(true)}>
@@ -193,12 +202,7 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
             </TabsList>
 
             <TabsContent value="overview" className="space-y-3 mt-3">
-              <Card className="p-3 text-sm space-y-1 bg-nf-surface border-nf-border">
-                <div><b>Email:</b> {entity.email ?? "—"}</div>
-                <div><b>Telefon:</b> {entity.phone ?? "—"}</div>
-                <div><b>Kapcsolattartó:</b> {entity.contact_name ?? "—"}</div>
-                <div><b>Notes:</b> {entity.notes ?? "—"}</div>
-              </Card>
+              <LeadProfileCard partner={entity} onChanged={reload} />
 
               {research && (
                 <Card className="p-3 text-xs space-y-2 bg-nf-surface border-electric-300/30">
@@ -338,6 +342,12 @@ export default function EntityDrawer({ entityType, entityId, open, onOpenChange 
           </Tabs>
         )}
       </SheetContent>
+      <OutreachPackageDialog
+        partnerId={entityId}
+        open={packageOpen}
+        onOpenChange={setPackageOpen}
+        onSaved={reload}
+      />
       <LeadOutreachModal
         partnerId={entityId}
         partnerName={entity?.company_name}

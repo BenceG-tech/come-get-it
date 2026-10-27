@@ -4,9 +4,15 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Upload, Search, List, MapIcon, Telescope, Loader2, Zap, Bot, Mail, Phone, Instagram, Globe, Sparkles, ChevronDown, ChevronRight, Play } from "lucide-react";
+import { Upload, Search, List, MapIcon, Telescope, Loader2, Zap, Bot, Mail, Phone, Instagram, Globe, Sparkles, ChevronDown, ChevronRight, Play, Package, Calculator } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import LeadScoreBadge from "@/components/admin/leads/LeadScoreBadge";
+import LeadScoreBadge, { GradeBadge } from "@/components/admin/leads/LeadScoreBadge";
+import OutreachPackageDialog from "@/components/admin/leads/OutreachPackageDialog";
+import BulkOutreachPackageModal from "@/components/admin/leads/BulkOutreachPackageModal";
+import { computeRubric, rubricToScoreReasons, RUBRIC_VERSION } from "@/lib/lead-score-rubric";
+import { getLeadProfile, telHref, webHref } from "@/lib/lead-profile";
+import { readSavedCsomag } from "@/lib/outreach-csomag";
+import type { Json } from "@/integrations/supabase/types";
 import BulkActionBar from "@/components/admin/leads/BulkActionBar";
 import ImportWizard from "@/components/admin/leads/ImportWizard";
 import EmailComposer from "@/components/admin/leads/EmailComposer";
@@ -39,6 +45,10 @@ export default function AdminLeads() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterCity, setFilterCity] = useState("all");
   const [filterScore, setFilterScore] = useState("all");
+  const [filterGrade, setFilterGrade] = useState("all");
+  const [packageId, setPackageId] = useState<string | null>(null);
+  const [showBulkPackage, setShowBulkPackage] = useState(false);
+  const [rescoringAll, setRescoringAll] = useState(false);
   const [filterReadiness, setFilterReadiness] = useState<ReadinessLevel | "all">("all");
   const [groupMode, setGroupMode] = useState<GroupMode>("none");
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
@@ -175,9 +185,11 @@ export default function AdminLeads() {
     if (filterScore === "low" && (p.lead_score == null || p.lead_score >= 50)) return false;
     if (filterScore === "none" && p.lead_score != null) return false;
     if (filterReadiness !== "all" && getReadiness(p) !== filterReadiness) return false;
-    if (search && !`${p.company_name} ${p.city} ${p.contact_name} ${p.email} ${p.category}`.toLowerCase().includes(search.toLowerCase())) return false;
+    if (filterGrade === "none" && p.lead_grade) return false;
+    if (filterGrade !== "all" && filterGrade !== "none" && p.lead_grade !== filterGrade) return false;
+    if (search && !`${p.company_name} ${p.city} ${p.address ?? ""} ${p.contact_name} ${p.email} ${p.phone ?? ""} ${p.category}`.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
-  }), [partners, filterStatus, filterCity, filterScore, filterReadiness, search]);
+  }), [partners, filterStatus, filterCity, filterScore, filterReadiness, filterGrade, search]);
 
   const stats = useMemo(() => ({
     total: partners.length,
@@ -256,6 +268,33 @@ export default function AdminLeads() {
     } finally { setProcessingAll(false); }
   };
 
+  // Átlátható, képlet szerinti pontozás (src/lib/lead-score-rubric.ts) a szűrt listára — kliensoldalon,
+  // Edge Function nélkül. Csak azokat a sorokat írja, ahol a pont, a grade vagy a képlet verziója eltér.
+  const rescoreByFormula = async () => {
+    const targets = (selected.size ? partners.filter((p) => selected.has(p.id)) : filtered)
+      .map((p) => ({ p, r: computeRubric(p) }))
+      .filter(({ p, r }) => p.lead_score !== r.total || p.lead_grade !== r.grade || p.score_reasons?.version !== RUBRIC_VERSION);
+    if (!targets.length) { toast({ title: "Minden lead pontja naprakész a képlet szerint" }); return; }
+    if (!confirm(`${targets.length} lead pontja és grade-je frissül a képlet szerint (${selected.size ? "kijelöltek" : "szűrt lista"}).\nAz AI-val adott grade-eket is felülírja. Mehet?`)) return;
+    setRescoringAll(true);
+    let ok = 0;
+    try {
+      const now = new Date().toISOString();
+      for (let i = 0; i < targets.length; i += 10) {
+        const chunk = targets.slice(i, i + 10);
+        const res = await Promise.all(chunk.map(({ p, r }) => supabase.from("partners").update({
+          lead_score: r.total, ai_score: r.total, score_reasons: rubricToScoreReasons(r) as unknown as Json, score_updated_at: now,
+          lead_grade: r.grade, lead_grade_source: "auto", lead_grade_computed_at: now,
+        }).eq("id", p.id)));
+        ok += res.filter((x) => !x.error).length;
+      }
+      toast({ title: `Újrapontozva: ${ok} / ${targets.length} lead` });
+      await load();
+    } catch (e) {
+      toast({ title: "Hiba", description: e instanceof Error ? e.message : String(e), variant: "destructive" });
+    } finally { setRescoringAll(false); }
+  };
+
   const bulkStatus = async (status: string) => {
     const { error } = await supabase.from("partners").update({ status: status as any }).in("id", [...selected]);
     if (error) { toast({ title: "Hiba", description: error.message, variant: "destructive" }); return; }
@@ -323,6 +362,10 @@ export default function AdminLeads() {
           <Button size="sm" variant="outline" onClick={runAiGradeTop} disabled={aiGrading} title="A top 20 leadet (legmagasabb score) AI-vel A/B/C/D-re értékeli">
             {aiGrading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Bot className="h-4 w-4" />}
             <span className="hidden sm:inline">{aiGrading ? "Értékel…" : "AI értékelés (top 20)"}</span>
+          </Button>
+          <Button size="sm" variant="outline" onClick={rescoreByFormula} disabled={rescoringAll} title="0–100 pont és A–D grade az átlátható képlet szerint (Google-értékelés, rejtett kincs, kerület, kategória, elérhetőség). Kijelölés esetén csak a kijelöltekre.">
+            {rescoringAll ? <Loader2 className="h-4 w-4 animate-spin" /> : <Calculator className="h-4 w-4" />}
+            <span className="hidden sm:inline">Pontozás képlettel</span>
           </Button>
           <Button variant="outline" size="sm" onClick={() => setShowImport(true)}>
             <Upload className="h-4 w-4" /> <span className="hidden sm:inline">Import</span>
@@ -407,6 +450,14 @@ export default function AdminLeads() {
           <option value="2">●● Pontozva</option>
           <option value="3">✓ Értékelve</option>
         </select>
+        <select value={filterGrade} onChange={(e) => setFilterGrade(e.target.value)} className="rounded-lg bg-nf-surface-alt border border-nf-border px-3 h-10 text-sm">
+          <option value="all">Minden grade</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="none">Nincs grade</option>
+        </select>
       </div>
 
       {/* Views */}
@@ -432,10 +483,9 @@ export default function AdminLeads() {
               {(() => {
                 const renderRow = (p: any) => {
                   const research = p.research_notes ?? p.research_dossier ?? null;
-                  const hasEmail = !!p.email;
-                  const hasPhone = !!p.phone;
-                  const hasIg = !!(p.instagram_handle || p.instagram);
-                  const hasSite = !!p.website;
+                  const prof = getLeadProfile(p);
+                  const hasCsomag = !!readSavedCsomag(p);
+                  const contactIcon = (on: boolean) => `w-3.5 h-3.5 ${on ? "text-emerald-400" : "text-nf-text-muted/30"}`;
                   return (
                   <tr
                     key={p.id}
@@ -455,9 +505,9 @@ export default function AdminLeads() {
                         ))}
                       </div>
                     </td>
-                    <td className="p-3 text-nf-text-muted hidden md:table-cell text-xs">
-                      <div>{p.city || "—"}</div>
-                      <div className="text-[10px]">{p.category || "—"}</div>
+                    <td className="p-3 text-nf-text-muted hidden md:table-cell text-xs max-w-[220px]">
+                      <div className="truncate" title={p.address || p.city || ""}>{prof.address || p.city || "—"}</div>
+                      <div className="text-[10px]">{[prof.districtLabel, p.category].filter(Boolean).join(" · ") || "—"}</div>
                     </td>
                     <td className="p-3">
                       <div className="flex items-center gap-1.5">
@@ -466,27 +516,21 @@ export default function AdminLeads() {
                           loading={continuingId === p.id}
                           onContinue={(step) => continueOne(p.id, step)}
                         />
-                        {p.lead_score != null && <LeadScoreBadge score={p.lead_score} />}
-                        {p.lead_grade && (
-                          <span
-                            title={p.lead_grade_source === 'ai' ? 'AI értékelés' : 'Auto (score alapján)'}
-                            className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-[10px] font-bold ${
-                              p.lead_grade === 'A' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
-                              p.lead_grade === 'B' ? 'bg-electric-300/20 text-electric-300 border border-electric-300/40' :
-                              p.lead_grade === 'C' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' :
-                              'bg-nf-surface-alt text-nf-text-muted border border-nf-border'
-                            }`}
-                          >{p.lead_grade}</span>
-                        )}
+                        {p.lead_score != null && <LeadScoreBadge score={p.lead_score} reasons={p.score_reasons} />}
+                        <GradeBadge grade={p.lead_grade} title={p.lead_grade_source === 'ai' ? `AI grade${p.ai_score_reason ? `: ${p.ai_score_reason}` : ""}` : 'Képlet / score alapján (A ≥ 80 · B ≥ 60 · C ≥ 40)'} />
                       </div>
                     </td>
-                    <td className="p-3 text-nf-text-muted hidden sm:table-cell text-xs">{p.google_rating ? `⭐ ${p.google_rating} (${p.google_reviews_count ?? 0})` : "—"}</td>
+                    <td className="p-3 text-nf-text-muted hidden sm:table-cell text-xs">
+                      {prof.rating ? (prof.mapsUrl
+                        ? <a href={prof.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-electric-300" title="Megnyitás Google Térképen">⭐ {prof.rating} ({prof.reviews ?? 0})</a>
+                        : <>⭐ {prof.rating} ({prof.reviews ?? 0})</>) : "—"}
+                    </td>
                     <td className="p-3">
                       <div className="flex items-center gap-1.5 text-[11px]">
-                        <Mail className={`w-3.5 h-3.5 ${hasEmail ? "text-emerald-400" : "text-nf-text-muted/30"}`} />
-                        <Phone className={`w-3.5 h-3.5 ${hasPhone ? "text-emerald-400" : "text-nf-text-muted/30"}`} />
-                        <Instagram className={`w-3.5 h-3.5 ${hasIg ? "text-emerald-400" : "text-nf-text-muted/30"}`} />
-                        <Globe className={`w-3.5 h-3.5 ${hasSite ? "text-emerald-400" : "text-nf-text-muted/30"}`} />
+                        {prof.emails[0] ? <a href={`mailto:${prof.emails[0]}`} title={prof.emails.join(", ")}><Mail className={contactIcon(true)} /></a> : <Mail className={contactIcon(false)} />}
+                        {prof.phones[0] ? <a href={telHref(prof.phones[0])} title={prof.phones.join(", ")}><Phone className={contactIcon(true)} /></a> : <Phone className={contactIcon(false)} />}
+                        {prof.instagramUrl ? <a href={prof.instagramUrl} target="_blank" rel="noopener noreferrer" title={`@${prof.instagramHandle}`}><Instagram className={contactIcon(true)} /></a> : <Instagram className={contactIcon(false)} />}
+                        {prof.website ? <a href={webHref(prof.website)} target="_blank" rel="noopener noreferrer" title={prof.website}><Globe className={contactIcon(true)} /></a> : <Globe className={contactIcon(false)} />}
                       </div>
                     </td>
                     <td className="p-3"><span className="px-2 py-0.5 rounded text-[10px] bg-electric-300/10 text-electric-300">{STATUS_LABEL[p.status]}</span></td>
@@ -515,6 +559,9 @@ export default function AdminLeads() {
                             ) : <div className="text-nf-text-muted">Még nincs kutatás. Indítsd a 🔭 gombbal.</div>}
                           </PopoverContent>
                         </Popover>
+                        <Button size="sm" variant="ghost" onClick={() => setPackageId(p.id)} title={hasCsomag ? "Megkeresési csomag (mentve) – megnyitás" : "Megkeresési csomag generálása"}>
+                          <Package className={`w-3 h-3 ${hasCsomag ? "text-emerald-400" : ""}`} />
+                        </Button>
                         <Button size="sm" variant="ghost" disabled={researchingId === p.id} onClick={() => runResearch(p.id)} title="AI mélykutatás">
                           {researchingId === p.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Telescope className="w-3 h-3" />}
                         </Button>
@@ -581,7 +628,6 @@ export default function AdminLeads() {
       )}
 
       {view === "map" && <LeadsMap partners={filtered} />}
-      {view === "map" && <LeadsMap partners={filtered} />}
 
       <BulkActionBar
         count={selected.size}
@@ -592,20 +638,26 @@ export default function AdminLeads() {
         onDelete={bulkDelete}
         onTag={() => setShowTag(true)}
         onOutreach={() => setShowOutreach(true)}
+        onPackage={() => setShowBulkPackage(true)}
         onExportCsv={() => {
           const rows = partners.filter((p) => selected.has(p.id));
           exportRowsAsCsv(rows, [
             { key: "company_name", label: "Cég" },
             { key: "city", label: "Város" },
+            { key: "address", label: "Cím" },
             { key: "category", label: "Kategória" },
             { key: "contact_name", label: "Kapcsolat" },
             { key: "email", label: "Email" },
             { key: "phone", label: "Telefon" },
             { key: "instagram", label: "Instagram" },
+            { key: "instagram_handle", label: "Instagram handle" },
+            { key: "website", label: "Weboldal" },
             { key: "status", label: "Státusz" },
             { key: "lead_score", label: "Score" },
             { key: "lead_grade", label: "Grade" },
             { key: "google_rating", label: "Google rating" },
+            { key: "google_reviews_count", label: "Google értékelések" },
+            { key: "google_maps_url", label: "Maps link" },
           ], `leadek-${new Date().toISOString().slice(0,10)}.csv`);
         }}
         onResearch={bulkResearch}
@@ -624,6 +676,8 @@ export default function AdminLeads() {
       {showEmail && <EmailComposer partnerIds={[...selected]} onClose={() => setShowEmail(false)} onDone={() => { setShowEmail(false); setSelected(new Set()); load(); }} />}
       <BulkOutreachModal partnerIds={[...selected]} open={showOutreach} onOpenChange={setShowOutreach} onDone={() => { setSelected(new Set()); load(); }} />
       <BulkTagModal partnerIds={[...selected]} open={showTag} onOpenChange={setShowTag} onDone={() => { setSelected(new Set()); load(); }} />
+      <OutreachPackageDialog partnerId={packageId} open={!!packageId} onOpenChange={(o) => !o && setPackageId(null)} onSaved={load} />
+      <BulkOutreachPackageModal partners={partners.filter((p) => selected.has(p.id))} open={showBulkPackage} onOpenChange={setShowBulkPackage} onDone={load} />
       <EntityDrawer entityType="lead" entityId={drawerId} open={!!drawerId} onOpenChange={(o) => !o && setDrawerId(null)} />
     </div>
   );

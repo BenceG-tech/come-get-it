@@ -1,5 +1,22 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Sparkles } from "lucide-react";
+import { RUBRIC_DOC, RUBRIC_VERSION as RUBRIC_VERSION_CURRENT } from "@/lib/lead-score-rubric";
+
+const GRADE_CLASS: Record<string, string> = {
+  A: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40",
+  B: "bg-electric-300/20 text-electric-300 border border-electric-300/40",
+  C: "bg-amber-500/20 text-amber-300 border border-amber-500/40",
+  D: "bg-nf-surface-alt text-nf-text-muted border border-nf-border",
+};
+
+export function GradeBadge({ grade, title }: { grade: string | null | undefined; title?: string }) {
+  if (!grade) return null;
+  return (
+    <span title={title ?? `Grade ${grade} (A ≥ 80 · B ≥ 60 · C ≥ 40 · D < 40 pont)`} className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-[10px] font-bold ${GRADE_CLASS[grade] ?? GRADE_CLASS.D}`}>
+      {grade}
+    </span>
+  );
+}
 
 export function getScoreColor(score: number | null | undefined) {
   if (score == null) return { bg: "bg-nf-surface-alt", text: "text-nf-text-muted", border: "border-nf-border", label: "—" };
@@ -9,6 +26,7 @@ export function getScoreColor(score: number | null | undefined) {
 }
 
 type ScoreReasons = {
+  version?: string;
   baseline?: number;
   adjustment?: number;
   total?: number;
@@ -28,14 +46,14 @@ export default function LeadScoreBadge({
     </span>
   );
   if (!reasons?.breakdown?.length) {
-    return <span title={score != null ? `Lead-score: ${score}/100 — kattints új scoringért` : "Még nincs pontozva"}>{badge}</span>;
+    return <span title={score != null ? `Lead-score: ${score}/100 — a részletek a lead adatlapján` : "Még nincs pontozva"}>{badge}</span>;
   }
   return (
     <Popover>
       <PopoverTrigger asChild onClick={(e) => e.stopPropagation()}>{badge}</PopoverTrigger>
       <PopoverContent className="w-80 p-3 bg-nf-surface border-nf-border" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-2">
-          <div className="text-sm font-semibold">Score breakdown</div>
+          <div className="text-sm font-semibold">Pontozás – miért?</div>
           <div className={`text-xs px-2 py-0.5 rounded ${c.bg} ${c.text}`}>{reasons.total ?? score} / 100 · {reasons.grade}</div>
         </div>
         <div className="space-y-1.5">
@@ -52,6 +70,16 @@ export default function LeadScoreBadge({
             </div>
           ))}
         </div>
+        {reasons.version !== RUBRIC_VERSION_CURRENT && (
+          <div className="mt-2 text-[10px] text-amber-400">Régebbi képlettel számolva — a lead adatlapján újrapontozható.</div>
+        )}
+        <details className="mt-2 text-[10px] text-nf-text-muted">
+          <summary className="cursor-pointer hover:text-white">Képlet</summary>
+          <div className="space-y-0.5 mt-1">
+            {RUBRIC_DOC.map((d) => <div key={d.label}><b className="text-nf-text">{d.label} ({d.max}):</b> {d.rule}</div>)}
+            <div><b className="text-nf-text">Grade:</b> A ≥ 80 · B ≥ 60 · C ≥ 40 · D &lt; 40</div>
+          </div>
+        </details>
         {reasons.ai_overlay && (reasons.adjustment ?? 0) !== 0 && (
           <div className="mt-3 pt-2 border-t border-nf-border">
             <div className="text-[11px] font-semibold flex items-center gap-1 mb-1">

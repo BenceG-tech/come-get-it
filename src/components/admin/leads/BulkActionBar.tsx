@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { X, Sparkles, Mail, Trash2, Tag, Download, Send, Telescope, Bot, Loader2, Zap, FastForward } from "lucide-react";
+import { X, Sparkles, Mail, Trash2, Tag, Download, Send, Telescope, Bot, Loader2, Zap, FastForward, Package } from "lucide-react";
 
 export default function BulkActionBar({
-  count, onClear, onScore, onEmail, onStatus, onDelete, onTag, onExportCsv, onOutreach, onResearch, onGrade, onProcessAll, onContinueMissing,
+  count, onClear, onScore, onEmail, onStatus, onDelete, onTag, onExportCsv, onOutreach, onResearch, onGrade, onProcessAll, onContinueMissing, onPackage,
   loading, researching, grading, processingAll, continuing, showScore = true,
 }: {
   count: number;
@@ -18,6 +18,7 @@ export default function BulkActionBar({
   onGrade?: () => void;
   onProcessAll?: () => void;
   onContinueMissing?: () => void;
+  onPackage?: () => void;
   loading?: boolean;
   researching?: boolean;
   grading?: boolean;
@@ -67,6 +68,11 @@ export default function BulkActionBar({
       {showScore && onScore && (
         <Button size="sm" variant="ghost" onClick={onScore} disabled={loading} title="Score újraszámítása">
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />} Score
+        </Button>
+      )}
+      {onPackage && (
+        <Button size="sm" variant="ghost" onClick={onPackage} title="Megkeresési csomag (ajánlat + szövegek + képek) generálása és mentése a kijelöltekre">
+          <Package className="h-4 w-4" /> Csomag
         </Button>
       )}
       {onOutreach && (

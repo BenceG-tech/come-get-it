@@ -48,8 +48,9 @@ export default function ImportWizard({ onClose, onDone }: { onClose: () => void;
           <>
             <div className="text-sm text-nf-text-muted space-y-1">
               <p>Támogatott formátumok: <strong>.xlsx, .xls, .csv</strong></p>
-              <p>Felismert oszlopnevek (magyar + angol): <em>cégnév/name, város/city, cím, kapcsolattartó, email, telefon, instagram, website, kategória, rating, rating_count, lat, lng, place_id, jegyzet</em></p>
-              <p>Az első oszlop kötelezően a hely neve. Duplikátum detektálás: név + város egyezésre.</p>
+              <p>Felismert oszlopnevek (magyar, angol és Apify Google Maps export): <em>név/name/title, cím/address, város, kerület, telefon/phone, e-mail, weboldal/website, instagram, facebook, rating/totalScore, reviews/reviewsCount, Google Maps URL/url, place_id, kategória/categoryName, leírás/description, nyitvatartás/openingHours, kép/imageUrl, kapcsolattartó, jegyzet</em></p>
+              <p>Ami nem fér oszlopba (több e-mail/telefon, leírás, nyitvatartás, fotó, ismeretlen oszlopok), a lead <code>contacts_blob</code> mezőjébe kerül, és megjelenik az adatlapon.</p>
+              <p>Duplikátumszűrés: Google place id, ennek hiányában normalizált név + cím (a fájlon belül is).</p>
             </div>
 
             <label className="block">
@@ -89,6 +90,21 @@ export default function ImportWizard({ onClose, onDone }: { onClose: () => void;
                   <Card className="p-3"><div className="text-2xl font-bold text-red-400">{preview.total_rows - preview.mappable}</div><div className="text-[10px] text-nf-text-muted uppercase">Hibás</div></Card>
                 </div>
 
+                {preview.header_map && (
+                  <div className="text-[11px] text-nf-text-muted space-y-1">
+                    <div><span className="uppercase">Felismert oszlopok:</span> {Object.entries(preview.header_map as Record<string, string>).map(([col, f]) => `${col} → ${f}`).join(" · ")}</div>
+                    {preview.unmapped_columns?.length > 0 && (
+                      <div><span className="uppercase">contacts_blob-ba kerül:</span> {preview.unmapped_columns.join(", ")}</div>
+                    )}
+                  </div>
+                )}
+
+                {preview.duplicate_sample?.length > 0 && (
+                  <div className="text-[11px] text-amber-400/90">
+                    Kihagyott duplikátumok (első {preview.duplicate_sample.length}): {preview.duplicate_sample.map((d: { company_name: string; reason: string }) => `${d.company_name} (${d.reason})`).join(" · ")}
+                  </div>
+                )}
+
                 {preview.sample?.length > 0 && (
                   <div>
                     <div className="text-xs uppercase text-nf-text-muted mb-1">Minta (első 5):</div>
@@ -96,9 +112,12 @@ export default function ImportWizard({ onClose, onDone }: { onClose: () => void;
                       {preview.sample.map((s: any, i: number) => (
                         <div key={i} className="text-xs bg-nf-surface-alt rounded p-2">
                           <strong className="text-electric-300">{s.company_name}</strong>
-                          {s.city ? ` · ${s.city}` : ""}
-                          {s.email ? ` · ${s.email}` : ""}
+                          {s.address ? ` · ${s.address}` : s.city ? ` · ${s.city}` : ""}
                           {s.category ? ` · ${s.category}` : ""}
+                          {s.google_rating ? ` · ${s.google_rating}★ (${s.google_reviews_count ?? 0})` : ""}
+                          {s.email ? ` · ${s.email}` : ""}
+                          {s.phone ? ` · ${s.phone}` : ""}
+                          {s.instagram_handle ? ` · @${s.instagram_handle}` : ""}
                         </div>
                       ))}
                     </div>
