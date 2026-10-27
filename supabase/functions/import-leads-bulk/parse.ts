@@ -1,6 +1,7 @@
+// Vendored verbatim from https://cdn.sheetjs.com/xlsx-0.20.3/package/xlsx.mjs (deploy bundler blocks that host).
 // Official patched SheetJS build (>= 0.20.3); the npm registry copy (0.18.5) is vulnerable
 // to prototype pollution (GHSA-4r6h-8v6p-xvw6) and ReDoS (GHSA-5pgg-2g8v-p4x9).
-import * as XLSX from "https://cdn.sheetjs.com/xlsx-0.20.3/package/xlsx.mjs";
+import * as XLSX from "./xlsx-0.20.3.mjs";
 
 export const SHEETJS_VERSION: string = XLSX.version;
 
