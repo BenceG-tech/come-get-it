@@ -1283,6 +1283,51 @@ export type Database = {
           },
         ]
       }
+      marketing_meta_events: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          payload: Json
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string
+          id: string
+          payload: Json
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          payload?: Json
+        }
+        Relationships: []
+      }
+      marketing_meta_media: {
+        Row: {
+          bytes: number
+          created_at: string
+          expires_at: string
+          mime: string
+          path: string
+        }
+        Insert: {
+          bytes: number
+          created_at?: string
+          expires_at?: string
+          mime: string
+          path: string
+        }
+        Update: {
+          bytes?: number
+          created_at?: string
+          expires_at?: string
+          mime?: string
+          path?: string
+        }
+        Relationships: []
+      }
       metric_events: {
         Row: {
           cost_huf: number | null
@@ -2494,6 +2539,54 @@ export type Database = {
         }
         Relationships: []
       }
+      web_funnel_events: {
+        Row: {
+          created_at: string
+          device: string | null
+          event: string
+          id: number
+          in_app: string | null
+          path: string | null
+          props: Json
+          referrer: string | null
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          visit_id: string
+        }
+        Insert: {
+          created_at?: string
+          device?: string | null
+          event: string
+          id?: never
+          in_app?: string | null
+          path?: string | null
+          props?: Json
+          referrer?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          visit_id: string
+        }
+        Update: {
+          created_at?: string
+          device?: string | null
+          event?: string
+          id?: never
+          in_app?: string | null
+          path?: string | null
+          props?: Json
+          referrer?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          visit_id?: string
+        }
+        Relationships: []
+      }
       weekly_goals: {
         Row: {
           actual: number
@@ -2568,7 +2661,30 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      web_funnel_daily: {
+        Row: {
+          clicked_cta: number | null
+          day: string | null
+          device: string | null
+          had_error: number | null
+          saw_form: number | null
+          scrolled_25: number | null
+          scrolled_50: number | null
+          scrolled_75: number | null
+          signed_up: number | null
+          source: string | null
+          started_form: number | null
+          visits: number | null
+        }
+        Relationships: []
+      }
+      web_funnel_last_section: {
+        Row: {
+          last_section: string | null
+          visits: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       compute_lead_grade_from_score: {
@@ -2591,6 +2707,10 @@ export type Database = {
           similarity: number
           text: string
         }[]
+      }
+      reserve_marketing_meta_media: {
+        Args: { p_bytes: number; p_mime: string; p_path: string }
+        Returns: undefined
       }
     }
     Enums: {
