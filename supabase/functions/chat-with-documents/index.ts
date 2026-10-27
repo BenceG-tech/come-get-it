@@ -55,7 +55,7 @@ ${body}`;
     const messages = [
       { role: "system", content: SYSTEM },
       { role: "system", content: `KONTEXTUS DOKSIK:\n\n${context}` },
-      ...(Array.isArray(history) ? history.filter((m: any) => m?.role && m?.content).slice(-12) : []),
+      ...(Array.isArray(history) ? history.filter((m: any) => (m?.role === "user" || m?.role === "assistant") && typeof m?.content === "string").map((m: any) => ({ role: m.role, content: m.content.slice(0, 8000) })).slice(-12) : []),
       { role: "user", content: message },
     ];
 
