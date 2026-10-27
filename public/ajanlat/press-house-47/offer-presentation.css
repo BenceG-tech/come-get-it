@@ -1,0 +1,29 @@
+.offer-player { min-width: 0; width: 100%; display: grid; gap: 9px; }
+.offer-player video { display: block; }
+.offer-opening .offer-player { max-width: 242px; justify-self: center; }
+.player-help { display: flex; flex-wrap: wrap; gap: 5px 14px; align-items: center; font: 12px/1.4 var(--body, sans-serif); }
+.player-help button { border: 0; padding: 5px 0; color: var(--brand); background: transparent; cursor: pointer; font: inherit; text-align: left; text-decoration: underline; text-underline-offset: 3px; }
+.player-help a { color: var(--muted); }
+.player-message { color: var(--muted); font: 12px/1.4 var(--body, sans-serif); }
+.player-message:empty { display: none; }
+.social-previews { scroll-margin-top: 24px; }
+.social-previews figure { margin: 0; min-width: 0; display: grid; gap: 8px; }
+.social-previews figcaption { color: var(--muted, #9aa6aa); font-size: 13px; }
+.social-previews .social-note { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.social-main { display: grid; grid-template-columns: 1.3fr repeat(3,1fr); gap: 18px; align-items: start; }
+.social-carousel { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 18px; align-items: start; }
+.social-preview { display: block; border-radius: 14px; cursor: zoom-in; }
+.social-preview img { display: block; width: 100%; height: auto; }
+.social-preview:hover { outline: 2px solid var(--brand); outline-offset: 3px; }
+.social-reel video { aspect-ratio: 9/16; }
+.social-reel { align-content: start; }
+.social-dialog { max-width: 96vw; max-height: 96vh; padding: 16px; border: 1px solid var(--line, #1f2a30); border-radius: 18px; background: var(--surface, #0f1418); color: var(--fg, #f3f5f4); }
+.social-dialog::backdrop { background: rgba(0,0,0,.88); }
+.social-dialog img { display: block; max-width: min(80vw,720px); max-height: 76vh; width: auto; height: auto; object-fit: contain; margin: auto; }
+.social-dialog nav { display: flex; gap: 12px; align-items: center; justify-content: center; padding-top: 12px; }
+.social-dialog button { padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--fg); font: inherit; cursor: pointer; }
+.social-dialog .gallery-close { display: block; margin: 0 0 12px auto; }
+.social-dialog .gallery-caption { max-width: 44ch; font-size: 14px; text-align: center; }
+button:focus-visible, .social-preview:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+@media(max-width: 680px) { .social-main, .social-carousel { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px 12px; } .offer-opening .offer-player { max-width: 230px; } }
+@media(max-width: 380px) { .social-main { grid-template-columns: 1fr; } .social-main figure { max-width: 260px; margin: auto; } }
