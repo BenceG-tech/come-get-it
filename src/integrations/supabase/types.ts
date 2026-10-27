@@ -2712,6 +2712,7 @@ export type Database = {
         Args: { p_bytes: number; p_mime: string; p_path: string }
         Returns: undefined
       }
+      verify_edge_cron_secret: { Args: { p_secret: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
