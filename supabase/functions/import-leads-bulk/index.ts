@@ -30,6 +30,11 @@ function normalizeHeader(h: string) {
   return h?.toString().toLowerCase().trim().replace(/[\s_-]+/g," ").replace(/[áàâ]/g,"a").replace(/[éè]/g,"e").replace(/[íì]/g,"i").replace(/[óòöőô]/g,"o").replace(/[úùüűû]/g,"u");
 }
 
+// Prevent spreadsheet formula injection when partner data is later exported.
+function neutralizeFormula(v: string): string {
+  return /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
+}
+
 function mapRow(row: Record<string, any>, headerMap: Record<string,string>) {
   const out: Record<string, any> = { type: "venue", status: "lead", source: "import" };
   for (const [orig, normalized] of Object.entries(headerMap)) {
@@ -37,7 +42,7 @@ function mapRow(row: Record<string, any>, headerMap: Record<string,string>) {
       if (aliases.some(a => normalizeHeader(a) === normalized)) {
         const val = row[orig];
         if (val !== null && val !== undefined && val !== "") {
-          out[field] = ["rating","lat","lng"].includes(field) ? Number(val) : ["rating_count"].includes(field) ? parseInt(String(val)) : String(val).trim();
+          out[field] = ["rating","lat","lng"].includes(field) ? Number(val) : ["rating_count"].includes(field) ? parseInt(String(val)) : neutralizeFormula(String(val).trim().slice(0, 2000));
         }
         break;
       }
