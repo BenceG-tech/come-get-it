@@ -1,5 +1,6 @@
 // Apify — list user's actors + saved tasks (one APIFY_API_TOKEN covers the whole account, every actor).
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -10,6 +11,8 @@ const APIFY = "https://api.apify.com/v2";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const token = Deno.env.get("APIFY_API_TOKEN");
     if (!token) throw new Error("APIFY_API_TOKEN not configured");

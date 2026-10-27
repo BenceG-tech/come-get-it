@@ -3,6 +3,7 @@
 //  (b) natural_query → AI builds Google Maps Extractor input (admin-magic mode)
 // Records the run in apify_runs, returns run_id for polling.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -32,17 +33,15 @@ A searchStringsArray 1-3 fókuszált angol+magyar keresési stringet tartalmazzo
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const token = Deno.env.get("APIFY_API_TOKEN");
     if (!token) throw new Error("APIFY_API_TOKEN not configured");
     const lovableKey = Deno.env.get("LOVABLE_API_KEY")!;
 
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-    const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: authHeader } } });
-    const { data: claims } = await sb.auth.getClaims(authHeader.replace("Bearer ", ""));
-    if (!claims?.claims?.sub) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-    const userId = claims.claims.sub;
+    const userId = __guard.userId; // null for internal autopilot calls
     const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
 
     const body = await req.json();

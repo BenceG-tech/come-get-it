@@ -1,6 +1,7 @@
 // Background poller — finds RUNNING apify_runs, refreshes Apify status, auto-imports SUCCEEDED ones.
 // Called by pg_cron every 2 minutes AND can be invoked manually.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -166,6 +167,8 @@ async function importDataset(admin: any, run: any, token: string): Promise<{ imp
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const token = Deno.env.get("APIFY_API_TOKEN");
     if (!token) throw new Error("APIFY_API_TOKEN not configured");

@@ -1,5 +1,6 @@
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors';
 import { createClient } from 'npm:@supabase/supabase-js@2';
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SERVICE_ROLE = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -19,6 +20,8 @@ type Lead = {
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
 
   try {
     const { partner_ids, limit = 20 } = await req.json().catch(() => ({}));

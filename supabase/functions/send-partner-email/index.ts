@@ -1,4 +1,5 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -9,7 +10,12 @@ function render(tpl: string, vars: Record<string,string>) {
   return tpl.replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] ?? `{{${k}}}`);
 }
 
+function escapeHtml(s: string) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
 function mdToHtml(md: string) {
+  md = escapeHtml(md);
   // Minimal: paragraphs + bold + line breaks + lists
   const blocks = md.split(/\n\n+/).map(b => {
     if (/^- /m.test(b)) {
@@ -23,13 +29,10 @@ function mdToHtml(md: string) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-    const supa = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: authHeader } } });
-    const { data: claims } = await supa.auth.getClaims(authHeader.replace("Bearer ",""));
-    if (!claims?.claims?.sub) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-    const userId = claims.claims.sub;
+    const userId = __guard.userId; // null for internal system calls
 
     const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
     const body = await req.json();
@@ -58,7 +61,7 @@ Deno.serve(async (req) => {
         company_name: p.company_name || "",
         city: p.city || "",
       };
-      const personalizedSubject = render(subject, vars);
+      const personalizedSubject = render(String(subject), vars).replace(/[\r\n]+/g, " ").slice(0, 200);
       const personalizedBody = render(bodyMd, vars);
       const html = mdToHtml(personalizedBody);
 

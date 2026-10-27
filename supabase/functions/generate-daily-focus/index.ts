@@ -1,6 +1,7 @@
 // Generates 3 prioritized daily tasks for the founder, persisted in daily_focus.top_priorities for today.
 // Uses Lovable AI Gateway with real CRM/pipeline/inbox/mission-gap context.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,6 +13,8 @@ const WAITLIST_TARGET = 500;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
 
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;

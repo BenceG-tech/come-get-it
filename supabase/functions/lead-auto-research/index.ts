@@ -1,6 +1,7 @@
 // Lead Auto-Research — uses Firecrawl (if available) to scrape a lead's website
 // and search reviews, then AI-summarizes into partners.research_notes.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -32,6 +33,8 @@ async function firecrawlSearch(query: string, apiKey: string) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const { partner_id } = await req.json();
     if (!partner_id) throw new Error("partner_id required");

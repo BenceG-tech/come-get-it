@@ -1,6 +1,7 @@
 // Trend → Content Brief: egy trend_signal alapján generál egy content_briefs sort,
 // hogy reaktív poszt készülhessen rá. AI-szintézis + opcionális Firecrawl scrape.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -9,6 +10,8 @@ const corsHeaders = {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const { signal_id } = await req.json();
     if (!signal_id) throw new Error("signal_id required");

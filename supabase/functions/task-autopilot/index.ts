@@ -3,6 +3,7 @@
 // workflow (find partners → research → personalize → draft enrollment) and
 // writes progress into public.task_runs. Nothing is sent without user approval.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -217,6 +218,8 @@ async function runGenericTask(runId: string, task: Task) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const { task, task_index } = await req.json();
     if (!task?.title) throw new Error("task.title required");

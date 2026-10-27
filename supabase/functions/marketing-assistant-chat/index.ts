@@ -47,7 +47,7 @@ Ha a felhasználó kér egy poszt-ötletet/időpontot, adj konkrét javaslatot (
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         model: "google/gemini-3-flash-preview",
-        messages: [{ role: "system", content: sys }, ...messages],
+        messages: [{ role: "system", content: sys }, ...messages.filter((m: any) => m && (m.role === "user" || m.role === "assistant") && (typeof m.content === "string" || Array.isArray(m.content))).map((m: any) => ({ role: m.role, content: m.content })).slice(-40)],
       }),
     });
 

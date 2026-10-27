@@ -2,6 +2,7 @@
 // Avoids 504s and rate-limits: 10 lead / chunk, 4 parallel research, 2s pause between chunks.
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const CHUNK = 10;
 const RESEARCH_PARALLEL = 4;
@@ -9,6 +10,8 @@ const CHUNK_PAUSE_MS = 2000;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const { partner_ids, skip_research = false } = await req.json();
     if (!Array.isArray(partner_ids) || partner_ids.length === 0) {

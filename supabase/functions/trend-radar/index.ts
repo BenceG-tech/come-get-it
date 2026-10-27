@@ -2,6 +2,7 @@
 // AI-summarize into trend_signals rows. Falls back to AI-only synthesis if
 // FIRECRAWL_API_KEY is not configured.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -76,6 +77,8 @@ CSAK a JSON-t add vissza, semmi mást.`;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const lovableKey = Deno.env.get("LOVABLE_API_KEY");
     const firecrawlKey = Deno.env.get("FIRECRAWL_API_KEY");

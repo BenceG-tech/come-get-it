@@ -1,6 +1,7 @@
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors';
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { BRAND_CONTEXT, TONE_GUIDES, LENGTH_TARGETS, type TonePreset } from '../_shared/brand-context.ts';
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SERVICE_ROLE = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -8,6 +9,8 @@ const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY')!;
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
 
   try {
     const body = await req.json().catch(() => ({}));

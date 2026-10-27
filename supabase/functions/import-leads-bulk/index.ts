@@ -1,5 +1,6 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import * as XLSX from "npm:xlsx@0.18.5";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -29,6 +30,12 @@ function normalizeHeader(h: string) {
   return h?.toString().toLowerCase().trim().replace(/[\s_-]+/g," ").replace(/[áàâ]/g,"a").replace(/[éè]/g,"e").replace(/[íì]/g,"i").replace(/[óòöőô]/g,"o").replace(/[úùüűû]/g,"u");
 }
 
+// Prevent spreadsheet formula injection when partner data is later exported.
+function neutralizeFormula(v: string): string {
+  if (/^\+?[\d\s()\-\/]+$/.test(v)) return v; // phone numbers
+  return /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
+}
+
 function mapRow(row: Record<string, any>, headerMap: Record<string,string>) {
   const out: Record<string, any> = { type: "venue", status: "lead", source: "import" };
   for (const [orig, normalized] of Object.entries(headerMap)) {
@@ -36,7 +43,7 @@ function mapRow(row: Record<string, any>, headerMap: Record<string,string>) {
       if (aliases.some(a => normalizeHeader(a) === normalized)) {
         const val = row[orig];
         if (val !== null && val !== undefined && val !== "") {
-          out[field] = ["rating","lat","lng"].includes(field) ? Number(val) : ["rating_count"].includes(field) ? parseInt(String(val)) : String(val).trim();
+          out[field] = ["rating","lat","lng"].includes(field) ? Number(val) : ["rating_count"].includes(field) ? parseInt(String(val)) : neutralizeFormula(String(val).trim().slice(0, 2000));
         }
         break;
       }
@@ -47,6 +54,8 @@ function mapRow(row: Record<string, any>, headerMap: Record<string,string>) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
 
   try {
     const authHeader = req.headers.get("Authorization");
