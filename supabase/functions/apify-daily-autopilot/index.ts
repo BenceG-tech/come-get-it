@@ -2,6 +2,7 @@
 // Daily Apify auto-scrape — invoked by pg_cron. Checks system_settings.apify_daily_autopilot,
 // asks lead-discovery-plan, and starts an Apify run if balance allows and cost ceiling fits.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*" };
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
@@ -11,6 +12,8 @@ const admin = createClient(SUPABASE_URL, SERVICE_ROLE);
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const { data: settings } = await admin.from("system_settings")
       .select("value").eq("key", "apify_daily_autopilot").maybeSingle();

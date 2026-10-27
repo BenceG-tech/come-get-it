@@ -1,6 +1,7 @@
 // AI-generated personalized app mockup for a lead. Uses Lovable AI Gateway image model.
 // Stores into admin-docs bucket under /lead-mockups/{partner_id}/, returns public URL.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -9,6 +10,8 @@ const corsHeaders = {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const lovableKey = Deno.env.get("LOVABLE_API_KEY")!;
     const authHeader = req.headers.get("Authorization");

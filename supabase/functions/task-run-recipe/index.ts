@@ -4,6 +4,7 @@
 // 2) A megfelelő recept lefut lépésről lépésre (NEM ReAct loop — fix pipeline).
 // 3) Progress + result_items mentődik a task_runs sorba realtime-ra.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -501,6 +502,8 @@ async function runRecipe(runId: string, goal: string) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const body = await req.json().catch(() => ({}));
     const { goal, task } = body;

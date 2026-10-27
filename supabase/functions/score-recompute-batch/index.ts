@@ -1,6 +1,7 @@
 // @ts-nocheck
 // Nightly recompute of scores for active partners/leads (entity_scores table).
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -33,6 +34,8 @@ function deriveScore(p: any, transitions: any[], events: any[]): { score: number
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
   try {
     const { data: partners } = await admin.from("partners").select("*").not("status", "in", "(churned,lost)").limit(500);

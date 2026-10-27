@@ -1,6 +1,7 @@
 // Apify — poll a run's status. If SUCCEEDED, optionally fetch + import dataset into partners.
 // Body: { run_id: uuid (our row) }  OR  { apify_run_id, actor_id, dataset_id }  OR  { dataset_id_only } for one-shot import of an existing dataset URL/id.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -117,6 +118,8 @@ function mapGoogleMapsItem(it: any): any {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const token = Deno.env.get("APIFY_API_TOKEN");
     if (!token) throw new Error("APIFY_API_TOKEN not configured");

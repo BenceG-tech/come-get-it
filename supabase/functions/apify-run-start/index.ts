@@ -3,6 +3,7 @@
 //  (b) natural_query → AI builds Google Maps Extractor input (admin-magic mode)
 // Records the run in apify_runs, returns run_id for polling.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -32,6 +33,8 @@ A searchStringsArray 1-3 fókuszált angol+magyar keresési stringet tartalmazzo
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const token = Deno.env.get("APIFY_API_TOKEN");
     if (!token) throw new Error("APIFY_API_TOKEN not configured");

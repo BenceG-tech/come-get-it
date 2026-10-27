@@ -3,6 +3,7 @@
 // Saves each iteration to task_runs.iterations, can pause for human input
 // via status='awaiting_human' + human_prompt, and resumes via /resume call.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -361,6 +362,8 @@ async function runLoop(runId: string) {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  const __guard = await requireAdminOrSystem(req);
+  if (!__guard.ok) return __guard.response;
   try {
     const url = new URL(req.url);
     const body = await req.json().catch(() => ({}));
