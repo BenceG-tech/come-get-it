@@ -16,6 +16,7 @@ import {
   Download
 } from 'lucide-react';
 import analytics from '@/lib/analytics';
+import { toCsv } from "@/lib/csv-safety";
 
 interface LeadData {
   id: string;
@@ -90,7 +91,7 @@ export const LeadAnalyticsWidget: React.FC<LeadAnalyticsWidgetProps> = ({
   const conversionRate = leadStats.total > 0 ? (leadStats.hot / leadStats.total) * 100 : 0;
 
   const handleExport = () => {
-    const csvContent = [
+    const csvContent = toCsv([
       ['ID', 'Score', 'Quality', 'Category', 'Source', 'Email', 'Date'],
       ...filteredLeads.map(lead => [
         lead.id,
@@ -101,7 +102,7 @@ export const LeadAnalyticsWidget: React.FC<LeadAnalyticsWidgetProps> = ({
         lead.email,
         new Date(lead.timestamp).toLocaleDateString()
       ])
-    ].map(row => row.join(',')).join('\n');
+    ]);
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
