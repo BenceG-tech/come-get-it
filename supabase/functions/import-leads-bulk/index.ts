@@ -32,6 +32,7 @@ function normalizeHeader(h: string) {
 
 // Prevent spreadsheet formula injection when partner data is later exported.
 function neutralizeFormula(v: string): string {
+  if (/^\+?[\d\s()\-\/]+$/.test(v)) return v; // phone numbers
   return /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
 }
 
