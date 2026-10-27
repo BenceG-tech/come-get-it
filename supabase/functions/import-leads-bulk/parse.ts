@@ -10,5 +10,5 @@ export function parseSheet(buf: ArrayBuffer | Uint8Array): Record<string, unknow
   const wb = XLSX.read(buf, { type: "array" });
   const ws = wb.Sheets[wb.SheetNames[0]];
   if (!ws) return [];
-  return XLSX.utils.sheet_to_json<Record<string, unknown>>(ws, { defval: "" });
+  return XLSX.utils.sheet_to_json(ws, { defval: "" }) as Record<string, unknown>[];
 }
