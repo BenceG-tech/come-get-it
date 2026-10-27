@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+import { filterChatHistory } from "../_shared/sanitize.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -55,7 +56,7 @@ ${body}`;
     const messages = [
       { role: "system", content: SYSTEM },
       { role: "system", content: `KONTEXTUS DOKSIK:\n\n${context}` },
-      ...(Array.isArray(history) ? history.filter((m: any) => (m?.role === "user" || m?.role === "assistant") && typeof m?.content === "string").map((m: any) => ({ role: m.role, content: m.content.slice(0, 8000) })).slice(-12) : []),
+      ...filterChatHistory(history, 12),
       { role: "user", content: message },
     ];
 

@@ -7,3 +7,5 @@
 - Keep the four homepage feature scenes in one FeatureScrollStory with scroll-linked state and a static reduced-motion fallback, so navigation anchors and visual changes remain synchronized.
 - Keep Web Experience v3 scroll behavior in the shared experience/useStickyScroll hook and phone rendering in experience/DevicePhone, because both sticky stories use the supplied damped movement and device presentation.
 - Gate every privileged edge function with requireAdminOrSystem from supabase/functions/_shared/admin-guard.ts (admin role, service-role internal call, or Vault cron secret via x-cron-secret), because anon keys are valid JWTs and verify_jwt alone does not authorize.
+- Route every CSV export through src/lib/csv-safety (toCsv/toCsvCell), because stored data can bypass import sanitization and must be neutralized at the export boundary.
+- Keep edge-function sanitizers in supabase/functions/_shared/sanitize.ts and guard logic dependency-injectable, so they stay covered by the Deno *_test.ts files there and the vitest suite (`npm test`).

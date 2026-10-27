@@ -1,6 +1,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import * as XLSX from "npm:xlsx@0.18.5";
 import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
+import { neutralizeFormula } from "../_shared/sanitize.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -28,12 +29,6 @@ const FIELD_MAP: Record<string, string[]> = {
 
 function normalizeHeader(h: string) {
   return h?.toString().toLowerCase().trim().replace(/[\s_-]+/g," ").replace(/[áàâ]/g,"a").replace(/[éè]/g,"e").replace(/[íì]/g,"i").replace(/[óòöőô]/g,"o").replace(/[úùüűû]/g,"u");
-}
-
-// Prevent spreadsheet formula injection when partner data is later exported.
-function neutralizeFormula(v: string): string {
-  if (/^\+?[\d\s()\-\/]+$/.test(v)) return v; // phone numbers
-  return /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
 }
 
 function mapRow(row: Record<string, any>, headerMap: Record<string,string>) {

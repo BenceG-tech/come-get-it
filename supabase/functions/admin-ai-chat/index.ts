@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 import { loadBrandContext } from "../_shared/brand-context.ts";
+import { filterChatHistory } from "../_shared/sanitize.ts";
 
 
 const corsHeaders = {
@@ -83,7 +84,7 @@ Deno.serve(async (req) => {
     if (!isAdmin) return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
     const body = await req.json();
-    const messages = (Array.isArray(body.messages) ? body.messages : []).filter((m: any) => m && (m.role === "user" || m.role === "assistant") && (typeof m.content === "string" || Array.isArray(m.content))).map((m: any) => ({ role: m.role, content: m.content })).slice(-40);
+    const messages = filterChatHistory(body.messages);
     const conversationId: string | null = body.conversationId ?? null;
     const critique: boolean = !!body.critique;
     const attachedDocIds: string[] = Array.isArray(body.attachedDocIds) ? body.attachedDocIds : [];
