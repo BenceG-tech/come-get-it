@@ -1,12 +1,14 @@
 // CSV export hardening: values from the database (including old imports and phone fields)
 // are neutralized at the export boundary so spreadsheets never evaluate them as formulas.
 
-const PHONE = /^\+?\d[\d\s()\-/]*$/;
+// A cell is dangerous if it starts with a formula trigger, or with a tab/CR/LF, or if
+// leading whitespace is followed by a trigger (spreadsheets may trim before evaluating).
+// Phone numbers like "+36 ..." are prefixed too: the apostrophe keeps them readable as text.
+const FORMULA_LEADING = /^(?:[\t\r\n]|[ \u00a0\u3000\t\r\n]*[=+\-@\uff1d\uff0b\uff0d\uff20])/;
 
-/** Prefix formula triggers (= + - @ tab CR) with an apostrophe; plain phone numbers stay readable. */
+/** Prefix formula-leading values with an apostrophe. The original value is never trimmed. */
 export function neutralizeCsvFormula(value: string): string {
-  if (PHONE.test(value)) return value;
-  return /^[=+\-@\t\r]/.test(value) ? `'${value}` : value;
+  return FORMULA_LEADING.test(value) ? `'${value}` : value;
 }
 
 /** Convert any value into one safe, quoted-when-needed CSV cell. */
