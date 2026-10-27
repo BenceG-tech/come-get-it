@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
         company_name: p.company_name || "",
         city: p.city || "",
       };
-      const personalizedSubject = render(subject, vars);
+      const personalizedSubject = render(String(subject), vars).replace(/[\r\n]+/g, " ").slice(0, 200);
       const personalizedBody = render(bodyMd, vars);
       const html = mdToHtml(personalizedBody);
 
