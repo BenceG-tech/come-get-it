@@ -1,5 +1,5 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
-import * as XLSX from "npm:xlsx@0.18.5";
+import { parseSheet } from "./parse.ts";
 import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 import { neutralizeFormula } from "../_shared/sanitize.ts";
 
@@ -69,9 +69,7 @@ Deno.serve(async (req) => {
     if (!file) return new Response(JSON.stringify({ error: "Missing file" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
     const buf = await file.arrayBuffer();
-    const wb = XLSX.read(buf, { type: "array" });
-    const ws = wb.Sheets[wb.SheetNames[0]];
-    const rows = XLSX.utils.sheet_to_json<Record<string, any>>(ws, { defval: "" });
+    const rows = parseSheet(buf) as Record<string, any>[];
 
     if (rows.length === 0) return new Response(JSON.stringify({ error: "Empty file" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
