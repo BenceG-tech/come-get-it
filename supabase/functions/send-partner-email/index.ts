@@ -1,5 +1,6 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
+import { escapeHtml, safeSubject } from "../_shared/sanitize.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -8,10 +9,6 @@ const corsHeaders = {
 
 function render(tpl: string, vars: Record<string,string>) {
   return tpl.replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] ?? `{{${k}}}`);
-}
-
-function escapeHtml(s: string) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
 function mdToHtml(md: string) {
@@ -61,7 +58,7 @@ Deno.serve(async (req) => {
         company_name: p.company_name || "",
         city: p.city || "",
       };
-      const personalizedSubject = render(String(subject), vars).replace(/[\r\n]+/g, " ").slice(0, 200);
+      const personalizedSubject = safeSubject(render(String(subject), vars));
       const personalizedBody = render(bodyMd, vars);
       const html = mdToHtml(personalizedBody);
 
