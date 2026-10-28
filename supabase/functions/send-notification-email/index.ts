@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.2';
 import { welcomeHtml, welcomeSubject, welcomeText } from './welcome-email.ts';
+import { maskEmail } from '../_shared/sanitize.ts';
 
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -392,7 +393,7 @@ Forrás: ${sanitizedData.source || 'Nincs megadva'}
     let adminEmailSent = false;
     
     try {
-      console.log(`Attempting to send welcome email to: ${sanitizedData.email}`);
+      console.log(`Attempting to send welcome email to: ${maskEmail(sanitizedData.email)}`);
       emailResponse = await sendEmailWithRetry({
         from: "Come Get It <noreply@come-get-it.app>",
         to: [sanitizedData.email],
@@ -405,7 +406,7 @@ Forrás: ${sanitizedData.source || 'Nincs megadva'}
     } catch (error) {
       console.error("❌ Failed to send user welcome email:", error);
       console.error("Email details:", { 
-        to: sanitizedData.email, 
+        to: maskEmail(sanitizedData.email), 
         subject: emailSubject,
         error: error instanceof Error ? error.message : String(error)
       });

@@ -22,6 +22,9 @@ Deno.serve(async (req) => {
     if (!isAdmin) return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: corsHeaders });
 
     const { goal = "általános brand-építés", count = 5 } = await req.json().catch(() => ({}));
+    // Clamp caller-controlled values before they enter the system prompt.
+    const safeCount = Math.min(20, Math.max(1, Math.floor(Number(count)) || 5));
+    const safeGoal = String(goal).slice(0, 300);
 
     const brandCtx = await loadBrandContext(supabase);
 

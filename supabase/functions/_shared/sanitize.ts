@@ -21,9 +21,22 @@ export function safeSubject(s: string): string {
   return String(s).replace(/[\r\n]+/g, " ").slice(0, 200);
 }
 
-const PHONE = /^\+?\d[\d\s()\-\/]*$/;
-/** Prefix spreadsheet-formula triggers with an apostrophe; plain phone numbers stay as-is. */
+// Mirrors src/lib/csv-safety.ts: any formula-leading value (including phone-like strings
+// such as "+1/0" and whitespace-prefixed triggers) gets an apostrophe. Stored data can
+// bypass import checks, so exports re-neutralize too.
+const FORMULA_LEADING = /^(?:[\t\r\n]|[ \u00a0\u3000\t\r\n]*[=+\-@＝＋－＠])/;
 export function neutralizeFormula(v: string): string {
-  if (PHONE.test(v)) return v;
-  return /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
+  return FORMULA_LEADING.test(v) ? `'${v}` : v;
+}
+
+/** Mask an email for server logs: keeps first char of local part and domain, hides the rest. */
+export function maskEmail(email: string): string {
+  const at = email.indexOf("@");
+  if (at < 1) return "***";
+  const local = email.slice(0, at);
+  const domain = email.slice(at + 1);
+  const dot = domain.lastIndexOf(".");
+  const host = dot > 0 ? domain.slice(0, dot) : domain;
+  const tld = dot > 0 ? domain.slice(dot) : "";
+  return `${local.slice(0, 1)}***@${host.slice(0, 1)}***${tld}`;
 }

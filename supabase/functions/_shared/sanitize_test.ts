@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
-import { escapeHtml, filterChatHistory, neutralizeFormula, safeSubject } from "./sanitize.ts";
+import { escapeHtml, filterChatHistory, maskEmail, neutralizeFormula, safeSubject } from "./sanitize.ts";
 
 Deno.test("chat history drops system/tool/unknown roles", () => {
   const out = filterChatHistory([
@@ -31,8 +31,19 @@ Deno.test("subject cannot inject headers", () => {
   assertEquals(safeSubject("x".repeat(300)).length, 200);
 });
 
-Deno.test("import formula neutralization keeps phones", () => {
+Deno.test("import formula neutralization prefixes every formula-leading value", () => {
   assertEquals(neutralizeFormula("=cmd()"), "'=cmd()");
-  assertEquals(neutralizeFormula("+36 70 585 2053"), "+36 70 585 2053");
+  assertEquals(neutralizeFormula("+36 70 585 2053"), "'+36 70 585 2053");
+  assertEquals(neutralizeFormula("+1/0"), "'+1/0");
   assertEquals(neutralizeFormula("-1+1"), "'-1+1");
+  assertEquals(neutralizeFormula(" =SUM(A1)"), "' =SUM(A1)");
+  assertEquals(neutralizeFormula("\t=cmd()"), "'\t=cmd()");
+  assertEquals(neutralizeFormula("plain text"), "plain text");
+});
+
+Deno.test("maskEmail hides personal data in server logs", () => {
+  assertEquals(maskEmail("gataibence@gmail.com"), "g***@g***.com");
+  assertEquals(maskEmail("a@b.co"), "a***@b***.co");
+  assertEquals(maskEmail("not-an-email"), "***");
+  assertEquals(maskEmail(""), "***");
 });
