@@ -88,7 +88,7 @@
 .story-note { position:absolute; z-index:3; bottom:3vh; left:max(4vw,calc(50% - 690px)); max-width:calc(50vw - max(4vw,calc(50vw - 690px)) - 110px); }
 
 /* ---------- second story: DRINK / LINK / EARN / GIVE ---------- */
-.feature-scroll-story { position:relative; height:300vh; background:hsl(var(--background)); }
+.feature-scroll-story { position:relative; height:540vh; background:hsl(var(--background)); }
 .feature-scroll-stage { position:sticky; top:0; height:100svh; overflow:hidden; isolation:isolate; }
 .feature-anchor { position:absolute; left:0; width:1px; height:1px; pointer-events:none; }
 .feature-scroll-story .feature-scene { position:absolute; inset:0; height:100%; display:flex; align-items:center; padding:0;
@@ -154,7 +154,7 @@
 @media (max-width:760px) {
   /* a bit less scroll per scene: the stories used to take ~14 screens on a phone */
   .experience-story { height:540svh; }
-  .feature-scroll-story { height:400svh; }
+  .feature-scroll-story { height:720svh; }
   /* phones: drop the full-screen blend layers so the scene hand-over stays at 60 fps */
   .feature-scroll-stage .experience-grain { display:none; }
   /* shorter hand-over so every scene has settled within its minimum on-screen time */
