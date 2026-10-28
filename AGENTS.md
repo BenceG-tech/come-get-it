@@ -9,3 +9,5 @@
 - Gate every privileged edge function with requireAdminOrSystem from supabase/functions/_shared/admin-guard.ts (admin role, service-role internal call, or Vault cron secret via x-cron-secret), because anon keys are valid JWTs and verify_jwt alone does not authorize.
 - Route every CSV export through src/lib/csv-safety (toCsv/toCsvCell), because stored data can bypass import sanitization and must be neutralized at the export boundary.
 - Keep edge-function sanitizers in supabase/functions/_shared/sanitize.ts and guard logic dependency-injectable, so they stay covered by the Deno *_test.ts files there and the vitest suite (`npm test`).
+- Run the Deno edge-function tests with `DENO_NO_PACKAGE_JSON=1 deno test`, because the project-root package.json makes Deno resolve npm: specifiers from node_modules and the tests then fail to load.
+- Pin jspdf to >=4.2.1 in weekly-mission-review, because <=2.5.1/4.2.0 carries critical advisories and 4.2.1 is verified to generate the PDF under Deno.

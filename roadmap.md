@@ -20,3 +20,8 @@
 - [x] Verify the homepage preview and automatic production build without publishing.
 
 - [x] Replace venue-discovery CTAs with signup links and remove homepage venue previews; verify HU/EN desktop/mobile without publishing.
+
+- [x] Fix deep-scan findings: mask signup emails in server logs, clamp brief-count in system prompt; redeploy 8 functions.
+- [x] Tighten import formula neutralization (phone-like and whitespace-prefixed values) to match export boundary.
+- [x] Upgrade edge jspdf 2.5.1 -> 4.2.1 with offline PDF generation test.
+- [x] Verify bun.lockb frozen-install consistency, clean npm ci + production build, dependency scan clean.

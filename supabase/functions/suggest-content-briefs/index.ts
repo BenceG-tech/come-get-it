@@ -22,6 +22,9 @@ Deno.serve(async (req) => {
     if (!isAdmin) return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: corsHeaders });
 
     const { goal = "általános brand-építés", count = 5 } = await req.json().catch(() => ({}));
+    // Clamp caller-controlled values before they enter the system prompt.
+    const safeCount = Math.min(20, Math.max(1, Math.floor(Number(count)) || 5));
+    const safeGoal = String(goal).slice(0, 300);
 
     const brandCtx = await loadBrandContext(supabase);
 
@@ -34,7 +37,7 @@ Deno.serve(async (req) => {
       supabase.from("documents").select("title, folder, tldr, ai_description").not("tldr", "is", null).limit(15),
     ]);
 
-    const sys = `Te a Come Get It (Budapest nightlife reward app) marketing stratégája vagy. Magyarul, tegezve, konkrétan. A feladat: készíts ${count} db ÉLES, KONKRÉT, BEÜTEMEZHETŐ tartalom-briefet, ami a felhasználó kampánycéljához passzol.
+    const sys = `Te a Come Get It (Budapest nightlife reward app) marketing stratégája vagy. Magyarul, tegezve, konkrétan. A feladat: készíts ${safeCount} db ÉLES, KONKRÉT, BEÜTEMEZHETŐ tartalom-briefet, ami a felhasználó kampánycéljához passzol.
 
 ${brandCtx}
 
@@ -42,7 +45,7 @@ A briefek legyenek VÁLTOZATOSAK: különböző tartalmi pillérek, különböz�
 
 KIZÁRÓLAG JSON-t adj vissza, semmilyen prózát.`;
 
-    const userMsg = `Kampánycél: ${goal}
+    const userMsg = `Kampánycél: ${safeGoal}
 
 Már beütemezett naptár (kerüld az átfedést):
 ${JSON.stringify(upcoming ?? [])}
