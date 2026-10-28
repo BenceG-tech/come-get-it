@@ -1,7 +1,7 @@
 // Generates a 1-page weekly mission review PDF and returns it as application/pdf.
 // Founding Pitch style: black bg, cyan borders, Liberation Sans-like (Helvetica fallback).
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { jsPDF } from "npm:jspdf@2.5.1";
+import { jsPDF } from "npm:jspdf@4.2.1";
 import { requireAdminOrSystem } from "../_shared/admin-guard.ts";
 
 const corsHeaders = {
