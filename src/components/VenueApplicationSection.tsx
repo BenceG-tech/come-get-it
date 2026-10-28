@@ -12,7 +12,8 @@ export const VenueApplicationSection: React.FC = () => {
     name: '',
     email: '',
     phone: '',
-    venueName: '',
+    // Partner offer pages link here with ?hely=<venue name> to prefill the form.
+    venueName: new URLSearchParams(window.location.search).get('hely') ?? '',
     venueType: '',
     addressCity: '',
     dailyCustomerCount: '',
